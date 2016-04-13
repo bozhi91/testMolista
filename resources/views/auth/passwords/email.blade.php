@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.web')
 
 <!-- Main Content -->
 @section('content')
@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/password/email') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ action('Auth\PasswordController@sendResetLinkEmail') }}">
                         {!! csrf_field() !!}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">

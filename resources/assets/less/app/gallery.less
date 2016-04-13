@@ -1,0 +1,16 @@
+.image-gallery {
+	list-style-type: none; margin: 0; padding: 0; width: 100%; 
+	.handler { margin: 5px 5px 5px 0px; border: 1px solid #ddd; float: left; width: 150px; background: #fff; }
+	.thumb { height: 90px; background: center center no-repeat; background-size: cover; display: block; margin: 5px 5px 15px 5px; }
+	.options { 
+		margin: 5px; font-size: 0.8em;
+		a {
+			color: #ccc; 
+			&:hover { color: #999; }
+		}
+	}
+	&.sortable-image-gallery {
+		.handler { cursor: move; }
+		.thumb { margin-bottom: 5px; }
+	}
+}

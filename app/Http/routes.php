@@ -1,36 +1,116 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Routes File
-|--------------------------------------------------------------------------
-|
-| Here is where you will register all of the routes in an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
+// Get corporate domain domain -----------------------------------------------------
+$domain = parse_url( Config::get('app.application_url', false) );
+if ( empty($domain['host']) )
+{
+	die("Environment variable APP_URL is not defined!");
+}
 
-Route::get('/', function () {
-    return view('welcome');
+// Corporate domain routes ---------------------------------------------------------
+Route::group([
+	'domain' => $domain['host'],
+	'prefix' => LaravelLocalization::setLocale(),
+	'middleware' => [
+		'web', 
+		'site.login.roles:admin|translator',
+		'setTheme:corporate',
+	],
+], function() {
+
+	// Corporate web
+	Route::get('/', 'CorporateController@index');
+
+	// Admin
+	Route::group([
+		'prefix' => 'admin',
+		'middleware' => [
+			'auth.admin',
+			'role:admin|translator',
+		],
+		'setTheme:admin',
+	], function() {
+		Route::get('/', 'AdminController@index');
+
+		// Sites
+		Route::resource('sites', 'Admin\SitesController');
+		// Users
+		Route::resource('users', 'Admin\UsersController');
+		// Properties
+		Route::resource('properties/services', 'Admin\Properties\ServicesController');
+		Route::resource('properties', 'Admin\Properties\BaseController');
+		// Configuration
+		Route::resource('config/locales', 'Admin\Config\LocalesController');
+		Route::resource('config/translations', 'Admin\Config\TranslationsController');
+		// Utils
+		Route::controller('utils/user', 'Admin\Utils\UserController');
+		Route::controller('utils/locale', 'Admin\Utils\LocaleController');
+	});
+
+	// Auth
+	Route::auth();
 });
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| This route group applies the "web" middleware group to every route
-| it contains. The "web" middleware group is defined in your HTTP
-| kernel and includes session state, CSRF protection, and more.
-|
-*/
 
-Route::group(['middleware' => ['web']], function () {
-    //
+
+// Other domains -------------------------------------------------------------------
+Route::group([
+	'prefix' => LaravelLocalization::setLocale(),
+	'middleware' => [ 
+		'web',
+		'site.login.roles:company|employee',
+		'site.setup',
+		'site.setup.user',
+	],
+], function() {
+	// Web
+	Route::get('/', 'WebController@index');
+	Route::get('properties', 'Web\PropertiesController@index');
+	Route::get('property/{slug}', 'Web\PropertiesController@details');
+
+	// Auth
+	Route::auth();
+
+	// Autologin
+	Route::get('account/autologin/{id}/{hash}', 'Auth\AuthController@autologin');
+
+	// Account
+	Route::group([
+		'prefix' => 'account',
+		'middleware' => [
+			'auth.account',
+		],
+	], function() {
+		Route::get('/', 'AccountController@index');
+		Route::post('/', 'AccountController@updateProfile');
+		// Properties
+		Route::get('properties/associate/{slug}', 'Account\PropertiesController@getAssociate');
+		Route::resource('properties', 'Account\PropertiesController');
+		// Employees
+		Route::get('employees/associate/{email}', 'Account\EmployeesController@getAssociate');
+		Route::post('employees/associate/{email}', 'Account\EmployeesController@postAssociate');
+		Route::get('employees/disssociate/{user_id}/{property_id}', 'Account\EmployeesController@getDissociate');
+		Route::resource('employees', 'Account\EmployeesController');
+		// Site configuration
+		Route::group([
+			'prefix' => 'site',
+		], function() {
+			// Configuration
+			Route::controller('configuration', 'Account\Site\ConfigurationController');
+			// Pages
+			Route::resource('pages', 'Account\Site\PagesController');
+		});
+	});
 });
 
-Route::group(['middleware' => 'web'], function () {
-    Route::auth();
-    Route::get('/admin', 'AdminController@index');
+
+// Ajax ----------------------------------------------------------------------------
+Route::group([
+	'namespace' => 'Ajax',
+	'prefix' => 'ajax',
+], function() {
+	Route::controller('autotranslate', 'AutotranslateController');
+	Route::controller('site', 'SiteController');
+	Route::controller('user', 'UserController');
+	Route::controller('geography', 'GeographyController');
 });

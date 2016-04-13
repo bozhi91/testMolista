@@ -1,0 +1,37 @@
+@import 'jquery-ui.structure.less';
+@import 'jquery.magnific-popup.less';
+@import 'alertify.core.less';
+@import 'select2.less';
+@import '../font-awesome-4.6.1/less/font-awesome.less';
+@import '../bootstrap-3.3.6/less/bootstrap.less';
+
+
+/* BOOTSTRAP RELATED LESS */
+@import 'select2-bootstrap.less';
+@import 'alertify.bootstrap.less';
+
+
+/* BOOTSTRAP */
+@font-face { font-family: 'Glyphicons Halflings'; src: url('/fonts/bootstrap/glyphicons-halflings-regular.eot'); src: url('/fonts/bootstrap/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/fonts/bootstrap/glyphicons-halflings-regular.woff2') format('woff2'), url('/fonts/bootstrap/glyphicons-halflings-regular.woff') format('woff'), url('/fonts/bootstrap/glyphicons-halflings-regular.ttf') format('truetype'), url('/fonts/bootstrap/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg'); }
+
+
+/* PAGINATION */
+.pagination, .pagination-limit { margin-top: 20px; }
+.pagination-limit { float: right; }
+
+
+/* LOADING DIV */
+#molista-loading-div { 
+	display: none; position: fixed; z-index: 9999; top: 0px; left: 0px; height: 100%; width: 100%; 
+	.background { position: absolute; top: 0px; left: 0px; height: 100%; width: 100%; background: #fff; opacity: 0.5; } 
+	.loading { position: absolute; top: 50%; left: 0px; height: 64px; margin-top: -32px; width: 100%; background: url('/images/loading.gif') center center no-repeat; } 
+}
+
+
+/* MAGNIFIC POPUP */
+.mfp-bg { background: #fff; opacity: 0.5; }
+.mfp-white-popup { background: #fff; padding: 20px 30px; text-align: left; max-width: 650px; margin: 40px auto; position: relative; border: 1px solid #ccc; box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s; }
+
+
+/* ALERTIFY */
+.alertify-logs { top: 0px; bottom: auto; }

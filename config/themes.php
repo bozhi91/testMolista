@@ -57,11 +57,28 @@ return [
 	'themes' => [
 
 		'default' => [
+			'title'			=> 'Default',
+			'public'		=> true, // true if companies can use it
 			'extends'	 	=> null,
 			'views-path' 	=> '',
 			'asset-path' 	=> '',
 		],
 
+		'corporate' => [
+			'title'			=> 'Corporate',
+			'public'		=> false,
+			'extends'	 	=> 'default',
+			'views-path' 	=> 'corporate',
+			'asset-path' 	=> 'corporate',
+			'redirectTo'	=> 'admin',
+		],
+
+		'other' => [
+			'title'			=> 'Other',
+			'public'		=> false,
+			'extends'	 	=> 'default',
+			'views-path' 	=> '',
+		],
 		// Add your themes here...
 
 		/*--------------[ Example Structre ]-------------

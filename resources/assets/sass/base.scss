@@ -1,0 +1,10 @@
+// Customizable Bootstrap Variable List
+// node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss
+
+@import url('https://fonts.googleapis.com/css?family=Lato');
+$font-family-sans-serif: 'Lato', sans-serif;
+
+$icon-font-path: '/fonts/bootstrap/';
+
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+

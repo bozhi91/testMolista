@@ -1,0 +1,70 @@
+#header {
+	background-color: @colorPurple; border: none; margin: 0px;
+	.navbar-brand { height: 42px; width: 170px; background: left center no-repeat; background-size: contain; }
+	.navbar-toggle { 
+		border-color: @colorWhite; 
+		.icon-bar { background-color: @colorWhite; }
+		&:hover, &:focus { background-color: transparent; }
+	}
+	.navbar-nav {
+		.main-item { 
+			text-transform: uppercase; color: @colorWhite; 
+			&:hover, &.current { background: @colorPurpleDark; }
+		}
+		.open {
+			.main-item { background: @colorPurpleDark; }
+		}
+		.dropdown-menu { 
+			border: none; border-radius: 0px; box-shadow: none; background: @colorPurpleDark; padding: 0px; 
+			a { 
+				color: @colorWhite; 
+				&:hover { background: @colorPurple; }
+			}
+		}
+	}
+	.social-media {
+		padding-left: 15px; 
+		> ul { 
+			padding: 10px 0px;
+			> li { 
+				> a { 
+					display: inline-block; border: 1px solid @colorWhite;  color: @colorWhite; text-align: center; font-size: 12px; border-radius: 20px; line-height: 20px; min-width: 20px; 
+					&:hover { opacity: 0.8;  }
+				}
+				&:first-child { margin-left: 0px; }
+			}
+		}
+	}
+	.navbar-collapse { border-color: @colorPurpleDark; box-shadow: none; }
+}
+
+@media (min-width: 768px) {
+	#header { 
+		.navbar-brand { margin: 15px 50px 0px 0px; }
+		.navbar-nav {
+			> li { margin-right: 1px; }
+			.main-item { padding: 30px 20px 15px 20px; }
+		}
+		.locale-select { 
+			.main-item { text-transform: none; font-size: 16px; padding-top: 26px; padding-bottom: 19px; }
+			.caret { margin-left: 5px; }
+			.locale-placeholder { position: relative; }
+			.locale-line { display: block; width: 100%; left: 0px; bottom: -3px; position: relative; height: 1px; background: @colorWhite; }
+		}
+		.social-media {
+			> ul { 
+				padding-top: 20px; 
+				> li { 
+					> a { font-size: 16px; border-radius: 30px; line-height: 30px; min-width: 30px; }
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 767px) {
+	#header { 
+		position: fixed; right: 0; left: 0; z-index: 1030; top: 0; border-width: 0 0 1px;
+		.navbar-brand { max-width: 50%; }
+	}
+}
