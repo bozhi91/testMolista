@@ -39,11 +39,11 @@
 											<div class="col-xs-12 col-sm-4">
 												<div class="relative">
 													@include('web.properties.pill', [ 'item'=>$property])
-													<a class="left carousel-control visible-xs" href="#properties-slider" role="button" data-slide="prev">
+													<a class="left carousel-control hide visible-xs" href="#properties-slider" role="button" data-slide="prev">
 														&lsaquo;
 														<span class="sr-only">{{ Lang::get('pagination.previous') }}</span>
 													</a>
-													<a class="right carousel-control visible-xs" href="#properties-slider" role="button" data-slide="next">
+													<a class="right carousel-control hide visible-xs" href="#properties-slider" role="button" data-slide="next">
 														&rsaquo;
 														<span class="sr-only">{{ Lang::get('pagination.next') }}</span>
 													</a>
@@ -53,11 +53,11 @@
 									</div>
 								</div>
 							</div>
-							<a class="left carousel-control hidden-xs" href="#properties-slider" role="button" data-slide="prev">
+							<a class="left carousel-control hide hidden-xs" href="#properties-slider" role="button" data-slide="prev">
 								&lsaquo;
 								<span class="sr-only">{{ Lang::get('pagination.previous') }}</span>
 							</a>
-							<a class="right carousel-control hidden-xs" href="#properties-slider" role="button" data-slide="next">
+							<a class="right carousel-control hide hidden-xs" href="#properties-slider" role="button" data-slide="next">
 								&rsaquo;
 								<span class="sr-only">{{ Lang::get('pagination.next') }}</span>
 							</a>
@@ -143,11 +143,16 @@
 		ready_callbacks.push(function(){
 			var cont = $('#home');
 			var form = $('#quick-search-form');
-			var cities = $('#quick-search-form');
+			var cities = {};
 
 			cont.find('.properties-slider .property-pill').matchHeight({ byRow : false });
-
 			cont.find('.search-area .quick-link').matchHeight({ byRow : false });
+
+			if ( cont.find('.properties-slider .carousel-inner .item').length < 2) {
+				cont.find('.carousel-control').remove();
+			} else {
+				cont.find('.carousel-control').removeClass('hide');
+			}
 
             form.on('change', 'select[name="state"]', function(){
                 var state = $(this).val();
