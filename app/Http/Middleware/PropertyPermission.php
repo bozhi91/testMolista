@@ -14,7 +14,7 @@ class PropertyPermission
 			abort(404);
 		}
 
-		if ( Auth::guard($guard)->user()->canProperty($permission, session('site_setup.site_id')) )
+		if ( Auth::guard($guard)->user()->canProperty($permission, \App\Session\Site::get('site_id', false)) )
 		{
 			return $next($request);
 		}

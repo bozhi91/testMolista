@@ -11,8 +11,6 @@
 
 		'microsoft_primary_account_key' => env('MICROSOFT_PRIMARY_ACCOUNT_KEY'),
 
-		'user_session_name' => 'UserSession',
-
 		/*
 		|--------------------------------------------------------------------------
 		| Application Environment

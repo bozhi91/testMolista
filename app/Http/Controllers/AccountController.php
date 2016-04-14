@@ -15,7 +15,7 @@ class AccountController extends Controller
 		parent::__initialize();
 		\View::share('menu_section', 'account');
 
-		$this->site = \App\Site::findOrFail( session('site_setup.site_id') );
+		$this->site = \App\Site::findOrFail( \App\Session\Site::get('site_id', false) );
 	}
 
 	public function index()

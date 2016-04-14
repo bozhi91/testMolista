@@ -200,7 +200,7 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 		$site->save();
 
 		// Remove from session
-		session()->forget('site_setup');
+		\App\Session\Site::flush();
 
 		return \Redirect::back()->with('success', trans('account/site.configuration.saved'));
 	}

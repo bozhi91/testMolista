@@ -30,7 +30,7 @@ class Controller extends BaseController
     protected function set_go_back_link() 
     {
     	// Get stored values
-    	$nav = session()->get('molista_nav', []);
+    	$nav = session()->get('SmartBackLinks', []);
 
     	// Add current value to nav
     	$nav[ url()->current() ] = url()->full();
@@ -40,6 +40,6 @@ class Controller extends BaseController
     		return ( strlen($a) > strlen($b) ) ? -1 : 1;
     	});
 
-    	$nav = session()->put('molista_nav', $nav);
+    	$nav = session()->put('SmartBackLinks', $nav);
     }
 }

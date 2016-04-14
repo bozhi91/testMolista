@@ -64,16 +64,15 @@ class User extends Authenticatable
 
 		if ( !$site_id )
 		{
-			$site_id = session('site_setup.site_id');
+			$site_id = \App\Session\Site::get('site_id', false);
 		}
 
 		$permission_field = "can_{$permission}";
 
-		$user_session = session( \Config::get('app.user_session_name') );
+		$property_permission_key = "property-permission.{$site_id}.{$permission_field}";
 
-		if ( !isset($user_session['property-permission'][$site_id][$permission_field]) )
+		if ( ! \App\Session\User::has($property_permission_key) )
 		{
-echo "checking {$permission}<br>";
 			$granted = false;
 
 			// Companies always have permission
@@ -86,12 +85,10 @@ echo "checking {$permission}<br>";
 				$granted = empty($relation->pivot->$permission_field) ? false : true;
 			}
 
-			$user_session['property-permission'][$site_id][$permission_field] = $granted;
-
-			session()->put(\Config::get('app.user_session_name'),  $user_session);
+			\App\Session\User::push($property_permission_key, $granted);
 		}
 
-		return $user_session['property-permission'][$site_id][$permission_field];
+		return \App\Session\User::get($property_permission_key);
 	}
 
 	public function scopeofSite($query, $site_id)

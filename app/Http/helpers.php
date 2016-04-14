@@ -7,10 +7,10 @@
 			$params = [];
 		}
 
-		$iso = isset($params['iso']) ? $params['iso'] : session()->get('currency.iso', 'EUR');
-		$symbol = isset($params['symbol']) ? $params['symbol'] : session()->get('currency.symbol', '€');
-		$decimals = isset($params['decimals']) ? $params['decimals'] : session()->get('currency.decimals', 2);
-		$position = isset($params['position']) ? $params['position'] : session()->get('currency.position', 'after');
+		$iso = isset($params['iso']) ? $params['iso'] : \App\Session\Currency::get('iso', 'EUR');
+		$symbol = isset($params['symbol']) ? $params['symbol'] : \App\Session\Currency::get('symbol', '€');
+		$decimals = isset($params['decimals']) ? $params['decimals'] : \App\Session\Currency::get('decimals', 2);
+		$position = isset($params['position']) ? $params['position'] : \App\Session\Currency::get('position', 'after');
 
 		$currency = [];
 
@@ -31,7 +31,7 @@
 
 	function print_goback_button($text, $attr=false)
 	{
-    	$nav = session()->get('molista_nav', false);
+    	$nav = session()->get('SmartBackLinks', false);
     	if ( !$nav ) return false;
 
     	foreach ($nav as $url => $prev)

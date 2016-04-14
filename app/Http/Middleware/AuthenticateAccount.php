@@ -35,7 +35,7 @@ class AuthenticateAccount
 		}
 
 		// Check if site is allowed
-		Auth::user()->sites()->findOrFail( session()->get('site_setup.site_id') );
+		Auth::user()->sites()->findOrFail( \App\Session\Site::get('site_id', false) );
 
 		return $next($request);
 	}

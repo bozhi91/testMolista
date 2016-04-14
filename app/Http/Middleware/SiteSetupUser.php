@@ -12,14 +12,16 @@ class SiteSetupUser
 		// No user, forget
 		if ( \Auth::guest() )
 		{
-			session()->forget( \Config::get('app.user_session_name') );
+			\App\Session\User::flush();
 		}
 
-		$user = session( \Config::get('app.user_session_name') );
+		$user = \App\Session\User::all();
 		if ( !empty($user['user_id']) &&  $user['user_id'] != \Auth::user()->id )
 		{
-			session()->forget( \Config::get('app.user_session_name') );
+			\App\Session\User::flush();
 		}
+
+		\App\Session\User::put('user_id', \Auth::user()->id);
 
 		return $next($request);
 	}

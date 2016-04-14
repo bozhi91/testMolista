@@ -27,8 +27,8 @@ Route::group([
 		'middleware' => [
 			'auth.admin',
 			'role:admin|translator',
+			'setTheme:admin',
 		],
-		'setTheme:admin',
 	], function() {
 		Route::get('/', 'AdminController@index');
 

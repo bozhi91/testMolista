@@ -122,7 +122,7 @@ class AuthController extends Controller
 		$user->save();
 
 		// Check if user allowed admin of this site
-		$user->sites()->findOrFail( session('site_setup.site_id') );
+		$user->sites()->findOrFail( \App\Session\Site::get('site_id', false) );
 
 		// Login as user
 		\Auth::loginUsingId($user_id);

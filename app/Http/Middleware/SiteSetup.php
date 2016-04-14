@@ -9,9 +9,9 @@ class SiteSetup
 	public function handle($request, Closure $next)
 	{
 		// Check if session exists
-		$setup = session()->get('site_setup');
+		$setup = \App\Session\Site::all();
 
-		if ( env('APP_DEBUG') || !$setup )
+		if ( !$setup )
 		{
 			$site_setup = \App\Site::with('locales')->enabled()->current()->first();
 
@@ -45,7 +45,7 @@ class SiteSetup
 				$setup['locales_select'][$locale->locale] = $locale->native;
 			}
 
-			session()->put('site_setup', $setup);
+			\App\Session\Site::replace($setup);
 		}
 
 		if ( !$setup ) 
