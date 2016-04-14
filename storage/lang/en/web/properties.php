@@ -2,6 +2,8 @@
     return [
         'title' => 'Properties',
 
+        'term' => 'Enter your search',
+
         'mode' => 'Modality',
         'mode.sale' => 'Properties for sale',
         'mode.rent' => 'Properties for rent',
@@ -28,5 +30,5 @@
         'more.sqm' => 'Square meters',
         'more.price' => 'Price',
 
-        'labels.new' => 'New',
+        'labels.new' => 'New construction',
     ];

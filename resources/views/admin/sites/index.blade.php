@@ -9,7 +9,7 @@
 				{!! Form::model(null, [ 'method'=>'get', 'id'=>'list-filters', 'class'=>'list-filters' ]) !!}
 					{!! Form::hidden('limit', Input::get('limit', Config::get('app.pagination_perpage', 10)) ) !!}
 					<h4>{{ Lang::get('general.filters') }}</h4>
-					<p>{!! Form::text('title', Input::get('title'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('admin\sites.title') ]) !!}</p>
+					<p>{!! Form::text('title', Input::get('title'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('admin/sites.title') ]) !!}</p>
 					<p>{!! Form::submit( Lang::get('general.filters.apply'), [ 'class'=>'btn btn-default btn-block']) !!}</p>
 				{{ Form::close() }}
 			</div>
@@ -29,8 +29,8 @@
 						<thead>
 							<tr>
 								<th>#</th>
-								<th>{{ Lang::get('admin\sites.title') }}</th>
-								<th>{{ Lang::get('admin\sites.created') }}</th>
+								<th>{{ Lang::get('admin/sites.title') }}</th>
+								<th>{{ Lang::get('admin/sites.created') }}</th>
 								<th></th>
 							</tr>
 						</thead>

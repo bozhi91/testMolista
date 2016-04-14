@@ -1,3 +1,6 @@
+// Comment to see notifications
+process.env.DISABLE_NOTIFIER = true; 
+
 var elixir = require('laravel-elixir');
 
 /*
@@ -30,6 +33,7 @@ elixir(function(mix) {
 			'jquery.bootstrap-growl.js',
 			'jquery.magnific-popup.js',
 			'jquery.hideShowPassword.js',
+			'jquery.matchHeight.js',
 			'alertify.js',
 			'select2.full.js',
 			'loading.js',

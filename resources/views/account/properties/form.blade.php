@@ -22,12 +22,6 @@
 							{!! Form::text('ref', null, [ 'class'=>'form-control required' ]) !!}
 						</div>
 					</div>
-					<div class="col-xs-12 col-sm-6">
-						<div class="form-group error-container">
-							{!! Form::label('enabled', Lang::get('account/properties.enabled')) !!}
-							{!! Form::select('enabled', [ '1'=>Lang::get('general.yes'), '0'=>Lang::get('general.no') ], null, [ 'class'=>'form-control' ]) !!}
-						</div>
-					</div>
 				</div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
@@ -79,8 +73,44 @@
 						</div>
 					</div>
 				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group error-container">
+							{!! Form::label('enabled', Lang::get('account/properties.enabled')) !!}
+							{!! Form::select('enabled', [ '1'=>Lang::get('general.yes'), '0'=>Lang::get('general.no') ], null, [ 'class'=>'form-control' ]) !!}
+						</div>
+					</div>
+				</div>
 				<hr />
-				{!! Form::label('services', Lang::get('account/properties.services')) !!}
+				{!! Form::label(null, Lang::get('account/properties.characteristics')) !!}
+				<div class="row">
+					<div class="col-xs-12 col-sm-3">
+						<div class="checkbox error-container">
+							<label>
+								{!! Form::checkbox('highlighted', 1, null) !!}
+								{{ Lang::get('account/properties.highlighted') }}
+							</label>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-3">
+						<div class="checkbox error-container">
+							<label>
+								{!! Form::checkbox('newly_build', 1, null) !!}
+								{{ Lang::get('account/properties.newly_build') }}
+							</label>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-3">
+						<div class="checkbox error-container">
+							<label>
+								{!! Form::checkbox('second_hand', 1, null) !!}
+								{{ Lang::get('account/properties.second_hand') }}
+							</label>
+						</div>
+					</div>
+				</div>
+				<hr />
+				{!! Form::label(null, Lang::get('account/properties.services')) !!}
 				<div class="row">
 					@foreach ($services as $service)
 						<div class="col-xs-12 col-sm-3">
@@ -209,7 +239,7 @@
 							<ul class="image-gallery sortable-image-gallery">
 								@foreach ($property->images->sortBy('position') as $image)
 									<li class="handler">
-										<a href="{{ asset("sites/properties/{$property->id}/{$image->image}") }}" target="_blank" class="thumb" style="background-image: url({{ asset("sites/properties/{$property->id}/{$image->image}") }})"></a>
+										<a href="{{ asset("sites/{$property->site_id}/properties/{$property->id}/{$image->image}") }}" target="_blank" class="thumb" style="background-image: url({{ asset("sites/{$property->site_id}/properties/{$property->id}/{$image->image}") }})"></a>
 										<div class="options text-right">
 											{!! Form::hidden('images[]', $image->id) !!}
 											<a href="#" class="image-delete-trigger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>

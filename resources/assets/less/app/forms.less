@@ -1,0 +1,9 @@
+.form-control {
+	border-radius: @borderRadius; border-width: @borderWidth; box-shadow: none; border-color: @borderColor; height: @inputHeight;
+	&:focus { border-color: @borderColorHover; }
+	&.is-placeholder { color: @borderColor }
+}
+.form-control::-webkit-input-placeholder { color: @borderColor; }
+.form-control:-moz-placeholder { color: @borderColor; }
+.form-control::-moz-placeholder { color: @borderColor; }
+.form-control:-ms-input-placeholder { color: @borderColor; }

@@ -1,21 +1,35 @@
 html { height: 100%; }
 body { height: 100%; font-size: 14px; .lato; }
 
-.cursor-default { cursor: default; }
-.cursor-pointer { cursor: pointer; }
-.text-underline { text-decoration: underline; }
+h1 {}
+h2 { color: @colorPurple; font-size: 30px; }
+
+a { 
+	color: @colorPurple; text-decoration: none; 
+	&:hover { color: @colorPurpleDark; }
+}
 
 .lato { 
 	font-family: 'Lato', sans-serif; font-style: normal; font-weight: 400; 
-	&.light { font-weight: 300; }
-	&.bold { font-weight: 700; }
-	&.ultra-bold { font-weight: 900; }
-	&.italic { font-style: italic; }
 }
+
+.relative { position: relative; }
+
+.cursor-default { cursor: default; }
+.cursor-pointer { cursor: pointer; }
+
+.text-underline { text-decoration: underline; }
+.text-italic { font-style: italic; }
+.text-light { font-weight: 300; }
+.text-bold { font-weight: 700; }
+.text-ultra-bold { font-weight: 900; }
 
 ul { margin: 0px; }
 
 .page-title { margin: 0px 0px 20px 0px; }
+
+.label { border-radius: 0px; }
+
 /*
 .btn { 
 	border-radius: 0px; padding: 9px 12px;

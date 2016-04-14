@@ -87,6 +87,20 @@ class Property extends TranslatableModel
 		return false;
 	}
 
+	public function getImageFolderAttribute()
+	{
+		return asset("sites/{$this->site_id}/properties/{$this->id}");
+	}
+	public function getMainImageAttribute()
+	{
+		foreach ($this->images->sortByDesc('default') as $image)
+		{
+			return "{$this->image_folder}/{$image->image}";
+		}
+
+		return false;
+	}
+
 	public function getFullUrlAttribute()
 	{
 		$site_url = rtrim($this->site->main_url, '/');
@@ -108,18 +122,25 @@ class Property extends TranslatableModel
 		return $query->where('enabled', 1);
 	}
 
+	public function scopeHighlighted($query)
+	{
+		return $query->where('highlighted', 1);
+	}
+
 	public function scopeOfSite($query, $site_id)
 	{
 		return $query->where('site_id', $site_id);
 	}
 
-	static public function getModes() {
+	static public function getModes() 
+	{
 		return [
 			'sale', 
 			'rent', 
 		];
 	}
-	static public function getModeOptions() {
+	static public function getModeOptions() 
+	{
 		$options = [];
 
 		foreach (self::getModes() as $key)
@@ -129,7 +150,8 @@ class Property extends TranslatableModel
 
 		return $options;
 	}
-	static public function getModeOptionsAdmin() {
+	static public function getModeOptionsAdmin() 
+	{
 		$options = [];
 
 		foreach (self::getModes() as $key)
@@ -140,7 +162,8 @@ class Property extends TranslatableModel
 		return $options;
 	}
 
-	static public function getTypeOptions() {
+	static public function getTypeOptions() 
+	{
 		return [
 			'house' => trans('web/properties.type.house'), 
 			'apartment' => trans('web/properties.type.apartment'), 
@@ -150,7 +173,8 @@ class Property extends TranslatableModel
 		];
 	}
 
-	static public function getCurrencyOptions() {
+	static public function getCurrencyOptions() 
+	{
 		return [
 			'EUR' => [
 				'currency_iso' => 'EUR',
@@ -161,7 +185,8 @@ class Property extends TranslatableModel
 		];
 	}
 
-	static public function getSizeUnitOptions() {
+	static public function getSizeUnitOptions() 
+	{
 		// [TODO] Integrate with conversion plugin
 		return [
 			'sqm' => [

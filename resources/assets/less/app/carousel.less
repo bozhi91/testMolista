@@ -1,0 +1,18 @@
+.carousel-control {
+	width: auto; font-size: 72px; font-weight: 300; background: none; color: @colorGrey; text-shadow: none; opacity: 1; line-height: 100px; height: 100px; bottom: auto; top: 50%; margin-top: -50px;
+	&.left { background: none; }
+	&.right { background: none; }
+	&:hover, &:focus { color: @colorBlack; }
+}
+
+@media (max-width: 767px) {
+	.carousel {
+		.carousel-inner {
+			.item { transition-property: opacity; }
+			.item, .active.left, .active.right { opacity: 0; }
+			.active, .next.left, .prev.right { opacity: 1; }
+			.next, .prev, .active.left, .active.right { left: 0; transform: translate3d(0, 0, 0); }
+		}
+		.carousel-control { z-index: 2; }
+	}
+}

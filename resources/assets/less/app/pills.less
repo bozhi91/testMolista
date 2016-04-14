@@ -1,3 +1,23 @@
+.property-pill {
+	font-size: 16px; color: @colorGrey; margin-bottom: 30px;
+	.image { display: block; height: 165px; background: center center no-repeat; background-size: cover; margin-bottom: 20px; }
+	.labels { 
+		margin-bottom: 5px; 
+		.label { background: @colorPurple; color: @colorWhite; text-transform: uppercase; font-size: 16px; }
+	}
+	.title { 
+		a { color: @colorPurple; text-decoration: none; }
+	}
+}
+
+.nav-pills {
+	> li {
+		> a { border-radius: @borderRadius; }
+		&.active {
+			> a, > a:hover, > a:focus { background-color: @colorPurple; }
+		}
+	}
+}
 /*
 .nav-pills {
 	> li {

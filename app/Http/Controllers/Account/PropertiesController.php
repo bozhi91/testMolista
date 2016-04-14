@@ -222,6 +222,9 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'baths' => 'required|integer|min:0',
 			'services' => 'array',
 			'enabled' => 'boolean',
+			'highlighted' => 'boolean',
+			'newly_build' => 'boolean',
+			'second_hand' => 'boolean',
 			'country_id' => 'required|exists:countries,id',
 			'territory_id' => 'exists:territories,id',
 			'state_id' => 'required|exists:states,id',
@@ -346,7 +349,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		{
 			if ( !in_array($image->id, $preserve) )
 			{
-				@unlink( public_path("sites/properties/{$property->id}/{$image->image}") );
+				@unlink( public_path("sites/{$property->site_id}/properties/{$property->id}/{$image->image}") );
 				$image->delete();
 			}
 		}
@@ -367,7 +370,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 					continue;
 				}
 
-				$img_folder = public_path("sites/properties/{$property->id}");
+				$img_folder = public_path("sites/{$property->site_id}/properties/{$property->id}");
 
 				$img_name = $this->request->file($img_key)->getClientOriginalName();
 				while ( file_exists("{$img_folder}/{$img_name}") )

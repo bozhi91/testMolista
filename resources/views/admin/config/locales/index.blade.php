@@ -8,7 +8,7 @@
                 {!! Form::model(null, [ 'method'=>'get', 'id'=>'list-filters', 'class'=>'list-filters' ]) !!}
                     {!! Form::hidden('limit', Input::get('limit', Config::get('app.pagination_perpage', 10)) ) !!}
                     <h4>{{ Lang::get('general.filters') }}</h4>
-                    <p>{!! Form::text('name', Input::get('name'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('admin\config/locales.name') ]) !!}</p>
+                    <p>{!! Form::text('name', Input::get('name'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('admin/config/locales.name') ]) !!}</p>
                     <p>{!! Form::submit( Lang::get('general.filters.apply'), [ 'class'=>'btn btn-default btn-block']) !!}</p>
                 {{ Form::close() }}
             </div>

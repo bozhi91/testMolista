@@ -1,5 +1,5 @@
 <?php
-//created on 2016-04-13 11:01:08
+//created on 2016-04-14 11:50:38
 return array (
   'password' => 'Passwords must be at least six characters and match the confirmation.',
   'reset' => 'Your password has been reset!',

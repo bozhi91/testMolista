@@ -1,5 +1,5 @@
 <?php
-//created on 2016-04-13 11:01:08
+//created on 2016-04-14 11:50:38
 return array (
   'accepted' => 'The :attribute must be accepted.',
   'active_url' => 'The :attribute is not a valid URL.',

@@ -13,6 +13,7 @@ class SiteSetupUser
 		if ( \Auth::guest() )
 		{
 			\App\Session\User::flush();
+			return $next($request);
 		}
 
 		$user = \App\Session\User::all();

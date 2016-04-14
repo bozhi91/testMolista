@@ -1,187 +1,174 @@
-@extends('layouts.web', [ 
-    'header_class'=>'no-bottom-margin',
-    'menu_section' => 'home',
+@extends('layouts.web', [
+	'menu_section' => 'home',
 ])
 
 @section('content')
 
-    <div id="home">
+	<div id="home">
 
-        {!! Form::model(null, [ 'method'=>'get', 'action'=>'Web\PropertiesController@index', 'id'=>'search-form', 'class'=>'search-form' ]) !!}
-            <div class="container">
-                <div class="custom-tabs">
-                    <ul class="nav nav-tabs text-uppercase" role="tablist">
-                        <li role="presentation" class="active"><a href="#search-filters" aria-controls="home" role="tab" data-toggle="tab">{{ Lang::get('web/properties.title') }}</a></li>
-                    </ul>
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="search-filters">
-                            <div class="row main-filters">
-                                <div class="col-xs-12 col-sm-10">
-                                    <div class="row">
-                                        <div class="col-xs-12 col-sm-5">
-                                            <div class="row">
-                                                <div class="col-xs-12 col-sm-6">
-                                                    <div class="form-group error-container">
-                                                        {!! Form::label('search[mode]', Lang::get('web/properties.mode')) !!}
-                                                        {!! Form::select('search[mode]', $modes, null, [ 'class'=>'form-control required' ]) !!}
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-12 col-sm-6">
-                                                    <div class="form-group error-container">
-                                                        {!! Form::label('search[state]', Lang::get('web/properties.state')) !!}
-                                                        {!! Form::select('search[state]', [ ''=>Lang::get('web/properties.state.any'), ] + $states->toArray(), null, [ 'class'=>'form-control state-input' ]) !!}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-7">
-                                            <div class="row">
-                                                <div class="col-xs-12 col-sm-6">
-                                                    <div class="form-group error-container">
-                                                        {!! Form::label('search[city]', Lang::get('web/properties.city')) !!}
-                                                        {!! Form::select('search[city]', [ 
-                                                            ''=>Lang::get('web/properties.city.any'), 
-                                                        ], null, [ 'class'=>'form-control city-input' ]) !!}
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-12 col-sm-6">
-                                                    <div class="form-group error-container">
-                                                        {!! Form::label('search[type]', Lang::get('web/properties.type')) !!}
-                                                        {!! Form::select('search[type]', [ ''=>Lang::get('web/properties.type.any'),  ] + $types, null, [ 'class'=>'form-control' ]) !!}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-2">
-                                    <label>&nbsp;</label>
-                                    {!! Form::submit( Lang::get('general.search'), [ 'class'=>'btn btn-yellow btn-block text-uppercase']) !!}
-                                </div>
-                            </div>
-                            <a href="#" class="show-more-filters"><span>{{ Lang::get('web/properties.more.show') }}</span> &raquo;</a>
-                            <div class="more-filters-area" style="display: none;">
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-9">
-                                        <div class="row">
-                                            <div class="col-xs-12 col-sm-3">
-                                                <div class="form-group error-container">
-                                                    {!! Form::label('search[more][rooms]', Lang::get('web/properties.more.rooms')) !!}
-                                                    {!! Form::select('search[more][rooms]', [ 
-                                                        ''=>Lang::get('web/properties.more.any'), 
-                                                    ], null, [ 'class'=>'form-control' ]) !!}
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-3">
-                                                <div class="form-group error-container">
-                                                    {!! Form::label('search[more][baths]', Lang::get('web/properties.more.baths')) !!}
-                                                    {!! Form::select('search[more][baths]', [ 
-                                                        ''=>Lang::get('web/properties.more.any'), 
-                                                    ], null, [ 'class'=>'form-control' ]) !!}
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-3">
-                                                <div class="form-group error-container">
-                                                    {!! Form::label('search[more][size]', Lang::get('web/properties.more.sqm')) !!}
-                                                    {!! Form::select('search[more][size]', [ 
-                                                        ''=>Lang::get('web/properties.more.any'), 
-                                                    ], null, [ 'class'=>'form-control' ]) !!}
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-3">
-                                                <div class="form-group error-container">
-                                                    {!! Form::label('search[more][price]', Lang::get('web/properties.more.price')) !!}
-                                                    {!! Form::select('search[more][price]', [ 
-                                                        ''=>Lang::get('web/properties.more.any'), 
-                                                    ], null, [ 'class'=>'form-control' ]) !!}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {!! Form::close() !!}
+		@if ( count($properties) > 0 )
+			<?php
+				$main_property = $properties->shift()
+			?>
+			<div class="main-property carousel slide" data-ride="carousel">
+				<div class="carousel-inner" role="listbox">
+					<div class="item active" style="background-image: url('{{$main_property->main_image}}');">
+						<img src="{{$main_property->main_image}}" alt="{{$main_property->title}}" class="hide" />
+						<div class="carousel-caption">
+							<a href="{{ action('Web\PropertiesController@details', $main_property->slug) }}" class="carousel-caption-text">
+								{{$main_property->title}}
+								<span class="text-nowrap hidden-xs"> | {{ price($main_property->price, [ 'decimals'=>0 ]) }}</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
 
-        <div class="container">
-            <div class="properties-list">
-                <div class="row">
-                    @for ($k=0; $k<=7; $k++)
-                        <div class="col-xs-12 col-sm-4" {!! ($k % 3) ? '' : 'style="clear: both;"' !!}>
-                            <a href="{{ action('Web\PropertiesController@details', 'slug')}}" class="pill">
-                                <div class="image" style="background-image: url('{{ asset('_temp/sample-0'.rand(1,3).'.jpg') }}');">
-                                    <img src="{{ asset('_temp/sample-0'.rand(1,3).'.jpg') }}" alt="" title="" />
-                                </div>
-                                @if ( rand(0,2) )
-                                    <div class="labels">
-                                        <span class="label label-purple label-big">{{ Lang::get('web/properties.labels.new') }}</span>
-                                    </div>
-                                @endif
-                                <div class="title">Impresionante casa independiente en el Poal</div>
-                                <div class="text">
-                                    <div class="price">{{ price(495000, [ 'decimals'=>0 ]) }}</div>
-                                    <div class="location">Poal, Castelldefels, Barcelona</div>
-                                </div>
-                            </a>
-                        </div>
-                    @endfor
-                </div>
-            </div>
-        </div>
+			@if ( count($properties) > 0 )
+				<div class="container">
+					<div class="properties-slider-area">
+						<h2>{{ Lang::get('web/home.gallery') }}</h2>
+						<div id="properties-slider" class="properties-slider carousel slide" data-ride="carousel">
+							<div class="carousel-inner" role="listbox">
+								<div class="item active">
+									<div class="row">
+										@foreach ($properties as $key => $property)
+											@if ( $key > 0 && $key%3 == 0 )
+												</div></div><div class="item"><div class="row">
+											@endif
+											<div class="col-xs-12 col-sm-4">
+												<div class="relative">
+													@include('web.properties.pill', [ 'item'=>$property])
+													<a class="left carousel-control visible-xs" href="#properties-slider" role="button" data-slide="prev">
+														&lsaquo;
+														<span class="sr-only">{{ Lang::get('pagination.previous') }}</span>
+													</a>
+													<a class="right carousel-control visible-xs" href="#properties-slider" role="button" data-slide="next">
+														&rsaquo;
+														<span class="sr-only">{{ Lang::get('pagination.next') }}</span>
+													</a>
+												</div>
+											</div>
+										@endforeach
+									</div>
+								</div>
+							</div>
+							<a class="left carousel-control hidden-xs" href="#properties-slider" role="button" data-slide="prev">
+								&lsaquo;
+								<span class="sr-only">{{ Lang::get('pagination.previous') }}</span>
+							</a>
+							<a class="right carousel-control hidden-xs" href="#properties-slider" role="button" data-slide="next">
+								&rsaquo;
+								<span class="sr-only">{{ Lang::get('pagination.next') }}</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			@endif
 
-    </div>
+		@endif
 
-    <script type="text/javascript">
-        ready_callbacks.push(function(){
-            var cont = $('#home');
-            var form = cont.find('.search-form');
+		<div class="container">
+			<div class="search-area {{ count($properties) ? 'under-properties' : '' }}">
+				<div class="row">
+					<div class="col-xs-12 col-sm-9"></div>
+					<div class="col-xs-12 col-sm-3">
+						<h2>{{ Lang::get('web/home.search') }}</h2>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-4 hidden-xs">
+						<a href="" class="quick-link quick-link-new">
+							<div class="image"></div>
+							<div class="text">{{ Lang::get('web/home.link.new') }} dsfasd fs</div>
+							<div class="arrow">
+								<span>&rsaquo;</span>
+							</div>
+						</a>
+						<a href="" class="quick-link quick-link-rent">
+							<div class="image"></div>
+							<div class="text">{{ Lang::get('web/home.link.rent') }}</div>
+							<div class="arrow">
+								<span>&rsaquo;</span>
+							</div>
+						</a>
+					</div>
+					<div class="col-xs-12 col-sm-4 hidden-xs">
+						<a href="" class="quick-link quick-link-used">
+							<div class="image"></div>
+							<div class="text">{{ Lang::get('web/home.link.used') }}</div>
+							<div class="arrow">
+								<span>&rsaquo;</span>
+							</div>
+						</a>
+						<a href="" class="quick-link quick-link-houses">
+							<div class="image"></div>
+							<div class="text">{{ Lang::get('web/home.link.houses') }}</div>
+							<div class="arrow">
+								<span>&rsaquo;</span>
+							</div>
+						</a>
+					</div>
+					<div class="col-xs-12 col-sm-3 col-sm-offset-1">
+						{!! Form::model(null, [ 'action'=>'Web\PropertiesController@index', 'method'=>'GET', 'id'=>'quick-search-form' ]) !!}
+							{!! Form::hidden('search', 1) !!}
+							<div class="form-group error-container">
+								{!! Form::text('term', null, [ 'class'=>'form-control', 'placeholder'=>Lang::get('web/properties.term') ]) !!}
+							</div>
+							<div class="form-group error-container">
+								{!! Form::select('mode', [''=>Lang::get('web/properties.mode')]+$modes, null, [ 'class'=>'form-control has-placeholder' ]) !!}
+							</div>
+							<div class="form-group error-container">
+								{!! Form::select('type', [''=>Lang::get('web/properties.type')]+$types, null, [ 'class'=>'form-control has-placeholder' ]) !!}
+							</div>
+							<div class="form-group error-container">
+								{!! Form::select('state', [''=>Lang::get('web/properties.state')]+$states->toArray(), null, [ 'class'=>'form-control has-placeholder' ]) !!}
+							</div>
+							<div class="form-group error-container">
+								{!! Form::select('city', [''=>Lang::get('web/properties.city')], null, [ 'class'=>'form-control has-placeholder' ]) !!}
+							</div>
+							<div class="text-right">
+								<a href="#" class="more-options pull-left text-bold advanced-search-trigger">{{ Lang::get('web/home.search.more') }} &raquo;</a>
+								{!! Form::submit(Lang::get('web/home.search.button'), [ 'class'=>'btn btn-primary text-uppercase' ]) !!}
+							</div>
+						{!! Form::close() !!}
+					</div>
+				</div>
+			</div>
+		</div>
 
-            var state_cities = {};
+	</div>
 
-            cont.on('click', '.show-more-filters', function(e){
-                e.preventDefault();
-                $(this).hide();
-                cont.find('.more-filters-area').slideDown();
-            });
+	<script type="text/javascript">
+		ready_callbacks.push(function(){
+			var cont = $('#home');
+			var form = $('#quick-search-form');
+			var cities = $('#quick-search-form');
 
-            if ( cont.find('.more-filters-area .form-control').filter(function() { return $(this).val(); }).length > 0 ) {
-                cont.find('.show-more-filters').trigger('click');
-            }
+			cont.find('.properties-slider .property-pill').matchHeight({ byRow : false });
 
-            form.validate({
-                ignore: '',
-                errorPlacement: function(error, element) {
-                    element.closest('.error-container').append(error);
-                }
-            });
+			cont.find('.search-area .quick-link').matchHeight({ byRow : false });
 
-            form.on('change', '.state-input', function(){
-                var state_slug = $(this).val();
-
-                var target = form.find('.city-input');
-
-                target.html('<option value="">' + target.find('option[value=""]').eq(0).text() + '</option>');
-
-                if ( !state_slug ) {
+            form.on('change', 'select[name="state"]', function(){
+                var state = $(this).val();
+                var target = form.find('select[name="city"]');
+                target.html('<option value="">' + target.find('option[value=""]').eq(0).text() + '</option>').addClass('is-placeholder');
+                if ( !state ) {
                     return;
                 }
-
-                if ( state_cities.hasOwnProperty(state_slug) ) {
-                    $.each(state_cities[state_slug], function(k,v) {
+                if ( cities.hasOwnProperty(state) ) {
+                    $.each(cities[state], function(k,v) {
                         target.append('<option value="' + v.code + '">' + v.label + '</option>');
                     });
                 } else {
                     $.ajax({
                         dataType: 'json',
                         url: '{{ action('Ajax\GeographyController@getSuggest', 'city') }}',
-                        data: { state_slug: state_slug },
+                        data: { state_slug: state },
                         success: function(data) {
                             if ( data ) {
-                                state_cities[state_slug] = data;
-                                $.each(state_cities[state_slug], function(k,v) {
+                                cities[state] = data;
+                                $.each(cities[state], function(k,v) {
                                     target.append('<option value="' + v.code + '">' + v.label + '</option>');
                                 });
                             }
@@ -190,7 +177,11 @@
                 }
             });
 
-        });
-    </script>
+			form.on('click', '.advanced-search-trigger', function(e){
+				e.preventDefault();
+				alert('[TODO] advanced search');
+			});
+		});
+	</script>
 
 @endsection
