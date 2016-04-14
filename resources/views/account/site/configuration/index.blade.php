@@ -22,35 +22,6 @@
 					<div class="row">
 						<div class="col-xs-12 col-sm-6">
 							<div class="form-group error-container">
-								{!! Form::label('subdomain', Lang::get('account/site.configuration.subdomain')) !!}
-								<div class="input-group">
-									<div class="input-group-addon">{{ Config::get('app.application_protocol') }}://</div>
-									{!! Form::text('subdomain', null, [ 'class'=>'form-control required alphanumericHypen' ]) !!}
-									<div class="input-group-addon">.{{ Config::get('app.application_domain') }}</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-xs-12 col-sm-6">
-							{!! Form::label('domains_array', Lang::get('account/site.configuration.domains')) !!}
-							@if ( count($site->domains) < 1 )
-								<div class="form-group error-container">
-									{!! Form::text('domains_array[new]', null, [ 'class'=>'form-control url domain-input', 'data-id'=>'' ]) !!}
-								</div>
-							@else
-								@foreach ($site->domains as $domain)
-									<div class="form-group error-container">
-										{!! Form::text("domains_array[{$domain->id}]", null, [ 'class'=>'form-control url domain-input', 'data-id'=>$domain->id ]) !!}
-									</div>
-								@endforeach
-							@endif
-						</div>
-					</div>
-
-					<hr />
-
-					<div class="row">
-						<div class="col-xs-12 col-sm-6">
-							<div class="form-group error-container">
 								<label>{{ Lang::get('account/site.configuration.theme') }}</label>
 								<?php
 									$themes = [];
@@ -92,6 +63,36 @@
 							</div>
 							<div class="help-block">
 								{!! Lang::get('account/site.configuration.favicon.helper', [ 'IMAGE_MAXSIZE'=>Config::get('app.property_image_maxsize', 2048) ]) !!}
+							</div>
+						</div>
+					</div>
+
+					<div class="hide">
+						<hr />
+						<div class="row">
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group error-container">
+									{!! Form::label('subdomain', Lang::get('account/site.configuration.subdomain')) !!}
+									<div class="input-group">
+										<div class="input-group-addon">{{ Config::get('app.application_protocol') }}://</div>
+										{!! Form::text('subdomain', null, [ 'class'=>'form-control required alphanumericHypen' ]) !!}
+										<div class="input-group-addon">.{{ Config::get('app.application_domain') }}</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								{!! Form::label('domains_array', Lang::get('account/site.configuration.domains')) !!}
+								@if ( count($site->domains) < 1 )
+									<div class="form-group error-container">
+										{!! Form::text('domains_array[new]', null, [ 'class'=>'form-control url domain-input', 'data-id'=>'' ]) !!}
+									</div>
+								@else
+									@foreach ($site->domains as $domain)
+										<div class="form-group error-container">
+											{!! Form::text("domains_array[{$domain->id}]", null, [ 'class'=>'form-control url domain-input', 'data-id'=>$domain->id ]) !!}
+										</div>
+									@endforeach
+								@endif
 							</div>
 						</div>
 					</div>

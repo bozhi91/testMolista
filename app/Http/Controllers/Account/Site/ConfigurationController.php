@@ -27,6 +27,19 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 
 	public function postIndex()
 	{
+		$site = $this->auth->user()->sites()->withTranslations()->findOrFail( $this->site->id );
+
+		// Replace subdomain and domains
+		$current_domains = $site->domains->lists('domain','id')->toArray();
+		if ( !$current_domains )
+		{
+			$current_domains = [ 'new'=>'' ];
+		}
+		$this->request->merge([
+			'subdomain' => $site->subdomain,
+			'domains_array' => $current_domains,
+		]);
+
 		// Validate general fields
 		$validator = \Validator::make($this->request->all(), [
 			'subdomain' => 'required|alpha_dash',
@@ -58,8 +71,6 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 				return \Redirect::back()->withInput()->with('error', trans('general.messages.error'));
 			}
 		}
-
-		$site = $this->auth->user()->sites()->withTranslations()->findOrFail( $this->site->id );
 
 		// Validate subdomain
 		if ( \App\Site::where('subdomain', $this->request->get('subdomain'))->where('id','!=',@intval($site->id))->count() )
