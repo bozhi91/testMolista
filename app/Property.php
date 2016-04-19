@@ -119,17 +119,85 @@ class Property extends TranslatableModel
 
 	public function scopeEnabled($query)
 	{
-		return $query->where('enabled', 1);
+		return $query->where('properties.enabled', 1);
 	}
 
 	public function scopeHighlighted($query)
 	{
-		return $query->where('highlighted', 1);
+		return $query->where('properties.highlighted', 1);
 	}
 
 	public function scopeOfSite($query, $site_id)
 	{
-		return $query->where('site_id', $site_id);
+		return $query->where('properties.site_id', $site_id);
+	}
+
+	public function scopeInState($query, $state_id)
+	{
+		if ( !is_int($state_id) )
+		{
+			$state_id = \App\Models\Geography\State::where('slug', $state_id)->value('id');
+		}
+
+		return $query->where('properties.state_id', $state_id);
+	}
+
+	public function scopeInCity($query, $city_id)
+	{
+		if ( !is_int($city_id) )
+		{
+			$city_id = \App\Models\Geography\City::where('slug', $city_id)->value('id');
+		}
+
+		return $query->where('properties.city_id', $city_id);
+	}
+
+	public function scopeWithRange($query, $field, $range)
+	{
+		$limits = explode('-', $range);
+		if ( count($limits) != 2 ) 
+		{
+			return $query->whereRaw('1=2');
+		}
+
+		$min = floatval($limits[0]);
+		$max = floatval($limits[1]);
+
+		if ($min)
+		{
+			$query->where("properties.{$field}", '>', $min);
+		}
+
+		if ($max)
+		{
+			$query->where("properties.{$field}", '<=', $max);
+		}
+
+		return $query;
+	}
+
+	public function scopeWithServices($query, $services)
+	{
+		if ( !is_array($services) ) 
+		{
+			$services = [ $services ];
+		}
+
+		// Get services ids
+		$service_ids = \App\Models\Property\ServiceTranslation::whereIn('slug',$services)->lists('service_id')->toArray();
+		if ( empty($service_ids) )
+		{
+			return $query->whereRaw('1=2');
+		}
+
+		foreach ($service_ids as $service_id) 
+		{
+			$query->whereHas('services', function ($query) use ($service_id) {
+				$query->where('services.id', $service_id);
+			});
+		}
+
+		return $query;
 	}
 
 	static public function getModes() 
@@ -198,9 +266,9 @@ class Property extends TranslatableModel
 	static public function getRoomOptions() 
 	{
 		return [
-			'1-2' => '1 - 2',
-			'3-5' => '3 - 5',
-			'6-10' => '6 - 10',
+			'0-2' => '1 - 2',
+			'2-5' => '3 - 5',
+			'5-10' => '6 - 10',
 			'10-more' => '> 10',
 		];
 	}
@@ -208,8 +276,8 @@ class Property extends TranslatableModel
 	static public function getBathOptions() 
 	{
 		return [
-			'1-2' => '1 - 2',
-			'3-5' => '3- 5',
+			'0-2' => '1 - 2',
+			'2-5' => '3- 5',
 			'5-more' => '> 5',
 		];
 	}

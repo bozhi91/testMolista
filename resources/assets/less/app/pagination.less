@@ -1,0 +1,21 @@
+.pagination {
+	font-size: 30px;
+	> li {
+		a, span { 
+			color: @colorPurple; border: none; background: none; border-radius: @borderRadius; border-width: @borderWidth;
+			&:hover, &:focus { background: none; }
+		}
+		&.active {
+			a, span, a:hover, span:hover, a:focus, span:focus { background-color: @colorPurple; border-color: @colorPurple; }
+		}
+	}
+}
+
+@media (max-width: 767px) {
+	.pagination {
+		> li { 
+			display: none; 
+			&:first-child, &:last-child { display: inline; }
+		}
+	}
+}

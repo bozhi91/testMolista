@@ -56,6 +56,9 @@ class ServicesController extends Controller
             return \Redirect::back()->withInput()->with('error', trans('general.messages.error'));
         }
 
+        // save images
+        $this->saveImages($service);
+
         foreach (\App\Models\Translation::getCachedLocales() as $locale => $locale_name)
         {
             $service->translateOrNew($locale)->title = $this->request->input("i18n.title.{$locale}");
@@ -77,7 +80,7 @@ class ServicesController extends Controller
     public function update(Request $request, $id)
     {
         // Validate
-        if ( !$this->validateRequest($this->request->all()) ) 
+        if ( !$this->validateRequest($this->request->all(), $id) ) 
         {
             return \Redirect::back()->withInput()->with('error', trans('general.messages.error'));
         }
@@ -88,6 +91,9 @@ class ServicesController extends Controller
         // Update element
         $service->enabled = $this->request->get('enabled') ? 1 : 0;
         $service->save();
+
+        // save images
+        $this->saveImages($service);
 
         foreach (\App\Models\Translation::getCachedLocales() as $locale => $locale_name)
         {
@@ -100,13 +106,18 @@ class ServicesController extends Controller
 
     }
 
-    protected function validateRequest($request) 
+    protected function validateRequest($request, $id=false) 
     {
         // General
         $fields = [
             'enabled' => 'boolean',
+            'icon' => 'image|max:' . \Config::get('app.property_image_maxsize', 2048),
             'i18n' => 'required|array',
         ];
+        if ( !$id ) {
+            $fields['icon'] .= 'required';
+        }
+
         $validator = \Validator::make($request, $fields);
         if ($validator->fails()) 
         {
@@ -139,5 +150,30 @@ class ServicesController extends Controller
         }
 
         return true;
+    }
+
+    protected function saveImages($service) 
+    {
+
+        // Icon
+        if ( $this->request->file('icon') )
+        {
+            $img_folder = public_path("services");
+
+            $img_name = $this->request->file('icon')->getClientOriginalName();
+            while ( file_exists("{$img_folder}/{$img_name}") )
+            {
+                $img_name = uniqid() . '_' . $this->request->file('icon')->getClientOriginalName();
+            }
+            $this->request->file('icon')->move($img_folder, $img_name);
+
+            if ( $service->icon )
+            {
+                @unlink( public_path("services/{$service->icon}") );
+            }
+
+            $service->update([ 'icon'=>$img_name ]);
+        }
+
     }
 }

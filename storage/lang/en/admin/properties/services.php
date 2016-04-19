@@ -7,6 +7,10 @@ return [
 
     'name' => 'Name',
     'description' => 'Description',
+    'icon' => 'Icono',
+    'icon.help' => 'Size: 25 x 25 pixels',
+    'icon.error' => 'Please select a valid image.',
+
     'enabled' => 'Enabled',
 
     'edit.title' => 'Edit service',

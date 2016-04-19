@@ -25,7 +25,9 @@
 		'more.show' => 'Show more options',
 		'more.any' => 'Show all',
 
+		'more.room' => 'Room',
 		'more.rooms' => 'Rooms',
+		'more.bath' => 'Bathroom',
 		'more.baths' => 'Bathrooms',
 		'more.sqm' => 'Square meters',
 		'more.price' => 'Price',
@@ -34,4 +36,9 @@
 
 		'labels.new' => 'New construction',
 		'labels.used' => 'Second hand',
+
+		'search.title' => 'Search',
+		'search.results' => 'Results',
+
+		'empty' => 'No results found',
 	];

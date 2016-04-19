@@ -1,4 +1,4 @@
-{!! Form::model($item, [ 'method'=>$method, 'action'=>$action, 'id'=>'edit-form' ]) !!}
+{!! Form::model($item, [ 'method'=>$method, 'action'=>$action, 'files'=>true, 'id'=>'edit-form' ]) !!}
 
 		<div class="row">
 			<div class="col-xs-12 col-sm-6">
@@ -29,10 +29,23 @@
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-6">
+				<div class="form-group">
+					<div class="error-container">
+						@if ( empty($item->icon) )
+							{!! Form::label('icon', Lang::get('admin/properties/services.icon')) !!}
+							{!! Form::file('icon', [ 'class'=>'form-control required', 'accept'=>'image/*' ]) !!}
+						@else
+							<img src="{{ asset("services/{$item->icon}") }}" class="" />
+							{!! Form::label('icon', Lang::get('admin/properties/services.icon')) !!}
+							{!! Form::file('icon', [ 'class'=>'form-control', 'accept'=>'image/*' ]) !!}
+						@endif
+					</div>
+					<div class="help-block">{{ Lang::get('admin/properties/services.icon.help') }}</div>
+				</div>
 				<div class="form-group error-container">
 					<div class="checkbox">
 						<label>
-							{!! Form::checkbox('enabled', 1, null, [ 'class'=>'' ]) !!}
+							{!! Form::checkbox('enabled', 1, $item ? null : 1, [ 'class'=>'' ]) !!}
 							{{ Lang::get('admin/properties/services.enabled') }}
 						</label>
 					</div>
@@ -69,6 +82,11 @@
 			submitHandler: function(f) {
 				LOADING.show();
 				f.submit();
+			},
+			messages: {
+				icon: {
+					accept: "{{ trim( Lang::get('admin/properties/services.icon.error') ) }}"
+				}
 			}
 		});
 	});

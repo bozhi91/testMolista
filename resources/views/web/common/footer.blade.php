@@ -66,7 +66,7 @@
 		var h = $('#footer').height();
 		$('#sticky-wrapper').css({
 			'margin-bottom': (-1*h)+'px',
-			'padding-bottom': (h+20)+'px'
+			'padding-bottom': (h)+'px'
 		});
 	});
 </script>
