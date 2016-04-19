@@ -67,7 +67,7 @@
 															</div>
 														</li>
 														<li>
-															<div class="text-nowrap text-lowercase bg-area">
+															<div class="text-nowrap text-lowercase bg-area bg-area-rooms">
 																{{ number_format($property->rooms,0,',','.') }} 
 																@if ($property->rooms == 1)
 																	{{ Lang::get('web/properties.more.room') }}
@@ -78,7 +78,7 @@
 															</div>
 														</li>
 														<li>
-															<div class="text-nowrap text-lowercase bg-area">
+															<div class="text-nowrap text-lowercase bg-area bg-area-baths">
 																{{ number_format($property->baths,0,',','.') }}
 																@if ($property->baths == 1)
 																	{{ Lang::get('web/properties.more.bath') }}
@@ -90,7 +90,7 @@
 														</li>
 														@foreach ($property->services->sortBy('title') as $service)
 															<li>
-																<div class="text-nowrap bg-area">
+																<div class="text-nowrap bg-area bg-area-service">
 																	{{ $service->title }}
 																	@if ( $service->icon )
 																		<img src="{{ asset("services/{$service->icon}") }}" class="bg-icon hidden-xs" />
@@ -99,8 +99,8 @@
 															</li>
 														@endforeach
 														<li>
-															<div class="text-nowrap bg-area">
-																{{ number_format(round($property->price,$property->size),0,',','.') }} €/m²
+															<div class="text-nowrap bg-area bg-area-ratio">
+																{{ number_format(round($property->price/$property->size),0,',','.') }} €/m²
 																<img src="{{ asset('images/properties/ratio.png') }}" class="bg-icon hidden-xs" />
 															</div>
 														</li>
