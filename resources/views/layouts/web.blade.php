@@ -45,6 +45,10 @@
 
 @include('web.common.footer')
 
+@if ( empty($hide_advanced_search_modal) )
+    @include('web.search.modal')
+@endif
+
 <script src="{{ Theme::url('/compiled/js/app.js') }}"></script>
 <script src="{{ Theme::url('/js/jquery.validate/messages_' . LaravelLocalization::getCurrentLocale() . '.min.js') }}"></script>
 <script src="{{ Theme::url('/js/alertify/messages_' . LaravelLocalization::getCurrentLocale() . '.js') }}"></script>

@@ -14,6 +14,7 @@ class AccountController extends Controller
 	{
 		parent::__initialize();
 		\View::share('menu_section', 'account');
+		\View::share('hide_advanced_search_modal', true);
 
 		$this->site = \App\Site::findOrFail( \App\Session\Site::get('site_id', false) );
 	}

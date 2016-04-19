@@ -173,6 +173,47 @@ class Property extends TranslatableModel
 		];
 	}
 
+	static public function getPriceOptions() 
+	{
+		return [
+			'less-100000' => '< 100.000',
+			'100000-250000' => '100.001 - 250.000',
+			'250000-500000' => '250.001 - 500.000',
+			'500000-1000000' => '500.001 - 1.000.000',
+			'1000000-more' => '> 1.000.000',
+		];
+	}
+
+	static public function getSizeOptions() 
+	{
+		return [
+			'less-100' => '< 100 m²',
+			'100-250' => '101 - 250 m²',
+			'250-500' => '251 - 500 m²',
+			'500-1000' => '501 - 1.000 m²',
+			'1000-more' => '> 1.000 m²',
+		];
+	}
+
+	static public function getRoomOptions() 
+	{
+		return [
+			'1-2' => '1 - 2',
+			'3-5' => '3 - 5',
+			'6-10' => '6 - 10',
+			'10-more' => '> 10',
+		];
+	}
+
+	static public function getBathOptions() 
+	{
+		return [
+			'1-2' => '1 - 2',
+			'3-5' => '3- 5',
+			'5-more' => '> 5',
+		];
+	}
+
 	static public function getCurrencyOptions() 
 	{
 		return [
@@ -187,7 +228,6 @@ class Property extends TranslatableModel
 
 	static public function getSizeUnitOptions() 
 	{
-		// [TODO] Integrate with conversion plugin
 		return [
 			'sqm' => [
 				'iso' => 'sqm',

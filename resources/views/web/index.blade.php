@@ -80,7 +80,7 @@
 					<div class="col-xs-12 col-sm-4 hidden-xs">
 						<a href="" class="quick-link quick-link-new">
 							<div class="image"></div>
-							<div class="text">{{ Lang::get('web/home.link.new') }} dsfasd fs</div>
+							<div class="text">{{ Lang::get('web/home.link.new') }}</div>
 							<div class="arrow">
 								<span>&rsaquo;</span>
 							</div>
@@ -116,13 +116,13 @@
 								{!! Form::text('term', null, [ 'class'=>'form-control', 'placeholder'=>Lang::get('web/properties.term') ]) !!}
 							</div>
 							<div class="form-group error-container">
-								{!! Form::select('mode', [''=>Lang::get('web/properties.mode')]+$modes, null, [ 'class'=>'form-control has-placeholder' ]) !!}
+								{!! Form::select('mode', [''=>Lang::get('web/properties.mode')]+$search_data['modes'], null, [ 'class'=>'form-control has-placeholder' ]) !!}
 							</div>
 							<div class="form-group error-container">
-								{!! Form::select('type', [''=>Lang::get('web/properties.type')]+$types, null, [ 'class'=>'form-control has-placeholder' ]) !!}
+								{!! Form::select('type', [''=>Lang::get('web/properties.type')]+$search_data['types'], null, [ 'class'=>'form-control has-placeholder' ]) !!}
 							</div>
 							<div class="form-group error-container">
-								{!! Form::select('state', [''=>Lang::get('web/properties.state')]+$states->toArray(), null, [ 'class'=>'form-control has-placeholder' ]) !!}
+								{!! Form::select('state', [''=>Lang::get('web/properties.state')]+$search_data['states'], null, [ 'class'=>'form-control has-placeholder' ]) !!}
 							</div>
 							<div class="form-group error-container">
 								{!! Form::select('city', [''=>Lang::get('web/properties.city')], null, [ 'class'=>'form-control has-placeholder' ]) !!}
@@ -154,6 +154,8 @@
 				cont.find('.carousel-control').removeClass('hide');
 			}
 
+			cont.find('.properties-slider').carousel('pause');
+
             form.on('change', 'select[name="state"]', function(){
                 var state = $(this).val();
                 var target = form.find('select[name="city"]');
@@ -184,7 +186,33 @@
 
 			form.on('click', '.advanced-search-trigger', function(e){
 				e.preventDefault();
-				alert('[TODO] advanced search');
+
+				var search_modal = $('#advanced-search-modal');
+
+				form.find('input, select').each(function(){
+					var nm = $(this).attr('name');
+					if ( !nm ) return true;
+
+					var target = search_modal.find('[name="' + $(this).attr('name') + '"]');
+					if ( !target.length ) return true;
+
+					var val = $(this).val();
+
+					if ( target.prop("tagName").toLowerCase() == 'select' ) {
+						target.html( $(this).html() );
+					}
+
+					if ( val ) {
+						target.removeClass('is-placeholder');
+					} else {
+						target.addClass('is-placeholder');
+					}
+
+					target.val( val );
+				});
+
+				$('#advanced-search-trigger').trigger('click');
+
 			});
 		});
 	</script>

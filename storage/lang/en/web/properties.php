@@ -1,34 +1,37 @@
 <?php
-    return [
-        'title' => 'Properties',
+	return [
+		'title' => 'Properties',
 
-        'term' => 'Enter your search',
+		'term' => 'Enter your search',
 
-        'mode' => 'Modality',
-        'mode.sale' => 'Properties for sale',
-        'mode.rent' => 'Properties for rent',
+		'mode' => 'Modality',
+		'mode.sale' => 'Properties for sale',
+		'mode.rent' => 'Properties for rent',
 
-        'state' => 'State',
-        'state.any' => 'All states',
+		'state' => 'State',
+		'state.any' => 'All states',
 
-        'city' => 'City',
-        'city.any' => 'All cities',
+		'city' => 'City',
+		'city.any' => 'All cities',
 
-        'type' => 'Type',
-        'type.any' => 'All property types',
-        'type.house' => 'House',
-        'type.apartment' => 'Apartment',
-        'type.duplex' => 'Duplex',
-        'type.penthouse' => 'Penthouse',
-        'type.villa' => 'Villa',
+		'type' => 'Type',
+		'type.any' => 'All property types',
+		'type.house' => 'House',
+		'type.apartment' => 'Apartment',
+		'type.duplex' => 'Duplex',
+		'type.penthouse' => 'Penthouse',
+		'type.villa' => 'Villa',
 
-        'more.show' => 'Show more options',
-        'more.any' => 'Show all',
+		'more.show' => 'Show more options',
+		'more.any' => 'Show all',
 
-        'more.rooms' => 'Rooms',
-        'more.baths' => 'Bathrooms',
-        'more.sqm' => 'Square meters',
-        'more.price' => 'Price',
+		'more.rooms' => 'Rooms',
+		'more.baths' => 'Bathrooms',
+		'more.sqm' => 'Square meters',
+		'more.price' => 'Price',
 
-        'labels.new' => 'New construction',
-    ];
+		'services' => 'Services',
+
+		'labels.new' => 'New construction',
+		'labels.used' => 'Second hand',
+	];
