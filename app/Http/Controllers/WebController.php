@@ -31,7 +31,7 @@ class WebController extends Controller
 
 	public function index()
 	{
-		$properties = \App\Property::enabled()->highlighted()->with('images')->with('state')->with('city')->orderByRaw("RAND()")->get();
+		$properties = $this->site->properties()->enabled()->highlighted()->with('images')->with('state')->with('city')->orderByRaw("RAND()")->get();
 		return view('web.index', compact('properties','modes','states','types'));
 	}
 

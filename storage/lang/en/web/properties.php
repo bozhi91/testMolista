@@ -41,4 +41,7 @@
 		'search.results' => 'Results',
 
 		'empty' => 'No results found',
+
+		'call.to.action' => 'Get more information',
+		'related.title' => 'Other properties that may interest you',
 	];

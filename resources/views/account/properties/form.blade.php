@@ -319,7 +319,6 @@
 		</div>
 	</div>
 @endif
-<script src="http://maps.google.com/maps/api/js?key={{env('GMAPS_API_KEY')}}"></script>
 
 <script type="text/html" id="image_upload_item_tmpl">
 	<li>

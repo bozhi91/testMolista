@@ -106,6 +106,24 @@ class PropertiesController extends WebController
 
 	public function details($slug)
 	{
+		$property = $this->site->properties()->withTranslations()->enabled()
+					->with('state')
+					->with('city')
+					->with('services')
+					->with('images')
+					->whereTranslation('slug', $slug)
+					->first();
+		if ( !$property )
+		{
+			abort(404);
+		}
+
+		// If slug is from another language, redirect
+		if ( $slug != $property->slug )
+		{
+			return redirect()->to(action('Web\PropertiesController@details', $property->slug), 301); 
+		}
+
 		return view('web.properties.details', compact('property'));
 	}
 

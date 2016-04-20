@@ -9,6 +9,7 @@
 		'application_protocol' => env('APP_PROTOCOL'),
 		'application_domain' => env('APP_DOMAIN'),
 
+		'google_maps_api_key' => env('GMAPS_API_KEY'),
 		'microsoft_primary_account_key' => env('MICROSOFT_PRIMARY_ACCOUNT_KEY'),
 
 		/*

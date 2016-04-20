@@ -1,3 +1,7 @@
+@if ( empty($no_title) )
+	<h2>{{ Lang::get('web/search.quick.title') }}</h2>
+@endif
+
 {!! Form::model(null, [ 'action'=>'Web\PropertiesController@index', 'method'=>'GET', 'id'=>'quick-search-form' ]) !!}
 	{!! Form::hidden('search', 1) !!}
 	<div class="form-group error-container">
@@ -16,8 +20,8 @@
 		{!! Form::select('city', [''=>Lang::get('web/properties.city')], null, [ 'class'=>'form-control has-placeholder' ]) !!}
 	</div>
 	<div class="text-right">
-		<a href="#" class="more-options pull-left text-bold advanced-search-trigger">{{ Lang::get('web/home.search.more') }} &raquo;</a>
-		{!! Form::submit(Lang::get('web/home.search.button'), [ 'class'=>'btn btn-primary text-uppercase' ]) !!}
+		<a href="#" class="more-options pull-left text-bold advanced-search-trigger">{{ Lang::get('web/search.quick.more') }} &raquo;</a>
+		{!! Form::submit(Lang::get('web/search.button'), [ 'class'=>'btn btn-primary text-uppercase' ]) !!}
 	</div>
 {!! Form::close() !!}
 

@@ -101,6 +101,20 @@ class Property extends TranslatableModel
 		return false;
 	}
 
+	// [TODO]
+	public function getRelatedPropertiesAttribute()
+	{
+		return \App\Property::enabled()
+			->ofSite($this->site_id)
+			->where('id','!=',$this->id)
+			->with('images')
+			->with('state')
+			->with('city')
+			->orderByRaw("RAND()")
+			->limit(3)
+			->get();
+	}
+
 	public function getFullUrlAttribute()
 	{
 		$site_url = rtrim($this->site->main_url, '/');

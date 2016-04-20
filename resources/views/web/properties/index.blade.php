@@ -119,17 +119,7 @@
 				e.preventDefault();
 				cont.find('.form-area').addClass('closed');
 			});
-/*
-			function onResize() {
-				if ( $('#header .navbar-toggle').is(':visible') ) {
-					cont.find('.form-area').appendTo( cont );
-				} else {
-					cont.find('.form-area').appendTo( cont.find('.form-area-container') );
-				}
-			}
-			$(window).resize(onResize);
-			onResize();
-*/
+
 		});
 	</script>
 

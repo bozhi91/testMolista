@@ -1,0 +1,63 @@
+#property {
+	padding: 65px 0px; 
+
+	h1 { margin: 0px; font-size: 30px; color: @colorPurple; }
+
+	.header {
+		margin-bottom: 25px; color: @colorGrey; font-size: 16px;
+		.price { font-size: 30px; }
+	}
+
+	.image-main { 
+		margin-bottom: 20px; 
+		.img-responsive { display: inline-block; }
+	}
+	.images-carousel { 
+		margin-bottom: 20px; 
+		.item { padding: 0px 30px; }
+	}
+	.image-thumb { display: block; height: 165px; background: center center no-repeat; background-size: cover; height: 90px; }
+
+	.details {
+		margin-bottom: 20px; padding: 20px 0px; border: 1px solid @colorGrey; border-width: 1px 0px; color: @colorGrey; font-size: 16px;
+		.description { margin-bottom: 20px; }
+	}
+
+	.map-area { 
+		margin-bottom: 20px;
+		.map { height: 275px; }
+	}
+
+	.bottom-links {
+		padding-top: 30px;
+	}
+}
+
+@media (min-width: 768px) {
+	#property {
+		.images-carousel { 
+			.carousel-control { line-height: 90px; height: 90px; }
+		}
+		.details {
+			position: relative; 
+			.call-to-action { position: absolute; right: 0px; bottom: 20px; }
+		}
+	}
+}
+
+@media (max-width: 767px) {
+	#property {
+		.images-carousel { 
+			margin-bottom: 0px; 
+			.carousel-control { margin-top: -68px; }
+		}
+		.image-thumb { margin-bottom: 20px; }
+		.details {
+			.call-to-action { margin-top: 15px; display: block; }
+		}
+		.metrics {
+			> li { float: left; width: 50%; padding: 0px; }
+		}
+		.services { padding-top: 15px; }
+	}
+}

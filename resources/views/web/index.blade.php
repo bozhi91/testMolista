@@ -10,7 +10,7 @@
 			<?php
 				$main_property = $properties->shift()
 			?>
-			<div class="main-property carousel slide" data-ride="carousel">
+			<div class="main-property carousel slide" data-interval="false">
 				<div class="carousel-inner" role="listbox">
 					<div class="item active" style="background-image: url('{{$main_property->main_image}}');">
 						<img src="{{$main_property->main_image}}" alt="{{$main_property->title}}" class="hide" />
@@ -73,7 +73,7 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-9"></div>
 					<div class="col-xs-12 col-sm-3">
-						<h2>{{ Lang::get('web/home.search') }}</h2>
+						<h2>{{ Lang::get('web/search.quick.title') }}</h2>
 					</div>
 				</div>
 				<div class="row">
@@ -110,7 +110,7 @@
 						</a>
 					</div>
 					<div class="col-xs-12 col-sm-3 col-sm-offset-1">
-					    @include('web.search.quick')
+						@include('web.search.quick', [ 'no_title'=>1 ])
 					</div>
 				</div>
 			</div>
@@ -130,8 +130,6 @@
 			} else {
 				cont.find('.carousel-control').removeClass('hide');
 			}
-
-			cont.find('.properties-slider').carousel('pause');
 		});
 	</script>
 

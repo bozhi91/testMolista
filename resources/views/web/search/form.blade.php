@@ -103,7 +103,7 @@
 		<div class="col-xs-12 col-sm-6 input-line">
 			<label class="hidden-xs">&nbsp;</label>
 			<div class="text-right">
-				{!! Form::submit(Lang::get('web/home.search.button'), [ 'class'=>'btn btn-submit btn-warning text-uppercase' ]) !!}
+				{!! Form::submit(Lang::get('web/search.button'), [ 'class'=>'btn btn-submit btn-warning text-uppercase' ]) !!}
 			</div>
 		</div>
 	</div>

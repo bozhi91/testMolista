@@ -1,5 +1,12 @@
 <?php
 
+	function nl2p($text)
+	{
+		$text = explode("\n", $text);
+		$text = array_filter($text);
+		return '<p>' . implode('</p><p>', $text). '</p>';
+	}
+
 	function price($price, $params=false)
 	{
 		if ( !is_array($params) )
