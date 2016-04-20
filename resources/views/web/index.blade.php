@@ -28,7 +28,7 @@
 				<div class="container">
 					<div class="properties-slider-area">
 						<h2>{{ Lang::get('web/home.gallery') }}</h2>
-						<div id="properties-slider" class="properties-slider carousel slide" data-ride="carousel">
+						<div id="properties-slider" class="properties-slider carousel slide">
 							<div class="carousel-inner" role="listbox">
 								<div class="item active">
 									<div class="row">
@@ -69,7 +69,7 @@
 		@endif
 
 		<div class="container">
-			<div class="search-area {{ count($properties) ? 'under-properties' : '' }}">
+			<div class="quick-search-area search-area {{ count($properties) ? 'under-properties' : '' }}">
 				<div class="row">
 					<div class="col-xs-12 col-sm-9"></div>
 					<div class="col-xs-12 col-sm-3">
@@ -110,28 +110,7 @@
 						</a>
 					</div>
 					<div class="col-xs-12 col-sm-3 col-sm-offset-1">
-						{!! Form::model(null, [ 'action'=>'Web\PropertiesController@index', 'method'=>'GET', 'id'=>'quick-search-form' ]) !!}
-							{!! Form::hidden('search', 1) !!}
-							<div class="form-group error-container">
-								{!! Form::text('term', null, [ 'class'=>'form-control', 'placeholder'=>Lang::get('web/properties.term') ]) !!}
-							</div>
-							<div class="form-group error-container">
-								{!! Form::select('mode', [''=>Lang::get('web/properties.mode')]+$search_data['modes'], null, [ 'class'=>'form-control has-placeholder' ]) !!}
-							</div>
-							<div class="form-group error-container">
-								{!! Form::select('type', [''=>Lang::get('web/properties.type')]+$search_data['types'], null, [ 'class'=>'form-control has-placeholder' ]) !!}
-							</div>
-							<div class="form-group error-container">
-								{!! Form::select('state', [''=>Lang::get('web/properties.state')]+$search_data['states'], null, [ 'class'=>'form-control has-placeholder' ]) !!}
-							</div>
-							<div class="form-group error-container">
-								{!! Form::select('city', [''=>Lang::get('web/properties.city')], null, [ 'class'=>'form-control has-placeholder' ]) !!}
-							</div>
-							<div class="text-right">
-								<a href="#" class="more-options pull-left text-bold advanced-search-trigger">{{ Lang::get('web/home.search.more') }} &raquo;</a>
-								{!! Form::submit(Lang::get('web/home.search.button'), [ 'class'=>'btn btn-primary text-uppercase' ]) !!}
-							</div>
-						{!! Form::close() !!}
+					    @include('web.search.quick')
 					</div>
 				</div>
 			</div>
@@ -142,8 +121,6 @@
 	<script type="text/javascript">
 		ready_callbacks.push(function(){
 			var cont = $('#home');
-			var form = $('#quick-search-form');
-			var cities = {};
 
 			cont.find('.properties-slider .property-pill').matchHeight({ byRow : false });
 			cont.find('.search-area .quick-link').matchHeight({ byRow : false });
@@ -155,65 +132,6 @@
 			}
 
 			cont.find('.properties-slider').carousel('pause');
-
-            form.on('change', 'select[name="state"]', function(){
-                var state = $(this).val();
-                var target = form.find('select[name="city"]');
-                target.html('<option value="">' + target.find('option[value=""]').eq(0).text() + '</option>').addClass('is-placeholder');
-                if ( !state ) {
-                    return;
-                }
-                if ( cities.hasOwnProperty(state) ) {
-                    $.each(cities[state], function(k,v) {
-                        target.append('<option value="' + v.code + '">' + v.label + '</option>');
-                    });
-                } else {
-                    $.ajax({
-                        dataType: 'json',
-                        url: '{{ action('Ajax\GeographyController@getSuggest', 'city') }}',
-                        data: { state_slug: state },
-                        success: function(data) {
-                            if ( data ) {
-                                cities[state] = data;
-                                $.each(cities[state], function(k,v) {
-                                    target.append('<option value="' + v.code + '">' + v.label + '</option>');
-                                });
-                            }
-                        }
-                    });
-                }
-            });
-
-			form.on('click', '.advanced-search-trigger', function(e){
-				e.preventDefault();
-
-				var search_modal = $('#advanced-search-modal');
-
-				form.find('input, select').each(function(){
-					var nm = $(this).attr('name');
-					if ( !nm ) return true;
-
-					var target = search_modal.find('[name="' + $(this).attr('name') + '"]');
-					if ( !target.length ) return true;
-
-					var val = $(this).val();
-
-					if ( target.prop("tagName").toLowerCase() == 'select' ) {
-						target.html( $(this).html() );
-					}
-
-					if ( val ) {
-						target.removeClass('is-placeholder');
-					} else {
-						target.addClass('is-placeholder');
-					}
-
-					target.val( val );
-				});
-
-				$('#advanced-search-trigger').trigger('click');
-
-			});
 		});
 	</script>
 

@@ -38,13 +38,13 @@
 													<div class="title text-bold">
 														<a href="{{ action('Web\PropertiesController@details', $property->slug) }}">{{$property->title}}</a>
 													</div>
-													<div class="location text-italic bg-area">
+													<div class="location text-italic">
+														<i class="fontello-icon fontello-icon-marker hidden-xs"></i>
 														{{ implode(', ', array_filter([
 															'district' => $property->district,
 															'city' => $property->city->name,
 															'state' => $property->state->name,
 														])) }}
-														<img src="{{ asset('images/properties/marker.png') }}" class="bg-icon hidden-xs" />
 													</div>
 													<div class="description text-italic">{!! str_limit($property->description, 150, ' <a href="'.(action('Web\PropertiesController@details', $property->slug)).'">[...]</a>') !!}</div>
 												</div>
@@ -62,33 +62,27 @@
 																{{ number_format($property->size,0,',','.') }} m²
 															</div>
 														</li>
-														<li>
-															<div class="text-nowrap text-lowercase bg-area bg-area-rooms">
-																{{ number_format($property->rooms,0,',','.') }} 
-																@if ($property->rooms == 1)
-																	{{ Lang::get('web/properties.more.room') }}
-																@else
-																	{{ Lang::get('web/properties.more.rooms') }}
-																@endif
-																<img src="{{ asset('images/properties/rooms.png') }}" class="bg-icon hidden-xs" />
-															</div>
+														<li class="text-nowrap text-lowercase has-fontello-icon">
+															<i class="fontello-icon fontello-icon-table"></i>
+															{{ number_format($property->rooms,0,',','.') }} 
+															@if ($property->rooms == 1)
+																{{ Lang::get('web/properties.more.room') }}
+															@else
+																{{ Lang::get('web/properties.more.rooms') }}
+															@endif
 														</li>
-														<li>
-															<div class="text-nowrap text-lowercase bg-area bg-area-baths">
-																{{ number_format($property->baths,0,',','.') }}
-																@if ($property->baths == 1)
-																	{{ Lang::get('web/properties.more.bath') }}
-																@else
-																	{{ Lang::get('web/properties.more.baths') }}
-																@endif
-																<img src="{{ asset('images/properties/baths.png') }}" class="bg-icon hidden-xs" />
-															</div>
+														<li class="text-nowrap text-lowercase has-fontello-icon">
+															<i class="fontello-icon fontello-icon-shower"></i>
+															{{ number_format($property->baths,0,',','.') }}
+															@if ($property->baths == 1)
+																{{ Lang::get('web/properties.more.bath') }}
+															@else
+																{{ Lang::get('web/properties.more.baths') }}
+															@endif
 														</li>
-														<li>
-															<div class="text-nowrap bg-area bg-area-ratio">
-																{{ number_format(round($property->price/$property->size),0,',','.') }} €/m²
-																<img src="{{ asset('images/properties/ratio.png') }}" class="bg-icon hidden-xs" />
-															</div>
+														<li class="text-nowrap has-fontello-icon">
+															<i class="fontello-icon fontello-icon-coins"></i>
+															{{ number_format(round($property->price/$property->size),0,',','.') }} €/m²
 														</li>
 													</ul>
 													<div class="services text-italic">

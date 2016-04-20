@@ -7,16 +7,17 @@
 			&:hover { opacity: 0.5; }
 		}
 	}
-	.property-row {
-		border-top: 1px solid @colorGrey; padding: 20px 0px;	
-	}
 	.results-area {
 		padding: 30px 0px; 
 	}
 	.property-row {
-		font-size: 16px; color: @colorGrey;
+		font-size: 16px; color: @colorGrey; border-top: 1px solid @colorGrey; padding: 20px 0px;	
 		a { color: @colorGrey; text-decoration: none; }
 		.image { display: block; height: 165px; background: center center no-repeat; background-size: cover; margin-bottom: 10px; }
+		.location { 
+			position: relative;
+			.fontello-icon { position: absolute; left: -8px; top: -8px; font-size: 1.7em; }
+		}
 		.title { 
 			font-size: 18px;
 			a { color: @colorPurple; text-decoration: none; }
@@ -26,13 +27,9 @@
 			> li { 
 				line-height: 25px; padding: 0px 20px 0px 0px; 
 			}
-			.bg-area-rooms { padding-left: 23px; }
-			.bg-area-baths { padding-left: 15px; }
-			.bg-area-ratio { padding-left: 30px; }
-			.bg-area-service { 
-				padding-left: 27px; 
-				.bg-icon { opacity: 0.5; }
-			}
+			.has-fontello-icon { position: relative; padding-left: 24px; }
+			.fontello-icon { position: absolute; font-size: 1.3em; top: -2px; left: 0px; }
+			.fontello-icon-coins { left: -4px; color: #000; }
 		}
 		.services { padding-top: 5px; }
 		.price { font-size: 24px; }
@@ -53,9 +50,7 @@
 		}
 		.results-area { padding: 80px 0px 50px 0px; }
 		.property-row {
-			.bg-area { position: relative; padding-left: 22px; }
-			.bg-icon { position: absolute; top: 0px; left: 0px; }
-			.text-italic { font-size: 17px; }
+			.location { padding-left: 25px; }
 			.description { padding: 20px 0px; }
 		}
 	}
