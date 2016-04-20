@@ -1,11 +1,11 @@
 #properties {
 	.search-area { 
-		padding: 30px 0px;
-		h2 { margin: 0px; }
-	}
-	.form-area { 
-		background: @colorGreyLight; padding: 20px 0px;
+		background: @colorGreyLight; padding-top: 30px; position: relative;
 		h2 { margin: 0px 0px 20px 0px; }
+		.form-area-minimizer { 
+			position: absolute; left: 0px; right: 0px; bottom: 0px; display: none; background: @colorGrey; opacity: 0.4; color: @colorBlack;
+			&:hover { opacity: 0.5; }
+		}
 	}
 	.property-row {
 		border-top: 1px solid @colorGrey; padding: 20px 0px;	
@@ -21,6 +21,20 @@
 			font-size: 18px;
 			a { color: @colorPurple; text-decoration: none; }
 		}
+		.metrics { 
+			margin-left: 0px;
+			> li { 
+				line-height: 25px; padding: 0px 20px 0px 0px; 
+			}
+			.bg-area-rooms { padding-left: 23px; }
+			.bg-area-baths { padding-left: 15px; }
+			.bg-area-ratio { padding-left: 30px; }
+			.bg-area-service { 
+				padding-left: 27px; 
+				.bg-icon { opacity: 0.5; }
+			}
+		}
+		.services { padding-top: 5px; }
 		.price { font-size: 24px; }
 	}
 	.pagination-area { 
@@ -33,6 +47,7 @@
 	#properties {
 		.search-area { 
 			background: @colorGreyLight; 
+			.form-area { padding-bottom: 15px; }
 			.form-group { margin: 0px 0px 25px 0px; }
 			.btn-submit { padding-left: 36px; padding-right: 36px; }
 		}
@@ -42,24 +57,22 @@
 			.bg-icon { position: absolute; top: 0px; left: 0px; }
 			.text-italic { font-size: 17px; }
 			.description { padding: 20px 0px; }
-			.services { 
-				> li { 
-					line-height: 25px; padding: 0px 20px 0px 0px; 
-				}
-				.bg-area-rooms { padding-left: 23px; }
-				.bg-area-baths { padding-left: 15px; }
-				.bg-area-ratio { padding-left: 30px; }
-				.bg-area-service { 
-					padding-left: 27px; 
-					.bg-icon { opacity: 0.5; }
-				}
-			}
 		}
 	}
 }
 
 @media (max-width: 767px) {
 	#properties {
+		.form-area {
+			padding-bottom: 35px;
+			.form-area-minimizer { display: block; }
+			&.closed {
+				padding-bottom: 10px;
+				.input-line { display: none; }
+				.first-input-line { display: block; }
+				.form-area-minimizer { display: none; }
+			}
+		}
 		.property-row {
 			.description { font-size: 14px; padding: 10px 0px; }
 		}
