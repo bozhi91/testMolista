@@ -17,19 +17,21 @@
 				<li><a href="{{ action('WebController@index') }}" class="main-item {{ (@$menu_section == 'info_contact') ? 'current' : '' }}">{{ Lang::get('web/header.contact') }}</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown locale-select">
-					<a href="#" class="main-item dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-						<span class="locale-placeholder">
-							{{ Lang::get('web/header.lang') }} <span class="caret"></span>
-							<span class="locale-line">
-						</span> 
-					</a>
-					<ul class="dropdown-menu">
-						@foreach(LaravelLocalization::getSupportedLocales() as $locale => $def)
-							<li><a href="{{ ( $locale == LaravelLocalization::getCurrentLocale() ) ? 'javascript:;' : LaravelLocalization::getLocalizedURL($locale) }}">{{ $def['native'] }}</a></li>
-						@endforeach
-					</ul>
-				</li>
+				@if ( !empty($site_setup['locales_select']) )
+					<li class="dropdown locale-select">
+						<a href="#" class="main-item dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+							<span class="locale-placeholder">
+								{{ Lang::get('web/header.lang') }} <span class="caret"></span>
+								<span class="locale-line">
+							</span> 
+						</a>
+						<ul class="dropdown-menu">
+							@foreach($site_setup['locales_select'] as $locale => $locale_name)
+								<li><a href="{{ ( $locale == LaravelLocalization::getCurrentLocale() ) ? 'javascript:;' : LaravelLocalization::getLocalizedURL($locale) }}">{{ $locale_name }}</a></li>
+							@endforeach
+						</ul>
+					</li>
+				@endif
 				@if ( !empty($site_setup['social_media']) )
 					<li class="social-media">
 						<ul class="list-inline">

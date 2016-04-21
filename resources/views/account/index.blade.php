@@ -2,7 +2,14 @@
 
 @section('account_content')
 
-	@include('common.messages', [ 'dismissible'=>true ])
+	@if (session('status'))
+		<div class="alert alert-success alert-dismissible">
+			<button type="button" class="close" data-dismiss="alert" aria-label="{{ Lang::get('general.messages.close') }}"><span aria-hidden="true">&times;</span></button>
+			{{ session('status') }}
+		</div>
+	@else
+		@include('common.messages', [ 'dismissible'=>true ])
+	@endif
 
 	<h1 class="page-title">{{ Lang::get('account/profile.h1') }}</h1>
 

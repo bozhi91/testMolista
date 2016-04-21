@@ -1,47 +1,60 @@
 @extends('layouts.web')
 
-<!-- Main Content -->
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Reset Password</div>
-                <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
 
-                    <form class="form-horizontal" role="form" method="POST" action="{{ action('Auth\PasswordController@sendResetLinkEmail') }}">
-                        {!! csrf_field() !!}
+	<div id="login-register">
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">E-Mail Address</label>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2">
 
-                            <div class="col-md-6">
-                                <input type="email" class="form-control" name="email" value="{{ old('email') }}">
+					@include('common.messages', [ 'dismissible'=>true ])
 
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+					<h2>{{ Lang::get('passwords.reset.title') }}</h2>
 
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-envelope"></i>Send Password Reset Link
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+					@if (session('status'))
+						<div class="alert alert-success alert-dismissible">
+							<button type="button" class="close" data-dismiss="alert" aria-label="{{ Lang::get('general.messages.close') }}"><span aria-hidden="true">&times;</span></button>
+							{{ session('status') }}
+						</div>
+					@endif
+
+					{!! Form::open([ 'action'=>'Auth\PasswordController@sendResetLinkEmail', 'method'=>'POST', 'id'=>'reset-form', 'class'=>'form-horizontal' ]) !!}
+						<div class="form-group">
+							{!! Form::label('email', Lang::get('passwords.reset.email'), [ 'class'=>'col-md-4 control-label' ]) !!}
+							<div class="col-md-6 error-container">
+								{!! Form::email('email', old('email'), [ 'class'=>'form-control required email' ]) !!}
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-6 col-md-offset-4">
+								{!! Form::submit(Lang::get('passwords.reset.send.button'), [ 'class'=>'btn btn-primary pull-right' ]) !!}
+							</div>
+						</div>
+					{!! Form::close() !!}
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script type="text/javascript">
+		ready_callbacks.push(function(){
+			var form = $('#reset-form');
+
+			form.validate({
+				ignore: '',
+				errorPlacement: function(error, element) {
+					element.closest('.error-container').append(error);
+				},
+				submitHandler: function(f) {
+					LOADING.show();
+					f.submit();
+				}
+			});
+
+		});
+	</script>
+
 @endsection
