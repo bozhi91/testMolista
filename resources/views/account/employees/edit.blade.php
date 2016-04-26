@@ -87,7 +87,7 @@
 			
 			<div class="text-right">
 				{!! print_goback_button( Lang::get('general.back'), [ 'class'=>'btn btn-default' ]) !!}
-				{!! Form::submit( Lang::get('general.save.changes'), [ 'class'=>'btn btn-yellow']) !!}
+				{!! Form::submit( Lang::get('general.save.changes'), [ 'class'=>'btn btn-primary']) !!}
 			</div>
 
 		{!! Form::close() !!}

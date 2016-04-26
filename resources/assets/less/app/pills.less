@@ -8,7 +8,15 @@
 	.title { 
 		a { color: @colorPurple; text-decoration: none; }
 	}
+	.metrics { display: none; }
+
+	&.property-pill-small {
+		position: relative;
+		.image { position: absolute; left: 0px; width: 100px; height: 100%; margin: 0px; }
+		.text { padding: 10px 10px 10px 120px; }
+	}
 }
+
 
 .nav-pills {
 	> li {

@@ -214,7 +214,7 @@
 			<br />
 
 			<div class="text-right">
-				{!! Form::submit( Lang::get('general.continue'), [ 'class'=>'btn btn-yellow']) !!}
+				{!! Form::submit( Lang::get('general.continue'), [ 'class'=>'btn btn-primary']) !!}
 			</div>
 
 		{!! Form::close() !!}

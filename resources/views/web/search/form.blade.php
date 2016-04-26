@@ -42,7 +42,7 @@
 			<div class="form-group">
 				<div class="checkbox">
 					<label>
-						<input type="checkbox" name="newly_build" {{ Input::get('newly_build') ? 'checked="checked"' : '' }} />
+						<input type="checkbox" name="newly_build" value="1" {{ Input::get('newly_build') ? 'checked="checked"' : '' }} />
 						{{ Lang::get('web/properties.labels.new') }}
 					</label>
 				</div>
@@ -52,7 +52,7 @@
 			<div class="form-group">
 				<div class="checkbox">
 					<label>
-						<input type="checkbox" name="second_hand" {{ Input::get('second_hand') ? 'checked="checked"' : '' }} />
+						<input type="checkbox" name="second_hand" value="1" {{ Input::get('second_hand') ? 'checked="checked"' : '' }} />
 						{{ Lang::get('web/properties.labels.used') }}
 					</label>
 				</div>

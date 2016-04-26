@@ -315,7 +315,7 @@
 			</select>
 		</div>
 		<div class="text-right">
-			{!! Form::button( Lang::get('general.continue'), [ 'class'=>'btn btn-yellow btn-continue']) !!}
+			{!! Form::button( Lang::get('general.continue'), [ 'class'=>'btn btn-warning btn-continue']) !!}
 		</div>
 	</div>
 @endif

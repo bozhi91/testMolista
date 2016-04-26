@@ -6,7 +6,7 @@
 					@if ( !empty($site_setup['widgets']['footer']) )
 						@foreach ($site_setup['widgets']['footer'] as $widget)
 							<div class="col-xs-4">
-								@if ( $widget->type == 'menu' )
+								@if ( $widget->type == 'menu' && $widget->menu )
 									<h4>{{ $widget->title }}</h4>
 									<ul class="list-unstyled">
 										@foreach ($widget->menu->items as $item)

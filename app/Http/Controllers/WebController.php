@@ -35,7 +35,10 @@ class WebController extends Controller
 	public function index()
 	{
 		$properties = $this->site->properties()->enabled()->highlighted()->with('images')->with('state')->with('city')->orderByRaw("RAND()")->get();
-		return view('web.index', compact('properties','modes','states','types'));
+
+		$latest = $this->site->properties()->enabled()->with('images')->with('state')->with('city')->orderBy('created_at','desc')->limit(3)->get();
+
+		return view('web.index', compact('properties','latest'));
 	}
 
 }
