@@ -3,7 +3,7 @@
 	$item_key = "items[{$item_id}]";
 ?>
 
-<div class="widget panel panel-custom {{ @$widget_class }}" data-type="{{$type}}" data-id="{{$item_id}}">
+<div class="widget panel panel-custom widget-type-{{$type}} {{ @$widget_class }}" data-type="{{$type}}" data-id="{{$item_id}}">
 	<div class="widget-title panel-heading {{ empty($widget_closed) ? '' : 'closed' }}">
 		<div class="pull-right cursor-pointer widget-toggle"><span class="caret"></span></div>
 		<span class="text">

@@ -34,7 +34,7 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 	{
 		$validator = \Validator::make($this->request->all(), [
 			'type' => 'required|in:'.implode(',', \App\Models\Site\Widget::getTypeOptions()),
-			'group' => 'required|in:'.implode(',', \App\Models\Site\Widget::getGroupOptions()),
+			'group' => 'required|in:'.implode(',', array_keys(\App\Models\Site\Widget::getGroupOptions())),
 		]);
 		if ($validator->fails()) 
 		{

@@ -42,8 +42,12 @@ class Widget extends TranslatableModel
 	static public function getGroupOptions() 
 	{
 		return [
-			'header',
-			'footer',
+			'header' => [
+				'accept' => 'menu',
+				'max' => 1,
+			],
+			'footer' => [
+			],
 		];
 	}
 

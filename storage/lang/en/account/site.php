@@ -85,6 +85,8 @@
 		'widgets.messages.updated' => 'The widget was successfully updated',
 		'widgets.messages.delete.warning' => 'Are you sure you want to remove this element?',
 		'widgets.messages.deleted' => 'The widget was successfully removed',
+		'widgets.messages.not.accepted' => 'The type of widget is not accepted in this area',
+		'widgets.messages.max.reached' => 'You have reached the maximun number of widgets accepted for this area',
 
 
 

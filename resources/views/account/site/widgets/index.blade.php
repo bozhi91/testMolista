@@ -31,7 +31,7 @@
 
 				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
-					@foreach ($group_options as $group)
+					@foreach ($group_options as $group => $group_def)
 						<div class="panel panel-custom">
 							<div role="button" id="widget-{{$group}}-heading" data-toggle="collapse" href="#widget-{{$group}}" aria-expanded="true" aria-controls="widget-{{$group}}" class="panel-heading">
 								<div class="pull-right"><span class="caret"></span></div>
@@ -39,7 +39,7 @@
 							</div>
 							<div id="widget-{{$group}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="widget-{{$group}}-heading">
 								<div class="panel-body">
-									<div class="widget-list widget-droppables" data-group="{{$group}}" data-sort="{{ action('Account\Site\WidgetsController@postSort', $group) }}">
+									<div class="widget-list widget-droppables" data-group="{{$group}}" data-max="{{@$group_def['max']}}" data-accept="{{@$group_def['accept']}}" data-sort="{{ action('Account\Site\WidgetsController@postSort', $group) }}">
 										@foreach ($widgets->where('group', $group)->sortBy('position') as $widget)
 											@include('account.site.widgets.item', [ 'type'=>$widget->type, 'item'=>$widget, 'widget_closed'=>true ])
 										@endforeach
@@ -130,15 +130,43 @@ console.log(data);
 				receive: function(event, ui) {
 					var el = $(this).find('.widget.widget-draggable');
 
-					LOADING.show();
-
 					if ( !el.length ) {
 						return;
 					}
 
 					var list = $(this);
 
+					// Check if type is accepted
+					if ( list.data().accept ) {
+						var accepted = false;
+						$.each(list.data().accept.split('|'), function(k,v) {
+							if ( el.hasClass('widget-type-'+v) ) {
+								accepted = true;
+							}
+						});
+						if ( !accepted ) {
+							alertify.error("{{ print_js_string( Lang::get('account/site.widgets.messages.not.accepted') ) }}");
+							el.slideUp(function(){
+								$(this).remove();
+							});
+							return false;
+						}
+					}
+
+					// Check if max has been reached
+					if ( list.data().max ) {
+						if ( parseInt( list.data().max ) <= list.find('.widget').length ) {
+							alertify.error("{{ print_js_string( Lang::get('account/site.widgets.messages.max.reached') ) }}");
+							el.slideUp(function(){
+								$(this).remove();
+							});
+							return false;
+						}
+					}
+
 					el.removeAttr('style').find('.widget-title').addClass('closed');
+
+					LOADING.show();
 
 					$.ajax({
 						dataType: 'json',
