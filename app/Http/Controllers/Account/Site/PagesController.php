@@ -181,7 +181,7 @@ class PagesController extends \App\Http\Controllers\AccountController
 		// Load dom
 		$dom = new \DomDocument();
 		libxml_use_internal_errors(true);
-		$dom->loadHtml($body, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+		$dom->loadHtml(mb_convert_encoding($body, 'HTML-ENTITIES', "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 		libxml_clear_errors();
 
 		// Get images
@@ -214,7 +214,7 @@ class PagesController extends \App\Http\Controllers\AccountController
 				// Get file path
 				if ( $img->getAttribute('data-filename') )
 				{
-					$img_name = pathinfo($img->getAttribute('data-filename'), PATHINFO_FILENAME );
+					$img_name = pathinfo($img->getAttribute('data-filename'), PATHINFO_FILENAME);
 					$filepath = "{$image_dir}/{$img_name}.{$mimetype}";
 					while ( file_exists( public_path( $filepath ) ) )
 					{
