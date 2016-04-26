@@ -70,6 +70,40 @@
 					<div class="row">
 						<div class="col-xs-12 col-sm-6">
 							<div class="form-group error-container">
+								{!! Form::label('custom_theme', Lang::get('admin/sites.theme.custom')) !!}
+								<?php
+									$themes = [];
+									foreach (Config::get('themes.themes') as $theme => $def) 
+									{
+										if ( empty($def['custom']) ) 
+										{
+											continue;
+										}
+										$themes[$theme] = empty($def['title']) ? ucfirst($theme) : $def['title'];
+									}
+								?>
+								{!! Form::select('custom_theme', [ ''=>'' ]+$themes, null, [ 'class'=>'form-control' ]) !!}
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<label>&nbsp;</label>
+							<div class="text-right">
+								@if ( count($site->owners_ids) > 0 && Auth::user()->can('user-login') )
+									<a href="{{action('Admin\SitesController@show', $site->id)}}" class="btn btn-sm btn-default" target="_blank">
+										<span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+										{{ Lang::get('admin/sites.goto.admin') }}
+									</a>
+								@endif
+								<a href="{{$site->main_url}}" class="btn btn-sm btn-default" target="_blank">
+									<span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+									{{ Lang::get('admin/sites.goto.site') }}
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group error-container">
 								<div class="checkbox">
 									<label>
 										{!! Form::checkbox('enabled', 1, null, [ 'class'=>'' ]) !!}
@@ -77,18 +111,6 @@
 									</label>
 								</div>
 							</div>
-						</div>
-						<div class="col-xs-12 col-sm-6">
-							@if ( count($site->owners_ids) > 0 && Auth::user()->can('user-login') )
-								<a href="{{action('Admin\SitesController@show', $site->id)}}" class="btn btn-sm btn-default" target="_blank">
-									<span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
-									{{ Lang::get('admin/sites.goto.admin') }}
-								</a>
-							@endif
-							<a href="{{$site->main_url}}" class="btn btn-sm btn-default" target="_blank">
-								<span class="glyphicon glyphicon-link" aria-hidden="true"></span>
-								{{ Lang::get('admin/sites.goto.site') }}
-							</a>
 						</div>
 					</div>
 				</div>

@@ -89,4 +89,17 @@ elixir(function(mix) {
 			'admin.js',
 		], 'public/compiled/js/admin.js');
 
+
+	/* THEMES ------------------------------------------------------------------ */
+	/* Bellamar */
+	mix
+		.less([
+			'bellamar.less',
+		], 'resources/assets/css/compiled/bellamar.css')
+		.styles([
+			'compiled/common.css',
+			'compiled/bellamar.css',
+		], 'public/bellamar/compiled/css/app.css');
+
+
 });

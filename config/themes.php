@@ -59,6 +59,7 @@ return [
 		'default' => [
 			'title'			=> 'Default',
 			'public'		=> true, // true if companies can use it
+			'custom'		=> false, // true if custom theme for specific companies
 			'extends'	 	=> null,
 			'views-path' 	=> '',
 			'asset-path' 	=> '',
@@ -68,17 +69,19 @@ return [
 		'corporate' => [
 			'title'			=> 'Corporate',
 			'public'		=> false,
+			'personal'		=> false,
 			'extends'	 	=> 'default',
 			'views-path' 	=> 'corporate',
 			'asset-path' 	=> 'corporate',
-			'redirectTo'	=> 'admin',
 		],
 
-		'other' => [
-			'title'			=> 'Other',
+		'bellamar' => [
+			'title'			=> 'Bellamar',
 			'public'		=> false,
+			'custom'		=> true,
 			'extends'	 	=> 'default',
-			'views-path' 	=> '',
+			'views-path' 	=> 'bellamar',
+			'asset-path' 	=> 'bellamar',
 		],
 		// Add your themes here...
 

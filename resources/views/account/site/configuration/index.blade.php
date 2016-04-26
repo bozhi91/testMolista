@@ -29,11 +29,10 @@
 										$themes = [];
 										foreach (Config::get('themes.themes') as $theme => $def) 
 										{
-											if ( empty($def['public']) ) 
+											if ( !empty($def['public']) || $theme == $site->custom_theme ) 
 											{
-												continue;
+												$themes[$theme] = empty($def['title']) ? ucfirst($theme) : $def['title'];
 											}
-											$themes[$theme] = empty($def['title']) ? ucfirst($theme) : $def['title'];
 										}
 									?>
 									{!! Form::select('theme', [ ''=>'' ]+$themes, null, [ 'class'=>'form-control required' ]) !!}

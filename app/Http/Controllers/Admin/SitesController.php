@@ -80,7 +80,8 @@ class SitesController extends Controller
 		// Create site
 		$site = \App\Site::create([
 			'subdomain' => $this->request->get('subdomain'),
-			'theme' => 'default',
+			'custom_theme' => $this->request->get('custom_theme'),
+			'theme' => $this->request->get('custom_theme', 'default'),
 		]);
 
 		if ( !$site )
@@ -180,6 +181,7 @@ class SitesController extends Controller
 
 		// Update data
 		$site->subdomain = $this->request->get('subdomain');
+		$site->custom_theme = $this->request->get('custom_theme');
 		$site->enabled = $this->request->get('enabled') ? 1 : 0;
 		$site->save();
 

@@ -13,6 +13,7 @@ return [
 	'owners' => 'Owners',
 	'created' => 'Created',
 	'enabled' => 'Enabled',
+	'theme.custom' => 'Custom theme',
 
 	'create.title' => 'Create site',
 	'edit.title' => 'Edit site',

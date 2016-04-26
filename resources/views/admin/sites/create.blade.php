@@ -60,6 +60,25 @@
 					</div>
 				</div>
 			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-6">
+					<div class="form-group error-container">
+						{!! Form::label('custom_theme', Lang::get('admin/sites.theme.custom')) !!}
+						<?php
+							$themes = [];
+							foreach (Config::get('themes.themes') as $theme => $def) 
+							{
+								if ( empty($def['custom']) ) 
+								{
+									continue;
+								}
+								$themes[$theme] = empty($def['title']) ? ucfirst($theme) : $def['title'];
+							}
+						?>
+						{!! Form::select('custom_theme', [ ''=>'' ]+$themes, null, [ 'class'=>'form-control' ]) !!}
+					</div>
+				</div>
+			</div>
 
 		</div>
 

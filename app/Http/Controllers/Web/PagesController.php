@@ -18,6 +18,12 @@ class PagesController extends WebController
 			abort(404);
 		}
 
+		// If slug is from another language, redirect
+		if ( $slug != $page->slug )
+		{
+			return redirect()->to(action('Web\PagesController@show', $page->slug), 301); 
+		}
+
 		$this->set_seo_values([
 			'title' => $page->seo_title ? $page->seo_title : $page->title,
 			'description' => $page->seo_description ? $page->seo_description : str_replace("\n", ' ', strip_tags($page->body)),
