@@ -6,13 +6,18 @@
 					@if ( !empty($site_setup['widgets']['footer']) )
 						@foreach ($site_setup['widgets']['footer'] as $widget)
 							<div class="col-xs-4">
-								@if ( $widget->type == 'menu' && $widget->menu )
+								@if ( $widget->type == 'menu' )
 									<h4>{{ $widget->title }}</h4>
-									<ul class="list-unstyled">
-										@foreach ($widget->menu->items as $item)
-											<li><a href="{{ $item->item_url }}">{{ $item->item_title }}</a></li>
-										@endforeach
-									</ul>
+									@if ( $widget->menu )
+										<ul class="list-unstyled">
+											@foreach ($widget->menu->items as $item)
+												<li><a href="{{ $item->item_url }}">{{ $item->item_title }}</a></li>
+											@endforeach
+										</ul>
+									@endif
+								@elseif ( $widget->type == 'text' )
+									<h4>{{ $widget->title }}</h4>
+									<div>{!! nl2br($widget->content) !!}</div>
 								@endif
 							</div>
 						@endforeach

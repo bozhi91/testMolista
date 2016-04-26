@@ -37,6 +37,12 @@
 									{!! Form::label("{$item_key}[title][{$locale}]", Lang::get('account/site.menus.update.field.title')) !!}
 									{!! Form::text("{$item_key}[title][{$locale}]", @$item->i18n['title'][$locale], [ 'class'=>'title-input input-sm form-control '.(($type == 'custom' && $locale == 'en') ? 'required' : ''), 'lang'=>$locale ]) !!}
 								</div>
+								@if ($type == 'text')
+									<div class="form-group error-container">
+										{!! Form::label("{$item_key}[content][{$locale}]", Lang::get("account/site.widgets.type.text.content")) !!}
+										{!! Form::textarea("{$item_key}[content][{$locale}]", @$item->i18n['content'][$locale], [ 'class'=>'form-control', 'rows'=>4 ]) !!}
+									</div>
+								@endif
 							</div>
 						@endforeach
 					</div>

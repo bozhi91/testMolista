@@ -77,6 +77,9 @@
 		'widgets.type.menu' => 'Custom menu',
 		'widgets.type.menu.info' => 'Add one of your custom menus as a widget.',
 		'widgets.type.menu.select' => 'Select menu',
+		'widgets.type.text' => 'Text block',
+		'widgets.type.text.info' => 'Add one block of text as a widget.',
+		'widgets.type.text.content' => 'Text',
 
 		'widgets.messages.created' => 'The widget was successfully created',
 		'widgets.messages.updated' => 'The widget was successfully updated',

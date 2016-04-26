@@ -6,7 +6,7 @@ use \App\TranslatableModel;
 
 class Widget extends TranslatableModel
 {
-	public $translatedAttributes = ['title'];
+	public $translatedAttributes = [ 'title', 'content' ];
 
 	protected $guarded = [];
 
@@ -35,6 +35,7 @@ class Widget extends TranslatableModel
 	{
 		return [
 			'menu',
+			'text',
 		];
 	}
 

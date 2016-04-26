@@ -93,6 +93,9 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 			case 'menu':
 				$fields['menu_id'] = 'required|integer|exists:menus,id,site_id,'.$this->site->id;
 				break;
+			case 'text':
+				$fields['content'] = 'required|array';
+				break;
 		}
 
 		$validator = \Validator::make($data, $fields);
@@ -104,7 +107,7 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 			];
 		}
 
-		// Save title
+		// Save i18n
 		foreach (\LaravelLocalization::getSupportedLocales() as $locale => $locale_name)
 		{
 			$widget->translateOrNew($locale)->title = @$data['title'][$locale];
@@ -115,6 +118,12 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 		{
 			case 'menu':
 				$widget->menu_id = $data['menu_id'];
+				break;
+			case 'text':
+				foreach (\LaravelLocalization::getSupportedLocales() as $locale => $locale_name)
+				{
+					$widget->translateOrNew($locale)->content = @$data['content'][$locale];
+				}
 				break;
 		}
 
