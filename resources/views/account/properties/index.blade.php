@@ -9,7 +9,7 @@
 
 			@if ( Auth::user()->can('property-create') && Auth::user()->canProperty('create') )
 				<div class="pull-right">
-					<a href="{{ action('Account\PropertiesController@create') }}" class="btn btn-default">{{ Lang::get('account/properties.button.new') }}</a>
+					<a href="{{ action('Account\PropertiesController@create') }}" class="btn btn-primary">{{ Lang::get('account/properties.button.new') }}</a>
 				</div>
 			@endif
 
@@ -33,12 +33,12 @@
 								<td>{{ $property->city->name }} / {{ $property->state->name }}</td>
 								<td class="text-right text-nowrap">
 									{!! Form::open([ 'method'=>'DELETE', 'class'=>'delete-form', 'action'=>['Account\PropertiesController@destroy', $property->slug] ]) !!}
-										<a href="{{ action('Account\PropertiesController@show', $property->slug) }}" class="btn btn-default btn-xs">{{ Lang::get('general.view') }}</a>
+										<a href="{{ action('Account\PropertiesController@show', $property->slug) }}" class="btn btn-primary btn-xs">{{ Lang::get('general.view') }}</a>
 										@if ( Auth::user()->can('property-edit') && Auth::user()->canProperty('edit') )
-											<a href="{{ action('Account\PropertiesController@edit', $property->slug) }}" class="btn btn-default btn-xs">{{ Lang::get('general.edit') }}</a>
+											<a href="{{ action('Account\PropertiesController@edit', $property->slug) }}" class="btn btn-primary btn-xs">{{ Lang::get('general.edit') }}</a>
 										@endif
 										@if ( Auth::user()->can('property-delete') && Auth::user()->canProperty('delete') )
-											<button type="submit" class="btn btn-default btn-xs">{{ Lang::get('general.delete') }}</button>
+											<button type="submit" class="btn btn-danger btn-xs">{{ Lang::get('general.delete') }}</button>
 										@endif
 									{!! Form::close() !!}
 								</td>

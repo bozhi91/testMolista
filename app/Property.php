@@ -91,6 +91,10 @@ class Property extends TranslatableModel
 	{
 		return asset("sites/{$this->site_id}/properties/{$this->id}");
 	}
+	public function getImagePathAttribute()
+	{
+		return public_path("sites/{$this->site_id}/properties/{$this->id}");
+	}
 	public function getMainImageAttribute()
 	{
 		foreach ($this->images->sortByDesc('default') as $image)

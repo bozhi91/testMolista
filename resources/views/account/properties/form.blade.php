@@ -187,12 +187,12 @@
 
 			<div role="tabpanel" class="tab-pane tab-main" id="tab-text">
 				<ul class="nav nav-tabs locale-tabs" role="tablist">
-					@foreach (LaravelLocalization::getSupportedLocales() as $lang_iso => $lang_def)
-						<li role="presentation"><a href="#lang-{{$lang_iso}}" aria-controls="lang-{{$lang_iso}}" role="tab" data-toggle="tab">{{$lang_def['native']}}</a></li>
+					@foreach ($site_setup['locales_tabs'] as $lang_iso => $lang_name)
+						<li role="presentation"><a href="#lang-{{$lang_iso}}" aria-controls="lang-{{$lang_iso}}" role="tab" data-toggle="tab">{{$lang_name}}</a></li>
 					@endforeach
 				</ul>
 				<div class="tab-content translate-area">
-					@foreach (LaravelLocalization::getSupportedLocales() as $lang_iso => $lang_def)
+					@foreach ($site_setup['locales_tabs'] as $lang_iso => $lang_name)
 						<div role="tabpanel" class="tab-pane tab-locale" id="lang-{{$lang_iso}}">
 							<div class="row">
 								<div class="col-xs-12 col-sm-6">
@@ -297,7 +297,7 @@
 
 		<div class="text-right">
 			{!! print_goback_button( Lang::get('general.back'), [ 'class'=>'btn btn-default' ]) !!}
-			{!! Form::submit( Lang::get('general.continue'), [ 'class'=>'btn btn-yellow']) !!}
+			{!! Form::submit( Lang::get('general.continue'), [ 'class'=>'btn btn-primary']) !!}
 		</div>
 
 		<br />

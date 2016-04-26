@@ -10,6 +10,11 @@ class TranslatableModel extends Model
 
 	public $translatedAttributes = [];
 
+	public function scopeWithId($query, $id)
+	{
+		return $query->where("{$this->getTable()}.id", $id);
+
+	}
 	public function scopeWithTranslations($query)
 	{
 		$table = $this->getTable();

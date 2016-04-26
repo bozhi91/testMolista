@@ -16,7 +16,10 @@ class AccountController extends Controller
 		\View::share('menu_section', 'account');
 		\View::share('hide_advanced_search_modal', true);
 
-		$this->site = \App\Site::findOrFail( \App\Session\Site::get('site_id', false) );
+		if ( $site_id = \App\Session\Site::get('site_id', false) )
+		{
+			$this->site = \App\Site::findOrFail( $site_id );
+		}
 	}
 
 	public function index()

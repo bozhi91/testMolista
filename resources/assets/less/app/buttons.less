@@ -1,3 +1,8 @@
+.colors-default { border-color: @colorGreyLight; background: @colorGreyLight; }
+.colors-primary { border-color: @colorPurple; background: @colorPurple; }
+.colors-warning { border-color: @colorYellow; background: @colorYellow; color: @colorBlack; }
+.colors-danger { border-color: @colorRed; background: @colorRed; }
+
 .btn {
 	border-radius: @borderRadius; border-width: @borderWidth; padding: 8px 12px;
 
@@ -5,9 +10,29 @@
 	&.btn-sm { padding: 5px 10px; }
 	&.btn-lg { padding: 10px 16px; }
 
-	&.btn-primary { border-color: @colorPurple; background: @colorPurple; }
-	&.btn-warning { border-color: @colorYellow; background: @colorYellow; color: @colorBlack; }
+	&.btn-default { .colors-default; }
+	&.btn-primary { .colors-primary; }
+	&.btn-warning { .colors-warning; }
+	&.btn-danger { .colors-danger; }
 
+	&:active, &:focus, &:hover { border-radius: @borderRadius; border-width: @borderWidth; }
 	&:hover { opacity: 0.9; }
 }
 
+
+.alertify { border: @borderWidth solid @colorGrey; border-radius: @borderRadius; .lato; }
+.alertify-buttons { border-radius: 0px @borderRadius @borderRadius 0px; border-top: @borderWidth solid @colorGrey; background: @colorWhite; }
+.alertify-cover { background: @colorWhite; opacity: 0.5; }
+
+.alertify-button, .alertify-button-ok, .alertify-button-cancel { 
+	.btn; 
+	&:active, &:focus, &:hover { .btn; }
+} 
+.alertify-button {
+	.colors-default;
+	&:active, &:focus, &:hover { .colors-default; }
+}
+.alertify-button-ok { 
+	.colors-primary;
+	&:active, &:focus, &:hover { .colors-primary; }
+}

@@ -1,18 +1,19 @@
-.custom-tabs {
-	/*
-	.nav-tabs {
-		border-color: @colorTabs;
-		> li {
-			> a { 
-				border-radius: 0px; background-color: @colorTabs; border-color: @colorTabs; color: @colorTabsText;
-			}
-			&:hover, &.active {
-				> a { background-color: @colorTabsActive; border-color: @colorTabsActive; color: @colorTabsActiveText; }
+.nav-tabs {
+	border-color: @colorPurple;
+	> li {
+		> a { 
+			border-radius: @borderRadius; background-color: @colorGreyLight; border-color: @colorGreyLight; color: @colorPurple; border-bottom-color: @colorPurple; 
+			&:hover, &:focus { opacity: 0.9; background-color: @colorGreyLight; border-color: @colorGreyLight; border-bottom-color: @colorPurple; color: @colorPurple; }
+		}
+		&.active { 
+			> a {
+				background-color: @colorWhite; border-color: @colorPurple; border-bottom-color: @colorWhite; color: @colorPurple; cursor: default; font-weight: 700;
+				&:hover, &:focus { border-color: @colorPurple; border-bottom-color: @colorWhite; opacity: 1; }
 			}
 		}
 	}
-	.tab-content {
-		border: 1px solid @colorTabs; border-top: none; padding: 20px;
-	}
-	*/
+}
+
+.tab-content {
+	border: @borderWidth solid @colorPurple; border-top: none; border-radius: @borderRadius; padding: 20px;
 }

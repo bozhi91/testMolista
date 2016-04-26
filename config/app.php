@@ -186,6 +186,9 @@
 
 			/* https://github.com/cviebrock/eloquent-sluggable */
 			Cviebrock\EloquentSluggable\SluggableServiceProvider::class,
+
+			/* https://github.com/Intervention/image */
+			Intervention\Image\ImageServiceProvider::class,
 		],
 
 		/*
@@ -248,6 +251,10 @@
 
 			/* https://github.com/igaster/laravel-theme */ 
 			'Theme' => igaster\laravelTheme\Facades\Theme::class,
+
+			/* https://github.com/Intervention/image */
+			'Image' => Intervention\Image\Facades\Image::class,
+
 
 
 		],

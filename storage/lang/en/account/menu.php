@@ -10,4 +10,7 @@
 
 		'site' => 'Site',
 		'site.configuration' => 'Configuration',
+		'site.widgets' => 'Widgets',
+		'site.menus' => 'Menus',
+		'site.pages' => 'Pages',
 	];

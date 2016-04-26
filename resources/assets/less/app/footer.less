@@ -1,13 +1,17 @@
 #footer {
 	background-color: @colorPurple; color: @colorWhite;
 	h4 { margin: 0px; line-height: 24px; }
+	a { 
+		color: @colorWhite; text-decoration: none;
+		&:hover { opacity: 0.8; }
+	}
 	.footer-padder { padding: 35px 0px; }
 	.highlights { margin-bottom: 45px; }
 	.powered-by { font-size: 12px; }
 	.quick-links {
 		a { 
-			display: inline; padding: 0px; color: @colorWhite; text-decoration: none; background: none; 
-			&:hover { background: none; opacity: 0.8; }
+			display: inline; padding: 0px; background: none; 
+			&:hover { background: none;}
 		}
 		li { 
 			&.big-link { padding-top: 1px; font-size: 16px; }

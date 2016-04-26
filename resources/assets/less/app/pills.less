@@ -12,33 +12,22 @@
 
 .nav-pills {
 	> li {
-		> a { border-radius: @borderRadius; }
-		&.active {
-			> a, > a:hover, > a:focus { background-color: @colorPurple; }
-		}
-	}
-}
-/*
-.nav-pills {
-	> li {
 		> a { 
-			border-radius: 0px; color: @colorTabsText; 
-			&:hover, &:focus { background-color: @colorTabs; }
+			border-radius: @borderRadius; 
+			&:hover, &:focus { background-color: @colorGreyLight; }
 		}
 		> ul {
 			> li { 
 				margin-top: 1px; 
 				> a { 
-					font-size: 0.9em; color: @colorBrown; padding: 7px 15px 7px 25px;
-					&:hover, &:focus { color: @colorTabsText; background-color: transparent; }
-					&.current { color: @colorTabsText; font-weight: bold; }
+					font-size: 0.9em; color: @colorPurple; padding: 7px 15px 7px 25px;
+					&:hover, &:focus { color: @colorPurpleDark; background-color: transparent; }
+					&.current { color: @colorPurple; font-weight: bold; }
 				}
 			}
 		}
 		&.active {
-			background-color: @colorTabs;
-			> a, > a:hover, > a:focus {background-color: @colorTabsActive; color: @colorTabsActiveText; }
+			> a, > a:hover, > a:focus { background-color: @colorPurple; }
 		}
 	}
 }
-*/

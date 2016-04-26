@@ -11,11 +11,21 @@
 		</div>
 
 		<div class="collapse navbar-collapse" id="app-navbar-collapse">
-			<ul class="nav navbar-nav">
-				<li><a href="{{ action('WebController@index') }}" class="main-item {{ (@$menu_section == 'home') ? 'current' : '' }}">{{ Lang::get('web/header.home') }}</a></li>
-				<li><a href="{{ action('WebController@index') }}" class="main-item {{ (@$menu_section == 'info_company') ? 'current' : '' }}">{{ Lang::get('web/header.company') }}</a></li>
-				<li><a href="{{ action('WebController@index') }}" class="main-item {{ (@$menu_section == 'info_contact') ? 'current' : '' }}">{{ Lang::get('web/header.contact') }}</a></li>
-			</ul>
+			@if ( !empty($site_setup['widgets']['header']) )
+				@foreach ($site_setup['widgets']['header'] as $widget)
+					@if ( $widget->type == 'menu' )
+						<ul class="nav navbar-nav">
+							@foreach ($widget->menu->items as $item)
+								<li>
+									<a href="{{ $item->item_url }}" class="main-item {{ (rtrim(url()->current(),'/') == $item->item_url) ? 'current' : '' }}">
+										{{ $item->item_title }}
+									</a>
+								</li>
+							@endforeach
+						</ul>
+					@endif
+				@endforeach
+			@endif
 			<ul class="nav navbar-nav navbar-right">
 				@if ( !empty($site_setup['locales_select']) )
 					<li class="dropdown locale-select">

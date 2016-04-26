@@ -34,6 +34,7 @@ elixir(function(mix) {
 			'jquery.magnific-popup.js',
 			'jquery.hideShowPassword.js',
 			'jquery.matchHeight.js',
+			'summernote.js',
 			'alertify.js',
 			'select2.full.js',
 			'loading.js',

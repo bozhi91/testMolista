@@ -65,8 +65,11 @@ Route::group([
 ], function() {
 	// Web
 	Route::get('/', 'WebController@index');
+	// Properties
 	Route::get('properties', 'Web\PropertiesController@index');
 	Route::get('property/{slug}', 'Web\PropertiesController@details');
+	// Pages
+	Route::any('pages/{slug}', 'Web\PagesController@show');
 
 	// Auth
 	Route::auth();
@@ -97,6 +100,11 @@ Route::group([
 		], function() {
 			// Configuration
 			Route::controller('configuration', 'Account\Site\ConfigurationController');
+			// Menus
+			Route::post('menus/item/{slug}', 'Account\Site\MenusController@postItem');
+			Route::resource('menus', 'Account\Site\MenusController');
+			// Widgets
+			Route::controller('widgets', 'Account\Site\WidgetsController');
 			// Pages
 			Route::resource('pages', 'Account\Site\PagesController');
 		});

@@ -26,7 +26,10 @@ class WebController extends Controller
 
 		\View::share('search_data', $search_data);
 
-		$this->site = \App\Site::findOrFail( \App\Session\Site::get('site_id', false) );
+		if ( $site_id = \App\Session\Site::get('site_id', false) )
+		{
+			$this->site = \App\Site::findOrFail( $site_id );
+		}
     }
 
 	public function index()

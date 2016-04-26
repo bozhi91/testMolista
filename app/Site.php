@@ -39,6 +39,18 @@ class Site extends TranslatableModel
 		return $this->hasMany('App\Models\ApiKey');
 	}
 
+	public function menus() {
+		return $this->hasMany('App\Models\Site\Menu');
+	}
+
+	public function widgets() {
+		return $this->hasMany('App\Models\Site\Widget');
+	}
+
+	public function pages() {
+		return $this->hasMany('App\Models\Site\Page');
+	}
+
 	public function social() {
 		return $this->hasMany('App\SiteSocial');
 	}

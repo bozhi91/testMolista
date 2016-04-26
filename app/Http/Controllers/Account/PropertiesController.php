@@ -143,12 +143,22 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 	public function destroy($slug)
 	{
-		$query = $this->site->properties()->whereIn('properties.id', $this->auth->user()->properties()->lists('id'))->whereTranslation('slug', $slug)->first();
+		$property = $this->site->properties()->whereIn('properties.id', $this->auth->user()->properties()->lists('id'))->whereTranslation('slug', $slug)->first();
 		if ( !$property )
 		{
 			abort(404);
 		}
 
+		// Remove images
+		foreach( glob("{$property->image_path}/*") as $file ) 
+		{
+			@unlink($file);
+		}
+
+		// Remove image folder
+		rmdir($property->image_path);
+
+		// Delete property
 		$property->delete();
 
 		return redirect()->action('Account\PropertiesController@index')->with('success', trans('account/properties.deleted'));

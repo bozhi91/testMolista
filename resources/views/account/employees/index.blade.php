@@ -9,7 +9,7 @@
 
 			@if ( Auth::user()->can('employee-create') )
 				<div class="pull-right">
-					<a href="{{ action('Account\EmployeesController@create') }}" class="btn btn-default">{{ Lang::get('account/employees.button.new') }}</a>
+					<a href="{{ action('Account\EmployeesController@create') }}" class="btn btn-primary">{{ Lang::get('account/employees.button.new') }}</a>
 				</div>
 			@endif
 
@@ -36,10 +36,10 @@
 								<td class="text-right text-nowrap">
 									{!! Form::open([ 'method'=>'DELETE', 'class'=>'delete-form', 'action'=>['Account\EmployeesController@destroy', urlencode($employee->email)] ]) !!}
 										@if ( Auth::user()->can('employee-edit') )
-											<a href="{{ action('Account\EmployeesController@edit', urlencode($employee->email)) }}" class="btn btn-default btn-xs">{{ Lang::get('general.edit') }}</a>
+											<a href="{{ action('Account\EmployeesController@edit', urlencode($employee->email)) }}" class="btn btn-primary btn-xs">{{ Lang::get('general.edit') }}</a>
 										@endif
 										@if ( Auth::user()->can('employee-delete') )
-											<button type="submit" class="btn btn-default btn-xs">{{ Lang::get('account/employees.button.dissociate') }}</button>
+											<button type="submit" class="btn btn-danger btn-xs">{{ Lang::get('account/employees.button.dissociate') }}</button>
 										@endif
 									{!! Form::close() !!}
 								</td>

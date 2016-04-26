@@ -1,0 +1,22 @@
+.panel { 
+	border-radius: @borderRadius; border-width: @borderWidth; box-shadow: none; 
+	&.note-editor { margin-bottom: 0px; }
+}
+.panel-heading { padding: 6px 10px; border-bottom: @borderWidth solid transparent; border-top-right-radius: @borderRadius; border-top-left-radius: @borderRadius; }
+.panel-body { padding: 10px; }
+.panel-group {
+	.panel { border-radius: @borderRadius; }
+}
+
+.panel-custom {
+	border-color: @colorGreySemiLight;
+	.panel-heading { 
+		border-color: @colorGreySemiLight; background-color: @colorGreyLight; color: @colorPurple; 
+		a { color: @colorPurple; }
+		.caret { line-height: 20px; }
+	}
+	.panel-body { border-color: @colorGreyLight; }
+	.panel-collapse {
+		> .panel-body { border-top: @borderWidth solid @colorGreySemiLight !important; }
+	}
+}

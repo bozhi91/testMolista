@@ -8,11 +8,15 @@ class SiteSetup
 {
 	public function handle($request, Closure $next)
 	{
+		// Current locale
+		$current_locale = \LaravelLocalization::getCurrentLocale();
+
 		// Check if session exists
 		$setup = \App\Session\Site::all();
 
-		if ( !$setup )
+		if ( !$setup || $setup['locale'] != $current_locale )
 		{
+
 			$site_setup = \App\Site::with('locales')->enabled()->current()->first();
 
 			if ( !$site_setup ) 
@@ -22,16 +26,22 @@ class SiteSetup
 
 			$setup = [
 				'site_id' => $site_setup->id,
+				'locale' => $current_locale,
 				'theme' => $site_setup->theme,
 				'logo' => $site_setup->logo ? asset("sites/{$site_setup->id}/{$site_setup->logo}") : false,
 				'favicon' => $site_setup->favicon ? asset("sites/{$site_setup->id}/{$site_setup->favicon}") : false,
 				'locales' => [],
 				'locales_select' => [],
+				'locales_tabs' => [],
 				'social_media' => $site_setup->social_array,
 				'seo' => $site_setup->i18n,
+				'widgets' => [
+					'header' => [],
+					'footer' => [],
+				],
 			];
 
-			foreach ($site_setup->locales as $locale)
+			foreach ($site_setup->locales->sortBy('native') as $locale)
 			{
 				$setup['locales'][$locale->locale] = [
 					'locale' => $locale->locale,
@@ -43,6 +53,22 @@ class SiteSetup
 					'regional' => $locale->regional,
 				];
 				$setup['locales_select'][$locale->locale] = $locale->native;
+			}
+
+			$setup['locales_tabs'] = [];
+			if ( array_key_exists('en', $setup['locales_select']) )
+			{
+				$setup['locales_tabs']['en'] = $setup['locales_select']['en'];
+			}
+			foreach (\LaravelLocalization::getSupportedLocales() as $locale => $def) 
+			{
+				$setup['locales_tabs'][$locale] = $def['native'];
+			}
+
+			$widgets = $site_setup->widgets()->withTranslations()->withMenu()->orderBy('position')->get();
+			foreach ($widgets as $widget)
+			{
+				$setup['widgets'][$widget->group][$widget->id] = $widget;
 			}
 
 			\App\Session\Site::replace($setup);
@@ -69,7 +95,6 @@ class SiteSetup
 		\View::share('site_setup', $setup);
 
 		// Check if language is enabled
-		$current_locale = \LaravelLocalization::getCurrentLocale();
 		if ( !array_key_exists($current_locale, $setup['locales']) )
 		{
 			abort(404);

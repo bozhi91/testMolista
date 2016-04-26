@@ -1,0 +1,66 @@
+#account-container {
+	padding-top: 20px; padding-bottom: 30px;
+
+	.site-menus {
+		h3 { margin: 0px 0px 20px 0px; }
+		hr { border: 0; background-color: @colorPurple; height: @borderWidth; }
+
+		.items-sortable {
+			min-height: 95px; list-style-type: none; margin: 0px; padding: 0px;
+			> li { margin: 0px 0px 5px 0px; }
+			.panel { margin-bottom: 0px; }
+			.panel-heading { 
+				&.closed { border-bottom: none; }
+			}
+		}
+	}
+
+	.site-widgets {
+		.widget-available { 
+			&:nth-child(2n) { padding-left: 5px; }
+			&:nth-child(2n+1) { clear: left; padding-right: 5px; }
+		}
+		.widget-toggle { display: none; }
+		.widget-draggables {
+			.widget-title { cursor: move; }
+		}
+		.widget-droppables {
+			min-height: 30px; 
+			.widget-title { 
+				cursor: ns-resize; border-bottom: 1px solid @colorGreySemiLight; 
+				&.closed { border-bottom: none; }
+			}
+			.widget-toggle { display: block; }
+			.widget-draggable {
+				.widget-title { border-bottom: none; }
+				.widget-body { display: none; }
+			}
+			
+		}
+		.ui-draggable-dragging {
+			z-index: 10;
+			.widget-title { border-bottom: none; }
+			.widget-toggle { display: none; }
+			.widget-body { display: none; }
+		}
+	}
+
+	.nav-tabs-small {
+		border-color: @colorGreyLight;
+		> li {
+			> a { 
+				border-bottom-color: @colorGreyLight; padding: 5px 10px;
+				&:hover, &:focus { border-bottom-color: @colorGreyLight; }
+			}
+			&.active { 
+				> a {
+					border-color: @colorGreyLight; border-bottom-color: @colorWhite;
+					&:hover, &:focus { border-color: @colorGreyLight; border-bottom-color: @colorWhite; }
+				}
+			}
+		}
+	}
+	.tab-content-grey {
+		border-color: @colorGreyLight; padding: 10px; margin-bottom: 15px; 
+	}
+}

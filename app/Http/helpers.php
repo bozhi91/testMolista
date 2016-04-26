@@ -123,3 +123,7 @@
 					</div>
 				</div>";
 	}
+
+	function summetime_lang() {
+		return str_replace('_','-', LaravelLocalization::getCurrentLocaleRegional() );
+	}

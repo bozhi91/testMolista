@@ -56,6 +56,7 @@
 	<script src="{{ Theme::url('/compiled/js/app.js') }}"></script>
 	<script src="{{ Theme::url('/js/jquery.validate/messages_' . LaravelLocalization::getCurrentLocale() . '.min.js') }}"></script>
 	<script src="{{ Theme::url('/js/alertify/messages_' . LaravelLocalization::getCurrentLocale() . '.js') }}"></script>
+	<script src="{{ Theme::url('/js/summernote/summernote-' . summetime_lang() . '.js') }}"></script>
 
 </body>
 </html>
