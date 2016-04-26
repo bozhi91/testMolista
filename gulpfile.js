@@ -94,12 +94,12 @@ elixir(function(mix) {
 	/* Bellamar */
 	mix
 		.less([
-			'bellamar.less',
+			'bellamar/app.less',
 		], 'resources/assets/css/compiled/bellamar.css')
 		.styles([
 			'compiled/common.css',
 			'compiled/bellamar.css',
-		], 'public/bellamar/compiled/css/app.css');
+		], 'public/themes/bellamar/compiled/css/app.css');
 
 
 });

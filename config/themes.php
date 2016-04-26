@@ -80,8 +80,8 @@ return [
 			'public'		=> false,
 			'custom'		=> true,
 			'extends'	 	=> 'default',
-			'views-path' 	=> 'bellamar',
-			'asset-path' 	=> 'bellamar',
+			'views-path' 	=> 'themes/bellamar',
+			'asset-path' 	=> 'themes/bellamar',
 		],
 		// Add your themes here...
 
