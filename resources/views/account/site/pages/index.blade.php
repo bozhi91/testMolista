@@ -19,7 +19,7 @@
 				<thead>
 					<tr>
 						<th>{{ Lang::get('account/site.pages.column.title') }}</th>
-						<th>{{ Lang::get('account/site.pages.column.path') }}</th>
+						<th>{{ Lang::get('account/site.pages.column.type') }}</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -27,9 +27,10 @@
 					@foreach ($pages as $page)
 						<tr>
 							<td>{{ $page->title }}</td>
-							<td>{{ $page->path }}</td>
+							<td>{{ Lang::get("account/site.pages.type.{$page->type}") }}</td>
 							<td class="text-right text-nowrap">
 								{!! Form::open([ 'method'=>'DELETE', 'class'=>'delete-form', 'action'=>['Account\Site\PagesController@destroy', $page->slug] ]) !!}
+									<a href="{{ action('Web\PagesController@show', $page->slug) }}" class="btn btn-warning btn-xs" target="_blank">{{ Lang::get('general.view') }}</a>
 									<a href="{{ action('Account\Site\PagesController@edit', $page->slug) }}" class="btn btn-primary btn-xs">{{ Lang::get('general.edit') }}</a>
 									<button type="submit" class="btn btn-danger btn-xs">{{ Lang::get('general.delete') }}</button>
 								{!! Form::close() !!}

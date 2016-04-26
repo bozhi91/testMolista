@@ -114,6 +114,7 @@
 					if ( res ) {
 						$.magnificPopup.close();
 						$(sel).remove();
+						form.submit();
 					}
 				});
 			});

@@ -33,18 +33,23 @@ class PagesController extends \App\Http\Controllers\AccountController
 
 	public function create()
 	{
-		return view('account.site.pages.create');
+		$types = \App\Models\Site\Page::getTypeOptions();
+		return view('account.site.pages.create', compact('types'));
 	}
 	public function store()
 	{
-		$validator = \Validator::make($this->request->all(), $this->getRequestFields());
+		$validator = \Validator::make($this->request->all(), [
+			'i18n.title.en' => 'required',
+			'type' => 'required|in:'.implode(',', array_keys(\App\Models\Site\Page::getTypeOptions())),
+		]);
 		if ($validator->fails()) 
 		{
 			return redirect()->back()->withInput()->withErrors($validator);
 		}
 
 		$page = $this->site->pages()->create([
-			'enabled' => 1,
+			'type' => $this->request->get('type'),
+			'enabled' => 0,
 		]);
 
 		if ( !$page )
@@ -58,8 +63,6 @@ class PagesController extends \App\Http\Controllers\AccountController
 
 		// Get page with slug
 		$page = $this->site->pages()->withTranslations()->find($page->id);
-
-		\App\Session\Site::flush();
 
 		return redirect()->action('Account\Site\PagesController@edit', $page->slug)->with('success', trans('account/site.pages.create.success'));
 	}
@@ -82,6 +85,40 @@ class PagesController extends \App\Http\Controllers\AccountController
 		{
 			abort(404);
 		}
+
+		$fields = [
+			'i18n' => 'required|array',
+			'i18n.title' => 'required|array',
+			'i18n.title.en' => 'required',
+			'i18n.body' => 'required|array',
+			'i18n.seo_title' => 'required|array',
+			'i18n.seo_keywords' => 'required|array',
+			'i18n.seo_description' => 'required|array',
+		];
+
+		switch ( $page->type )
+		{
+			case 'contact':
+				$fields['configuration.contact.email'] = 'required|email';
+				break;
+			case 'map':
+				$fields['configuration.map.lat'] = 'required|numeric';
+				$fields['configuration.map.lng'] = 'required|numeric';
+				$fields['configuration.map.zoom'] = 'required|integer|min:0|max:21';
+				break;
+		}
+
+		// Validate
+		$validator = \Validator::make($this->request->all(), $fields);
+		if ($validator->fails()) 
+		{
+			return redirect()->back()->withInput()->withErrors($validator);
+		}
+
+		$page->enabled = 1;
+		$page->configuration = [ 
+			$page->type => $this->request->input("configuration.{$page->type}") 
+		];
 
 		$this->savePageTranslations($page, $this->request->get('i18n'));
 
@@ -118,22 +155,6 @@ class PagesController extends \App\Http\Controllers\AccountController
 		\App\Session\Site::flush();
 
 		return redirect()->action('Account\Site\PagesController@index')->with('success', trans('account/site.pages.deleted.success'));
-	}
-
-	protected function getRequestFields($id=false) 
-	{
-		$fields = [
-			'i18n' => 'required|array',
-			'i18n.title' => 'required|array',
-			'i18n.title.en' => 'required',
-			'i18n.body' => 'required|array',
-			'i18n.body.en' => 'required',
-			'i18n.seo_title' => 'required|array',
-			'i18n.seo_keywords' => 'required|array',
-			'i18n.seo_description' => 'required|array',
-		];
-
-		return $fields;
 	}
 
 	protected function savePageTranslations($page, $data)

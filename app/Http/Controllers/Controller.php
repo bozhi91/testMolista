@@ -12,34 +12,50 @@ use Illuminate\Http\Request;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+	use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
 	protected $auth;
 	protected $request;
 
-    public function __construct(Guard $auth, Request $request)
-    {
+	public function __construct(Guard $auth, Request $request)
+	{
 		$this->auth = $auth;
 		$this->request = $request;
 
-        $this->__initialize();
-    }
-    
-    public function __initialize() {}
+		$this->__initialize();
+	}
 
-    protected function set_go_back_link() 
-    {
-    	// Get stored values
-    	$nav = session()->get('SmartBackLinks', []);
+	public function __initialize() {}
 
-    	// Add current value to nav
-    	$nav[ url()->current() ] = url()->full();
+	protected function set_go_back_link() 
+	{
+		// Get stored values
+		$nav = session()->get('SmartBackLinks', []);
 
-    	// Sort nav by key length
-    	uksort($nav, function($a,$b){
-    		return ( strlen($a) > strlen($b) ) ? -1 : 1;
-    	});
+		// Add current value to nav
+		$nav[ url()->current() ] = url()->full();
 
-    	$nav = session()->put('SmartBackLinks', $nav);
-    }
+		// Sort nav by key length
+		uksort($nav, function($a,$b){
+		return ( strlen($a) > strlen($b) ) ? -1 : 1;
+		});
+
+		$nav = session()->put('SmartBackLinks', $nav);
+	}
+
+	protected function set_seo_values($seo=false) 
+	{
+		if ( !$seo || !is_array($seo) )
+		{
+			return false;
+		}
+
+
+		\View::share('seo_title', @$seo['title']);
+		\View::share('seo_description', @$seo['description']);
+		\View::share('seo_keywords', @$seo['keywords']);
+
+		return true;
+	}
+
 }

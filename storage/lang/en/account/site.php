@@ -90,7 +90,7 @@
 		'pages.button.new' => 'Create page',
 
 		'pages.column.title' => 'Title',
-		'pages.column.path' => 'Location',
+		'pages.column.type' => 'Type',
 
 		'pages.delete.warning' => 'Are you sure you want to remove this page?',
 
@@ -100,11 +100,22 @@
 		'pages.tab.general' => 'Content',
 		'pages.tab.seo' => 'SEO',
 
+		'pages.type.default' => 'Default',
+		'pages.type.contact' => 'Contact form',
+		'pages.type.map' => 'Map location',
+
 		'pages.title' => 'Title',
 		'pages.body' => 'Content',
 		'pages.seo_title' => 'Title',
 		'pages.seo_description' => 'Description',
 		'pages.seo_keywords' => 'Keywords',
+
+		'pages.configuration.contact.email' => 'Contact email',
+		'pages.configuration.contact.email.helper' => 'Contact forms will be sent to this email address',
+
+		'pages.configuration.map.lat' => 'Latitude',
+		'pages.configuration.map.lng' => 'Longitude',
+		'pages.configuration.map.zoom' => 'Zoom level',
 
 		'pages.create.success' => 'The page was successfully created',
 		'pages.update.success' => 'The page was successfully updated',

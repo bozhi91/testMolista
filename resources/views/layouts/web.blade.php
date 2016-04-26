@@ -20,6 +20,10 @@
 		<meta name="description" content="{{ $site_setup['seo']['description'][LaravelLocalization::getCurrentLocale()] }}" />
 	@endif
 
+	@if ( !empty($seo_keywords) )
+		<meta name="keywords" content="{{ $seo_keywords }}" />
+	@endif
+
 	<link href="https://fonts.googleapis.com/css?family=Lato:400,300,700,900,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
 	<link href="{{ Theme::url('/compiled/css/app.css') }}" rel="stylesheet" type='text/css' />
 

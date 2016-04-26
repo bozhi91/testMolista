@@ -15,6 +15,17 @@ class Page extends TranslatableModel
 		return $query->where('enabled', 1);
 	}
 
+	public function setConfigurationAttribute($value)
+	{
+		$this->attributes['configuration'] = serialize($value);
+	}
+	public function getConfigurationAttribute($value)
+	{
+		$configuration = @unserialize($value);
+
+		return empty($configuration) ? [] : $configuration;
+	}
+
 	public function getImageFolderAttribute()
 	{
 		return "sites/{$this->site_id}/pages/{$this->id}";
@@ -22,6 +33,15 @@ class Page extends TranslatableModel
 	public function getImageDirAttribute()
 	{
 		return asset( $this->image_folder );
+	}
+
+	static public function getTypeOptions() 
+	{
+		return [
+			'default' => trans('account/site.pages.type.default'),
+			'contact' => trans('account/site.pages.type.contact'),
+			'map' => trans('account/site.pages.type.map'),
+		];
 	}
 
 }

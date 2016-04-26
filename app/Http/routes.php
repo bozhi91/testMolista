@@ -69,7 +69,8 @@ Route::group([
 	Route::get('properties', 'Web\PropertiesController@index');
 	Route::get('property/{slug}', 'Web\PropertiesController@details');
 	// Pages
-	Route::any('pages/{slug}', 'Web\PagesController@show');
+	Route::post('pages/{slug}', 'Web\PagesController@post');
+	Route::get('pages/{slug}', 'Web\PagesController@show');
 
 	// Auth
 	Route::auth();
