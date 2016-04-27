@@ -1,8 +1,8 @@
 @import '../app/property.less';
 
 #property {
-	.details {padding: 20px; border-width: @borderWidth; border-radius: @borderRadius; background: @colorWhite; }
-	.map-area { border: @borderWidth solid @borderColor; border-radius: @borderRadius; }
+	.details {padding: 20px; border-width: 0px; border-radius: @borderRadius; background: @colorWhite; .custom-border; }
+	.map-area { border: none; border-radius: @borderRadius; .custom-border; }
 }
 
 @media (min-width: 768px) {

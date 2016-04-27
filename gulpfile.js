@@ -40,6 +40,7 @@ elixir(function(mix) {
 			'loading.js',
 			'tmpl.js',
 			'spectrum.js',
+			'dropzone.js',
 			'common.js'
 		], 'resources/assets/js/compiled/common.js');
 
