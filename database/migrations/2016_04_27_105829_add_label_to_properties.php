@@ -13,7 +13,7 @@ class AddLabelToProperties extends Migration
 		});
 		Schema::table('properties_translations', function(Blueprint $table)
 		{
-			$table->string('label')->after('description');
+			$table->string('label')->nullable()->after('description');
 		});
 	}
 

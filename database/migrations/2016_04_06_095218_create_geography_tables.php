@@ -21,7 +21,7 @@ class CreateGeographyTables extends Migration
 			$table->bigIncrements('id');
 			$table->bigInteger('country_id')->unsigned()->index();
 			$table->string('locale', 2)->index();
-			$table->string('name');
+			$table->string('name')->nullable();
 
 			$table->unique([ 'country_id', 'locale' ]);
 			$table->foreign('country_id')->references('id')->on('countries')->onUpdate('cascade')->onDelete('cascade');

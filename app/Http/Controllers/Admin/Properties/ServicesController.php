@@ -127,10 +127,21 @@ class ServicesController extends Controller
         // i18n fields
         $fields = [
             'title' => 'required|array',
-            'title.en' => 'required',
             'description' => 'required|array',
         ];
         $validator = \Validator::make($this->request->get('i18n'), $fields);
+        if ($validator->fails()) 
+        {
+            return false;
+        }
+
+        $i18n = $this->request->get('i18n');
+
+        // Title
+        $fields = [
+            'en' => 'required|string',
+        ];
+        $validator = \Validator::make($i18n['title'], $fields);
         if ($validator->fails()) 
         {
             return false;

@@ -25,7 +25,7 @@ class CreateTranslationTables extends Migration
 			$table->increments('id');
 			$table->integer('translation_id')->unsigned()->index();
 			$table->string('locale', 2)->index();
-			$table->text('value');
+			$table->text('value')->nullable();
 
 			$table->unique([ 'translation_id', 'locale' ]);
 			$table->foreign('translation_id')->references('id')->on('translations')->onUpdate('cascade')->onDelete('cascade');

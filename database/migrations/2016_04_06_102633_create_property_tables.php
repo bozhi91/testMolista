@@ -18,9 +18,9 @@ class CreatePropertyTables extends Migration
 			$table->bigIncrements('id');
 			$table->bigInteger('service_id')->unsigned()->index();
 			$table->string('locale', 2)->index();
-			$table->string('title');
-			$table->string('slug')->index();
-			$table->string('description');
+			$table->string('title')->nullable();
+			$table->string('slug')->nullable()->index();
+			$table->string('description')->nullable();
 
 			$table->unique([ 'service_id', 'locale' ]);
 			$table->foreign('service_id')->references('id')->on('services')->onUpdate('cascade')->onDelete('cascade');
@@ -64,9 +64,9 @@ class CreatePropertyTables extends Migration
 			$table->bigIncrements('id');
 			$table->bigInteger('property_id')->unsigned()->index();
 			$table->string('locale', 2)->index();
-			$table->string('title');
-			$table->string('slug')->index();
-			$table->text('description');
+			$table->string('title')->nullable();
+			$table->string('slug')->nullable()->index();
+			$table->text('description')->nullable();
 			$table->unique([ 'property_id', 'locale' ]);
 			$table->foreign('property_id')->references('id')->on('properties')->onUpdate('cascade')->onDelete('cascade');
 			$table->foreign('locale')->references('locale')->on('locales')->onUpdate('cascade')->onDelete('cascade');

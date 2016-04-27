@@ -30,9 +30,9 @@ class CreateSiteTables extends Migration
 			$table->bigIncrements('id');
 			$table->bigInteger('site_id')->unsigned()->index();
 			$table->string('locale', 2)->index();
-			$table->string('title');
-			$table->string('subtitle');
-			$table->string('description');
+			$table->string('title')->nullable();
+			$table->string('subtitle')->nullable();
+			$table->string('description')->nullable();
 			$table->unique([ 'site_id', 'locale' ]);
 			$table->foreign('site_id')->references('id')->on('sites')->onUpdate('cascade')->onDelete('cascade');
 			$table->foreign('locale')->references('locale')->on('locales')->onUpdate('cascade')->onDelete('cascade');
