@@ -21,6 +21,7 @@
 		'newly_build' => 'New construction',
 		'second_hand' => 'Second hand',
 		'services' => 'Services',
+		'label' => 'Label',
 
 		'create.title' => 'New property',
 		'edit.title' => 'Edit property',

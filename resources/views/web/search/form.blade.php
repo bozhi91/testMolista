@@ -1,19 +1,19 @@
 {!! Form::model(null, [ 'action'=>'Web\PropertiesController@index', 'method'=>'GET', 'id'=>'advanced-search-form' ]) !!}
 	{!! Form::hidden('search', 1) !!}
 	<div class="row">
-		<div class="col-xs-12 col-sm-3 input-line first-input-line">
+		<div class="col-xs-12 col-sm-4 col-md-3 input-line first-input-line">
 			<div class="form-group error-container">
 				{!! Form::text('term', Input::get('term'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('web/properties.term') ]) !!}
 			</div>
 		</div>
 		@if ( !empty($search_data['states']) )
-			<div class="col-xs-12 col-sm-3 input-line">
+			<div class="col-xs-12 col-sm-4 col-md-3 input-line">
 				<div class="form-group error-container">
 					{!! Form::select('state', [''=>Lang::get('web/properties.state')]+$search_data['states'], Input::get('state'), [ 'class'=>'form-control has-placeholder' ]) !!}
 				</div>
 			</div>
 		@endif
-		<div class="col-xs-12 col-sm-3 input-line">
+		<div class="col-xs-12 col-sm-4 col-md-3 input-line">
 			<div class="form-group error-container">
 				@if ( empty($search_data_cities) )
 					{!! Form::select('city', [''=>Lang::get('web/properties.city')], null, [ 'class'=>'form-control has-placeholder' ]) !!}
@@ -25,20 +25,20 @@
 	</div>
 	<div class="row">
 		@if ( !empty($search_data['modes']) )
-			<div class="col-xs-12 col-sm-3 input-line">
+			<div class="col-xs-12 col-sm-6 col-md-3 input-line">
 				<div class="form-group error-container">
 					{!! Form::select('mode', [''=>Lang::get('web/properties.mode')]+$search_data['modes'], Input::get('mode'), [ 'class'=>'form-control has-placeholder' ]) !!}
 				</div>
 			</div>
 		@endif
 		@if ( !empty($search_data['types']) )
-			<div class="col-xs-12 col-sm-3 input-line">
+			<div class="col-xs-12 col-sm-6 col-md-3 input-line">
 				<div class="form-group error-container">
 					{!! Form::select('type', [''=>Lang::get('web/properties.type')]+$search_data['types'], Input::get('type'), [ 'class'=>'form-control has-placeholder' ]) !!}
 				</div>
 			</div>
 		@endif
-		<div class="col-xs-12 col-sm-3 input-line">
+		<div class="col-xs-12 col-sm-4 col-md-3 input-line">
 			<div class="form-group">
 				<div class="checkbox">
 					<label>
@@ -48,7 +48,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-xs-12 col-sm-3 input-line">
+		<div class="col-xs-12 col-sm-4 col-md-3 input-line">
 			<div class="form-group">
 				<div class="checkbox">
 					<label>
@@ -61,7 +61,7 @@
 	</div>
 	<div class="row">
 		@if ( !empty($search_data['prices']) )
-			<div class="col-xs-12 col-sm-2 input-line">
+			<div class="col-xs-12 col-sm-3 col-md-2 input-line">
 				<div class="form-group error-container">
 					{!! Form::hidden('currency', 'EUR') !!}
 					{!! Form::select('price', [''=>Lang::get('web/properties.more.price')]+$search_data['prices'], Input::get('price'), [ 'class'=>'form-control has-placeholder' ]) !!}
@@ -69,7 +69,7 @@
 			</div>
 		@endif
 		@if ( !empty($search_data['sizes']) )
-			<div class="col-xs-12 col-sm-2 input-line">
+			<div class="col-xs-12 col-sm-3 col-md-2 input-line">
 				<div class="form-group error-container">
 					{!! Form::hidden('size_unit', 'sqm') !!}
 					{!! Form::select('size', [''=>Lang::get('web/properties.more.sqm')]+$search_data['sizes'], Input::get('size'), [ 'class'=>'form-control has-placeholder' ]) !!}
@@ -77,14 +77,14 @@
 			</div>
 		@endif
 		@if ( !empty($search_data['rooms']) )
-			<div class="col-xs-12 col-sm-2 input-line">
+			<div class="col-xs-12 col-sm-3 col-md-2 input-line">
 				<div class="form-group error-container">
 					{!! Form::select('rooms', [''=>Lang::get('web/properties.more.rooms')]+$search_data['rooms'], Input::get('rooms'), [ 'class'=>'form-control has-placeholder' ]) !!}
 				</div>
 			</div>
 		@endif
 		@if ( !empty($search_data['baths']) )
-			<div class="col-xs-12 col-sm-2 input-line">
+			<div class="col-xs-12 col-sm-3 col-md-2 input-line">
 				<div class="form-group error-container">
 					{!! Form::select('baths', [''=>Lang::get('web/properties.more.baths')]+$search_data['baths'], Input::get('baths'), [ 'class'=>'form-control has-placeholder' ]) !!}
 				</div>

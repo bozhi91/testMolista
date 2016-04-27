@@ -25,6 +25,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>{{ Lang::get('admin/properties/services.name') }}</th>
+                                <th class="text-center">{{ Lang::get('admin/properties/services.icon') }}</th>
                                 <th class="text-center">{{ Lang::get('admin/properties/services.enabled') }}</th>
                                 <th></th>
                             </tr>
@@ -34,6 +35,7 @@
                                 <tr>
                                     <td>{{ $service->id }}</td>
                                     <td>{{ $service->title }}</td>
+                                    <td class="text-center"><span class="glyphicon glyphicon-{{ $service->icon ? 'ok' : 'remove' }}" aria-hidden="true"></span></td>
                                     <td class="text-center"><span class="glyphicon glyphicon-{{ $service->enabled ? 'ok' : 'remove' }}" aria-hidden="true"></span></td>
                                     <td class="text-right">
                                         <a href="{{ action('Admin\Properties\ServicesController@edit', $service->id) }}" class="btn btn-xs btn-default">{{ Lang::get('general.edit') }}</a>

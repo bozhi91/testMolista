@@ -229,7 +229,7 @@ console.log(data);
 
 				var el = $(this);
 
-				alertify.confirm("{{ print_js_string( Lang::get('account/site.widgets.messages.delete.warning') ) }}", function (e) {
+				SITECOMMON.confirm("{{ print_js_string( Lang::get('account/site.widgets.messages.delete.warning') ) }}", function (e) {
 					if (e) {
 						LOADING.show();
 						$.ajax({

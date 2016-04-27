@@ -21,6 +21,8 @@
 		'type.duplex' => 'Duplex',
 		'type.penthouse' => 'Penthouse',
 		'type.villa' => 'Villa',
+		'type.lot' => 'Lot',
+		'type.store' => 'Store',
 
 		'more.show' => 'Show more options',
 		'more.any' => 'Show all',

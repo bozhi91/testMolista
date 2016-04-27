@@ -10,7 +10,7 @@ class Property extends TranslatableModel
 {
     use SoftDeletes;
 
-	public $translatedAttributes = [ 'title', 'description', 'slug' ];
+	public $translatedAttributes = [ 'title', 'description', 'slug', 'label' ];
 
 	protected $guarded = [];
 
@@ -256,6 +256,8 @@ class Property extends TranslatableModel
 			'duplex' => trans('web/properties.type.duplex'), 
 			'penthouse' => trans('web/properties.type.penthouse'), 
 			'villa' => trans('web/properties.type.villa'), 
+			'store' => trans('web/properties.type.store'), 
+			'lot' => trans('web/properties.type.lot'), 
 		];
 	}
 

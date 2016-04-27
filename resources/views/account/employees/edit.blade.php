@@ -122,7 +122,7 @@
 			cont.on('click','.dissociate-trigger',function(e){
 				var el = $(this);
 				e.preventDefault();
-				alertify.confirm("{{ print_js_string( Lang::get('account/employees.show.tab.properties.dissociate') ) }}", function (e) {
+				SITECOMMON.confirm("{{ print_js_string( Lang::get('account/employees.show.tab.properties.dissociate') ) }}", function (e) {
 					if (e) {
 						LOADING.show();
 

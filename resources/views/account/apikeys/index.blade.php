@@ -61,7 +61,7 @@
 			cont.find('form.delete-form').each(function(){
 				$(this).validate({
 					submitHandler: function(f) {
-						alertify.confirm("{{ print_js_string( Lang::get('account/apikeys.delete') ) }}", function (e) {
+						SITECOMMON.confirm("{{ print_js_string( Lang::get('account/apikeys.delete') ) }}", function (e) {
 							if (e) {
 								LOADING.show();
 								f.submit();
@@ -77,7 +77,7 @@
 
 				var form = $(this).closest('.apikey-row').find('.edit-form');
 
-				alertify.prompt("{{ print_js_string( Lang::get('account/apikeys.name') ) }}", function (e, str) {
+				SITECOMMON.prompt("{{ print_js_string( Lang::get('account/apikeys.name') ) }}", function (e, str) {
 					if (e) {
 						LOADING.show();
 						form.find('input[name="name"]').val(str);

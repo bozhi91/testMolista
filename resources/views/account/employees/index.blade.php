@@ -60,7 +60,7 @@
 			cont.find('form.delete-form').each(function(){
 				$(this).validate({
 					submitHandler: function(f) {
-						alertify.confirm("{{ print_js_string( Lang::get('account/employees.delete') ) }}", function (e) {
+						SITECOMMON.confirm("{{ print_js_string( Lang::get('account/employees.delete') ) }}", function (e) {
 							if (e) {
 								LOADING.show();
 								f.submit();

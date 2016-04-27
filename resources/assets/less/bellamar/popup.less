@@ -2,6 +2,13 @@
 
 
 #molista-loading-div { 
-	.background { background: @colorGreyLight; } 
+	.background { 
+		background: @colorGreyLight; 
+		-webkit-filter: blur(2px);
+		-moz-filter: blur(2px);
+		-o-filter: blur(2px);
+		-ms-filter: blur(2px);
+		filter: blur(2px);
+	} 
 }
-.mfp-bg { background: @colorGreyLight; }
+.mfp-bg { background: @colorGreyLight; -webkit-filter: blur(2px); -moz-filter: blur(2px); -o-filter: blur(2px); -ms-filter: blur(2px); filter: blur(2px); }

@@ -18,7 +18,7 @@
 						<div role="tabpanel" class="tab-pane tab-locale" id="lang-{{$lang_iso}}">
 							<div class="form-group error-container">
 								{!! Form::label("i18n[title][{$lang_iso}]", Lang::get('admin/properties/services.name')) !!}
-								{!! Form::text("i18n[title][{$lang_iso}]", null, [ 'class'=>'form-control required' ]) !!}
+								{!! Form::text("i18n[title][{$lang_iso}]", null, [ 'class'=>'form-control'.(($lang_iso == 'en') ? ' required' : '') ]) !!}
 							</div>
 							<div class="form-group error-container">
 								{!! Form::label("i18n[description][{$lang_iso}]", Lang::get('admin/properties/services.description')) !!}
@@ -33,7 +33,7 @@
 					<div class="error-container">
 						@if ( empty($item->icon) )
 							{!! Form::label('icon', Lang::get('admin/properties/services.icon')) !!}
-							{!! Form::file('icon', [ 'class'=>'form-control required', 'accept'=>'image/*' ]) !!}
+							{!! Form::file('icon', [ 'class'=>'form-control', 'accept'=>'image/*' ]) !!}
 						@else
 							<img src="{{ asset("services/{$item->icon}") }}" class="" />
 							{!! Form::label('icon', Lang::get('admin/properties/services.icon')) !!}

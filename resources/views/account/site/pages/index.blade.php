@@ -51,7 +51,7 @@
 			cont.find('form.delete-form').each(function(){
 				$(this).validate({
 					submitHandler: function(f) {
-						alertify.confirm("{{ print_js_string( Lang::get('account/site.pages.delete.warning') ) }}", function (e) {
+						SITECOMMON.confirm("{{ print_js_string( Lang::get('account/site.pages.delete.warning') ) }}", function (e) {
 							if (e) {
 								LOADING.show();
 								f.submit();

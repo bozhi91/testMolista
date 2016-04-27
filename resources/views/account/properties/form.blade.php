@@ -1,4 +1,5 @@
 {!! Form::model($item, [ 'method'=>$method, 'action'=>$action, 'files'=>true, 'id'=>'edit-form' ]) !!}
+	{!! Form::hidden('label_color', null) !!}
 
 	<div class="custom-tabs">
 
@@ -203,6 +204,18 @@
 										</div>
 										<div class="help-block text-right">
 											<a href="#" class="translate-trigger" data-input=".title-input" data-lang="{{$lang_iso}}">{{ Lang::get('general.autotranslate.trigger') }}</a>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="pull-right">
+											{!! Form::text(null, null, [ 'class'=>'label-color-input' ]) !!}
+										</div>
+										{!! Form::label("i18n[label][{$lang_iso}]", Lang::get('account/properties.label')) !!}
+										<div class="error-container">
+											{!! Form::text("i18n[label][{$lang_iso}]", null, [ 'class'=>'form-control label-input', 'lang'=>$lang_iso ]) !!}
+										</div>
+										<div class="help-block text-right">
+											<a href="#" class="translate-trigger" data-input=".label-input" data-lang="{{$lang_iso}}">{{ Lang::get('general.autotranslate.trigger') }}</a>
 										</div>
 									</div>
 									<div class="autotranslate-credit">
@@ -491,7 +504,7 @@
 		form.on('click', '.image-delete-trigger', function(e){
 			var el = $(this);
 			e.preventDefault();
-			alertify.confirm("{{ print_js_string( Lang::get('account/properties.images.delete') ) }}", function (e) {
+			SITECOMMON.confirm("{{ print_js_string( Lang::get('account/properties.images.delete') ) }}", function (e) {
 				if (e) {
 					el.closest('.handler').remove();
 				}
@@ -510,7 +523,7 @@
 		form.on('click','.dissociate-trigger',function(e){
 			var el = $(this);
 			e.preventDefault();
-			alertify.confirm("{{ print_js_string( Lang::get('account/properties.employees.dissociate.confirm') ) }}", function (e) {
+			SITECOMMON.confirm("{{ print_js_string( Lang::get('account/properties.employees.dissociate.confirm') ) }}", function (e) {
 				if (e) {
 					LOADING.show();
 					$.ajax({
@@ -563,6 +576,7 @@
 					});
 				},
 				close: function() {
+					$('.if-overlay-then-blurred').removeClass('blurred');
 					associate_select.html('<option value="">&nbsp;</option>');
 				}
 			}
@@ -672,6 +686,58 @@
 		if ( form.find('select[name="country_id"] option').length < 2 ) {
 			form.find('select[name="country_id"] option').closest('.form-group').addClass('hide');
 		}
+
+		<?php
+			$i = 0;
+			$label_default = false;
+			$label_palette = "[ [";
+			foreach (Theme::config('label-palette') as $color) 
+			{
+				if ( !$label_default )
+				{
+					$label_default = $color;
+				}
+
+				if ( !$i )
+				{
+					$label_palette .= " '{$color}'";
+				}
+				elseif ( $i%5 == 0 )
+				{
+					$label_palette .= " ], [ '{$color}'";
+				}
+				else
+				{
+					$label_palette .= ", '{$color}'";
+				}
+
+				$i++;
+			}
+			$label_palette .= " ] ]";
+		?>
+		// Label color picker
+		form.find('.label-color-input').each(function(){
+			var el = $(this);
+			var target = form.find('input[name="label_color"]');
+
+			if ( !target.val() ) {
+				target.val('{!! $label_default !!}');
+			}
+
+			el.spectrum({
+				showPaletteOnly: true,
+				showPalette: true,
+				color: target.val(),
+				palette: {!! $label_palette !!},
+				move: function(color) {
+				    el.spectrum('toggle');
+					target.val( color.toHexString() );
+					form.find('.label-color-input').spectrum("set", color);
+				}
+			});
+
+		});
+
 
 	});
 </script>

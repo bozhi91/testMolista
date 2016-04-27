@@ -41,14 +41,9 @@ class Widget extends TranslatableModel
 
 	static public function getGroupOptions() 
 	{
-		return [
-			'header' => [
-				'accept' => 'menu',
-				'max' => 1,
-			],
-			'footer' => [
-			],
-		];
+		$widget_groups = \Theme::config('widget-groups');
+
+		return is_array($widget_groups) ? $widget_groups : [];
 	}
 
 }

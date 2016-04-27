@@ -39,6 +39,7 @@ elixir(function(mix) {
 			'select2.full.js',
 			'loading.js',
 			'tmpl.js',
+			'spectrum.js',
 			'common.js'
 		], 'resources/assets/js/compiled/common.js');
 

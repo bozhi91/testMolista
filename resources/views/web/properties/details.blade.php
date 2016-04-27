@@ -110,23 +110,7 @@
 				<div id="property-map" class="map"></div>
 			</div>
 
-			<div class="bottom-links quick-search-area">
-				<div class="row">
-					<div class="cols-xs-12 col-sm-9">
-						<h2>{{ Lang::get('web/properties.related.title') }}</h2>
-						<div class="row">
-							@foreach ($property->related_properties as $item)
-								<div class="col-xs-12 col-sm-4">
-									@include('web.properties.pill', [ 'item'=>$item])
-								</div>
-							@endforeach
-						</div>
-					</div>
-					<div class="cols-xs-12 col-sm-3">
-						@include('web.search.quick')
-					</div>
-				</div>
-			</div>
+			@include('web.properties.details-bottom', [ 'related_properties'=>$property->related_properties ])
 
 		</div>
 
@@ -158,15 +142,19 @@
 				cont.find('.images-carousel .carousel-control').removeClass('hide');
 			}
 
-			cont.on('click', '.image-thumb', function(e){
-				e.preventDefault();
-				$('#property-main-image').attr('src', this.href);
+			cont.find('.image-thumb').magnificPopup({
+				type: 'image',
+				gallery:{
+					enabled:true
+				}
 			});
 
 			cont.on('click', '.more-info-trigger', function(e){
 				e.preventDefault();
 				alert('[TODO] What should this button do?');
 			});
+
+			cont.find('.bottom-links .property-pill').matchHeight({ byRow : false });
 		});
 	</script>
 

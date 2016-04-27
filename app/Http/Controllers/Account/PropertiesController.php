@@ -249,6 +249,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'i18n.description' => 'required|array',
 			'images' => 'array',
 			'new_images' => 'array',
+			'label_color' => 'required',
+			'i18n.label' => 'required|array',
 		];
 
 		return $fields;
@@ -267,6 +269,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		$fields = [
 			'title' => 'required|array',
 			'description' => 'required|array',
+			'label' => 'required|array',
 		];
 		$validator = \Validator::make($this->request->get('i18n'), $fields);
 		if ($validator->fails()) 
@@ -322,6 +325,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		{
 			$property->translateOrNew($locale)->title = $this->request->input("i18n.title.{$locale}");
 			$property->translateOrNew($locale)->description = $this->request->input("i18n.description.{$locale}");
+			$property->translateOrNew($locale)->label = $this->request->input("i18n.label.{$locale}");
 		}
 
 		// Services

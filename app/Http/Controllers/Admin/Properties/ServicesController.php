@@ -115,7 +115,7 @@ class ServicesController extends Controller
             'i18n' => 'required|array',
         ];
         if ( !$id ) {
-            $fields['icon'] .= 'required';
+            //$fields['icon'] .= 'required';
         }
 
         $validator = \Validator::make($request, $fields);

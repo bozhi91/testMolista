@@ -4,9 +4,9 @@
 			<img src="{{ $item->main_image }}" alt="{{$item->title}}" class="hide" />
 		</a>
 		<div class="text">
-			@if ( $item->newly_build)
+			@if ( $item->label)
 				<div class="labels">
-					<span class="label">{{ Lang::get('web/properties.labels.new') }}</span>
+					<span class="label" style="background-color: {{ $item->label_color }};">{{ $item->label }}</span>
 				</div>
 			@endif
 			<div class="title text-bold">

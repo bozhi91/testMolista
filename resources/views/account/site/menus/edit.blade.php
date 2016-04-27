@@ -67,7 +67,7 @@
 
 				e.preventDefault();
 
-				alertify.confirm("{{ print_js_string( Lang::get('account/site.menus.delete.warning') ) }}", function (res) {
+				SITECOMMON.confirm("{{ print_js_string( Lang::get('account/site.menus.delete.warning') ) }}", function (res) {
 					if ( res ) {
 						$('#delete-form').submit();
 					}
@@ -110,7 +110,7 @@
 
 				e.preventDefault();
 
-				alertify.confirm("{{ print_js_string( Lang::get('account/site.menus.update.items.warning.delete') ) }}", function (res) {
+				SITECOMMON.confirm("{{ print_js_string( Lang::get('account/site.menus.update.items.warning.delete') ) }}", function (res) {
 					if ( res ) {
 						$.magnificPopup.close();
 						$(sel).remove();
