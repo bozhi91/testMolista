@@ -15,7 +15,8 @@
         "guzzlehttp/guzzle": "~5.3|~6.0",
         "dimsav/laravel-translatable": "^5.5",
         "cviebrock/eloquent-sluggable": "^3.1",
-        "intervention/image": "^2.3"
+        "intervention/image": "^2.3",
+        "predis/predis": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
