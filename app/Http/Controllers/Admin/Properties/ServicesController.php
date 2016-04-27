@@ -111,8 +111,12 @@ class ServicesController extends Controller
         // General
         $fields = [
             'enabled' => 'boolean',
+            'icon' => 'image|max:' . \Config::get('app.property_image_maxsize', 2048),
             'i18n' => 'required|array',
         ];
+        if ( !$id ) {
+            //$fields['icon'] .= 'required';
+        }
 
         $validator = \Validator::make($request, $fields);
         if ($validator->fails()) 
@@ -123,23 +127,10 @@ class ServicesController extends Controller
         // i18n fields
         $fields = [
             'title' => 'required|array',
+            'title.en' => 'required',
             'description' => 'required|array',
         ];
         $validator = \Validator::make($this->request->get('i18n'), $fields);
-        if ($validator->fails()) 
-        {
-            return false;
-        }
-
-        $i18n = $this->request->get('i18n');
-
-        // Title
-        $fields = [];
-        foreach (array_keys( \App\Models\Translation::getCachedLocales() ) as $iso)
-        {
-            $fields[$iso] = 'required|string';
-        }
-        $validator = \Validator::make($i18n['title'], $fields);
         if ($validator->fails()) 
         {
             return false;
