@@ -111,12 +111,8 @@ class ServicesController extends Controller
         // General
         $fields = [
             'enabled' => 'boolean',
-            'icon' => 'image|max:' . \Config::get('app.property_image_maxsize', 2048),
             'i18n' => 'required|array',
         ];
-        if ( !$id ) {
-            //$fields['icon'] .= 'required';
-        }
 
         $validator = \Validator::make($request, $fields);
         if ($validator->fails()) 
