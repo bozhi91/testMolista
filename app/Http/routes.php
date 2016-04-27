@@ -88,6 +88,7 @@ Route::group([
 		Route::get('/', 'AccountController@index');
 		Route::post('/', 'AccountController@updateProfile');
 		// Properties
+		Route::post('properties/upload', 'Account\PropertiesController@postUpload');
 		Route::get('properties/associate/{slug}', 'Account\PropertiesController@getAssociate');
 		Route::resource('properties', 'Account\PropertiesController');
 		// Employees

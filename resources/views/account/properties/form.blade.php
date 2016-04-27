@@ -266,13 +266,11 @@
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-5">
-						{!! Form::button('+', [ 'class'=>'btn btn-default btn-xs pull-right image-upload-trigger' ]) !!}
 						<h4>{{ Lang::get('account/properties.images.upload') }}</h4>
 						<hr>
-						<ul class="list-unstyled image-upload-area"></ul>
-						<div class="help-block">
-							{!! Lang::get('account/properties.images.helper', [ 'IMAGE_MAXSIZE'=>Config::get('app.property_image_maxsize', 2048) ]) !!}
-						</div>
+						<div class="dropzone-previews" id="dropzone-previews" style="min-height: 250px; border: 1px dashed #ccc;"></div>
+
+
 					</div>
 				</div>
 			</div>
@@ -735,6 +733,35 @@
 					form.find('.label-color-input').spectrum("set", color);
 				}
 			});
+
+		});
+
+		// Drop zone
+		$("#dropzone-previews").dropzone({ 
+			url: '{{ action('Account\PropertiesController@postUpload') }}',
+			params: {
+				_token: '{{ Session::getToken() }}'
+			},
+			maxFilesize: 1,
+			acceptedFiles: 'image/*',
+			dictFileTooBig: 'Image is bigger than 2MB',
+			error: function(file, response) {
+				if($.type(response) === "string")
+					var message = response; //dropzone sends it's own error messages in string
+				else
+					var message = response.message;
+				file.previewElement.classList.add("dz-error");
+				_ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
+				_results = [];
+				for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+					node = _ref[_i];
+					_results.push(node.textContent = message);
+				}
+				return _results;
+			},
+			success: function(file,done) {
+alert('success');
+			}
 
 		});
 

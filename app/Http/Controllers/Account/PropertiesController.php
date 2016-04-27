@@ -411,4 +411,31 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		return true;
 	}
 
+	public function postUpload()
+	{
+		$file = \Input::file('file');
+
+		$dir = 'sites/uploads';
+		$dirpath = public_path($dir);
+
+		// If the uploads fail due to file system, you can try doing public_path().'/uploads' 
+		$filename = $file->getClientOriginalName();
+		while ( file_exists("{$dirpath}/{$filename}") )
+		{
+			$filename = uniqid()."_{$file->getClientOriginalName()}";
+		}
+
+		$upload_success = $file->move($dirpath, $filename);
+
+		if( $upload_success ) 
+		{
+			return Response::json('success', 200);
+		}
+		else 
+		{
+			return Response::json('error', 400);
+		}
+
+	}
+
 }
