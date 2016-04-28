@@ -88,7 +88,7 @@
 										// change title
 										var title = form.find('.title-input[lang="' + $('html').attr('lang') + '"]').val();
 										if ( !title ) {
-											title = form.find('.title-input[lang="en"]').val();
+											title = form.find('.title-input[lang="{{fallback_lang()}}"]').val();
 										}
 										if ( title ) {
 											form.closest('.widget').find('.widget-title .text').text(title);

@@ -98,7 +98,7 @@ class SitesController extends Controller
 		// Save locales && title
 		foreach ($locales as $locale => $locale_id) 
 		{
-			if ( !in_array($locale, $this->request->get('locales')) && $locale != 'en' )
+			if ( !in_array($locale, $this->request->get('locales')) && $locale != fallback_lang() )
 			{
 				continue;
 			}
@@ -224,7 +224,7 @@ class SitesController extends Controller
 		$site->locales()->detach();
 		foreach ($locales as $locale => $locale_id) 
 		{
-			if ( in_array($locale, $this->request->get('locales_array')) || $locale == 'en' )
+			if ( in_array($locale, $this->request->get('locales_array')) || $locale == fallback_lang() )
 			{
 				$site->locales()->attach($locale_id);
 			}

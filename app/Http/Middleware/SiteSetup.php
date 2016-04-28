@@ -56,9 +56,9 @@ class SiteSetup
 			}
 
 			$setup['locales_tabs'] = [];
-			if ( array_key_exists('en', $setup['locales_select']) )
+			if ( array_key_exists(fallback_lang(), $setup['locales_select']) )
 			{
-				$setup['locales_tabs']['en'] = $setup['locales_select']['en'];
+				$setup['locales_tabs'][fallback_lang()] = $setup['locales_select'][fallback_lang()];
 			}
 			foreach (\LaravelLocalization::getSupportedLocales() as $locale => $def) 
 			{

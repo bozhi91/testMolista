@@ -39,7 +39,7 @@ class PagesController extends \App\Http\Controllers\AccountController
 	public function store()
 	{
 		$validator = \Validator::make($this->request->all(), [
-			'i18n.title.en' => 'required',
+			'i18n.title.'.fallback_lang() => 'required',
 			'type' => 'required|in:'.implode(',', array_keys(\App\Models\Site\Page::getTypeOptions())),
 		]);
 		if ($validator->fails()) 
@@ -89,7 +89,7 @@ class PagesController extends \App\Http\Controllers\AccountController
 		$fields = [
 			'i18n' => 'required|array',
 			'i18n.title' => 'required|array',
-			'i18n.title.en' => 'required',
+			'i18n.title.'.fallback_lang() => 'required',
 			'i18n.body' => 'required|array',
 			'i18n.seo_title' => 'required|array',
 			'i18n.seo_keywords' => 'required|array',

@@ -87,7 +87,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			$this->auth->user()->properties()->attach( $property->id );
 		}
 
-		return redirect()->action('Account\PropertiesController@edit', $property->slug)->with('success', trans('account/properties.created'));
+		return redirect()->action('Account\PropertiesController@edit', $property->slug)->with('current_tab', $this->request->get('current_tab'))->with('success', trans('account/properties.created'));
 	}
 
 	public function edit($slug)
@@ -133,7 +133,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
 		}
 
-		return redirect()->action('Account\PropertiesController@edit', $property->slug)->with('success', trans('account/properties.saved'));
+		return redirect()->action('Account\PropertiesController@edit', $property->slug)->with('current_tab', $this->request->get('current_tab'))->with('success', trans('account/properties.saved'));
 	}
 
 	public function show($slug)
@@ -297,6 +297,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 	protected function saveRequest($property) 
 	{
+
 		// Main data
 		foreach ($this->getRequestFields() as $field => $def)
 		{
@@ -353,8 +354,61 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		if ( $this->request->get('images') ) {
 			foreach ($this->request->get('images') as $image_id) 
 			{
-				$preserve[] = $image_id;
-				$property->images()->find($image_id)->update([ 'default'=>0, 'position'=>$position ]);
+				// New image
+				if ( preg_match('#^new_(.*)$#', $image_id, $matches) )
+				{
+					// Image exists ?
+					$filepath = public_path($matches[1]);
+					if ( !file_exists($filepath) ) {
+						continue;
+					}
+
+					// Prepare directory
+					$dirpath = $property->image_path;
+					if ( !is_dir($dirpath))
+					{
+						\File::makeDirectory($dirpath, 0777, true, true);
+					}
+
+					// Prepare filename
+					$filename = $ofilename = basename($filepath);
+					while ( file_exists("{$dirpath}/{$filename}") )
+					{
+						$filename = uniqid()."_{$ofilename}";
+					}
+
+					// Associate to property
+					$new_image = $property->images()->create([
+						'image' => $filename,
+						'position' => $position,
+					]);
+
+					// Check ok
+					if ( !$new_image )
+					{
+						continue;
+					}
+
+					// Move image to permanent location
+					rename($filepath, "{$dirpath}/{$filename}");
+
+					// Preserve
+					$preserve[] = $new_image->id;
+				}
+				// Old image
+				else
+				{
+					// Update position
+					$property->images()->find($image_id)->update([ 
+						'default' => 0, 
+						'position' => $position 
+					]);
+					// Preserve
+					$preserve[] = $image_id;
+
+				}
+
+				// Increase position
 				$position++;
 			}
 		}
@@ -385,7 +439,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 					continue;
 				}
 
-				$img_folder = public_path("sites/{$property->site_id}/properties/{$property->id}");
+				$img_folder = $property->image_path;
 
 				$img_name = $this->request->file($img_key)->getClientOriginalName();
 				while ( file_exists("{$img_folder}/{$img_name}") )
@@ -410,6 +464,38 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		}
 
 		return true;
+	}
+
+	public function postUpload()
+	{
+
+		$file = \Input::file('file');
+
+
+		$dir = 'sites/uploads/'.date('Ymd');
+		$dirpath = public_path($dir);
+
+		// If the uploads fail due to file system, you can try doing public_path().'/uploads' 
+		$filename = $file->getClientOriginalName();
+		while ( file_exists("{$dirpath}/{$filename}") )
+		{
+			$filename = uniqid()."_{$file->getClientOriginalName()}";
+		}
+
+		$upload_success = $file->move($dirpath, $filename);
+
+		if( $upload_success ) 
+		{
+			return response()->json([
+				'success' => true,
+				'directory' => $dir,
+				'filename' => $filename,
+			], 200);
+		}
+
+		return response()->json([
+			'error' => true,
+		], 400);
 	}
 
 }

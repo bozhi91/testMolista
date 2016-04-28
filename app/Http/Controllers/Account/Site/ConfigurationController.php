@@ -54,11 +54,11 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 			return \Redirect::back()->withInput()->withErrors($validator);
 		}
 
-		// English is always required
+		// Fallback locale is always required
 		$locales_array = $this->request->get('locales_array');
-		if ( !in_array('en', $locales_array) ) 
+		if ( !in_array(fallback_lang(), $locales_array) ) 
 		{
-			$locales_array[] = 'en';
+			$locales_array[] = fallback_lang();
 		}
 
 		// Validate locales && i18n

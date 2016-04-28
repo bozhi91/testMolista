@@ -257,9 +257,9 @@ class MenusController extends \App\Http\Controllers\AccountController
 			case 'custom':
 				return [
 					'title' => 'required|array',
-					'title.en' => 'required|string',
+					'title.'.fallback_lang() => 'required|string',
 					'url' => 'required|array',
-					'url.en' => 'required|url',
+					'url.'..fallback_lang() => 'required|url',
 					'target' => '',
 				];
 			case 'property':
