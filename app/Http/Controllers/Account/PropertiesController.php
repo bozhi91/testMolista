@@ -281,11 +281,9 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		$i18n = $this->request->get('i18n');
 
 		// Title
-		$fields = [];
-		foreach (array_keys( \LaravelLocalization::getSupportedLocales() ) as $iso)
-		{
-			$fields[$iso] = 'required|string';
-		}
+		$fields = [
+			fallback_lang() => 'required|string'
+		];
 		$validator = \Validator::make($i18n['title'], $fields);
 		if ($validator->fails()) 
 		{

@@ -209,7 +209,7 @@
 									<div class="form-group">
 										{!! Form::label("i18n[title][{$lang_iso}]", Lang::get('account/properties.title')) !!}
 										<div class="error-container">
-											{!! Form::text("i18n[title][{$lang_iso}]", null, [ 'class'=>'form-control required title-input', 'lang'=>$lang_iso ]) !!}
+											{!! Form::text("i18n[title][{$lang_iso}]", null, [ 'class'=>'form-control title-input '.(($lang_iso == fallback_lang()) ? 'required' : ''), 'lang'=>$lang_iso ]) !!}
 										</div>
 										<div class="help-block text-right">
 											<a href="#" class="translate-trigger" data-input=".title-input" data-lang="{{$lang_iso}}">{{ Lang::get('general.autotranslate.trigger') }}</a>
