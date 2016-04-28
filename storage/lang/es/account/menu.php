@@ -2,15 +2,15 @@
 
 	return [
 
-		'data' => 'Your information',
+		'data' => 'Datos personales',
 
-		'properties' => 'Properties',
+		'properties' => 'Propiedades',
 		
-		'employees' => 'Employees',
+		'employees' => 'Empleados',
 
-		'site' => 'Site',
-		'site.configuration' => 'Configuration',
+		'site' => 'Sitio',
+		'site.configuration' => 'Configuración',
 		'site.widgets' => 'Widgets',
-		'site.menus' => 'Menus',
-		'site.pages' => 'Pages',
+		'site.menus' => 'Menúes',
+		'site.pages' => 'Páginas',
 	];

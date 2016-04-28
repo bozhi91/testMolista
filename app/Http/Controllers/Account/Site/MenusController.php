@@ -259,7 +259,7 @@ class MenusController extends \App\Http\Controllers\AccountController
 					'title' => 'required|array',
 					'title.'.fallback_lang() => 'required|string',
 					'url' => 'required|array',
-					'url.'..fallback_lang() => 'required|url',
+					'url.'.fallback_lang() => 'required|url',
 					'target' => '',
 				];
 			case 'property':

@@ -2,13 +2,13 @@
 
 	return [
 
-		'h1' => 'Your information',
+		'h1' => 'Datos personales',
 
-		'name' => 'Name',
+		'name' => 'Nombre',
 		'email' => 'Email',
-		'locale' => 'Language',
+		'locale' => 'Idioma',
 		'password' => 'Password',
-		'password.helper' => 'Leave empty to keep current password',
+		'password.helper' => 'Dejar vacío para mantener la password actual',
 
-		'message.saved' => 'Your information was successfully saved',
+		'message.saved' => 'Sus datos se guardaron correctamente',
 	];
