@@ -13,6 +13,9 @@
 					</div>
 				</div>
 			</div>
+
+			<p>&nbsp;</p>
+			
 			<div class="row">
 				<div class="cols-xs-12">
 					<div id="page-map" style="height: 350px;"></div>
