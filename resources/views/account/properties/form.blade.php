@@ -764,7 +764,11 @@
 			dictDefaultMessage: "{{ print_js_string( Lang::get('account/properties.images.dropzone.helper') ) }}",
 			error: function(file, errorMessage, response) {
 				if ( $.type(errorMessage) === 'string') {
-					alertify.error(errorMessage);
+					if ( errorMessage.length > 500 ) {
+						alertify.error("{{ print_js_string( Lang::get('account/properties.images.dropzone.error.size', [ 'IMAGE_MAXSIZE'=>Config::get('app.property_image_maxsize') ]) ) }}");
+					} else {
+						alertify.error(errorMessage);
+					}
 				} else if ( $.type(errorMessage) === 'object' && errorMessage.message ) {
 					alertify.error(errorMessage.message);
 				} else {
