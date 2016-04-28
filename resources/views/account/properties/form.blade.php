@@ -352,8 +352,7 @@
 		var property_map;
 		var property_marker;
 		var property_geocoder;
-
-		var image_counter = 0;
+		var property_zoom = 14;
 
 		// Enable first language tab
 		form.find('.locale-tabs a').eq(0).trigger('click');
@@ -391,12 +390,11 @@
 
 			el.addClass('property-map-initialized');
 
-			var zoom = 14;
 			var lat = form.find('.input-lat').val();
 			var lng = form.find('.input-lng').val();
 
 			if ( !lat || !lng ) {
-				zoom = 6;
+				property_zoom = 6;
 				lat = '40.4636670';
 				lng = '-3.7492200';
 			}
@@ -404,7 +402,7 @@
 			var mapLatLng = { lat: parseFloat(lat), lng: parseFloat(lng) };
 
 			property_map = new google.maps.Map(document.getElementById('property-map'), {
-				zoom: zoom,
+				zoom: property_zoom,
 				center: mapLatLng
 			});
 
@@ -498,6 +496,14 @@
 			});
 		});
 
+		// Automatic location
+		form.on('change', '.city-input', function(){
+			if ( $(this).val() ) {
+				property_map.setZoom(13);
+				form.find('.geolocate-trigger').trigger('click');
+			}
+		});
+
 		// Image gallery
 		form.find('.image-gallery').sortable();
 		form.find('.image-gallery .thumb').each(function(){
@@ -525,14 +531,6 @@
 		if ( form.find('.image-gallery .thumb').length > 0 ) {
 			form.find('.images-empty').hide();
 		}
-
-		// Image input
-		function addImage() {
-			image_counter++;
-			form.find('.image-upload-area').append( tmpl('image_upload_item_tmpl', { id : image_counter }) );
-		}
-		form.on('click', '.image-upload-trigger', addImage);
-		addImage();
 
 		// Dissociate employee
 		form.on('click','.dissociate-trigger',function(e){
