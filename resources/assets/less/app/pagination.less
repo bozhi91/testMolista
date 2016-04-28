@@ -1,9 +1,15 @@
 .pagination {
-	font-size: 30px;
+	line-height: 30px;
 	> li {
 		a, span { 
 			color: @colorPurple; border: none; background: none; border-radius: @borderRadius; border-width: @borderWidth;
 			&:hover, &:focus { background: none; }
+		}
+		&.disabled {
+			a, span {
+				background: none;
+				&:hover, &:focus { background: none; }
+			}
 		}
 		&.active {
 			a, span, a:hover, span:hover, a:focus, span:focus { background-color: @colorPurple; border-color: @colorPurple; }

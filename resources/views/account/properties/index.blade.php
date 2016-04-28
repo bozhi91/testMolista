@@ -15,12 +15,32 @@
 
 			<h1 class="page-title">{{ Lang::get('account/properties.h1') }}</h1>
 
+			<div class="search-filters">
+				@if ( !empty($clean_filters) )
+					<a href="?limit={{ Input::get('limit') }}" class="text-bold pull-right">{{ Lang::get('general.filters.clean') }}</a>
+				@endif
+				<h2>{{ Lang::get('general.filters') }}</h2>
+				{!! Form::open([ 'method'=>'GET', 'class'=>'form-inline', 'id'=>'filters-form' ]) !!}
+					{!! Form::hidden('limit', Input::get('limit')) !!}
+					<div class="form-group">
+						{!! Form::label('ref', Lang::get('account/properties.ref'), [ 'class'=>'sr-only' ]) !!}
+						{!! Form::text('ref', Input::get('ref'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('account/properties.ref') ]) !!}
+					</div>
+					<div class="form-group">
+						{!! Form::label('title', Lang::get('account/properties.title'), [ 'class'=>'sr-only' ]) !!}
+						{!! Form::text('title', Input::get('title'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('account/properties.title') ]) !!}
+					</div>
+					{!! Form::submit(Lang::get('general.filters.apply'), [ 'class'=>'btn btn-default' ]) !!}
+				</form>
+			</div>
+
 			@if ( count($properties) < 1)
 				<div class="alert alert-info">{{ Lang::get('account/properties.empty') }}</div>
 			@else
 				<table class="table table-striped">
 					<thead>
 						<tr>
+							<th>{{ Lang::get('account/properties.ref') }}</th>
 							<th>{{ Lang::get('account/properties.column.title') }}</th>
 							<th>{{ Lang::get('account/properties.column.location') }}</th>
 							<th></th>
@@ -29,6 +49,7 @@
 					<tbody>
 						@foreach ($properties as $property)
 							<tr>
+								<td>{{ $property->ref }}</td>
 								<td>{{ $property->title }}</td>
 								<td>{{ $property->city->name }} / {{ $property->state->name }}</td>
 								<td class="text-right text-nowrap">
@@ -46,7 +67,7 @@
 						@endforeach
 					</tbody>
 				</table>
-                {!! drawPagination($properties, Input::only('limit','title')) !!}
+                {!! drawPagination($properties, Input::except('page')) !!}
 			@endif
 
 		</div>

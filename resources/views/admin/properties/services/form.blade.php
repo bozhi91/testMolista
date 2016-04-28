@@ -4,8 +4,13 @@
 			<div class="col-xs-12 col-sm-6">
 				<br />
 				<ul class="nav nav-tabs locale-tabs" role="tablist">
+					<li role="presentation" class="active">
+						<a href="#lang-{{fallback_lang()}}" aria-controls="lang-{{fallback_lang()}}" aria-expanded="true" role="tab" data-toggle="tab">{{ empty($locales[fallback_lang()]) ? fallback_lang() : $locales[fallback_lang()] }}</a>
+					</li>
 					@foreach ($locales as $lang_iso => $lang_name)
-						<li role="presentation"><a href="#lang-{{$lang_iso}}" aria-controls="lang-{{$lang_iso}}" role="tab" data-toggle="tab">{{$lang_name}}</a></li>
+						@if ( $lang_iso != fallback_lang() )
+							<li role="presentation"><a href="#lang-{{$lang_iso}}" aria-controls="lang-{{$lang_iso}}" role="tab" data-toggle="tab">{{$lang_name}}</a></li>
+						@endif
 					@endforeach
 				</ul>
 			</div>
@@ -15,7 +20,7 @@
 			<div class="col-xs-12 col-sm-6">
 				<div class="tab-content">
 					@foreach ($locales as $lang_iso => $lang_name)
-						<div role="tabpanel" class="tab-pane tab-locale" id="lang-{{$lang_iso}}">
+						<div role="tabpanel" class="tab-pane tab-locale {{ ($lang_iso == fallback_lang()) ? 'active' : '' }}" id="lang-{{$lang_iso}}">
 							<div class="form-group error-container">
 								{!! Form::label("i18n[title][{$lang_iso}]", Lang::get('admin/properties/services.name')) !!}
 								{!! Form::text("i18n[title][{$lang_iso}]", null, [ 'class'=>'form-control'.(($lang_iso == fallback_lang()) ? ' required' : '') ]) !!}
@@ -63,8 +68,6 @@
 <script type="text/javascript">
 	ready_callbacks.push(function(){
 		var form = $('#edit-form');
-
-		form.find('.locale-tabs a').eq(0).trigger('click');
 
 		form.validate({
 			ignore: '',

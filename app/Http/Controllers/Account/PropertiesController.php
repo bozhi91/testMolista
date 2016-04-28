@@ -22,11 +22,21 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 	public function index()
 	{
+		$clean_filters = false;
+
 		$query = $this->site->properties()->whereIn('properties.id', $this->auth->user()->properties()->lists('id'))->with('state')->with('city')->withTranslations();
+
+		// Filter by reference
+		if ( $this->request->get('ref') )
+		{
+			$clean_filters = true;
+			$query->where('ref', 'LIKE', "%{$this->request->get('ref')}%");
+		}
 
 		// Filter by name
 		if ( $this->request->get('title') )
 		{
+			$clean_filters = true;
 			$query->whereTranslationLike('title', "%{$this->request->get('title')}%");
 		}
 
@@ -34,7 +44,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 		$this->set_go_back_link();
 
-		return view('account.properties.index', compact('properties'));
+		return view('account.properties.index', compact('properties','clean_filters'));
 	}
 
     public function create()

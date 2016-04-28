@@ -139,7 +139,7 @@ class ServicesController extends Controller
 
         // Title
         $fields = [
-            'en' => 'required|string',
+            fallback_lang() => 'required|string',
         ];
         $validator = \Validator::make($i18n['title'], $fields);
         if ($validator->fails()) 

@@ -13,6 +13,8 @@
 
 		'filters' => 'Filters',
 		'filters.apply' => 'Apply filters',
+		'filters.clean' => 'Remove filters',
+
 		'edit' => 'Edit',
 		'view' => 'View',
 		'new' => 'New element',
