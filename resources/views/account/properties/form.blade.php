@@ -226,7 +226,7 @@
 									<div class="form-group">
 										{!! Form::label("i18n[description][{$lang_iso}]", Lang::get('account/properties.description')) !!}
 										<div class="error-container">
-											{!! Form::textarea("i18n[description][{$lang_iso}]", null, [ 'class'=>'form-control description-input', 'lang'=>$lang_iso, 'rows'=>'4' ]) !!}
+											{!! Form::textarea("i18n[description][{$lang_iso}]", null, [ 'class'=>'form-control resize-vertical description-input', 'lang'=>$lang_iso, 'rows'=>'4' ]) !!}
 										</div>
 										<div class="help-block text-right">
 											<a href="#" class="translate-trigger" data-input=".description-input" data-lang="{{$lang_iso}}">{{ Lang::get('general.autotranslate.trigger') }}</a>
