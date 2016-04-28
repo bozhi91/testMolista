@@ -476,7 +476,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		$dirpath = public_path($dir);
 
 		// If the uploads fail due to file system, you can try doing public_path().'/uploads' 
-		$filename = $file->getClientOriginalName();
+		$filename = preg_replace('#[^a-z0-9\.]#', '', strtolower($file->getClientOriginalName()));
 		while ( file_exists("{$dirpath}/{$filename}") )
 		{
 			$filename = uniqid()."_{$file->getClientOriginalName()}";
