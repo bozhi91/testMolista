@@ -2,43 +2,43 @@
 
 	return [
 
-		'h1' => 'Employees',
+		'h1' => 'Empleados',
 
-		'button.new' => 'New employee',
-		'button.dissociate' => 'Remove',
+		'button.new' => 'Nuevo empleado',
+		'button.dissociate' => 'Eliminar',
 
-		'empty' => 'No employees found',
+		'empty' => 'No se encontraron empleados',
 
-		'delete' => 'Are you sure you want to remove this employee?',
-		'deleted' => 'The employee was successfully removed',
+		'delete' => '¿Confirma que desea eliminar este empleado?',
+		'deleted' => 'El empleado fue eliminado correctamente',
 
-		'name' => 'Name',
+		'name' => 'Nombre',
 		'email' => 'Email',
-		'email.used' => 'This email is already in use',
-		'properties' => 'Properties',
-		'locale' => 'Language',
+		'email.used' => 'Este email está en uso',
+		'properties' => 'Propiedades',
+		'locale' => 'Idioma',
 		'password' => 'Password',
 
-		'create.title' => 'New employee',
+		'create.title' => 'Nuevo empleado',
 
-		'message.saved' => 'The employee was successfully saved',
-		'message.associated' => 'The employee was successfully associated to this site',
-		'message.dissociated' => 'The property was successfully dissociated from this user',
+		'message.saved' => 'El empleado se ha guardado correctamente',
+		'message.associated' => 'El empleado se asoció correctamente a este sitio',
+		'message.dissociated' => 'La propiedad se disoció correctamente de este empleado',
 
-		'show.title' => 'Edit user: :name',
+		'show.title' => 'Editar empleado: :name',
 
-		'show.tab.permissions' => 'Permissions',
-		'show.tab.permissions.create' => 'Can create propeties',
-		'show.tab.permissions.edit' => 'Can edit propeties',
-		'show.tab.permissions.delete' => 'Can delete propeties',
+		'show.tab.permissions' => 'Permisos',
+		'show.tab.permissions.create' => 'Puede crear propiedades',
+		'show.tab.permissions.edit' => 'Puede editar propiedades',
+		'show.tab.permissions.delete' => 'Puede eliminar propiedades',
 
-		'show.tab.properties' => 'Properties',
-		'show.tab.properties.empty' => 'No properties asociated',
-		'show.tab.properties.title' => 'Property',
-		'show.tab.properties.dissociate' => 'Are you sure you want to dissociate this property?',
+		'show.tab.properties' => 'Propiedades',
+		'show.tab.properties.empty' => 'No existen propiedades asociadas',
+		'show.tab.properties.title' => 'Propiedad',
+		'show.tab.properties.dissociate' => '¿Confirma que desea disociar esta propiedad?',
 
-		'associate.title' => 'Associate user',
-		'associate.warning' => '<p>The user with email ":email" is already registered under the name ":name", but is not associated to this site.</p>
-								<p>Would you like to associated :name to this site?</p>',
+		'associate.title' => 'Asociar empleado',
+		'associate.warning' => '<p>El empleado con email ":email" ya está registrado con el nombre ":name", pero no está asociado a este sitio.</p>
+								<p>¿Desea asociar a :name a este sitio?</p>',
 
 	];

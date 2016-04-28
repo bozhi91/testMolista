@@ -16,12 +16,12 @@ return [
     'login.title' => 'Login',
     'login.email' => 'Email',
     'login.password' => 'Password',
-    'login.remember' => 'Recordarme',
+    'login.remember' => 'Remember me',
     'login.button' => 'Login',
-    'login.forgot' => '¿Olvidó su password?',
+    'login.forgot' => 'Forgot Your Password?',
 
-    'failed' => 'Los datos no concuerdan con nuestro registro.',
-    'throttle' => 'Demasiados intentos de login. Inténtelo nuevamente en :seconds segundos.',
+    'failed' => 'These credentials do not match our records.',
+    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
-    'email.register.subject' => 'Bienvenido a Molista',
+    'email.register.subject' => 'Welcome to Molista',
 ];

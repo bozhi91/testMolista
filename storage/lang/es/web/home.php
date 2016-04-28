@@ -1,11 +1,11 @@
 <?php
 	return [
-		'gallery' => 'Property gallery',
-		'categories' => 'Categories',
-		'recent' => 'Rencently added',
+		'gallery' => 'Galería de propiedades',
+		'categories' => 'Categorías',
+		'recent' => 'Añadidos recientemente',
 
-		'link.new' => 'New construction',
-		'link.rent' => 'For rent',
-		'link.used' => 'Second hand',
-		'link.houses' => 'Houses',
+		'link.new' => 'Nueva construcción',
+		'link.rent' => 'En alquiler',
+		'link.used' => 'Segunda mano',
+		'link.houses' => 'Casas',
 	];

@@ -1,9 +1,9 @@
 <?php
 	return [
-		'name' => 'Name',
+		'name' => 'Nombre',
 		'email' => 'Email',
-		'message' => 'Message',
+		'message' => 'Mensaje',
 
-		'contact.email.subject' => 'Contact form received',
-		'contact.email.sent' => 'The contact form was sent successfully',
+		'contact.email.subject' => 'Formulario de contacto recibido',
+		'contact.email.sent' => 'El formulario se ha enviado correctamente',
 	];

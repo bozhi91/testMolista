@@ -1,11 +1,11 @@
 <?php
 	return [
-		'home' => 'Home',
-		'company' => 'Company',
-		'contact' => 'Contact',
-		'lang' => 'Language',
-		'account' => 'Account',
+		'home' => 'Inicio',
+		'company' => 'Empresa',
+		'contact' => 'Contacto',
+		'lang' => 'Idioma',
+		'account' => 'Cuenta',
 		'login' => 'Login',
-		'register' => 'Register',
+		'register' => 'Registro',
 		'logout' => 'Logout',
 	];

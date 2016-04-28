@@ -1,9 +1,9 @@
 <?php
 	return [
-		'button' => 'Search',
+		'button' => 'Buscar',
 
-		'title.popup' => 'Advanced search',
+		'title.popup' => 'Búsqueda avanzada',
 
-		'quick.title' => 'Quick search',
-		'quick.more' => 'More options',
+		'quick.title' => 'Búsqueda rápida',
+		'quick.more' => 'Más opciones',
 	];

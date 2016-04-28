@@ -2,12 +2,12 @@
 
 return [
     'title' => 'API Keys',
-    'create' => 'Create new',
+    'create' => 'Crear nueva',
 
-    'name' => 'Name',
+    'name' => 'Nombre',
     'key' => 'Key',
-    'created' => 'Created',
-    'delete' => 'Are you sure you want to permanently remove this API key?',
+    'created' => 'Creada',
+    'delete' => '¿Confirma que desea eliminar permanentemente esta API key?',
 
-    'available' => 'You have created :CREATED out of :TOTAL API keys.',
+    'available' => 'Ha creado :CREATED de :TOTAL API keys.',
 ];

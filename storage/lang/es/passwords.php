@@ -13,16 +13,16 @@ return [
     |
     */
 
-    'password' => 'Passwords must be at least six characters and match the confirmation.',
-    'reset' => 'Your password has been reset!',
-    'sent' => 'We have e-mailed your password reset link!',
-    'token' => 'This password reset token is invalid.',
-    'user' => "We can't find a user with that e-mail address.",
+    'password' => 'La password de tener al menos 6 caracteres y concordar con la password de confirmación.',
+    'reset' => '¡Su password ha sido restablecida!',
+    'sent' => '¡Le hemos enviado un email con el link para resdtablecer su password!',
+    'token' => 'El token no es válido.',
+    'user' => 'No hemos encontrado un usuario con este email.',
 
-    'reset.title' => 'Reset password',
+    'reset.title' => 'Restablecer password',
     'reset.email' => 'Email',
     'reset.password' => 'Password',
-    'reset.password.confirm' => 'Confirm password',
-    'reset.send.button' => 'Send password reset link',
-    'reset.reset.button' => 'Reset password',
+    'reset.password.confirm' => 'Confirmar password',
+    'reset.send.button' => 'Enviar link para restablecer password',
+    'reset.reset.button' => 'Restablecer password',
 ];

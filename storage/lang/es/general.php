@@ -1,37 +1,37 @@
 <?php
 
 	return [
-		'yes' => 'Yes',
+		'yes' => 'Si',
 		'no' => 'No',
 
-		'back' => 'Back',
-		'cancel' => 'Cancel',
-		'continue' => 'Continue',
-		'search' => 'Search',
-		'save' => 'Save',
-		'save.changes' => 'Save changes',
+		'back' => 'Volver',
+		'cancel' => 'Cancelar',
+		'continue' => 'Continuar',
+		'search' => 'Buscar',
+		'save' => 'Guardar',
+		'save.changes' => 'Guardar cambios',
 
-		'filters' => 'Filters',
-		'filters.apply' => 'Apply filters',
-		'edit' => 'Edit',
-		'view' => 'View',
-		'new' => 'New element',
+		'filters' => 'Filtros',
+		'filters.apply' => 'Aplicar filtros',
+		'edit' => 'Editar',
+		'view' => 'Ver',
+		'new' => 'Nuevo elemento',
 
-		'delete' => 'Delete',
+		'delete' => 'Borrar',
 
-		'pages' => 'pages',
-		'pages.per' => 'per page',
+		'pages' => 'páginas',
+		'pages.per' => 'ppr página',
 
-		'messages.close' => 'Close',
-		'messages.error' => 'An error occurred while processing this request.',
+		'messages.close' => 'Cerrar',
+		'messages.error' => 'Ocurrió un error al procesar la solicitud.',
 
-		'autotranslate.trigger' => 'Translate to other languages',
-		'autotranslate.credits' => 'Translated by',
-		'autotranslate.error.text' => 'There is no text to translate.',
-		'autotranslate.success' => 'Text successfully translated.',
-		'autotranslate.error.some' => 'However, some languages could not be translated:',
-		'autotranslate.error.all' => 'There was a problem translating this text.',
+		'autotranslate.trigger' => 'Traducir a otros idiomas',
+		'autotranslate.credits' => 'Traducido por',
+		'autotranslate.error.text' => 'No hay texto a traducir.',
+		'autotranslate.success' => 'El texto se ha traducido correctamente.',
+		'autotranslate.error.some' => 'Sin embargo, algunos idiomas no se pudieron traducir:',
+		'autotranslate.error.all' => 'Ocurrió un error al traducir el texto.',
 
-		'image.helper' => '<p>We support JPG, PNG and GIF formats.</p><p>Images bigger than :IMAGE_MAXSIZE kilobytes will not be uploaded.</p>',
-		'icon.helper' => '<p>Only ICO format is allowed.</p>',
+		'image.helper' => '<p>Aceptamos imagenes en formato JPG, PNG y GIF.</p><p>No se subirán imágenes con peso superior a :IMAGE_MAXSIZE kilobytes.</p>',
+		'icon.helper' => '<p>Sólo aceptamos imágenes con formato ICO.</p>',
 	];

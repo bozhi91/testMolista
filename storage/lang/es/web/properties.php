@@ -1,49 +1,49 @@
 <?php
 	return [
-		'title' => 'Properties',
+		'title' => 'Propiedades',
 
-		'term' => 'Enter your search',
+		'term' => 'Ingrese su búsqueda',
 
-		'mode' => 'Modality',
-		'mode.sale' => 'Properties for sale',
-		'mode.rent' => 'Properties for rent',
+		'mode' => 'Modalidad',
+		'mode.sale' => 'Propiedades en venta',
+		'mode.rent' => 'Propiedades en alquiler',
 
-		'state' => 'State',
-		'state.any' => 'All states',
+		'state' => 'Provincia',
+		'state.any' => 'Todas las provincias',
 
-		'city' => 'City',
-		'city.any' => 'All cities',
+		'city' => 'Ciudad',
+		'city.any' => 'Todas las ciudades',
 
-		'type' => 'Type',
-		'type.any' => 'All property types',
-		'type.house' => 'House',
-		'type.apartment' => 'Apartment',
+		'type' => 'Tipo',
+		'type.any' => 'Todos los tipos',
+		'type.house' => 'Casa',
+		'type.apartment' => 'Apartmento',
 		'type.duplex' => 'Duplex',
 		'type.penthouse' => 'Penthouse',
 		'type.villa' => 'Villa',
-		'type.lot' => 'Lot',
-		'type.store' => 'Store',
+		'type.lot' => 'Solar',
+		'type.store' => 'Local',
 
-		'more.show' => 'Show more options',
-		'more.any' => 'Show all',
+		'more.show' => 'Más opciones',
+		'more.any' => 'Mostrar todas',
 
-		'more.room' => 'Room',
-		'more.rooms' => 'Rooms',
-		'more.bath' => 'Bathroom',
-		'more.baths' => 'Bathrooms',
-		'more.sqm' => 'Square meters',
-		'more.price' => 'Price',
+		'more.room' => 'Habitación',
+		'more.rooms' => 'Habitaciones',
+		'more.bath' => 'Baño',
+		'more.baths' => 'Baños',
+		'more.sqm' => 'Metros cuadrados',
+		'more.price' => 'Precio',
 
-		'services' => 'Services',
+		'services' => 'Servicios',
 
-		'labels.new' => 'New construction',
-		'labels.used' => 'Second hand',
+		'labels.new' => 'Nueva construcción',
+		'labels.used' => 'Segunda mano',
 
-		'search.title' => 'Search',
-		'search.results' => 'Results',
+		'search.title' => 'Buscar',
+		'search.results' => 'Resultados',
 
-		'empty' => 'No results found',
+		'empty' => 'No se encontraron resultados',
 
-		'call.to.action' => 'Get more information',
-		'related.title' => 'Other properties that may interest you',
+		'call.to.action' => 'Obtener más información',
+		'related.title' => 'Otras propiedades relacionadas',
 	];
