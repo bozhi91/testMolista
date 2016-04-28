@@ -758,7 +758,7 @@
 			params: {
 				_token: '{{ Session::getToken() }}'
 			},
-			maxFilesize: 1,
+			maxFilesize: 2,
 			acceptedFiles: 'image/*',
 			dictFileTooBig: "{{ print_js_string( Lang::get('account/properties.images.dropzone.error.size', [ 'IMAGE_MAXSIZE'=>Config::get('app.property_image_maxsize') ]) ) }}",
 			dictDefaultMessage: "{{ print_js_string( Lang::get('account/properties.images.dropzone.helper') ) }}",
@@ -793,7 +793,7 @@
 						verticalFit: true
 					}
 				});
-console.log(response);
+
 				item.append('<div class="options text-right" />');
 				item.find('.options').append('<input name="images[]" type="hidden" value="new_' + img + '" />');
 				item.find('.options').append('<a href="#" class="image-delete-trigger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>');
