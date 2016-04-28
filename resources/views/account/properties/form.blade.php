@@ -257,7 +257,7 @@
 							{{ Lang::get('account/properties.images.empty') }}
 						</div>
 						<ul class="image-gallery sortable-image-gallery">
-							@if ( !empty($property) || count($property->images) > 0 )
+							@if ( !empty($property) && count($property->images) > 0 )
 								@foreach ($property->images->sortBy('position') as $image)
 									<li class="handler">
 										<a href="{{ asset("sites/{$property->site_id}/properties/{$property->id}/{$image->image}") }}" target="_blank" class="thumb" style="background-image: url({{ asset("sites/{$property->site_id}/properties/{$property->id}/{$image->image}") }})"></a>
@@ -793,7 +793,7 @@
 						verticalFit: true
 					}
 				});
-
+console.log(response);
 				item.append('<div class="options text-right" />');
 				item.find('.options').append('<input name="images[]" type="hidden" value="new_' + img + '" />');
 				item.find('.options').append('<a href="#" class="image-delete-trigger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>');
