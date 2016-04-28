@@ -253,12 +253,11 @@
 					<div class="col-xs-12 col-sm-7">
 						<h4>{{ Lang::get('account/properties.images.gallery') }}</h4>
 						<hr>
-						@if ( empty($property) || count($property->images) < 1 )
-							<div class="alert alert-info">
-								{{ Lang::get('account/properties.images.empty') }}
-							</div>
-						@else
-							<ul class="image-gallery sortable-image-gallery">
+						<div class="alert alert-info images-empty">
+							{{ Lang::get('account/properties.images.empty') }}
+						</div>
+						<ul class="image-gallery sortable-image-gallery">
+							@if ( !empty($property) || count($property->images) > 0 )
 								@foreach ($property->images->sortBy('position') as $image)
 									<li class="handler">
 										<a href="{{ asset("sites/{$property->site_id}/properties/{$property->id}/{$image->image}") }}" target="_blank" class="thumb" style="background-image: url({{ asset("sites/{$property->site_id}/properties/{$property->id}/{$image->image}") }})"></a>
@@ -268,8 +267,8 @@
 										</div>
 									</li>
 								@endforeach
-							</ul>
-						@endif
+							@endif
+						</ul>
 						<div class="visible-xs-block">
 							<p>&nbsp;</p>
 						</div>
@@ -277,9 +276,8 @@
 					<div class="col-xs-12 col-sm-5">
 						<h4>{{ Lang::get('account/properties.images.upload') }}</h4>
 						<hr>
-						<div class="dropzone-previews" id="dropzone-previews" style="min-height: 250px; border: 1px dashed #ccc;"></div>
+						<div class="dropzone-previews" id="dropzone-previews"></div>
 						<div class="help-block">{{ Lang::get('account/properties.images.dropzone.helper') }}</div>
-
 					</div>
 				</div>
 			</div>
@@ -518,9 +516,15 @@
 			SITECOMMON.confirm("{{ print_js_string( Lang::get('account/properties.images.delete') ) }}", function (e) {
 				if (e) {
 					el.closest('.handler').remove();
+					if ( form.find('.image-gallery .thumb').length < 1 ) {
+						form.find('.images-empty').show();
+					}
 				}
 			});
 		});
+		if ( form.find('.image-gallery .thumb').length > 0 ) {
+			form.find('.images-empty').hide();
+		}
 
 		// Image input
 		function addImage() {
@@ -759,6 +763,7 @@
 			maxFilesize: 1,
 			acceptedFiles: 'image/*',
 			dictFileTooBig: "{{ print_js_string( Lang::get('account/properties.images.dropzone.error.size', [ 'IMAGE_MAXSIZE'=>Config::get('app.property_image_maxsize') ]) ) }}",
+			dictDefaultMessage: "{{ print_js_string( Lang::get('account/properties.images.dropzone.helper') ) }}",
 			error: function(file, errorMessage, response) {
 				if ( $.type(errorMessage) === 'string') {
 					alertify.error(errorMessage);
@@ -800,6 +805,8 @@
 				$(file.previewElement).fadeOut(function(){ 
 					$(this).remove() 
 				});
+
+				form.find('.images-empty').hide();
 			}
 		});
 
