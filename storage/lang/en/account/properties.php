@@ -22,6 +22,7 @@
 		'second_hand' => 'Second hand',
 		'services' => 'Services',
 		'label' => 'Label',
+		'show_address' => 'Show address',
 
 		'create.title' => 'New property',
 		'edit.title' => 'Edit property',

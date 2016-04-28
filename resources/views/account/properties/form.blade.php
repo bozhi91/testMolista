@@ -147,9 +147,17 @@
 							{!! Form::label('district', Lang::get('account/properties.district')) !!}
 							{!! Form::text('district', null, [ 'class'=>'form-control' ]) !!}
 						</div>
-						<div class="form-group error-container">
-							{!! Form::label('address', Lang::get('account/properties.address')) !!}
-							{!! Form::textarea('address', null, [ 'class'=>'form-control required address-input', 'rows'=>'3' ]) !!}
+						<div class="form-group">
+							<div class="error-container">
+								{!! Form::label('address', Lang::get('account/properties.address')) !!}
+								{!! Form::textarea('address', null, [ 'class'=>'form-control address-input', 'rows'=>'3' ]) !!}
+							</div>
+							<div class="help-block">
+								<label>
+									{!! Form::checkbox('show_address', 1, null) !!}
+									{{ Lang::get('account/properties.show_address') }}
+								</label>
+							</div>
 						</div>
 						<div class="row hide">
 							<div class="col-xs-12 col-sm-6">
@@ -420,7 +428,11 @@
 			var address = [];
 			var error = false;
 
-			$.each(['address','city','state','country'], function(k,v){
+			if ( form.find('.address-input').val() ) {
+				address.push( form.find('.address-input').val() );
+			}
+
+			$.each(['city','state','country'], function(k,v){
 				var input = form.find('.'+v+'-input');
 				if ( input.valid() ) {
 					if ( input.prop('tagName').toLowerCase() == 'select' ) {
