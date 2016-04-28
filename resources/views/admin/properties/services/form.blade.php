@@ -18,7 +18,7 @@
 						<div role="tabpanel" class="tab-pane tab-locale" id="lang-{{$lang_iso}}">
 							<div class="form-group error-container">
 								{!! Form::label("i18n[title][{$lang_iso}]", Lang::get('admin/properties/services.name')) !!}
-								{!! Form::text("i18n[title][{$lang_iso}]", null, [ 'class'=>'form-control'.(($lang_iso == 'en') ? ' required' : '') ]) !!}
+								{!! Form::text("i18n[title][{$lang_iso}]", null, [ 'class'=>'form-control'.(($lang_iso == fallback_lang()) ? ' required' : '') ]) !!}
 							</div>
 							<div class="form-group error-container">
 								{!! Form::label("i18n[description][{$lang_iso}]", Lang::get('admin/properties/services.description')) !!}

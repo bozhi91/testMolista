@@ -106,13 +106,13 @@
 								<div class="col-xs-12 col-sm-2">
 									<div class="checkbox">
 										<label class="normal">
-											{!! Form::checkbox('locales_array[]', 'en', null, [ 'class'=>'required locale-input', 'readonly'=>'readonly', 'title'=>Lang::get('account/site.configuration.languages.error') ]) !!}
-											English
+											{!! Form::checkbox('locales_array[]', fallback_lang(), null, [ 'class'=>'required locale-input', 'readonly'=>'readonly', 'title'=>Lang::get('account/site.configuration.languages.error') ]) !!}
+											{{ fallback_lang_text() }}
 										</label>
 									</div>
 								</div>
 								@foreach (LaravelLocalization::getSupportedLocales() as $lang_iso => $lang_def)
-									@if ( $lang_iso != 'en' )
+									@if ( $lang_iso != fallback_lang() )
 										<div class="col-xs-12 col-sm-2">
 											<div class="checkbox">
 												<label class="normal">
@@ -357,12 +357,12 @@
 								alertify.success(msg);
 							}
 						} else {
-							alertify.error("{{ print_js_string( Lang::get('general.error.simple') ) }}");
+							alertify.error("{{ print_js_string( Lang::get('general.messages.error') ) }}");
 						}
 					},
 					error: function() {
 						LOADING.hide();
-						alertify.error("{{ print_js_string( Lang::get('general.error.simple') ) }}");
+						alertify.error("{{ print_js_string( Lang::get('general.messages.error') ) }}");
 					}
 				});
 			});

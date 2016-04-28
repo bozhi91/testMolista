@@ -1,4 +1,5 @@
 {!! Form::model($item, [ 'method'=>$method, 'action'=>$action, 'files'=>true, 'id'=>'edit-form' ]) !!}
+	{!! Form::hidden('current_tab', session('current_tab', '#tab-general')) !!}
 	{!! Form::hidden('label_color', null) !!}
 
 	<div class="custom-tabs">
@@ -269,7 +270,7 @@
 						<h4>{{ Lang::get('account/properties.images.upload') }}</h4>
 						<hr>
 						<div class="dropzone-previews" id="dropzone-previews" style="min-height: 250px; border: 1px dashed #ccc;"></div>
-
+						<div class="help-block">{{ Lang::get('account/properties.images.dropzone.helper') }}</div>
 
 					</div>
 				</div>
@@ -670,12 +671,12 @@
 							alertify.success(msg);
 						}
 					} else {
-						alertify.error("{{ print_js_string( Lang::get('general.error.simple') ) }}");
+						alertify.error("{{ print_js_string( Lang::get('general.messages.error') ) }}");
 					}
 				},
 				error: function() {
 					LOADING.hide();
-					alertify.error("{{ print_js_string( Lang::get('general.error.simple') ) }}");
+					alertify.error("{{ print_js_string( Lang::get('general.messages.error') ) }}");
 				}
 			});
 		});
@@ -737,34 +738,65 @@
 		});
 
 		// Drop zone
-		$("#dropzone-previews").dropzone({ 
+        Dropzone.autoDiscover = false;
+		$("#dropzone-previews").addClass('dropzone').dropzone({ 
 			url: '{{ action('Account\PropertiesController@postUpload') }}',
 			params: {
 				_token: '{{ Session::getToken() }}'
 			},
 			maxFilesize: 1,
 			acceptedFiles: 'image/*',
-			dictFileTooBig: 'Image is bigger than 2MB',
-			error: function(file, response) {
-				if($.type(response) === "string")
-					var message = response; //dropzone sends it's own error messages in string
-				else
-					var message = response.message;
-				file.previewElement.classList.add("dz-error");
-				_ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
-				_results = [];
-				for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-					node = _ref[_i];
-					_results.push(node.textContent = message);
+			dictFileTooBig: "{{ print_js_string( Lang::get('account/properties.images.dropzone.error.size', [ 'IMAGE_MAXSIZE'=>Config::get('app.property_image_maxsize') ]) ) }}",
+			error: function(file, errorMessage, response) {
+				if ( $.type(errorMessage) === 'string') {
+					alertify.error(errorMessage);
+				} else if ( $.type(errorMessage) === 'object' && errorMessage.message ) {
+					alertify.error(errorMessage.message);
+				} else {
+					alertify.error("{{ print_js_string( Lang::get('general.messages.error') ) }}");
 				}
-				return _results;
-			},
-			success: function(file,done) {
-alert('success');
-			}
 
+				$(file.previewElement).fadeOut(function(){ 
+					$(this).remove() 
+				});
+			},
+			canceled: function(file) {
+				$(file.previewElement).fadeOut(function(){ 
+					$(this).remove() 
+				});
+			},
+			success: function(file,response) {
+				var item = $('<li class="handler ui-sortable-handle" />');
+
+				var img = '/' + response.directory + '/' + response.filename;
+				item.append('<a href="'+img+'" target="_blank" class="thumb" style="background-image: url('+img+')"></a>');
+				item.find('.thumb').magnificPopup({
+					type: 'image',
+					closeOnContentClick: false,
+					mainClass: 'mfp-img-mobile',
+					image: {
+						verticalFit: true
+					}
+				});
+
+				item.append('<div class="options text-right" />');
+				item.find('.options').append('<input name="images[]" type="hidden" value="new_' + img + '" />');
+				item.find('.options').append('<a href="#" class="image-delete-trigger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>');
+
+				form.find('.image-gallery').append(item);
+
+				$(file.previewElement).fadeOut(function(){ 
+					$(this).remove() 
+				});
+			}
 		});
 
+		var tabs = form.find('.main-tabs');
+		var current_tab = form.find('input[name="current_tab"]').val();
+		tabs.find('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+			form.find('input[name="current_tab"]').val( $(this).attr('href') );
+		});
+		tabs.find('a[href="' + current_tab + '"]').tab('show');
 
 	});
 </script>

@@ -70,7 +70,7 @@
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group error-container">
 												{!! Form::label("i18n[title][{$lang_iso}]", Lang::get('account/site.pages.title')) !!}
-												{!! Form::text("i18n[title][{$lang_iso}]", null, [ 'class'=>'form-control '.(($lang_iso == 'en') ? 'required' : '') ]) !!}
+												{!! Form::text("i18n[title][{$lang_iso}]", null, [ 'class'=>'form-control '.(($lang_iso == fallback_lang()) ? 'required' : '') ]) !!}
 											</div>
 										</div>
 										@if ( $page->enabled )
@@ -80,7 +80,7 @@
 													@if ( empty($page->i18n['slug'][$lang_iso]) )
 														<a href="{{ action('Web\PagesController@show', $page->i18n['slug'][$lang_iso]) }}" class="btn btn-warning" target="_blank">{{ Lang::get('general.view') }}</a>
 													@else
-														<a href="{{ action('Web\PagesController@show', $page->i18n['slug']['en']) }}" class="btn btn-warning" target="_blank">{{ Lang::get('general.view') }}</a>
+														<a href="{{ action('Web\PagesController@show', $page->i18n['slug'][fallback_lang()]) }}" class="btn btn-warning" target="_blank">{{ Lang::get('general.view') }}</a>
 													@endif
 												</div>
 											</div>

@@ -25,17 +25,17 @@
 					<ul class="nav nav-tabs nav-tabs-small locale-tabs" role="tablist">
 						<li role="presentation" class="active"><a href="#menu-item-locale-tab-{{$type}}-en-{{$item_id}}" aria-controls="menu-item-locale-tab-{{$type}}-en-{{$item_id}}" role="tab" data-toggle="tab" class="text-uppercase">en</a></li>
 						@foreach ($site_setup['locales_tabs'] as $locale => $locale_name)
-							@if ( $locale != 'en' )
+							@if ( $locale != fallback_lang() )
 								<li role="presentation"><a href="#menu-item-locale-tab-{{$type}}-{{$locale}}-{{$item_id}}" aria-controls="menu-item-locale-tab-{{$type}}-{{$locale}}-{{$item_id}}" role="tab" data-toggle="tab" class="text-uppercase">{{$locale}}</a></li>
 							@endif
 						@endforeach
 					</ul>
 					<div class="tab-content tab-content-grey translate-area">
 						@foreach ($site_setup['locales_tabs'] as $locale => $locale_name)
-							<div role="tabpanel" class="tab-pane tab-locale {{ ($locale == 'en') ? 'active' : '' }}" id="menu-item-locale-tab-{{$type}}-{{$locale}}-{{$item_id}}">
+							<div role="tabpanel" class="tab-pane tab-locale {{ ($locale == fallback_lang()) ? 'active' : '' }}" id="menu-item-locale-tab-{{$type}}-{{$locale}}-{{$item_id}}">
 								<div class="form-group error-container">
 									{!! Form::label("{$item_key}[title][{$locale}]", Lang::get('account/site.menus.update.field.title')) !!}
-									{!! Form::text("{$item_key}[title][{$locale}]", @$item->i18n['title'][$locale], [ 'class'=>'title-input input-sm form-control '.(($type == 'custom' && $locale == 'en') ? 'required' : ''), 'lang'=>$locale ]) !!}
+									{!! Form::text("{$item_key}[title][{$locale}]", @$item->i18n['title'][$locale], [ 'class'=>'title-input input-sm form-control '.(($type == 'custom' && $locale == fallback_lang()) ? 'required' : ''), 'lang'=>$locale ]) !!}
 								</div>
 								@if ($type == 'text')
 									<div class="form-group error-container">

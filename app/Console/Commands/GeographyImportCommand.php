@@ -76,7 +76,7 @@ class GeographyImportCommand extends Command
             $country->enabled = ( $country->code == 'ES' ) ? 1 : 0;
 
             // Translate
-            $country->translateOrNew('en')->name = utf8_encode(trim($name));
+            $country->translateOrNew(fallback_lang())->name = utf8_encode(trim($name));
             $country->save();
 
             $total++;

@@ -124,6 +124,14 @@
 				</div>";
 	}
 
+	function fallback_lang() {
+		return Config::get('app.fallback_locale');
+	}
+	function fallback_lang_text() {
+		$locales = LaravelLocalization::getSupportedLocales();
+		return @$locales[fallback_lang()]['native'];
+	}
+
 	function summetime_lang() {
 		return str_replace('_','-', LaravelLocalization::getCurrentLocaleRegional() );
 	}
