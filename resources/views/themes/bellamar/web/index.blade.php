@@ -11,23 +11,23 @@
 
 			<div class="main-property carousel slide" data-interval="false">
 				<div class="carousel-inner" role="listbox">
-					<div class="item active" style="background-image: url('{{$main_property->main_image}}');">
+					<div data-href="{{ action('Web\PropertiesController@details', $main_property->slug) }}" class="item active cursor-pointer" style="background-image: url('{{$main_property->main_image}}');">
 						<img src="{{$main_property->main_image}}" alt="{{$main_property->title}}" class="hide" />
 						<div class="carousel-caption">
 							<div class="container">
 								<div class="row">
 									<div class="col-xs-12 col-md-3 hidden-xs hidden-sm">
 										<div class="relative">
-											<div class="slider-quick-search">
+											<div class="slider-quick-search cursor-default">
 												@include('web.search.quick', [ 'no_title'=>1 ])
 											</div>
 										</div>
 									</div>
 									<div class="col-xs-12 col-md-6">
-										<a href="{{ action('Web\PropertiesController@details', $main_property->slug) }}" class="carousel-caption-text">
+										<span class="carousel-caption-text">
 											{{$main_property->title}}
 											<span class="text-nowrap hidden-xs"> | {{ price($main_property->price, [ 'decimals'=>0 ]) }}</span>
-										</a>
+										</span>
 									</div>
 								</div>
 							</div>
@@ -129,6 +129,14 @@
 			cont.find('.main-property .slider-quick-search').css({
 				bottom : ( -1 * cont.find('.main-property .carousel-caption-text').innerHeight() ) + 'px',
 				opacity: 1
+			});
+
+			cont.on('click', '.main-property .slider-quick-search', function(e){
+				e.stopPropagation();
+			});
+			cont.on('click', '.main-property .item', function(e){
+				e.preventDefault();
+				document.location.href = $(this).data().href;
 			});
 
 			var search_sm = cont.find('.quick-search-xs-sm-area');
