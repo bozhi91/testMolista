@@ -148,12 +148,12 @@ class MicrosoftTranslator
 		$this->format = $format;
 		$request = $this->getRequest(self::TRANSLATE );
 
-		$response = file_get_contents( $request, 0, $this->context );
+		$response = @file_get_contents( $request, 0, $this->context );
 
 		if(!empty($response) && isset($response)){
 			$this->getSuccessResponse($response);
 		} else {
-			$this->getErrorResponse($response, self::UNEXPECTED_ERROR, $missing );
+			$this->getErrorResponse($response, self::UNEXPECTED_ERROR, @$missing );
 		}
 	}
 	/**
@@ -173,7 +173,7 @@ class MicrosoftTranslator
 		if(!empty($objResponse) && isset($objResponse)){
 			$this->getSuccessResponse($objResponse, $selectBox);
 		} else {
-			$this->getErrorResponse($objResponse, self::UNEXPECTED_ERROR, $missing );
+			$this->getErrorResponse($objResponse, self::UNEXPECTED_ERROR, @$missing );
 		}
 	}
 	/**
