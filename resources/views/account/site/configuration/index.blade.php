@@ -100,25 +100,29 @@
 
 						<hr />
 
-						<div class="form-group error-container">
+						<div class="error-container">
 							<label>{{ Lang::get('account/site.configuration.languages') }}</label>
 							<div class="row">
 								<div class="col-xs-12 col-sm-2">
-									<div class="checkbox">
-										<label class="normal">
-											{!! Form::checkbox('locales_array[]', fallback_lang(), null, [ 'class'=>'required locale-input', 'readonly'=>'readonly', 'title'=>Lang::get('account/site.configuration.languages.error') ]) !!}
-											{{ fallback_lang_text() }}
-										</label>
+									<div class="form-group">
+										<div class="checkbox">
+											<label class="normal">
+												{!! Form::checkbox('locales_array[]', fallback_lang(), null, [ 'class'=>'required locale-input', 'readonly'=>'readonly', 'title'=>Lang::get('account/site.configuration.languages.error') ]) !!}
+												{{ fallback_lang_text() }}
+											</label>
+										</div>
 									</div>
 								</div>
 								@foreach (LaravelLocalization::getSupportedLocales() as $lang_iso => $lang_def)
 									@if ( $lang_iso != fallback_lang() )
 										<div class="col-xs-12 col-sm-2">
-											<div class="checkbox">
-												<label class="normal">
-													{!! Form::checkbox('locales_array[]', $lang_iso, null, [ 'class'=>'required locale-input', 'title'=>Lang::get('account/site.configuration.languages.error') ]) !!}
-													{{ $lang_def['native'] }}
-												</label>
+											<div class="form-group">
+												<div class="checkbox">
+													<label class="normal">
+														{!! Form::checkbox('locales_array[]', $lang_iso, null, [ 'class'=>'required locale-input', 'title'=>Lang::get('account/site.configuration.languages.error') ]) !!}
+														{{ $lang_def['native'] }}
+													</label>
+												</div>
 											</div>
 										</div>
 									@endif
@@ -142,7 +146,7 @@
 											<div class="form-group">
 												{!! Form::label("i18n[title][{$lang_iso}]", Lang::get('account/site.configuration.title')) !!}
 												<div class="error-container">
-													{!! Form::text("i18n[title][{$lang_iso}]", null, [ 'class'=>'form-control title-input', 'data-locale'=>$lang_iso, 'lang'=>$lang_iso ]) !!}
+													{!! Form::text("i18n[title][{$lang_iso}]", null, [ 'class'=>'form-control title-input'.((fallback_lang() == $lang_iso) ? ' required' : ''), 'data-locale'=>$lang_iso, 'lang'=>$lang_iso ]) !!}
 												</div>
 												<div class="help-block text-right">
 													<a href="#" class="translate-trigger" data-input=".title-input" data-lang="{{$lang_iso}}">{{ Lang::get('general.autotranslate.trigger') }}</a>
@@ -272,11 +276,6 @@
 				if ( $(this).attr('readonly') == 'readonly') {
 					$(this).prop('checked', true);
 				}
-
-				form.find('.title-input').removeClass('required');
-				form.find('.locale-input:checked').each(function(){
-					form.find('.title-input[data-locale="' + $(this).val() + '"]').addClass('required');
-				});
 			});
 			form.find('.locale-input').eq(0).trigger('change');
 

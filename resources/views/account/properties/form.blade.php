@@ -87,27 +87,33 @@
 				{!! Form::label(null, Lang::get('account/properties.characteristics')) !!}
 				<div class="row">
 					<div class="col-xs-12 col-sm-3">
-						<div class="checkbox error-container">
-							<label>
-								{!! Form::checkbox('highlighted', 1, null) !!}
-								{{ Lang::get('account/properties.highlighted') }}
-							</label>
+						<div class="form-group">
+							<div class="checkbox error-container">
+								<label>
+									{!! Form::checkbox('highlighted', 1, null) !!}
+									{{ Lang::get('account/properties.highlighted') }}
+								</label>
+						</div>
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-3">
-						<div class="checkbox error-container">
-							<label>
-								{!! Form::checkbox('newly_build', 1, null) !!}
-								{{ Lang::get('account/properties.newly_build') }}
-							</label>
+						<div class="form-group">
+							<div class="checkbox error-container">
+								<label>
+									{!! Form::checkbox('newly_build', 1, null) !!}
+									{{ Lang::get('account/properties.newly_build') }}
+								</label>
+							</div>
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-3">
-						<div class="checkbox error-container">
-							<label>
-								{!! Form::checkbox('second_hand', 1, null) !!}
-								{{ Lang::get('account/properties.second_hand') }}
-							</label>
+						<div class="form-group">
+							<div class="checkbox error-container">
+								<label>
+									{!! Form::checkbox('second_hand', 1, null) !!}
+									{{ Lang::get('account/properties.second_hand') }}
+								</label>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -116,11 +122,13 @@
 				<div class="row">
 					@foreach ($services as $service)
 						<div class="col-xs-12 col-sm-3">
-							<div class="checkbox error-container">
-								<label>
-									{!! Form::checkbox('services[]', $service->id, empty($property) ? null : $property->hasService($service->id) ) !!}
-									{{ $service->title }}
-								</label>
+							<div class="form-group">
+								<div class="checkbox error-container">
+									<label>
+										{!! Form::checkbox('services[]', $service->id, empty($property) ? null : $property->hasService($service->id) ) !!}
+										{{ $service->title }}
+									</label>
+								</div>
 							</div>
 						</div>
 					@endforeach

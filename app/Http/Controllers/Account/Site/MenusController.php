@@ -218,7 +218,7 @@ class MenusController extends \App\Http\Controllers\AccountController
 
 	protected function saveItemTranslations($item, $type, $data)
 	{
-		foreach (\LaravelLocalization::getSupportedLocales() as $locale => $locale_name)
+		foreach (\App\Session\Site::get('locales_tabs') as $locale => $locale_name)
 		{
 			$item->translateOrNew($locale)->title = @$data['title'][$locale];
 
