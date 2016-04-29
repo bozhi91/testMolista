@@ -114,6 +114,7 @@ class Property extends TranslatableModel
 			->with('images')
 			->with('state')
 			->with('city')
+			->withTranslations()
 			->orderByRaw("RAND()")
 			->limit(3)
 			->get();
