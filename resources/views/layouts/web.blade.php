@@ -43,19 +43,15 @@
 
 <body id="{{ @$body_id }}">
 
-	<div class="if-overlay-then-blurred">
+	<div id="sticky-wrapper" class="if-overlay-then-blurred">
 
-		<div id="sticky-wrapper">
+		@include('web.common.header')
 
-			@include('web.common.header')
-
-			@yield('content')
-
-		</div>
-
-		@include('web.common.footer')
+		@yield('content')
 
 	</div>
+
+	@include('web.common.footer')
 
 	@if ( empty($hide_advanced_search_modal) )
 		@include('web.search.modal')

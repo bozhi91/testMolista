@@ -34,7 +34,7 @@ class WebController extends Controller
 
 	public function index()
 	{
-		$properties = $this->site->properties()->enabled()->highlighted()->with('images')->with('state')->with('city')->orderByRaw("RAND()")->get();
+		$properties = $this->site->properties()->enabled()->highlighted()->with('images')->with('state')->with('city')->withTranslations()->orderByRaw("RAND()")->get();
 
 		$latest = $this->site->properties()->enabled()->with('images')->with('state')->with('city')->orderBy('created_at','desc')->limit(3)->get();
 

@@ -97,6 +97,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			$this->auth->user()->properties()->attach( $property->id );
 		}
 
+		$property = $this->site->properties()->withTranslations()->find($property->id);
+
 		return redirect()->action('Account\PropertiesController@edit', $property->slug)->with('current_tab', $this->request->get('current_tab'))->with('success', trans('account/properties.created'));
 	}
 
@@ -143,12 +145,25 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
 		}
 
+		$property = $this->site->properties()->withTranslations()->find($property->id);
+
 		return redirect()->action('Account\PropertiesController@edit', $property->slug)->with('current_tab', $this->request->get('current_tab'))->with('success', trans('account/properties.saved'));
 	}
 
+	// [TODO]
 	public function show($slug)
 	{
-		echo "[TODO] ¿qué mostramos aquí?";
+		// Get property
+		$property = $this->site->properties()
+						->whereIn('properties.id', $this->auth->user()->properties()->lists('id'))
+						->whereTranslation('slug', $slug)
+						->withTranslations()->first();
+		if ( !$property )
+		{
+			abort(404);
+		}
+
+		return view('account.properties.show', compact('property'));
 	}
 
 	public function destroy($slug)
