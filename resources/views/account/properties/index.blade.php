@@ -40,9 +40,11 @@
 				<table class="table table-striped">
 					<thead>
 						<tr>
-							<th>{{ Lang::get('account/properties.ref') }}</th>
-							<th>{{ Lang::get('account/properties.column.title') }}</th>
+							<th><a href="{{ sort_link('reference') }}" class="is-sortable {{ (Input::get('sort') == 'reference') ? 'sorted' : '' }}">{{ Lang::get('account/properties.ref') }}</a></th>
+							<th><a href="{{ sort_link('title') }}" class="is-sortable {{ (Input::get('sort') == 'title') ? 'sorted' : '' }}">{{ Lang::get('account/properties.column.title') }}</a></th>
+							<th><a href="{{ sort_link('created') }}" class="is-sortable {{ (Input::get('sort') == 'created') ? 'sorted' : '' }}">{{ Lang::get('account/properties.column.created') }}</a></th>
 							<th>{{ Lang::get('account/properties.column.location') }}</th>
+							<th class="text-center">{{ Lang::get('account/properties.enabled') }}</th>
 							<th></th>
 						</tr>
 					</thead>
@@ -51,7 +53,9 @@
 							<tr>
 								<td>{{ $property->ref }}</td>
 								<td>{{ $property->title }}</td>
+								<td>{{  $property->created_at->format('d/m/Y') }}</td>
 								<td>{{ $property->city->name }} / {{ $property->state->name }}</td>
+								<td class="text-center"><span class="glyphicon glyphicon-{{ $property->enabled ? 'ok' : 'remove' }}" aria-hidden="true"></span></td>
 								<td class="text-right text-nowrap">
 									{!! Form::open([ 'method'=>'DELETE', 'class'=>'delete-form', 'action'=>['Account\PropertiesController@destroy', $property->slug] ]) !!}
 										<a href="{{ action('Account\PropertiesController@show', $property->slug) }}" class="btn btn-primary btn-xs">{{ Lang::get('general.view') }}</a>

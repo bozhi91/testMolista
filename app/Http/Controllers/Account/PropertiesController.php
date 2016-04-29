@@ -40,7 +40,21 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			$query->whereTranslationLike('title', "%{$this->request->get('title')}%");
 		}
 
-		$properties = $query->orderBy('title')->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
+		switch ( $this->request->get('sort') )
+		{
+			case 'reference':
+				$query->orderBy('ref');
+				break;
+			case 'creation':
+				$query->orderBy('created_at', 'desc');
+				break;
+			case 'title':
+			default:
+				$query->orderBy('title');
+				break;
+		}
+
+		$properties = $query->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$this->set_go_back_link();
 
