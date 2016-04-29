@@ -137,6 +137,10 @@
 			var cont = $('#property');
 
 			if ( cont.find('.images-carousel .carousel-inner .item').length < 2) {
+				cont.find('.images-carousel .carousel-inner .item').css({
+					'padding-left' : '0px',
+					'padding-right' : '0px'
+				});
 				cont.find('.images-carousel .carousel-control').remove();
 			} else {
 				cont.find('.images-carousel .carousel-control').removeClass('hide');
