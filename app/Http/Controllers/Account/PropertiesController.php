@@ -146,9 +146,19 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		return redirect()->action('Account\PropertiesController@edit', $property->slug)->with('current_tab', $this->request->get('current_tab'))->with('success', trans('account/properties.saved'));
 	}
 
+	// [TODO]
 	public function show($slug)
 	{
-		echo "[TODO] ¿qué mostramos aquí?";
+		// Get property
+		$property = $this->site->properties()
+						->whereIn('properties.id', $this->auth->user()->properties()->lists('id'))
+						->whereTranslation('slug', $slug)->first();
+		if ( !$property )
+		{
+			abort(404);
+		}
+
+		return view('account.properties.show', compact('property'));
 	}
 
 	public function destroy($slug)
