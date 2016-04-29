@@ -104,7 +104,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 	public function edit($slug)
 	{
-		$property = $this->site->properties()->whereIn('properties.id', $this->auth->user()->properties()->lists('id'))->whereTranslation('slug', $slug)->first();
+		$property = $this->site->properties()->whereIn('properties.id', $this->auth->user()->properties()->lists('id'))->whereTranslation('slug', $slug)->withTranslations()->first();
 		if ( !$property )
 		{
 			abort(404);
