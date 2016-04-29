@@ -1,4 +1,4 @@
-<footer id="footer">
+<footer id="footer" class="if-overlay-then-blurred">
 
 	<div class="highlights">
 		<div class="container">
