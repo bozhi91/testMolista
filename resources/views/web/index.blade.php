@@ -10,15 +10,15 @@
 			?>
 			<div class="main-property carousel slide" data-interval="false">
 				<div class="carousel-inner" role="listbox">
-					<div class="item active" style="background-image: url('{{$main_property->main_image}}');">
+					<a href="{{ action('Web\PropertiesController@details', $main_property->slug) }}"  class="item active" style="background-image: url('{{$main_property->main_image}}');">
 						<img src="{{$main_property->main_image}}" alt="{{$main_property->title}}" class="hide" />
 						<div class="carousel-caption">
-							<a href="{{ action('Web\PropertiesController@details', $main_property->slug) }}" class="carousel-caption-text">
+							<span class="carousel-caption-text">
 								{{$main_property->title}}
 								<span class="text-nowrap hidden-xs"> | {{ price($main_property->price, [ 'decimals'=>0 ]) }}</span>
-							</a>
+							</span>
 						</div>
-					</div>
+					</a>
 				</div>
 			</div>
 
@@ -128,6 +128,7 @@
 			} else {
 				cont.find('.carousel-control').removeClass('hide');
 			}
+
 		});
 	</script>
 
