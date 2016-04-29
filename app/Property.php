@@ -110,10 +110,11 @@ class Property extends TranslatableModel
 	{
 		return \App\Property::enabled()
 			->ofSite($this->site_id)
-			->where('id','!=',$this->id)
+			->where('properties.id','!=',$this->id)
 			->with('images')
 			->with('state')
 			->with('city')
+			->withTranslations()
 			->orderByRaw("RAND()")
 			->limit(3)
 			->get();

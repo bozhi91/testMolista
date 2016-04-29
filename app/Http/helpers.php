@@ -124,6 +124,10 @@
 				</div>";
 	}
 
+	function sort_link($field) {
+		return url()->current() . '?' . http_build_query(Input::except('sort')) . '&sort=' . $field;
+	}
+
 	function fallback_lang() {
 		return Config::get('app.fallback_locale');
 	}

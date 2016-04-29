@@ -40,7 +40,21 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			$query->whereTranslationLike('title', "%{$this->request->get('title')}%");
 		}
 
-		$properties = $query->orderBy('title')->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
+		switch ( $this->request->get('sort') )
+		{
+			case 'reference':
+				$query->orderBy('ref');
+				break;
+			case 'creation':
+				$query->orderBy('created_at', 'desc');
+				break;
+			case 'title':
+			default:
+				$query->orderBy('title');
+				break;
+		}
+
+		$properties = $query->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$this->set_go_back_link();
 
@@ -51,7 +65,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
     {
         $modes = \App\Property::getModeOptions();
         $types = \App\Property::getTypeOptions();
-        $services = \App\Models\Property\Service::withTranslation()->enabled()->get();
+        $services = \App\Models\Property\Service::withTranslations()->enabled()->orderBy('title')->get();
 
         $countries = \App\Models\Geography\Country::withTranslations()->enabled()->orderBy('name')->lists('name','id');
         if ( $country_id = old('country_id', \App\Models\Geography\Country::where('code','ES')->value('id')) )
@@ -114,7 +128,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 		$modes = \App\Property::getModeOptions();
 		$types = \App\Property::getTypeOptions();
-		$services = \App\Models\Property\Service::withTranslation()->enabled()->get();
+		$services = \App\Models\Property\Service::withTranslations()->enabled()->orderBy('title')->get();
 
 		$countries = \App\Models\Geography\Country::withTranslations()->enabled()->orderBy('name')->lists('name','id');
 		$states = \App\Models\Geography\State::enabled()->where('country_id', $property->country_id)->lists('name','id');
@@ -346,7 +360,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		}
 
 		// Translatable fields
-		foreach (\LaravelLocalization::getSupportedLocales() as $locale => $locale_name)
+		foreach (\App\Session\Site::get('locales_tabs') as $locale => $locale_name)
 		{
 			$property->translateOrNew($locale)->title = $this->request->input("i18n.title.{$locale}");
 			$property->translateOrNew($locale)->description = $this->request->input("i18n.description.{$locale}");

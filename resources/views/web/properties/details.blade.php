@@ -24,7 +24,7 @@
 			@if ( $property->images->count() > 0 )
 				<div class="images-gallery">
 					<div class="image-main text-center">
-						<img src="{{ $property->main_image }}" alt="{{$property->title}}" class="img-responsive" id="property-main-image" />
+						<img src="{{ $property->main_image }}" alt="{{$property->title}}" class="img-responsive cursor-pointer trigger-image-thumbs" id="property-main-image" />
 					</div>
 					@if ( $property->images->count() > 1 )
 						<div id="images-carousel" class="images-carousel carousel slide" data-interval="false">
@@ -137,6 +137,10 @@
 			var cont = $('#property');
 
 			if ( cont.find('.images-carousel .carousel-inner .item').length < 2) {
+				cont.find('.images-carousel .carousel-inner .item').css({
+					'padding-left' : '0px',
+					'padding-right' : '0px'
+				});
 				cont.find('.images-carousel .carousel-control').remove();
 			} else {
 				cont.find('.images-carousel .carousel-control').removeClass('hide');
@@ -147,6 +151,11 @@
 				gallery:{
 					enabled:true
 				}
+			});
+
+			cont.on('click', '.trigger-image-thumbs', function(e){
+				e.preventDefault();
+				cont.find('.image-thumb').eq(0).trigger('click');
 			});
 
 			cont.on('click', '.more-info-trigger', function(e){

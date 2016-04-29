@@ -87,27 +87,33 @@
 				{!! Form::label(null, Lang::get('account/properties.characteristics')) !!}
 				<div class="row">
 					<div class="col-xs-12 col-sm-3">
-						<div class="checkbox error-container">
-							<label>
-								{!! Form::checkbox('highlighted', 1, null) !!}
-								{{ Lang::get('account/properties.highlighted') }}
-							</label>
+						<div class="form-group">
+							<div class="checkbox error-container">
+								<label>
+									{!! Form::checkbox('highlighted', 1, null) !!}
+									{{ Lang::get('account/properties.highlighted') }}
+								</label>
+						</div>
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-3">
-						<div class="checkbox error-container">
-							<label>
-								{!! Form::checkbox('newly_build', 1, null) !!}
-								{{ Lang::get('account/properties.newly_build') }}
-							</label>
+						<div class="form-group">
+							<div class="checkbox error-container">
+								<label>
+									{!! Form::checkbox('newly_build', 1, null) !!}
+									{{ Lang::get('account/properties.newly_build') }}
+								</label>
+							</div>
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-3">
-						<div class="checkbox error-container">
-							<label>
-								{!! Form::checkbox('second_hand', 1, null) !!}
-								{{ Lang::get('account/properties.second_hand') }}
-							</label>
+						<div class="form-group">
+							<div class="checkbox error-container">
+								<label>
+									{!! Form::checkbox('second_hand', 1, null) !!}
+									{{ Lang::get('account/properties.second_hand') }}
+								</label>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -116,11 +122,13 @@
 				<div class="row">
 					@foreach ($services as $service)
 						<div class="col-xs-12 col-sm-3">
-							<div class="checkbox error-container">
-								<label>
-									{!! Form::checkbox('services[]', $service->id, empty($property) ? null : $property->hasService($service->id) ) !!}
-									{{ $service->title }}
-								</label>
+							<div class="form-group">
+								<div class="checkbox error-container">
+									<label>
+										{!! Form::checkbox('services[]', $service->id, empty($property) ? null : $property->hasService($service->id) ) !!}
+										{{ $service->title }}
+									</label>
+								</div>
 							</div>
 						</div>
 					@endforeach
@@ -198,7 +206,10 @@
 			<div role="tabpanel" class="tab-pane tab-main" id="tab-text">
 				<ul class="nav nav-tabs locale-tabs" role="tablist">
 					@foreach ($site_setup['locales_tabs'] as $lang_iso => $lang_name)
-						<li role="presentation"><a href="#lang-{{$lang_iso}}" aria-controls="lang-{{$lang_iso}}" role="tab" data-toggle="tab">{{$lang_name}}</a></li>
+						<li role="presentation" class="autotranslate-flag-area">
+							<a href="#lang-{{$lang_iso}}" aria-controls="lang-{{$lang_iso}}" role="tab" data-toggle="tab">{{$lang_name}}</a>
+							<i class="fa fa-check autotranslate-flag" aria-hidden="true"></i>
+						</li>
 					@endforeach
 				</ul>
 				<div class="tab-content translate-area">
@@ -627,6 +638,29 @@
 		});
 
 		// Translations
+		var translation_flag_fields = '.title-input, .description-input';
+
+		function checkTranslations() {
+			form.find('.autotranslate-flag-area').each(function(){
+				var el = $(this).addClass('autotranslate-complete');
+				var target = $( $(this).find('a').attr('href') );
+
+				var completed = true;
+
+				target.find(translation_flag_fields).each(function() {
+					if ( ! $(this).val() ) {
+						el.removeClass('autotranslate-complete')
+						return false;
+					}
+				});
+
+			});
+		}
+
+		form.on('change', translation_flag_fields, checkTranslations);
+
+		checkTranslations();
+
 		form.on('click', '.translate-trigger', function(e){
 			e.preventDefault();
 
@@ -683,6 +717,7 @@
 								msg += "<br />{{ print_js_string( Lang::get('general.autotranslate.error.some') ) }} " + errors.join(', ') + '.';
 							}
 							alertify.success(msg);
+							checkTranslations();
 						}
 					} else {
 						alertify.error("{{ print_js_string( Lang::get('general.messages.error') ) }}");

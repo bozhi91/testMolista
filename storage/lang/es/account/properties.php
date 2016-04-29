@@ -8,6 +8,7 @@
 
 		'column.title' => 'Propiedad',
 		'column.location' => 'Ubicación',
+		'column.created' => 'Creación',
 
 		'ref' => 'Referencia',
 		'type' => 'Tipo',

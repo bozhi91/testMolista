@@ -46,6 +46,7 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 			'theme' => 'required|in:'.implode(',', array_keys(\Config::get('themes.themes'))),
 			'locales_array' => 'required|array',
 			'i18n' => 'array',
+			'i18n.title.'.fallback_lang() => 'required',
 			'domains_array' => 'required|array',
 			'social_array' => 'required|array',
 		]);
@@ -61,16 +62,8 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 			$locales_array[] = fallback_lang();
 		}
 
-		// Validate locales && i18n
 		$i18n = $this->request->get('i18n');
 		$valid_locales = \LaravelLocalization::getSupportedLocales();
-		foreach ($locales_array as $locale)
-		{
-			if ( !$locale || !array_key_exists($locale, $valid_locales) || empty($i18n['title'][$locale]) )
-			{
-				return \Redirect::back()->withInput()->with('error', trans('general.messages.error'));
-			}
-		}
 
 		// Validate subdomain
 		if ( \App\Site::where('subdomain', $this->request->get('subdomain'))->where('id','!=',@intval($site->id))->count() )
