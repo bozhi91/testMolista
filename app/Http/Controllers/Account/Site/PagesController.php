@@ -162,7 +162,7 @@ class PagesController extends \App\Http\Controllers\AccountController
 		// Images to preserve
 		$this->preserve_images = [];
 
-		foreach (\LaravelLocalization::getSupportedLocales() as $locale => $locale_def)
+		foreach (\App\Session\Site::get('locales_tabs') as $locale => $locale_def)
 		{
 			$page->translateOrNew($locale)->title = @$data['title'][$locale];
 			$page->translateOrNew($locale)->body = $this->prepareBodyImages($page, @$data['body'][$locale] );
