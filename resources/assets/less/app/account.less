@@ -78,4 +78,12 @@
 	}
 
 	.pagination { font-size: 14px; line-height: 30px; }
+
+	.autotranslate-flag-area {
+		position: relative;
+		.autotranslate-flag { position: absolute; bottom: 4px; right: 6px; display: block; opacity: 0.1; color: @colorPurple; font-size: 10px; }
+		&.autotranslate-complete {
+			.autotranslate-flag { opacity: 1; color: @colorRed; }
+		}
+	}
 }
