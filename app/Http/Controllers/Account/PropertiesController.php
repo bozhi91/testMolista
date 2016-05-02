@@ -33,11 +33,18 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			$query->where('ref', 'LIKE', "%{$this->request->get('ref')}%");
 		}
 
-		// Filter by name
+		// Filter by title
 		if ( $this->request->get('title') )
 		{
 			$clean_filters = true;
 			$query->whereTranslationLike('title', "%{$this->request->get('title')}%");
+		}
+
+		// Filter by highlighted
+		if ( $this->request->get('highlighted') )
+		{
+			$clean_filters = true;
+			$query->where('highlighted', intval($this->request->get('highlighted'))-1);
 		}
 
 		switch ( $this->request->get('sort') )
