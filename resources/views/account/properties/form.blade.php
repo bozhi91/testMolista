@@ -797,15 +797,15 @@
 			acceptedFiles: 'image/*',
 			dictFileTooBig: "{{ print_js_string( Lang::get('account/properties.images.dropzone.error.size', [ 'IMAGE_MAXSIZE'=>Config::get('app.property_image_maxsize') ]) ) }}",
 			dictDefaultMessage: "{{ print_js_string( Lang::get('account/properties.images.dropzone.helper') ) }}",
-			error: function(file, errorMessage, response) {
-				if ( $.type(errorMessage) === 'string') {
-					if ( errorMessage.length > 500 ) {
+			error: function(file, response) {
+				if ( $.type(response) === 'string') {
+					if ( response.length > 500 ) {
 						alertify.error("{{ print_js_string( Lang::get('account/properties.images.dropzone.error.size', [ 'IMAGE_MAXSIZE'=>Config::get('app.property_image_maxsize') ]) ) }}");
 					} else {
-						alertify.error(errorMessage);
+						alertify.error(response);
 					}
-				} else if ( $.type(errorMessage) === 'object' && errorMessage.message ) {
-					alertify.error(errorMessage.message);
+				} else if ( $.type(response) === 'object' && response.message ) {
+					alertify.error(response.message);
 				} else {
 					alertify.error("{{ print_js_string( Lang::get('general.messages.error') ) }}");
 				}

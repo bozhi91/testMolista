@@ -73,8 +73,8 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 
 		// Get user
         $employee = $this->site->users()->create([
-            'name' => $this->request->get('name'),
-            'email' => $this->request->get('email'),
+            'name' => sanitize( $this->request->get('name') ),
+            'email' => sanitize( $this->request->get('email'), 'email'),
             'locale' => $this->request->get('locale'),
             'password' => bcrypt($this->request->get('password')),
         ]);

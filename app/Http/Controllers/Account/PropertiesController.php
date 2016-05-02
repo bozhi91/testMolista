@@ -362,16 +362,16 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			}
 			else
 			{
-				$property->$field = $this->request->get($field);
+				$property->$field = sanitize( $this->request->get($field) );
 			}
 		}
 
 		// Translatable fields
 		foreach (\App\Session\Site::get('locales_tabs') as $locale => $locale_name)
 		{
-			$property->translateOrNew($locale)->title = $this->request->input("i18n.title.{$locale}");
-			$property->translateOrNew($locale)->description = $this->request->input("i18n.description.{$locale}");
-			$property->translateOrNew($locale)->label = $this->request->input("i18n.label.{$locale}");
+			$property->translateOrNew($locale)->title = sanitize( $this->request->input("i18n.title.{$locale}") );
+			$property->translateOrNew($locale)->description = sanitize( $this->request->input("i18n.description.{$locale}") );
+			$property->translateOrNew($locale)->label = sanitize( $this->request->input("i18n.label.{$locale}") );
 		}
 
 		// Services
@@ -515,6 +515,21 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 		$file = \Input::file('file');
 
+		$validator = \Validator::make($this->request->all(), [
+			'file' => 'required|image|max:' . \Config::get('app.property_image_maxsize', 2048),
+		]);
+		$validator->setAttributeNames([
+			'file' => ucfirst( trans('account/properties.images.dropzone.nicename') ),
+		]);
+
+		if ($validator->fails()) 
+		{
+			$errors = $validator->errors();
+			return response()->json([
+				'error' => true,
+				'message' => $errors->first('file'),
+			], 400);
+		}
 
 		$dir = 'sites/uploads/'.date('Ymd');
 		$dirpath = public_path($dir);

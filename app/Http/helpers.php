@@ -124,18 +124,36 @@
 				</div>";
 	}
 
-	function sort_link($field) {
+	function sort_link($field) 
+	{
 		return url()->current() . '?' . http_build_query(Input::except('sort')) . '&sort=' . $field;
 	}
 
-	function fallback_lang() {
+	function fallback_lang() 
+	{
 		return Config::get('app.fallback_locale');
 	}
-	function fallback_lang_text() {
+	function fallback_lang_text() 
+	{
 		$locales = LaravelLocalization::getSupportedLocales();
 		return @$locales[fallback_lang()]['native'];
 	}
 
-	function summetime_lang() {
+	function summetime_lang() 
+	{
 		return str_replace('_','-', LaravelLocalization::getCurrentLocaleRegional() );
+	}
+
+	function sanitize($string, $type = false) 
+	{
+		switch ( $type )
+		{
+			case 'url':
+				return trim( filter_var($string, FILTER_SANITIZE_URL) );
+			case 'email':
+				return trim( filter_var($string, FILTER_SANITIZE_EMAIL) );
+			case 'text':
+			default:
+				return trim( filter_var($string, FILTER_SANITIZE_STRING) );
+		}
 	}
