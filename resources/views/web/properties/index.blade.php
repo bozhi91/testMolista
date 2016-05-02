@@ -36,6 +36,8 @@
 			</div>
 		</div>
 
+		@include('web.properties.index-bottom')
+
 	</div>
 
 	<script type="text/javascript">
