@@ -214,7 +214,7 @@ class SitesController extends Controller
 		$site->domains()->whereNotIn('id',$preserve)->delete();
 
 		// Save owners
-		$site->users()->detach();
+		$site->users()->detach( $site->owners_ids );
 		foreach ($this->request->get('owners_ids') as $owner_id)
 		{
 			$site->users()->attach($owner_id);
