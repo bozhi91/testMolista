@@ -19,6 +19,7 @@
 		'baths' => 'Número de baños',
 		'enabled' => 'Habilitada',
 		'highlighted' => 'Destacada',
+		'highlighted.not' => 'No destacada',
 		'newly_build' => 'Nueva construcción',
 		'second_hand' => 'Segunda mano',
 		'services' => 'Servicios',
