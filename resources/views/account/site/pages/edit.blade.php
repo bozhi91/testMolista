@@ -77,9 +77,9 @@
 											<div class="col-xs-12 col-sm-6 hidden-xs">
 												<label>&nbsp;</label>
 												<div class="text-right">
-													@if ( empty($page->i18n['slug'][$lang_iso]) )
+													@if ( !empty($page->i18n['slug'][$lang_iso]) )
 														<a href="{{ LaravelLocalization::getLocalizedURL($lang_iso, action('Web\PagesController@show', $page->i18n['slug'][$lang_iso])) }}" class="btn btn-warning" target="_blank">{{ Lang::get('general.view') }}</a>
-													@else
+													@elseif ( !empty($page->i18n['slug'][fallback_lang()]) )
 														<a href="{{ LaravelLocalization::getLocalizedURL($lang_iso, action('Web\PagesController@show', $page->i18n['slug'][fallback_lang()])) }}" class="btn btn-warning" target="_blank">{{ Lang::get('general.view') }}</a>
 													@endif
 												</div>
