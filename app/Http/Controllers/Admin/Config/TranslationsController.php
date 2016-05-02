@@ -83,7 +83,7 @@ class TranslationsController extends AdminController
 					$subquery = "`translation_id`
 									FROM (
 									SELECT `translation_id`, COUNT(`id`) as total
-									FROM `translations_i18n`
+									FROM `translations_translations`
 									WHERE `value`!=''
 									GROUP BY `translation_id`
 									HAVING total < {$total_langs}
@@ -114,18 +114,18 @@ class TranslationsController extends AdminController
 						case 'untranslated':
 							$query->whereNotIn('id', function($query) use ($langs) {
 							$query->select('translation_id')
-											->from('translations_i18n')
+											->from('translations_translations')
 											->where('value','!=','')
-											->whereIn('iso_lang', $langs);
+											->whereIn('locale', $langs);
 							});
 							break;
 						// With translation
 						case 'translated':
 							$query->whereIn('id', function($query) use ($langs) {
 							$query->select('translation_id')
-											->from('translations_i18n')
+											->from('translations_translations')
 											->where('value','!=','')
-											->whereIn('iso_lang', $langs);
+											->whereIn('locale', $langs);
 							});
 							break;
 					}
