@@ -20,7 +20,9 @@ class UsersController extends Controller
 
 	public function index()
 	{
-		$query = \App\User::with('roles')->with('sites');
+		$query = \App\User::with('roles')->with([ 'sites' => function($query){
+			$query->withTranslations();
+		}]);
 
 		// Filter by name
 		if ( $this->request->get('name') )
