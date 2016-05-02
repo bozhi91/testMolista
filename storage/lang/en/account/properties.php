@@ -34,6 +34,9 @@
 		'tab.text' => 'Text',
 		'tab.images' => 'Images',
 		'tab.employees' => 'Managers',
+		'tab.lead' => 'Leads',
+		'tab.transaction' => 'Transactions',
+		'tab.reports' => 'Reports',
 
 		'country' => 'Country',
 		'state' => 'State',
@@ -73,4 +76,6 @@
 
 		'delete' => 'Are you sure you want to permanently delete this property?',
 		'deleted' => 'The property was successfully deleted',
+
+		'edit.view' => 'Property view',
 	];

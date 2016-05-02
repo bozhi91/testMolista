@@ -34,6 +34,9 @@
 		'tab.text' => 'Textos',
 		'tab.images' => 'Imágenes',
 		'tab.employees' => 'Managers',
+		'tab.lead' => 'Leads',
+		'tab.transaction' => 'Transacciones',
+		'tab.reports' => 'Reportes',
 
 		'country' => 'País',
 		'state' => 'Provincia',
@@ -73,4 +76,6 @@
 
 		'delete' => '¿Confirma qeu desea eliminar permanentemente esta La propiedad se ha creado correctamente?',
 		'deleted' => 'La La propiedad se ha creado correctamente se ha eliminado correctamente',
+
+		'edit.view' => 'Vista propiedad',
 	];
