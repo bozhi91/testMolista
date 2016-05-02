@@ -60,9 +60,10 @@ class SiteSetup
 			{
 				$setup['locales_tabs'][fallback_lang()] = $setup['locales_select'][fallback_lang()];
 			}
-			foreach (\LaravelLocalization::getSupportedLocales() as $locale => $def) 
+
+			foreach ($setup['locales_select'] as $locale => $locale_name) 
 			{
-				$setup['locales_tabs'][$locale] = $def['native'];
+				$setup['locales_tabs'][$locale] = $locale_name;
 			}
 
 			$widgets = $site_setup->widgets()->withTranslations()->withMenu()->orderBy('position')->get();

@@ -23,7 +23,7 @@
 			{!! Form::open([ 'method'=>'POST', 'action'=>[ 'Account\Site\WidgetsController@postUpdate', $item->id], 'class'=>'widget-form' ]) !!}
 				<div class="widget-configuration">
 					<ul class="nav nav-tabs nav-tabs-small locale-tabs" role="tablist">
-						<li role="presentation" class="active"><a href="#menu-item-locale-tab-{{$type}}-en-{{$item_id}}" aria-controls="menu-item-locale-tab-{{$type}}-en-{{$item_id}}" role="tab" data-toggle="tab" class="text-uppercase">en</a></li>
+						<li role="presentation" class="active"><a href="#menu-item-locale-tab-{{$type}}-{{fallback_lang()}}-{{$item_id}}" aria-controls="menu-item-locale-tab-{{$type}}-{{fallback_lang()}}-{{$item_id}}" role="tab" data-toggle="tab" class="text-uppercase">{{fallback_lang()}}</a></li>
 						@foreach ($site_setup['locales_tabs'] as $locale => $locale_name)
 							@if ( $locale != fallback_lang() )
 								<li role="presentation"><a href="#menu-item-locale-tab-{{$type}}-{{$locale}}-{{$item_id}}" aria-controls="menu-item-locale-tab-{{$type}}-{{$locale}}-{{$item_id}}" role="tab" data-toggle="tab" class="text-uppercase">{{$locale}}</a></li>

@@ -108,9 +108,9 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 		}
 
 		// Save i18n
-		foreach (\LaravelLocalization::getSupportedLocales() as $locale => $locale_name)
+		foreach (\App\Session\Site::get('locales_tabs') as $locale => $locale_name)
 		{
-			$widget->translateOrNew($locale)->title = @$data['title'][$locale];
+			$widget->translateOrNew($locale)->title = @sanitize( $data['title'][$locale] );
 		}
 
 		// Save type related data
@@ -120,9 +120,9 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 				$widget->menu_id = $data['menu_id'];
 				break;
 			case 'text':
-				foreach (\LaravelLocalization::getSupportedLocales() as $locale => $locale_name)
+				foreach (\App\Session\Site::get('locales_tabs') as $locale => $locale_name)
 				{
-					$widget->translateOrNew($locale)->content = @$data['content'][$locale];
+					$widget->translateOrNew($locale)->content = @sanitize( $data['content'][$locale] );
 				}
 				break;
 		}

@@ -69,5 +69,21 @@
 		h2 { font-size: 16px; }
 	}
 
+	.is-sortable { 
+		color: @bodyTextColor; 
+		&.sorted {
+			&:before { content:''; display: inline-block; width:0; height:0; border: 3px solid transparent; vertical-align: middle; border-top-color: @bodyTextColor; opacity: 0.8; margin-right: 3px;
+			}
+		}
+	}
+
 	.pagination { font-size: 14px; line-height: 30px; }
+
+	.autotranslate-flag-area {
+		position: relative;
+		.autotranslate-flag { position: absolute; bottom: 4px; right: 6px; display: block; opacity: 0.7; color: @colorOrange; font-size: 10px; }
+		&.autotranslate-complete {
+			.autotranslate-flag { opacity: 1; color: @colorGreen; }
+		}
+	}
 }

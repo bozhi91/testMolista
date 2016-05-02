@@ -189,6 +189,9 @@
 
 			/* https://github.com/Intervention/image */
 			Intervention\Image\ImageServiceProvider::class,
+
+			/* https://github.com/mewebstudio/Purifier */
+			Mews\Purifier\PurifierServiceProvider::class,
 		],
 
 		/*
@@ -254,6 +257,9 @@
 
 			/* https://github.com/Intervention/image */
 			'Image' => Intervention\Image\Facades\Image::class,
+
+			/* https://github.com/mewebstudio/Purifier */
+			'Purifier' => Mews\Purifier\Facades\Purifier::class,
 
 
 

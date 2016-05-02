@@ -162,13 +162,13 @@ class PagesController extends \App\Http\Controllers\AccountController
 		// Images to preserve
 		$this->preserve_images = [];
 
-		foreach (\LaravelLocalization::getSupportedLocales() as $locale => $locale_def)
+		foreach (\App\Session\Site::get('locales_tabs') as $locale => $locale_def)
 		{
-			$page->translateOrNew($locale)->title = @$data['title'][$locale];
-			$page->translateOrNew($locale)->body = $this->prepareBodyImages($page, @$data['body'][$locale] );
-			$page->translateOrNew($locale)->seo_title = @$data['seo_title'][$locale];
-			$page->translateOrNew($locale)->seo_description = @$data['seo_description'][$locale];
-			$page->translateOrNew($locale)->seo_keywords = @$data['seo_keywords'][$locale];
+			$page->translateOrNew($locale)->title = @sanitize( $data['title'][$locale] );
+			$page->translateOrNew($locale)->body = @clean( $this->prepareBodyImages($page, $data['body'][$locale] ) );
+			$page->translateOrNew($locale)->seo_title = @sanitize( $data['seo_title'][$locale] );
+			$page->translateOrNew($locale)->seo_description = @sanitize( $data['seo_description'][$locale] );
+			$page->translateOrNew($locale)->seo_keywords = @sanitize( $data['seo_keywords'][$locale] );
 		}
 
 		// Images maitenance

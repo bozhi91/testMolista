@@ -25,27 +25,33 @@
 					<div role="tabpanel" class="tab-pane tab-main active" id="tab-permissions">
 						<ul class="list-unstyled">
 							<li>
-								<div class="checkbox">
-									<label>
-										{!! Form::checkbox('permissions[can_create]', 1, $employee->pivot->can_create) !!}
-										{{ Lang::get('account/employees.show.tab.permissions.create') }}
-									</label>
+								<div class="form-group">
+									<div class="checkbox">
+										<label>
+											{!! Form::checkbox('permissions[can_create]', 1, $employee->pivot->can_create) !!}
+											{{ Lang::get('account/employees.show.tab.permissions.create') }}
+										</label>
+									</div>
 								</div>
 							</li>
 							<li>
-								<div class="checkbox">
-									<label>
-										{!! Form::checkbox('permissions[can_edit]', 1, $employee->pivot->can_edit) !!}
-										{{ Lang::get('account/employees.show.tab.permissions.edit') }}
-									</label>
+								<div class="form-group">
+									<div class="checkbox">
+										<label>
+											{!! Form::checkbox('permissions[can_edit]', 1, $employee->pivot->can_edit) !!}
+											{{ Lang::get('account/employees.show.tab.permissions.edit') }}
+										</label>
+									</div>
 								</div>
 							</li>
 							<li>
-								<div class="checkbox">
-									<label>
-										{!! Form::checkbox('permissions[can_delete]', 1, $employee->pivot->can_delete) !!}
-										{{ Lang::get('account/employees.show.tab.permissions.delete') }}
-									</label>
+								<div class="form-group">
+									<div class="checkbox">
+										<label>
+											{!! Form::checkbox('permissions[can_delete]', 1, $employee->pivot->can_delete) !!}
+											{{ Lang::get('account/employees.show.tab.permissions.delete') }}
+										</label>
+									</div>
 								</div>
 							</li>
 						</ul>

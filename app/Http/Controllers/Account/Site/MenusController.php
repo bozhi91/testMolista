@@ -53,7 +53,7 @@ class MenusController extends \App\Http\Controllers\AccountController
 		}
 
 		$menu = $this->site->menus()->create([
-			'title' => $this->request->get('title'),
+			'title' => sanitize( $this->request->get('title') ),
 		]);
 
 		if ( !$menu )
@@ -91,7 +91,7 @@ class MenusController extends \App\Http\Controllers\AccountController
 
 		// Save menu
 		$menu->update([
-			'title' => $this->request->get('title'),
+			'title' => sanitize( $this->request->get('title') ),
 		]);
 
 		// Get old items
@@ -218,14 +218,14 @@ class MenusController extends \App\Http\Controllers\AccountController
 
 	protected function saveItemTranslations($item, $type, $data)
 	{
-		foreach (\LaravelLocalization::getSupportedLocales() as $locale => $locale_name)
+		foreach (\App\Session\Site::get('locales_tabs') as $locale => $locale_name)
 		{
-			$item->translateOrNew($locale)->title = @$data['title'][$locale];
+			$item->translateOrNew($locale)->title = @sanitize( $data['title'][$locale] );
 
 			switch ( $type )
 			{
 				case 'custom':
-					$item->translateOrNew($locale)->url = @$data['url'][$locale];
+					$item->translateOrNew($locale)->url = @sanitize( $data['url'][$locale], 'url' );
 					break;
 			}
 		}

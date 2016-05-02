@@ -8,6 +8,7 @@
 
 		'column.title' => 'Propiedad',
 		'column.location' => 'Ubicación',
+		'column.created' => 'Creación',
 
 		'ref' => 'Referencia',
 		'type' => 'Tipo',
@@ -18,6 +19,7 @@
 		'baths' => 'Número de baños',
 		'enabled' => 'Habilitada',
 		'highlighted' => 'Destacada',
+		'highlighted.not' => 'No destacada',
 		'newly_build' => 'Nueva construcción',
 		'second_hand' => 'Segunda mano',
 		'services' => 'Servicios',
@@ -55,6 +57,7 @@
 		'images.delete' => '¿Confirma que desea eliminar permanentemente esta images?',
 		'images.dropzone.helper' => 'Arrastre las imágenes o haga click',
 		'images.dropzone.error.size' => 'La imagen pesa mas de :IMAGE_MAXSIZE kilobytes',
+		'images.dropzone.nicename' => 'La imagen',
 
 		'employees.empty' => 'No se encontraron managers',
 		'employees.employee' => 'Nombre',
