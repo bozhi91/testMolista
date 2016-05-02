@@ -152,7 +152,7 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 			}
 			foreach ($translations as $iso=>$def)
 			{
-				$site->translateOrNew($iso)->$key = $def;
+				$site->translateOrNew($iso)->$key = sanitize($def);
 			}
 		}
 
@@ -165,7 +165,7 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 			if ( $domain_url && $domain_id == 'new' )
 			{
 				$site->domains()->create([
-					'domain' => $domain_url,
+					'domain' => sanitize($domain_url, 'url'),
 				]);
 			}
 			elseif ( $site_domain = $site->domains()->find($domain_id) )
@@ -173,7 +173,7 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 				if ( $domain_url )
 				{
 					$site_domain->update([
-						'domain' => $domain_url,
+						'domain' => sanitize($domain_url, 'url'),
 					]);
 				}
 				else
@@ -196,7 +196,7 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 			}
 
 			$social_media->update([
-				'url' => $network_url,
+				'url' => sanitize($network_url, 'url'),
 			]);
 		}
 

@@ -57,6 +57,7 @@
 		'images.delete' => 'Are you sure you want to permanently delete this image?',
 		'images.dropzone.helper' => 'Drop files or click to upload',
 		'images.dropzone.error.size' => 'Image is bigger than :IMAGE_MAXSIZE kilobytes',
+		'images.dropzone.nicename' => 'The image',
 
 		'employees.empty' => 'No managers found',
 		'employees.employee' => 'Name',
