@@ -27,6 +27,9 @@
 		'label' => 'Label',
 		'show_address' => 'Show address',
 
+		'energy.certificate' => 'Energy certificate',
+		'energy.certificate.pending' => 'In process',
+
 		'create.title' => 'New property',
 		'edit.title' => 'Edit property',
 

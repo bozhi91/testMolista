@@ -27,6 +27,9 @@
 		'label' => 'Etiqueta',
 		'show_address' => 'Mostrar dirección',
 
+		'energy.certificate' => 'Certificado energético',
+		'energy.certificate.pending' => 'En trámite',
+
 		'create.title' => 'NUeva propiedad',
 		'edit.title' => 'Editar propiedad',
 

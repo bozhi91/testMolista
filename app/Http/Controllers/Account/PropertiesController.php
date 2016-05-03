@@ -79,6 +79,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
     {
         $modes = \App\Property::getModeOptions();
         $types = \App\Property::getTypeOptions();
+		$energy_types = \App\Property::getEcOptions();
         $services = \App\Models\Property\Service::withTranslations()->enabled()->orderBy('title')->get();
 
         $countries = \App\Models\Geography\Country::withTranslations()->enabled()->orderBy('name')->lists('name','id');
@@ -91,7 +92,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
             $cities = \App\Models\Geography\City::enabled()->where('state_id', old('state_id'))->lists('name','id');
         }
 
-        return view('account.properties.create', compact('modes','types','services','countries','states','cities','country_id'));
+        return view('account.properties.create', compact('modes','types','energy_types','services','countries','states','cities','country_id'));
     }
 
 	public function store()
@@ -142,13 +143,14 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 		$modes = \App\Property::getModeOptions();
 		$types = \App\Property::getTypeOptions();
+		$energy_types = \App\Property::getEcOptions();
 		$services = \App\Models\Property\Service::withTranslations()->enabled()->orderBy('title')->get();
 
 		$countries = \App\Models\Geography\Country::withTranslations()->enabled()->orderBy('name')->lists('name','id');
 		$states = \App\Models\Geography\State::enabled()->where('country_id', $property->country_id)->lists('name','id');
 		$cities = \App\Models\Geography\City::enabled()->where('state_id', $property->state_id)->lists('name','id');
 
-		return view('account.properties.edit', compact('property','employees','modes','types','services','countries','states','cities'));
+		return view('account.properties.edit', compact('property','employees','modes','types','energy_types','services','countries','states','cities'));
 	}
 
 	public function update(Request $request, $slug)
@@ -324,6 +326,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'services' => 'array',
 			'enabled' => 'boolean',
 			'highlighted' => 'boolean',
+			'ec' => 'in:'.implode(',', array_keys(\App\Property::getEcOptions())),
+			'ec_pending' => 'boolean',
 			'newly_build' => 'boolean',
 			'second_hand' => 'boolean',
 			'country_id' => 'required|exists:countries,id',

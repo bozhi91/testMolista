@@ -77,6 +77,20 @@
 				</div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<div class="error-container">
+								{!! Form::label('ec', Lang::get('account/properties.energy.certificate')) !!}
+								{!! Form::select('ec', [''=>'']+$energy_types, null, [ 'class'=>'form-control' ]) !!}
+							</div>
+							<div class="help-block">
+								<label>
+									{!! Form::checkbox('ec_pending', 1, null) !!}
+									{{ Lang::get('account/properties.energy.certificate.pending') }}
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
 							{!! Form::label('enabled', Lang::get('account/properties.enabled')) !!}
 							{!! Form::select('enabled', [ '1'=>Lang::get('general.yes'), '0'=>Lang::get('general.no') ], null, [ 'class'=>'form-control' ]) !!}
@@ -93,7 +107,7 @@
 									{!! Form::checkbox('highlighted', 1, null) !!}
 									{{ Lang::get('account/properties.highlighted') }}
 								</label>
-						</div>
+							</div>
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-3">
