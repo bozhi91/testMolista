@@ -31,6 +31,10 @@ class Site extends TranslatableModel
 		return \App\User::withRole('employee')->whereIn('id', $this->users_ids)->lists('id')->toArray();
 	}
 
+	public function customers() {
+		return $this->hasMany('App\Models\Site\Customer');
+	}
+
 	public function properties() {
 		return $this->hasMany('App\Property');
 	}

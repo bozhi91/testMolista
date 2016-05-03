@@ -239,6 +239,9 @@
 			'Validator' => Illuminate\Support\Facades\Validator::class,
 			'View'      => Illuminate\Support\Facades\View::class,
 
+			/* Own */
+			'SiteCustomer' => App\Session\SiteCustomer::class,
+
 			/* https://github.com/Illuminate/HTML */
 			'Form' => Collective\Html\FormFacade::class,
 			'Html' => Collective\Html\HtmlFacade::class,
@@ -260,8 +263,6 @@
 
 			/* https://github.com/mewebstudio/Purifier */
 			'Purifier' => Mews\Purifier\Facades\Purifier::class,
-
-
 
 		],
 

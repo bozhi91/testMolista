@@ -78,6 +78,9 @@ Route::group([
 	// Autologin
 	Route::get('account/autologin/{id}/{hash}', 'Auth\AuthController@autologin');
 
+	// User
+	Route::controller('customers', 'Web\CustomersController');
+
 	// Account
 	Route::group([
 		'prefix' => 'account',
@@ -98,6 +101,8 @@ Route::group([
 		Route::post('employees/associate/{email}', 'Account\EmployeesController@postAssociate');
 		Route::get('employees/disssociate/{user_id}/{property_id}', 'Account\EmployeesController@getDissociate');
 		Route::resource('employees', 'Account\EmployeesController');
+		// Customers
+		Route::resource('customers', 'Account\CustomersController');
 		// Site configuration
 		Route::group([
 			'prefix' => 'site',

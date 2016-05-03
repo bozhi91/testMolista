@@ -8,6 +8,8 @@
 		
 		'employees' => 'Empleados',
 
+		'customers' => 'Leads',
+
 		'site' => 'Sitio',
 		'site.configuration' => 'Configuración',
 		'site.widgets' => 'Widgets',
