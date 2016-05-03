@@ -18,6 +18,7 @@
 		'rooms' => 'Number of rooms',
 		'baths' => 'Number of bathrooms',
 		'enabled' => 'Enabled',
+		'enabled.not' => 'Disabled',
 		'highlighted' => 'Highlighted',
 		'highlighted.not' => 'Not highlighted',
 		'newly_build' => 'New construction',

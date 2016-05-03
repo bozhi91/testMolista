@@ -90,6 +90,8 @@ Route::group([
 		// Properties
 		Route::post('properties/upload', 'Account\PropertiesController@postUpload');
 		Route::get('properties/associate/{slug}', 'Account\PropertiesController@getAssociate');
+		Route::get('properties/highlight/{slug}', 'Account\PropertiesController@getChangeHighlight');
+		Route::get('properties/status/{slug}', 'Account\PropertiesController@getChangeStatus');
 		Route::resource('properties', 'Account\PropertiesController');
 		// Employees
 		Route::get('employees/associate/{email}', 'Account\EmployeesController@getAssociate');

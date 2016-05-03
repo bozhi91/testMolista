@@ -14,7 +14,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		$this->middleware([ 'permission:property-view' ], [ 'only' => [ 'index','show' ] ]);
 		$this->middleware([ 'permission:property-create', 'property.permission:create' ], [ 'only' => [ 'create','store' ] ]);
 		$this->middleware([ 'permission:property-edit' ], [ 'only' => [ 'edit','update','getAssociate','postAssociate' ] ]);
-		$this->middleware([ 'property.permission:edit' ], [ 'only' => [ 'update','getAssociate','postAssociate' ] ]);
+		$this->middleware([ 'property.permission:edit' ], [ 'only' => [ 'update','getAssociate','postAssociate','getChangeStatus' ] ]);
 		$this->middleware([ 'permission:property-delete', 'property.permission:delete' ], [ 'only' => [ 'destroy' ] ]);
 
 		\View::share('submenu_section', 'properties');
@@ -45,6 +45,13 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		{
 			$clean_filters = true;
 			$query->where('highlighted', intval($this->request->get('highlighted'))-1);
+		}
+
+		// Filter by highlighted
+		if ( $this->request->get('enabled') )
+		{
+			$clean_filters = true;
+			$query->where('enabled', intval($this->request->get('enabled'))-1);
 		}
 
 		switch ( $this->request->get('sort') )
@@ -260,6 +267,44 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		}
 
 		return $response;
+	}
+
+	public function getChangeStatus($slug)
+	{
+		$property = $this->site->properties()->whereIn('properties.id', $this->auth->user()->properties()->lists('id'))->whereTranslation('slug', $slug)->first();
+		if ( !$property )
+		{
+			return [ 'error'=>1 ];
+		}
+
+		$property->enabled = $property->enabled ? 0 : 1;
+		$property->save();
+
+
+		return [
+			'success' => 1,
+			'enabled' => $property->enabled,
+		];
+
+	}
+
+	public function getChangeHighlight($slug)
+	{
+		$property = $this->site->properties()->whereIn('properties.id', $this->auth->user()->properties()->lists('id'))->whereTranslation('slug', $slug)->first();
+		if ( !$property )
+		{
+			return [ 'error'=>1 ];
+		}
+
+		$property->highlighted = $property->highlighted ? 0 : 1;
+		$property->save();
+
+
+		return [
+			'success' => 1,
+			'highlighted' => $property->highlighted,
+		];
+
 	}
 
 	/* HELPER FUNCTIONS --------------------------------------------------------------------------- */

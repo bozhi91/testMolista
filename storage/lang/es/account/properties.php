@@ -18,6 +18,7 @@
 		'rooms' => 'Número de habitaciones',
 		'baths' => 'Número de baños',
 		'enabled' => 'Habilitada',
+		'enabled.not' => 'Inactiva en web',
 		'highlighted' => 'Destacada',
 		'highlighted.not' => 'No destacada',
 		'newly_build' => 'Nueva construcción',
