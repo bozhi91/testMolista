@@ -22,6 +22,19 @@
 		margin-bottom: 20px; padding: 20px 0px; border: 1px solid @borderColor; border-width: @borderWidth 0px; color: @colorGrey; font-size: 16px;
 		.description { margin-bottom: 20px; }
 	}
+	.energy-certification {
+		padding-top: 15px; 
+		.energy-certification-icon { position: relative; top: -2px; }
+		.popover { left: -5px !important; margin-top: 17px; max-width: 375px; }
+		.arrow { margin-left: 0px; left: 15px !important; }
+		.popover-content { 
+			padding: 20px; 
+			.text { 
+				padding-left: 20px; 
+				p:last-child { margin-bottom: 0px; }
+			}
+		}
+	}
 
 	.map-area { 
 		margin-bottom: 20px;
@@ -59,5 +72,10 @@
 			> li { float: left; width: 50%; padding: 0px; }
 		}
 		.services { padding-top: 15px; }
+		.energy-certification {
+			.popover-content { 
+				.text { padding-left: 0px; }
+			}
+		}
 	}
 }

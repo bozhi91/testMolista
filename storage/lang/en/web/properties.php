@@ -46,4 +46,6 @@
 
 		'call.to.action' => 'Get more information',
 		'related.title' => 'Other properties that may interest you',
+
+		'energy.certificate.help' => '<p>The energy certification indicates the efficiency of the property in terms of consumption of energy, water, etc.</p><p>Category A is the most efficient and G the least.</p>',
 	];
