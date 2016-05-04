@@ -11,7 +11,7 @@
 								@if ( $widget->menu )
 									<ul class="list-unstyled">
 										@foreach ($widget->menu->items as $item)
-											<li><a href="{{ $item->item_url }}">{{ $item->item_title }}</a></li>
+											<li><a href="{{ $item->item_url }}" target="{{ $item->target }}">{{ $item->item_title }}</a></li>
 										@endforeach
 									</ul>
 								@endif

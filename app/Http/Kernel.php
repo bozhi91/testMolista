@@ -55,6 +55,8 @@ class Kernel extends HttpKernel
 		'site.setup' => \App\Http\Middleware\SiteSetup::class,
 		'site.setup.user' => \App\Http\Middleware\SiteSetupUser::class,
 		'site.login.roles' => \App\Http\Middleware\SiteLoginRoles::class,
+		'site.customer.auth' => \App\Http\Middleware\SiteCustomerAuth::class,
+		'site.customer.guest' => \App\Http\Middleware\SiteCustomerGuest::class,
 
 		'property.permission' => \App\Http\Middleware\PropertyPermission::class,
 

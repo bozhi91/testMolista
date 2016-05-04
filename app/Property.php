@@ -325,4 +325,17 @@ class Property extends TranslatableModel
 		];
 	}
 
+	static public function getEcOptions() 
+	{
+		return [
+			'A' => 'A',
+			'B' => 'B',
+			'C' => 'C',
+			'D' => 'D',
+			'E' => 'E',
+			'F' => 'F',
+			'G' => 'G',
+		];
+	}
+
 }

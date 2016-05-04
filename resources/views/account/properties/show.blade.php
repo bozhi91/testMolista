@@ -18,7 +18,21 @@
 		<div class="tab-content">
 
 			<div role="tabpanel" class="tab-pane tab-main active" id="tab-general">
-				Info de la propiedad
+				<p>Datos de la propiedad</p>
+				<p>Fecha de captación y agente que lo captó</p>
+				<p>
+					Datos de contacto del vendedor
+					<ul>
+						<li>Nombre</li>
+						<li>Apellido</li>
+						<li>DNI</li>
+						<li>Email</li>
+						<li>Móvil</li>
+						<li>Fijo</li>
+					</ul>
+				</p>
+				<p>Precio más bajo por el que el propietario estaría dispuesto a vender</p>
+				<p>Comisión acordada con el propietario (%)</p>
 			</div>
 
 			<div role="tabpanel" class="tab-pane tab-main" id="tab-lead">

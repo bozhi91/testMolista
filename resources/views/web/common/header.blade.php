@@ -18,7 +18,7 @@
 							<ul class="nav navbar-nav">
 								@foreach ($widget->menu->items as $item)
 									<li>
-										<a href="{{ $item->item_url }}" class="main-item {{ (rtrim(url()->current(),'/') == $item->item_url) ? 'current' : '' }}">
+										<a href="{{ $item->item_url }}" target="{{ $item->target }}" class="main-item {{ (rtrim(url()->current(),'/') == $item->item_url) ? 'current' : '' }}">
 											{{ $item->item_title }}
 										</a>
 									</li>

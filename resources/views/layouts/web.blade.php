@@ -10,6 +10,8 @@
 		<title>{{ $seo_title }}</title>
 	@elseif ( !empty($site_setup['seo']['title'][LaravelLocalization::getCurrentLocale()]) )
 		<title>{{ $site_setup['seo']['title'][LaravelLocalization::getCurrentLocale()] }}</title>
+	@elseif ( !empty($site_setup['seo']['title'][fallback_lang()]) )
+		<title>{{ $site_setup['seo']['title'][fallback_lang()] }}</title>
 	@else
 		<title>Molista</title>
 	@endif

@@ -43,27 +43,42 @@
 						</div>
 						<div class="row">
 							<div class="col-xs-12 col-sm-6">
-								<div class="form-group error-container">
-									@if ( @$site->logo )
-										<a href="{{ asset("sites/{$site->id}/{$site->logo}") }}" target="_blank"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span></a>
-										<label>{{ Lang::get('account/site.configuration.logo') }}</label>
-										{!! Form::file('logo', [ 'class'=>'form-control', 'accept'=>'image/*' ]) !!}
-									@else
-										<label>{{ Lang::get('account/site.configuration.logo') }}</label>
-										{!! Form::file('logo', [ 'class'=>'form-control required', 'accept'=>'image/*' ]) !!}
-									@endif
-								</div>
-								<div class="help-block">
-									{!! Lang::get('account/site.configuration.logo.helper', [ 'IMAGE_MAXSIZE'=>Config::get('app.property_image_maxsize', 2048) ]) !!}
+								<div class="form-group">
+									<div class="error-container">
+										@if ( @$site->logo )
+											<a href="{{ asset("sites/{$site->id}/{$site->logo}") }}" target="_blank"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span></a>
+											<label>{{ Lang::get('account/site.configuration.logo') }}</label>
+											{!! Form::file('logo', [ 'class'=>'form-control', 'accept'=>'image/*' ]) !!}
+										@else
+											<label>{{ Lang::get('account/site.configuration.logo') }}</label>
+											{!! Form::file('logo', [ 'class'=>'form-control required', 'accept'=>'image/*' ]) !!}
+										@endif
+									</div>
+									<div class="help-block">
+										{!! Lang::get('account/site.configuration.logo.helper', [ 'IMAGE_MAXSIZE'=>Config::get('app.property_image_maxsize', 2048) ]) !!}
+									</div>
 								</div>
 							</div>
 							<div class="col-xs-12 col-sm-6">
-								<div class="form-group error-container">
-									<label>{{ Lang::get('account/site.configuration.favicon') }}</label>
-									{!! Form::file('favicon', [ 'class'=>'form-control', 'accept'=>'image/x-icon' ]) !!}
+								<div class="form-group">
+									<div class="error-container">
+										<label>{{ Lang::get('account/site.configuration.favicon') }}</label>
+										{!! Form::file('favicon', [ 'class'=>'form-control', 'accept'=>'image/x-icon' ]) !!}
+									</div>
+									<div class="help-block">
+										{!! Lang::get('account/site.configuration.favicon.helper', [ 'IMAGE_MAXSIZE'=>Config::get('app.property_image_maxsize', 2048) ]) !!}
+									</div>
 								</div>
-								<div class="help-block">
-									{!! Lang::get('account/site.configuration.favicon.helper', [ 'IMAGE_MAXSIZE'=>Config::get('app.property_image_maxsize', 2048) ]) !!}
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group error-container">
+									{!! Form::label('customer_register', Lang::get('account/site.configuration.client.register')) !!}
+									{!! Form::select('customer_register', [ 
+										'1' => Lang::get('general.yes'),
+										'0' => Lang::get('general.no'),
+									], null, [ 'class'=>'form-control' ]) !!}
 								</div>
 							</div>
 						</div>
