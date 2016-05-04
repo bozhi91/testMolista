@@ -12,6 +12,7 @@
 		'register.email' => 'Email',
 		'register.email.used' => 'This email is already registered',
 		'register.password' => 'Password',
+		'register.password.help' => 'Leave empty to keep current password',
 		'register.phone' => 'Phone',
 		'register.button' => 'Register',
 		'register.success' => '<h4>Congratulations</h4><p>You have been successfully registered.</p>',

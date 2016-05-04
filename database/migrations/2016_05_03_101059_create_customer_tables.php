@@ -11,6 +11,7 @@ class CreateCustomerTables extends Migration
 		{
 			$table->bigIncrements('id');
 			$table->bigInteger('site_id')->nullable()->unsigned()->index();
+			$table->bigInteger('created_by')->nullable()->unsigned()->index();
 			$table->char('locale', 2)->nullable()->default('en');
 			$table->string('first_name');
 			$table->string('last_name');
@@ -23,6 +24,7 @@ class CreateCustomerTables extends Migration
 
 			$table->unique([ 'site_id', 'email' ]);
 			$table->foreign('site_id')->references('id')->on('sites')->onUpdate('cascade')->onDelete('cascade');
+			$table->foreign('created_by')->references('id')->on('users')->onUpdate('cascade')->onDelete('set null');
 			$table->foreign('locale')->references('locale')->on('locales')->onUpdate('cascade')->onDelete('set null');
 		});
 

@@ -12,6 +12,7 @@
 		'register.email' => 'Email',
 		'register.email.used' => 'Este email ya se encuentra en uso',
 		'register.password' => 'Password',
+		'register.password.help' => 'Dejar vacío para mantener la password actual',
 		'register.phone' => 'Teléfono',
 		'register.button' => 'Registrarse',
 		'register.success' => '<h4>Felicitaciones</h4><p>El registro se ha completado correctamente.</p>',

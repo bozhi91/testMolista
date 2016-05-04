@@ -7,6 +7,10 @@
 
 	        @include('common.messages', [ 'dismissible'=>true ])
 
+			<div class="pull-right">
+				<a href="{{ action('Account\CustomersController@create') }}" class="btn btn-primary">{{ Lang::get('account/customers.button.new') }}</a>
+			</div>
+
 			<h1 class="page-title">{{ Lang::get('account/customers.h1') }}</h1>
 
 			@if ( count($customers) < 1)

@@ -37,6 +37,58 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		return view('account.customers.index', compact('customers'));
 	}
 
+	public function create()
+	{
+		return view('account.customers.create');
+	}
+
+	public function store()
+	{
+		$validator = \Validator::make($this->request->all(), $this->getRequiresFields());
+		if ($validator->fails()) 
+		{
+			return redirect()->back()->withInput()->withErrors($validator);
+		}
+
+		$customer = $this->site->customers()->create([
+			'email' => $this->request->get('email'),
+			'locale' => $this->request->get('locale'),
+			'created_by' => \Auth::user()->id,
+		]);
+
+		if ( !$customer )
+		{
+			return redirect()->back()->withInput()->with('error',trans('general.messages.error'));
+		}
+
+		return $this->update($customer->email);
+	}
+
+	public function update($email)
+	{
+		$customer = $this->site->customers()->where('email', $email)->first();
+		if ( !$customer )
+		{
+			abort(404);
+		}
+
+		$validator = \Validator::make($this->request->all(), $this->getRequiresFields($customer->id));
+		if ($validator->fails()) 
+		{
+			return redirect()->back()->withInput()->withErrors($validator);
+		}
+
+		$customer->update([
+			'first_name' => $this->request->get('first_name'),
+			'last_name' => $this->request->get('last_name'),
+			'email' => $this->request->get('email'),
+			'phone' => $this->request->get('phone'),
+			'locale' => $this->request->get('locale'),
+		]);
+
+		return redirect()->action('Account\CustomersController@show', urlencode($customer->email))->with('success', trans('account/customers.message.saved'));
+	}
+
 	public function show($email)
 	{
 		$customer = $this->site->customers()->where('email', $email)->first();
@@ -48,4 +100,18 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		return view('account.customers.show', compact('customer'));
 	}
 
+	protected function getRequiresFields($id=false)
+	{
+		$locales = array_keys( \App\Session\Site::get('locales_tabs') );
+
+		$fields = [
+			'first_name' => 'required',
+			'last_name' => 'required',
+			'email' => "required|email|unique:customers,email".($id ? ",{$id}" : ''),
+			'phone' => 'required',
+			'locale' => 'required|in:'.implode(',',$locales),
+		];
+
+		return $fields;		
+	}
 }

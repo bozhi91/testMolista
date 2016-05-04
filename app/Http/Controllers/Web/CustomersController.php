@@ -43,7 +43,7 @@ class CustomersController extends WebController
 			'last_name' => 'required',
 			'email' => "required|email|unique:customers,email",
 			'password' => 'required|min:6',
-			'phone' => 'required|min:6',
+			'phone' => 'required',
 		];
 		$validator = \Validator::make($this->request->all(), $fields);
 		if ($validator->fails()) 
@@ -99,7 +99,12 @@ class CustomersController extends WebController
 		switch ($type)
 		{
 			case 'email':
-				$result = ( $this->site->customers()->where('email', $this->request->get('email'))->count() == 0 );
+				$query = $this->site->customers()->where('email', $this->request->get('email'));
+				if ( $this->request->get('id') )
+				{
+					$query->where('id','!=',$this->request->get('id'));
+				}
+				$result = ( $query->count() == 0 );
 				break;
 		}
 
