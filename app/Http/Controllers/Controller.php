@@ -50,9 +50,28 @@ class Controller extends BaseController
 			return false;
 		}
 
+		// Prepare description
+		$description = @str_replace("\n", " ", strip_tags($seo['description']) );
+		if ( strlen($description) > 150 )
+		{
+			$parts = array_filter( explode(' ', $description) );
+
+			$length = 0;
+			$description = "";
+
+			foreach ($parts as $part)
+			{
+				$description .= " {$part}";
+				if ( strlen($description) > 150 )
+				{
+					$description = trim($description).'...';
+					break;
+				}
+			}
+		}
 
 		\View::share('seo_title', @$seo['title']);
-		\View::share('seo_description', @$seo['description']);
+		\View::share('seo_description', $description);
 		\View::share('seo_keywords', @$seo['keywords']);
 
 		return true;
