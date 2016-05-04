@@ -19,6 +19,9 @@
 							<a href="{{ action('Account\EmployeesController@index') }}">{{ Lang::get('account/menu.employees') }}</a>
 						</li>
 					@endpermission
+					<li role="presentation" class="{{ (@$submenu_section == 'customers') ? 'active' : '' }}">
+						<a href="{{ action('Account\CustomersController@index') }}">{{ Lang::get('account/menu.customers') }}</a>
+					</li>
 					@permission('site-*')
 						<li role="presentation" class="{{ (@$submenu_section == 'site') ? 'active' : '' }}">
 							<a href="javascript:;" id="account-menu-btn-site" data-toggle="collapse" data-target="#account-submenu-site" aria-expanded="false" class="{{ (@$submenu_section == 'site') ? '' : 'collapsed' }}">

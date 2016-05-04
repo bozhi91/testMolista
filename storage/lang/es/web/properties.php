@@ -46,4 +46,6 @@
 
 		'call.to.action' => 'Obtener más información',
 		'related.title' => 'Otras propiedades relacionadas',
+
+		'energy.certificate.help' => '<p>La certificación energética indica la eficiencia del inmueble en cuanto a consumo de energía, agua, etc.</p><p>La categoría A es la más eficiente y la G, la menos.</p>',
 	];

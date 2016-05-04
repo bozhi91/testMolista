@@ -26,6 +26,8 @@
 		'configuration.domains' => 'Custom domain',
 		'configuration.domains.error' => 'This domain is already taken',
 
+		'configuration.client.register' => 'Allow online customer registration',
+
 		'configuration.saved' => 'The site configuration was successfully saved',
 
 

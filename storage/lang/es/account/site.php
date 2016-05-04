@@ -26,6 +26,8 @@
 		'configuration.domains' => 'Dominio personalizado',
 		'configuration.domains.error' => 'Este dominio ya se encuentra en uso',
 
+		'configuration.client.register' => 'Permitir registro de clientes online',
+
 		'configuration.saved' => 'La configuración se ha guardado correctamente',
 
 

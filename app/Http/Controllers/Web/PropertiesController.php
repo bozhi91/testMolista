@@ -124,6 +124,11 @@ class PropertiesController extends WebController
 			return redirect()->to(action('Web\PropertiesController@details', $property->slug), 301); 
 		}
 
+		$this->set_seo_values([
+			'title' => $property->title . (empty($this->site->title) ? '' : " - {$this->site->title}"),
+			'description' => $property->description,
+		]);
+
 		return view('web.properties.details', compact('property'));
 	}
 

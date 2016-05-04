@@ -18,6 +18,7 @@
 		'rooms' => 'Number of rooms',
 		'baths' => 'Number of bathrooms',
 		'enabled' => 'Enabled',
+		'enabled.not' => 'Disabled',
 		'highlighted' => 'Highlighted',
 		'highlighted.not' => 'Not highlighted',
 		'newly_build' => 'New construction',
@@ -25,6 +26,9 @@
 		'services' => 'Services',
 		'label' => 'Label',
 		'show_address' => 'Show address',
+
+		'energy.certificate' => 'Energy certificate',
+		'energy.certificate.pending' => 'In process',
 
 		'create.title' => 'New property',
 		'edit.title' => 'Edit property',
@@ -34,6 +38,9 @@
 		'tab.text' => 'Text',
 		'tab.images' => 'Images',
 		'tab.employees' => 'Managers',
+		'tab.lead' => 'Leads',
+		'tab.transaction' => 'Transactions',
+		'tab.reports' => 'Reports',
 
 		'country' => 'Country',
 		'state' => 'State',
@@ -73,4 +80,6 @@
 
 		'delete' => 'Are you sure you want to permanently delete this property?',
 		'deleted' => 'The property was successfully deleted',
+
+		'edit.view' => 'Property view',
 	];

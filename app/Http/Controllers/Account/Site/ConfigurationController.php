@@ -44,6 +44,7 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 		$validator = \Validator::make($this->request->all(), [
 			'subdomain' => 'required|alpha_dash',
 			'theme' => 'required|in:'.implode(',', array_keys(\Config::get('themes.themes'))),
+			'customer_register' => 'required|boolean',
 			'locales_array' => 'required|array',
 			'i18n' => 'array',
 			'i18n.title.'.fallback_lang() => 'required',
@@ -86,6 +87,7 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 		// Save site
 		$site->subdomain = $this->request->get('subdomain');
 		$site->theme = $this->request->get('theme');
+		$site->customer_register = $this->request->get('customer_register') ? 1 : 0;
 
 		// Save logo && favicon
 		foreach ( [ 'logo','favicon' ] as $img_key )

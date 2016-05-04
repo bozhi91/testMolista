@@ -101,6 +101,28 @@
 						<div class="services text-italic">
 							{{ $property->services->sortBy('title')->implode('title',', ') }}
 						</div>
+						@if ( $property->ec || $property->ec_pending )
+							<div class="energy-certification">
+								<span class="energy-certification-popover-trigger text-bold cursor-pointer">
+									<i class="fa fa-info-circle" aria-hidden="true"></i>
+									&nbsp;{{ Lang::get('account/properties.energy.certificate') }}:
+								</span>
+								&nbsp; 
+								@if ( $property->ec )
+									<img src="{{ asset("images/properties/ec-{$property->ec}.png") }}" alt="{{ $property->ec }}" class="energy-certification-icon" />
+								@else
+									{{ Lang::get('account/properties.energy.certificate.pending') }}</span>
+								@endif
+							</div>
+							<div class="energy-certification-popover-content hide">
+								<table>
+									<tr>
+										<td class="hidden-xs"><img src="{{ asset("images/properties/ec-all.png") }}" alt="{{ Lang::get('account/properties.energy.certificate') }}" /></td>
+										<td class="text">{!! Lang::get('web/properties.energy.certificate.help') !!}
+									</tr>
+								</table>
+							</div>
+						@endif
 					</div>
 				</div>
 				<a href="#" class="btn btn-primary call-to-action more-info-trigger">{{ Lang::get('web/properties.call.to.action') }}</a>
@@ -164,6 +186,26 @@
 			});
 
 			cont.find('.bottom-links .property-pill').matchHeight({ byRow : false });
+
+			cont.find('.energy-certification-popover-trigger').popover({
+				html : true, 
+				content: function() {
+					return cont.find('.energy-certification-popover-content').html();
+				},
+				container: '.energy-certification',
+				placement: 'bottom'
+			}).on('show.bs.popover', function (e) {
+				$(e.target).addClass('is-open');
+			}).on('hide.bs.popover', function (e) {
+				$(e.target).removeClass('is-open');
+			});
+
+			$('body').on('click', function(e){
+				if ( $(e.target).closest('.energy-certification').length < 1 ) {
+					cont.find('.energy-certification-popover-trigger.is-open').trigger('click');
+				}
+			});
+
 		});
 	</script>
 

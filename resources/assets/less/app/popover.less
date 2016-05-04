@@ -1,0 +1,19 @@
+.popover {
+	border-radius: @borderRadius; border-color: @borderColor;
+	&.bottom { 
+		border-top-color: @borderColor; 
+		> .arrow { border-bottom-color: @borderColor; }
+	}
+	&.top { 
+		border-bottom-color: @borderColor;
+		> .arrow { border-top-color: @borderColor; }
+	}
+	&.left { 
+		border-right-color: @borderColor;
+		> .arrow { border-left-color: @borderColor; }
+	}
+	&.right { 
+		border-left-color: @borderColor;
+		> .arrow { border-right-color: @borderColor; }
+	}
+}

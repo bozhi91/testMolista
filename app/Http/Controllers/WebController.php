@@ -28,7 +28,7 @@ class WebController extends Controller
 
 		if ( $site_id = \App\Session\Site::get('site_id', false) )
 		{
-			$this->site = \App\Site::findOrFail( $site_id );
+			$this->site = \App\Site::withTranslations()->findOrFail( $site_id );
 		}
     }
 
