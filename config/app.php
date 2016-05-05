@@ -192,6 +192,10 @@
 
 			/* https://github.com/mewebstudio/Purifier */
 			Mews\Purifier\PurifierServiceProvider::class,
+
+			/* https://github.com/rap2hpoutre/laravel-log-viewer */
+			Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
+
 		],
 
 		/*

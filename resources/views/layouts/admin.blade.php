@@ -75,6 +75,16 @@
 
 <footer class="footer">
 	<div class="container">
+		<ul class="list-unstyled pull-left footer-list">
+			@role('admin')
+				<li>
+					<a href="{{ action('\Rap2hpoutre\LaravelLogViewer\LogViewerController@index') }}" class="btn btn-danger" target="_blank">
+						<span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
+						Error log
+					</a>
+				</li>
+			@endrole
+		</ul>
 		<ul class="list-unstyled pull-right footer-list">
 			<li>
 				<select onchange="document.location.href=this.value;" class="form-control">

@@ -45,6 +45,13 @@ Route::group([
 		// Utils
 		Route::controller('utils/user', 'Admin\Utils\UserController');
 		Route::controller('utils/locale', 'Admin\Utils\LocaleController');
+		// Error log
+		//Route::get('errorlog', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+		Route::get('errorlog', [ 
+			'middleware' => ['role:admin'], 
+			'uses' => '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index' 
+		]);
+
 	});
 
 	// Auth
