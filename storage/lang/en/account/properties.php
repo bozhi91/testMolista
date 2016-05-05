@@ -41,6 +41,7 @@
 		'tab.lead' => 'Leads',
 		'tab.transaction' => 'Transactions',
 		'tab.reports' => 'Reports',
+		'tab.logs' => 'Logs',
 
 		'country' => 'Country',
 		'state' => 'State',
@@ -82,4 +83,11 @@
 		'deleted' => 'The property was successfully deleted',
 
 		'edit.view' => 'Property view',
+
+		'logs.loading' => 'Loading',
+		'logs.empty' => 'No logs found.',
+		'logs.date' => 'Date',
+		'logs.responsible' => 'Responsible',
+		'logs.responsible.unknown' => '---',
+		'logs.action' => 'Action',
 	];

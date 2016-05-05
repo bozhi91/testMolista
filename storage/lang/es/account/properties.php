@@ -41,6 +41,7 @@
 		'tab.lead' => 'Leads',
 		'tab.transaction' => 'Transacciones',
 		'tab.reports' => 'Reportes',
+		'tab.logs' => 'Logs',
 
 		'country' => 'País',
 		'state' => 'Provincia',
@@ -82,4 +83,11 @@
 		'deleted' => 'La La propiedad se ha creado correctamente se ha eliminado correctamente',
 
 		'edit.view' => 'Vista propiedad',
+
+		'logs.loading' => 'Cargando',
+		'logs.empty' => 'No se encontraron registros.',
+		'logs.date' => 'Fecha',
+		'logs.responsible' => 'Responsable',
+		'logs.responsible.unknown' => '---',
+		'logs.action' => 'Acción',
 	];

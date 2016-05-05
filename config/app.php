@@ -196,6 +196,10 @@
 			/* https://github.com/rap2hpoutre/laravel-log-viewer */
 			Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
 
+			/* https://github.com/owen-it/laravel-auditing */
+			OwenIt\Auditing\AuditingServiceProvider::class,
+
+
 		],
 
 		/*

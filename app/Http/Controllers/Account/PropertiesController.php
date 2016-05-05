@@ -187,7 +187,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		$property = $this->site->properties()
 						->whereIn('properties.id', $this->auth->user()->properties()->lists('id'))
 						->whereTranslation('slug', $slug)
-						->withTranslations()->first();
+						->withTranslations()
+						->first();
 		if ( !$property )
 		{
 			abort(404);

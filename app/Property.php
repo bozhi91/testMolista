@@ -3,14 +3,20 @@
 namespace App;
 
 use \App\TranslatableModel;
+use OwenIt\Auditing\AuditingTrait;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Property extends TranslatableModel
 {
-    use SoftDeletes;
+	use SoftDeletes;
+
+	use AuditingTrait;
+	protected $dontKeepLogOf = [ 'created_at', 'updated_at' ];
+	protected $auditableTypes = [ 'created', 'saved', 'deleted' ];
 
 	public $translatedAttributes = [ 'title', 'description', 'slug', 'label' ];
+
 
 	protected $guarded = [];
 
