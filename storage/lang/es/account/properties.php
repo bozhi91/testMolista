@@ -14,7 +14,9 @@
 		'type' => 'Tipo',
 		'mode' => 'Modalidad',
 		'price' => 'Precio',
-		'size' => 'Superficia',
+		'currency' => 'Moneda',
+		'size' => 'Superficie',
+		'size_unit' => 'Unidad de medida',
 		'rooms' => 'Número de habitaciones',
 		'baths' => 'Número de baños',
 		'enabled' => 'Habilitada',
@@ -29,8 +31,9 @@
 
 		'energy.certificate' => 'Certificado energético',
 		'energy.certificate.pending' => 'En trámite',
+		'energy.certificate.pending.full' => 'Certificado energético en trámite',
 
-		'create.title' => 'NUeva propiedad',
+		'create.title' => 'Nueva propiedad',
 		'edit.title' => 'Editar propiedad',
 
 		'tab.general' => 'Propiedad',
@@ -86,8 +89,17 @@
 
 		'logs.loading' => 'Cargando',
 		'logs.empty' => 'No se encontraron registros.',
+		'logs.empty.details' => 'No hay detalles para este log',
 		'logs.date' => 'Fecha',
 		'logs.responsible' => 'Responsable',
 		'logs.responsible.unknown' => '---',
 		'logs.action' => 'Acción',
+		'logs.view' => 'Ver log',
+
+		'logs.type.created' => 'Propiedad creada',
+		'logs.type.updated' => 'Propiedad actualizada',
+		'logs.type.deleted' => 'Propiedad eliminada',
+
+		'logs.value.old' => 'Valor antiguo',
+		'logs.value.new' => 'Valor nuevo',
 	];

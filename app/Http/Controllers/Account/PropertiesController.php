@@ -185,9 +185,13 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 	{
 		// Get property
 		$property = $this->site->properties()
-						->whereIn('properties.id', $this->auth->user()->properties()->lists('id'))
+						->withTrashed()
 						->whereTranslation('slug', $slug)
 						->withTranslations()
+						->with([ 'translations' => function($query){
+							$query->with('logs');
+						}])
+						->with('logs')
 						->first();
 		if ( !$property )
 		{

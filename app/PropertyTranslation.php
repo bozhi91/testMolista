@@ -22,7 +22,20 @@ class PropertyTranslation extends Model implements SluggableInterface
 
 	use AuditingTrait;
 	protected $dontKeepLogOf = [ 'slug' ];
-	protected $auditableTypes = [ 'saved' ];
+	protected $auditableTypes = [ 'created', 'saved' ];
+	public static $logCustomMessage = '{user.name|Anonymous} {type} this property {elapsed_time}';
+	public static $logCustomFields = [];
+
+	public static function boot()
+	{
+		parent::boot();
+
+		static::$logCustomFields = [
+			'title'  => trans('account/properties.ref'),
+			'description'  => trans('account/properties.type'),
+			'label'  => trans('account/properties.mode'),
+		];
+	}
 
 	protected $guarded = [];
 

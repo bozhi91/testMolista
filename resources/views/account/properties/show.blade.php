@@ -62,33 +62,34 @@
 			</div>
 
 			<div role="tabpanel" class="tab-pane tab-main" id="tab-logs">
-				@if ( count($property->logs) < 1 )
-					<div class="alert">
-						{{ Lang::get('account/properties.logs.empty') }}
-					</div>
-				@else
-					<table class="table logs-table" data-toggle="table" data-sort-name="date" data-sort-order="desc">
-						<thead>
-							<th data-field="date" data-sortable="true" data-sort-name="_date_data" data-sorter="logDateSorter">{{ Lang::get('account/properties.logs.date') }}</th>
-							<th data-field="responsible" data-sortable="false">{{ Lang::get('account/properties.logs.responsible') }}</th>
-							<th data-field="action" data-sortable="false">{{ Lang::get('account/properties.logs.action') }}</th>
-							<th data-field="options" data-sortable="false"></th>
-						</thead>
-						<tbody>
-							@include('account.properties.logs', [ 'logs'=>$property->logs ])
-						</tbody>
-					</table>
-				@endif
+				<div class="alert logs-empty hide">
+					{{ Lang::get('account/properties.logs.empty') }}
+				</div>
+				<table class="table logs-table hide" data-toggle="table" data-sort-name="date" data-sort-order="desc">
+					<thead>
+						<th data-field="date" data-sortable="true" data-sort-name="_date_data" data-sorter="logDateSorter">{{ Lang::get('account/properties.logs.date') }}</th>
+						<th data-field="responsible" data-sortable="false">{{ Lang::get('account/properties.logs.responsible') }}</th>
+						<th data-field="action" data-sortable="false">{{ Lang::get('account/properties.logs.action') }}</th>
+					</thead>
+					<tbody>
+						@if ( count($property->logs) > 0 )
+							@include('account.properties.logs', [ 'logs'=>$property->logs, 'locale'=>false, 'property'=>$property ])
+						@endif
+						@if ( count($property->translations) > 0 )
+							@foreach ($property->translations as $translation)
+								@if ( count($translation->logs) > 0 )
+									@include('account.properties.logs', [ 'logs'=>$translation->logs, 'locale'=>lang_text($translation->locale), 'property'=>$property ])
+								@endif
+							@endforeach
+						@endif
+					</tbody>
+				</table>
 			</div>
 
 		</div>
 
 	</div>
-<?php
-echo "<pre>";
-print_r($property->logs);
-echo "</pre>";
-?>
+
 	<script type="text/javascript">
 		function logDateSorter(a, b) {
 			if (a.date < b.date) return -1;
@@ -99,9 +100,22 @@ echo "</pre>";
 		ready_callbacks.push(function() {
 			var cont = $('#admin-properties');
 
-			cont.find('.popup-log-trigger').magnificPopup({
-				type:'inline',
-			});
+			if ( cont.find('.logs-row').length > 0 ) {
+				cont.find('.logs-table').removeClass('hide');
+				cont.find('.popup-log-trigger').magnificPopup({
+					type:'inline'
+				});
+				cont.find('.log-detail').each(function(){
+					if ( $(this).find('.log-detail-row').length > 0 ) {
+						$(this).find('.log-detail-content').removeClass('hide');
+					} else {
+						$(this).find('.log-detail-empty').removeClass('hide');
+					}
+				});
+			} else {
+				cont.find('.logs-empty').removeClass('hide');
+			}
+
 
 		});
 	</script>

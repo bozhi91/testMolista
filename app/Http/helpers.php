@@ -138,6 +138,11 @@
 		$locales = LaravelLocalization::getSupportedLocales();
 		return @$locales[fallback_lang()]['native'];
 	}
+	function lang_text($locale) 
+	{
+		$locales = LaravelLocalization::getSupportedLocales();
+		return @$locales[$locale]['native'];
+	}
 
 	function summetime_lang() 
 	{
