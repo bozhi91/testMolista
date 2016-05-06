@@ -13,9 +13,9 @@ class CreateLogTable extends Migration
     {
         Schema::create('logs', function ($table) {
             $table->bigIncrements('id');
-            $table->bigIncrements('user_id')->nullable();
+            $table->bigInteger('user_id')->nullable();
             $table->string('owner_type');
-            $table->bigIncrements('owner_id');
+            $table->bigInteger('owner_id');
             $table->text('old_value')->nullable();
             $table->text('new_value')->nullable();
             $table->string('type');
