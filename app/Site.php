@@ -4,6 +4,8 @@ namespace App;
 
 use \App\TranslatableModel;
 
+use Swift_Mailer;
+
 class Site extends TranslatableModel
 {
 	public $translatedAttributes = ['title','subtitle','description'];
@@ -143,6 +145,16 @@ class Site extends TranslatableModel
 						);
 	}
 
+	public function setMailerAttribute($value)
+	{
+        $this->attributes['mailer'] = @serialize($value);
+	}
+	public function getMailerAttribute($value)
+	{
+		$value = @unserialize($value);
+		return is_array($value) ? $value : [];
+	}
+
 	public function scopeEnabled($query)
 	{
 		return $query->where("{$this->getTable()}.enabled", 1);
@@ -174,6 +186,80 @@ class Site extends TranslatableModel
 
 		// None of the previous options
 		return $query->whereRaw('1=2');
+	}
+
+	public function sendEmail($params)
+	{
+		$errors = array_filter([
+			empty($params['to']) ? 'receiver email' : '',
+			empty($params['subject']) ? 'email subject' : '',
+			empty($params['content']) ? 'email content' : '',
+		]);
+		if ( count($errors) > 0 )
+		{
+			\Log::error("Mail could not be send because some parameters are missing: " . implode(', ', $errors) );
+			return false;
+		}
+
+		$from_name = @$this->mailer['from_name'];
+		$from_email = @$this->mailer['from_email'];
+		if ( !$from_name || !$from_email )
+		{
+			$errors = [
+				$from_name ? '' : 'sender name',
+				$from_email ? '' : 'sender email',
+			];
+			\Log::error("Mail could not be send because some configuration is missing: " . implode(', ', array_filter($errors)) );
+			return false;
+		}
+
+		$service = @$this->mailer['service'];
+		if ( !$service )
+		{
+			\Log::error("Mailer service is not defined for site ID {$this->id}");
+			return false;
+		}
+
+		// Backup current mail configuration
+		$backup = \Mail::getSwiftMailer();
+
+		// Update configuration
+		switch ( $service )
+		{
+			case 'smtp':
+				$transport = \Swift_SmtpTransport::newInstance(@$this->mailer['smtp_host'], @$this->mailer['smtp_port'], @$this->mailer['smtp_tls_ssl']);
+				$transport->setUsername(@$this->mailer['smtp_login']);
+				$transport->setPassword(@$this->mailer['smtp_pass']);
+				$mailer = new Swift_Mailer($transport);
+				\Mail::setSwiftMailer($mailer);
+				break;
+			case 'mandrill':
+				$transport = \Swift_SmtpTransport::newInstance(@$this->mailer['mandrill_host'], @$this->mailer['mandrill_port']);
+				$transport->setUsername(@$this->mailer['mandrill_user']);
+				$transport->setPassword(@$this->mailer['mandrill_key']);
+				$mailer = new Swift_Mailer($transport);
+				\Mail::setSwiftMailer($mailer);
+				break;
+			case 'mail':
+				$transport = \Swift_MailTransport::newInstance();
+				$mailer = new Swift_Mailer($transport);
+				\Mail::setSwiftMailer($mailer);
+				break;
+			default:
+				\Log::error("Mailer service '{$service}' is not valid for site ID {$this->id}");
+				return false;
+		}
+
+		// Send email
+		$res = \Mail::send('dummy', [ 'content' => $params['content'] ], function ($message) use ($params) {
+			$message->from($this->mailer['from_email'], $this->mailer['from_name']);
+			$message->to($params['to'])->subject($params['subject']);
+		});
+
+		// Restore mail configuration
+		\Mail::setSwiftMailer($backup);
+
+		return $res;
 	}
 
 }

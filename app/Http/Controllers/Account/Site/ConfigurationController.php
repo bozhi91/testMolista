@@ -41,7 +41,7 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 		]);
 
 		// Validate general fields
-		$validator = \Validator::make($this->request->all(), [
+		$fields = [
 			'subdomain' => 'required|alpha_dash',
 			'theme' => 'required|in:'.implode(',', array_keys(\Config::get('themes.themes'))),
 			'customer_register' => 'required|boolean',
@@ -50,7 +50,28 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 			'i18n.title.'.fallback_lang() => 'required',
 			'domains_array' => 'required|array',
 			'social_array' => 'required|array',
-		]);
+			'mailer' => 'required|array',
+			'mailer.service' => 'required|in:mail,mandrill,smtp',
+			'mailer.from_name' => 'required',
+			'mailer.from_email' => 'required|email',
+		];
+		switch ( $this->request->input('mailer.service') )
+		{
+			case 'mandrill':
+				$fields['mailer.mandrill_user'] = 'required';
+				$fields['mailer.mandrill_key'] = 'required';
+				$fields['mailer.mandrill_host'] = 'required';
+				$fields['mailer.mandrill_port'] = 'required|integer';
+				break;
+			case 'smtp':
+				$fields['mailer.smtp_login'] = 'required';
+				$fields['mailer.smtp_pass'] = 'required';
+				$fields['mailer.smtp_host'] = 'required';
+				$fields['mailer.smtp_port'] = 'required|integer';
+				break;
+		}
+
+		$validator = \Validator::make($this->request->all(), $fields);
 		if ($validator->fails()) 
 		{
 			return \Redirect::back()->withInput()->withErrors($validator);
@@ -88,6 +109,7 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 		$site->subdomain = $this->request->get('subdomain');
 		$site->theme = $this->request->get('theme');
 		$site->customer_register = $this->request->get('customer_register') ? 1 : 0;
+		$site->mailer = $this->request->get('mailer');
 
 		// Save logo && favicon
 		foreach ( [ 'logo','favicon' ] as $img_key )
@@ -208,7 +230,7 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 		// Remove from session
 		\App\Session\Site::flush();
 
-		return \Redirect::back()->with('success', trans('account/site.configuration.saved'));
+		return \Redirect::back()->with('current_tab', $this->request->get('current_tab'))->with('success', trans('account/site.configuration.saved'));
 	}
 
 	public function getCheck($type)
@@ -242,4 +264,37 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 
 		echo $error ? 'false' : 'true';
 	}
+
+	public function postTestMailerConfiguration()
+	{
+		// Validate general fields
+		$fields = [
+			'test_email' => 'required|email',
+		];
+		$validator = \Validator::make($this->request->all(), $fields);
+		if ($validator->fails()) 
+		{
+			return [ 'error' => true ];
+		}
+
+		$site = $this->auth->user()->sites()->findOrFail( $this->site->id );
+		if ( !$site ) 
+		{
+			return [ 'error' => true ];
+		}
+
+		$sent = $site->sendEmail([
+			'to' => $this->request->get('test_email'),
+			'subject' => trans('account/site.configuration.mailing.test.email.subject'),
+			'content' => view('emails.dummy', [ 'content'=>trans('account/site.configuration.mailing.test.email.content') ])->render(),
+		]);
+
+		if ( $sent )
+		{
+			return [ 'success' => true ];
+		}
+		
+		return [ 'error' => true ];
+	}
+
 }
