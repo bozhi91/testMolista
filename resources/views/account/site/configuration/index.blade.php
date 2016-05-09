@@ -149,7 +149,7 @@
 					</div>
 
 					<div role="tabpanel" class="tab-pane tab-main" id="tab-site-mail">
-						{!! Form::hidden('mailer[service]', null) !!}
+						{!! Form::hidden('mailer[service]', empty($site->mailer['service']) ? 'mail' : null) !!}
 						<p>&nbsp;</p>
 						@if ( !empty($site->mailer['service']) )
 							<div class="pull-right hidden-xs">
