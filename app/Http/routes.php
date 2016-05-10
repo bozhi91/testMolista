@@ -74,6 +74,7 @@ Route::group([
 	Route::get('/', 'WebController@index');
 	// Properties
 	Route::get('properties', 'Web\PropertiesController@index');
+	Route::post('property/{slug}', 'Web\PropertiesController@moreinfo');
 	Route::get('property/{slug}', 'Web\PropertiesController@details');
 	// Pages
 	Route::post('pages/{slug}', 'Web\PagesController@post');

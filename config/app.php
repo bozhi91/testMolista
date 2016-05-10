@@ -196,6 +196,9 @@
 			/* https://github.com/rap2hpoutre/laravel-log-viewer */
 			Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
 
+			/* https://github.com/barryvdh/laravel-dompdf */
+			Barryvdh\DomPDF\ServiceProvider::class,
+
 		],
 
 		/*
@@ -267,6 +270,9 @@
 
 			/* https://github.com/mewebstudio/Purifier */
 			'Purifier' => Mews\Purifier\Facades\Purifier::class,
+
+			/* https://github.com/barryvdh/laravel-dompdf */
+			'PDF' => Barryvdh\DomPDF\Facade::class,
 
 		],
 

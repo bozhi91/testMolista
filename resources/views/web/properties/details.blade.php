@@ -108,10 +108,10 @@
 									&nbsp;{{ Lang::get('account/properties.energy.certificate') }}:
 								</span>
 								&nbsp; 
-								@if ( $property->ec )
-									<img src="{{ asset("images/properties/ec-{$property->ec}.png") }}" alt="{{ $property->ec }}" class="energy-certification-icon" />
-								@else
+								@if ( $property->ec_pending )
 									{{ Lang::get('account/properties.energy.certificate.pending') }}</span>
+								@else
+									<img src="{{ asset("images/properties/ec-{$property->ec}.png") }}" alt="{{ $property->ec }}" class="energy-certification-icon" />
 								@endif
 							</div>
 							<div class="energy-certification-popover-content hide">
@@ -125,7 +125,7 @@
 						@endif
 					</div>
 				</div>
-				<a href="#" class="btn btn-primary call-to-action more-info-trigger">{{ Lang::get('web/properties.call.to.action') }}</a>
+				<a href="#property-moreinfo-form" class="btn btn-primary call-to-action more-info-trigger">{{ Lang::get('web/properties.call.to.action') }}</a>
 			</div>
 
 			<div class="map-area">
@@ -137,6 +137,52 @@
 		</div>
 
 	</div>
+
+	{!! Form::open([ 'action'=>[ 'Web\PropertiesController@moreinfo', $property->slug ], 'method'=>'POST', 'id'=>'property-moreinfo-form', 'class'=>'mfp-hide app-popup-block-white' ]) !!}
+		<h2 class="page-title">{{ Lang::get('web/properties.call.to.action') }}</h2>
+		<div class="alert alert-success form-success hide">
+			{!! Lang::get('web/properties.moreinfo.success') !!}
+			<div class="text-right">
+				<a href="#" class="alert-link popup-modal-dismiss">{{ Lang::get('general.continue') }}</a>
+			</div>
+		</div>
+		<div class="form-content">
+			<div class="row">
+				<div class="cols-xs-12 col-sm-6">
+					<div class="form-group error-container">
+						{!! Form::label('first_name', Lang::get('web/customers.register.name.first') ) !!}
+						{!! Form::text('first_name', old('first_name', SiteCustomer::get('first_name')), [ 'class'=>'form-control required' ] ) !!}
+					</div>
+				</div>
+				<div class="cols-xs-12 col-sm-6">
+					<div class="form-group error-container">
+						{!! Form::label('last_name', Lang::get('web/customers.register.name.last') ) !!}
+						{!! Form::text('last_name', old('first_name', SiteCustomer::get('last_name')), [ 'class'=>'form-control required' ] ) !!}
+					</div>
+				</div>
+			</div>
+			<div class="form-group error-container">
+				{!! Form::label('email', Lang::get('web/customers.register.email') ) !!}
+				{!! Form::text('email', old('email', SiteCustomer::get('email')), [ 'class'=>'form-control required email' ] ) !!}
+			</div>
+			<div class="form-group error-container">
+				{!! Form::label('phone', Lang::get('web/customers.register.phone') ) !!}
+				{!! Form::text('phone', old('phone', SiteCustomer::get('phone')), [ 'class'=>'form-control required' ] ) !!}
+			</div>
+			<div class="form-group error-container">
+				{!! Form::label('message', Lang::get('web/pages.message') ) !!}
+				{!! Form::textarea('message', old('message'), [ 'class'=>'form-control required', 'rows'=>4 ] ) !!}
+			</div>
+			<div class="alert alert-danger alert-dismissible form-error hide">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<div class="alert-content"></div>
+			</div>
+			<div class="form-group text-right">
+				{!! Form::button(Lang::get('general.cancel'), [ 'class'=>'btn btn-default popup-modal-dismiss pull-left' ] ) !!}
+				{!! Form::button(Lang::get('general.continue'), [ 'type'=>'submit', 'class'=>'btn btn-primary' ] ) !!}
+			</div>
+		</div>
+	{!! Form::close() !!}
 
 	<script type="text/javascript">
 		google.maps.event.addDomListener(window, 'load', function(){
@@ -180,11 +226,6 @@
 				cont.find('.image-thumb').eq(0).trigger('click');
 			});
 
-			cont.on('click', '.more-info-trigger', function(e){
-				e.preventDefault();
-				alert('[TODO] What should this button do?');
-			});
-
 			cont.find('.bottom-links .property-pill').matchHeight({ byRow : false });
 
 			cont.find('.energy-certification-popover-trigger').popover({
@@ -198,6 +239,48 @@
 				$(e.target).addClass('is-open');
 			}).on('hide.bs.popover', function (e) {
 				$(e.target).removeClass('is-open');
+			});
+
+			var form = $('#property-moreinfo-form');
+			form.validate({
+				ignore: '',
+				errorPlacement: function(error, element) {
+					element.closest('.error-container').append(error);
+				},
+				submitHandler: function(f) {
+					LOADING.show();
+					form.find('.form-error').addClass('hide');
+					$.ajax({
+						dataType: 'json',
+						type: 'POST',
+						url: form.attr('action'),
+						data: form.serialize(),
+						success: function(data) {
+							LOADING.hide();
+							if ( data.success ) {
+								form.find('.form-content').addClass('hide');
+								form.find('.form-success').removeClass('hide');
+							} else {
+								var message = data.message ? data.message : "{{ print_js_string( Lang::get('general.messages.error') ) }}";
+								form.find('.form-error').removeClass('hide').find('.alert-content').html(message);
+							}
+						},
+						error: function() {
+							LOADING.hide();
+								form.find('.form-error').removeClass('hide').find('.alert-content').html("{{ print_js_string( Lang::get('general.messages.error') ) }}");
+						}
+					});
+				}
+			});
+
+			cont.find('.more-info-trigger').magnificPopup({
+				type: 'inline',
+				modal: true
+			});
+
+			$('body').on('click', '.popup-modal-dismiss', function (e) {
+				e.preventDefault();
+				$.magnificPopup.close();
 			});
 
 			$('body').on('click', function(e){

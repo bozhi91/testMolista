@@ -254,6 +254,18 @@ class Site extends TranslatableModel
 		$res = \Mail::send('dummy', [ 'content' => $params['content'] ], function ($message) use ($params) {
 			$message->from($this->mailer['from_email'], $this->mailer['from_name']);
 			$message->to($params['to'])->subject($params['subject']);
+			if ( !empty($params['attachments']) )
+			{
+				if ( !is_array($params['attachments']) )
+				{
+					$params['attachments'] = [ $params['attachments']=>[] ];
+				}
+
+				foreach ($params['attachments'] as $attachment => $definition)
+				{
+					$message->attach($attachment,$definition);
+				}
+			}
 		});
 
 		// Restore mail configuration

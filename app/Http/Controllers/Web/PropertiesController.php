@@ -113,6 +113,7 @@ class PropertiesController extends WebController
 					->with('images')
 					->whereTranslation('slug', $slug)
 					->first();
+
 		if ( !$property )
 		{
 			abort(404);
@@ -130,6 +131,52 @@ class PropertiesController extends WebController
 		]);
 
 		return view('web.properties.details', compact('property'));
+	}
+
+	public function moreinfo($slug)
+	{
+		// Get property
+		$property = $this->site->properties()->withTranslations()->enabled()
+					->whereTranslation('slug', $slug)
+					->first();
+		if ( !$property )
+		{
+			return [ 'error'=>true ];
+		}
+
+		// Validate user
+		$validator = \Validator::make($this->request->all(), [
+			'first_name' => 'required',
+			'last_name' => 'required',
+			'email' => 'required|email',
+			'phone' => 'required',
+			'message' => 'required'
+		]);
+		if ($validator->fails()) 
+		{
+			return [ 'error'=>true ];
+		}
+
+		// No customer, create
+		$customer = $this->site->customers()->where('email', $this->request->get('email'))->first();
+		if ( !$customer )
+		{
+			$customer = $this->site->customers()->create([
+				'locale' => \LaravelLocalization::getCurrentLocale(),
+				'first_name' => $this->request->get('first_name'),
+				'last_name' => $this->request->get('last_name'),
+				'email' => $this->request->get('email'),
+			]);
+			if ( !$customer )
+			{
+				return [ 'error'=>true ];
+			}
+		}
+
+		// Push job to queue
+		$this->dispatch( new \App\Jobs\SendMoreInfoProperty($property, $customer, $this->request->all()) );
+
+		return [ 'success'=>true ];
 	}
 
 }
