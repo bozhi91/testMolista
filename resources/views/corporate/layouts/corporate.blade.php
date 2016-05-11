@@ -15,6 +15,7 @@
         <meta name="description" content="{{ $seo_description }}" />
     @endif
 
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,300,700,900,300italic,400italic,700italic|Dosis:400,700,600,500" rel="stylesheet" type="text/css" />
     <link href="{{ Theme::url('/compiled/css/corporate.css') }}" rel="stylesheet" type='text/css' />
 
     <link id="page_favicon" href="{{ asset('favicon.ico') }}" rel="icon" type="image/x-icon" />
