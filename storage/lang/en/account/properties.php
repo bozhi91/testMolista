@@ -14,7 +14,9 @@
 		'type' => 'Type',
 		'mode' => 'Mode',
 		'price' => 'Price',
+		'currency' => 'Currency',
 		'size' => 'Size',
+		'size_unit' => 'Unit of area',
 		'rooms' => 'Number of rooms',
 		'baths' => 'Number of bathrooms',
 		'enabled' => 'Enabled',
@@ -29,6 +31,7 @@
 
 		'energy.certificate' => 'Energy certificate',
 		'energy.certificate.pending' => 'In process',
+		'energy.certificate.pending.full' => 'Energy certificate in process',
 
 		'create.title' => 'New property',
 		'edit.title' => 'Edit property',
@@ -41,6 +44,7 @@
 		'tab.lead' => 'Leads',
 		'tab.transaction' => 'Transactions',
 		'tab.reports' => 'Reports',
+		'tab.logs' => 'Logs',
 
 		'country' => 'Country',
 		'state' => 'State',
@@ -82,4 +86,20 @@
 		'deleted' => 'The property was successfully deleted',
 
 		'edit.view' => 'Property view',
+
+		'logs.loading' => 'Loading',
+		'logs.empty' => 'No logs found.',
+		'logs.empty.details' => 'There are no details for this log',
+		'logs.date' => 'Date',
+		'logs.responsible' => 'Responsible',
+		'logs.responsible.unknown' => '---',
+		'logs.action' => 'Action',
+		'logs.view' => 'View log',
+
+		'logs.type.created' => 'Property created',
+		'logs.type.updated' => 'Property updated',
+		'logs.type.deleted' => 'Property deleted',
+
+		'logs.value.old' => 'Old value',
+		'logs.value.new' => 'New value',
 	];
