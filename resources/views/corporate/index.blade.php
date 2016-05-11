@@ -186,7 +186,7 @@
 							<ul class="footer-menu">
 						        <li><a href="">Soporte</a></li>
 						        <li><a href="">Contactar</a></li>
-						        <li><a href="">Acceso clientes</a></li>
+						        <li><a href="{{ action('AdminController@index') }}">Acceso clientes</a></li>
 					        </ul>
 					    </div>
 				    </div>
