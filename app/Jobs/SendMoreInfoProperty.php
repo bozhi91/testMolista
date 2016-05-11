@@ -76,7 +76,7 @@ class SendMoreInfoProperty extends Job implements ShouldQueue
 			}
 		}
 
-		// Send email to customer ([TODO] include PDF).
+		// Send email to customer (include PDF)
 		\LaravelLocalization::setLocale($this->customer->locale);
 		$content = view('emails/property.moreinfo-customer', [
 			'site' => $site,

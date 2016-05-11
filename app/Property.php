@@ -106,7 +106,7 @@ class Property extends TranslatableModel
 
 		// Check PDF
 		$filepath = "{$dir}/property-{$locale}.pdf";
-		if ( true || !file_exists($filepath) )
+		if ( !file_exists($filepath) )
 		{
 			$locale_backup = \LaravelLocalization::getCurrentLocale();
 			\LaravelLocalization::setLocale($locale);
