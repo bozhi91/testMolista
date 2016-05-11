@@ -35,6 +35,7 @@
 		'more.price' => 'Price',
 
 		'services' => 'Services',
+		'features' => 'Features',
 
 		'labels.new' => 'New construction',
 		'labels.used' => 'Second hand',
@@ -48,4 +49,12 @@
 		'related.title' => 'Other properties that may interest you',
 
 		'energy.certificate.help' => '<p>The energy certification indicates the efficiency of the property in terms of consumption of energy, water, etc.</p><p>Category A is the most efficient and G the least.</p>',
+
+		'moreinfo.success' => '<p>Your message was successfully sent.</p><p>We will contact you as soon as possible.</p>',
+		'moreinfo.email.manager.title' => 'Information required for property ref. :ref',
+		'moreinfo.email.customer.title' => 'More information about property :title',
+		'moreinfo.email.customer.intro' => '<p>Hello :name,</p>
+											<p>We have received your request for more information about the property <a href=":url" target="_blank">:title</a> and we will contact you soon.</p>
+											<p>In the meantime, we send you a PDF file with more information.</p>
+											<p>:sitename</p>',
 	];

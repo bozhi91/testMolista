@@ -1,0 +1,10 @@
+body {
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	line-height: 1.5;
+	color: #333333;
+	background-color: #fff;
+}
+
+h1 { font-size: 24px; margin: 0px 0px 20px 0px; }
+a { color: #999; }

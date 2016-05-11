@@ -51,6 +51,11 @@ class Property extends TranslatableModel
 			}
 		});
 
+		// Whenever a property is saved
+		static::saved(function($property){
+			\File::deleteDirectory(public_path($property->pdf_folder), true);
+		});
+
 		static::$logCustomFields = [
 			'ref'  => trans('account/properties.ref'),
 			'type'  => trans('account/properties.type'),
@@ -86,7 +91,7 @@ class Property extends TranslatableModel
 	}
 
 	public function users() {
-		return $this->belongsToMany('App\User', 'properties_users', 'property_id', 'user_id');
+		return $this->belongsToMany('App\User', 'properties_users', 'property_id', 'user_id')->withPivot('is_owner');
 	}
 	public function city()
 	{
@@ -127,6 +132,34 @@ class Property extends TranslatableModel
 		return false;
 	}
 
+	public function getPdfFolderAttribute()
+	{
+		return "sites/{$this->site_id}/properties/{$this->id}/pdf";
+	}
+	public function getPdfFile($locale) 
+	{
+		// Check directory
+		$dir = public_path($this->pdf_folder);
+		if ( !is_dir($dir) )
+		{
+			\File::makeDirectory($dir);
+		}
+
+		// Check PDF
+		$filepath = "{$dir}/property-{$locale}.pdf";
+		if ( !file_exists($filepath) )
+		{
+			$locale_backup = \LaravelLocalization::getCurrentLocale();
+			\LaravelLocalization::setLocale($locale);
+			\PDF::loadView('pdf/property', [
+				'property' => $this
+			])->save($filepath);
+			\LaravelLocalization::setLocale($locale_backup);
+		}
+
+		return $filepath;
+	}
+
 	public function getImageFolderAttribute()
 	{
 		return asset("sites/{$this->site_id}/properties/{$this->id}");
@@ -163,7 +196,15 @@ class Property extends TranslatableModel
 	public function getFullUrlAttribute()
 	{
 		$site_url = rtrim($this->site->main_url, '/');
+		$property_url = action('Web\PropertiesController@details', $this->slug);
 
+		// Is domain right?
+		if ( preg_match('#^'.$site_url.'#', $property_url) )
+		{
+			return $property_url;
+		}
+
+		// Fix wrong domain
 		$property_url = str_replace(
 							\Config::get('app.application_url'), 
 							'', 
@@ -174,6 +215,32 @@ class Property extends TranslatableModel
 			$site_url,
 			$property_url,
 		]);
+	}
+
+	public function getContactsAttribute()
+	{
+		$contacts = $this->users;
+
+		if ( $this->users->count() < 1 )
+		{
+			return [];
+		}
+
+		$owners = [];
+		$managers = [];
+		foreach ($this->users as $contact)
+		{
+			if ( $contact->pivot->is_owner )
+			{
+				$owners[$contact->email] = $contact;
+			}
+			else
+			{
+				$managers[$contact->email] = $contact;
+			}
+		}
+
+		return empty($managers) ? $owners : $managers;
 	}
 
 	public function scopeEnabled($query)

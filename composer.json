@@ -19,7 +19,9 @@
         "predis/predis": "^1.0",
         "mews/purifier": "^2.0",
         "rap2hpoutre/laravel-log-viewer": "^0.6.0",
-        "owen-it/laravel-auditing": "^2.2"
+        "owen-it/laravel-auditing": "^2.2",
+        "pelago/emogrifier": "@dev",
+        "barryvdh/laravel-dompdf": "0.6.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
