@@ -54,12 +54,20 @@ class PagesController extends WebController
 					return redirect()->back()->withInput()->withErrors($validator);
 				}
 
+				$content = view('web.pages.email', $this->request->only('name','email','body'))->render();
+				$result = $this->site->sendEmail([
+					'to' => $page->configuration['contact']['email'],
+					'subject' => trans('web/pages.contact.email.subject'),
+					'content' => $content,
+				]);
+				/*
 				$result = \Mail::send('web.pages.email', $this->request->only('name','email','body'), function($message) use ($page)
 				{
 					$message->from( env('MAIL_FROM_EMAIL'), env('MAIL_FROM_NAME') );
 					$message->subject( \Lang::get('pages.contact.email.subject') );
 					$message->to($page->configuration['contact']['email']);
 				});
+				*/
 
 				return redirect()->back()->with('success', trans('web/pages.contact.email.sent'));
 		}

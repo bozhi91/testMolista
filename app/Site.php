@@ -188,6 +188,51 @@ class Site extends TranslatableModel
 		return $query->whereRaw('1=2');
 	}
 
+	public function getSiteMailerParams()
+	{
+		$params = [
+			'backup_required' => true,
+			'service' => @$this->mailer['service'],
+			'from_email' => @$this->mailer['from_email'],
+			'from_name' => @$this->mailer['from_name'],
+			'reply_email' => @$this->mailer['from_email'],
+			'reply_name' => @$this->mailer['from_name'],
+		];
+
+		switch ( $params['service'] )
+		{
+			case 'smtp':
+			case 'mandrill':
+				break;
+			case 'mail':
+				$params['backup_required'] = false;
+				$params['from_email'] = env('MAIL_FROM_EMAIL','no-reply@molista.com');
+				break;
+		}
+
+		return $params;
+	}
+
+	public function getSiteMailerClient()
+	{
+		switch ( $this->mailer['service'] )
+		{
+			case 'smtp':
+				$transport = \Swift_SmtpTransport::newInstance(@$this->mailer['smtp_host'], @$this->mailer['smtp_port'], @$this->mailer['smtp_tls_ssl']);
+				$transport->setUsername(@$this->mailer['smtp_login']);
+				$transport->setPassword(@$this->mailer['smtp_pass']);
+				return new Swift_Mailer($transport);
+			case 'mandrill':
+				$transport = \Swift_SmtpTransport::newInstance(@$this->mailer['mandrill_host'], @$this->mailer['mandrill_port']);
+				$transport->setUsername(@$this->mailer['mandrill_user']);
+				$transport->setPassword(@$this->mailer['mandrill_key']);
+				return new Swift_Mailer($transport);
+			case 'mail':
+			default:
+				return \Mail::getSwiftMailer();
+		}
+	}
+
 	public function sendEmail($params)
 	{
 		$errors = array_filter([
@@ -201,8 +246,10 @@ class Site extends TranslatableModel
 			return false;
 		}
 
-		$from_name = @$this->mailer['from_name'];
-		$from_email = @$this->mailer['from_email'];
+		$params = array_merge($params, $this->getSiteMailerParams());
+
+		$from_name = $params['from_name'];
+		$from_email = $params['from_email'];
 		if ( !$from_name || !$from_email )
 		{
 			$errors = [
@@ -213,47 +260,39 @@ class Site extends TranslatableModel
 			return false;
 		}
 
-		$service = @$this->mailer['service'];
-		if ( !$service )
+		if ( !$params['service'] )
 		{
 			\Log::error("Mailer service is not defined for site ID {$this->id}");
 			return false;
 		}
 
 		// Backup current mail configuration
-		$backup = \Mail::getSwiftMailer();
+		if ( $params['backup_required'] )
+		{
+			$backup = \Mail::getSwiftMailer();
+		}
 
 		// Update configuration
-		switch ( $service )
+		switch ( $params['service'] )
 		{
 			case 'smtp':
-				$transport = \Swift_SmtpTransport::newInstance(@$this->mailer['smtp_host'], @$this->mailer['smtp_port'], @$this->mailer['smtp_tls_ssl']);
-				$transport->setUsername(@$this->mailer['smtp_login']);
-				$transport->setPassword(@$this->mailer['smtp_pass']);
-				$mailer = new Swift_Mailer($transport);
-				\Mail::setSwiftMailer($mailer);
-				break;
 			case 'mandrill':
-				$transport = \Swift_SmtpTransport::newInstance(@$this->mailer['mandrill_host'], @$this->mailer['mandrill_port']);
-				$transport->setUsername(@$this->mailer['mandrill_user']);
-				$transport->setPassword(@$this->mailer['mandrill_key']);
-				$mailer = new Swift_Mailer($transport);
-				\Mail::setSwiftMailer($mailer);
+				\Mail::setSwiftMailer($this->getSiteMailerClient());
 				break;
 			case 'mail':
-				$transport = \Swift_MailTransport::newInstance();
-				$mailer = new Swift_Mailer($transport);
-				\Mail::setSwiftMailer($mailer);
 				break;
 			default:
-				\Log::error("Mailer service '{$service}' is not valid for site ID {$this->id}");
+				\Log::error("Mailer service '{$params['service']}' is not valid for site ID {$this->id}");
 				return false;
 		}
 
 		// Send email
 		$res = \Mail::send('dummy', [ 'content' => $params['content'] ], function ($message) use ($params) {
-			$message->from($this->mailer['from_email'], $this->mailer['from_name']);
+			$message->from($params['from_email'], $params['from_name']);
+			$message->replyTo($params['reply_email'], @$params['reply_name']);
+
 			$message->to($params['to'])->subject($params['subject']);
+
 			if ( !empty($params['attachments']) )
 			{
 				if ( !is_array($params['attachments']) )
@@ -269,7 +308,10 @@ class Site extends TranslatableModel
 		});
 
 		// Restore mail configuration
-		\Mail::setSwiftMailer($backup);
+		if ( $params['backup_required'] )
+		{
+			\Mail::setSwiftMailer($backup);
+		}
 
 		return $res;
 	}
