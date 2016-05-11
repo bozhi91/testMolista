@@ -3,18 +3,31 @@
 namespace App;
 
 use \App\TranslatableModel;
+use OwenIt\Auditing\AuditingTrait;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Property extends TranslatableModel
 {
-    use SoftDeletes;
+	use SoftDeletes;
+
+	use AuditingTrait;
+	protected $dontKeepLogOf = [
+		'site_id',
+		'label_color',
+		'created_at', 
+		'updated_at',
+	];
+	protected $auditableTypes = [ 'created', 'saved', 'deleted' ];
+	public static $logCustomMessage = '{user.name|Anonymous} {type} this property {elapsed_time}';
+	public static $logCustomFields = [];
 
 	public $translatedAttributes = [ 'title', 'description', 'slug', 'label' ];
 
+
 	protected $guarded = [];
 
-    protected $dates = ['deleted_at'];
+	protected $dates = ['deleted_at'];
 
 	public static function boot()
 	{
@@ -38,6 +51,38 @@ class Property extends TranslatableModel
 			}
 		});
 
+		// Whenever a property is saved
+		static::saved(function($property){
+			\File::deleteDirectory(public_path($property->pdf_folder), true);
+		});
+
+		static::$logCustomFields = [
+			'ref'  => trans('account/properties.ref'),
+			'type'  => trans('account/properties.type'),
+			'mode'  => trans('account/properties.mode'),
+			'price'  => trans('account/properties.price'),
+			'currency'  => trans('account/properties.currency'),
+			'size'  => trans('account/properties.size'),
+			'size_unit'  => trans('account/properties.size_unit'),
+			'rooms'  => trans('account/properties.rooms'),
+			'baths'  => trans('account/properties.baths'),
+			'newly_build'  => trans('account/properties.newly_build'),
+			'second_hand'  => trans('account/properties.second_hand'),
+			'highlighted'  => trans('account/properties.highlighted'),
+			'enabled'  => trans('account/properties.enabled'),
+			'ec'  => trans('account/properties.energy.certificate'),
+			'ec_pending'  => trans('account/properties.energy.certificate.pending.full'),
+			'country_id' => trans('account/properties.country'),
+			'territory_id' => trans('account/properties.territory'),
+			'state_id' => trans('account/properties.state'),
+			'city_id' => trans('account/properties.city'),
+			'district' => trans('account/properties.district'),
+			'address' => trans('account/properties.address'),
+			'zipcode' => trans('account/properties.zipcode'),
+			'show_address' => trans('account/properties.show_address'),
+			'lat' => trans('account/properties.lat'),
+			'lng' => trans('account/properties.lng'),
+		];
 	}
 
 	public function site()
@@ -46,7 +91,7 @@ class Property extends TranslatableModel
 	}
 
 	public function users() {
-		return $this->belongsToMany('App\User', 'properties_users', 'property_id', 'user_id');
+		return $this->belongsToMany('App\User', 'properties_users', 'property_id', 'user_id')->withPivot('is_owner');
 	}
 	public function city()
 	{
@@ -87,6 +132,34 @@ class Property extends TranslatableModel
 		return false;
 	}
 
+	public function getPdfFolderAttribute()
+	{
+		return "sites/{$this->site_id}/properties/{$this->id}/pdf";
+	}
+	public function getPdfFile($locale) 
+	{
+		// Check directory
+		$dir = public_path($this->pdf_folder);
+		if ( !is_dir($dir) )
+		{
+			\File::makeDirectory($dir);
+		}
+
+		// Check PDF
+		$filepath = "{$dir}/property-{$locale}.pdf";
+		if ( !file_exists($filepath) )
+		{
+			$locale_backup = \LaravelLocalization::getCurrentLocale();
+			\LaravelLocalization::setLocale($locale);
+			\PDF::loadView('pdf/property', [
+				'property' => $this
+			])->save($filepath);
+			\LaravelLocalization::setLocale($locale_backup);
+		}
+
+		return $filepath;
+	}
+
 	public function getImageFolderAttribute()
 	{
 		return asset("sites/{$this->site_id}/properties/{$this->id}");
@@ -123,7 +196,15 @@ class Property extends TranslatableModel
 	public function getFullUrlAttribute()
 	{
 		$site_url = rtrim($this->site->main_url, '/');
+		$property_url = action('Web\PropertiesController@details', $this->slug);
 
+		// Is domain right?
+		if ( preg_match('#^'.$site_url.'#', $property_url) )
+		{
+			return $property_url;
+		}
+
+		// Fix wrong domain
 		$property_url = str_replace(
 							\Config::get('app.application_url'), 
 							'', 
@@ -134,6 +215,32 @@ class Property extends TranslatableModel
 			$site_url,
 			$property_url,
 		]);
+	}
+
+	public function getContactsAttribute()
+	{
+		$contacts = $this->users;
+
+		if ( $this->users->count() < 1 )
+		{
+			return [];
+		}
+
+		$owners = [];
+		$managers = [];
+		foreach ($this->users as $contact)
+		{
+			if ( $contact->pivot->is_owner )
+			{
+				$owners[$contact->email] = $contact;
+			}
+			else
+			{
+				$managers[$contact->email] = $contact;
+			}
+		}
+
+		return empty($managers) ? $owners : $managers;
 	}
 
 	public function scopeEnabled($query)
@@ -307,12 +414,17 @@ class Property extends TranslatableModel
 	{
 		return [
 			'EUR' => [
-				'currency_iso' => 'EUR',
-				'currency_symbol' => '€',
-				'currency_decimals' => 2,
-				'currency_position' => 'after',
+				'iso' => 'EUR',
+				'symbol' => '€',
+				'decimals' => 0,
+				'position' => 'after',
 			],
 		];
+	}
+	static public function getCurrencyOption($iso) 
+	{
+		$options = static::getCurrencyOptions();
+		return ( $iso && array_key_exists($iso, $options) ) ? $options[$iso] : false;
 	}
 
 	static public function getSizeUnitOptions() 
@@ -323,6 +435,11 @@ class Property extends TranslatableModel
 				'symbol' => 'm²',
 			],
 		];
+	}
+	static public function getSizeUnitOption($iso) 
+	{
+		$options = static::getSizeUnitOptions();
+		return ( $iso && array_key_exists($iso, $options) ) ? $options[$iso] : false;
 	}
 
 	static public function getEcOptions() 

@@ -81,12 +81,22 @@ class PasswordController extends Controller
 			}
 		}
 
+		$mail_params = [];
+
 		// Check if required site id
 		if ( $valid_user && $required_site_id = env('loginRequiredSite') )
 		{
 			if ( $user->sites()->where('id', $required_site_id)->count() < 1 )
 			{
 				$valid_user = false;
+			}
+			else
+			{
+				// Backup && mail configuration
+				$site = $user->sites()->find($required_site_id);
+				$mail_backup = \Mail::getSwiftMailer();
+				$mail_params = $site->getSiteMailerParams();
+				\Mail::setSwiftMailer($site->getSiteMailerClient());
 			}
 		}
 
@@ -98,9 +108,19 @@ class PasswordController extends Controller
 
 		$broker = false;
 
-		$response = Password::broker($broker)->sendResetLink($request->only('email'), function (Message $message) {
+		$response = Password::broker($broker)->sendResetLink($request->only('email'), function (Message $message) use ($mail_params) {
 			$message->subject($this->getEmailSubject());
+			if ( !empty($mail_params) )
+			{
+				$message->from($mail_params['from_email'], $mail_params['from_name']);
+				$message->replyTo($mail_params['reply_email'], $mail_params['reply_name']);
+			}
 		});
+
+		if ( !empty($mail_backup) )
+		{
+			\Mail::setSwiftMailer($mail_backup);
+		}
 
 		switch ($response) {
 			case Password::RESET_LINK_SENT:
@@ -110,13 +130,13 @@ class PasswordController extends Controller
 				return $this->getSendResetLinkEmailFailureResponse($response);
 		}
 	}
-    protected function getSendResetLinkEmailSuccessResponse($response)
-    {
-        return redirect()->back()->with('status', trans($response));
-    }
-    protected function getSendResetLinkEmailFailureResponse($response)
-    {
-        return redirect()->back()->withErrors(['email' => trans($response)]);
-    }
+	protected function getSendResetLinkEmailSuccessResponse($response)
+	{
+		return redirect()->back()->with('status', trans($response));
+	}
+	protected function getSendResetLinkEmailFailureResponse($response)
+	{
+		return redirect()->back()->withErrors(['email' => trans($response)]);
+	}
 
 }

@@ -7,18 +7,35 @@ use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\SluggableInterface;
 
 use App\Traits\SluggableTrait;
+use OwenIt\Auditing\AuditingTrait;
 
 class PropertyTranslation extends Model implements SluggableInterface
 {
 	protected $table = 'properties_translations';
 
 	use SluggableTrait;
-
 	protected $sluggable = [
 		'build_from' => 'title',
 		'save_to'    => 'slug',
 		'unique' => false,
 	];
+
+	use AuditingTrait;
+	protected $dontKeepLogOf = [ 'slug' ];
+	protected $auditableTypes = [ 'created', 'saved' ];
+	public static $logCustomMessage = '{user.name|Anonymous} {type} this property {elapsed_time}';
+	public static $logCustomFields = [];
+
+	public static function boot()
+	{
+		parent::boot();
+
+		static::$logCustomFields = [
+			'title'  => trans('account/properties.ref'),
+			'description'  => trans('account/properties.type'),
+			'label'  => trans('account/properties.mode'),
+		];
+	}
 
 	protected $guarded = [];
 

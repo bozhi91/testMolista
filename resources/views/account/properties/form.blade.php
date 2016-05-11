@@ -168,7 +168,7 @@
 						</div>
 						<div class="form-group error-container">
 							{!! Form::label('district', Lang::get('account/properties.district')) !!}
-							{!! Form::text('district', null, [ 'class'=>'form-control' ]) !!}
+							{!! Form::text('district', null, [ 'class'=>'form-control district-input' ]) !!}
 						</div>
 						<div class="form-group">
 							<div class="error-container">
@@ -450,6 +450,10 @@
 
 			if ( form.find('.address-input').val() ) {
 				address.push( form.find('.address-input').val() );
+			}
+
+			if ( form.find('.district-input').val() ) {
+				address.push( form.find('.district-input').val() );
 			}
 
 			$.each(['city','state','country'], function(k,v){

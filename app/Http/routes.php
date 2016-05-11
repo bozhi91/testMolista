@@ -37,6 +37,7 @@ Route::group([
 		// Users
 		Route::resource('users', 'Admin\UsersController');
 		// Properties
+		Route::get('properties/check/{type}', 'Admin\Properties\ServicesController@getCheck');
 		Route::resource('properties/services', 'Admin\Properties\ServicesController');
 		Route::resource('properties', 'Admin\Properties\BaseController');
 		// Configuration
@@ -74,6 +75,7 @@ Route::group([
 	Route::get('/', 'WebController@index');
 	// Properties
 	Route::get('properties', 'Web\PropertiesController@index');
+	Route::post('property/{slug}', 'Web\PropertiesController@moreinfo');
 	Route::get('property/{slug}', 'Web\PropertiesController@details');
 	// Pages
 	Route::post('pages/{slug}', 'Web\PagesController@post');

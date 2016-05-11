@@ -7,6 +7,7 @@
 		'configuration.tab.config' => 'General',
 		'configuration.tab.texts' => 'SEO',
 		'configuration.tab.social' => 'Redes sociales',
+		'configuration.tab.mail' => 'Emails',
 
 		'configuration.languages' => 'Idiomas habilitados',
 		'configuration.languages.error' => 'Seleccione al menos un idioma',
@@ -25,6 +26,30 @@
 
 		'configuration.domains' => 'Dominio personalizado',
 		'configuration.domains.error' => 'Este dominio ya se encuentra en uso',
+
+		'configuration.mailing.default' => 'Default',
+		'configuration.mailing.default.help' => '<p>Si utiliza el sistema de envío de emails por default, es posible que sus emails acaben en la bandeja de correo no deseado.</p>',
+		'configuration.mailing.mandrill' => 'Mandrill',
+		'configuration.mailing.mandrill.user' => 'Mandrill username',
+		'configuration.mailing.mandrill.key' => 'Mandrill API key',
+		'configuration.mailing.mandrill.host' => 'Mandrill host',
+		'configuration.mailing.mandrill.port' => 'Mandrill port',
+		'configuration.mailing.mandrill.help' => '<p>Ingrese el username, API key, host y port de Mandrill.</p>',
+		'configuration.mailing.smtp' => 'SMTP',
+		'configuration.mailing.smtp.login' => 'Login',
+		'configuration.mailing.smtp.pass' => 'Password',
+		'configuration.mailing.smtp.pass' => 'SMTP host',
+		'configuration.mailing.smtp.pass' => 'SMTP port',
+		'configuration.mailing.smtp.help' => '<p>Ingrese el login, contraseña, host y puerto para la conexión SMTP.</p>',
+		'configuration.mailing.current' => 'En uso',
+		'configuration.mailing.from.name' => 'Nombre remitente',
+		'configuration.mailing.from.email' => 'Email remitente',
+		'configuration.mailing.test.email.subject' => 'Prueba de configuración de email',
+		'configuration.mailing.test.email.content' => '<p>Esta es una prueba de su configuración de email.</p><p>Si ha recibido este email, su configuración funciona correctamente.</p>',
+		'configuration.mailing.test.button' => 'Probar configuración guardada',
+		'configuration.mailing.test.email' => 'Email destinatario',
+		'configuration.mailing.test.success' => 'El email se ha enviado correctamente',
+		'configuration.mailing.test.error' => 'Ocurrió un error al enviar el email',
 
 		'configuration.client.register' => 'Permitir registro de clientes online',
 

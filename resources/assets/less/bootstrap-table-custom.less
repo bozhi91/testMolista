@@ -1,0 +1,16 @@
+.fixed-table-loading { display: none; }
+
+.fixed-table-container {
+	thead {
+		th {
+			.sortable { cursor: pointer; }
+			.asc {
+				&:before { content: ''; display: inline-block; width: 0; height: 0; border: 3px solid transparent; vertical-align: middle; border-bottom-color: #333; opacity: 0.8; margin-right: 3px; margin-top: -7px; }
+			}
+			.desc { 
+				&:before { content: ''; display: inline-block; width: 0; height: 0; border: 3px solid transparent; vertical-align: middle; border-top-color: #333; opacity: 0.8; margin-right: 3px; }
+			}
+			&:focus { outline: none; }
+		}
+	}
+}

@@ -2,7 +2,7 @@
 
 @section('content')
 
-	<h1>{{ Lang::get('pages.contact.email.subject') }}</h1>
+	<h1>{{ Lang::get('web/pages.contact.email.subject') }}</h1>
 
 	<p>{{ Lang::get('web/pages.name') }}: {{ @$name }}</p>
 	<p>{{ Lang::get('web/pages.email') }}: {{ @$email }}</p>

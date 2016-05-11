@@ -7,6 +7,7 @@
 		'configuration.tab.config' => 'General',
 		'configuration.tab.texts' => 'SEO',
 		'configuration.tab.social' => 'Social media',
+		'configuration.tab.mail' => 'Emails',
 
 		'configuration.languages' => 'Enabled languages',
 		'configuration.languages.error' => 'Please select at least one language',
@@ -25,6 +26,30 @@
 
 		'configuration.domains' => 'Custom domain',
 		'configuration.domains.error' => 'This domain is already taken',
+
+		'configuration.mailing.default' => 'Default',
+		'configuration.mailing.default.help' => '<p>If you use the default method, emails might end up in the spam folder.</p>',
+		'configuration.mailing.mandrill' => 'Mandrill',
+		'configuration.mailing.mandrill.user' => 'Mandrill username',
+		'configuration.mailing.mandrill.key' => 'Mandrill API key',
+		'configuration.mailing.mandrill.host' => 'Mandrill host',
+		'configuration.mailing.mandrill.port' => 'Mandrill port',
+		'configuration.mailing.mandrill.help' => '<p>Please provide username, API key, host and port for Mandrill.</p>',
+		'configuration.mailing.smtp' => 'SMTP',
+		'configuration.mailing.smtp.login' => 'Login',
+		'configuration.mailing.smtp.pass' => 'Password',
+		'configuration.mailing.smtp.host' => 'SMTP host',
+		'configuration.mailing.smtp.port' => 'SMTP port',
+		'configuration.mailing.smtp.help' => '<p>Please provide the login, password, host and port for the SMTP connection.</p>',
+		'configuration.mailing.current' => 'In use',
+		'configuration.mailing.from.name' => 'Sender name',
+		'configuration.mailing.from.email' => 'Sender email',
+		'configuration.mailing.test.button' => 'Test stored configuration',
+		'configuration.mailing.test.email' => 'Receiver email',
+		'configuration.mailing.test.email.subject' => 'Email configuration test',
+		'configuration.mailing.test.email.content' => '<p>This is a test for your email configuration.</p><p>If you receive this email, it means your configuration works as expected.</p>',
+		'configuration.mailing.test.success' => 'The email was sent successfully',
+		'configuration.mailing.test.error' => 'An error occurred while trying to send the email',
 
 		'configuration.client.register' => 'Allow online customer registration',
 

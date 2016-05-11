@@ -9,11 +9,13 @@
 		<h1 class="page-title">{{ Lang::get('account/site.configuration.h1') }}</h1>
 
 		{!! Form::model(@$site, [ 'method'=>'POST', 'action'=>'Account\Site\ConfigurationController@postIndex', 'files'=>true, 'id'=>'admin-site-configuration-form' ]) !!}
+			{!! Form::hidden('current_tab', session('current_tab', '#tab-site-config')) !!}
 
 			<div class="custom-tabs">
 
 				<ul class="nav nav-tabs main-tabs" role="tablist">
 					<li role="presentation" class="active"><a href="#tab-site-config" aria-controls="tab-site-config" role="tab" data-toggle="tab">{{ Lang::get('account/site.configuration.tab.config') }}</a></li>
+					<li role="presentation"><a href="#tab-site-mail" aria-controls="tab-site-mail" role="tab" data-toggle="tab">{{ Lang::get('account/site.configuration.tab.mail') }}</a></li>
 					<li role="presentation"><a href="#tab-site-texts" aria-controls="tab-site-texts" role="tab" data-toggle="tab">{{ Lang::get('account/site.configuration.tab.texts') }}</a></li>
 					<li role="presentation"><a href="#tab-site-social" aria-controls="tab-site-social" role="tab" data-toggle="tab">{{ Lang::get('account/site.configuration.tab.social') }}</a></li>
 				</ul>
@@ -144,7 +146,133 @@
 								@endforeach
 							</div>
 						</div>
+					</div>
 
+					<div role="tabpanel" class="tab-pane tab-main" id="tab-site-mail">
+						{!! Form::hidden('mailer[service]', empty($site->mailer['service']) ? 'mail' : null) !!}
+						<p>&nbsp;</p>
+						@if ( !empty($site->mailer['service']) )
+							<div class="pull-right hidden-xs">
+								<a href="#" class="btn btn-default btn-sm btn-test-email">{{ Lang::get('account/site.configuration.mailing.test.button') }}</a>
+							</div>
+						@endif
+						<ul class="nav nav-pills mailer-tabs" role="tablist">
+							<li role="presentation" class="mailer-option {{ ( empty($site->mailer['service']) || @$site->mailer['service'] == 'mail' ) ? 'active' : '' }}">
+								<a href="#tab-mailer-option-mail" aria-controls="tab-mailer-option-mail" role="tab" data-toggle="tab" data-service="mail">{{ Lang::get('account/site.configuration.mailing.default') }}</a>
+								@if ( empty($site->mailer['service']) || @$site->mailer['service'] == 'mail' ) 
+									<span class="mailer-current">{{ Lang::get('account/site.configuration.mailing.current') }}</span>
+								@endif
+							</li>
+							<li role="presentation" class="mailer-option {{ ( @$site->mailer['service'] == 'mandrill' ) ? 'active' : '' }}">
+								<a href="#tab-mailer-option-mandrill" aria-controls="tab-mailer-option-mandrill" role="tab" data-toggle="tab" data-service="mandrill">{{ Lang::get('account/site.configuration.mailing.mandrill') }}</a>
+								@if ( @$site->mailer['service'] == 'mandrill' ) 
+									<span class="mailer-current">{{ Lang::get('account/site.configuration.mailing.current') }}</span>
+								@endif
+							</li>
+							<li role="presentation" class="mailer-option {{ ( @$site->mailer['service'] == 'smtp' ) ? 'active' : '' }}">
+								<a href="#tab-mailer-option-smtp" aria-controls="messages" role="tab" data-toggle="tab" data-service="smtp">{{ Lang::get('account/site.configuration.mailing.smtp') }}</a>
+								@if ( @$site->mailer['service'] == 'smtp' ) 
+									<span class="mailer-current">{{ Lang::get('account/site.configuration.mailing.current') }}</span>
+								@endif
+							</li>
+						</ul>
+						<div class="tab-content mailer-tab-content">
+							<div class="row">
+								<div class="col-xs-12 col-sm-6">
+									<div class="form-group error-container">
+										{!! Form::label('mailer[from_name]', Lang::get('account/site.configuration.mailing.from.name')) !!}
+										{!! Form::text('mailer[from_name]', null, [ 'class'=>'form-control required' ]) !!}
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-6">
+									<div class="form-group error-container">
+										{!! Form::label('mailer[from_email]', Lang::get('account/site.configuration.mailing.from.email')) !!}
+										{!! Form::text('mailer[from_email]', null, [ 'class'=>'form-control required email' ]) !!}
+									</div>
+								</div>
+							</div>
+							<div role="tabpanel" class="tab-pane mailer-tab-pane {{ ( empty($site->mailer['service']) || @$site->mailer['service'] == 'mail' ) ? 'active' : '' }}" id="tab-mailer-option-mail">
+								<div class="help-block">
+									{!! Lang::get('account/site.configuration.mailing.default.help') !!}
+								</div>
+							</div>
+							<div role="tabpanel" class="tab-pane mailer-tab-pane {{ ( @$site->mailer['service'] == 'mandrill' ) ? 'active' : '' }}" id="tab-mailer-option-mandrill">
+								<div class="row">
+									<div class="col-xs-12 col-sm-6">
+										<div class="form-group error-container">
+											{!! Form::label('mailer[mandrill_user]', Lang::get('account/site.configuration.mailing.mandrill.user')) !!}
+											{!! Form::text('mailer[mandrill_user]', null, [ 'class'=>'form-control' ]) !!}
+										</div>
+									</div>
+									<div class="col-xs-12 col-sm-6">
+										<div class="form-group error-container">
+											{!! Form::label('mailer[mandrill_key]', Lang::get('account/site.configuration.mailing.mandrill.key')) !!}
+											{!! Form::text('mailer[mandrill_key]', null, [ 'class'=>'form-control' ]) !!}
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-12 col-sm-6">
+										<div class="form-group error-container">
+											{!! Form::label('mailer[mandrill_host]', Lang::get('account/site.configuration.mailing.mandrill.host')) !!}
+											{!! Form::text('mailer[mandrill_host]', null, [ 'class'=>'form-control' ]) !!}
+										</div>
+									</div>
+									<div class="col-xs-12 col-sm-6">
+										<div class="form-group error-container">
+											{!! Form::label('mailer[mandrill_port]', Lang::get('account/site.configuration.mailing.mandrill.port')) !!}
+											{!! Form::text('mailer[mandrill_port]', null, [ 'class'=>'form-control' ]) !!}
+										</div>
+									</div>
+								</div>
+								<div class="help-block">
+									{!! Lang::get('account/site.configuration.mailing.mandrill.help') !!}
+								</div>
+							</div>
+							<div role="tabpanel" class="tab-pane mailer-tab-pane {{ ( @$site->mailer['service'] == 'smtp' ) ? 'active' : '' }}" id="tab-mailer-option-smtp">
+								<div class="row">
+									<div class="col-xs-12 col-sm-6">
+										<div class="form-group error-container">
+											{!! Form::label('mailer[smtp_login]', Lang::get('account/site.configuration.mailing.smtp.login')) !!}
+											{!! Form::text('mailer[smtp_login]', null, [ 'class'=>'form-control' ]) !!}
+										</div>
+									</div>
+									<div class="col-xs-12 col-sm-6">
+										<div class="form-group error-container">
+											{!! Form::label('mailer[smtp_pass]', Lang::get('account/site.configuration.mailing.smtp.pass')) !!}
+											{!! Form::text('mailer[smtp_pass]', null, [ 'class'=>'form-control' ]) !!}
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-12 col-sm-6">
+										<div class="form-group error-container">
+											{!! Form::label('mailer[smtp_host]', Lang::get('account/site.configuration.mailing.smtp.host')) !!}
+											{!! Form::text('mailer[smtp_host]', null, [ 'class'=>'form-control' ]) !!}
+										</div>
+									</div>
+									<div class="col-xs-12 col-sm-3">
+										<div class="form-group error-container">
+											{!! Form::label('mailer[smtp_port]', Lang::get('account/site.configuration.mailing.smtp.port')) !!}
+											{!! Form::text('mailer[smtp_port]', null, [ 'class'=>'form-control' ]) !!}
+										</div>
+									</div>
+									<div class="col-xs-12 col-sm-3">
+										<div class="form-group error-container">
+											<label class="hidden-xs">&nbsp;</label>
+											{!! Form::select('mailer[smtp_tls_ssl]', [
+												'' => '',
+												'tls' => 'TLS',
+												'ssl' => 'SSL',
+											], null, [ 'class'=>'form-control' ]) !!}
+										</div>
+									</div>
+								</div>
+								<div class="help-block">
+									{!! Lang::get('account/site.configuration.mailing.smtp.help') !!}
+								</div>
+							</div>
+						</div>
 					</div>
 
 					<div role="tabpanel" class="tab-pane tab-main" id="tab-site-texts">
@@ -257,6 +385,9 @@
 						if ( el.closest('.tab-locale').length ) {
 							form.find('.locale-tabs a[href="#' + el.closest(".tab-locale").attr('id') + '"]').tab('show');
 						}
+						if ( el.closest('.mailer-tab-pane').length ) {
+							form.find('.mailer-tabs a[href="#' + el.closest('.mailer-tab-pane').attr('id') + '"]').tab('show');
+						}
 					}
 				},
 				rules: {
@@ -269,6 +400,46 @@
 								subdomain: function() { return form.find('input[name="subdomain"]').val() }
 							}
 						},
+					},
+					'mailer[mandrill_user]': {
+						required: function(element) {
+							return form.find('input[name="mailer[service]"]').val() == 'mandrill';
+						}
+					},
+					'mailer[mandrill_key]': {
+						required: function(element) {
+							return form.find('input[name="mailer[service]"]').val() == 'mandrill';
+						}
+					},
+					'mailer[mandrill_host]': {
+						required: function(element) {
+							return form.find('input[name="mailer[service]"]').val() == 'mandrill';
+						}
+					},
+					'mailer[mandrill_port]': {
+						required: function(element) {
+							return form.find('input[name="mailer[service]"]').val() == 'mandrill';
+						}
+					},
+					'mailer[smtp_login]': {
+						required: function(element) {
+							return form.find('input[name="mailer[service]"]').val() == 'smtp';
+						}
+					},
+					'mailer[smtp_pass]': {
+						required: function(element) {
+							return form.find('input[name="mailer[service]"]').val() == 'smtp';
+						}
+					},
+					'mailer[smtp_host]': {
+						required: function(element) {
+							return form.find('input[name="mailer[service]"]').val() == 'smtp';
+						}
+					},
+					'mailer[smtp_port]': {
+						required: function(element) {
+							return form.find('input[name="mailer[service]"]').val() == 'smtp';
+						}
 					}
 				},
 				messages: {
@@ -380,6 +551,48 @@
 					}
 				});
 			});
+
+			form.find('.mailer-tabs a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+				form.find('input[name="mailer[service]"]').val( $(e.target).data().service );
+			});
+
+			form.on('click', '.btn-test-email', function(e){
+				e.preventDefault();
+				SITECOMMON.prompt("{{ print_js_string( Lang::get('account/site.configuration.mailing.test.email') ) }}", function (e, str) {
+					if (e) {
+						LOADING.show();
+						$.ajax({
+							url: '{{ action('Account\Site\ConfigurationController@postTestMailerConfiguration') }}',
+							type: 'POST',
+							dataType: 'json',
+							data: {
+								_token: '{{ Session::getToken() }}',
+								test_email: str
+							},
+							success: function(data) {
+								LOADING.hide();
+								if (data.success) {
+									alertify.success("{{ print_js_string( Lang::get('account/site.configuration.mailing.test.success') ) }}");
+								} else {
+									alertify.error("{{ print_js_string( Lang::get('account/site.configuration.mailing.test.error') ) }}");
+								}
+							},
+							error: function() {
+								LOADING.hide();
+								alertify.error("{{ print_js_string( Lang::get('account/site.configuration.mailing.test.error') ) }}");
+							}
+						});
+					}
+				});
+			});
+
+			var tabs = form.find('.main-tabs');
+			var current_tab = form.find('input[name="current_tab"]').val();
+			tabs.find('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+				form.find('input[name="current_tab"]').val( $(this).attr('href') );
+			});
+			tabs.find('a[href="' + current_tab + '"]').tab('show');
+
 		});
 	</script>
 

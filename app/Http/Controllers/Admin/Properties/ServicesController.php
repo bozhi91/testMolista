@@ -9,169 +9,194 @@ use App\Http\Controllers\Controller;
 
 class ServicesController extends Controller
 {
-    public function __initialize() {
-        $this->middleware('permission:property-service');
-        parent::__initialize();
-    }
+	public function __initialize() 
+	{
+		$this->middleware('permission:property-service');
+		parent::__initialize();
+	}
 
-    public function index()
-    {
-        $query = \App\Models\Property\Service::withTranslations();
+	public function index()
+	{
+		$query = \App\Models\Property\Service::withTranslations();
 
-        // Filter by title
-        if ( $this->request->get('title') )
-        {
-            $query->whereTranslationLike('title', "%{$this->request->get('title')}%");
-        }
+		// Filter by code
+		if ( $this->request->get('code') )
+		{
+			$query->where('code', 'like', "%{$this->request->get('code')}%");
+		}
 
-        $services = $query->orderBy('title')->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
+		// Filter by title
+		if ( $this->request->get('title') )
+		{
+			$query->whereTranslationLike('title', "%{$this->request->get('title')}%");
+		}
 
-        $this->set_go_back_link();
+		$services = $query->orderBy('title')->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
 
-        return view('admin.properties.services.index', compact('services'));    
-    }
+		$this->set_go_back_link();
 
-    public function create()
-    {
-        $locales = \App\Models\Translation::getCachedLocales();
+		return view('admin.properties.services.index', compact('services'));    
+	}
 
-        return view('admin.properties.services.create', compact('locales'));    
-    }
+	public function create()
+	{
+		$locales = \App\Models\Translation::getCachedLocales();
 
-    public function store()
-    {
-        // Validate
-        if ( !$this->validateRequest($this->request->all()) ) 
-        {
-            return \Redirect::back()->withInput()->with('error', trans('general.messages.error'));
-        }
+		return view('admin.properties.services.create', compact('locales'));    
+	}
 
-        // Create element
-        $service = new \App\Models\Property\Service;
-        $service->enabled = $this->request->get('enabled') ? 1 : 0;
-        $service->save();
+	public function store()
+	{
+		// Validate
+		if ( !$this->validateRequest($this->request->all()) ) 
+		{
+			return \Redirect::back()->withInput()->with('error', trans('general.messages.error'));
+		}
 
-        if ( empty($service->id) )
-        {
-            return \Redirect::back()->withInput()->with('error', trans('general.messages.error'));
-        }
+		// Create element
+		$service = new \App\Models\Property\Service;
+		$service->code = $this->request->get('code');
+		$service->enabled = $this->request->get('enabled') ? 1 : 0;
+		$service->save();
 
-        // save images
-        $this->saveImages($service);
+		if ( empty($service->id) )
+		{
+			return \Redirect::back()->withInput()->with('error', trans('general.messages.error'));
+		}
 
-        foreach (\App\Models\Translation::getCachedLocales() as $locale => $locale_name)
-        {
-            $service->translateOrNew($locale)->title = $this->request->input("i18n.title.{$locale}");
-            $service->translateOrNew($locale)->description = $this->request->input("i18n.description.{$locale}");
-        }
-        $service->save();
+		// save images
+		$this->saveImages($service);
 
-        return \Redirect::action('Admin\Properties\ServicesController@edit', $service->id)->with('success', trans('admin/properties/services.created'));
-    }
+		foreach (\App\Models\Translation::getCachedLocales() as $locale => $locale_name)
+		{
+			$service->translateOrNew($locale)->title = $this->request->input("i18n.title.{$locale}");
+			$service->translateOrNew($locale)->description = $this->request->input("i18n.description.{$locale}");
+		}
+		$service->save();
 
-    public function edit($id)
-    {
-        $service = \App\Models\Property\Service::findOrFail($id);
-        $locales = \App\Models\Translation::getCachedLocales();
+		return \Redirect::action('Admin\Properties\ServicesController@edit', $service->id)->with('success', trans('admin/properties/services.created'));
+	}
 
-        return view('admin.properties.services.edit', compact('service','locales'));    
-    }
+	public function edit($id)
+	{
+		$service = \App\Models\Property\Service::findOrFail($id);
+		$locales = \App\Models\Translation::getCachedLocales();
 
-    public function update(Request $request, $id)
-    {
-        // Validate
-        if ( !$this->validateRequest($this->request->all(), $id) ) 
-        {
-            return \Redirect::back()->withInput()->with('error', trans('general.messages.error'));
-        }
+		return view('admin.properties.services.edit', compact('service','locales'));    
+	}
 
-        // Get element
-        $service = \App\Models\Property\Service::findOrFail($id);
+	public function update(Request $request, $id)
+	{
+		// Validate
+		if ( !$this->validateRequest($this->request->all(), $id) ) 
+		{
+			return \Redirect::back()->withInput()->with('error', trans('general.messages.error'));
+		}
 
-        // Update element
-        $service->enabled = $this->request->get('enabled') ? 1 : 0;
-        $service->save();
+		// Get element
+		$service = \App\Models\Property\Service::findOrFail($id);
 
-        // save images
-        $this->saveImages($service);
+		// Update element
+		$service->code = $this->request->get('code');
+		$service->enabled = $this->request->get('enabled') ? 1 : 0;
+		$service->save();
 
-        foreach (\App\Models\Translation::getCachedLocales() as $locale => $locale_name)
-        {
-            $service->translateOrNew($locale)->title = $this->request->input("i18n.title.{$locale}");
-            $service->translateOrNew($locale)->description = $this->request->input("i18n.description.{$locale}");
-        }
-        $service->save();
+		// save images
+		$this->saveImages($service);
 
-        return \Redirect::action('Admin\Properties\ServicesController@edit', $service->id)->with('success', trans('admin/properties/services.saved'));
+		foreach (\App\Models\Translation::getCachedLocales() as $locale => $locale_name)
+		{
+			$service->translateOrNew($locale)->title = $this->request->input("i18n.title.{$locale}");
+			$service->translateOrNew($locale)->description = $this->request->input("i18n.description.{$locale}");
+		}
 
-    }
+		$service->save();
 
-    protected function validateRequest($request, $id=false) 
-    {
-        // General
-        $fields = [
-            'enabled' => 'boolean',
-            'icon' => 'image|max:' . \Config::get('app.property_image_maxsize', 2048),
-            'i18n' => 'required|array',
-        ];
-        if ( !$id ) {
-            //$fields['icon'] .= 'required';
-        }
+		return \Redirect::action('Admin\Properties\ServicesController@edit', $service->id)->with('success', trans('admin/properties/services.saved'));
+	}
 
-        $validator = \Validator::make($request, $fields);
-        if ($validator->fails()) 
-        {
-            return false;
-        }
+	protected function getCheck($type) 
+	{
+		$error = true;
 
-        // i18n fields
-        $fields = [
-            'title' => 'required|array',
-            'description' => 'required|array',
-        ];
-        $validator = \Validator::make($this->request->get('i18n'), $fields);
-        if ($validator->fails()) 
-        {
-            return false;
-        }
+		switch ( $type ) {
+			case 'code':
+				$query = \App\Models\Property\Service::where('code',$this->request->get('code'));
+				if ( $this->request->get('id') )
+				{
+					$query->where('id', '!=', $this->request->get('id'));
+				}
+				$error = $query->count();
+				break;
+		}
 
-        $i18n = $this->request->get('i18n');
+		echo $error ? 'false' : 'true';
+	}
 
-        // Title
-        $fields = [
-            fallback_lang() => 'required|string',
-        ];
-        $validator = \Validator::make($i18n['title'], $fields);
-        if ($validator->fails()) 
-        {
-            return false;
-        }
+	protected function validateRequest($request, $id=false) 
+	{
+		// General
+		$fields = [
+			'code' => 'required|unique:services,code,'. ($id ? $id : 0),
+			'enabled' => 'boolean',
+			'icon' => 'image|max:' . \Config::get('app.property_image_maxsize', 2048),
+			'i18n' => 'required|array',
+		];
 
-        return true;
-    }
+		$validator = \Validator::make($request, $fields);
+		if ($validator->fails()) 
+		{
+			return false;
+		}
 
-    protected function saveImages($service) 
-    {
+		// i18n fields
+		$fields = [
+			'title' => 'required|array',
+			'description' => 'required|array',
+		];
+		$validator = \Validator::make($this->request->get('i18n'), $fields);
+		if ($validator->fails()) 
+		{
+			return false;
+		}
 
-        // Icon
-        if ( $this->request->file('icon') )
-        {
-            $img_folder = public_path("services");
+		$i18n = $this->request->get('i18n');
 
-            $img_name = $this->request->file('icon')->getClientOriginalName();
-            while ( file_exists("{$img_folder}/{$img_name}") )
-            {
-                $img_name = uniqid() . '_' . $this->request->file('icon')->getClientOriginalName();
-            }
-            $this->request->file('icon')->move($img_folder, $img_name);
+		// Title
+		$fields = [
+			fallback_lang() => 'required|string',
+		];
+		$validator = \Validator::make($i18n['title'], $fields);
+		if ($validator->fails()) 
+		{
+			return false;
+		}
 
-            if ( $service->icon )
-            {
-                @unlink( public_path("services/{$service->icon}") );
-            }
+		return true;
+	}
 
-            $service->update([ 'icon'=>$img_name ]);
-        }
+	protected function saveImages($service) 
+	{
 
-    }
+		// Icon
+		if ( $this->request->file('icon') )
+		{
+			$img_folder = public_path("services");
+
+			$img_name = $this->request->file('icon')->getClientOriginalName();
+			while ( file_exists("{$img_folder}/{$img_name}") )
+			{
+				$img_name = uniqid() . '_' . $this->request->file('icon')->getClientOriginalName();
+			}
+			$this->request->file('icon')->move($img_folder, $img_name);
+
+			if ( $service->icon )
+			{
+				@unlink( public_path("services/{$service->icon}") );
+			}
+
+			$service->update([ 'icon'=>$img_name ]);
+		}
+
+	}
 }
