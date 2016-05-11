@@ -34,6 +34,10 @@
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-6">
+				<div class="form-group error-container">
+					{!! Form::label('code', Lang::get('admin/properties/services.code')) !!}
+					{!! Form::text('code', null, [ 'class'=>'form-control required alphanumericHypen' ]) !!}
+				</div>
 				<div class="form-group">
 					<div class="error-container">
 						@if ( empty($item->icon) )
@@ -86,7 +90,22 @@
 				LOADING.show();
 				f.submit();
 			},
+			rules: {
+				code : {
+					remote: {
+						url: '{{ action('Admin\Properties\ServicesController@getCheck', 'code') }}',
+						type: 'get',
+						data: {
+							id: '{{ $item ? $item->id : '' }}',
+							code: function() { return form.find('input[name="code"]').val() }
+						}
+					},
+				}
+			},
 			messages: {
+				code : {
+					remote: "{{ print_js_string( Lang::get('admin/properties/services.code.error') ) }}"
+				},
 				icon: {
 					accept: "{{ trim( Lang::get('admin/properties/services.icon.error') ) }}"
 				}

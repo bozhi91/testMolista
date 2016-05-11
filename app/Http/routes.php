@@ -37,6 +37,7 @@ Route::group([
 		// Users
 		Route::resource('users', 'Admin\UsersController');
 		// Properties
+		Route::get('properties/check/{type}', 'Admin\Properties\ServicesController@getCheck');
 		Route::resource('properties/services', 'Admin\Properties\ServicesController');
 		Route::resource('properties', 'Admin\Properties\BaseController');
 		// Configuration
