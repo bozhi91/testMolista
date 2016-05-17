@@ -42,11 +42,11 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
-							{!! Form::hidden('currency', 'EUR') !!}
+							{!! Form::hidden('currency', empty($property->currency) ? 'EUR' : $property->currency) !!}
 							{!! Form::label('price', Lang::get('account/properties.price')) !!}
 							<div class="input-group">
 								{!! Form::text('price', null, [ 'class'=>'form-control required number', 'min'=>'0' ]) !!}
-								<div class="input-group-addon">€</div>
+								<div class="input-group-addon">{{ price_symbol(empty($property->currency) ? 'EUR' : $property->currency) }}</div>
 							</div>
 						</div>
 					</div>

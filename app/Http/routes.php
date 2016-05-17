@@ -100,6 +100,10 @@ Route::group([
 		Route::get('/', 'AccountController@index');
 		Route::post('/', 'AccountController@updateProfile');
 		// Properties
+		Route::get('properties/catch/close/{id}', 'Account\PropertiesController@getCatchClose');
+		Route::post('properties/catch/close/{id}', 'Account\PropertiesController@postCatchClose');
+		Route::get('properties/catch/{property_id}/{id?}', 'Account\PropertiesController@getCatch');
+		Route::post('properties/catch/{property_id}/{id?}', 'Account\PropertiesController@postCatch');
 		Route::post('properties/upload', 'Account\PropertiesController@postUpload');
 		Route::get('properties/associate/{slug}', 'Account\PropertiesController@getAssociate');
 		Route::get('properties/highlight/{slug}', 'Account\PropertiesController@getChangeHighlight');

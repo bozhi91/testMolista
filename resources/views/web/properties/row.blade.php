@@ -58,7 +58,7 @@
 							</li>
 							<li class="text-nowrap has-fontello-icon">
 								<i class="fontello-icon fontello-icon-coins"></i>
-								{{ number_format(round($item->price/$item->size),0,',','.') }} €/m²
+								{{ number_format(round($item->price/$item->size),0,',','.') }} {{ price_symbol($property->currency) }}/m²
 							</li>
 						</ul>
 						<div class="services text-italic">

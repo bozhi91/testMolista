@@ -11,7 +11,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 	public function __initialize()
 	{
 		parent::__initialize();
-		$this->middleware([ 'permission:property-view' ], [ 'only' => [ 'index','show' ] ]);
+		$this->middleware([ 'permission:property-view' ], [ 'only' => [ 'index','show','postCatch' ] ]);
 		$this->middleware([ 'permission:property-create', 'property.permission:create' ], [ 'only' => [ 'create','store' ] ]);
 		$this->middleware([ 'permission:property-edit' ], [ 'only' => [ 'edit','update','getAssociate','postAssociate' ] ]);
 		$this->middleware([ 'property.permission:edit' ], [ 'only' => [ 'update','getAssociate','postAssociate','getChangeStatus' ] ]);
@@ -180,7 +180,6 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		return redirect()->action('Account\PropertiesController@edit', $property->slug)->with('current_tab', $this->request->get('current_tab'))->with('success', trans('account/properties.saved'));
 	}
 
-	// [TODO]
 	public function show($slug)
 	{
 		// Get property
@@ -192,6 +191,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 							$query->with('logs');
 						}])
 						->with('logs')
+						->with('catches')
 						->first();
 		if ( !$property )
 		{
@@ -199,6 +199,135 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		}
 
 		return view('account.properties.show', compact('property'));
+	}
+
+	public function getCatch($property_id, $id=false)
+	{
+		$property = $this->site->properties()->findOrFail( $property_id );
+
+		if ( $id )
+		{
+			$item = \App\Models\Property\Catches::ofSite($this->site->id)->findOrFail($id);
+		} 
+		
+		return view('account.properties.catch', compact('property','item'));
+	}
+	public function postCatch($property_id, $id=false)
+	{
+		$property = $this->site->properties()->findOrFail( $property_id );
+
+		if ( $id )
+		{
+			$item = \App\Models\Property\Catches::ofSite($this->site->id)->findOrFail($id);
+		}
+
+		$fields = [
+			'seller_first_name' => 'required',
+			'seller_last_name' => 'required',
+			'seller_email' => 'required|email',
+			'seller_id_card' => '',
+			'seller_phone' => '',
+			'seller_cell' => '',
+			'price_min' => 'numeric|min:1',
+			'commission' => 'integer|between:0,100',
+		];
+		$validator = \Validator::make($this->request->all(), $fields);
+		if ($validator->fails()) 
+		{
+			return [ 'error'=>true ];
+		}
+
+		if ( $id )
+		{
+			$item = \App\Models\Property\Catches::ofSite($this->site->id)->findOrFail($id);
+		}
+		else
+		{
+			$item = $property->catches()->create([
+				'employee_id' => \Auth::user()->id,
+				'catch_date' => date('Y-m-d H:i:s'),
+				'price_original' => $property->price,
+				'status' => 'active',
+			]);
+		}
+
+		$data = [];
+		foreach ($fields as $field => $def) 
+		{
+			$data[$field] = $this->request->get($field);
+		}
+
+		$item->update($data);
+
+		return [ 'success'=>true ];
+	}
+
+	public function getCatchClose($id)
+	{
+		if ( $id )
+		{
+			$item = \App\Models\Property\Catches::ofSite($this->site->id)->with('property')->findOrFail($id);
+		}
+
+		$managers = $item->property->users()->orderBy('name')->lists('name','id')->all();
+
+		$customers = [];
+		foreach ($this->site->customers as $customer)
+		{
+			$customers[$customer->id] = $customer->fullname;
+		}
+
+		return view('account.properties.catch-close', compact('item','managers','customers'));
+	}
+	public function postCatchClose($id)
+	{
+		$item = \App\Models\Property\Catches::ofSite($this->site->id)->findOrFail($id);
+
+		$fields = [
+			'transaction_date' => 'required:date',
+			'status' => 'required|in:sold,rent,other',
+			'closer_id' => 'exists:users,id',
+		];
+		switch ( $this->request->get('status') )
+		{
+			case 'sold':
+			case 'rent':
+				$fields['buyer_id'] = 'exists:customers,id,site_id,'.$this->site->id;
+				$fields['price_sold'] = 'numeric|min:1';
+				break;
+			case 'other':
+				$fields['reason'] = 'required';
+				break;
+		}
+		$validator = \Validator::make($this->request->all(), $fields);
+		if ($validator->fails()) 
+		{
+			return [ 'error'=>true ];
+		}
+
+		$data = [];
+		foreach ($fields as $field => $def) 
+		{
+			$data[$field] = $this->request->get($field);
+		}
+
+		// Add KPIs
+		switch ( $this->request->get('status') )
+		{
+			case 'sold':
+			case 'rent':
+				$data['leads_to_close'] = $item->leads_total;
+				$data['leads_average'] = @floatval( \App\Models\Property\Catches::ofSite($this->site->id)->whereNotNull('leads_to_close')->avg('leads_to_close') );
+				$data['discount_to_close'] = ( ($item->price_original - $data['price_sold']) / $item->price_original ) * 100;
+				$data['discount_average'] = @floatval( \App\Models\Property\Catches::ofSite($this->site->id)->whereNotNull('discount_to_close')->avg('discount_to_close') );
+				$data['days_to_close'] = ( strtotime($data['transaction_date']) - strtotime($item->catch_date->format('Y-m-d')) ) / (60*60*24);
+				$data['days_average'] = @floatval( \App\Models\Property\Catches::ofSite($this->site->id)->whereNotNull('days_to_close')->avg('days_to_close') );
+				break;
+		}
+
+		$item->update($data);
+
+		return [ 'success'=>true ];
 	}
 
 	public function destroy($slug)

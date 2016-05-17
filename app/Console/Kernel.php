@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel
 		Commands\TranslationsUpdateCommand::class,
 		Commands\GeographyImportCommand::class,
 		Commands\UploadMaintenanceCommand::class,
+		Commands\CatchesImportCommand::class,
 	];
 
 	/**
