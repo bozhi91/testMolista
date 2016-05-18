@@ -18,6 +18,10 @@ class User extends Authenticatable
 		'password', 'remember_token',
 	];
 
+	public function stats() {
+		return $this->hasMany('App\Models\User\Stats');
+	}
+
 	public function sites() {
 		return $this->belongsToMany('App\Site', 'sites_users', 'user_id', 'site_id');
 	}

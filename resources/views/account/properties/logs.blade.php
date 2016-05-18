@@ -14,13 +14,13 @@
 		?>
 		<tr class="logs-row">
 			<td data-date="{{ $sort_value }}">{{ $log->created_at->format("d/m/Y H:i" )}}</td>
-			<td>{{ $log->user->name ? $log->user->name : Lang::get('account/properties.logs.responsible.unknown') }}</td>
+			<td>{{ @$log->user->name ? $log->user->name : Lang::get('account/properties.logs.responsible.unknown') }}</td>
 			<td>
 				{!! $log_title !!}
 				@if ( $log->type == 'updated' || !empty($locale) )
 					<a href="#popup-log-{{$log->id}}" class="popup-log-trigger hidden-xs" title="{{ Lang::get('account/properties.logs.view') }}"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
 					<div id="popup-log-{{$log->id}}" class="app-popup-block-white app-popup-block-large mfp-hide">
-						<p><strong>{{ $log->user->name ? "{$log->user->name} - " : '' }}{!! $log_title !!}</strong></p>
+						<p><strong>{{ @$log->user->name ? "{$log->user->name} - " : '' }}{!! $log_title !!}</strong></p>
 						<div class="log-detail">
 							<ul class="log-detail-empty hide">
 								<li>{{ Lang::get('account/properties.logs.empty.details') }}</li>

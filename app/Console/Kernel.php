@@ -19,6 +19,7 @@ class Kernel extends ConsoleKernel
 		Commands\GeographyImportCommand::class,
 		Commands\UploadMaintenanceCommand::class,
 		Commands\CatchesImportCommand::class,
+		Commands\ProcessStatsCommand::class,
 	];
 
 	/**
@@ -30,5 +31,6 @@ class Kernel extends ConsoleKernel
 	protected function schedule(Schedule $schedule)
 	{
 		$schedule->command('uploads:maintenance')->dailyAt('06:00');
+		$schedule->command('stats:process yesterday')->dailyAt('03:00');
 	}
 }

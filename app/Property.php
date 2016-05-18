@@ -15,6 +15,8 @@ class Property extends TranslatableModel
 	protected $dontKeepLogOf = [
 		'site_id',
 		'label_color',
+		'publisher_id', 
+		'published_at', 
 		'created_at', 
 		'updated_at',
 	];

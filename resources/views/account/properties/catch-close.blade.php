@@ -89,7 +89,7 @@
 			form.find('.has-select-2').select2();
 
 			form.find('input[name="transaction_date"]').datetimepicker({
-				format: 'YYYY-MM-DD',
+				format: 'YYYY-MM-DD'
 			});
 
 			form.validate({

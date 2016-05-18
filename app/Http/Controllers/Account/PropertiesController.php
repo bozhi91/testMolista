@@ -92,7 +92,9 @@ class PropertiesController extends \App\Http\Controllers\AccountController
             $cities = \App\Models\Geography\City::enabled()->where('state_id', old('state_id'))->lists('name','id');
         }
 
-        return view('account.properties.create', compact('modes','types','energy_types','services','countries','states','cities','country_id'));
+		$managers = $this->site->users()->orderBy('name')->lists('name','id')->all();
+
+        return view('account.properties.create', compact('modes','types','energy_types','services','countries','states','cities','country_id','managers'));
     }
 
 	public function store()
@@ -104,9 +106,29 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			return redirect()->back()->withInput()->withErrors($valid);
 		}
 
+		// Validate catch values
+		$catch_fields = [
+			'employee_id' => 'required|exists:users,id',
+			'seller_first_name' => 'required',
+			'seller_last_name' => 'required',
+			'seller_email' => 'required|email',
+			'seller_id_card' => '',
+			'seller_phone' => '',
+			'seller_cell' => '',
+			'price_min' => 'numeric|min:1',
+			'commission' => 'integer|between:0,100',
+		];
+		$validator = \Validator::make($this->request->all(), $catch_fields);
+		if ($validator->fails()) 
+		{
+			return redirect()->back()->withInput()->withErrors($valid);
+		}
+
 		// Create element
 		$property = $this->site->properties()->create([
 			'enabled' => 1,
+			'publisher_id' => $this->request->get('employee_id'),
+			'published_at' => date('Y-m-d'),
 		]);
 
 		if ( empty($property->id) )
@@ -125,6 +147,21 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		{
 			$this->auth->user()->properties()->attach( $property->id );
 		}
+
+		// create catch
+		$catch = $property->catches()->create([
+			'employee_id' => $this->request->get('employee_id'),
+			'catch_date' => $property->created_at,
+			'price_original' => $this->request->get('price'),
+			'status' => 'active',
+		]);
+
+		$data = [];
+		foreach ($catch_fields as $field => $def) 
+		{
+			$data[$field] = $this->request->get($field);
+		}
+		$catch->update($data);
 
 		$property = $this->site->properties()->withTranslations()->find($property->id);
 
@@ -269,7 +306,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			$item = \App\Models\Property\Catches::ofSite($this->site->id)->with('property')->findOrFail($id);
 		}
 
-		$managers = $item->property->users()->orderBy('name')->lists('name','id')->all();
+		$managers = $this->site->users()->orderBy('name')->lists('name','id')->all();
 
 		$customers = [];
 		foreach ($this->site->customers as $customer)

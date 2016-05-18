@@ -11,6 +11,8 @@
 			<li role="presentation"><a href="#tab-images" aria-controls="tab-images" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.images') }}</a></li>
 			@if ( $item )
 				<li role="presentation"><a href="#tab-employees" aria-controls="tab-employees" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.employees') }}</a></li>
+			@else
+				<li role="presentation"><a href="#tab-seller" aria-controls="tab-seller" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.seller') }}</a></li>
 			@endif
 		</ul>
 
@@ -331,6 +333,22 @@
 							</tbody>
 						</table>
 					</div>
+				</div>
+			@else
+				<div role="tabpanel" class="tab-pane tab-main" id="tab-seller">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group error-container">
+								{!! Form::label('employee_id', Lang::get('account/properties.show.property.catch.employee') ) !!}
+								{!! Form::select('employee_id', [''=>'&nbsp;']+$managers, Auth::user()->id, [ 'class'=>'has-select-2 form-control required', ]) !!}
+							</div>
+						</div>
+					</div>
+					<hr />
+					@include('account.properties.catch-form', [ 
+						'item' => null,
+						'price_symbol' => '€',
+					])
 				</div>
 			@endif
 
@@ -869,8 +887,11 @@
 		var current_tab = form.find('input[name="current_tab"]').val();
 		tabs.find('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 			form.find('input[name="current_tab"]').val( $(this).attr('href') );
+			form.find('.has-select-2').select2();
 		});
 		tabs.find('a[href="' + current_tab + '"]').tab('show');
+
+		form.find('.has-select-2').select2();
 
 	});
 </script>

@@ -13,6 +13,10 @@ class Site extends TranslatableModel
 	protected $table = 'sites';
 	protected $guarded = [];
 
+	public function stats() {
+		return $this->hasMany('App\Models\Site\Stats');
+	}
+
 	public function users() {
 		return $this->belongsToMany('App\User', 'sites_users', 'site_id', 'user_id');
 	}

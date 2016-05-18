@@ -116,6 +116,20 @@ Route::group([
 		Route::resource('employees', 'Account\EmployeesController');
 		// Customers
 		Route::resource('customers', 'Account\CustomersController');
+		// Reports
+		Route::group([
+			'prefix' => 'reports',
+			'middleware' => [
+				'role:company',
+			],
+		], function() {
+			// Properties
+			Route::controller('properties', 'Account\Reports\PropertiesController');
+			// Agents
+			Route::controller('agents', 'Account\Reports\AgentsController');
+			// Leads
+			Route::controller('leads', 'Account\Reports\LeadsController');
+		});
 		// Site configuration
 		Route::group([
 			'prefix' => 'site',

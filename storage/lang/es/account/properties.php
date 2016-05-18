@@ -45,6 +45,7 @@
 		'tab.transaction' => 'Transacciones',
 		'tab.reports' => 'Reportes',
 		'tab.logs' => 'Logs',
+		'tab.seller' => 'Vendedor',
 
 		'country' => 'País',
 		'state' => 'Provincia',
