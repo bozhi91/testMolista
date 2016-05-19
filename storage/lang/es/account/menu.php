@@ -10,6 +10,11 @@
 
 		'customers' => 'Leads',
 
+		'reports' => 'Reportes',
+		'reports.properties' => 'Propiedades',
+		'reports.agents' => 'Empleados',
+		'reports.leads' => 'Leads',
+
 		'site' => 'Sitio',
 		'site.configuration' => 'Configuración',
 		'site.widgets' => 'Widgets',

@@ -11,12 +11,15 @@ class Customer extends Model
 
 	public function getFullNameAttribute()
 	{
-		return $this->attributes['first_name'] . ' ' . $this->attributes['last_name'];
+		return implode(' ', [
+			@$this->attributes['first_name'],
+			@$this->attributes['last_name']
+		]);
 	}
 
 	public function scopeWithFullName($query, $full_name)
 	{
-			$query->whereRaw("CONCAT(customers.`first_name`,' ',customers.`last_name`) LIKE '%" . \DB::connection()->getPdo()->quote($full_name) . "%'");
+		$query->whereRaw("CONCAT(customers.`first_name`,' ',customers.`last_name`) LIKE '%" . \DB::connection()->getPdo()->quote($full_name) . "%'");
 	}
 
 }

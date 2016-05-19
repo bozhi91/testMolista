@@ -17,7 +17,7 @@
 
 	<div class="price block">
 		<h2 style="margin-bottom: 0px;">{{ Lang::get('account/properties.price') }}: {{ price($property->price, [ 'decimals'=>0 ]) }}</h2>
-		<p>{{ number_format(round($property->price/$property->size),0,',','.') }} €/m²</p>
+		<p>{{ number_format(round($property->price/$property->size),0,',','.') }} {{ price_symbol($property->currency) }}/m²</p>
 	</div>
 
 	<div class="features block">

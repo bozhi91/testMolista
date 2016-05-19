@@ -100,6 +100,10 @@ Route::group([
 		Route::get('/', 'AccountController@index');
 		Route::post('/', 'AccountController@updateProfile');
 		// Properties
+		Route::get('properties/catch/close/{id}', 'Account\PropertiesController@getCatchClose');
+		Route::post('properties/catch/close/{id}', 'Account\PropertiesController@postCatchClose');
+		Route::get('properties/catch/{property_id}/{id?}', 'Account\PropertiesController@getCatch');
+		Route::post('properties/catch/{property_id}/{id?}', 'Account\PropertiesController@postCatch');
 		Route::post('properties/upload', 'Account\PropertiesController@postUpload');
 		Route::get('properties/associate/{slug}', 'Account\PropertiesController@getAssociate');
 		Route::get('properties/highlight/{slug}', 'Account\PropertiesController@getChangeHighlight');
@@ -112,6 +116,20 @@ Route::group([
 		Route::resource('employees', 'Account\EmployeesController');
 		// Customers
 		Route::resource('customers', 'Account\CustomersController');
+		// Reports
+		Route::group([
+			'prefix' => 'reports',
+			'middleware' => [
+				'role:company',
+			],
+		], function() {
+			// Properties
+			Route::controller('properties', 'Account\Reports\PropertiesController');
+			// Agents
+			Route::controller('agents', 'Account\Reports\AgentsController');
+			// Leads
+			Route::controller('leads', 'Account\Reports\LeadsController');
+		});
 		// Site configuration
 		Route::group([
 			'prefix' => 'site',

@@ -15,6 +15,8 @@ class Property extends TranslatableModel
 	protected $dontKeepLogOf = [
 		'site_id',
 		'label_color',
+		'publisher_id', 
+		'published_at', 
 		'created_at', 
 		'updated_at',
 	];
@@ -107,6 +109,10 @@ class Property extends TranslatableModel
 		return $this->hasMany('App\Models\Property\Images');
 	}
 
+	public function catches() {
+		return $this->hasMany('App\Models\Property\Catches');
+	}
+
 	public function services() {
 		return $this->belongsToMany('App\Models\Property\Service', 'properties_services', 'property_id', 'service_id');
 	}
@@ -176,6 +182,26 @@ class Property extends TranslatableModel
 		}
 
 		return false;
+	}
+
+	public function getCatchCurrentAttribute()
+	{
+		return $this->catches()->where('status','active')->with('employee')->orderBy('catch_date','desc')->first();
+	}
+
+	public function getCatchTransactionsAttribute()
+	{
+		return $this->catches()->where('status','!=','active')->with('employee')->with('buyer')->orderBy('transaction_date','desc')->get();
+	}
+
+	public function getCatchKpisAttribute()
+	{
+		if ( $this->catch_current )
+		{
+			return false;
+		}
+
+		return $this->catches()->whereIn('status', [ 'sold', 'rent' ])->with('employee')->with('buyer')->with('seller')->orderBy('transaction_date','desc')->first();
 	}
 
 	// [TODO]

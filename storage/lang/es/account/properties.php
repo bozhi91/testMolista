@@ -45,6 +45,7 @@
 		'tab.transaction' => 'Transacciones',
 		'tab.reports' => 'Reportes',
 		'tab.logs' => 'Logs',
+		'tab.seller' => 'Vendedor',
 
 		'country' => 'País',
 		'state' => 'Provincia',
@@ -87,6 +88,40 @@
 
 		'edit.view' => 'Vista propiedad',
 
+		'show.property.catch.edit' => 'Editar propiedad',
+		'show.property.catch.close' => 'Cerrar transacción',
+		'show.property.catch.none' => 'No hay datos de captación / venta / alquiler para esta propiedad',
+		'show.property.catch.date' => 'Fecha de captación',
+		'show.property.catch.employee' => 'Captador',
+		'show.property.catch.success' => 'Los datos se han guardado correctamente',
+		'show.property.catch.transaction.date' => 'Fecha de cierre',
+		'show.property.catch.close.responsible' => 'Responsable',
+		'show.property.catch.status' => 'Estado',
+		'show.property.catch.status.cancel' => 'Cancelada',
+		'show.property.catch.status.sold' => 'Vendida',
+		'show.property.catch.status.rent' => 'Alquilada',
+		'show.property.catch.status.other' => 'Otro',
+
+		'show.property.catch.actions' => 'Opciones',
+		'show.property.catch.actions.create' => 'Añadir transacción',
+		'show.property.catch.actions.edit' => 'Modificar transacción',
+		'show.property.catch.actions.close' => 'Cerrar transacción',
+
+		'show.property.seller.name.first' => 'Nombre vendedor',
+		'show.property.seller.name.last' => 'Apellido vendedor',
+		'show.property.seller.email' => 'Email vendedor',
+		'show.property.seller.id' => 'DNI vendedor',
+		'show.property.seller.phone' => 'Teléfono vendedor',
+		'show.property.seller.cell' => 'Móvil vendedor',
+		'show.property.price.min' => 'Precio mínimo',
+		'show.property.commission' => 'Comisión',
+
+		'show.transactions.none' => 'No hay transacciones',
+		'show.transactions.date' => 'Fecha',
+		'show.transactions.buyer' => 'Cliente',
+		'show.transactions.price' => 'Precio',
+		'show.transactions.reason' => 'Comentarios',
+
 		'logs.loading' => 'Cargando',
 		'logs.empty' => 'No se encontraron registros.',
 		'logs.empty.details' => 'No hay detalles para este log',
@@ -102,4 +137,10 @@
 
 		'logs.value.old' => 'Valor antiguo',
 		'logs.value.new' => 'Valor nuevo',
+
+		'show.kpis.none' => 'No hay datos para esta propiedad',
+		'show.kpis.leads' => 'Leads para cerrar',
+		'show.kpis.discount' => 'Descuento sobre PVP inicial',
+		'show.kpis.days' => 'Días para cerrar',
+		'show.kpis.closed.by' => 'Cerrado por',
 	];

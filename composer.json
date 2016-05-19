@@ -21,7 +21,8 @@
         "rap2hpoutre/laravel-log-viewer": "^0.6.0",
         "owen-it/laravel-auditing": "^2.2",
         "pelago/emogrifier": "@dev",
-        "barryvdh/laravel-dompdf": "0.6.*"
+        "barryvdh/laravel-dompdf": "0.6.*",
+        "pda/pheanstalk": "~3.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

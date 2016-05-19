@@ -47,7 +47,7 @@
 						], Input::get('enabled'), [ 'class'=>'form-control' ]) !!}
 					</div>
 					{!! Form::submit(Lang::get('general.filters.apply'), [ 'class'=>'btn btn-default' ]) !!}
-				</form>
+				{!! Form::close() !!}
 			</div>
 
 			@if ( count($properties) < 1)

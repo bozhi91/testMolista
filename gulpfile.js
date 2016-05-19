@@ -25,7 +25,7 @@ elixir(function(mix) {
 			'common.less',
 		], 'resources/assets/css/compiled/common.css')		
 		.scripts([
-			'moment.js',
+			'moment-with-locales.js',
 			'jquery-1.12.1.js',
 			'jquery-ui.js',
 			'../bootstrap-3.3.6/dist/js/bootstrap.min.js',
@@ -36,6 +36,7 @@ elixir(function(mix) {
 			'jquery.hideShowPassword.js',
 			'jquery.matchHeight.js',
 			'bootstrap-table.js',
+			'bootstrap-datetimepicker.js',
 			'summernote.js',
 			'alertify.js',
 			'select2.full.js',

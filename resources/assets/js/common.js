@@ -2,7 +2,6 @@ $.validator.addMethod( "alphanumericHypen", function( value, element ) {
 	return this.optional( element ) || /^[\w\-]+$/i.test( value );
 }, "Letters, numbers, hypen and underscores only please" );
 
-
 $.extend(true, $.magnificPopup.defaults, {
 	callbacks: {
 		open: function() {
@@ -12,6 +11,10 @@ $.extend(true, $.magnificPopup.defaults, {
 			$('.if-overlay-then-blurred').removeClass('blurred');
 		}
 	}
+});
+
+$.extend(true, $.fn.datetimepicker.defaults, {
+	locale: $('html').attr('lang')
 });
 
 var SITECOMMON = {
