@@ -14,7 +14,7 @@
 		'rent' => 'Rent',
 
 		'published' => 'Published properties',
-		'transactions' => 'Ttansactions',
+		'transactions' => 'Transactions',
 		'price' => 'Average price',
 		'price.sqm' => 'Average price per square meter',
 		'visits' => 'Visits made',
