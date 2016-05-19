@@ -22,6 +22,18 @@
 					<li role="presentation" class="{{ (@$submenu_section == 'customers') ? 'active' : '' }}">
 						<a href="{{ action('Account\CustomersController@index') }}">{{ Lang::get('account/menu.customers') }}</a>
 					</li>
+					@role('company')
+						<li role="presentation" class="{{ (@$submenu_section == 'reports') ? 'active' : '' }}">
+							<a href="javascript:;" data-toggle="collapse" data-target="#account-submenu-reports" aria-expanded="false" class="{{ (@$submenu_section == 'reports') ? '' : 'collapsed' }}">
+								{{ Lang::get('account/menu.reports') }}
+							</a>
+							<ul id="account-submenu-reports" class="nav {{ (@$submenu_section == 'reports') ? '' : 'collapse' }}" role="menu">
+								<li><a href="{{ action('Account\Reports\PropertiesController@getIndex') }}" class="{{ (@$submenu_subsection == 'reports-properties') ? 'current' : '' }}">{{ Lang::get('account/menu.reports.properties') }}</a></li>
+								<li><a href="{{ action('Account\Reports\AgentsController@getIndex') }}" class="{{ (@$submenu_subsection == 'reports-agents') ? 'current' : '' }}">{{ Lang::get('account/menu.reports.agents') }}</a></li>
+								<li><a href="{{ action('Account\Reports\LeadsController@getIndex') }}" class="{{ (@$submenu_subsection == 'reports-leads') ? 'current' : '' }}">{{ Lang::get('account/menu.reports.leads') }}</a></li>
+							</ul>
+						</li>
+					@endrole
 					@permission('site-*')
 						<li role="presentation" class="{{ (@$submenu_section == 'site') ? 'active' : '' }}">
 							<a href="javascript:;" id="account-menu-btn-site" data-toggle="collapse" data-target="#account-submenu-site" aria-expanded="false" class="{{ (@$submenu_section == 'site') ? '' : 'collapsed' }}">

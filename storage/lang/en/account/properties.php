@@ -45,6 +45,7 @@
 		'tab.transaction' => 'Transactions',
 		'tab.reports' => 'Reports',
 		'tab.logs' => 'Logs',
+		'tab.seller' => 'Seller',
 
 		'country' => 'Country',
 		'state' => 'State',
@@ -87,6 +88,40 @@
 
 		'edit.view' => 'Property view',
 
+		'show.property.catch.edit' => 'Edit property',
+		'show.property.catch.close' => 'Close transaction',
+		'show.property.catch.none' => 'There is no catch / sale / rent data for this property',
+		'show.property.catch.date' => 'Catch date',
+		'show.property.catch.employee' => 'Catcher',
+		'show.property.catch.success' => 'Data was succesfully saved',
+		'show.property.catch.transaction.date' => 'Close date',
+		'show.property.catch.close.responsible' => 'Responsible',
+		'show.property.catch.status' => 'Status',
+		'show.property.catch.status.cancel' => 'Cancelled',
+		'show.property.catch.status.sold' => 'Sold',
+		'show.property.catch.status.rent' => 'Rented',
+		'show.property.catch.status.other' => 'Other',
+
+		'show.property.catch.actions' => 'Options',
+		'show.property.catch.actions.create' => 'Add transaction',
+		'show.property.catch.actions.edit' => 'Modify transaction',
+		'show.property.catch.actions.close' => 'Close transaction',
+
+		'show.property.seller.name.first' => 'Seller name',
+		'show.property.seller.name.last' => 'Seller surname',
+		'show.property.seller.email' => 'Seller email',
+		'show.property.seller.id' => 'Seller ID card',
+		'show.property.seller.phone' => 'Seller phone',
+		'show.property.seller.cell' => 'Seller movile',
+		'show.property.price.min' => 'Minimum price',
+		'show.property.commission' => 'Commission',
+
+		'show.transactions.none' => 'There are no transactions',
+		'show.transactions.date' => 'Date',
+		'show.transactions.buyer' => 'Customer',
+		'show.transactions.price' => 'Price',
+		'show.transactions.reason' => 'Comments',
+
 		'logs.loading' => 'Loading',
 		'logs.empty' => 'No logs found.',
 		'logs.empty.details' => 'There are no details for this log',
@@ -102,4 +137,10 @@
 
 		'logs.value.old' => 'Old value',
 		'logs.value.new' => 'New value',
+
+		'show.kpis.none' => 'There is no data for this property',
+		'show.kpis.leads' => 'Leads to close',
+		'show.kpis.discount' => 'Discount over initial price',
+		'show.kpis.days' => 'Days to close',
+		'show.kpis.closed.by' => 'Closed by',
 	];

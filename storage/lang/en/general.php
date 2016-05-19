@@ -18,6 +18,7 @@
 		'edit' => 'Edit',
 		'view' => 'View',
 		'new' => 'New element',
+		'options' => 'Options',
 
 		'delete' => 'Delete',
 

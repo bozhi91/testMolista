@@ -36,6 +36,12 @@
 		return implode(' ', $currency);
 	}
 
+	function price_symbol($iso='EUR')
+	{
+		$currency = \App\Property::getCurrencyOption($iso);
+		return $currency ? $currency['symbol'] : false;
+	}
+
 	function print_goback_button($text, $attr=false)
 	{
     	$nav = session()->get('SmartBackLinks', false);
@@ -161,4 +167,16 @@
 			default:
 				return trim( filter_var($string, FILTER_SANITIZE_STRING) );
 		}
+	}
+
+	function percent_array() 
+	{
+		$select = [];
+
+		for ($i=0; $i<=100; $i++)
+		{
+			$select[$i] = "{$i}%";
+		}
+
+		return $select;
 	}
