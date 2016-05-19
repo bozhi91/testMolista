@@ -17,7 +17,11 @@
 			<div class="tab-content">
 
 				<div role="tabpanel" class="tab-pane tab-main active">
-					@include("account.reports.agents.tab-{$current_tab}")
+					@if ( empty($stats) )
+						{{ Lang::get('account/reports.empty') }}
+					@else
+						@include("account.reports.agents.tab-{$current_tab}")
+					@endif
 				</div>
 
 			</div>

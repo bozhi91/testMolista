@@ -8,6 +8,8 @@ class ProcessStatsCommand extends Command
 
 	protected $description = 'Process sites and users stats';
 
+	protected $sites;
+
 	public function handle()
 	{
 		$date = $this->argument('date');
@@ -50,7 +52,6 @@ class ProcessStatsCommand extends Command
 			for ($i=strtotime($from); $i<time(); $i+=(60*60*24))
 			{
 				$this->processDate( date('Y-m-d', $i) );
-
 			}
 		}
 
@@ -62,15 +63,46 @@ class ProcessStatsCommand extends Command
 	protected function processDate($date) {
 		$this->info("\t{$date}");
 
-		// Remove current stats
-		\App\Models\Site\Stats::where([ 'date' => $date ])->delete();
-		\App\Models\User\Stats::where([ 'date' => $date ])->delete();
+		if ( empty($this->sites) )
+		{
+			$this->sites = \App\Site::with('users')->get();
+		}
 
+		$this->initStats($date);
 		$this->processProperties($date);
 		$this->processPropertiesToDate($date);
 		$this->processClosures($date);
 		$this->processVisits($date);
 		$this->processLeads($date);
+	}
+
+
+	// Initislize stats
+	protected function initStats($date)
+	{
+		// Remove current stats
+		\App\Models\Site\Stats::where([ 'date' => $date ])->delete();
+		\App\Models\User\Stats::where([ 'date' => $date ])->delete();
+
+		foreach ($this->sites as $site)
+		{
+			// Empty site stats
+			\App\Models\Site\Stats::firstOrCreate([
+				'date' => $date,
+				'site_id' => $site->id,
+			]);
+
+			// Empty site user stats
+			foreach ($site->users as $user)
+			{
+				\App\Models\User\Stats::firstOrCreate([
+					'date' => $date,
+					'site_id' => $site->id,
+					'user_id' => $user->id,
+				]);
+			}
+
+		}
 	}
 
 	// Published properties

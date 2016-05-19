@@ -1,6 +1,8 @@
 <?php
 
 	return [
+		'empty' => 'There are insufficient data to generate this report',
+
 		'time.days.7' => '7D',
 		'time.days.30' => '30D',
 		'time.days.60' => '60D',
@@ -24,7 +26,7 @@
 
 		'agents.h1' => 'Reports - Agents',
 		'agents.tab.general' => 'General',
-		'agents.all' => 'Al agents',
+		'agents.all' => 'All agents',
 
 		'leads.h1' => 'Reportes - Leads',
 		'leads.tab.general' => 'General',

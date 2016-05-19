@@ -1,6 +1,8 @@
 <?php
 
 	return [
+		'empty' => 'No hay datos suficientes para generar este tipo de reporte',
+
 		'time.days.7' => '7D',
 		'time.days.30' => '30D',
 		'time.days.60' => '60D',
