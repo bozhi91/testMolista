@@ -174,7 +174,8 @@ class PropertiesController extends WebController
 		}
 
 		// Push job to queue
-		$this->dispatch( new \App\Jobs\SendMoreInfoProperty($property, $customer, $this->request->all())->onQueue('emails') );
+		$job = ( new \App\Jobs\SendMoreInfoProperty($property, $customer, $this->request->all()) )->onQueue('emails');
+		$this->dispatch( $job );
 
 		return [ 'success'=>true ];
 	}
