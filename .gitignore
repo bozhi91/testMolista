@@ -16,4 +16,7 @@
 Homestead.json
 Homestead.yaml
 
+deploy.sh
+/backups
+
 .env
