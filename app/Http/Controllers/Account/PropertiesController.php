@@ -228,7 +228,9 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 							$query->with('logs');
 						}])
 						->with('logs')
-						->with('catches')
+						->with([ 'catches' => function($query){
+							$query->with('buyer');
+						}])
 						->first();
 		if ( !$property )
 		{
@@ -348,21 +350,25 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			$data[$field] = $this->request->get($field);
 		}
 
+		$item->update($data);
+
 		// Add KPIs
 		switch ( $this->request->get('status') )
 		{
 			case 'sold':
 			case 'rent':
+				// Save current KPIs
 				$data['leads_to_close'] = $item->leads_total;
-				$data['leads_average'] = @floatval( \App\Models\Property\Catches::ofSite($this->site->id)->whereNotNull('leads_to_close')->avg('leads_to_close') );
 				$data['discount_to_close'] = ( ($item->price_original - $data['price_sold']) / $item->price_original ) * 100;
-				$data['discount_average'] = @floatval( \App\Models\Property\Catches::ofSite($this->site->id)->whereNotNull('discount_to_close')->avg('discount_to_close') );
 				$data['days_to_close'] = ( strtotime($data['transaction_date']) - strtotime($item->catch_date->format('Y-m-d')) ) / (60*60*24);
+				$item->update($data);
+				// Save averages, including current KPIs
+				$data['leads_average'] = @floatval( \App\Models\Property\Catches::ofSite($this->site->id)->whereNotNull('leads_to_close')->avg('leads_to_close') );
+				$data['discount_average'] = @floatval( \App\Models\Property\Catches::ofSite($this->site->id)->whereNotNull('discount_to_close')->avg('discount_to_close') );
 				$data['days_average'] = @floatval( \App\Models\Property\Catches::ofSite($this->site->id)->whereNotNull('days_to_close')->avg('days_to_close') );
+				$item->update($data);
 				break;
 		}
-
-		$item->update($data);
 
 		return [ 'success'=>true ];
 	}
