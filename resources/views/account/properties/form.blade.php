@@ -311,28 +311,10 @@
 
 			@if ( $item )
 				<div role="tabpanel" class="tab-pane tab-main" id="tab-employees">
-					<div class="alert alert-info properties-empty {{ ( $employees->count() > 0 ) ? 'hide' : '' }}">{{ Lang::get('account/properties.employees.empty') }}</div>
-					@if ( Auth::user()->can('property-edit') && Auth::user()->can('employee-edit'))
-						<div class="text-right">
-							<a href="#associate-modal" class="btn btn-default btn-sm associate-trigger">{{ Lang::get('account/properties.employees.associate') }}</a>
-						</div>
-					@endif
-					<div class="properties-list {{ ( $employees->count() < 1 ) ? 'hide' : '' }}">
-						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th>{{ Lang::get('account/properties.employees.employee') }}</th>
-									<th>{{ Lang::get('account/properties.employees.email') }}</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								@if ( $employees->count() > 0 )
-									@include('account.properties.form-employees', [ 'employees'=>$employees, 'property_id'=>$item->id ])
-								@endif
-							</tbody>
-						</table>
-					</div>
+					@include('account.properties.tab-managers', [
+						'item' => $item,
+						'employees' => $item->users()->withRole('employee')->get(),
+					])
 				</div>
 			@else
 				<div role="tabpanel" class="tab-pane tab-main" id="tab-seller">
@@ -366,20 +348,6 @@
 	</div>
 
 {!! Form::close() !!}
-
-@if ( $item )
-	<div id="associate-modal" class="mfp-white-popup mfp-hide" data-url="{{ action('Account\PropertiesController@getAssociate', $item->slug) }}">
-		<h4 class="page-title">{{ Lang::get('account/properties.employees.associate') }}</h4>
-		<div class="form-group">
-			<select class="form-control employee-select">
-				<option value="">&nbsp;</option>
-			</select>
-		</div>
-		<div class="text-right">
-			{!! Form::button( Lang::get('general.continue'), [ 'class'=>'btn btn-warning btn-continue']) !!}
-		</div>
-	</div>
-@endif
 
 <script type="text/html" id="image_upload_item_tmpl">
 	<li>
@@ -578,100 +546,6 @@
 		if ( form.find('.image-gallery .thumb').length > 0 ) {
 			form.find('.images-empty').hide();
 		}
-
-		// Dissociate employee
-		form.on('click','.dissociate-trigger',function(e){
-			var el = $(this);
-			e.preventDefault();
-			SITECOMMON.confirm("{{ print_js_string( Lang::get('account/properties.employees.dissociate.confirm') ) }}", function (e) {
-				if (e) {
-					LOADING.show();
-					$.ajax({
-						dataType: 'json',
-						url: el.data().url,
-						success: function(data) {
-							LOADING.hide();
-							if ( data.success ) {
-								el.closest('.property-line').remove();
-								if ( form.find('.properties-list .property-line').length < 1 ) {
-									form.find('.properties-list').addClass('hide');
-									form.find('.properties-empty').removeClass('hide');
-								}
-								alertify.success("{{ print_js_string( Lang::get('account/properties.employees.dissociated') ) }}");
-							} else {
-								alertify.error("{{ print_js_string( Lang::get('general.messages.error') ) }}");
-							}
-						},
-						error: function() {
-							LOADING.hide();
-							alertify.error("{{ print_js_string( Lang::get('general.messages.error') ) }}");
-						}
-					});
-					}
-			});
-		});
-
-		// Associate employee
-		var associate_modal = $('#associate-modal');
-		var associate_select = associate_modal.find('.employee-select');
-		form.find('.associate-trigger').magnificPopup({
-			type: 'inline',
-			callbacks: {
-				beforeOpen: function() {
-					$.ajax({
-						dataType: "json",
-						url: associate_modal.data().url ,
-						success: function(data) {
-							if ( data.success && data.items.length > 0 ) {
-								$.each(data.items, function(i, item) {
-									associate_select.append('<option value="' + item.value + '">' + item.label + '</option>');
-								});
-							} else {
-								associate_select.html('<option value="">{{ print_js_string( Lang::get('account/properties.employees.empty') ) }}</option>');
-							}
-						},
-						error: function() {
-							associate_select.html('<option value="">{{ print_js_string( Lang::get('account/properties.employees.empty') ) }}</option>');
-						}
-					});
-				},
-				close: function() {
-					$('.if-overlay-then-blurred').removeClass('blurred');
-					associate_select.html('<option value="">&nbsp;</option>');
-				}
-			}
-		});
-		associate_modal.on('click', '.btn-continue', function(e){
-			e.preventDefault();
-			var user_id = associate_modal.find('.employee-select').val();
-			if ( !user_id ) {
-				return false;
-			}
-
-			$.magnificPopup.close();
-			LOADING.show();
-
-			$.ajax({
-				dataType: "json",
-				url: associate_modal.data().url ,
-				data: { id : user_id },
-				success: function(data) {
-					LOADING.hide();
-					if ( data.success ) {
-						form.find('.properties-list tbody').html( data.html );
-						form.find('.properties-empty').addClass('hide');
-						form.find('.properties-list').removeClass('hide');
-						alertify.success("{{ print_js_string( Lang::get('account/properties.employees.associated') ) }}"); 
-					} else {
-						alertify.error("{{ print_js_string( Lang::get('general.messages.error') ) }}");
-					}
-				},
-				error: function() {
-					LOADING.hide();
-					alertify.error("{{ print_js_string( Lang::get('general.messages.error') ) }}"); 
-				}
-			});
-		});
 
 		// Translations
 		var translation_flag_fields = '.title-input, .description-input';

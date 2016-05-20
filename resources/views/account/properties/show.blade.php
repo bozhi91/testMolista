@@ -15,6 +15,7 @@
 			<li role="presentation"><a href="#tab-transaction" aria-controls="tab-transaction" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.transaction') }}</a></li>
 			<li role="presentation"><a href="#tab-reports" aria-controls="tab-reports" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.reports') }}</a></li>
 			<li role="presentation"><a href="#tab-logs" aria-controls="tab-logs" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.logs') }}</a></li>
+			<li role="presentation"><a href="#tab-employees" aria-controls="tab-employees" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.employees') }}</a></li>
 		</ul>
 
 		<div class="tab-content">
@@ -242,6 +243,13 @@
 						@endif
 					</tbody>
 				</table>
+			</div>
+
+			<div role="tabpanel" class="tab-pane tab-main" id="tab-employees">
+				@include('account.properties.tab-managers', [
+					'item' => $property,
+					'employees' => $property->users()->withRole('employee')->get(),
+				])
 			</div>
 
 		</div>
