@@ -21,16 +21,16 @@
 				</div>
 				<div class="col-xs-12 col-sm-6">
 					<div class="form-group error-container">
-						{!! Form::label('transaction_date', Lang::get('account/properties.show.property.catch.transaction.date') ) !!}
-						{!! Form::text('transaction_date', null, [ 'class'=>'form-control required', ]) !!}
+						{!! Form::label('closer_id', Lang::get('account/properties.show.property.catch.close.responsible') ) !!}
+						{!! Form::select('closer_id', [''=>'&nbsp;']+$managers, @$item->employee_id, [ 'class'=>'has-select-2 form-control required', ]) !!}
 					</div>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row hide">
 				<div class="col-xs-12 col-sm-6">
 					<div class="form-group error-container">
-						{!! Form::label('closer_id', Lang::get('account/properties.show.property.catch.close.responsible') ) !!}
-						{!! Form::select('closer_id', [''=>'&nbsp;']+$managers, @$item->employee_id, [ 'class'=>'has-select-2 form-control required', ]) !!}
+						{!! Form::label('transaction_date', Lang::get('account/properties.show.property.catch.transaction.date') ) !!}
+						{!! Form::text('transaction_date', date('Y-m-d'), [ 'class'=>'form-control required', ]) !!}
 					</div>
 				</div>
 			</div>
