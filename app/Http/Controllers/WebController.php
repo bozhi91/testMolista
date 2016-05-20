@@ -14,7 +14,6 @@ class WebController extends Controller
     	parent::__initialize();
     	
 		$search_data = [
-			'states' => \App\Models\Geography\State::enabled()->orderBy('name')->lists('name','slug')->toArray(),
 			'modes' => \App\Property::getModeOptions(),
 			'types' => \App\Property::getTypeOptions(),
 			'prices' => \App\Property::getPriceOptions(),
@@ -24,12 +23,19 @@ class WebController extends Controller
 			'services' => \App\Models\Property\Service::enabled()->withTranslations()->orderBy('title')->lists('title','slug')->toArray(),
 		];
 
-		\View::share('search_data', $search_data);
-
 		if ( $site_id = \App\Session\Site::get('site_id', false) )
 		{
 			$this->site = \App\Site::withTranslations()->findOrFail( $site_id );
+			$search_data['states'] = \App\Models\Geography\State::enabled()->whereIn('id', function($query) use ($site_id) {
+				$query->distinct()->select('state_id')->from('properties')->where('site_id', 1)->where('enabled', $site_id);
+			})->orderBy('name')->lists('name','slug')->all();
 		}
+		else
+		{
+			$search_data['states'] = \App\Models\Geography\State::enabled()->orderBy('name')->lists('name','slug')->all();
+		}
+
+		\View::share('search_data', $search_data);
     }
 
 	public function index()

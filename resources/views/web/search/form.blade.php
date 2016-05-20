@@ -159,7 +159,10 @@
 				$.ajax({
 					dataType: 'json',
 					url: '{{ action('Ajax\GeographyController@getSuggest', 'city') }}',
-					data: { state_slug: state },
+					data: { 
+						state_slug: state,
+						site_id: {{ @intval($site_setup['site_id']) }}
+					},
 					success: function(data) {
 						if ( data ) {
 							cities[state] = data;
