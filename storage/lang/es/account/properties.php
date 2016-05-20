@@ -107,6 +107,7 @@
 		'show.property.catch.actions.edit' => 'Modificar transacción',
 		'show.property.catch.actions.close' => 'Cerrar transacción',
 
+		'show.property.seller.title' => 'Información del vendedor',
 		'show.property.seller.name.first' => 'Nombre vendedor',
 		'show.property.seller.name.last' => 'Apellido vendedor',
 		'show.property.seller.email' => 'Email vendedor',
