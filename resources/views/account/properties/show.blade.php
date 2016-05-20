@@ -35,6 +35,7 @@
 						</div>
 					</div>
 					<hr />
+					<h3 class="page-title">{{ Lang::get('account/properties.show.property.seller.title') }}</h3>
 					<div class="row">
 						<div class="col-xs-12 col-sm-6">
 							<div class="form-group error-placement">
