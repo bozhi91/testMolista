@@ -134,7 +134,9 @@
 						<thead>
 							<th>{{ Lang::get('account/properties.show.transactions.date') }}</th>
 							<th>{{ Lang::get('account/properties.show.property.catch.status') }}</th>
-							<th>{{ Lang::get('account/properties.show.transactions.buyer') }}</th>
+							<th>{{ Lang::get('account/properties.show.transactions.seller') }}</th>
+							<th class="">{{ Lang::get('account/properties.show.transactions.buyer') }}</th>
+							<th class="text-nowrap text-right">{{ Lang::get('account/properties.show.transactions.commission') }}</th>
 							<th class="text-right">{{ Lang::get('account/properties.show.transactions.price') }}</th>
 						</thead>
 						<tbody>
@@ -152,10 +154,73 @@
 											{{ Lang::get("account/properties.show.property.catch.status.{$catch->status}") }}
 										@endif
 									</td>
-									<td>{{ $catch->buyer ? $catch->buyer->full_name : '' }}</td>
+									<td>
+										@if ( $catch->seller_full_name )
+											{{ $catch->seller_full_name }}
+											<sup>
+												<a href="#seller-modal-{{$catch->id}}" class="transaction-modal-trigger">
+													<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+												</a>
+											</sup>
+											<div id="seller-modal-{{$catch->id}}" class="mfp-white-popup mfp-hide">
+												<h4 class="page-title">{{ $catch->seller_full_name }}</h4>
+												<p>
+													{{ Lang::get('account/properties.show.property.seller.email') }}: 
+													<a href="mailto:{{ $catch->seller_email }}" target="_blank">{{ $catch->seller_email }}</a>
+												</p>
+												@if ( $catch->seller_phone )
+													<p>
+														{{ Lang::get('account/properties.show.property.seller.phone') }}: 
+														{{ $catch->seller_phone }}
+													</p>
+												@endif
+												@if ( $catch->seller_cell )
+													<p>
+														{{ Lang::get('account/properties.show.property.seller.cell') }}: 
+														{{ $catch->seller_cell }}
+													</p>
+												@endif
+												@if ( $catch->seller_id_card )
+													<p>
+														{{ Lang::get('account/properties.show.property.seller.id') }}: 
+														{{ $catch->seller_id_card }}
+													</p>
+												@endif
+											</div>
+										@endif
+									</td>
+									<td>
+										@if ( $catch->buyer )
+											{{ $catch->buyer->full_name }}
+											<sup>
+												<a href="#buyer-modal-{{$catch->id}}" class="transaction-modal-trigger">
+													<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+												</a>
+											</sup>
+											<div id="buyer-modal-{{$catch->id}}" class="mfp-white-popup mfp-hide">
+												<h4 class="page-title">{{ $catch->buyer->full_name }}</h4>
+												<p>
+													{{ Lang::get('account/properties.show.property.seller.email') }}: 
+													<a href="mailto:{{ $catch->buyer->email }}" target="_blank">{{ $catch->buyer->email }}</a>
+												</p>
+												@if ( $catch->buyer->phone )
+													<p>
+														{{ Lang::get('account/properties.show.property.seller.phone') }}: 
+														{{ $catch->buyer->phone }}
+													</p>
+												@endif
+											</div>
+										@endif
+									</td>
 									<td class="text-right">
-										@if ( $catch->price_sold > 0 )
-											{{ number_format($catch->price_sold, 2, ',', '.') }}
+										@if ( $catch->status == 'sold' || $catch->status == 'rent' )
+											{{ price($catch->commission_earned,$property->currency) }}
+											({{ number_format($catch->commission, 2, ',', '.') }}%)
+										@endif
+									</td>
+									<td class="text-right">
+										@if ( $catch->status == 'sold' || $catch->status == 'rent' )
+											{{ price($catch->price_sold,$property->currency) }}
 										@endif
 									</td>
 								</tr>
@@ -292,6 +357,10 @@
 					type: 'iframe',
 					modal: true
 				});
+			});
+
+			cont.find('.transaction-modal-trigger').magnificPopup({
+				type: 'inline'
 			});
 
 		});

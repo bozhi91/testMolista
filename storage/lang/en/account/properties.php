@@ -119,9 +119,11 @@
 
 		'show.transactions.none' => 'There are no transactions',
 		'show.transactions.date' => 'Date',
+		'show.transactions.seller' => 'Seller',
 		'show.transactions.buyer' => 'Customer',
 		'show.transactions.price' => 'Price',
 		'show.transactions.reason' => 'Comments',
+		'show.transactions.commission' => 'Commission earned',
 
 		'logs.loading' => 'Loading',
 		'logs.empty' => 'No logs found.',

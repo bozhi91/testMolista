@@ -226,7 +226,9 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 							$query->with('logs');
 						}])
 						->with('logs')
-						->with('catches')
+						->with([ 'catches' => function($query){
+							$query->with('buyer');
+						}])
 						->first();
 		if ( !$property )
 		{

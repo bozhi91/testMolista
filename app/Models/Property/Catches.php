@@ -37,6 +37,21 @@ class Catches extends Model
 		return $this->belongsTo('App\Models\Site\Customer', 'buyer_id');
 	}
 
+	public function getSellerFullNameAttribute()
+	{
+		$fullname = array_filter([
+			$this->seller_first_name,
+			$this->seller_last_name,
+		]);
+
+		return empty($fullname) ? false : implode(' ', $fullname);
+	}
+
+	public function getCommissionEarnedAttribute()
+	{
+		return @floatval( $this->price_sold * $this->commission / 100 );
+	}
+
 	// [TODO]
 	public function getLeadsTotalAttribute()
 	{
