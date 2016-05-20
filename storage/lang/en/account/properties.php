@@ -107,6 +107,7 @@
 		'show.property.catch.actions.edit' => 'Modify transaction',
 		'show.property.catch.actions.close' => 'Close transaction',
 
+		'show.property.seller.title' => 'Seller information',
 		'show.property.seller.name.first' => 'Seller name',
 		'show.property.seller.name.last' => 'Seller surname',
 		'show.property.seller.email' => 'Seller email',
