@@ -7,6 +7,7 @@
 		@include('common.messages', [ 'dismissible'=>true ])
 
 		<h1 class="page-title">{{ Lang::get('account/properties.edit.view') }}</h1>
+		<h3 class="page-title">{{ $property->ref }} | {{ $property->title }}</h3>
 
 		<ul class="nav nav-tabs main-tabs" role="tablist">
 			<li role="presentation" class="active"><a href="#tab-general" aria-controls="tab-general" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.general') }}</a></li>
