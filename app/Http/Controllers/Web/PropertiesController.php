@@ -40,6 +40,11 @@ class PropertiesController extends WebController
 		if ( $this->request->get('mode') )
 		{
 			$query->where('mode', $this->request->get('mode'));
+			// Price
+			if ( $this->request->get('price') )
+			{
+				$query->withRange('price', $this->request->input("price.{$this->request->get('mode')}"));
+			}
 		}
 
 		// Type => house, appartment, etc
@@ -65,12 +70,6 @@ class PropertiesController extends WebController
 		elseif ( $this->request->get('second_hand') )
 		{
 			$query->where('second_hand', 1);
-		}
-
-		// Price
-		if ( $this->request->get('price') )
-		{
-			$query->withRange('price', $this->request->get('price'));
 		}
 
 		// Size
