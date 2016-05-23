@@ -263,17 +263,6 @@
 				closeOnBgClick: false
 			});
 
-/*
-			$('body').on('click', '.social-link-trigger', function(e){
-				e.preventDefault();
-
-				var target = $('#share-link-' + $(this).data().rel );
-alert(target.length);
-				if ( target.length > 0) {
-					target.trigger('click');
-				}
-			});
-*/
 			$('body').on('click', '.btn-get-more-info', function(e){
 				e.preventDefault();
 				$.magnificPopup.close();
