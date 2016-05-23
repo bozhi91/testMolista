@@ -552,4 +552,15 @@ class Property extends TranslatableModel
 		];
 	}
 
+	static public function getSortOptions() 
+	{
+		return [
+			// field-sense => title
+			'price-asc' => trans('web/search.price.asc'),
+			'price-desc' => trans('web/search.price.desc'),
+			'title-asc' => trans('web/search.title.asc'),
+			'title-desc' => trans('web/search.title.desc'),
+		];
+	}
+
 }

@@ -20,6 +20,7 @@ class WebController extends Controller
 			'rooms' => \App\Property::getRoomOptions(),
 			'baths' => \App\Property::getBathOptions(),
 			'services' => \App\Models\Property\Service::enabled()->withTranslations()->orderBy('title')->lists('title','slug')->toArray(),
+			'sort_options' => \App\Property::getSortOptions(),
 		];
 
 		if ( $site_id = \App\Session\Site::get('site_id', false) )

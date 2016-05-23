@@ -96,7 +96,19 @@ class PropertiesController extends WebController
 			$query->withServices($this->request->get('services'));
 		}
 
-		$properties = $query->orderBy('title')->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
+		// Sort order
+		$order = $this->request->get('order');
+		if ( $order && array_key_exists($order, \App\Property::getSortOptions()) ) 
+		{
+			list ($field,$sense) = explode('-',$order,2);
+			$query->orderBy($field,$sense);
+		}
+		else
+		{
+			$query->orderBy('properties.highlighted','desc')->orderBy('title');
+		}
+
+		$properties = $query->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$hide_advanced_search_modal = true;
 

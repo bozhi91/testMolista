@@ -22,6 +22,8 @@
 					<div class="alert alert-info">{{ Lang::get('web/properties.empty') }}</div>
 
 				@else
+					@include('web.properties.index-sort')
+
 					<ul class="list-unstyled property-list">
 						@foreach ($properties as $property)
 							<li>
