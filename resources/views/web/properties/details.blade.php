@@ -217,8 +217,68 @@
 			cont.find('.image-thumb').magnificPopup({
 				type: 'image',
 				gallery:{
-					enabled:true
+					enabled: true,
+					navigateByImgClick: false,
+					arrowMarkup: 	'<a href="#" class="btn-nav btn-nav-%dir%">'+
+										'<span class="glyphicon glyphicon-chevron-%dir%" aria-hidden="true"></span>'+
+									'</a>',
+				},
+				callbacks: {
+					buildControls: function() {
+						this.contentContainer.append(this.arrowLeft.add(this.arrowRight));
+					},
+					open: function() {
+						$('body').find('.mfp-content').addClass('image-gallery-popup');
+						if ( window.stButtons ){
+							stButtons.locateElements();
+						}
+					},
+					imageLoadComplete: function() {
+						var cont = $('body').find('.image-gallery-header ul');
+						if ( cont.length < 1 ) {
+							return;
+						}
+
+						var target = cont.find('.btn-get-more-info').removeClass('hide');
+						if ( cont.height() > 40 ) {
+							target.addClass('hide');
+						}
+					}
+				},
+				image: {
+					markup: '<div class="mfp-figure">'+
+								'<div class="image-gallery-header">'+
+									'<ul class="list-inline clearfix">'+
+										'<li class="social-link"><span class="st_facebook" displayText=""><i class="fa fa-facebook" aria-hidden="true"></i></span></li>'+
+										'<li class="social-link"><span class="st_twitter" displayText=""><i class="fa fa-twitter" aria-hidden="true"></i></span></li>'+
+										'<li class="social-link"><span class="___st_instagram" displayText=""><i class="fa fa-instagram" aria-hidden="true"></i></span></li>'+
+										'<li class="pull-right"><a href="#" class="btn-close popup-modal-dismiss"><i class="fa fa-close" aria-hidden="true"></i></a></li>'+
+										'<li class="pull-right"><a href="#" class="btn btn-primary btn-xs btn-get-more-info">{{ print_js_string( Lang::get('web/properties.call.to.action') ) }}</a></li>'+
+									'</ul>'+
+								'</div>'+
+								'<div class="mfp-img">'+
+								'</div>'+
+							'</div>'
+				},
+				closeOnBgClick: false
+			});
+
+/*
+			$('body').on('click', '.social-link-trigger', function(e){
+				e.preventDefault();
+
+				var target = $('#share-link-' + $(this).data().rel );
+alert(target.length);
+				if ( target.length > 0) {
+					target.trigger('click');
 				}
+			});
+*/
+			$('body').on('click', '.btn-get-more-info', function(e){
+				e.preventDefault();
+				$.magnificPopup.close();
+				cont.find('.more-info-trigger').trigger('click');
+
 			});
 
 			cont.on('click', '.trigger-image-thumbs', function(e){
