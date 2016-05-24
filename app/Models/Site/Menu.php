@@ -27,8 +27,12 @@ class Menu extends Model implements SluggableInterface
 	{
 		return $query->with(['items' => function($query){
 			$query->withTranslations()
-					->with('property')
-					->with('page')
+					->with([ 'property' => function($query){
+						$query->withTranslations();
+					}])
+					->with([ 'page' => function($query){
+						$query->withTranslations();
+					}])
 					->orderBy('position');
 		}]);
 	}
