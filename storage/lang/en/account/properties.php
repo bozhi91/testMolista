@@ -23,6 +23,8 @@
 		'enabled.not' => 'Disabled',
 		'highlighted' => 'Highlighted',
 		'highlighted.not' => 'Not highlighted',
+		'new.item' => 'New property',
+		'opportunity' => 'Opportunity',
 		'newly_build' => 'New construction',
 		'second_hand' => 'Second hand',
 		'services' => 'Services',

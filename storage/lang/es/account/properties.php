@@ -23,6 +23,8 @@
 		'enabled.not' => 'Inactiva en web',
 		'highlighted' => 'Destacada',
 		'highlighted.not' => 'No destacada',
+		'new.item' => 'Novedad',
+		'opportunity' => 'Oportunidad',
 		'newly_build' => 'Nueva construcción',
 		'second_hand' => 'Segunda mano',
 		'services' => 'Servicios',

@@ -53,7 +53,7 @@ class PropertiesController extends WebController
 			$query->where('type', $this->request->get('type'));
 		}
 
-		// New or used
+		// New construction or used
 		if ( $this->request->get('newly_build') && $this->request->get('second_hand') )
 		{
 			$query->where(function($query){
@@ -61,7 +61,7 @@ class PropertiesController extends WebController
 						->orWhere('second_hand', 1);
 			});
 		} 
-		// New
+		// New construction
 		elseif ( $this->request->get('newly_build') )
 		{
 			$query->where('newly_build', 1);
@@ -70,6 +70,18 @@ class PropertiesController extends WebController
 		elseif ( $this->request->get('second_hand') )
 		{
 			$query->where('second_hand', 1);
+		}
+
+		// New item
+		if ( $this->request->get('new_item') )
+		{
+			$query->where('new_item', 1);
+		}
+
+		// Opportunity
+		if ( $this->request->get('opportunity') )
+		{
+			$query->where('opportunity', 1);
 		}
 
 		// Size

@@ -60,6 +60,28 @@
 		</div>
 	</div>
 	<div class="row">
+		<div class="col-xs-12 col-sm-4 col-md-3 input-line">
+			<div class="form-group">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" name="new_item" value="1" {{ Input::get('new_item') ? 'checked="checked"' : '' }} />
+						{{ Lang::get('account/properties.new.item') }}
+					</label>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-4 col-md-3 input-line">
+			<div class="form-group">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" name="opportunity" value="1" {{ Input::get('opportunity') ? 'checked="checked"' : '' }} />
+						{{ Lang::get('account/properties.opportunity') }}
+					</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
 		@if ( !empty($search_data['prices']) )
 			<div class="col-xs-12 col-sm-3 col-md-2 input-line">
 				<div class="form-group error-container">

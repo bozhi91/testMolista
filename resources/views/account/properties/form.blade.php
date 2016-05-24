@@ -116,6 +116,28 @@
 						<div class="form-group">
 							<div class="checkbox error-container">
 								<label>
+									{!! Form::checkbox('new_item', 1, null) !!}
+									{{ Lang::get('account/properties.new.item') }}
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-3">
+						<div class="form-group">
+							<div class="checkbox error-container">
+								<label>
+									{!! Form::checkbox('opportunity', 1, null) !!}
+									{{ Lang::get('account/properties.opportunity') }}
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-3">
+						<div class="form-group">
+							<div class="checkbox error-container">
+								<label>
 									{!! Form::checkbox('newly_build', 1, null) !!}
 									{{ Lang::get('account/properties.newly_build') }}
 								</label>

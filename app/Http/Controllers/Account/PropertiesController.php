@@ -501,6 +501,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'ec_pending' => 'boolean',
 			'newly_build' => 'boolean',
 			'second_hand' => 'boolean',
+			'new_item' => 'boolean',
+			'opportunity' => 'boolean',
 			'country_id' => 'required|exists:countries,id',
 			'territory_id' => 'exists:territories,id',
 			'state_id' => 'required|exists:states,id',
