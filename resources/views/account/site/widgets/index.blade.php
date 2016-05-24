@@ -115,7 +115,7 @@
 				});
 
 				$.post(group.data().sort, { items : items }, function(data) {
-console.log(data);
+					//console.log(data);
 				});
 			}
 
@@ -155,7 +155,7 @@ console.log(data);
 
 					// Check if max has been reached
 					if ( list.data().max ) {
-						if ( parseInt( list.data().max ) <= list.find('.widget').length ) {
+						if ( parseInt( list.data().max ) < list.find('.widget').length ) {
 							alertify.error("{{ print_js_string( Lang::get('account/site.widgets.messages.max.reached') ) }}");
 							el.slideUp(function(){
 								$(this).remove();

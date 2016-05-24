@@ -22,14 +22,14 @@
 						<div class="row">
 							<div class="col-xs-12 col-sm-6">
 								<div class="form-group error-container">
-									{!! Form::label("i18n[title][en]", Lang::get('account/site.pages.column.type')) !!}
-									{!! Form::select("type", $types, null, [ 'class'=>'form-control required' ]) !!}
+									{!! Form::label('type', Lang::get('account/site.pages.column.type')) !!}
+									{!! Form::select('type', $types, null, [ 'class'=>'form-control required' ]) !!}
 								</div>
 							</div>
 							<div class="col-xs-12 col-sm-6">
 								<div class="form-group error-container">
-									{!! Form::label("i18n[title][en]", Lang::get('account/site.pages.title')) !!}
-									{!! Form::text("i18n[title][en]", null, [ 'class'=>'form-control required' ]) !!}
+									{!! Form::label('i18n[title]['.fallback_lang().']', Lang::get('account/site.pages.title')) !!}
+									{!! Form::text('i18n[title]['.fallback_lang().']', null, [ 'class'=>'form-control required' ]) !!}
 								</div>
 							</div>
 						</div>
