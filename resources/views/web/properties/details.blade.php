@@ -219,7 +219,7 @@
 				gallery:{
 					enabled: true,
 					navigateByImgClick: false,
-					arrowMarkup: 	'<a href="#" class="btn-nav btn-nav-%dir%">'+
+					arrowMarkup: 	'<a href="javascript:;" class="btn-nav btn-nav-%dir%">'+
 										'<span class="glyphicon glyphicon-chevron-%dir%" aria-hidden="true"></span>'+
 									'</a>',
 				},
@@ -228,37 +228,44 @@
 						this.contentContainer.append(this.arrowLeft.add(this.arrowRight));
 					},
 					open: function() {
+						$('.if-overlay-then-blurred').addClass('blurred');
 						$('body').find('.mfp-content').addClass('image-gallery-popup');
 						if ( window.stButtons ){
 							stButtons.locateElements();
 						}
 					},
 					imageLoadComplete: function() {
-						var cont = $('body').find('.image-gallery-header ul');
+						var cont = $('body').find('.image-gallery-header');
 						if ( cont.length < 1 ) {
 							return;
 						}
 
-						var target = cont.find('.btn-get-more-info').removeClass('hide');
-						if ( cont.height() > 40 ) {
+						var ul = cont.find('ul');
+						var target = cont.find('.btn-get-more-info').removeClass('hide').css({ opacity: 0 });
+
+						if ( ul.height() > cont.height() ) {
 							target.addClass('hide');
+						} else {
+							target.css({ opacity: 1 });
+
 						}
 					}
 				},
 				image: {
 					markup: '<div class="mfp-figure">'+
+								'<div class="image-gallery-border custom-border"></div>'+
 								'<div class="image-gallery-header">'+
 									'<ul class="list-inline clearfix">'+
 										'<li class="social-link"><span class="st_facebook" displayText=""><i class="fa fa-facebook" aria-hidden="true"></i></span></li>'+
 										'<li class="social-link"><span class="st_twitter" displayText=""><i class="fa fa-twitter" aria-hidden="true"></i></span></li>'+
-										'<li class="social-link"><span class="___st_instagram" displayText=""><i class="fa fa-instagram" aria-hidden="true"></i></span></li>'+
-										'<li class="pull-right"><a href="#" class="btn-close popup-modal-dismiss"><i class="fa fa-close" aria-hidden="true"></i></a></li>'+
-										'<li class="pull-right"><a href="#" class="btn btn-primary btn-xs btn-get-more-info">{{ print_js_string( Lang::get('web/properties.call.to.action') ) }}</a></li>'+
+										'<li class="close-area pull-right"><a href="#" class="btn-close popup-modal-dismiss"><i class="fa fa-close" aria-hidden="true"></i></a></li>'+
+										'<li class="btn-area pull-right"><a href="#" class="btn btn-primary btn-get-more-info">{{ print_js_string( Lang::get('web/properties.call.to.action') ) }}</a></li>'+
 									'</ul>'+
 								'</div>'+
 								'<div class="mfp-img">'+
 								'</div>'+
-							'</div>'
+							'</div>',
+					cursor: ''
 				},
 				closeOnBgClick: false
 			});
