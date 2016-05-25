@@ -1,3 +1,11 @@
+<?php
+	$stats_blocks = [
+		'captured' => true,
+		'visited' => false,
+		'closed' => true,
+	];
+?>
+
 {!! Form::open([ 'action'=>'Account\Reports\AgentsController@getIndex', 'method'=>'get', 'id'=>'filters-form', 'class'=>'form-inline text-right' ]) !!}
 	{!! Form::hidden('period', Input::get('period','7-days')) !!}
 	{!! Form::select('agent', [ ''=>Lang::get('account/reports.agents.all') ]+$managers, Input::get('agent'), [ 'class'=>'form-control pull-left' ]) !!}
@@ -12,89 +20,95 @@
 
 <div class="stats-area">
 
-	<h3>{{ Lang::get('account/reports.visits') }}</h3>
-	<div class="row">
-		<div class="col-xs-12 col-sm-4">
-			<div class="panel panel-default panel-stats">
-				<div class="panel-heading">{{ Lang::get('account/reports.sale') }}</div>
-				<div class="panel-body">
-					{{ number_format($stats->visits_sale, 0, ',', '.') }}
+	@if ( !empty($stats_blocks['captured']) )
+		<h3>{{ Lang::get('account/reports.catched') }}</h3>
+		<div class="row">
+			<div class="col-xs-12 col-sm-4">
+				<div class="panel panel-default panel-stats">
+					<div class="panel-heading">{{ Lang::get('account/reports.sale') }}</div>
+					<div class="panel-body">
+						{{ number_format($stats->published_sale, 0, ',', '.') }}
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-4">
+				<div class="panel panel-default panel-stats">
+					<div class="panel-heading">{{ Lang::get('account/reports.rent') }}</div>
+					<div class="panel-body">
+						{{ number_format($stats->published_rent, 0, ',', '.') }}
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-4">
+				<div class="panel panel-default panel-stats">
+					<div class="panel-heading">{{ Lang::get('account/reports.total') }}</div>
+					<div class="panel-body">
+						{{ number_format($stats->published_sale+$stats->published_rent, 0, ',', '.') }}
+					</div>
 				</div>
 			</div>
 		</div>
-		<div class="col-xs-12 col-sm-4">
-			<div class="panel panel-default panel-stats">
-				<div class="panel-heading">{{ Lang::get('account/reports.rent') }}</div>
-				<div class="panel-body">
-					{{ number_format($stats->visits_rent, 0, ',', '.') }}
-				</div>
-			</div>
-		</div>
-		<div class="col-xs-12 col-sm-4">
-			<div class="panel panel-default panel-stats">
-				<div class="panel-heading">{{ Lang::get('account/reports.total') }}</div>
-				<div class="panel-body">
-					{{ number_format($stats->visits_sale+$stats->visits_rent, 0, ',', '.') }}
-				</div>
-			</div>
-		</div>
-	</div>
+	@endif
 
-	<h3>{{ Lang::get('account/reports.transactions') }}</h3>
-	<div class="row">
-		<div class="col-xs-12 col-sm-4">
-			<div class="panel panel-default panel-stats">
-				<div class="panel-heading">{{ Lang::get('account/reports.sale') }}</div>
-				<div class="panel-body">
-					{{ number_format($stats->total_sold, 0, ',', '.') }}
+	@if ( !empty($stats_blocks['visited']) )
+		<h3>{{ Lang::get('account/reports.visits') }}</h3>
+		<div class="row">
+			<div class="col-xs-12 col-sm-4">
+				<div class="panel panel-default panel-stats">
+					<div class="panel-heading">{{ Lang::get('account/reports.sale') }}</div>
+					<div class="panel-body">
+						{{ number_format($stats->visits_sale, 0, ',', '.') }}
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-4">
+				<div class="panel panel-default panel-stats">
+					<div class="panel-heading">{{ Lang::get('account/reports.rent') }}</div>
+					<div class="panel-body">
+						{{ number_format($stats->visits_rent, 0, ',', '.') }}
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-4">
+				<div class="panel panel-default panel-stats">
+					<div class="panel-heading">{{ Lang::get('account/reports.total') }}</div>
+					<div class="panel-body">
+						{{ number_format($stats->visits_sale+$stats->visits_rent, 0, ',', '.') }}
+					</div>
 				</div>
 			</div>
 		</div>
-		<div class="col-xs-12 col-sm-4">
-			<div class="panel panel-default panel-stats">
-				<div class="panel-heading">{{ Lang::get('account/reports.rent') }}</div>
-				<div class="panel-body">
-					{{ number_format($stats->total_rented, 0, ',', '.') }}
-				</div>
-			</div>
-		</div>
-		<div class="col-xs-12 col-sm-4">
-			<div class="panel panel-default panel-stats">
-				<div class="panel-heading">{{ Lang::get('account/reports.total') }}</div>
-				<div class="panel-body">
-					{{ number_format($stats->total_sold+$stats->total_rented, 0, ',', '.') }}
-				</div>
-			</div>
-		</div>
-	</div>
+	@endif
 
-	<h3>{{ Lang::get('account/reports.catched') }}</h3>
-	<div class="row">
-		<div class="col-xs-12 col-sm-4">
-			<div class="panel panel-default panel-stats">
-				<div class="panel-heading">{{ Lang::get('account/reports.sale') }}</div>
-				<div class="panel-body">
-					{{ number_format($stats->published_sale, 0, ',', '.') }}
+	@if ( !empty($stats_blocks['closed']) )
+		<h3>{{ Lang::get('account/reports.transactions') }}</h3>
+		<div class="row">
+			<div class="col-xs-12 col-sm-4">
+				<div class="panel panel-default panel-stats">
+					<div class="panel-heading">{{ Lang::get('account/reports.sale') }}</div>
+					<div class="panel-body">
+						{{ number_format($stats->total_sold, 0, ',', '.') }}
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-4">
+				<div class="panel panel-default panel-stats">
+					<div class="panel-heading">{{ Lang::get('account/reports.rent') }}</div>
+					<div class="panel-body">
+						{{ number_format($stats->total_rented, 0, ',', '.') }}
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-4">
+				<div class="panel panel-default panel-stats">
+					<div class="panel-heading">{{ Lang::get('account/reports.total') }}</div>
+					<div class="panel-body">
+						{{ number_format($stats->total_sold+$stats->total_rented, 0, ',', '.') }}
+					</div>
 				</div>
 			</div>
 		</div>
-		<div class="col-xs-12 col-sm-4">
-			<div class="panel panel-default panel-stats">
-				<div class="panel-heading">{{ Lang::get('account/reports.rent') }}</div>
-				<div class="panel-body">
-					{{ number_format($stats->published_rent, 0, ',', '.') }}
-				</div>
-			</div>
-		</div>
-		<div class="col-xs-12 col-sm-4">
-			<div class="panel panel-default panel-stats">
-				<div class="panel-heading">{{ Lang::get('account/reports.total') }}</div>
-				<div class="panel-body">
-					{{ number_format($stats->published_sale+$stats->published_rent, 0, ',', '.') }}
-				</div>
-			</div>
-		</div>
-	</div>
+	@endif
 
 </div>
 

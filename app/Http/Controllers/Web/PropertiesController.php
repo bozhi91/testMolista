@@ -40,6 +40,11 @@ class PropertiesController extends WebController
 		if ( $this->request->get('mode') )
 		{
 			$query->where('mode', $this->request->get('mode'));
+			// Price
+			if ( $this->request->get('price') )
+			{
+				$query->withRange('price', $this->request->input("price.{$this->request->get('mode')}"));
+			}
 		}
 
 		// Type => house, appartment, etc
@@ -48,7 +53,7 @@ class PropertiesController extends WebController
 			$query->where('type', $this->request->get('type'));
 		}
 
-		// New or used
+		// New construction or used
 		if ( $this->request->get('newly_build') && $this->request->get('second_hand') )
 		{
 			$query->where(function($query){
@@ -56,7 +61,7 @@ class PropertiesController extends WebController
 						->orWhere('second_hand', 1);
 			});
 		} 
-		// New
+		// New construction
 		elseif ( $this->request->get('newly_build') )
 		{
 			$query->where('newly_build', 1);
@@ -67,10 +72,16 @@ class PropertiesController extends WebController
 			$query->where('second_hand', 1);
 		}
 
-		// Price
-		if ( $this->request->get('price') )
+		// New item
+		if ( $this->request->get('new_item') )
 		{
-			$query->withRange('price', $this->request->get('price'));
+			$query->where('new_item', 1);
+		}
+
+		// Opportunity
+		if ( $this->request->get('opportunity') )
+		{
+			$query->where('opportunity', 1);
 		}
 
 		// Size
@@ -97,7 +108,19 @@ class PropertiesController extends WebController
 			$query->withServices($this->request->get('services'));
 		}
 
-		$properties = $query->orderBy('title')->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
+		// Sort order
+		$order = $this->request->get('order');
+		if ( $order && array_key_exists($order, \App\Property::getSortOptions()) ) 
+		{
+			list ($field,$sense) = explode('-',$order,2);
+			$query->orderBy($field,$sense);
+		}
+		else
+		{
+			$query->orderBy('properties.highlighted','desc')->orderBy('title');
+		}
+
+		$properties = $query->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$hide_advanced_search_modal = true;
 
