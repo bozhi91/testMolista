@@ -27,7 +27,7 @@ class WebController extends Controller
 		{
 			$this->site = \App\Site::withTranslations()->findOrFail( $site_id );
 			$search_data['states'] = \App\Models\Geography\State::enabled()->whereIn('id', function($query) use ($site_id) {
-				$query->distinct()->select('state_id')->from('properties')->where('site_id', 1)->where('enabled', $site_id);
+				$query->distinct()->select('state_id')->from('properties')->where('site_id', $site_id)->where('enabled', 1);
 			})->orderBy('name')->lists('name','slug')->all();
 			$search_data['prices'] = \App\Property::getPriceOptions($site_id);
 		}
