@@ -41,7 +41,7 @@ class PropertiesController extends WebController
 		{
 			$query->where('mode', $this->request->get('mode'));
 			// Price
-			if ( $this->request->get('price') )
+			if ( $this->request->input("price.{$this->request->get('mode')}") )
 			{
 				$query->withPriceBetween($this->request->get('price'), $this->request->get('currency'));
 			}
