@@ -181,8 +181,6 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			abort(404);
 		}
 
-		$employees = $property->users()->withRole('employee')->get();
-
 		$modes = \App\Property::getModeOptions();
 		$types = \App\Property::getTypeOptions();
 		$energy_types = \App\Property::getEcOptions();
@@ -192,7 +190,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		$states = \App\Models\Geography\State::enabled()->where('country_id', $property->country_id)->lists('name','id');
 		$cities = \App\Models\Geography\City::enabled()->where('state_id', $property->state_id)->lists('name','id');
 
-		return view('account.properties.edit', compact('property','employees','modes','types','energy_types','services','countries','states','cities'));
+		return view('account.properties.edit', compact('property','modes','types','energy_types','services','countries','states','cities'));
 	}
 
 	public function update(Request $request, $slug)
@@ -512,6 +510,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'ec_pending' => 'boolean',
 			'newly_build' => 'boolean',
 			'second_hand' => 'boolean',
+			'new_item' => 'boolean',
+			'opportunity' => 'boolean',
 			'country_id' => 'required|exists:countries,id',
 			'territory_id' => 'exists:territories,id',
 			'state_id' => 'required|exists:states,id',

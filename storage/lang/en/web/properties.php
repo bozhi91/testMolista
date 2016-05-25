@@ -42,6 +42,7 @@
 
 		'search.title' => 'Search',
 		'search.results' => 'Results',
+		'search.results.more' => 'More information',
 
 		'empty' => 'No results found',
 

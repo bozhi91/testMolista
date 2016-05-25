@@ -14,22 +14,30 @@ class WebController extends Controller
     	parent::__initialize();
     	
 		$search_data = [
-			'states' => \App\Models\Geography\State::enabled()->orderBy('name')->lists('name','slug')->toArray(),
 			'modes' => \App\Property::getModeOptions(),
 			'types' => \App\Property::getTypeOptions(),
-			'prices' => \App\Property::getPriceOptions(),
 			'sizes' => \App\Property::getSizeOptions(),
 			'rooms' => \App\Property::getRoomOptions(),
 			'baths' => \App\Property::getBathOptions(),
 			'services' => \App\Models\Property\Service::enabled()->withTranslations()->orderBy('title')->lists('title','slug')->toArray(),
+			'sort_options' => \App\Property::getSortOptions(),
 		];
-
-		\View::share('search_data', $search_data);
 
 		if ( $site_id = \App\Session\Site::get('site_id', false) )
 		{
 			$this->site = \App\Site::withTranslations()->findOrFail( $site_id );
+			$search_data['states'] = \App\Models\Geography\State::enabled()->whereIn('id', function($query) use ($site_id) {
+				$query->distinct()->select('state_id')->from('properties')->where('site_id', $site_id)->where('enabled', 1);
+			})->orderBy('name')->lists('name','slug')->all();
+			$search_data['prices'] = \App\Property::getPriceOptions($site_id);
 		}
+		else
+		{
+			$search_data['states'] = \App\Models\Geography\State::enabled()->orderBy('name')->lists('name','slug')->all();
+			$search_data['prices'] = \App\Property::getPriceOptions();
+		}
+
+		\View::share('search_data', $search_data);
     }
 
 	public function index()
