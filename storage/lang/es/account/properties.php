@@ -23,6 +23,8 @@
 		'enabled.not' => 'Inactiva en web',
 		'highlighted' => 'Destacada',
 		'highlighted.not' => 'No destacada',
+		'new.item' => 'Novedad',
+		'opportunity' => 'Oportunidad',
 		'newly_build' => 'Nueva construcción',
 		'second_hand' => 'Segunda mano',
 		'services' => 'Servicios',
@@ -119,9 +121,11 @@
 
 		'show.transactions.none' => 'No hay transacciones',
 		'show.transactions.date' => 'Fecha',
+		'show.transactions.seller' => 'Vendedor',
 		'show.transactions.buyer' => 'Cliente',
 		'show.transactions.price' => 'Precio',
 		'show.transactions.reason' => 'Comentarios',
+		'show.transactions.commission' => 'Comisión obtenida',
 
 		'logs.loading' => 'Cargando',
 		'logs.empty' => 'No se encontraron registros.',

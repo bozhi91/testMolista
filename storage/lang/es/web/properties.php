@@ -42,6 +42,7 @@
 
 		'search.title' => 'Buscar',
 		'search.results' => 'Resultados',
+		'search.results.more' => 'Mas detalles',
 
 		'empty' => 'No se encontraron resultados',
 

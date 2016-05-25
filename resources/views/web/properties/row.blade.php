@@ -31,7 +31,7 @@
 					</div>
 				</div>
 				<div class="row hidden-xs">
-					<div class="col-xs-12">
+					<div class="col-xs-9">
 						<ul class="list-inline metrics">
 							<li>
 								<div class="text-nowrap">
@@ -65,6 +65,9 @@
 							{{ $item->services->sortBy('title')->implode('title',', ') }}
 						</div>
 					</div>
+					<div class="col-xs-3">
+					</div>
+					<a href="{{ action('Web\PropertiesController@details', $item->slug) }}" class="hidden-xs btn btn-primary btn-more-info">{{ Lang::get('web/properties.search.results.more') }}</a>
 				</div>
 			</div>
 		</div>

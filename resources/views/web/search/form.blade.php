@@ -60,11 +60,35 @@
 		</div>
 	</div>
 	<div class="row">
+		<div class="col-xs-12 col-sm-4 col-md-3 input-line">
+			<div class="form-group">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" name="new_item" value="1" {{ Input::get('new_item') ? 'checked="checked"' : '' }} />
+						{{ Lang::get('account/properties.new.item') }}
+					</label>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-4 col-md-3 input-line">
+			<div class="form-group">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" name="opportunity" value="1" {{ Input::get('opportunity') ? 'checked="checked"' : '' }} />
+						{{ Lang::get('account/properties.opportunity') }}
+					</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
 		@if ( !empty($search_data['prices']) )
 			<div class="col-xs-12 col-sm-3 col-md-2 input-line">
 				<div class="form-group error-container">
 					{!! Form::hidden('currency', 'EUR') !!}
-					{!! Form::select('price', [''=>Lang::get('web/properties.more.price')]+$search_data['prices'], Input::get('price'), [ 'class'=>'form-control has-placeholder' ]) !!}
+					{!! Form::select(null, [''=>Lang::get('web/properties.more.price')], null, [ 'class'=>'form-control has-placeholder mode-rel mode-rel-none '.( Input::get('mode','none') == 'none' ? '' : 'hide' ) ]) !!}
+					{!! Form::select('price[rent]', [''=>Lang::get('web/properties.more.price')]+$search_data['prices']['rent'], Input::get('price.rent'), [ 'class'=>'form-control has-placeholder mode-rel mode-rel-rent '.( Input::get('mode') == 'rent' ? '' : 'hide' ) ]) !!}
+					{!! Form::select('price[sale]', [''=>Lang::get('web/properties.more.price')]+$search_data['prices']['sale'], Input::get('price.sale'), [ 'class'=>'form-control has-placeholder mode-rel mode-rel-sale '.( Input::get('mode') == 'sale' ? '' : 'hide' ) ]) !!}
 				</div>
 			</div>
 		@endif
@@ -142,6 +166,10 @@
 			}
 		});
 
+		form.on('change', 'select[name="mode"]', function(){
+			form.find('.mode-rel').addClass('hide').filter('.mode-rel-' + ( $(this).val() || 'none' )).removeClass('hide');
+		});
+
 		form.on('change', 'select[name="state"]', function(){
 			var state = $(this).val();
 			var target = form.find('select[name="city"]');
@@ -159,7 +187,10 @@
 				$.ajax({
 					dataType: 'json',
 					url: '{{ action('Ajax\GeographyController@getSuggest', 'city') }}',
-					data: { state_slug: state },
+					data: { 
+						state_slug: state,
+						site_id: {{ @intval($site_setup['site_id']) }}
+					},
 					success: function(data) {
 						if ( data ) {
 							cities[state] = data;

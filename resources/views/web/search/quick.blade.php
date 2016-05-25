@@ -19,6 +19,11 @@
 	<div class="form-group error-container">
 		{!! Form::select('city', [''=>Lang::get('web/properties.city')], null, [ 'class'=>'form-control has-placeholder' ]) !!}
 	</div>
+	<div class="form-group error-container">
+		{!! Form::select(null, [''=>Lang::get('web/properties.more.price')], null, [ 'class'=>'form-control has-placeholder mode-rel mode-rel-none '.( Input::get('mode','none') == 'none' ? '' : 'hide' ) ]) !!}
+		{!! Form::select('price[rent]', [''=>Lang::get('web/properties.more.price')]+$search_data['prices']['rent'], Input::get('price.rent'), [ 'class'=>'form-control has-placeholder mode-rel mode-rel-rent '.( Input::get('mode') == 'rent' ? '' : 'hide' ) ]) !!}
+		{!! Form::select('price[sale]', [''=>Lang::get('web/properties.more.price')]+$search_data['prices']['sale'], Input::get('price.sale'), [ 'class'=>'form-control has-placeholder mode-rel mode-rel-sale '.( Input::get('mode') == 'sale' ? '' : 'hide' ) ]) !!}
+	</div>
 	<div class="text-right">
 		<a href="#" class="more-options pull-left text-bold advanced-search-trigger">{{ Lang::get('web/search.quick.more') }} &raquo;</a>
 		{!! Form::submit(Lang::get('web/search.button'), [ 'class'=>'btn btn-primary text-uppercase' ]) !!}
@@ -37,6 +42,10 @@
 			}
 		});
 
+		form.on('change', 'select[name="mode"]', function(){
+			form.find('.mode-rel').addClass('hide').filter('.mode-rel-' + ( $(this).val() || 'none' )).removeClass('hide');
+		});
+
 		form.on('change', 'select[name="state"]', function(){
 			var state = $(this).val();
 			var target = form.find('select[name="city"]');
@@ -52,7 +61,10 @@
 				$.ajax({
 					dataType: 'json',
 					url: '{{ action('Ajax\GeographyController@getSuggest', 'city') }}',
-					data: { state_slug: state },
+					data: { 
+						state_slug: state,
+						site_id: {{ @intval($site_setup['site_id']) }}
+					},
 					success: function(data) {
 						if ( data ) {
 							cities[state] = data;

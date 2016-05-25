@@ -19,16 +19,28 @@
 				<div class="cols-xs-12 col-sm-6">
 					{!! Form::model(null, [ 'method'=>'POST', 'action'=>[ 'Web\PagesController@post', $page->slug ], 'id'=>'contact-form' ]) !!}
 						<div class="form-group error-container">
-							{!! Form::label('name', Lang::get('web/pages.name')) !!}
-							{!! Form::text('name', null, [ 'class'=>'form-control required' ]) !!}
+							{!! Form::label('interest', Lang::get('web/pages.interest')) !!}
+							{!! Form::select('interest', [
+								'buy' => Lang::get('web/pages.interest.buy'),
+								'rent' => Lang::get('web/pages.interest.rent'),
+								'sell' => Lang::get('web/pages.interest.sell'),
+							], null, [ 'class'=>'form-control' ]) !!}
 						</div>
 						<div class="form-group error-container">
-							{!! Form::label('email', Lang::get('web/pages.email')) !!}
-							{!! Form::email('email', null, [ 'class'=>'form-control required email' ]) !!}
+							{!! Form::label('name', Lang::get('web/pages.name').' *') !!}
+							{!! Form::text('name', null, [ 'class'=>'form-control required', 'placeholder'=>Lang::get('web/pages.name.placeholder') ]) !!}
 						</div>
 						<div class="form-group error-container">
-							{!! Form::label('body', Lang::get('web/pages.message')) !!}
-							{!! Form::textarea('body', null, [ 'class'=>'form-control required' ]) !!}
+							{!! Form::label('email', Lang::get('web/pages.email').' *') !!}
+							{!! Form::email('email', null, [ 'class'=>'form-control required email', 'placeholder'=>Lang::get('web/pages.email.placeholder') ]) !!}
+						</div>
+						<div class="form-group error-container">
+							{!! Form::label('phone', Lang::get('web/pages.phone')) !!}
+							{!! Form::text('phone', null, [ 'class'=>'form-control', 'placeholder'=>Lang::get('web/pages.phone.placeholder') ]) !!}
+						</div>
+						<div class="form-group error-container">
+							{!! Form::label('body', Lang::get('web/pages.message').' *') !!}
+							{!! Form::textarea('body', null, [ 'class'=>'form-control required', 'placeholder'=>Lang::get('web/pages.message.placeholder') ]) !!}
 						</div>
 						<div class="text-right">
 							{!! Form::submit( Lang::get('general.continue'), [ 'class'=>'btn btn-primary']) !!}

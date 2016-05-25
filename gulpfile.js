@@ -37,6 +37,7 @@ elixir(function(mix) {
 			'jquery.matchHeight.js',
 			'bootstrap-table.js',
 			'bootstrap-datetimepicker.js',
+			'bootstrap-slider.js',
 			'summernote.js',
 			'alertify.js',
 			'select2.full.js',
