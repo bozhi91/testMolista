@@ -63,7 +63,18 @@
 						<div class="col-xs-12 col-sm-6">
 							<div class="form-group error-container">
 								{!! Form::label('owners_ids[]', Lang::get('admin/sites.owners')) !!}
-								{!! Form::select('owners_ids[]', $companies, null, [ 'class'=>'form-control required has-select-2', 'size'=>'1', 'multiple'=>'multiple' ]) !!}
+								{!! Form::select('owners_ids[]', $companies, null, [ 'class'=>'form-control required _has-select-2 hide', 'size'=>'1', 'multiple'=>'multiple' ]) !!}
+								<span class="select2-container select2-container--bootstrap" style="width: 100%;">
+									<span class="select2-selection select2-selection--multiple">
+										<ul class="select2-selection__rendered">
+											@if ( !empty($site->owners_ids) )
+												@foreach ($site->owners_ids as $owner_id)
+													<li class="select2-selection__choice">{{ @$companies[$owner_id] }}</li>
+												@endforeach
+											@endif
+										</ul>
+									</span>
+								</span>
 							</div>
 						</div>
 					</div>
