@@ -47,6 +47,8 @@ class PagesController extends WebController
 				$validator = \Validator::make($this->request->all(), [
 					'name' => 'required|string',
 					'email' => 'required|email',
+					'phone' => 'string',
+					'interest' => 'required|in:buy,rent,sell',
 					'body' => 'required|string',
 				]);
 				if ($validator->fails()) 
@@ -54,7 +56,7 @@ class PagesController extends WebController
 					return redirect()->back()->withInput()->withErrors($validator);
 				}
 
-				$content = view('web.pages.email', $this->request->only('name','email','body'))->render();
+				$content = view('web.pages.email', $this->request->only('name','email','phone','interest','body'))->render();
 				$result = $this->site->sendEmail([
 					'to' => $page->configuration['contact']['email'],
 					'subject' => trans('web/pages.contact.email.subject'),
