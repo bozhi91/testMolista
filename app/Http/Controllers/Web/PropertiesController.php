@@ -70,13 +70,13 @@ class PropertiesController extends WebController
 		// Price
 		if ( $this->request->get('price') )
 		{
-			$query->withRange('price', $this->request->get('price'));
+			$query->withPriceBetween($this->request->get('price'), $this->request->get('currency'));
 		}
 
 		// Size
 		if ( $this->request->get('size') )
 		{
-			$query->withRange('size', $this->request->get('size'));
+			$query->withSizeBetween($this->request->get('size'), $this->request->get('size_unit'));
 		}
 
 		// Rooms

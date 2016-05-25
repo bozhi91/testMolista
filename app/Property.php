@@ -95,6 +95,11 @@ class Property extends TranslatableModel
 	public function users() {
 		return $this->belongsToMany('App\User', 'properties_users', 'property_id', 'user_id')->withPivot('is_owner');
 	}
+
+	public function customers() {
+		return $this->belongsToMany('App\Models\Site\Customer', 'properties_customers', 'property_id', 'customer_id');
+	}
+
 	public function city()
 	{
 		return $this->belongsTo('App\Models\Geography\City');
@@ -317,12 +322,62 @@ class Property extends TranslatableModel
 
 		if ($min)
 		{
-			$query->where("properties.{$field}", '>', $min);
+			$query->where("properties.{$field}", '>=', $min);
 		}
 
 		if ($max)
 		{
 			$query->where("properties.{$field}", '<=', $max);
+		}
+
+		return $query;
+	}
+
+	// [TODO] Standardize currency
+	public function scopeWithPriceBetween($query, $range, $currency)
+	{
+		$limits = explode('-', $range);
+		if ( count($limits) != 2 ) 
+		{
+			return $query->whereRaw('1=2');
+		}
+
+		$min = floatval($limits[0]);
+		$max = floatval($limits[1]);
+
+		if ($min)
+		{
+			$query->where('properties.price', '>=', $min);
+		}
+
+		if ($max)
+		{
+			$query->where('properties.price', '<=', $max);
+		}
+
+		return $query;
+	}
+
+	// [TODO] Standardize size unit
+	public function scopeWithSizeBetween($query, $range, $size_unit)
+	{
+		$limits = explode('-', $range);
+		if ( count($limits) != 2 ) 
+		{
+			return $query->whereRaw('1=2');
+		}
+
+		$min = floatval($limits[0]);
+		$max = floatval($limits[1]);
+
+		if ($min)
+		{
+			$query->where('properties.size', '>=', $min);
+		}
+
+		if ($max)
+		{
+			$query->where('properties.size', '<=', $max);
 		}
 
 		return $query;
@@ -399,9 +454,9 @@ class Property extends TranslatableModel
 	{
 		return [
 			'less-100000' => '< 100.000',
-			'100000-250000' => '100.001 - 250.000',
-			'250000-500000' => '250.001 - 500.000',
-			'500000-1000000' => '500.001 - 1.000.000',
+			'100000-250000' => '100.000 - 250.000',
+			'250000-500000' => '250.000 - 500.000',
+			'500000-1000000' => '500.000 - 1.000.000',
 			'1000000-more' => '> 1.000.000',
 		];
 	}
@@ -410,9 +465,9 @@ class Property extends TranslatableModel
 	{
 		return [
 			'less-100' => '< 100 m²',
-			'100-250' => '101 - 250 m²',
-			'250-500' => '251 - 500 m²',
-			'500-1000' => '501 - 1.000 m²',
+			'100-250' => '100 - 250 m²',
+			'250-500' => '250 - 500 m²',
+			'500-1000' => '500 - 1.000 m²',
 			'1000-more' => '> 1.000 m²',
 		];
 	}
@@ -421,9 +476,9 @@ class Property extends TranslatableModel
 	{
 		return [
 			'0-2' => '1 - 2',
-			'2-5' => '3 - 5',
-			'5-10' => '6 - 10',
-			'10-more' => '> 10',
+			'3-5' => '3 - 5',
+			'6-10' => '6 - 10',
+			'11-more' => '> 10',
 		];
 	}
 
@@ -431,8 +486,8 @@ class Property extends TranslatableModel
 	{
 		return [
 			'0-2' => '1 - 2',
-			'2-5' => '3- 5',
-			'5-more' => '> 5',
+			'3-5' => '3- 5',
+			'6-more' => '> 5',
 		];
 	}
 

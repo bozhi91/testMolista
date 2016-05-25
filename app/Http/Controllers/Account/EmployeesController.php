@@ -22,7 +22,9 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 
 	public function index()
 	{
-		$query = $this->site->users()->with('properties')->withRole('employee');
+		$query = $this->site->users()
+					->withRole('employee')
+					->with('properties');
 
 		// Filter by name
 		if ( $this->request->get('name') )

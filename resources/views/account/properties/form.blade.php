@@ -184,7 +184,7 @@
 								</label>
 							</div>
 						</div>
-						<div class="row hide">
+						<div class="row">
 							<div class="col-xs-12 col-sm-6">
 								<div class="form-group error-container">
 									{!! Form::label('zipcode', Lang::get('account/properties.zipcode')) !!}

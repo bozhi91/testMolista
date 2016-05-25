@@ -115,6 +115,7 @@ Route::group([
 		Route::get('employees/disssociate/{user_id}/{property_id}', 'Account\EmployeesController@getDissociate');
 		Route::resource('employees', 'Account\EmployeesController');
 		// Customers
+		Route::post('customers/profile/{email}', 'Account\CustomersController@postProfile');
 		Route::resource('customers', 'Account\CustomersController');
 		// Reports
 		Route::group([

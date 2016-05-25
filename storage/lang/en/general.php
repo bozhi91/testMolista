@@ -27,6 +27,7 @@
 
 		'messages.close' => 'Close',
 		'messages.error' => 'An error occurred while processing this request.',
+		'messages.success.saved' => 'Data was saved successfully.',
 
 		'autotranslate.trigger' => 'Translate to other languages',
 		'autotranslate.credits' => 'Translated by',

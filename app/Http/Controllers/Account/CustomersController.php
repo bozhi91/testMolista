@@ -16,7 +16,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 
 	public function index()
 	{
-		$query = $this->site->customers();
+		$query = $this->site->customers()->with('queries');
 
 		// Filter by name
 		if ( $this->request->get('full_name') )
@@ -91,13 +91,113 @@ class CustomersController extends \App\Http\Controllers\AccountController
 
 	public function show($email)
 	{
-		$customer = $this->site->customers()->where('email', $email)->first();
+		$customer = $this->site->customers()->with('queries')->where('email', $email)->first();
 		if ( !$customer )
 		{
 			abort(404);
 		}
 
-		return view('account.customers.show', compact('customer'));
+		$profile = $customer->current_query;
+
+		$countries = \App\Models\Geography\Country::withTranslations()->enabled()->orderBy('name')->lists('name','id')->all();
+		if ( $country_id = @$profile->country_id ? $profile->country_id : \App\Models\Geography\Country::where('code','ES')->value('id') )
+		{
+			$states = \App\Models\Geography\State::enabled()->where('country_id', $country_id)->lists('name','id')->all();
+		}
+		if ( @$profile->state_id )
+		{
+			$cities = \App\Models\Geography\City::enabled()->where('state_id', $profile->state_id)->lists('name','id')->all();
+		}
+
+		$modes = \App\Property::getModeOptions();
+		$types = \App\Property::getTypeOptions();
+		$services = \App\Models\Property\Service::withTranslations()->enabled()->orderBy('title')->get();
+
+		return view('account.customers.show', compact('customer','profile','countries','country_id','states','cities','modes','types','services'));
+	}
+
+	public function postProfile($email)
+	{
+		$customer = $this->site->customers()->with('queries')->where('email', $email)->first();
+		if ( !$customer ) 
+		{
+			return [ 'error'=>'Customer not found' ];
+		}
+
+		$fields = [
+			'country_id' => 'exists:countries,id',
+			'territory_id' => 'exists:territories,id',
+			'state_id' => 'exists:states,id',
+			'city_id' => 'exists:cities,id',
+			'district' => '',
+			'zipcode' => '',
+			'mode' => 'in:'.implode(',', \App\Property::getModes()),
+			'type' => 'in:'.implode(',', array_keys(\App\Property::getTypeOptions())),
+			'currency' => 'required|in:'.implode(',', array_keys(\App\Property::getCurrencyOptions())),
+			'price_min' => 'numeric|min:0',
+			'price_max' => 'numeric|min:'.intval($this->request->get('price_min')),
+			'size_unit' => 'required|in:'.implode(',', array_keys(\App\Property::getSizeUnitOptions())),
+			'size_min' => 'numeric|min:0',
+			'size_max' => 'numeric|min:'.intval($this->request->get('size_min')),
+			'rooms' => 'integer|min:0',
+			'baths' => 'integer|min:0',
+			'newly_build' => 'boolean',
+			'second_hand' => 'boolean',
+			'services' => 'array',
+		];
+		$validator = \Validator::make($this->request->all(), $fields);
+		if ( $validator->fails() ) 
+		{
+			return [ 'error'=>1, 'errors'=>$validator->errors() ];
+		}
+
+		$profile = $customer->queries()->firstOrCreate([
+			'enabled' => 1,
+		]);
+		if ( !$profile )
+		{
+			return [ 'error'=>'Error creating profile' ];
+		}
+
+		$data = [
+			'more_attributes' => [],
+		];
+		foreach ($fields as $key => $value) 
+		{
+			$value = $this->request->get($key);
+
+			switch ( $key )
+			{
+				// Nullable
+				case 'country_id':
+				case 'territory_id':
+				case 'state_id':
+				case 'city_id':
+				case 'price_min':
+				case 'price_max':
+				case 'size_min':
+				case 'size_max':
+					$data[$key] = $value ? $value : null;
+					break;
+				// Varchar
+				case 'mode':
+				case 'type':
+				case 'rooms':
+				case 'baths':
+				case 'district':
+				case 'zipcode':
+				case 'currency':
+				case 'size_unit':
+					$data[$key] = $value;
+					break;
+				// Other
+				default:
+					$data['more_attributes'][$key] = $value;
+			}
+		}
+		$profile->update($data);
+
+		return [ 'success'=>1 ];
 	}
 
 	protected function getRequiresFields($id=false)

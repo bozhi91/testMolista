@@ -27,6 +27,7 @@
 
 		'messages.close' => 'Cerrar',
 		'messages.error' => 'Ocurrió un error al procesar la solicitud.',
+		'messages.success.saved' => 'Los datos se guardaron correctamente.',
 
 		'autotranslate.trigger' => 'Traducir a otros idiomas',
 		'autotranslate.credits' => 'Traducido por',

@@ -21,6 +21,8 @@
 						<tr>
 							<th>{{ Lang::get('account/customers.name') }}</th>
 							<th>{{ Lang::get('account/customers.email') }}</th>
+							<th class="text-center">{{ Lang::get('account/customers.properties') }}</th>
+							<th class="text-center text-nowrap">{{ Lang::get('account/customers.matches') }}</th>
 							<th></th>
 						</tr>
 					</thead>
@@ -29,6 +31,8 @@
 							<tr>
 								<td>{{ $customer->full_name }}</td>
 								<td>{{ $customer->email }}</td>
+								<th class="text-center">{{ number_format($customer->properties->count(), 0, ',', '.') }}</td>
+								<th class="text-center">{{ number_format($customer->possible_matches->count(), 0, ',', '.') }}</td>
 								<td class="text-right text-nowrap">
 									<a href="{{ action('Account\CustomersController@show', urlencode($customer->email)) }}" class="btn btn-primary btn-xs">{{ Lang::get('general.view') }}</a>
 								</td>
