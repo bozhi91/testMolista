@@ -111,6 +111,10 @@ class SitesController extends Controller
 		// Save titles
 		$site->save();
 
+		// Create on ticket system
+		$ticket_adm = $site->ticket_adm;
+		$ticket_site_id = $ticket_adm->createSite();
+
 		return redirect()->action('Admin\SitesController@edit', $site->id)->with('success', trans('admin/sites.messages.created'));
 	}
 
@@ -120,10 +124,10 @@ class SitesController extends Controller
 
 		$locales = \App\Models\Locale::getAdminOptions();
 
-		$companies = \App\User::withRole('company')->orderBy('name')->lists('name','id')->toArray();
-		$employees = \App\User::withRole('employee')->orderBy('name')->lists('name','id')->toArray();
+		$owners = $site->users()->whereIn('id', $site->owners_ids)->orderBy('name')->lists('name','id')->all();
+		$companies = \App\User::withRole('company')->whereNotIn('id', $site->owners_ids)->orderBy('name')->lists('name','id')->all();
 
-		return view('admin.sites.edit', compact('site','companies','locales','companies','employees'));
+		return view('admin.sites.edit', compact('site','locales','owners','companies'));
 	}
 
 	public function update($id)
@@ -166,8 +170,13 @@ class SitesController extends Controller
 			return \Redirect::back()->withInput()->with('error', trans('admin/sites.domain.error.taken'));
 		}
 
+		// Get site
+		$site = \App\Site::withTranslations()->findOrFail($id);
+
 		// Clean owners
-		$this->request->merge([ 'owners_ids'=>array_unique($this->request->get('owners_ids')) ]);
+		$this->request->merge([ 
+			'owners_ids' => array_unique(array_merge($this->request->get('owners_ids'), $site->owners_ids) )
+		]);
 
 		// Validate owners
 		$company_owners_total = \App\User::whereIn('id', $this->request->get('owners_ids'))->withRole('company')->count();
@@ -175,9 +184,6 @@ class SitesController extends Controller
 		{
 			return \Redirect::back()->withInput()->with('error', trans('general.messages.error'));
 		}
-
-		// Get site
-		$site = \App\Site::findOrFail($id);
 
 		// Update data
 		$site->subdomain = $this->request->get('subdomain');
@@ -229,6 +235,11 @@ class SitesController extends Controller
 				$site->locales()->attach($locale_id);
 			}
 		}
+
+		// Associate owners to tickets
+		$ticket_adm = $site->ticket_adm;
+		$ticket_adm->updateSite( $site );
+		$ticket_adm->associateUsers( $site->users()->with('roles')->whereIn('id', $site->owners_ids)->get() );
 
 		return redirect()->action('Admin\SitesController@edit', $id)->with('success', trans('admin/sites.messages.updated'));
 	}

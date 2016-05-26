@@ -151,12 +151,45 @@ class Site extends TranslatableModel
 
 	public function setMailerAttribute($value)
 	{
-        $this->attributes['mailer'] = @serialize($value);
+		$this->attributes['mailer'] = @serialize($value);
 	}
 	public function getMailerAttribute($value)
 	{
-		$value = @unserialize($value);
-		return is_array($value) ? $value : [];
+		$unserialized = @unserialize($value);
+		return is_array($unserialized) ? $unserialized : [];
+	}
+	public function getSmtpMailerAttribute() {
+		$service = @$this->mailer['service'];
+
+		switch ( $service )
+		{
+			case 'smtp':
+				return [
+					'from_name' => @$this->mailer['from_name'],
+					'from_email' => @$site->mailer['from_email'],
+					'username' => @$site->mailer['smtp_login'],
+					'password' => @$site->mailer['smtp_pass'],
+					'host' => @$site->mailer['smtp_host'],
+					'port' => @$site->mailer['smtp_port'],
+					'layer' => @$site->mailer['smtp_tls_ssl'],
+				];
+			case 'mandrill': 
+				return [
+					'from_name' => @$this->mailer['from_name'],
+					'from_email' => @$site->mailer['from_email'],
+					'username' => @$site->mailer['mandrill_user'],
+					'password' => @$site->mailer['mandrill_key'],
+					'host' => @$site->mailer['mandrill_host'],
+					'port' => @$site->mailer['mandrill_port'],
+					'layer' => false,
+				];
+		}
+
+		return false;
+	}
+
+	public function getTicketAdmAttribute() {
+		return new \App\Models\Site\TicketAdm( $this );
 	}
 
 	public function scopeEnabled($query)

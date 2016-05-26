@@ -153,7 +153,7 @@ class Property extends TranslatableModel
 		$dir = public_path($this->pdf_folder);
 		if ( !is_dir($dir) )
 		{
-			\File::makeDirectory($dir);
+			\File::makeDirectory($dir, 0777, true, true);
 		}
 
 		// Check PDF
