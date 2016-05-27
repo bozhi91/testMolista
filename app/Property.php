@@ -55,7 +55,10 @@ class Property extends TranslatableModel
 
 		// Whenever a property is saved
 		static::saved(function($property){
+			// Delete cached PDF files
 			\File::deleteDirectory(public_path($property->pdf_folder), true);
+			// Create / Update on ticket system
+			$property->site->ticket_adm->associateItem($property);
 		});
 
 		static::$logCustomFields = [
@@ -274,6 +277,18 @@ class Property extends TranslatableModel
 		return empty($managers) ? $owners : $managers;
 	}
 
+	public function getUniqueManagerAttribute()
+	{
+		$managers = $this->users()->withRole('employee');
+
+		if ( $managers->count() !== 1 )
+		{
+			return false;
+		}
+
+		return $managers->first();
+	}
+
 	public function scopeEnabled($query)
 	{
 		return $query->where('properties.enabled', 1);
@@ -312,13 +327,9 @@ class Property extends TranslatableModel
 	public function scopeWithRange($query, $field, $range)
 	{
 		$limits = explode('-', $range);
-		if ( count($limits) != 2 ) 
-		{
-			return $query->whereRaw('1=2');
-		}
 
-		$min = floatval($limits[0]);
-		$max = floatval($limits[1]);
+		$min = @floatval($limits[0]);
+		$max = @floatval($limits[1]);
 
 		if ($min)
 		{
@@ -385,13 +396,18 @@ class Property extends TranslatableModel
 
 	public function scopeWithServices($query, $services)
 	{
+		if ( !$services )
+		{
+			return $query;
+		}
+
 		if ( !is_array($services) ) 
 		{
 			$services = [ $services ];
 		}
 
 		// Get services ids
-		$service_ids = \App\Models\Property\ServiceTranslation::whereIn('slug',$services)->lists('service_id')->toArray();
+		$service_ids = \App\Models\Property\ServiceTranslation::whereIn('slug',$services)->lists('service_id')->all();
 		if ( empty($service_ids) )
 		{
 			return $query->whereRaw('1=2');

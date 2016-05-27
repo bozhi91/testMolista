@@ -13,6 +13,16 @@ class Site extends TranslatableModel
 	protected $table = 'sites';
 	protected $guarded = [];
 
+	public static function boot()
+	{
+		parent::boot();
+
+		// Whenever a site is updated
+		static::updated(function($site){
+			$site->ticket_adm->updateSite();
+		});
+	}
+
 	public function stats() {
 		return $this->hasMany('App\Models\Site\Stats');
 	}
@@ -118,6 +128,16 @@ class Site extends TranslatableModel
 		return $this->domains->sortByDesc('default')->first()->domain;
 	}
 
+	public function getTicketingEnabledAttribute()
+	{
+		if ( $this->ticket_site_id && $this->ticket_owner_token && $this->smtp_mailer )
+		{
+			return true;
+		}
+
+		return false;
+	}
+
 	public function getAutologinUrlAttribute()
 	{
 		$owners_ids = $this->owners_ids;
@@ -166,21 +186,21 @@ class Site extends TranslatableModel
 			case 'smtp':
 				return [
 					'from_name' => @$this->mailer['from_name'],
-					'from_email' => @$site->mailer['from_email'],
-					'username' => @$site->mailer['smtp_login'],
-					'password' => @$site->mailer['smtp_pass'],
-					'host' => @$site->mailer['smtp_host'],
-					'port' => @$site->mailer['smtp_port'],
-					'layer' => @$site->mailer['smtp_tls_ssl'],
+					'from_email' => @$this->mailer['from_email'],
+					'username' => @$this->mailer['smtp_login'],
+					'password' => @$this->mailer['smtp_pass'],
+					'host' => @$this->mailer['smtp_host'],
+					'port' => @$this->mailer['smtp_port'],
+					'layer' => @$this->mailer['smtp_tls_ssl'],
 				];
 			case 'mandrill': 
 				return [
 					'from_name' => @$this->mailer['from_name'],
-					'from_email' => @$site->mailer['from_email'],
-					'username' => @$site->mailer['mandrill_user'],
-					'password' => @$site->mailer['mandrill_key'],
-					'host' => @$site->mailer['mandrill_host'],
-					'port' => @$site->mailer['mandrill_port'],
+					'from_email' => @$this->mailer['from_email'],
+					'username' => @$this->mailer['mandrill_user'],
+					'password' => @$this->mailer['mandrill_key'],
+					'host' => @$this->mailer['mandrill_host'],
+					'port' => @$this->mailer['mandrill_port'],
 					'layer' => false,
 				];
 		}
@@ -189,7 +209,7 @@ class Site extends TranslatableModel
 	}
 
 	public function getTicketAdmAttribute() {
-		return new \App\Models\Site\TicketAdm( $this );
+		return new \App\Models\Site\TicketAdm( $this->id );
 	}
 
 	public function scopeEnabled($query)

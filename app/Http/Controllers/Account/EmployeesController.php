@@ -73,7 +73,7 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 			return redirect()->back()->withInput()->with('error', trans('account.employees.email.used'));
 		}
 
-		// Get user
+		// Create user associated to this site
         $employee = $this->site->users()->create([
             'name' => sanitize( $this->request->get('name') ),
             'email' => sanitize( $this->request->get('email'), 'email'),
@@ -88,6 +88,9 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 
 		// Attach employee role
 		$employee->roles()->attach( \App\Models\Role::where('name','employee')->value('id') );
+
+		// Associate in ticketing system
+		$this->site->ticket_adm->associateUsers([ $employee ]);
 
 		return redirect()->action('Account\EmployeesController@edit', urlencode($employee->email))->with('success', trans('account/employees.message.saved'));
 	}
@@ -140,6 +143,9 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 		// Dissociate from site
 		$employee->sites()->detach( $this->site->id );
 
+		// Dissociate in ticketing system
+		$this->site->ticket_adm->dissociateUsers([ $employee ]);
+
 		return redirect()->action('Account\EmployeesController@index')->with('success', trans('account/employees.deleted'));
 	}
 
@@ -161,6 +167,9 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 			$this->site->users()->attach($employee->id);
 		}
 
+		// Associate in ticketing system
+		$this->site->ticket_adm->associateUsers([ $employee ]);
+
 		return redirect()->action('Account\EmployeesController@edit', urlencode($employee->email))->with('success', trans('account/employees.message.associated'));
 	}
 
@@ -175,6 +184,7 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 		}
 
 		$property->users()->detach($employee->id);
+
 		return [ 'success'=>1 ];
 	}
 

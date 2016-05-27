@@ -41,11 +41,11 @@ class TicketsMaintenanceCommand extends Command
 					$this->info("\tCreate site account");
 					if ( !$ticket_adm->createSite() )
 					{
-						conitnue;
+						continue;
 					}
 					// Update site data
 					$site = \App\Site::withTranslations()->find($site->id);
-					$ticket_adm->setSite($site);
+					$ticket_adm = $site->ticket_adm;
 				}
 
 				// Create contacts

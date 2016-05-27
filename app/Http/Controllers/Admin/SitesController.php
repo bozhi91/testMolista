@@ -112,8 +112,7 @@ class SitesController extends Controller
 		$site->save();
 
 		// Create on ticket system
-		$ticket_adm = $site->ticket_adm;
-		$ticket_site_id = $ticket_adm->createSite();
+		$site->ticket_adm->createSite();
 
 		return redirect()->action('Admin\SitesController@edit', $site->id)->with('success', trans('admin/sites.messages.created'));
 	}
@@ -237,9 +236,7 @@ class SitesController extends Controller
 		}
 
 		// Associate owners to tickets
-		$ticket_adm = $site->ticket_adm;
-		$ticket_adm->updateSite( $site );
-		$ticket_adm->associateUsers( $site->users()->with('roles')->whereIn('id', $site->owners_ids)->get() );
+		$site->ticket_adm->associateUsers( $site->users()->with('roles')->whereIn('id', $site->owners_ids)->get() );
 
 		return redirect()->action('Admin\SitesController@edit', $id)->with('success', trans('admin/sites.messages.updated'));
 	}

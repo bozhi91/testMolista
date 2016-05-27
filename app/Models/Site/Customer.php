@@ -8,13 +8,28 @@ class Customer extends Model
 {
 	protected $guarded = [];
 
+	public static function boot()
+	{
+		parent::boot();
+
+		// Whenever a customer is created
+		static::created(function($customer){
+			$customer->site->ticket_adm->associateContact($customer);
+		});
+		// Whenever a customer is updated
+		static::updated(function($customer){
+			$customer->site->ticket_adm->associateContact($customer);
+		});
+	}
+
+
 	public function site()
 	{
-		return $this->belongsTo('App\Site');
+		return $this->belongsTo('App\Site')->withTranslations();
 	}
 
 	public function properties() {
-		return $this->belongsToMany('App\Property', 'properties_customers', 'customer_id', 'property_id');
+		return $this->belongsToMany('App\Property', 'properties_customers', 'customer_id', 'property_id')->withTranslations();
 	}
 
 	public function queries() {
@@ -50,7 +65,7 @@ class Customer extends Model
 		}
 
 		// Not current properties
-		$query->whereNotIn('id', function($query){
+		$query->whereNotIn('properties.id', function($query){
 			$query->select('property_id')->from('properties_customers')->where('customer_id', $this->id);
 		});
 
@@ -78,10 +93,64 @@ class Customer extends Model
 		// Bathrooms
 		$query->withRange('baths', $params->baths);
 
-		// [TODO] Tags
-		// [TODO] Services
+		// Country
+		if ( $params->country_id )
+		{
+			$query->where('country_id', $params->country_id);
+		}
 
-		return $query->get();
+		// Territory
+		if ( $params->territory_id )
+		{
+			$query->where('territory_id', $params->territory_id);
+		}
+
+		// State
+		if ( $params->state_id )
+		{
+			$query->where('state_id', $params->state_id);
+		}
+
+		// City
+		if ( $params->city_id )
+		{
+			$query->where('city_id', $params->city_id);
+		}
+
+		// District
+		if ( $params->district )
+		{
+			$query->where('district', 'LIKE', "%{$params->district}%");
+		}
+
+		// Zipcode
+		if ( $params->zipcode )
+		{
+			$query->where('zipcode', $params->zipcode);
+		}
+
+		// More attributes
+		$attr = $params->more_attributes;
+
+		// Newly build
+		if ( @$attr['newly_build'] )
+		{
+			$query->where('newly_build', 1);
+		}
+
+		// Second hand
+		if ( @$attr['second_hand'] )
+		{
+			$query->where('second_hand', 1);
+		}
+
+		// Services
+		if ( @$attr['services'] )
+		{
+			$query->withServices($attr['services']);
+		}
+
+		return $query->withTranslations()->get();
 
 	}
 

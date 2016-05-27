@@ -7,35 +7,53 @@ class TicketAdm
 	protected $site_token;
 	protected $site_ready;
 
+	protected $sources = [
+		'email',
+		'phone',
+		'web',
+		'chat',
+		'facebook',
+		'backoffice',
+		'other',
+	];
+	protected $status = [
+		'open',
+		'waiting',
+		'resolved',
+		'closed',
+	];
+
 	protected $guzzle_client;
 
-	public function __construct($site)
+	public function __construct($site_id)
 	{
-		$this->setSite($site);
-
-		$base_uri = env('TICKETS_API_URL', false);
-		if ( !$base_uri )
+		$base_uri = \Config::get('app.ticketing_system_url', false);
+		if ( $base_uri )
 		{
-			\Log::error("TICKETING -> environment variable TICKETS_API_URL is not defined");
-			exit;
+			if ( substr($base_uri, -1) != '/' )
+			{
+				$base_uri .= '/';
+			}
+			$this->guzzle_client = new \GuzzleHttp\Client([
+				'base_uri' => $base_uri,
+				'http_errors' => false,
+			]);
+		}
+		else
+		{
+			\Log::error("TICKETING -> environment variable TICKETING_SYSTEM_URL is not defined");
 		}
 
-		if ( substr($base_uri, -1) != '/' )
-		{
-			$base_uri .= '/';
-		}
-		$this->guzzle_client = new \GuzzleHttp\Client([
-			'base_uri' => $base_uri,
-			'http_errors' => false,
-		]);
+		$this->setSite($site_id);
 	}
 
-	public function setSite($site)
+	public function setSite($site_id)
 	{
-		$this->site = $site;
-		$this->site_id = $site->ticket_site_id;
-		$this->site_token = $site->ticket_owner_token;
-		$this->site_ready = ( $this->site_id && $this->site_token );
+		$this->site = \App\Site::withTranslations()->findOrFail($site_id);
+
+		$this->site_id = $this->site->ticket_site_id;
+		$this->site_token = $this->site->ticket_owner_token;
+		$this->site_ready = ( $this->site_id && $this->site_token && $this->guzzle_client );
 	}
 
 	public function getAuthorizationHeader()
@@ -45,9 +63,14 @@ class TicketAdm
 
 	public function createSite()
 	{
-		if ( $this->site_ready )
+		if ( $this->site_id )
 		{
 			return $this->site_id;
+		}
+
+		if ( !$this->guzzle_client )
+		{
+			return false;
 		}
 
 		// Get all users, companies first
@@ -100,7 +123,7 @@ class TicketAdm
 		$this->site->ticket_site_id = $body->id;
 		$this->site->ticket_owner_token = $owner->ticket_user_token ? $owner->ticket_user_token : $body->token;
 		$this->site->save();
-		$this->setSite( $this->site );
+		$this->setSite( $this->site->id );
 
 		// Update owner
 		if ( !$owner->ticket_user_token )
@@ -116,7 +139,7 @@ class TicketAdm
 		return $this->site->ticket_site_id;
 	}
 
-	public function updateSite($site)
+	public function updateSite()
 	{
 		if ( !$this->site_ready )
 		{
@@ -128,8 +151,8 @@ class TicketAdm
 				'Authorization' => $this->getAuthorizationHeader(),
 			],
 			'json' => [
-				'title' => $site->title,
-				'email_account' => $site->smtp_mailer,
+				'title' => $this->site->title,
+				'email_account' => $this->site->smtp_mailer,
 			],
 		];
 		$response = $this->guzzle_client->request('PUT', "site/{$this->site_id}", $data);
@@ -381,7 +404,7 @@ class TicketAdm
 			'json' => [
 				'type' => 'property',
 				'reference' => $item->id,
-				'title' => $item->title,
+				'title' => $item->ref,
 				//'image' => '',
 				//'url' => '',
 			],
@@ -423,6 +446,47 @@ class TicketAdm
 		}
 
 		return true;
+	}
+
+	public function createTicket($data)
+	{
+		if ( !is_array($data) )
+		{
+			return false;
+		}
+
+		// Send request
+		$response = $this->guzzle_client->request('POST', "ticket/?site_id={$this->site_id}", [
+			'headers'=> [
+				'Authorization' => $this->getAuthorizationHeader(),
+			],
+			'json' => [
+				'contact_id' => isset($data['contact_id']) ? $data['contact_id'] : null,
+				'user_id' => isset($data['user_id']) ? $data['user_id'] : null,
+				'item_id' => isset($data['item_id']) ? $data['item_id'] : null,
+				'source' => isset($data['source']) ? $data['source'] : null,
+				'subject' => isset($data['subject']) ? $data['subject'] : null,
+				'body' => isset($data['body']) ? $data['body'] : null,
+				'referer' => isset($data['referer']) ? $data['referer'] : null,
+			],
+		]);
+
+		// Success
+		if ( $response->getStatusCode() == 201 )
+		{
+			return true;
+		}
+
+		// Log error
+		$body = @json_decode( $response->getBody() );
+		$error_message = "TICKETING -> could not create ticket";
+		if ( @$body->message )
+		{
+			$error_message .= ": {$body->message}";
+		}
+		\Log::error($error_message);
+
+		return false;
 	}
 
 }

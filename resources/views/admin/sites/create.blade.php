@@ -47,7 +47,7 @@
 								}
 							?>
 							<div class="error-container">
-								{!! Form::select('locales[]', $tmp, array_keys($tmp), [ 'class'=>'form-control required has-select-2', 'multiple'=>'multiple' ]) !!}
+								{!! Form::select('locales[]', $tmp, array_keys($tmp), [ 'class'=>'form-control required has-select-2', 'size'=>1, 'multiple'=>'multiple' ]) !!}
 							</div>
 							<div class="help-block">{{ Lang::get('admin/sites.languages.english') }}</div>
 						</div>
@@ -55,7 +55,7 @@
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
 							{!! Form::label('owners[]', Lang::get('admin/sites.owners')) !!}
-							{!! Form::select('owners[]', $companies, null, [ 'class'=>'form-control required has-select-2', 'multiple'=>'multiple' ]) !!}
+							{!! Form::select('owners[]', $companies, null, [ 'class'=>'form-control required has-select-2', 'size'=>1, 'multiple'=>'multiple' ]) !!}
 						</div>
 					</div>
 				</div>

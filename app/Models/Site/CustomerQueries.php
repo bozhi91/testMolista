@@ -10,6 +10,10 @@ class CustomerQueries extends Model
 
 	protected $table = 'customers_queries';
 
+	protected $casts = [
+		'more_attributes' => 'array',
+	];
+
 	public function customer()
 	{
 		return $this->belongsTo('App\Models\Site\Customer');
@@ -24,16 +28,6 @@ class CustomerQueries extends Model
 	{
 		 return "{$this->size_min}-{$this->size_max}";
 	}
-
-	public function getMoreAttributesAttribute($value)
-	{
-		$value = @unserialize($value);
-		 return is_array($value) ? $value : [];
-	}
-    public function setMoreAttributesAttribute($value)
-    {
-        $this->attributes['more_attributes'] = serialize( is_array($value) ? $value : [] );
-    }
 
 	public function scopeEnabled($query)
 	{

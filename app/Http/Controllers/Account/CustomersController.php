@@ -51,7 +51,10 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		}
 
 		$customer = $this->site->customers()->create([
+			'first_name' => $this->request->get('first_name'),
+			'last_name' => $this->request->get('last_name'),
 			'email' => $this->request->get('email'),
+			'phone' => $this->request->get('phone'),
 			'locale' => $this->request->get('locale'),
 			'created_by' => \Auth::user()->id,
 		]);
@@ -61,7 +64,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 			return redirect()->back()->withInput()->with('error',trans('general.messages.error'));
 		}
 
-		return $this->update($customer->email);
+		return redirect()->action('Account\CustomersController@show', urlencode($customer->email))->with('success', trans('account/customers.message.saved'));
 	}
 
 	public function update($email)
@@ -121,7 +124,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		$customer = $this->site->customers()->with('queries')->where('email', $email)->first();
 		if ( !$customer ) 
 		{
-			return [ 'error'=>'Customer not found' ];
+			abort(404);
 		}
 
 		$fields = [
@@ -141,14 +144,12 @@ class CustomersController extends \App\Http\Controllers\AccountController
 			'size_max' => 'numeric|min:'.intval($this->request->get('size_min')),
 			'rooms' => 'integer|min:0',
 			'baths' => 'integer|min:0',
-			'newly_build' => 'boolean',
-			'second_hand' => 'boolean',
-			'services' => 'array',
+			'more_attributes' => 'array',
 		];
 		$validator = \Validator::make($this->request->all(), $fields);
 		if ( $validator->fails() ) 
 		{
-			return [ 'error'=>1, 'errors'=>$validator->errors() ];
+			return redirect()->back()->withInput()->withErrors($validator);
 		}
 
 		$profile = $customer->queries()->firstOrCreate([
@@ -156,7 +157,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		]);
 		if ( !$profile )
 		{
-			return [ 'error'=>'Error creating profile' ];
+			return redirect()->back()->withInput()->with('error',trans('general.messages.error'));
 		}
 
 		$data = [
@@ -179,25 +180,13 @@ class CustomersController extends \App\Http\Controllers\AccountController
 				case 'size_max':
 					$data[$key] = $value ? $value : null;
 					break;
-				// Varchar
-				case 'mode':
-				case 'type':
-				case 'rooms':
-				case 'baths':
-				case 'district':
-				case 'zipcode':
-				case 'currency':
-				case 'size_unit':
-					$data[$key] = $value;
-					break;
-				// Other
 				default:
-					$data['more_attributes'][$key] = $value;
+					$data[$key] = $value;
 			}
 		}
 		$profile->update($data);
 
-		return [ 'success'=>1 ];
+		return redirect()->action('Account\CustomersController@show', urlencode($customer->email))->with('current_tab', $this->request->get('current_tab'))->with('success', trans('general.messages.success.saved'));
 	}
 
 	protected function getRequiresFields($id=false)

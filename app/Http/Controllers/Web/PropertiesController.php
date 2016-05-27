@@ -189,11 +189,18 @@ class PropertiesController extends WebController
 				'first_name' => $this->request->get('first_name'),
 				'last_name' => $this->request->get('last_name'),
 				'email' => $this->request->get('email'),
+				'phone' => $this->request->get('phone'),
 			]);
 			if ( !$customer )
 			{
 				return [ 'error'=>true ];
 			}
+		}
+
+		// Assign customer to property
+		if ( !$property->customers->contains( $customer->id ) )
+		{
+			$property->customers()->attach( $customer->id );
 		}
 
 		// Push job to queue

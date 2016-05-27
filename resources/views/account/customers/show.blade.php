@@ -2,7 +2,7 @@
 
 @section('account_content')
 
-	<div id="admin-customers">
+	<div id="account-customers">
 
 		@include('common.messages', [ 'dismissible'=>true ])
 
@@ -11,8 +11,8 @@
 		<ul class="nav nav-tabs main-tabs" role="tablist">
 			<li role="presentation" class="active"><a href="#tab-general" aria-controls="tab-general" role="tab" data-toggle="tab">{{ Lang::get('account/customers.show.tab.general') }}</a></li>
 			<li role="presentation"><a href="#tab-profile" aria-controls="tab-profile" role="tab" data-toggle="tab">{{ Lang::get('account/customers.profile') }}</a></li>
-			<li role="presentation"><a href="#tab-properties" aria-controls="tab-properties" role="tab" data-toggle="tab">{{ Lang::get('account/customers.properties') }} ({{ number_format($customer->properties->count(), 0, ',', '.') }})</a></li>
-			<li role="presentation"><a href="#tab-matches" aria-controls="tab-matches" role="tab" data-toggle="tab">{{ Lang::get('account/customers.matches') }} ({{ number_format($customer->possible_matches->count(), 0, ',', '.') }})</a></li>
+			<li role="presentation"><a href="#tab-properties" aria-controls="tab-properties" role="tab" data-toggle="tab">{{ Lang::get('account/customers.properties') }} (<span id="properties-total">0</span>)</a></li>
+			<li role="presentation"><a href="#tab-matches" aria-controls="tab-matches" role="tab" data-toggle="tab">{{ Lang::get('account/customers.matches') }} (<span id="matches-total">0</span>)</a></li>
 		</ul>
 
 		<div class="tab-content">
@@ -64,6 +64,7 @@
 
 			<div role="tabpanel" class="tab-pane tab-main" id="tab-profile">
 				{!! Form::model($profile, [ 'action'=>[ 'Account\CustomersController@postProfile', urlencode($customer->email) ], 'method'=>'POST', 'id'=>'profile-form' ]) !!}
+					{!! Form::hidden('current_tab', session('current_tab', '#tab-general')) !!}
 					<div class="row">
 						<div class="col-xs-12 col-sm-4">
 							<div class="form-group error-container">
@@ -156,7 +157,7 @@
 						</div>
 						<div class="col-xs-12 col-sm-3">
 							<div class="form-group error-container">
-								{!! Form::label('size_max', Lang::get('account/properties.size.min')) !!}
+								{!! Form::label('size_max', Lang::get('account/properties.size.max')) !!}
 								<div class="input-group">
 									{!! Form::text('size_max', null, [ 'class'=>'form-control range-rel-input size-max-input number', 'data-rel'=>'.size-min-input', 'data-attr'=>'max', 'data-remove'=>1, 'min'=>( empty($profile->size_min) ? 0 : $profile->size_min ) ]) !!}
 									<div class="input-group-addon">m²</div>
@@ -183,7 +184,7 @@
 							<div class="form-group">
 								<div class="checkbox error-container">
 									<label>
-										{!! Form::checkbox('newly_build', 1, null) !!}
+										{!! Form::checkbox('more_attributes[newly_build]', 1, null) !!}
 										{{ Lang::get('account/properties.newly_build') }}
 									</label>
 								</div>
@@ -193,7 +194,7 @@
 							<div class="form-group">
 								<div class="checkbox error-container">
 									<label>
-										{!! Form::checkbox('second_hand', 1, null) !!}
+										{!! Form::checkbox('more_attributes[second_hand]', 1, null) !!}
 										{{ Lang::get('account/properties.second_hand') }}
 									</label>
 								</div>
@@ -208,7 +209,7 @@
 								<div class="form-group">
 									<div class="checkbox error-container">
 										<label>
-											{!! Form::checkbox('services[]', $service->id, null) !!}
+											{!! Form::checkbox("more_attributes[services][{$service->id}]", $service->id, null) !!}
 											{{ $service->title }}
 										</label>
 									</div>
@@ -222,12 +223,48 @@
 				{!! Form::close() !!}
 			</div>
 
-			<div role="tabpanel" class="tab-pane tab-main" id="tab-properties">
-				<p>Current properties</p>
+			<div role="tabpanel" class="tab-pane tab-main property-list-tab" data-total="#properties-total" id="tab-properties">
+				<div class="alert alert-info properties-empty hide">{{ Lang::get('account/properties.empty') }}</div>
+				<div class="properties-list hide">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>{{ Lang::get('account/properties.column.title') }}</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach ($customer->properties as $property)
+								<tr>
+									<td>{{$property->title}}</td>
+									<td class="text-right"><a href="{{ action('Web\PropertiesController@details', $property->slug) }}" class="btn btn-default btn-xs" target="_blank">{{ Lang::get('general.view') }}</a></td>
+								</tr>
+							@endforeach
+						</tbody>
+					</table>
+				</div>
 			</div>
 
-			<div role="tabpanel" class="tab-pane tab-main" id="tab-matches">
-				<p>Possible matches</p>
+			<div role="tabpanel" class="tab-pane tab-main property-list-tab" data-total="#matches-total" id="tab-matches">
+				<div class="alert alert-info properties-empty hide">{{ Lang::get('account/properties.empty') }}</div>
+				<div class="properties-list hide">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>{{ Lang::get('account/properties.column.title') }}</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach ($customer->possible_matches as $property)
+								<tr>
+									<td>{{$property->title}}</td>
+									<td class="text-right"><a href="{{ action('Web\PropertiesController@details', $property->slug) }}" class="btn btn-default btn-xs" target="_blank">{{ Lang::get('general.view') }}</a></td>
+								</tr>
+							@endforeach
+						</tbody>
+					</table>
+				</div>
 			</div>
 
 		</div>
@@ -242,6 +279,7 @@
 
 	<script type="text/javascript">
 		ready_callbacks.push(function(){
+			var cont = $('#account-customers');
 			var profile_form = $('#profile-form');
 
 			profile_form.validate({
@@ -251,24 +289,7 @@
 				},
 				submitHandler: function(f){
 					LOADING.show();
-					$.ajax({
-						dataType: 'json',
-						type: 'post',
-						url: profile_form.attr('action'),
-						data: profile_form.serialize(),
-						success: function(data) {
-							if ( data.success ) {
-								alertify.success("{{ print_js_string( Lang::get('general.messages.success.saved') ) }}");
-							} else {
-								alertify.error("{{ print_js_string( Lang::get('general.messages.error') ) }}");
-							}
-							LOADING.hide();
-						},
-						error: function() {
-							LOADING.hide();
-							alertify.error("{{ print_js_string( Lang::get('general.messages.error') ) }}");
-						}
-					});
+					f.submit();
 				}
 			});
 
@@ -315,6 +336,29 @@
 					}
 				});
 			});
+
+			cont.find('.property-list-tab').each(function(){
+				var target = $(this).find('.properties-list');
+				var items = target.find('tbody tr').length;
+
+				$( $(this).data().total ).text( SITECOMMON.number_format(items,0,',','.') );
+
+				if ( items > 0 ) {
+					target.removeClass('hide');
+				} else {
+					$(this).find('.properties-empty').removeClass('hide');
+				}
+			});
+
+			var tabs = cont.find('.main-tabs');
+			var current_tab = cont.find('input[name="current_tab"]').val();
+			tabs.find('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+				cont.find('input[name="current_tab"]').val( $(this).attr('href') );
+				cont.find('.has-select-2').select2();
+			});
+			if ( current_tab != '#tab-general' ) {
+				tabs.find('a[href="' + current_tab + '"]').tab('show');
+			}
 
 		});
 	</script>
