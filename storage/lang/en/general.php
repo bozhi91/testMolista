@@ -38,4 +38,9 @@
 
 		'image.helper' => '<p>We support JPG, PNG and GIF formats.</p><p>Images bigger than :IMAGE_MAXSIZE kilobytes will not be uploaded.</p>',
 		'icon.helper' => '<p>Only ICO format is allowed.</p>',
+
+		'since.date' => ':date at :time',
+		'since.yesterday' => 'Yesterday, at :time',
+		'since.hours' => 'Since :hours hours ago',
+		'since.minutes' => 'Since :minutes minutes ago',
 	];

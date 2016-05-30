@@ -40,9 +40,14 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 
 		$employees = $query->orderBy('name')->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
 
+		if ( $employees->count() > 0 )
+		{
+			$tickets = $this->site->ticket_adm->getUsersStats( array_filter($employees->pluck('ticket_user_id')->all()) );
+		}
+
 		$this->set_go_back_link();
 
-		return view('account.employees.index', compact('employees'));
+		return view('account.employees.index', compact('employees','tickets'));
 	}
 
 	public function create()
@@ -107,6 +112,7 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 
 		return view('account.employees.edit', compact('employee','properties'));
 	}
+
 	public function update($email)
 	{
 		$employee = $this->site->users()->withRole('employee')->where('email', $email)->withPivot('can_create','can_edit','can_delete')->first();
@@ -147,6 +153,20 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 		$this->site->ticket_adm->dissociateUsers([ $employee ]);
 
 		return redirect()->action('Account\EmployeesController@index')->with('success', trans('account/employees.deleted'));
+	}
+
+	public function getTickets($email)
+	{
+		$employee = \App\User::withRole('employee')->where('email', $email)->first();
+		if ( $employee && $employee->ticket_user_id )
+		{
+			$tickets = $this->site->ticket_adm->getTickets([
+				'user_id' => $employee->ticket_user_id,
+				'status' => [ 'open', 'waiting' ],
+			]);
+		}
+
+		return view('account.tickets.list', compact('tickets'));
 	}
 
 	public function getAssociate($email)

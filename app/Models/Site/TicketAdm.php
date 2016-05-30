@@ -453,7 +453,7 @@ class TicketAdm
 
 	public function createTicket($data)
 	{
-		if ( !is_array($data) )
+		if ( !$this->site_ready || !is_array($data) )
 		{
 			return false;
 		}
@@ -490,6 +490,224 @@ class TicketAdm
 		\Log::error($error_message);
 
 		return false;
+	}
+	public function getTickets($params)
+	{
+		if ( !$this->site_ready )
+		{
+			return false;
+		}
+
+		$data = [
+			'site_id' => $this->site_id,
+		];
+
+		if ( isset($params['user_id']) )
+		{
+			$data['user_id'] = $params['user_id'];
+		}
+
+		if ( @$params['status'] )
+		{
+			$data['status'] = is_array($params['status']) ? implode(',',$params['status']) : $params['status'];
+		}
+
+		$response = $this->guzzle_client->request('GET', 'ticket/?'.http_build_query($data), [
+			'headers'=> [
+				'Authorization' => $this->getAuthorizationHeader(),
+			],
+		]);
+
+		// Error
+		$body = @json_decode( $response->getBody() );
+
+		if ( $response->getStatusCode() != 200 )
+		{
+			$error_message = "TICKETING -> could not retrieve tickets list";
+			if ( @$body->message )
+			{
+				$error_message .= ": {$body->message}";
+			}
+			\Log::error($error_message);
+			return false;
+		}
+
+		return $body;
+	}
+	public function getTicket($ticket_id)
+	{
+		if ( !$this->site_ready )
+		{
+			return false;
+		}
+
+		$response = $this->guzzle_client->request('GET', "ticket/{$ticket_id}?site_id={$this->site_id}", [
+			'headers'=> [
+				'Authorization' => $this->getAuthorizationHeader(),
+			],
+		]);
+
+		// Error
+		$body = @json_decode( $response->getBody() );
+
+		if ( $response->getStatusCode() != 200 )
+		{
+			$error_message = "TICKETING -> could not retrieve ticket with ID {$ticket_id}";
+			if ( @$body->message )
+			{
+				$error_message .= ": {$body->message}";
+			}
+			\Log::error($error_message);
+			return false;
+		}
+
+		return $body;
+	}
+	public function updateTicket($ticket_id, $data)
+	{
+		if ( !$this->site_ready )
+		{
+			return false;
+		}
+
+		$data['site_id'] = $this->site_id;
+
+		$response = $this->guzzle_client->request('PUT', "ticket/{$ticket_id}?".http_build_query($data), [
+			'headers'=> [
+				'Authorization' => $this->getAuthorizationHeader(),
+			],
+		]);
+
+		// Error
+		$body = @json_decode( $response->getBody() );
+
+		if ( $response->getStatusCode() != 204 )
+		{
+			$error_message = "TICKETING -> could not update ticket with ID {$ticket_id}";
+			if ( @$body->message )
+			{
+				$error_message .= ": {$body->message}";
+			}
+			\Log::error($error_message);
+			return false;
+		}
+
+		return true;
+	}
+
+	public function postMessage($ticket_id, $data) 
+	{
+		if ( !$this->site_ready )
+		{
+			return false;
+		}
+
+		$response = $this->guzzle_client->request('POST', "ticket/{$ticket_id}/message/?site_id={$this->site_id}", [
+			'headers'=> [
+				'Authorization' => $this->getAuthorizationHeader(),
+			],
+			'json' => $data,
+		]);
+
+		// Get body
+		$body = @json_decode( $response->getBody() );
+
+		// Error?
+		if ( $response->getStatusCode() != 201 )
+		{
+			$error_message = "TICKETING -> could not create message for ticket {$ticket_id}";
+			if ( @$body->message )
+			{
+				$error_message .= ": {$body->message}";
+			}
+			\Log::error($error_message);
+			return false;
+		}
+
+		return true;
+	}
+
+	public function getDefaultStats()
+	{
+		$stats = [
+			'tickets' => [],
+			'items' => [],
+		];
+
+		foreach ($this->status as $status)
+		{
+			$stats['tickets'][$status] = 0;
+		}
+
+		return json_decode(json_encode($stats));
+	}
+
+	public function getUsersStats($contact_ids)
+	{
+		if ( !$this->site_ready || empty($contact_ids) )
+		{
+			return false;
+		}
+
+		if ( !is_array($contact_ids) )
+		{
+			$contact_ids = [ $contact_ids ];
+		}
+
+		$url = "stats/contact/?site_id={$this->site_id}";
+
+		$stats = [];
+		foreach ($contact_ids as $id) 
+		{
+			$url .= "&contact_id[]={$id}";
+			$stats[$id] = $this->getDefaultStats();
+		}
+
+		$response = $this->guzzle_client->request('GET', $url, [
+			'headers'=> [
+				'Authorization' => $this->getAuthorizationHeader(),
+			],
+		]);
+
+		// Error
+		$body = @json_decode( $response->getBody() );
+
+		if ( $response->getStatusCode() != 200 )
+		{
+			$error_message = "TICKETING -> could not access contact stats";
+			if ( @$body->message )
+			{
+				$error_message .= ": {$body->message}";
+			}
+			\Log::error($error_message);
+			return false;
+		}
+
+		foreach ($body as $data)
+		{
+			if ( !empty($data->tickets) )
+			{
+				foreach ($data->tickets as $type=>$quantity)
+				{
+					$stats[$data->contact_id]->tickets->$type = $quantity;
+
+				}
+			}
+		}
+
+		return $stats;
+	}
+
+	public function getStatusOptions() 
+	{
+		$options = [];
+		
+		foreach ($this->status as $key) 
+		{
+			$options[$key] = trans("account/tickets.status.{$key}");
+		}
+
+		return $options;
 	}
 
 }

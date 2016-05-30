@@ -110,6 +110,7 @@ Route::group([
 		Route::get('properties/status/{slug}', 'Account\PropertiesController@getChangeStatus');
 		Route::resource('properties', 'Account\PropertiesController');
 		// Employees
+		Route::get('employees/tickets/{email}', 'Account\EmployeesController@getTickets');
 		Route::get('employees/associate/{email}', 'Account\EmployeesController@getAssociate');
 		Route::post('employees/associate/{email}', 'Account\EmployeesController@postAssociate');
 		Route::get('employees/disssociate/{user_id}/{property_id}', 'Account\EmployeesController@getDissociate');
@@ -131,6 +132,8 @@ Route::group([
 			// Leads
 			Route::controller('leads', 'Account\Reports\LeadsController');
 		});
+		// Tickets
+		Route::controller('tickets', 'Account\TicketsController');
 		// Site configuration
 		Route::group([
 			'prefix' => 'site',

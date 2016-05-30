@@ -24,15 +24,20 @@
 							<th>{{ Lang::get('account/employees.name') }}</th>
 							<th>{{ Lang::get('account/employees.email') }}</th>
 							<th class="text-center">{{ Lang::get('account/employees.properties') }}</th>
+							<th class="text-center">{{ Lang::get('account/employees.tickets') }}</th>
 							<th></th>
 						</tr>
 					</thead>
 					<tbody>
 						@foreach ($employees as $employee)
+							<?php
+								$total_tickets = @intval($tickets[$employee->ticket_user_id]->tickets->open + $tickets[$employee->ticket_user_id]->tickets->waiting );
+							?>
 							<tr>
 								<td>{{ $employee->name }}</td>
 								<td>{{ $employee->email }}</td>
 								<td class="text-center">{{ number_format($employee->properties->where('site_id', $site_setup['site_id'])->count(), 0, ',', '.') }}</td>
+								<td class="text-center">{{ number_format($total_tickets, 0, ',', '.') }}</td>
 								<td class="text-right text-nowrap">
 									{!! Form::open([ 'method'=>'DELETE', 'class'=>'delete-form', 'action'=>['Account\EmployeesController@destroy', urlencode($employee->email)] ]) !!}
 										@if ( Auth::user()->can('employee-edit') )

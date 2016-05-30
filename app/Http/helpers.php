@@ -70,6 +70,33 @@
     	return false;
 	}
 
+	function since_text($date)
+	{
+		$time = strtotime($date);
+
+		// Minutes
+		$diff = (time() - $time) / 60;
+		if ( $diff < 60 )
+		{
+			return trans('general.since.minutes', [ 'minutes'=>floor($diff) ]);
+		}
+
+		// Hours
+		$diff =  $diff / 60;
+		if ( $diff < 24 )
+		{
+			return trans('general.since.hours', [ 'hours'=>floor($diff) ]);
+		}
+
+		// Yesterday
+		if ( date("Ymd", $time) == date("Ymd") )
+		{
+			return trans('general.since.yesterday', [ 'time'=>date("H:i", $time) ]);
+		}
+
+		return trans('general.since.date', [ 'date'=>date("d/m/Y", $time), 'time'=>date("H:i", $time) ]);
+	}
+
 	function print_js_string($text)
 	{
 		$text = str_replace('"', '', $text);

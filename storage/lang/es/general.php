@@ -38,4 +38,9 @@
 
 		'image.helper' => '<p>Aceptamos imagenes en formato JPG, PNG y GIF.</p><p>No se subirán imágenes con peso superior a :IMAGE_MAXSIZE kilobytes.</p>',
 		'icon.helper' => '<p>Sólo aceptamos imágenes con formato ICO.</p>',
+
+		'since.date' => ':date a las :time',
+		'since.yesterday' => 'Ayer, a las :time',
+		'since.hours' => 'Hace :hours horas',
+		'since.minutes' => 'Hace :minutes minutos',
 	];
