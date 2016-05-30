@@ -157,6 +157,111 @@
 				</div>";
 	}
 
+	function drawTicketsPagination($url,$data)
+	{
+		$total = @intval( $data['total_pages'] );
+		if ( !$total || $total < 2 ) {
+			return;
+		}
+
+		$page = @intval( $data['page'] );
+		if ( !$page ) {
+			return;
+		}
+
+		$limit = @intval( $data['limit'] );
+		if ( !$limit ) {
+			return;
+		}
+
+		$href = "{$url}?limit={$limit}&page=";
+
+		$pags =	'<div class="row pagination-custom">' .
+					'<div class="col-xs-12">' .
+						'<ul class="pagination">';
+
+		$range = 3;
+
+		$first_page = $page - $range;
+		if ( $first_page < 1 ) 
+		{
+			$first_page = 1;
+		}
+
+		$last_page = $page + $range;
+		if ( $last_page > $total ) 
+		{
+			$last_page = $total;
+		}
+
+		if ( $page > 1 )
+		{
+			$pags .= "<li><a href='#' data-href='{$href}1'>«</a></li>";
+		}
+		else
+		{
+			$pags .= '<li class="disabled"><span>«</span></li>';
+		}
+
+		if ( $first_page > 1 )
+		{
+			$pags .= "<li><a href='#' data-href='{$href}1'>1</a></li>";
+		}
+
+		if ( $first_page > 2 )
+		{
+			$pags .= '<li class="disabled"><span>...</span></li>';
+		}
+
+		for ($i = $first_page; $i<=$last_page; $i++)
+		{
+			if ( $i < 1 )
+			{
+				continue;
+			}
+			if ( $i > $total )
+			{
+				continue;
+			}
+
+			if ( $i == $page )
+			{
+				$pags .= "<li class='active' data-href='{$href}{$i}'><span>{$i}</span></li>";
+			}
+			else
+			{
+				$pags .= "<li><a href='#' data-href='{$href}{$i}'>{$i}</a></li>";
+
+			}
+		}
+
+		if ( $last_page < $total - 1 )
+		{
+			$pags .= '<li class="disabled"><span>...</span></li>';
+		}
+
+		if ( $last_page < $total )
+		{
+			$pags .= "<li><a href='#' data-href='{$href}{$total}'>{$total}</a></li>";
+		}
+	
+		if ( $page < $total )
+		{
+			$tmp = $page + 1;
+			$pags .= "<li><a href='#' data-href='{$href}{$tmp}'>»</a></li>";
+		}
+		else
+		{
+			$pags .= '<li class="disabled"><span>»</span></li>';
+		}
+
+		$pags .= 		'</ul>' .
+					'</div>' .
+				'</div>';
+
+		return $pags;
+	}
+
 	function sort_link($field) 
 	{
 		return url()->current() . '?' . http_build_query(Input::except('sort')) . '&sort=' . $field;

@@ -106,9 +106,13 @@
 	<script type="text/javascript">
 		function reloadTickets() {
 			var target = $('#tab-tickets');
-			target.load(target.data().url, function() {
 
-			});
+			if ( target.find('.pagination li.active').length ) {
+				var url = target.find('.pagination li.active').data().href;
+			} else {
+				var url = target.data().url;
+			}
+			target.load(url);
 		}
 
 		ready_callbacks.push(function(){
@@ -169,6 +173,12 @@
 			});
 
 			var tab_tickets = $('#tab-tickets');
+			tab_tickets.on('click', '.pagination a', function(e){
+				e.preventDefault();
+				if ( url = $(this).data().href ) {
+					tab_tickets.load(url);
+				}
+			});
 			tab_tickets.on('click', '.edit-ticket-trigger', function(e){
 				e.preventDefault();
 

@@ -1,4 +1,4 @@
-@if ( empty($tickets) )
+@if ( empty($tickets['items']) )
 	<div class="alert alert-info">{{ Lang::get('account/tickets.empty') }}</div>
 
 
@@ -17,7 +17,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			@foreach ($tickets as $ticket)
+			@foreach ($tickets['items'] as $ticket)
 				<tr>
 					<td>{{ date('d/m/Y', strtotime($ticket->created_at)) }}</td>
 					<td>{{ @$ticket->contact->fullname }}</td>
@@ -31,5 +31,7 @@
 			@endforeach
 		</tbody>
 	</table>
+	{!! drawTicketsPagination(action('Account\EmployeesController@getTickets', urlencode($email)), $tickets) !!}
+
 
 @endif

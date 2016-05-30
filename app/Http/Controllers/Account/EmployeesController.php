@@ -163,10 +163,12 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 			$tickets = $this->site->ticket_adm->getTickets([
 				'user_id' => $employee->ticket_user_id,
 				'status' => [ 'open', 'waiting' ],
+				'page' => $this->request->get('page',1),
+				'limit' => $this->request->get('limit',10),
 			]);
 		}
 
-		return view('account.tickets.list', compact('tickets'));
+		return view('account.tickets.list', compact('email','tickets'));
 	}
 
 	public function getAssociate($email)

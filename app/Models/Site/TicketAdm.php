@@ -500,6 +500,8 @@ class TicketAdm
 
 		$data = [
 			'site_id' => $this->site_id,
+			'limit' => empty($params['limit']) ? 50 : intval($params['limit']),
+			'page' => empty($params['page']) ? 1 : intval($params['page']),
 		];
 
 		if ( isset($params['user_id']) )
@@ -532,7 +534,19 @@ class TicketAdm
 			return false;
 		}
 
-		return $body;
+		$total_pages = @array_shift( $response->getHeader('Pages-Total') );
+		if ( !$total_pages ) $total_pages = 1;
+
+		$total_items = @array_shift( $response->getHeader('Items-Total') );
+		if ( !$total_items ) $total_items = 1;
+
+		return [
+			'items' => $body,
+			'total_pages' => $total_pages,
+			'total_items' => $total_items,
+			'page' => $data['page'],
+			'limit' => $data['limit'],
+		];
 	}
 	public function getTicket($ticket_id)
 	{
