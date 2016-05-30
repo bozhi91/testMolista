@@ -41,6 +41,7 @@
 		'configuration.mailing.smtp.pass' => 'SMTP host',
 		'configuration.mailing.smtp.pass' => 'SMTP port',
 		'configuration.mailing.smtp.help' => '<p>Ingrese el login, contraseña, host y puerto para la conexión SMTP.</p>',
+		'configuration.mailing.pop3.help' => '<p>Ingrese el login, contraseña, host y puerto para la conexión POP3.</p>',
 		'configuration.mailing.current' => 'En uso',
 		'configuration.mailing.from.name' => 'Nombre remitente',
 		'configuration.mailing.from.email' => 'Email remitente',

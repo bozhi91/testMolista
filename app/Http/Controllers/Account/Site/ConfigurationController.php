@@ -68,6 +68,12 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 				$fields['mailer.smtp_pass'] = 'required';
 				$fields['mailer.smtp_host'] = 'required';
 				$fields['mailer.smtp_port'] = 'required|integer';
+				$fields['mailer.smtp_tls_ssl'] = '';
+				$fields['mailer.pop3_login'] = 'required';
+				$fields['mailer.pop3_pass'] = 'required';
+				$fields['mailer.pop3_host'] = 'required';
+				$fields['mailer.pop3_port'] = 'required|integer';
+				$fields['mailer.pop3_tls_ssl'] = '';
 				break;
 		}
 

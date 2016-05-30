@@ -152,7 +152,10 @@ class TicketAdm
 			],
 			'json' => [
 				'title' => $this->site->title,
-				'email_account' => $this->site->smtp_mailer,
+				'email_account' => [
+					'smtp' => $this->site->smtp_mailer,
+					'pop3' => $this->site->pop3_mailer,
+				],
 			],
 		];
 		$response = $this->guzzle_client->request('PUT', "site/{$this->site_id}", $data);

@@ -208,6 +208,23 @@ class Site extends TranslatableModel
 		return false;
 	}
 
+	public function getPop3MailerAttribute() {
+		$service = @$this->mailer['service'];
+
+		if ( $service != 'smtp' )
+		{
+			return false;
+		}
+
+		return [
+			'username' => @$this->mailer['pop3_login'],
+			'password' => @$this->mailer['pop3_pass'],
+			'host' => @$this->mailer['pop3_host'],
+			'port' => @$this->mailer['pop3_port'],
+			'layer' => @$this->mailer['pop3_tls_ssl'],
+		];
+	}
+
 	public function getTicketAdmAttribute() {
 		return new \App\Models\Site\TicketAdm( $this->id );
 	}

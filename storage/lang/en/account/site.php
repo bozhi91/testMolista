@@ -41,6 +41,7 @@
 		'configuration.mailing.smtp.host' => 'SMTP host',
 		'configuration.mailing.smtp.port' => 'SMTP port',
 		'configuration.mailing.smtp.help' => '<p>Please provide the login, password, host and port for the SMTP connection.</p>',
+		'configuration.mailing.pop3.help' => '<p>Please provide the login, password, host and port for the POP3 connection.</p>',
 		'configuration.mailing.current' => 'In use',
 		'configuration.mailing.from.name' => 'Sender name',
 		'configuration.mailing.from.email' => 'Sender email',
