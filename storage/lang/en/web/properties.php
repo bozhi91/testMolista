@@ -42,6 +42,8 @@
 
 		'search.title' => 'Search',
 		'search.results' => 'Results',
+		'search.results.one' => 'Your search has returned one property',
+		'search.results.many' => 'Your search has returned :total properties',
 		'search.results.more' => 'More information',
 
 		'empty' => 'No results found',
