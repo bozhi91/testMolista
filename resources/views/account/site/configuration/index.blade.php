@@ -278,66 +278,57 @@
 							}
 						},
 					},
-					'mailer[mandrill_user]': {
+					'mailer[out][protocol]': {
 						required: function(element) {
-							return $('#mailer-service-input').val() == 'mandrill';
+							return $('#mailer-service-input').val() == 'custom';
 						}
 					},
-					'mailer[mandrill_key]': {
+					'mailer[out][login]': {
 						required: function(element) {
-							return $('#mailer-service-input').val() == 'mandrill';
+							return $('#mailer-service-input').val() == 'custom';
 						}
 					},
-					'mailer[mandrill_host]': {
+					'mailer[out][pass]': {
 						required: function(element) {
-							return $('#mailer-service-input').val() == 'mandrill';
+							return $('#mailer-service-input').val() == 'custom';
 						}
 					},
-					'mailer[mandrill_port]': {
+					'mailer[out][host]': {
 						required: function(element) {
-							return $('#mailer-service-input').val() == 'mandrill';
+							return $('#mailer-service-input').val() == 'custom';
 						}
 					},
-					'mailer[smtp_login]': {
+					'mailer[out][port]': {
 						required: function(element) {
-							return $('#mailer-service-input').val() == 'smtp';
+							return $('#mailer-service-input').val() == 'custom';
 						}
 					},
-					'mailer[smtp_pass]': {
+					'mailer[in][protocol]': {
 						required: function(element) {
-							return $('#mailer-service-input').val() == 'smtp';
+							return $('#mailer-service-input').val() == 'custom';
 						}
 					},
-					'mailer[smtp_host]': {
+					'mailer[in][login]': {
 						required: function(element) {
-							return $('#mailer-service-input').val() == 'smtp';
+							return $('#mailer-service-input').val() == 'custom';
 						}
 					},
-					'mailer[smtp_port]': {
+					'mailer[in][pass]': {
 						required: function(element) {
-							return $('#mailer-service-input').val() == 'smtp';
+							return $('#mailer-service-input').val() == 'custom';
 						}
 					},
-					'mailer[pop3_login]': {
+					'mailer[in][host]': {
 						required: function(element) {
-							return $('#mailer-service-input').val() == 'smtp';
+							return $('#mailer-service-input').val() == 'custom';
 						}
 					},
-					'mailer[pop3_pass]': {
+					'mailer[in][port]': {
 						required: function(element) {
-							return $('#mailer-service-input').val() == 'smtp';
+							return $('#mailer-service-input').val() == 'custom';
 						}
-					},
-					'mailer[pop3_host]': {
-						required: function(element) {
-							return $('#mailer-service-input').val() == 'smtp';
-						}
-					},
-					'mailer[pop3_port]': {
-						required: function(element) {
-							return $('#mailer-service-input').val() == 'smtp';
-						}
-					}				},
+					}
+				},
 				messages: {
 					"subdomain" : {
 						alphanumericHypen: "{{ print_js_string( Lang::get('account/site.configuration.subdomain.alpha') ) }}",

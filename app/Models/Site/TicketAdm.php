@@ -146,18 +146,30 @@ class TicketAdm
 			return false;
 		}
 
+		$email_account = [];
+
+		if ( $out = $this->site->mailer_out )
+		{
+			$email_account[$out['protocol']] = $out;
+			unset($email_account[$out['protocol']]['protocol']);
+		}
+
+		if ( $in = $this->site->mailer_in )
+		{
+			$email_account[$in['protocol']] = $in;
+			unset($email_account[$in['protocol']]['protocol']);
+		}
+
 		$data = [
 			'headers' => [
 				'Authorization' => $this->getAuthorizationHeader(),
 			],
 			'json' => [
 				'title' => $this->site->title,
-				'email_account' => [
-					'smtp' => $this->site->smtp_mailer,
-					'pop3' => $this->site->pop3_mailer,
-				],
+				'email_account' => $email_account,
 			],
 		];
+
 		$response = $this->guzzle_client->request('PUT', "site/{$this->site_id}", $data);
 
 		// Get body

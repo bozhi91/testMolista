@@ -27,6 +27,9 @@
 		'configuration.domains' => 'Custom domain',
 		'configuration.domains.error' => 'This domain is already taken',
 
+		'configuration.mailing.out' => 'Sending emails',
+		'configuration.mailing.in' => 'Retriving emails',
+		'configuration.mailing.protocol' => 'Protocol',
 		'configuration.mailing.default' => 'Default',
 		'configuration.mailing.default.help' => '<p>If you use the default method, emails might end up in the spam folder.</p>',
 		'configuration.mailing.mandrill' => 'Mandrill',
@@ -35,7 +38,7 @@
 		'configuration.mailing.mandrill.host' => 'Mandrill host',
 		'configuration.mailing.mandrill.port' => 'Mandrill port',
 		'configuration.mailing.mandrill.help' => '<p>Please provide username, API key, host and port for Mandrill.</p>',
-		'configuration.mailing.smtp' => 'SMTP',
+		'configuration.mailing.smtp' => 'Custom',
 		'configuration.mailing.smtp.login' => 'Login',
 		'configuration.mailing.smtp.pass' => 'Password',
 		'configuration.mailing.smtp.host' => 'SMTP host',
@@ -51,6 +54,8 @@
 		'configuration.mailing.test.email.content' => '<p>This is a test for your email configuration.</p><p>If you receive this email, it means your configuration works as expected.</p>',
 		'configuration.mailing.test.success' => 'The email was sent successfully',
 		'configuration.mailing.test.error' => 'An error occurred while trying to send the email',
+		'configuration.mailing.mailgun.username' => 'Username',
+		'configuration.mailing.mailgun.help' => '<p>Please provide the host, username and password for Mailgun.</p>',
 
 		'configuration.client.register' => 'Allow online customer registration',
 

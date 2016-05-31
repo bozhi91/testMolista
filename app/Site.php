@@ -130,7 +130,7 @@ class Site extends TranslatableModel
 
 	public function getTicketingEnabledAttribute()
 	{
-		if ( $this->ticket_site_id && $this->ticket_owner_token && $this->smtp_mailer )
+		if ( $this->ticket_site_id && $this->ticket_owner_token && $this->mailer_service == 'custom' )
 		{
 			return true;
 		}
@@ -178,51 +178,34 @@ class Site extends TranslatableModel
 		$unserialized = @unserialize($value);
 		return is_array($unserialized) ? $unserialized : [];
 	}
-	public function getSmtpMailerAttribute() {
-		$service = @$this->mailer['service'];
-
-		switch ( $service )
-		{
-			case 'smtp':
-				return [
-					'from_name' => @$this->mailer['from_name'],
-					'from_email' => @$this->mailer['from_email'],
-					'username' => @$this->mailer['smtp_login'],
-					'password' => @$this->mailer['smtp_pass'],
-					'host' => @$this->mailer['smtp_host'],
-					'port' => @$this->mailer['smtp_port'],
-					'layer' => @$this->mailer['smtp_tls_ssl'],
-				];
-			case 'mandrill': 
-				return [
-					'from_name' => @$this->mailer['from_name'],
-					'from_email' => @$this->mailer['from_email'],
-					'username' => @$this->mailer['mandrill_user'],
-					'password' => @$this->mailer['mandrill_key'],
-					'host' => @$this->mailer['mandrill_host'],
-					'port' => @$this->mailer['mandrill_port'],
-					'layer' => false,
-				];
-		}
-
-		return false;
+	public function getMailerServiceAttribute() {
+		return @$this->mailer['service'];
 	}
+	public function getMailerOutAttribute() {
+		$protocol = @$this->mailer['out']['protocol'];
 
-	public function getPop3MailerAttribute() {
-		$service = @$this->mailer['service'];
-
-		if ( $service != 'smtp' )
+		if ( !$protocol || $this->mailer_service != 'custom' )
 		{
 			return false;
 		}
 
-		return [
-			'username' => @$this->mailer['pop3_login'],
-			'password' => @$this->mailer['pop3_pass'],
-			'host' => @$this->mailer['pop3_host'],
-			'port' => @$this->mailer['pop3_port'],
-			'layer' => @$this->mailer['pop3_tls_ssl'],
-		];
+		$out = @$this->mailer['out'];
+		if ( !$out ) $out = [];
+
+		return array_merge($out, [
+			'from_name' => $this->mailer['from_name'],
+			'from_email' => $this->mailer['from_email'],
+		]);
+	}
+	public function getMailerInAttribute() {
+		$protocol = @$this->mailer['in']['protocol'];
+
+		if ( !$protocol || $this->mailer_service != 'custom' )
+		{
+			return false;
+		}
+
+		return @$this->mailer['in'];
 	}
 
 	public function getTicketAdmAttribute() {
@@ -266,19 +249,18 @@ class Site extends TranslatableModel
 	{
 		$params = [
 			'backup_required' => true,
-			'service' => @$this->mailer['service'],
+			'service' => $this->mailer_service,
 			'from_email' => @$this->mailer['from_email'],
 			'from_name' => @$this->mailer['from_name'],
 			'reply_email' => @$this->mailer['from_email'],
 			'reply_name' => @$this->mailer['from_name'],
 		];
 
-		switch ( $params['service'] )
+		switch ( $this->mailer_service )
 		{
-			case 'smtp':
-			case 'mandrill':
+			case 'custom':
 				break;
-			case 'mail':
+			default:
 				$params['backup_required'] = false;
 				$params['from_email'] = env('MAIL_FROM_EMAIL','no-reply@molista.com');
 				break;
@@ -289,19 +271,13 @@ class Site extends TranslatableModel
 
 	public function getSiteMailerClient()
 	{
-		switch ( $this->mailer['service'] )
+		switch ( $this->mailer_service )
 		{
-			case 'smtp':
-				$transport = \Swift_SmtpTransport::newInstance(@$this->mailer['smtp_host'], @$this->mailer['smtp_port'], @$this->mailer['smtp_tls_ssl']);
-				$transport->setUsername(@$this->mailer['smtp_login']);
-				$transport->setPassword(@$this->mailer['smtp_pass']);
+			case 'custom':
+				$transport = \Swift_SmtpTransport::newInstance(@$this->mailer['out']['host'], @$this->mailer['out']['port'], @$this->mailer['out']['layer']);
+				$transport->setUsername(@$this->mailer['out']['username']);
+				$transport->setPassword(@$this->mailer['out']['password']);
 				return new Swift_Mailer($transport);
-			case 'mandrill':
-				$transport = \Swift_SmtpTransport::newInstance(@$this->mailer['mandrill_host'], @$this->mailer['mandrill_port']);
-				$transport->setUsername(@$this->mailer['mandrill_user']);
-				$transport->setPassword(@$this->mailer['mandrill_key']);
-				return new Swift_Mailer($transport);
-			case 'mail':
 			default:
 				return \Mail::getSwiftMailer();
 		}
@@ -349,11 +325,8 @@ class Site extends TranslatableModel
 		// Update configuration
 		switch ( $params['service'] )
 		{
-			case 'smtp':
-			case 'mandrill':
+			case 'custom':
 				\Mail::setSwiftMailer($this->getSiteMailerClient());
-				break;
-			case 'mail':
 				break;
 			default:
 				\Log::error("Mailer service '{$params['service']}' is not valid for site ID {$this->id}");
