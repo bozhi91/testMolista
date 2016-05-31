@@ -44,7 +44,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 
 	public function store()
 	{
-		$validator = \Validator::make($this->request->all(), $this->getRequiresFields());
+		$validator = \Validator::make($this->request->all(), $this->getRequiredFields());
 		if ($validator->fails()) 
 		{
 			return redirect()->back()->withInput()->withErrors($validator);
@@ -75,7 +75,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 			abort(404);
 		}
 
-		$validator = \Validator::make($this->request->all(), $this->getRequiresFields($customer->id));
+		$validator = \Validator::make($this->request->all(), $this->getRequiredFields($customer->id));
 		if ($validator->fails()) 
 		{
 			return redirect()->back()->withInput()->withErrors($validator);
@@ -189,7 +189,71 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		return redirect()->action('Account\CustomersController@show', urlencode($customer->email))->with('current_tab', $this->request->get('current_tab'))->with('success', trans('general.messages.success.saved'));
 	}
 
-	protected function getRequiresFields($id=false)
+	public function getAddPropertyCustomer($slug)
+	{
+		$property = $this->site->properties()
+						->whereTranslation('slug', $slug)
+						->withTranslations()
+						->first();
+
+		$customers = $this->site->customers()->orderBy('first_name')->orderBy('last_name')->orderBy('email')->get();
+
+		return view('account.customers.add-property-customer', compact('property','customers'));
+	}
+
+	public function postAddPropertyCustomer($slug)
+	{
+		$property = $this->site->properties()
+						->whereTranslation('slug', $slug)
+						->first();
+		if ( !$property )
+		{
+			return redirect()->back()->withInput()->with('error',trans('general.messages.error'));
+		}
+
+		$customer_id = $this->request->get('customer_id');
+
+		if ( !$customer_id ) {
+			$validator = \Validator::make($this->request->all(), $this->getRequiredFields());
+			if ($validator->fails()) 
+			{
+				return redirect()->back()->withInput()->withErrors($validator);
+			}
+
+			$customer = $this->site->customers()->create([
+				'first_name' => $this->request->get('first_name'),
+				'last_name' => $this->request->get('last_name'),
+				'email' => $this->request->get('email'),
+				'phone' => $this->request->get('phone'),
+				'locale' => $this->request->get('locale'),
+				'created_by' => \Auth::user()->id,
+			]);
+
+			if ( !$customer )
+			{
+				return redirect()->back()->withInput()->with('error',trans('general.messages.error'));
+			}
+
+			$customer_id = $customer->id;
+		}
+
+		$customer = $this->site->customers()->find($customer_id);
+		if ( !$customer )
+		{
+			return redirect()->back()->withInput()->with('error',trans('general.messages.error'));
+		}
+
+		// Associate
+		if ( !$property->customers->contains( $customer_id ) )
+		{
+			$property->customers()->attach( $customer_id );
+		}
+
+		return redirect()->back()->with('success',trans('general.messages.success.saved'));
+	}
+
+
+	protected function getRequiredFields($id=false)
 	{
 		$locales = array_keys( \App\Session\Site::get('locales_tabs') );
 

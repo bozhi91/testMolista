@@ -234,6 +234,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 						->with([ 'catches' => function($query){
 							$query->with('buyer');
 						}])
+						->with('customers')
 						->first();
 		if ( !$property )
 		{
@@ -241,6 +242,23 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		}
 
 		return view('account.properties.show', compact('property'));
+	}
+
+	public function getLeads($slug)
+	{
+		// Get property
+		$property = $this->site->properties()
+						->withTrashed()
+						->whereTranslation('slug', $slug)
+						->withTranslations()
+						->with('customers')
+						->first();
+		if ( $property )
+		{
+			$customers = $property->customers->sortBy('full_name');
+		}
+
+		return view('account.properties.show-leads', compact('customers'));
 	}
 
 	public function getCatch($property_id, $id=false)

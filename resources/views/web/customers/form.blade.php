@@ -61,7 +61,7 @@
 
 	<div class="form-group">
 		<div class="text-right">
-			{!! Form::submit($button, [ 'class'=>'btn btn-primary pull-right' ]) !!}
+			{!! Form::submit($button, [ 'class'=>'btn btn-primary' ]) !!}
 		</div>
 	</div>
 

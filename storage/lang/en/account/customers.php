@@ -25,4 +25,6 @@
 		'profile.update' => 'Update profile',
 		'properties' => 'Properties',
 		'matches' => 'Possible matches',
+
+		'associate.h1' => 'Use existing lead',
 	];

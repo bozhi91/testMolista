@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-// [TODO]
 class ApiKeysController extends \App\Http\Controllers\AccountController
 {
 	protected $max_allowed;

@@ -153,4 +153,7 @@
 		'show.kpis.discount' => 'Descuento sobre PVP inicial',
 		'show.kpis.days' => 'Días para cerrar',
 		'show.kpis.closed.by' => 'Cerrado por',
+
+		'show.leads.empty' => 'No se encontraron leads',
+		'show.leads.add' => 'Añadir lead',
 	];
