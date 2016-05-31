@@ -111,7 +111,7 @@ class SendMoreInfoProperty extends Job implements ShouldQueue
 		// Backup current locale
 		$locale_backup = \LaravelLocalization::getCurrentLocale();
 
-		if ( false && $manager = $this->property->unique_manager )
+		if ( $manager = $this->property->unique_manager )
 		{
 			$user_id = $manager->ticket_user_id;
 			\LaravelLocalization::setLocale($manager->locale ? $manager->locale : fallback_lang());
