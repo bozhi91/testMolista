@@ -405,18 +405,18 @@ class Property extends TranslatableModel
 
 		$defaults = [
 			'rent' => [
-				'less-750' => '< 750',
-				'750-1000' => '751 - 1.000',
-				'1000-1250' => '1.001 - 1.250',
-				'1250-1500' => '1.251 - 1.500',
-				'1500-more' => '> 1.500',
+				'less-750' => '< 750€',
+				'750-1000' => '751€ - 1.000€',
+				'1000-1250' => '1.001€ - 1.250€',
+				'1250-1500' => '1.251€ - 1.500€',
+				'1500-more' => '> 1.500€',
 			],
 			'sale' => [
-				'less-100000' => '< 100.000',
-				'100000-250000' => '100.001 - 250.000',
-				'250000-500000' => '250.001 - 500.000',
-				'500000-1000000' => '500.001 - 1.000.000',
-				'1000000-more' => '> 1.000.000',
+				'less-100000' => '< 100.000€',
+				'100000-250000' => '100.001€ - 250.000€',
+				'250000-500000' => '250.001€ - 500.000€',
+				'500000-1000000' => '500.001€ - 1.000.000€',
+				'1000000-more' => '> 1.000.000€',
 			],
 		];
 
@@ -463,15 +463,15 @@ class Property extends TranslatableModel
 
 				if ( $i == 1 )
 				{
-					$defaults[$limit->mode]["less-{$current}"] = "< ".number_format($current,0,',','.');
+					$defaults[$limit->mode]["less-{$current}"] = "< ".number_format($current,0,',','.')."€";
 				}
 				elseif ($i == $steps )
 				{
-					$defaults[$limit->mode]["{$current}-more"] = "> ".number_format($current,0,',','.');
+					$defaults[$limit->mode]["{$current}-more"] = "> ".number_format($current,0,',','.')."€";
 				}
 				else
 				{
-					$defaults[$limit->mode]["{$last}-{$current}"] = number_format($last+1,0,',','.')." - ".number_format($current,0,',','.');
+					$defaults[$limit->mode]["{$last}-{$current}"] = number_format($last+1,0,',','.')."€ - ".number_format($current,0,',','.')."€";
 				}
 
 				$last = $current;
