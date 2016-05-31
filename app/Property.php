@@ -59,7 +59,10 @@ class Property extends TranslatableModel
 
 		// Whenever a property is saved
 		static::saved(function($property){
+			// Delete cached PDF files
 			\File::deleteDirectory(public_path($property->pdf_folder), true);
+			// Create / Update on ticket system
+			$property->site->ticket_adm->associateItem($property);
 		});
 
 		static::$logCustomFields = [
@@ -99,6 +102,11 @@ class Property extends TranslatableModel
 	public function users() {
 		return $this->belongsToMany('App\User', 'properties_users', 'property_id', 'user_id')->withPivot('is_owner');
 	}
+
+	public function customers() {
+		return $this->belongsToMany('App\Models\Site\Customer', 'properties_customers', 'property_id', 'customer_id');
+	}
+
 	public function city()
 	{
 		return $this->belongsTo('App\Models\Geography\City');
@@ -152,7 +160,7 @@ class Property extends TranslatableModel
 		$dir = public_path($this->pdf_folder);
 		if ( !is_dir($dir) )
 		{
-			\File::makeDirectory($dir);
+			\File::makeDirectory($dir, 0777, true, true);
 		}
 
 		// Check PDF
@@ -273,6 +281,18 @@ class Property extends TranslatableModel
 		return empty($managers) ? $owners : $managers;
 	}
 
+	public function getUniqueManagerAttribute()
+	{
+		$managers = $this->users()->withRole('employee');
+
+		if ( $managers->count() !== 1 )
+		{
+			return false;
+		}
+
+		return $managers->first();
+	}
+
 	public function scopeEnabled($query)
 	{
 		return $query->where('properties.enabled', 1);
@@ -311,17 +331,13 @@ class Property extends TranslatableModel
 	public function scopeWithRange($query, $field, $range)
 	{
 		$limits = explode('-', $range);
-		if ( count($limits) != 2 ) 
-		{
-			return $query->whereRaw('1=2');
-		}
 
-		$min = floatval($limits[0]);
-		$max = floatval($limits[1]);
+		$min = @floatval($limits[0]);
+		$max = @floatval($limits[1]);
 
 		if ($min)
 		{
-			$query->where("properties.{$field}", '>', $min);
+			$query->where("properties.{$field}", '>=', $min);
 		}
 
 		if ($max)
@@ -332,15 +348,70 @@ class Property extends TranslatableModel
 		return $query;
 	}
 
+	// [TODO] Standardize currency
+	public function scopeWithPriceBetween($query, $range, $currency)
+	{
+		$limits = explode('-', $range);
+		if ( count($limits) != 2 ) 
+		{
+			return $query->whereRaw('1=2');
+		}
+
+		$min = floatval($limits[0]);
+		$max = floatval($limits[1]);
+
+		if ($min)
+		{
+			$query->where('properties.price', '>=', $min);
+		}
+
+		if ($max)
+		{
+			$query->where('properties.price', '<=', $max);
+		}
+
+		return $query;
+	}
+
+	// [TODO] Standardize size unit
+	public function scopeWithSizeBetween($query, $range, $size_unit)
+	{
+		$limits = explode('-', $range);
+		if ( count($limits) != 2 ) 
+		{
+			return $query->whereRaw('1=2');
+		}
+
+		$min = floatval($limits[0]);
+		$max = floatval($limits[1]);
+
+		if ($min)
+		{
+			$query->where('properties.size', '>=', $min);
+		}
+
+		if ($max)
+		{
+			$query->where('properties.size', '<=', $max);
+		}
+
+		return $query;
+	}
+
 	public function scopeWithServices($query, $services)
 	{
+		if ( !$services )
+		{
+			return $query;
+		}
+
 		if ( !is_array($services) ) 
 		{
 			$services = [ $services ];
 		}
 
 		// Get services ids
-		$service_ids = \App\Models\Property\ServiceTranslation::whereIn('slug',$services)->lists('service_id')->toArray();
+		$service_ids = \App\Models\Property\ServiceTranslation::whereIn('slug',$services)->lists('service_id')->all();
 		if ( empty($service_ids) )
 		{
 			return $query->whereRaw('1=2');
@@ -485,9 +556,9 @@ class Property extends TranslatableModel
 	{
 		return [
 			'less-100' => '< 100 m²',
-			'100-250' => '101 - 250 m²',
-			'250-500' => '251 - 500 m²',
-			'500-1000' => '501 - 1.000 m²',
+			'100-250' => '100 - 250 m²',
+			'250-500' => '250 - 500 m²',
+			'500-1000' => '500 - 1.000 m²',
 			'1000-more' => '> 1.000 m²',
 		];
 	}
@@ -496,9 +567,9 @@ class Property extends TranslatableModel
 	{
 		return [
 			'0-2' => '1 - 2',
-			'2-5' => '3 - 5',
-			'5-10' => '6 - 10',
-			'10-more' => '> 10',
+			'3-5' => '3 - 5',
+			'6-10' => '6 - 10',
+			'11-more' => '> 10',
 		];
 	}
 
@@ -506,8 +577,8 @@ class Property extends TranslatableModel
 	{
 		return [
 			'0-2' => '1 - 2',
-			'2-5' => '3- 5',
-			'5-more' => '> 5',
+			'3-5' => '3- 5',
+			'6-more' => '> 5',
 		];
 	}
 

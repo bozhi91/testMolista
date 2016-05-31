@@ -100,6 +100,7 @@ Route::group([
 		Route::get('/', 'AccountController@index');
 		Route::post('/', 'AccountController@updateProfile');
 		// Properties
+		Route::get('properties/leads/{slug}', 'Account\PropertiesController@getLeads');
 		Route::get('properties/catch/close/{id}', 'Account\PropertiesController@getCatchClose');
 		Route::post('properties/catch/close/{id}', 'Account\PropertiesController@postCatchClose');
 		Route::get('properties/catch/{property_id}/{id?}', 'Account\PropertiesController@getCatch');
@@ -110,11 +111,15 @@ Route::group([
 		Route::get('properties/status/{slug}', 'Account\PropertiesController@getChangeStatus');
 		Route::resource('properties', 'Account\PropertiesController');
 		// Employees
+		Route::get('employees/tickets/{email}', 'Account\EmployeesController@getTickets');
 		Route::get('employees/associate/{email}', 'Account\EmployeesController@getAssociate');
 		Route::post('employees/associate/{email}', 'Account\EmployeesController@postAssociate');
 		Route::get('employees/disssociate/{user_id}/{property_id}', 'Account\EmployeesController@getDissociate');
 		Route::resource('employees', 'Account\EmployeesController');
 		// Customers
+		Route::post('customers/properties/{slug}', 'Account\CustomersController@postAddPropertyCustomer');
+		Route::get('customers/properties/{slug}', 'Account\CustomersController@getAddPropertyCustomer');
+		Route::post('customers/profile/{email}', 'Account\CustomersController@postProfile');
 		Route::resource('customers', 'Account\CustomersController');
 		// Reports
 		Route::group([
@@ -130,6 +135,8 @@ Route::group([
 			// Leads
 			Route::controller('leads', 'Account\Reports\LeadsController');
 		});
+		// Tickets
+		Route::controller('tickets', 'Account\TicketsController');
 		// Site configuration
 		Route::group([
 			'prefix' => 'site',

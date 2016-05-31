@@ -31,12 +31,12 @@
 							<div class="carousel-inner" role="listbox">
 								<div class="item active">
 									<div class="row">
-										@foreach ($property->images->sortBy('position') as $key => $image)
+										@foreach ($property->images->sortBy('position')->values() as $key => $image)
 											@if ( $key > 0 && $key%6 < 1 )
 												</div></div><div class="item"><div class="row">
 											@endif
 											<div class="col-xs-4 col-sm-2">
-												<a href="{{ "{$property->image_folder}/{$image->image}" }}" class="image-thumb" style="background-image: url('{{ "{$property->image_folder}/{$image->image}" }}');">
+												<a title="{{$key}}" href="{{ "{$property->image_folder}/{$image->image}" }}" class="image-thumb" style="background-image: url('{{ "{$property->image_folder}/{$image->image}" }}');">
 													<img src="{{ "{$property->image_folder}/{$image->image}" }}" alt="{{$property->title}}" class="hide" />
 												</a>
 											</div>

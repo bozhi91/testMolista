@@ -160,4 +160,7 @@
 		'show.kpis.discount' => 'Discount over initial price',
 		'show.kpis.days' => 'Days to close',
 		'show.kpis.closed.by' => 'Closed by',
+
+		'show.leads.empty' => 'No leads found',
+		'show.leads.add' => 'Add lead',
 	];

@@ -20,4 +20,11 @@
 		'show.tab.general' => 'General',
 
 		'message.saved' => 'El lead se ha guardado correctamente',
+
+		'profile' => 'Perfil búsqueda',
+		'profile.update' => 'Actualizar perfil',
+		'properties' => 'Propiedades',
+		'matches' => 'Posibles coincidencias',
+
+		'associate.h1' => 'Usar lead existente',
 	];

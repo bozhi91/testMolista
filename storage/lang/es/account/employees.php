@@ -18,6 +18,7 @@
 		'properties' => 'Propiedades',
 		'locale' => 'Idioma',
 		'password' => 'Password',
+		'tickets' => 'Tickets',
 
 		'create.title' => 'Nuevo empleado',
 

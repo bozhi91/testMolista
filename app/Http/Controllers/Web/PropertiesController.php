@@ -43,7 +43,7 @@ class PropertiesController extends WebController
 			// Price
 			if ( $this->request->input("price.{$this->request->get('mode')}") )
 			{
-				$query->withRange('price', $this->request->input("price.{$this->request->get('mode')}"));
+				$query->withPriceBetween($this->request->input("price.{$this->request->get('mode')}"), $this->request->get('currency'));
 			}
 		}
 
@@ -87,7 +87,7 @@ class PropertiesController extends WebController
 		// Size
 		if ( $this->request->get('size') )
 		{
-			$query->withRange('size', $this->request->get('size'));
+			$query->withSizeBetween($this->request->get('size'), $this->request->get('size_unit'));
 		}
 
 		// Rooms
@@ -189,11 +189,18 @@ class PropertiesController extends WebController
 				'first_name' => $this->request->get('first_name'),
 				'last_name' => $this->request->get('last_name'),
 				'email' => $this->request->get('email'),
+				'phone' => $this->request->get('phone'),
 			]);
 			if ( !$customer )
 			{
 				return [ 'error'=>true ];
 			}
+		}
+
+		// Assign customer to property
+		if ( !$property->customers->contains( $customer->id ) )
+		{
+			$property->customers()->attach( $customer->id );
 		}
 
 		// Push job to queue

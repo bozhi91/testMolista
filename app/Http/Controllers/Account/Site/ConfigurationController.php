@@ -51,23 +51,26 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 			'domains_array' => 'required|array',
 			'social_array' => 'required|array',
 			'mailer' => 'required|array',
-			'mailer.service' => 'required|in:mail,mandrill,smtp',
+			'mailer.service' => 'required|in:default,custom',
 			'mailer.from_name' => 'required',
 			'mailer.from_email' => 'required|email',
 		];
+
 		switch ( $this->request->input('mailer.service') )
 		{
-			case 'mandrill':
-				$fields['mailer.mandrill_user'] = 'required';
-				$fields['mailer.mandrill_key'] = 'required';
-				$fields['mailer.mandrill_host'] = 'required';
-				$fields['mailer.mandrill_port'] = 'required|integer';
-				break;
-			case 'smtp':
-				$fields['mailer.smtp_login'] = 'required';
-				$fields['mailer.smtp_pass'] = 'required';
-				$fields['mailer.smtp_host'] = 'required';
-				$fields['mailer.smtp_port'] = 'required|integer';
+			case 'custom':
+				$fields['mailer.out.protocol'] = 'required|in:smtp';
+				$fields['mailer.out.host'] = 'required';
+				$fields['mailer.out.username'] = 'required';
+				$fields['mailer.out.password'] = 'required';
+				$fields['mailer.out.port'] = 'required';
+				$fields['mailer.out.layer'] = 'in:tls,ssl';
+				$fields['mailer.in.protocol'] = 'required|in:pop3,imap';
+				$fields['mailer.in.host'] = 'required';
+				$fields['mailer.in.username'] = 'required';
+				$fields['mailer.in.password'] = 'required';
+				$fields['mailer.in.port'] = 'required';
+				$fields['mailer.in.layer'] = 'in:tls,ssl';
 				break;
 		}
 

@@ -16,13 +16,42 @@
 			<div class="custom-tabs">
 
 				<ul class="nav nav-tabs main-tabs" role="tablist">
-					<li role="presentation" class="active"><a href="#tab-permissions" aria-controls="tab-permissions" role="tab" data-toggle="tab">{{ Lang::get('account/employees.show.tab.permissions') }}</a></li>
-					<li role="presentation"><a href="#tab-properties" aria-controls="tab-properties" role="tab" data-toggle="tab">{{ Lang::get('account/employees.show.tab.properties') }}</a></li>
+					<li role="presentation" class="active"><a href="#tab-properties" aria-controls="tab-properties" role="tab" data-toggle="tab">{{ Lang::get('account/employees.show.tab.properties') }}</a></li>
+					<li role="presentation"><a href="#tab-permissions" aria-controls="tab-permissions" role="tab" data-toggle="tab">{{ Lang::get('account/employees.show.tab.permissions') }}</a></li>
+					<li role="presentation"><a href="#tab-tickets" aria-controls="tab-tickets" role="tab" data-toggle="tab">{{ Lang::get('account/employees.tickets') }}</a></li>
 				</ul>
 
 				<div class="tab-content">
 
-					<div role="tabpanel" class="tab-pane tab-main active" id="tab-permissions">
+					<div role="tabpanel" class="tab-pane tab-main active" id="tab-properties">
+						<div class="alert alert-info properties-empty {{ ( count($properties) > 0 ) ? 'hide' : '' }}">{{ Lang::get('account/employees.show.tab.properties.empty') }}</div>
+						@if ( count($properties) > 0 )
+							<div class="properties-list {{ ( count($properties) < 1 ) ? 'hide' : '' }}">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th>{{ Lang::get('account/employees.show.tab.properties.title') }}</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+										@foreach ($properties as $property)
+											<tr class="property-line">
+												<td>{{ $property->title }}</td>
+												<td class="text-right text-nowrap">
+													@if ( Auth::user()->can('property-edit') && Auth::user()->can('employee-edit'))
+														{!! Form::button( Lang::get('account/employees.button.dissociate'), [ 'class'=>'btn btn-default btn-xs dissociate-trigger', 'data-url'=>action('Account\EmployeesController@getDissociate', [ $employee->id, $property->id ]) ]) !!}
+													@endif
+												</td>
+											</tr>
+										@endforeach
+									</tbody>
+								</table>
+							</div>
+						@endif
+					</div>
+
+					<div role="tabpanel" class="tab-pane tab-main" id="tab-permissions">
 						<ul class="list-unstyled">
 							<li>
 								<div class="form-group">
@@ -57,33 +86,7 @@
 						</ul>
 					</div>
 
-					<div role="tabpanel" class="tab-pane tab-main" id="tab-properties">
-						<div class="alert alert-info properties-empty {{ ( count($properties) > 0 ) ? 'hide' : '' }}">{{ Lang::get('account/employees.show.tab.properties.empty') }}</div>
-						@if ( count($properties) > 0 )
-							<div class="properties-list {{ ( count($properties) < 1 ) ? 'hide' : '' }}">
-								<table class="table table-hover">
-									<thead>
-										<tr>
-											<th>{{ Lang::get('account/employees.show.tab.properties.title') }}</th>
-											<th></th>
-										</tr>
-									</thead>
-									<tbody>
-										@foreach ($properties as $property)
-											<tr class="property-line">
-												<td>{{ $property->title }}</td>
-												<td class="text-right text-nowrap">
-													@if ( Auth::user()->can('property-edit') && Auth::user()->can('employee-edit'))
-														{!! Form::button( Lang::get('account/employees.button.dissociate'), [ 'class'=>'btn btn-default btn-xs dissociate-trigger', 'data-url'=>action('Account\EmployeesController@getDissociate', [ $employee->id, $property->id ]) ]) !!}
-													@endif
-												</td>
-											</tr>
-										@endforeach
-									</tbody>
-								</table>
-							</div>
-						@endif
-					</div>
+					<div role="tabpanel" class="tab-pane tab-main" id="tab-tickets" data-url="{{ action('Account\EmployeesController@getTickets', urlencode($employee->email)) }}"></div>
 
 				</div>
 
@@ -101,6 +104,17 @@
 	</div>
 
 	<script type="text/javascript">
+		function reloadTickets() {
+			var target = $('#tab-tickets');
+
+			if ( target.find('.pagination li.active').length ) {
+				var url = target.find('.pagination li.active').data().href;
+			} else {
+				var url = target.data().url;
+			}
+			target.load(url);
+		}
+
 		ready_callbacks.push(function(){
 			var cont = $('#admin-employees');
 			var form = $('#employee-form');
@@ -158,6 +172,26 @@
 				});
 			});
 
+			var tab_tickets = $('#tab-tickets');
+			tab_tickets.on('click', '.pagination a', function(e){
+				e.preventDefault();
+				if ( url = $(this).data().href ) {
+					tab_tickets.load(url);
+				}
+			});
+			tab_tickets.on('click', '.edit-ticket-trigger', function(e){
+				e.preventDefault();
+
+				if ( url = $(this).data().href ) {
+					$.magnificPopup.open({
+						items: {
+							src: url + '?ajax=1'
+						},
+						type: 'iframe'
+					});
+				}
+			});
+			reloadTickets();
 		});
 	</script>
 

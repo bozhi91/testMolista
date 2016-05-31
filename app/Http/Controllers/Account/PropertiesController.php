@@ -24,7 +24,12 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 	{
 		$clean_filters = false;
 
-		$query = $this->site->properties()->whereIn('properties.id', $this->auth->user()->properties()->lists('id'))->with('state')->with('city')->withTranslations();
+		$query = $this->site->properties()
+							->whereIn('properties.id', $this->auth->user()->properties()->lists('id'))
+							->with('customers')
+							->with('state')
+							->with('city')
+							->withTranslations();
 
 		// Filter by reference
 		if ( $this->request->get('ref') )
@@ -75,27 +80,27 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		return view('account.properties.index', compact('properties','clean_filters'));
 	}
 
-    public function create()
-    {
-        $modes = \App\Property::getModeOptions();
-        $types = \App\Property::getTypeOptions();
+	public function create()
+	{
+		$modes = \App\Property::getModeOptions();
+		$types = \App\Property::getTypeOptions();
 		$energy_types = \App\Property::getEcOptions();
-        $services = \App\Models\Property\Service::withTranslations()->enabled()->orderBy('title')->get();
+		$services = \App\Models\Property\Service::withTranslations()->enabled()->orderBy('title')->get();
 
-        $countries = \App\Models\Geography\Country::withTranslations()->enabled()->orderBy('name')->lists('name','id');
-        if ( $country_id = old('country_id', \App\Models\Geography\Country::where('code','ES')->value('id')) )
-        {
-            $states = \App\Models\Geography\State::enabled()->where('country_id', $country_id)->lists('name','id');
-        }
-        if ( old('state_id') )
-        {
-            $cities = \App\Models\Geography\City::enabled()->where('state_id', old('state_id'))->lists('name','id');
-        }
+		$countries = \App\Models\Geography\Country::withTranslations()->enabled()->orderBy('name')->lists('name','id');
+		if ( $country_id = old('country_id', \App\Models\Geography\Country::where('code','ES')->value('id')) )
+		{
+			$states = \App\Models\Geography\State::enabled()->where('country_id', $country_id)->lists('name','id');
+		}
+		if ( old('state_id') )
+		{
+			$cities = \App\Models\Geography\City::enabled()->where('state_id', old('state_id'))->lists('name','id');
+		}
 
 		$managers = $this->site->users()->orderBy('name')->lists('name','id')->all();
 
-        return view('account.properties.create', compact('modes','types','energy_types','services','countries','states','cities','country_id','managers'));
-    }
+		return view('account.properties.create', compact('modes','types','energy_types','services','countries','states','cities','country_id','managers'));
+	}
 
 	public function store()
 	{
@@ -229,6 +234,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 						->with([ 'catches' => function($query){
 							$query->with('buyer');
 						}])
+						->with('customers')
 						->first();
 		if ( !$property )
 		{
@@ -236,6 +242,23 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		}
 
 		return view('account.properties.show', compact('property'));
+	}
+
+	public function getLeads($slug)
+	{
+		// Get property
+		$property = $this->site->properties()
+						->withTrashed()
+						->whereTranslation('slug', $slug)
+						->withTranslations()
+						->with('customers')
+						->first();
+		if ( $property )
+		{
+			$customers = $property->customers->sortBy('full_name');
+		}
+
+		return view('account.properties.show-leads', compact('customers'));
 	}
 
 	public function getCatch($property_id, $id=false)
