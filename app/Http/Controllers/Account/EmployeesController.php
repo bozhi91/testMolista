@@ -22,7 +22,9 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 
 	public function index()
 	{
-		$query = $this->site->users()->with('properties')->withRole('employee');
+		$query = $this->site->users()
+					->withRole('employee')
+					->with('properties');
 
 		// Filter by name
 		if ( $this->request->get('name') )
@@ -38,9 +40,14 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 
 		$employees = $query->orderBy('name')->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
 
+		if ( $employees->count() > 0 )
+		{
+			$tickets = $this->site->ticket_adm->getUsersStats( array_filter($employees->pluck('ticket_user_id')->all()) );
+		}
+
 		$this->set_go_back_link();
 
-		return view('account.employees.index', compact('employees'));
+		return view('account.employees.index', compact('employees','tickets'));
 	}
 
 	public function create()
@@ -71,7 +78,7 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 			return redirect()->back()->withInput()->with('error', trans('account.employees.email.used'));
 		}
 
-		// Get user
+		// Create user associated to this site
         $employee = $this->site->users()->create([
             'name' => sanitize( $this->request->get('name') ),
             'email' => sanitize( $this->request->get('email'), 'email'),
@@ -86,6 +93,9 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 
 		// Attach employee role
 		$employee->roles()->attach( \App\Models\Role::where('name','employee')->value('id') );
+
+		// Associate in ticketing system
+		$this->site->ticket_adm->associateUsers([ $employee ]);
 
 		return redirect()->action('Account\EmployeesController@edit', urlencode($employee->email))->with('success', trans('account/employees.message.saved'));
 	}
@@ -102,6 +112,7 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 
 		return view('account.employees.edit', compact('employee','properties'));
 	}
+
 	public function update($email)
 	{
 		$employee = $this->site->users()->withRole('employee')->where('email', $email)->withPivot('can_create','can_edit','can_delete')->first();
@@ -138,7 +149,26 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 		// Dissociate from site
 		$employee->sites()->detach( $this->site->id );
 
+		// Dissociate in ticketing system
+		$this->site->ticket_adm->dissociateUsers([ $employee ]);
+
 		return redirect()->action('Account\EmployeesController@index')->with('success', trans('account/employees.deleted'));
+	}
+
+	public function getTickets($email)
+	{
+		$employee = \App\User::withRole('employee')->where('email', $email)->first();
+		if ( $employee && $employee->ticket_user_id )
+		{
+			$tickets = $this->site->ticket_adm->getTickets([
+				'user_id' => $employee->ticket_user_id,
+				'status' => [ 'open', 'waiting' ],
+				'page' => $this->request->get('page',1),
+				'limit' => $this->request->get('limit',10),
+			]);
+		}
+
+		return view('account.tickets.list', compact('email','tickets'));
 	}
 
 	public function getAssociate($email)
@@ -159,6 +189,9 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 			$this->site->users()->attach($employee->id);
 		}
 
+		// Associate in ticketing system
+		$this->site->ticket_adm->associateUsers([ $employee ]);
+
 		return redirect()->action('Account\EmployeesController@edit', urlencode($employee->email))->with('success', trans('account/employees.message.associated'));
 	}
 
@@ -173,6 +206,7 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 		}
 
 		$property->users()->detach($employee->id);
+
 		return [ 'success'=>1 ];
 	}
 

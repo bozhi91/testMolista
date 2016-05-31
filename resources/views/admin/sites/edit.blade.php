@@ -61,9 +61,12 @@
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-6">
-							<div class="form-group error-container">
+							<div class="form-group error-container owners-select-container">
 								{!! Form::label('owners_ids[]', Lang::get('admin/sites.owners')) !!}
-								{!! Form::select('owners_ids[]', $companies, null, [ 'class'=>'form-control required has-select-2', 'size'=>'1', 'multiple'=>'multiple' ]) !!}
+								@foreach ($owners as $owner_id=>$owner_name)
+									<input type="hidden" name="owners_ids[]" value="{{$owner_id}}" data-title="{{$owner_name}}" />
+								@endforeach
+								{!! Form::select('owners_ids[]', $companies, null, [ 'class'=>'form-control has-select-2', 'size'=>'1', 'multiple'=>'multiple' ]) !!}
 							</div>
 						</div>
 					</div>
@@ -115,55 +118,6 @@
 					</div>
 				</div>
 
-				<div role="tabpanel" class="tab-pane tab-main" id="tab-site-managers">
-					<div class="row">
-						<div class="col-xs-12 col-sm-6">
-							<div class="form-group error-container">
-								{!! Form::label('owners_ids[]', Lang::get('admin/sites.owners')) !!}
-								{!! Form::select('owners_ids[]', $companies, null, [ 'class'=>'form-control required has-select-2', 'multiple'=>'multiple' ]) !!}
-							</div>
-						</div>
-						<div class="col-xs-12 col-sm-6">
-							<div class="form-group error-container">
-								{!! Form::label('employees_ids[]', Lang::get('admin/sites.employees')) !!}
-								{!! Form::select('employees_ids[]', $employees, null, [ 'class'=>'form-control has-select-2', 'multiple'=>'multiple' ]) !!}
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div role="tabpanel" class="tab-pane tab-main" id="tab-site-seo">
-					<ul class="nav nav-tabs locale-tabs" role="tablist">
-						@foreach (LaravelLocalization::getSupportedLocales() as $lang_iso => $lang_def)
-							<li role="presentation"><a href="#tab-site-texts-{{$lang_iso}}" aria-controls="tab-site-texts-{{$lang_iso}}" role="tab" data-toggle="tab">{{$lang_def['native']}}</a></li>
-						@endforeach
-					</ul>
-					<div class="tab-content">
-						@foreach (LaravelLocalization::getSupportedLocales() as $lang_iso => $lang_def)
-							<div role="tabpanel" class="tab-pane tab-locale" id="tab-site-texts-{{$lang_iso}}">
-								<div class="row">
-									<div class="col-xs-12 col-sm-6">
-										<div class="form-group error-container">
-											<label>{{ Lang::get('admin/sites.title') }}</label>
-											{!! Form::text("i18n[title][{$lang_iso}]", null, [ 'class'=>'form-control title-input', 'data-locale'=>$lang_iso ]) !!}
-										</div>
-										<div class="form-group error-container">
-											<label>{{ Lang::get('admin/sites.subtitle') }}</label>
-											{!! Form::text("i18n[subtitle][{$lang_iso}]", null, [ 'class'=>'form-control subtitle-input', 'data-locale'=>$lang_iso ]) !!}
-										</div>
-									</div>
-									<div class="col-xs-12 col-sm-6">
-										<div class="form-group error-container">
-											<label>{{ Lang::get('admin/sites.description') }}</label>
-											{!! Form::textarea("i18n[description][{$lang_iso}]", null, [ 'class'=>'form-control description-input', 'rows'=>'5', 'data-locale'=>$lang_iso ]) !!}
-										</div>
-									</div>
-								</div>
-							</div>
-						@endforeach
-					</div>
-				</div>
-
 			</div>
 
 			<div class="text-right">
@@ -179,20 +133,10 @@
 		ready_callbacks.push(function(){
 			var form = $('#site-form');
 
-			form.find('.locale-tabs a').eq(0).trigger('click');
-
 			form.validate({
 				ignore: '',
 				errorPlacement: function(error, element) {
 					element.closest('.error-container').append(error);
-				},
-				invalidHandler: function(e, validator){
-					if ( validator.errorList.length ) {
-						var el = $(validator.errorList[0].element);
-						if ( el.closest('.tab-main').length ) {
-							form.find('.main-tabs a[href="#' + el.closest(".tab-main").attr('id') + '"]').tab('show');
-						}
-					}
 				},
 				rules: {
 					subdomain: {
@@ -232,12 +176,15 @@
 
 			});
 
-			form.find('.tab-main.active').find('.has-select-2').removeClass('has-select-2').select2();
+			form.find('.has-select-2').select2();
 
-			form.find('.main-tabs a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-				$( e.target.getAttribute('href') ).find('.has-select-2').removeClass('has-select-2').select2();
+			var owners_str = '';
+			form.find('input[name="owners_ids[]"]').each(function(){
+				owners_str += '<li class="select2-selection__choice">' + $(this).data().title + '</li>';
 			});
-
+			form.find('select[name="owners_ids[]"]').on('change', function(){
+				$(this).closest('.form-group').find('.select2-selection__rendered').prepend(owners_str);
+			}).closest('.form-group').find('.select2-selection__rendered').prepend(owners_str);
 		});
 	</script>
 

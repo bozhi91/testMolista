@@ -27,6 +27,7 @@
 
 		'messages.close' => 'Close',
 		'messages.error' => 'An error occurred while processing this request.',
+		'messages.success.saved' => 'Data was saved successfully.',
 
 		'autotranslate.trigger' => 'Translate to other languages',
 		'autotranslate.credits' => 'Translated by',
@@ -37,4 +38,9 @@
 
 		'image.helper' => '<p>We support JPG, PNG and GIF formats.</p><p>Images bigger than :IMAGE_MAXSIZE kilobytes will not be uploaded.</p>',
 		'icon.helper' => '<p>Only ICO format is allowed.</p>',
+
+		'since.date' => ':date at :time',
+		'since.yesterday' => 'Yesterday, at :time',
+		'since.hours' => 'Since :hours hours ago',
+		'since.minutes' => 'Since :minutes minutes ago',
 	];

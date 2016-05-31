@@ -52,10 +52,10 @@ class Catches extends Model
 		return @floatval( $this->price_sold * $this->commission / 100 );
 	}
 
-	// [TODO]
+	// Total customers associated to this property
 	public function getLeadsTotalAttribute()
 	{
-		return 0;
+		return $this->property->customers->count();
 	}
 
 	public function scopeOfSite($query, $site_id)

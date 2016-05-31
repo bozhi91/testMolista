@@ -60,6 +60,7 @@
 							<th><a href="{{ sort_link('title') }}" class="is-sortable {{ (Input::get('sort') == 'title') ? 'sorted' : '' }}">{{ Lang::get('account/properties.column.title') }}</a></th>
 							<th><a href="{{ sort_link('created') }}" class="is-sortable {{ (Input::get('sort') == 'created') ? 'sorted' : '' }}">{{ Lang::get('account/properties.column.created') }}</a></th>
 							<th>{{ Lang::get('account/properties.column.location') }}</th>
+							<th class="text-right">{{ Lang::get('account/properties.tab.lead') }}</th>
 							<th class="text-center text-nowrap">{{ Lang::get('account/properties.highlighted') }}</th>
 							<th class="text-center text-nowrap">{{ Lang::get('account/properties.enabled') }}</th>
 							<th></th>
@@ -72,6 +73,7 @@
 								<td>{{ $property->title }}</td>
 								<td>{{  $property->created_at->format('d/m/Y') }}</td>
 								<td>{{ $property->city->name }} / {{ $property->state->name }}</td>
+								<td class="text-right">{{ number_format($property->customers->count(), 0, ',', '.')  }}</td>
 								<td class="text-center">
 									@if ( Auth::user()->can('property-edit') && Auth::user()->canProperty('edit') )
 										<a href="#" data-url="{{ action('Account\PropertiesController@getChangeHighlight', $property->slug) }}" class="change-status-trigger">

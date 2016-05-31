@@ -20,4 +20,11 @@
 		'show.tab.general' => 'General',
 
 		'message.saved' => 'The lead has been successfully saved',
+
+		'profile' => 'Search profile',
+		'profile.update' => 'Update profile',
+		'properties' => 'Properties',
+		'matches' => 'Possible matches',
+
+		'associate.h1' => 'Use existing lead',
 	];

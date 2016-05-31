@@ -27,6 +27,9 @@
 		'configuration.domains' => 'Dominio personalizado',
 		'configuration.domains.error' => 'Este dominio ya se encuentra en uso',
 
+		'configuration.mailing.out' => 'Envío de emails',
+		'configuration.mailing.in' => 'Recepción de emails',
+		'configuration.mailing.protocol' => 'Protocolo',
 		'configuration.mailing.default' => 'Default',
 		'configuration.mailing.default.help' => '<p>Si utiliza el sistema de envío de emails por default, es posible que sus emails acaben en la bandeja de correo no deseado.</p>',
 		'configuration.mailing.mandrill' => 'Mandrill',
@@ -35,12 +38,13 @@
 		'configuration.mailing.mandrill.host' => 'Mandrill host',
 		'configuration.mailing.mandrill.port' => 'Mandrill port',
 		'configuration.mailing.mandrill.help' => '<p>Ingrese el username, API key, host y port de Mandrill.</p>',
-		'configuration.mailing.smtp' => 'SMTP',
+		'configuration.mailing.smtp' => 'Custom',
 		'configuration.mailing.smtp.login' => 'Login',
 		'configuration.mailing.smtp.pass' => 'Password',
 		'configuration.mailing.smtp.pass' => 'SMTP host',
 		'configuration.mailing.smtp.pass' => 'SMTP port',
 		'configuration.mailing.smtp.help' => '<p>Ingrese el login, contraseña, host y puerto para la conexión SMTP.</p>',
+		'configuration.mailing.pop3.help' => '<p>Ingrese el login, contraseña, host y puerto para la conexión POP3.</p>',
 		'configuration.mailing.current' => 'En uso',
 		'configuration.mailing.from.name' => 'Nombre remitente',
 		'configuration.mailing.from.email' => 'Email remitente',
@@ -50,6 +54,8 @@
 		'configuration.mailing.test.email' => 'Email destinatario',
 		'configuration.mailing.test.success' => 'El email se ha enviado correctamente',
 		'configuration.mailing.test.error' => 'Ocurrió un error al enviar el email',
+		'configuration.mailing.mailgun.username' => 'Username',
+		'configuration.mailing.mailgun.help' => '<p>Ingrese el host, username y password para Mailgun.</p>',
 
 		'configuration.client.register' => 'Permitir registro de clientes online',
 

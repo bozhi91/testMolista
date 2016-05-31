@@ -14,6 +14,7 @@ class SendMoreInfoProperty extends Job implements ShouldQueue
 {
 	use InteractsWithQueue, SerializesModels;
 
+	protected $site;
 	protected $property;
 	protected $customer;
 	protected $data;
@@ -38,71 +39,144 @@ class SendMoreInfoProperty extends Job implements ShouldQueue
 	public function handle()
 	{
 		// Get property with translations
-		$property = Property::withTranslations()
+		$this->property = Property::withTranslations()
 						->with('state')
 						->with('city')
 						->with('services')
 						->with('images')
 						->findOrFail($this->property->id);
 
+		// Send email to user
+		$this->sendUserEmail();
+
+		// Create ticket
+		if ( $this->property->site->ticketing_enabled )
+		{
+			$res = $this->createTicket();
+		}
+		// Send email to managers
+		else
+		{
+			$res = $this->sendManagerEmail();
+		}
+
+		return $res;
+	}
+
+
+	protected function sendUserEmail()
+	{
+		// Backup current locale
+		$locale_backup = \LaravelLocalization::getCurrentLocale();
+
+		\LaravelLocalization::setLocale($this->customer->locale);
+
+		$content = view('emails/property.moreinfo-customer', [
+			'site' => $this->property->site,
+			'customer' => $this->customer,
+			'property' => $this->property,
+		])->render();
+
+		$css_path = base_path('resources/assets/css/emails/moreinfo-customer.css');
+		if ( file_exists($css_path) )
+		{
+			$emogrifier = new \Pelago\Emogrifier($content, file_get_contents($css_path));
+			$content = $emogrifier->emogrify();
+		}
+
+		$sent = $this->property->site->sendEmail([
+			'to' => $this->customer->email,
+			'subject' => trans('web/properties.moreinfo.email.customer.title', [ 'title'=>$this->property->title ]),
+			'content' => $content,
+			'attachments' => [
+				$this->property->getPdfFile($this->customer->locale) => [ 'as'=>"{$this->property->slug}.pdf" ],
+			]
+		]);
+
+		// Restore backup locale
+		\LaravelLocalization::setLocale($locale_backup);
+
+		if ( $sent )
+		{
+			return true;
+		}
+
+		\Log::warning("SendMoreInfoProperty: error sending email to customer with email {$this->customer->email}");
+		return false;
+	}
+
+
+	protected function createTicket()
+	{
+		// Backup current locale
+		$locale_backup = \LaravelLocalization::getCurrentLocale();
+
+		if ( $manager = $this->property->unique_manager )
+		{
+			$user_id = $manager->ticket_user_id;
+			\LaravelLocalization::setLocale($manager->locale ? $manager->locale : fallback_lang());
+		}
+		else
+		{
+			$user_id = null;
+		}
+
+		$res = $this->property->site->ticket_adm->createTicket([
+			'contact_id' => $this->customer->ticket_contact_id,
+			'user_id' => $user_id,
+			'item_id' => $this->property->ticket_item_id,
+			'source' => 'web',
+			'subject' => trans('web/properties.moreinfo.email.customer.title', [ 'title'=>$this->property->title ]),
+			'body' => view('emails.property.moreinfo-manager', [
+				'email_content_only' => true,
+				'property' => $this->property,
+				'customer' => $this->customer,
+				'data' => $this->data,
+			])->render(),
+		]);
+
+		// Restore backup locale
+		\LaravelLocalization::setLocale($locale_backup);
+
+		return $res;
+	}
+	protected function sendManagerEmail()
+	{
 		// Send email to property managers (site owners if no managers)
-		$contacts = $property->contacts;
+		$contacts = $this->property->contacts;
 		if ( count($contacts) < 1 )
 		{
 			\Log::error("SendMoreInfoProperty: no contacts for property ID {$property->id}");
 			return false;
 		}
 
-		$site = \App\Site::withTranslations()->findOrFail($property->site_id);
-
+		// Backup current locale
 		$locale_backup = \LaravelLocalization::getCurrentLocale();
 
 		foreach ($contacts as $contact)
 		{
 			\LaravelLocalization::setLocale($contact->locale ? $contact->locale : fallback_lang());
 
-			$params = [
+			$res = $this->property->site->sendEmail([
 				'to' => $contact->email,
-				'subject' => trans('web/properties.moreinfo.email.manager.title', [ 'ref'=>$property->ref ]),
+				'subject' => trans('web/properties.moreinfo.email.manager.title', [ 'ref'=>$this->property->ref ]),
 				'content' => view('emails/property.moreinfo-manager', [
-					'property' => $property,
+					'property' => $this->property,
 					'customer' => $this->customer,
 					'data' => $this->data,
 				])->render()
-			];
-			if ( ! $site->sendEmail($params) )
+			]);
+				
+			if ( !$res )
 			{
 				\Log::warning("SendMoreInfoProperty: error sending email to manager/owner with email {$contact->email}");
 			}
 		}
 
-		// Send email to customer (include PDF)
-		\LaravelLocalization::setLocale($this->customer->locale);
-		$content = view('emails/property.moreinfo-customer', [
-			'site' => $site,
-			'customer' => $this->customer,
-			'property' => $property,
-		])->render();
-		if ( file_exists( base_path('resources/assets/css/emails/moreinfo-customer.css') ) )
-		{
-			$emogrifier = new \Pelago\Emogrifier($content, file_get_contents(base_path('resources/assets/css/emails/moreinfo-customer.css')));
-			$content = $emogrifier->emogrify();
-		}
-		$sent = $site->sendEmail([
-			'to' => $this->customer->email,
-			'subject' => trans('web/properties.moreinfo.email.customer.title', [ 'title'=>$property->title ]),
-			'content' => $content,
-			'attachments' => [
-				$property->getPdfFile($this->customer->locale) => [ 'as'=>"{$property->slug}.pdf" ],
-			]
-		]);
-		if ( ! $sent )
-		{
-			\Log::warning("SendMoreInfoProperty: error sending email to customer with email {$this->customer->email}");
-		}
-
+		// Restore backup locale
 		\LaravelLocalization::setLocale($locale_backup);
 
 		return true;
 	}
+
 }

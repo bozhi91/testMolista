@@ -121,9 +121,14 @@
 			</div>
 
 			<div role="tabpanel" class="tab-pane tab-main" id="tab-lead">
-				<p>Lead es una persona interesada en el inmueble.</p>
-				<p>Deberia ser el email que viene vinculado de Zendesk.</p>
-				<p>Tambien podríamos crear Leads manualmente (Nombre, apellida, email, telefono de contacto, fecha de creacion de lead)</p>
+				@if ( !$property->deleted_at )
+					<div class="text-right" style="{{ ($property->customers->count() < 1) ? 'margin-bottom: 20px;' : '' }}">
+						<a href="#" class="btn btn-default btn-sm add-lead-trigger">{{ Lang::get('account/properties.show.leads.add') }}</a>
+					</div>
+				@endif
+				<div id="leads-list">
+					@include('account.properties.show-leads', [ 'customers'=>$property->customers->sortBy('full_name') ])
+				</div>
 			</div>
 
 			<div role="tabpanel" class="tab-pane tab-main" id="tab-transaction">
@@ -328,6 +333,13 @@
 			return 0;
 		}
 
+		function reloadLeadsList() {
+			LOADING.show();
+			$('#leads-list').load('{{ action('Account\PropertiesController@getLeads', $property->slug) }}', function(){
+				LOADING.hide();
+			});
+		}
+
 		ready_callbacks.push(function() {
 			var cont = $('#admin-properties');
 
@@ -363,6 +375,16 @@
 				type: 'inline'
 			});
 
+			cont.on('click','.add-lead-trigger',function(e){
+				e.preventDefault();
+				$.magnificPopup.open({
+					items: {
+						src: '{{ action('Account\CustomersController@getAddPropertyCustomer',$property->slug) }}'
+					},
+					type: 'iframe',
+					modal: false
+				});
+			});
 		});
 	</script>
 

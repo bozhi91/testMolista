@@ -20,6 +20,7 @@ class Kernel extends ConsoleKernel
 		Commands\UploadMaintenanceCommand::class,
 		Commands\CatchesImportCommand::class,
 		Commands\ProcessStatsCommand::class,
+		Commands\TicketsMaintenanceCommand::class,
 	];
 
 	/**

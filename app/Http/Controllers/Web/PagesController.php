@@ -44,37 +44,67 @@ class PagesController extends WebController
 		switch ( $page->type )
 		{
 			case 'contact':
-				$validator = \Validator::make($this->request->all(), [
-					'name' => 'required|string',
-					'email' => 'required|email',
-					'phone' => 'string',
-					'interest' => 'required|in:buy,rent,sell',
-					'body' => 'required|string',
-				]);
-				if ($validator->fails()) 
-				{
-					return redirect()->back()->withInput()->withErrors($validator);
-				}
-
-				$content = view('web.pages.email', $this->request->only('name','email','phone','interest','body'))->render();
-				$result = $this->site->sendEmail([
-					'to' => $page->configuration['contact']['email'],
-					'subject' => trans('web/pages.contact.email.subject'),
-					'content' => $content,
-				]);
-				/*
-				$result = \Mail::send('web.pages.email', $this->request->only('name','email','body'), function($message) use ($page)
-				{
-					$message->from( env('MAIL_FROM_EMAIL'), env('MAIL_FROM_NAME') );
-					$message->subject( \Lang::get('pages.contact.email.subject') );
-					$message->to($page->configuration['contact']['email']);
-				});
-				*/
-
-				return redirect()->back()->with('success', trans('web/pages.contact.email.sent'));
+				return $this->postContact($page);
 		}
 
 		redirect()->action('Web\PagesController@show', $page->slug);
+	}
+
+	protected function postContact($page)
+	{
+		$validator = \Validator::make($this->request->all(), [
+			'name' => 'required|string',
+			'email' => 'required|email',
+			'phone' => 'string',
+			'interest' => 'required|in:buy,rent,sell',
+			'body' => 'required|string',
+		]);
+		if ($validator->fails()) 
+		{
+			return redirect()->back()->withInput()->withErrors($validator);
+		}
+
+		$customer = $this->site->customers()->where('email',$this->request->get('email'))->first();
+		if ( !$customer )
+		{
+			$fullname = explode(" ",$this->request->get('name'),2);
+			$customer = $this->site->customers()->create([
+				'locale' => \LaravelLocalization::getCurrentLocale(),
+				'first_name' => $fullname[0],
+				'last_name' => $fullname[0],
+				'email' => $this->request->get('email'),
+				'phone' => $this->request->get('phone'),
+			]);
+			if ( !$customer )
+			{
+				return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
+			}
+		}
+
+		$data = $this->request->only('name','email','phone','interest','body');
+
+		if ( $this->site->ticketing_enabled )
+		{
+			$data['email_content_only'] = true;
+
+			$res = $this->site->ticket_adm->createTicket([
+				'contact_id' => $customer->ticket_contact_id,
+				'source' => 'web',
+				'subject' => trans('web/pages.contact.email.subject'),
+				'body' => view('web.pages.email', $data)->render(),
+			]);
+		}
+		else
+		{
+			$content = view('web.pages.email', $data)->render();
+			$result = $this->site->sendEmail([
+				'to' => $page->configuration['contact']['email'],
+				'subject' => trans('web/pages.contact.email.subject'),
+				'content' => $content,
+			]);
+		}
+
+		return redirect()->back()->with('success', trans('web/pages.contact.email.sent'));
 	}
 
 
