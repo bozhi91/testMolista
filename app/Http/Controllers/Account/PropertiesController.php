@@ -513,6 +513,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'city_id' => 'required|exists:cities,id',
 			'district' => '',
 			'address' => '',
+			'address_parts' => 'array',
 			'show_address' => 'boolean',
 			'zipcode' => '',
 			'lat' => 'required|numeric',
@@ -613,6 +614,9 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 				$property->services()->attach($service_id);
 			}
 		}
+
+		// Address parts
+		$property->address_parts = $this->request->get('address_parts');
 
 		$property->save();
 

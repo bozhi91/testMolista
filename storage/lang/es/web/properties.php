@@ -42,6 +42,8 @@
 
 		'search.title' => 'Buscar',
 		'search.results' => 'Resultados',
+		'search.results.one' => 'Resultados: una propiedad con estas características',
+		'search.results.many' => 'Resultados: :total propiedades con estas características',
 		'search.results.more' => 'Mas detalles',
 
 		'empty' => 'No se encontraron resultados',
