@@ -22,6 +22,10 @@ class TicketAdm
 		'resolved',
 		'closed',
 	];
+	protected $states = [
+		'open',
+		'closed',
+	];
 
 	protected $guzzle_client;
 
@@ -660,9 +664,9 @@ class TicketAdm
 			'items' => [],
 		];
 
-		foreach ($this->status as $status)
+		foreach ($this->states as $state)
 		{
-			$stats['tickets'][$status] = 0;
+			$stats['tickets'][$state] = 0;
 		}
 
 		return json_decode(json_encode($stats));
@@ -700,7 +704,7 @@ class TicketAdm
 
 		if ( $response->getStatusCode() != 200 )
 		{
-			$error_message = "TICKETING -> could not access contact stats";
+			$error_message = "TICKETING -> could not access users stats";
 			if ( @$body->message )
 			{
 				$error_message .= ": {$body->message}";
@@ -711,12 +715,14 @@ class TicketAdm
 
 		foreach ($body as $data)
 		{
-			if ( !empty($data->tickets) )
+			if ( empty($data->tickets) || empty($data->tickets->states) )
 			{
-				foreach ($data->tickets as $type=>$quantity)
-				{
-					$stats[$data->user_id]->tickets->$type = $quantity;
-				}
+				continue;
+			}
+
+			foreach ($data->tickets->states as $type=>$quantity)
+			{
+				$stats[$data->user_id]->tickets->$type = $quantity;
 			}
 		}
 
