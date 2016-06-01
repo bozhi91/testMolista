@@ -99,6 +99,7 @@
 					{!! Form::select('mailer[in][protocol]', [
 						'pop3' => 'POP3',
 						'imap' => 'IMAP',
+						'mailgun' => 'Mailgun',
 					], null, [ 'class'=>'form-control' ]) !!}
 				</div>
 				<div class="form-group error-container">
