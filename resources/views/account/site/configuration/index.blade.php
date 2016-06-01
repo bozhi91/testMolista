@@ -325,7 +325,14 @@
 					},
 					'mailer[in][port]': {
 						required: function(element) {
-							return $('#mailer-service-input').val() == 'custom';
+							if ( $('#mailer-service-input').val() == 'custom' ) {
+								switch ( form.find('select[name="mailer[in][protocol]"]').val() ) {
+									case 'pop3':
+									case 'imap':
+										return true;
+								}
+							}
+							return false;
 						}
 					}
 				},
