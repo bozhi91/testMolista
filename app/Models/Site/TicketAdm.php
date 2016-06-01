@@ -668,24 +668,24 @@ class TicketAdm
 		return json_decode(json_encode($stats));
 	}
 
-	public function getUsersStats($contact_ids)
+	public function getUsersStats($user_ids)
 	{
-		if ( !$this->site_ready || empty($contact_ids) )
+		if ( !$this->site_ready || empty($user_ids) )
 		{
 			return false;
 		}
 
-		if ( !is_array($contact_ids) )
+		if ( !is_array($user_ids) )
 		{
-			$contact_ids = [ $contact_ids ];
+			$user_ids = [ $user_ids ];
 		}
 
-		$url = "stats/contact/?site_id={$this->site_id}";
+		$url = "stats/user/?site_id={$this->site_id}";
 
 		$stats = [];
-		foreach ($contact_ids as $id) 
+		foreach ($user_ids as $id) 
 		{
-			$url .= "&contact_id[]={$id}";
+			$url .= "&user_id[]={$id}";
 			$stats[$id] = $this->getDefaultStats();
 		}
 
@@ -715,8 +715,7 @@ class TicketAdm
 			{
 				foreach ($data->tickets as $type=>$quantity)
 				{
-					$stats[$data->contact_id]->tickets->$type = $quantity;
-
+					$stats[$data->user_id]->tickets->$type = $quantity;
 				}
 			}
 		}
