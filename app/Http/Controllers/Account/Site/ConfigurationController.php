@@ -65,11 +65,17 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 				$fields['mailer.out.password'] = 'required';
 				$fields['mailer.out.port'] = 'required';
 				$fields['mailer.out.layer'] = 'in:tls,ssl';
-				$fields['mailer.in.protocol'] = 'required|in:pop3,imap';
+				$fields['mailer.in.protocol'] = 'required|in:pop3,imap,mailgun';
 				$fields['mailer.in.host'] = 'required';
 				$fields['mailer.in.username'] = 'required';
 				$fields['mailer.in.password'] = 'required';
-				$fields['mailer.in.port'] = 'required';
+				switch ( $this->request->input('mailer.in.protocol') )
+				{
+					case 'pop3':
+					case 'imap':
+						$fields['mailer.in.port'] = 'required';
+						break;
+				}
 				$fields['mailer.in.layer'] = 'in:tls,ssl';
 				break;
 		}
