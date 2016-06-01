@@ -121,6 +121,8 @@ Route::group([
 		Route::get('customers/properties/{slug}', 'Account\CustomersController@getAddPropertyCustomer');
 		Route::post('customers/profile/{email}', 'Account\CustomersController@postProfile');
 		Route::resource('customers', 'Account\CustomersController');
+		// Tickets
+		Route::controller('tickets', 'Account\TicketsController');
 		// Reports
 		Route::group([
 			'prefix' => 'reports',
@@ -135,8 +137,6 @@ Route::group([
 			// Leads
 			Route::controller('leads', 'Account\Reports\LeadsController');
 		});
-		// Tickets
-		Route::controller('tickets', 'Account\TicketsController');
 		// Site configuration
 		Route::group([
 			'prefix' => 'site',

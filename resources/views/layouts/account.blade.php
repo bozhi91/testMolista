@@ -2,12 +2,51 @@
 
 @section('content')
 
+	<script type="text/javascript">
+		var TICKETS = {
+			cont: null,
+
+			options: {},
+
+			init: function(sel, ops) {
+				TICKETS.cont = $(sel);
+
+				if ( ops ) {
+					TICKETS.options = $.extend(TICKETS.options, ops);
+				}
+
+				TICKETS.cont.on('click', '.edit-ticket-trigger', function(e){
+					e.preventDefault();
+
+					if ( url = $(this).data().href ) {
+						$.magnificPopup.open({
+							items: {
+								src: url + '?ajax=1'
+							},
+							type: 'iframe'
+						});
+					}
+				});
+			},
+
+			reload: function() {
+				if ( !TICKETS.cont ) return;
+
+				if ( TICKETS.cont.find('.pagination li.active').length ) {
+					TICKETS.cont.load( TICKETS.cont.find('.pagination li.active').data().url );
+				} else if ( TICKETS.cont.data().url ) {
+					TICKETS.cont.load( TICKETS.cont.data().url );
+				}
+			}
+		};
+	</script>
+
     <div id="account-container" class="container">
 		<div class="row">
 			<div class="col-sm-3 col-md-2 hidden-xs">
 				<ul class="nav nav-pills nav-stacked account-menu">
-					<li role="presentation" class="{{ (@$submenu_section == 'home') ? 'active' : '' }}">
-						<a href="{{ action('AccountController@index') }}">{{ Lang::get('account/menu.data') }}</a>
+					<li role="presentation" class="{{ (@$submenu_section == 'tickets') ? 'active' : '' }}">
+						<a href="{{ action('Account\TicketsController@getIndex') }}">{{ Lang::get('account/menu.tickets') }}</a>
 					</li>
 					@permission('property-*')
 						<li role="presentation" class="{{ (@$submenu_section == 'properties') ? 'active' : '' }}">
@@ -47,6 +86,9 @@
 							</ul>
 						</li>
 					@endpermission
+					<li role="presentation" class="{{ (@$submenu_section == 'home') ? 'active' : '' }}">
+						<a href="{{ action('AccountController@index') }}">{{ Lang::get('account/menu.data') }}</a>
+					</li>
 				</ul>
 			</div>
 			<div class="col-xs-12 col-sm-9 col-md-10">

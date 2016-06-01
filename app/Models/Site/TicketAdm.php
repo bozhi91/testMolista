@@ -587,6 +587,9 @@ class TicketAdm
 			return false;
 		}
 
+		$first_message = @array_pop(array_values($body->messages));
+		$body->subject = @$first_message->subject;
+
 		return $body;
 	}
 	public function updateTicket($ticket_id, $data)

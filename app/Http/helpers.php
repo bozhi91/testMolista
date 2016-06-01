@@ -78,6 +78,10 @@
 		$diff = (time() - $time) / 60;
 		if ( $diff < 60 )
 		{
+			if ( $diff < 0 )
+			{
+				$diff = 0;
+			}
 			return trans('general.since.minutes', [ 'minutes'=>floor($diff) ]);
 		}
 
@@ -174,7 +178,23 @@
 			return;
 		}
 
-		$href = "{$url}?limit={$limit}&page=";
+		// Prepare url
+		@list($href,$query) = explode('?',$url);
+
+		if ( $query )
+		{
+			parse_str($query,$parts);
+			unset($parts['limit'], $parts['page']);
+		}
+
+		if ( empty($parts) )
+		{
+			$href .= "?limit={$limit}&page=";
+		}
+		else
+		{
+			$href .= '?'.http_build_query($parts)."&limit={$limit}&page=";
+		}
 
 		$pags =	'<div class="row pagination-custom">' .
 					'<div class="col-xs-12">' .
@@ -196,7 +216,8 @@
 
 		if ( $page > 1 )
 		{
-			$pags .= "<li><a href='#' data-href='{$href}1'>«</a></li>";
+			$tmp = $page - 1;
+			$pags .= "<li><a href='{$href}{$tmp}'>«</a></li>";
 		}
 		else
 		{
@@ -205,7 +226,7 @@
 
 		if ( $first_page > 1 )
 		{
-			$pags .= "<li><a href='#' data-href='{$href}1'>1</a></li>";
+			$pags .= "<li><a href='{$href}1'>1</a></li>";
 		}
 
 		if ( $first_page > 2 )
@@ -226,11 +247,11 @@
 
 			if ( $i == $page )
 			{
-				$pags .= "<li class='active' data-href='{$href}{$i}'><span>{$i}</span></li>";
+				$pags .= "<li class='active' data-url='{$href}{$i}'><span>{$i}</span></li>";
 			}
 			else
 			{
-				$pags .= "<li><a href='#' data-href='{$href}{$i}'>{$i}</a></li>";
+				$pags .= "<li><a href='{$href}{$i}'>{$i}</a></li>";
 
 			}
 		}
@@ -242,13 +263,13 @@
 
 		if ( $last_page < $total )
 		{
-			$pags .= "<li><a href='#' data-href='{$href}{$total}'>{$total}</a></li>";
+			$pags .= "<li><a href='{$href}{$total}'>{$total}</a></li>";
 		}
 	
 		if ( $page < $total )
 		{
 			$tmp = $page + 1;
-			$pags .= "<li><a href='#' data-href='{$href}{$tmp}'>»</a></li>";
+			$pags .= "<li><a href='{$href}{$tmp}'>»</a></li>";
 		}
 		else
 		{

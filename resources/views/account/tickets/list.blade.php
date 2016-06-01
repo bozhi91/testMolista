@@ -9,6 +9,7 @@
 				<th>{{ Lang::get('account/tickets.date') }}</th>
 				<th>{{ Lang::get('account/tickets.contact.name') }}</th>
 				<th>{{ Lang::get('account/tickets.contact.email') }}</th>
+				<th class="text-nowrap">{{ Lang::get('account/tickets.assigned.to') }}</th>
 				<th>{{ Lang::get('account/tickets.referer') }}</th>
 				<th>{{ Lang::get('account/tickets.source') }}</th>
 				<th class="text-center">{{ Lang::get('account/tickets.messages') }}</th>
@@ -22,6 +23,7 @@
 					<td>{{ date('d/m/Y', strtotime($ticket->created_at)) }}</td>
 					<td>{{ @$ticket->contact->fullname }}</td>
 					<td>{{ @$ticket->contact->email }}</td>
+					<td>{{ @$ticket->user->name }}</td>
 					<td>{{ $ticket->referer }}</td>
 					<td>{{ Lang::get("account/tickets.source.{$ticket->source->code}") }}</td>
 					<td class="text-center">{{ @number_format(count($ticket->messages), 0, ',', '.') }}</td>
@@ -31,7 +33,7 @@
 			@endforeach
 		</tbody>
 	</table>
-	{!! drawTicketsPagination(action('Account\EmployeesController@getTickets', urlencode($email)), $tickets) !!}
+	{!! drawTicketsPagination($pagination_url, $tickets) !!}
 
 
 @endif

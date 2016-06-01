@@ -31,24 +31,32 @@
 							<a href="#" class="btn btn-sm btn-default btn-reply-form-trigger">{{ Lang::get('account/tickets.send') }}</a>
 						</div>
 						{!! Form::open([ 'id'=>'reply-form', 'action'=>[ 'Account\TicketsController@postReply', $ticket->id ], 'style'=>'display: none;' ]) !!}
-							<div class="row">
-								<div class="col-xs-6">
+							<div class="row hide">
+								<div class="col-xs-12">
 									<div class="form-group error-container">
 										{!! Form::label('subject', Lang::get('account/tickets.subject')) !!}
-										{!! Form::text('subject', null, [ 'class'=>'form-control required' ]) !!}
-									</div>
-									<div class="form-group error-container">
-										{!! Form::select('private', [
-											'0' => Lang::get('account/tickets.public'),
-											'1' => Lang::get('account/tickets.internal'),
-										], null, [ 'class'=>'form-control required' ]) !!}
+										{!! Form::text('subject', "RE: {$ticket->subject}", [ 'class'=>'form-control required' ]) !!}
 									</div>
 								</div>
-								<div class="col-xs-6">
+							</div>
+							<div class="row">
+								<div class="col-xs-12">
 									<div class="form-group error-container">
 										{!! Form::label('body', Lang::get('account/tickets.body')) !!}
 										{!! Form::textarea('body', null, [ 'class'=>'form-control required', 'rows'=>3 ]) !!}
 									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-6">
+									<div class="form-group error-container">
+										{!! Form::select('private', [
+											'0' => Lang::get('account/tickets.public'),
+											'1' => Lang::get('account/tickets.internal'),
+										], null, [ 'class'=>'form-control input-sm required' ]) !!}
+									</div>
+								</div>
+								<div class="col-xs-6">
 									<div class="text-right">
 										{!! Form::button(Lang::get('account/tickets.send'), [ 'type'=>'submit', 'class'=>'btn btn-sm btn-default' ]) !!}
 									</div>
@@ -80,7 +88,8 @@
 									@else
 										<strong>{{ $ticket->contact->fullname }}</strong>
 									@endif
-									- {{ since_text($message->created_at) }}
+									-
+									{{ since_text($message->created_at) }}
 								</div>
 							</div>
 						</div>
@@ -111,18 +120,30 @@
 					<div class="panel panel-default">
 						<div class="panel-heading">{{ Lang::get('account/tickets.assigned.to') }}</div>
 						<div class="panel-body">
-							@if ( empty($ticket->user->name) )
-								{!! Form::open([ 'id'=>'assign-form', 'action'=>[ 'Account\TicketsController@postAssign', $ticket->id ] ]) !!}
-									<div class="form-group error-container">
-										{!! Form::select('user_id', [ ''=>Lang::get('account/tickets.unassigned') ] + $employees->all(), null, [ 'class'=>'form-control required' ]) !!}
-									</div>
-									<div class="text-right">
-										{!! Form::button(Lang::get('account/tickets.assign'), [ 'type'=>'submit', 'class'=>'btn btn-default' ]) !!}
-									</div>
-								{!! Form::close() !!}
-							@else
+							@if ( !empty($ticket->user->name) )
 								<div>{{ $ticket->user->name }}</div>
 								<div class="text-ellipsis" title="{{ $ticket->user->email }}">{{ $ticket->user->email }}</div>
+							@endif
+							@if ( empty($ticket->user->name) || \Auth::user()->hasRole('company') )
+								@if ( !empty($ticket->user->name) )
+									<hr />
+								@endif
+								{!! Form::open([ 'id'=>'assign-form', 'action'=>[ 'Account\TicketsController@postAssign', $ticket->id ] ]) !!}
+									<div class="form-group error-container">
+										@if ( $ticket->user )
+											{!! Form::select('user_id', [ ''=>'' ] + $employees, null, [ 'class'=>'form-control input-sm required' ]) !!}
+										@else
+											{!! Form::select('user_id', [ ''=>Lang::get('account/tickets.unassigned') ] + $employees, null, [ 'class'=>'form-control input-sm required' ]) !!}
+										@endif
+									</div>
+									<div class="text-right">
+										@if ( $ticket->user )
+											{!! Form::button(Lang::get('account/tickets.agents.change'), [ 'type'=>'submit', 'class'=>'btn btn-sm btn-default' ]) !!}
+										@else
+											{!! Form::button(Lang::get('account/tickets.assign'), [ 'type'=>'submit', 'class'=>'btn btn-sm btn-default' ]) !!}
+										@endif
+									</div>
+								{!! Form::close() !!}
 							@endif
 						</div>
 					</div>
@@ -207,7 +228,8 @@
 				$(this).hide();
 				reply_form.show();
 			});
-			if ( reply_form.find('input[name="subject"]').val() ) {
+
+			if ( cont.find('.alert-error').length ) {
 				cont.find('.btn-reply-form-trigger').trigger('click');
 			}
 
@@ -215,10 +237,13 @@
 				if ( typeof window.parent != 'object' ) {
 					return;
 				} 
-				if ( typeof window.parent.reloadTickets != 'function' ) {
+				if ( typeof window.parent.TICKETS != 'object' ) {
 					return;
 				}
-				window.parent.reloadTickets();
+				if ( typeof window.parent.TICKETS.reload != 'function' ) {
+					return;
+				}
+				window.parent.TICKETS.reload();
 			}
 
 		});

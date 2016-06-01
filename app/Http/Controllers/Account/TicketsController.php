@@ -16,11 +16,71 @@ class TicketsController extends \App\Http\Controllers\AccountController
 		\View::share('submenu_subsection', false);
 	}
 
+	public function getIndex()
+	{
+		if ( !$this->request->get('limit') )
+		{
+			$this->request->merge([
+				'limit' => \Config::get('app.pagination_perpage', 10),
+			]);
+		}
+
+		$params = [
+			'page' => $this->request->get('page',1),
+			'limit' => $this->request->get('limit'),
+		];
+
+		if ( $this->request->get('status') )
+		{
+			$clean_filters = true;
+			$params['status'] = $this->request->get('status');
+		}
+
+		if ( $this->request->get('user_id') == 'null' )
+		{
+			$clean_filters = true;
+			$params['user_id'] = 'null';
+		} 
+		elseif ( \Auth::user()->hasRole('employee') )
+		{
+			if ( $this->request->get('user_id') ) 
+			{
+				$clean_filters = true;
+				$params['user_id'] = \Auth::user()->ticket_user_id;
+			}
+			else
+			{
+				$params['user_id'] = [
+					\Auth::user()->ticket_user_id,
+					'null',
+				];
+			}
+		}
+		elseif ( $this->request->get('user_id') ) 
+		{
+			$clean_filters = true;
+			$params['user_id'] = $this->request->get('user_id');
+		}
+
+		$tickets = $this->site->ticket_adm->getTickets($params);
+
+		if ( $this->request->ajax() )
+		{
+			$pagination_url = url()->full();
+			return view('account.tickets.list', compact('pagination_url', 'tickets'));
+		}
+
+		$employees = $this->_getEmployeesOptions();
+
+		return view('account.tickets.index', compact('tickets','employees','clean_filters'));
+	}
+
 	public function getShow($ticket_id)
 	{
 		$ticket = $this->_getTicket($ticket_id);
 
-		$employees = $this->site->users()->withRole('employee')->where('ticket_user_id','!=','')->orderBy('name')->lists('name','id');
+		$employees = $this->_getEmployeesOptions();
+
 		$status = $this->site->ticket_adm->getStatusOptions();
 
 		return view('account.tickets.show', compact('ticket', 'employees','status'));
@@ -36,8 +96,14 @@ class TicketsController extends \App\Http\Controllers\AccountController
 			return redirect()->back()->withInput()->withErrors($validator);
 		}
 
-		$ticket_user_id = $this->site->users()->where('ticket_user_id','!=','')->where('id', $this->request->get('user_id'))->value('ticket_user_id');
-		if ( !$ticket_user_id ) 
+		$user = $this->site->users()->find($this->request->get('user_id'));
+
+		if ( !$user || !$user->ticket_user_id ) 
+		{
+			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
+		}
+
+		if ( \Auth::user()->hasRole('employee') && \Auth::user()->id != $user->id )
 		{
 			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
 		}
@@ -49,7 +115,7 @@ class TicketsController extends \App\Http\Controllers\AccountController
 		}
 
 		$result = $this->site->ticket_adm->updateTicket($ticket_id, [
-			'user_id' => $ticket_user_id
+			'user_id' => $user->ticket_user_id
 		]);
 
 		if ( $result )
@@ -137,6 +203,23 @@ class TicketsController extends \App\Http\Controllers\AccountController
 		}
 
 		return $ticket;
+	}
+
+	protected function _getEmployeesOptions()
+	{
+		$users_query = $this->site->users()
+						->withRole('employee')
+						->where('ticket_user_id','!=','')
+						->orderBy('name')
+						->orderBy('email');
+
+		if ( \Auth::user()->hasRole('employee') )
+		{
+			$users_query->where('id', \Auth::user()->id);
+		}
+
+		return $users_query->lists('name','id')->all();
+
 	}
 
 }

@@ -164,11 +164,13 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 				'user_id' => $employee->ticket_user_id,
 				'status' => [ 'open', 'waiting' ],
 				'page' => $this->request->get('page',1),
-				'limit' => $this->request->get('limit',10),
+				'limit' => $this->request->get('limit', \Config::get('app.pagination_perpage', 10)),
 			]);
 		}
 
-		return view('account.tickets.list', compact('email','tickets'));
+		$pagination_url = action('Account\EmployeesController@getTickets', urlencode($email));
+
+		return view('account.tickets.list', compact('pagination_url','tickets'));
 	}
 
 	public function getAssociate($email)
