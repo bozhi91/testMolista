@@ -172,6 +172,16 @@
 						</div>
 					</div>
 
+					@if ( @$property )
+						<div class="panel panel-default">
+							<div class="panel-heading">{{ Lang::get('account/properties.column.title')}}</div>
+							<div class="panel-body">
+								<div>{{ $property->title }}</div>
+								<div>{{ implode(', ', $property->location_array) }}</div>
+							</div>
+						</div>
+					@endif
+
 				</div>
 
 			</div>

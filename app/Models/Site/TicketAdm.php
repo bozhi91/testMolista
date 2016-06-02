@@ -518,6 +518,8 @@ class TicketAdm
 			'site_id' => $this->site_id,
 			'limit' => empty($params['limit']) ? 50 : intval($params['limit']),
 			'page' => empty($params['page']) ? 1 : intval($params['page']),
+			'orderby' => empty($params['orderby']) ? 'created_at' : intval($params['orderby']),
+			'order' => empty($params['order']) ? 'desc' : intval($params['order']),
 		];
 
 		if ( isset($params['user_id']) )

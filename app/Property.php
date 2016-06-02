@@ -150,6 +150,15 @@ class Property extends TranslatableModel
 		return false;
 	}
 
+	public function getLocationArrayAttribute()
+	{
+		return array_filter([
+			'district' => @$this->district,
+			'city' => @$this->city->name,
+			'state' => @$this->state->name,
+		]);
+	}
+
 	public function getPdfFolderAttribute()
 	{
 		return "sites/{$this->site_id}/properties/{$this->id}/pdf";
