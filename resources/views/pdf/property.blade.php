@@ -3,13 +3,14 @@
 @section('content')
 
 	<h1>{{$property->title}}</h1>
-	<div class="location block">
+	<div class="location">
 		{{ implode(', ', array_filter([
 			'district' => $property->district,
 			'city' => $property->city->name,
 			'state' => $property->state->name,
 		])) }}
 	</div>
+	<div class="url block">{{ $property->full_url }}</div>
 
 	<div class="description block">
 		{!! nl2p($property->description) !!}
@@ -61,9 +62,9 @@
 		</ul>
 	</div>
 
-	@if ( $property->images->count() > 1 )
+	@if ( $property->images->count() > 0 )
 		<div class="images block">
-			@foreach ($property->images->sortBy('position') as $image)
+			@foreach ($property->images->sortBy('position')->slice(0,5) as $image)
 				<p>
 					<img src="{{ "{$property->image_path}/{$image->image}" }}" />
 				</p>
