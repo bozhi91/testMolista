@@ -15,7 +15,7 @@
 						'user.name' => [ 'title' => Lang::get('account/tickets.assigned.to'), 'class'=>'text-nowrap' ],
 						'referer' => [ 'title' => Lang::get('account/tickets.referer') ],
 						'source' => [ 'title' => Lang::get('account/tickets.source') ],
-						'messages' => [ 'title' => Lang::get('account/tickets.messages') ],
+						'messages.count' => [ 'title' => Lang::get('account/tickets.messages') ],
 						'status' => [ 'title' => Lang::get('account/tickets.status') ],
 						'action' => [ 'title' => '', 'sortable'=>false ],
 					]) !!}
