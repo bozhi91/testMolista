@@ -3,36 +3,48 @@
 
 
 @else
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				<th>{{ Lang::get('account/tickets.date') }}</th>
-				<th>{{ Lang::get('account/tickets.contact.name') }}</th>
-				<th>{{ Lang::get('account/tickets.contact.email') }}</th>
-				<th class="text-nowrap">{{ Lang::get('account/tickets.assigned.to') }}</th>
-				<th>{{ Lang::get('account/tickets.referer') }}</th>
-				<th>{{ Lang::get('account/tickets.source') }}</th>
-				<th class="text-center">{{ Lang::get('account/tickets.messages') }}</th>
-				<th>{{ Lang::get("account/tickets.status") }}</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach ($tickets['items'] as $ticket)
+	<div class="table-responsive">
+		<table class="table table-striped" style="font-size: 0.9em;">
+			<thead>
 				<tr>
-					<td>{{ date('d/m/Y', strtotime($ticket->created_at)) }}</td>
-					<td>{{ @$ticket->contact->fullname }}</td>
-					<td>{{ @$ticket->contact->email }}</td>
-					<td>{{ @$ticket->user->name }}</td>
-					<td>{{ $ticket->referer }}</td>
-					<td>{{ Lang::get("account/tickets.source.{$ticket->source->code}") }}</td>
-					<td class="text-center">{{ @number_format(count($ticket->messages), 0, ',', '.') }}</td>
-					<td>{{ Lang::get("account/tickets.status.{$ticket->status->code}") }}</td>
-					<td><a href="#" data-href="{{ action('Account\TicketsController@getShow', $ticket->id) }}" class="btn btn-primary btn-xs edit-ticket-trigger">{{ Lang::get('general.view') }}</a>
+					{!! drawSortableHeaders($pagination_url, [
+						'reference' => [ 'title' => 'ID' ],
+						'created_at' => [ 'title' => Lang::get('account/tickets.date') ],
+						'contact.fullname' => [ 'title' => Lang::get('account/tickets.contact.name') ],
+						'contact.email' => [ 'title' => Lang::get('account/tickets.contact.email') ],
+						'user.name' => [ 'title' => Lang::get('account/tickets.assigned.to'), 'class'=>'text-nowrap' ],
+						'referer' => [ 'title' => Lang::get('account/tickets.referer') ],
+						'source' => [ 'title' => Lang::get('account/tickets.source') ],
+						'messages' => [ 'title' => Lang::get('account/tickets.messages') ],
+						'status' => [ 'title' => Lang::get('account/tickets.status') ],
+						'action' => [ 'title' => '', 'sortable'=>false ],
+					]) !!}
 				</tr>
-			@endforeach
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				@foreach ($tickets['items'] as $ticket)
+					<tr>
+						<td>#{{ @$ticket->reference }}</td>
+						<td>{{ date('d/m/Y', strtotime($ticket->created_at)) }}</td>
+						<td>
+							@if ( @$ticket->contact->email )
+								<a href="{{ action('Account\CustomersController@show', urlencode($ticket->contact->email)) }}" target="_blank">{{ $ticket->contact->fullname }}</a>
+							@else
+								{{ $ticket->contact->fullname }}
+							@endif
+						</td>
+						<td>{{ @$ticket->contact->email }}</td>
+						<td>{{ @$ticket->user->name }}</td>
+						<td>{{ $ticket->referer }}</td>
+						<td>{{ @$ticket->source->name }}</td>
+						<td class="text-center">{{ @number_format(count($ticket->messages), 0, ',', '.') }}</td>
+						<td>{{ @$ticket->status->name }}</td>
+						<td><a href="#" data-href="{{ action('Account\TicketsController@getShow', $ticket->id) }}" class="btn btn-primary btn-xs edit-ticket-trigger">{{ Lang::get('general.view') }}</a>
+					</tr>
+				@endforeach
+			</tbody>
+		</table>
+	</div>
 	{!! drawTicketsPagination($pagination_url, $tickets) !!}
 
 

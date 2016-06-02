@@ -283,6 +283,73 @@
 		return $pags;
 	}
 
+	function getParsedUrl($url)
+	{
+		// Prepare url
+		$query_parts = [];
+
+		@list($href,$query) = explode('?',$url);
+		if ( $query )
+		{
+			parse_str($query,$query_parts);
+		}
+
+		return [ $href, $query_parts ];
+	}
+
+	function drawSortableHeaders($url,$columns)
+	{
+		@list($href,$query) = getParsedUrl($url);
+
+		if ( !$query )
+		{
+			$query = [];
+		}
+
+		$orderby = @$query['orderby'];
+		unset($query['orderby']);
+
+		$order = @$query['order'];
+		unset($query['order']);
+
+		$query['page'] = 1;
+
+		$str = '';
+
+		foreach ($columns as $key => $def) 
+		{
+			$str .= '<th class="' . @$def['class'] . '">';
+
+			if ( isset($def['sortable']) && !$def['sortable']) 
+			{
+				$str .= @$def['title'];
+			}
+			else
+			{
+
+				$tmp_order = 'asc';
+				$tmp_class = 'is-sortable';
+
+				if ($orderby == $key)
+				{
+					$tmp_order = ($order == 'asc') ? 'desc' : 'asc';
+					$tmp_class .= " sorted {$tmp_order}";
+				}
+
+				$tmp_url = $href . '?' . http_build_query(array_merge($query, [
+					'orderby' => $key,
+					'order' => $tmp_order,
+				]));
+
+				$str .= '<a href="' . $tmp_url . '" class="' . $tmp_class . '">' . @$def['title'] . '</a>';
+			}
+
+			$str .= '</th>';
+		}
+
+		return $str;
+	}
+
 	function sort_link($field) 
 	{
 		return url()->current() . '?' . http_build_query(Input::except('sort')) . '&sort=' . $field;

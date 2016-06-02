@@ -167,7 +167,7 @@
 
 			TICKETS.init('#tab-tickets');
 
-			TICKETS.cont.on('click', '.pagination a', function(e){
+			TICKETS.cont.on('click', '.pagination a, thead a', function(e){
 				e.preventDefault();
 				if ( url = $(this).attr('href') ) {
 					LOADING.show();

@@ -165,10 +165,12 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 				'status' => [ 'open', 'waiting' ],
 				'page' => $this->request->get('page',1),
 				'limit' => $this->request->get('limit', \Config::get('app.pagination_perpage', 10)),
+				'orderby' => $this->request->get('orderby'),
+				'order' => $this->request->get('order'),
 			]);
 		}
 
-		$pagination_url = action('Account\EmployeesController@getTickets', urlencode($email));
+		$pagination_url = url()->full(); //action('Account\EmployeesController@getTickets', urlencode($email));
 
 		return view('account.tickets.list', compact('pagination_url','tickets'));
 	}

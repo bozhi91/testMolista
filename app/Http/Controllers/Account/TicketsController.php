@@ -28,6 +28,8 @@ class TicketsController extends \App\Http\Controllers\AccountController
 		$params = [
 			'page' => $this->request->get('page',1),
 			'limit' => $this->request->get('limit'),
+			'orderby' => $this->request->get('orderby'),
+			'order' => $this->request->get('order'),
 		];
 
 		if ( $this->request->get('status') )

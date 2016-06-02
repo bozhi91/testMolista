@@ -92,8 +92,9 @@
 	.is-sortable { 
 		color: @bodyTextColor; 
 		&.sorted {
-			&:before { content:''; display: inline-block; width:0; height:0; border: 3px solid transparent; vertical-align: middle; border-top-color: @bodyTextColor; opacity: 0.8; margin-right: 3px;
-			}
+			&:before { content:''; display: inline-block; width:0; height:0; border: 3px solid transparent; vertical-align: middle; opacity: 0.8; margin-right: 3px; }
+			&.desc:before { border-top-color: @bodyTextColor; }
+			&.asc:before { border-bottom-color: @bodyTextColor; margin-top: -7px; }
 		}
 	}
 
