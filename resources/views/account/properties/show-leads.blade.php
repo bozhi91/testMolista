@@ -10,7 +10,7 @@
 				<th>{{ Lang::get('account/customers.name') }}</th>
 				<th>{{ Lang::get('account/customers.email') }}</th>
 				<th>{{ Lang::get('account/customers.phone') }}</th>
-				<th class="hide"></th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -19,7 +19,7 @@
 					<td>{{ $customer->full_name }}</td>
 					<td>{{ $customer->email }}</td>
 					<td>{{ $customer->phone }}</td>
-					<td class="hide text-right text-nowrap">
+					<td class="text-right text-nowrap">
 						<a href="{{ action('Account\CustomersController@show', urlencode($customer->email)) }}" class="btn btn-primary btn-xs" target="_blank">{{ Lang::get('general.view') }}</a>
 					</td>
 				</tr>
