@@ -79,7 +79,10 @@ class TicketsController extends \App\Http\Controllers\AccountController
 	{
 		$employees = $this->_getEmployeesOptions();
 		$customers = $this->site->customers_options;
-		return view('account.tickets.create', compact('employees','customers'));
+		$properties = $this->site->properties()
+							->whereIn('properties.id', $this->auth->user()->properties()->lists('id'))
+							->withTranslations()->orderBy('title')->lists('title','id')->all();
+		return view('account.tickets.create', compact('employees','customers','properties'));
 	}
 
 	public function postCreate()
@@ -87,6 +90,7 @@ class TicketsController extends \App\Http\Controllers\AccountController
 		$validator = \Validator::make($this->request->all(), [
 			'customer_id' => 'required|exists:customers,id,site_id,'.$this->site->id,
 			'user_id' => 'exists:sites_users,user_id,site_id,'.$this->site->id,
+			'property_id' => 'exists:properties,id,site_id,'.$this->site->id,
 			'subject' => 'required|string',
 			'body' => 'required|string',
 		]);
@@ -103,6 +107,12 @@ class TicketsController extends \App\Http\Controllers\AccountController
 			'subject' => $this->request->get('subject'),
 			'body' => strip_tags( $this->request->get('body') ),
 		];
+
+		if ( $this->request->get('property_id') )
+		{
+			$property = $this->site->properties()->findOrFail( $this->request->get('property_id') );
+			$data['item_id'] = $property->ticket_item_id;
+		}
 
 		if ( $this->request->get('user_id') )
 		{
@@ -126,7 +136,12 @@ class TicketsController extends \App\Http\Controllers\AccountController
 
 		$status = $this->site->ticket_adm->getStatusOptions();
 
-		return view('account.tickets.show', compact('ticket', 'employees','status'));
+		if ( @$ticket->item->id )
+		{
+			$property = $this->site->properties()->where('ticket_item_id',$ticket->item->id)->withTranslations()->first();
+		}
+
+		return view('account.tickets.show', compact('ticket','property','employees','status'));
 	}
 
 	public function postAssign($ticket_id)
