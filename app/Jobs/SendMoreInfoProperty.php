@@ -50,15 +50,7 @@ class SendMoreInfoProperty extends Job implements ShouldQueue
 		$this->sendUserEmail();
 
 		// Create ticket
-		if ( $this->property->site->ticketing_enabled )
-		{
-			$res = $this->createTicket();
-		}
-		// Send email to managers
-		else
-		{
-			$res = $this->sendManagerEmail();
-		}
+		$res = $this->createTicket();
 
 		return $res;
 	}
@@ -121,18 +113,20 @@ class SendMoreInfoProperty extends Job implements ShouldQueue
 			$user_id = null;
 		}
 
+		$body = view('emails.property.moreinfo-manager', [
+			'email_content_only' => true,
+			'property' => $this->property,
+			'customer' => $this->customer,
+			'data' => $this->data,
+		])->render();
+
 		$res = $this->property->site->ticket_adm->createTicket([
 			'contact_id' => $this->customer->ticket_contact_id,
 			'user_id' => $user_id,
 			'item_id' => $this->property->ticket_item_id,
 			'source' => 'web',
 			'subject' => trans('web/properties.moreinfo.email.customer.title', [ 'title'=>$this->property->title ]),
-			'body' => view('emails.property.moreinfo-manager', [
-				'email_content_only' => true,
-				'property' => $this->property,
-				'customer' => $this->customer,
-				'data' => $this->data,
-			])->render(),
+			'body' => strip_tags($body),
 		]);
 
 		// Restore backup locale

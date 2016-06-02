@@ -89,6 +89,9 @@
 					<li role="presentation" class="{{ (@$submenu_section == 'home') ? 'active' : '' }}">
 						<a href="{{ action('AccountController@index') }}">{{ Lang::get('account/menu.data') }}</a>
 					</li>
+					<li role="presentation">
+						<a href="{{ action('Auth\AuthController@logout') }}">{{ Lang::get('web/header.logout') }}</a>
+					</li>
 				</ul>
 			</div>
 			<div class="col-xs-12 col-sm-9 col-md-10">

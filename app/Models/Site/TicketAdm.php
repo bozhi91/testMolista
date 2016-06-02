@@ -660,21 +660,6 @@ class TicketAdm
 		return true;
 	}
 
-	public function getDefaultStats()
-	{
-		$stats = [
-			'tickets' => [],
-			'items' => [],
-		];
-
-		foreach ($this->states as $state)
-		{
-			$stats['tickets'][$state] = 0;
-		}
-
-		return json_decode(json_encode($stats));
-	}
-
 	public function getUsersStats($user_ids)
 	{
 		if ( !$this->site_ready || empty($user_ids) )
@@ -687,13 +672,28 @@ class TicketAdm
 			$user_ids = [ $user_ids ];
 		}
 
+		// Default stats
+		$default_stats = [
+			'tickets' => [],
+			'contacts' => [],
+			'items' => [],
+		];
+		foreach ($this->states as $state)
+		{
+			$default_stats['tickets'][$state] = 0;
+			$default_stats['contacts'][$state] = 0;
+		}
+		$default_stats = json_decode(json_encode($default_stats));
+
+
+		// Request url
 		$url = "stats/user/?site_id={$this->site_id}";
 
 		$stats = [];
 		foreach ($user_ids as $id) 
 		{
 			$url .= "&user_id[]={$id}";
-			$stats[$id] = $this->getDefaultStats();
+			$stats[$id] = $default_stats;
 		}
 
 		$response = $this->guzzle_client->request('GET', $url, [
@@ -718,14 +718,19 @@ class TicketAdm
 
 		foreach ($body as $data)
 		{
-			if ( empty($data->tickets) || empty($data->tickets->states) )
+			if ( @$data->tickets->states )
 			{
-				continue;
+				foreach ($data->tickets->states as $type=>$quantity)
+				{
+					$stats[$data->user_id]->tickets->$type = $quantity;
+				}
 			}
-
-			foreach ($data->tickets->states as $type=>$quantity)
+			if ( @$data->contacts->states )
 			{
-				$stats[$data->user_id]->tickets->$type = $quantity;
+				foreach ($data->contacts->states as $type=>$quantity)
+				{
+					$stats[$data->user_id]->contacts->$type = $quantity;
+				}
 			}
 		}
 

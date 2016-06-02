@@ -75,6 +75,49 @@ class TicketsController extends \App\Http\Controllers\AccountController
 		return view('account.tickets.index', compact('tickets','employees','clean_filters'));
 	}
 
+	public function getCreate()
+	{
+		$employees = $this->_getEmployeesOptions();
+		$customers = $this->site->customers_options;
+		return view('account.tickets.create', compact('employees','customers'));
+	}
+
+	public function postCreate()
+	{
+		$validator = \Validator::make($this->request->all(), [
+			'customer_id' => 'required|exists:customers,id,site_id,'.$this->site->id,
+			'user_id' => 'exists:sites_users,user_id,site_id,'.$this->site->id,
+			'subject' => 'required|string',
+			'body' => 'required|string',
+		]);
+		if ( $validator->fails() ) 
+		{
+			return redirect()->back()->withInput()->withErrors($validator);
+		}
+
+		$customer = $this->site->customers()->findOrFail( $this->request->get('customer_id') );
+
+		$data = [
+			'contact_id' => $customer->ticket_contact_id,
+			'source' => 'backoffice',
+			'subject' => $this->request->get('subject'),
+			'body' => strip_tags( $this->request->get('body') ),
+		];
+
+		if ( $this->request->get('user_id') )
+		{
+			$user = $this->site->users()->findOrFail( $this->request->get('user_id') );
+			$data['user_id'] = $user->ticket_user_id;
+		}
+
+		if ( $this->site->ticket_adm->createTicket($data) )
+		{
+			return redirect()->action('Account\TicketsController@getIndex')->with('success', trans('general.messages.success.saved'));
+		}
+
+		return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
+	}
+
 	public function getShow($ticket_id)
 	{
 		$ticket = $this->_getTicket($ticket_id);

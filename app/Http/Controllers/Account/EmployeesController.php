@@ -42,12 +42,12 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 
 		if ( $employees->count() > 0 )
 		{
-			$tickets = $this->site->ticket_adm->getUsersStats( array_filter($employees->pluck('ticket_user_id')->all()) );
+			$stats = $this->site->ticket_adm->getUsersStats( array_filter($employees->pluck('ticket_user_id')->all()) );
 		}
 
 		$this->set_go_back_link();
 
-		return view('account.employees.index', compact('employees','tickets'));
+		return view('account.employees.index', compact('employees','stats'));
 	}
 
 	public function create()

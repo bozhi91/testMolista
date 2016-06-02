@@ -6,11 +6,9 @@
 
 		@include('common.messages', [ 'dismissible'=>true ])
 
-		@if ( Auth::user()->can('property-create') && Auth::user()->canProperty('create') )
-			<div class="pull-right">
-				<a href="{{ action('Account\PropertiesController@create') }}" class="btn btn-primary">{{ Lang::get('account/tickets.new') }}</a>
-			</div>
-		@endif
+		<div class="pull-right">
+			<a href="{{ action('Account\TicketsController@getCreate') }}" class="btn btn-primary">{{ Lang::get('account/tickets.new') }}</a>
+		</div>
 
 		<h1 class="page-title">{{ Lang::get('account/tickets.h1') }}</h1>
 
