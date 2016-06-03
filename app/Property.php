@@ -216,19 +216,70 @@ class Property extends TranslatableModel
 		return $this->catches()->whereIn('status', [ 'sold', 'rent' ])->with('employee')->with('buyer')->with('seller')->orderBy('transaction_date','desc')->first();
 	}
 
-	// [TODO]
+
 	public function getRelatedPropertiesAttribute()
 	{
-		return \App\Property::enabled()
-			->ofSite($this->site_id)
-			->where('properties.id','!=',$this->id)
-			->with('images')
-			->with('state')
-			->with('city')
-			->withTranslations()
-			->orderByRaw("RAND()")
-			->limit(3)
+		$limit = 3;
+
+		$ids = \App\Property::withBasicRelationship($this)
+					->where('properties.city_id', $this->city_id) 
+					->where('properties.type', $this->type)
+					->orderBy('properties.price','desc')
+					->orderByRaw('RAND()')
+					->limit($limit)->lists('id')->all();
+
+		$limit -= count($ids);
+		if ( $limit < 1 )
+		{
+			return $this->_related_properties($ids);
+		}
+
+		// Same state and type
+		$_ids = \App\Property::withBasicRelationship($this)
+					->whereNotIn('properties.id', $ids)
+					->where('properties.state_id', $this->state_id)
+					->where('properties.type', $this->type)
+					->orderBy('properties.price','desc')
+					->orderByRaw('RAND()')
+					->limit($limit)->lists('id')->all();
+
+		$limit -= count($_ids);
+		$ids = array_merge($_ids, $ids);
+		if ( $limit < 1 )
+		{
+			return $this->_related_properties($ids);
+		}
+
+		// Same state
+		$_ids = \App\Property::withBasicRelationship($this)
+					->whereNotIn('properties.id', $ids)
+					->where('properties.state_id', $this->state_id)
+					->orderBy('properties.price','desc')
+					->orderByRaw('RAND()')
+					->limit($limit)->lists('id')->all();
+
+		$limit -= count($_ids);
+		$ids = array_merge($_ids, $ids);
+		if ( $limit < 1 )
+		{
+			return $this->_related_properties($ids);
+		}
+
+		// Whatever...
+		$_ids = \App\Property::withBasicRelationship($this)
+					->whereNotIn('properties.id', $ids)
+					->orderByRaw('RAND()')
+					->limit($limit)->lists('id')->all();
+		$ids = array_merge($_ids, $ids);
+		return $this->_related_properties($ids);
+	}
+	public function _related_properties($ids)
+	{
+		return \App\Property::withEverything()
+			->whereIn('properties.id',$ids)
+			->orderByRaw('RAND()')
 			->get();
+
 	}
 
 	public function getFullUrlAttribute()
@@ -425,6 +476,26 @@ class Property extends TranslatableModel
 		}
 
 		return $query;
+	}
+
+	public function scopeWithBasicRelationship($query,$property)
+	{
+		return $query
+				->enabled()
+				->ofSite($property->site_id)
+				->where('properties.id','!=',$property->id)
+				->withPriceBetween("0-{$property->price}", $property->currency)
+				->where('properties.mode', $property->mode)
+				->where('properties.country_id', $property->country_id);
+	}
+
+	public function scopeWithEverything($query)
+	{
+		return $query
+				->withTranslations()
+				->with('images')
+				->with('state')
+				->with('city');
 	}
 
 	static public function getModes() 
