@@ -101,12 +101,13 @@ class ParseWebsiteCommand extends Command
 				}
 
 				$this->info("Page {$page} ({$lines_processed} items)");
-				$this->request->update([ 'last_page' => $page ]);
 
 				if ( $lines_found < 1 )
 				{
 					break;
 				}
+
+				$this->request->update([ 'last_page' => $page ]);
 			}
 
 			$this->log("total pages processed: " . number_format($page,0,',','.'));
