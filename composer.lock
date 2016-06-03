@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "937e97a8cba2071c35ac900332dd1664",
-    "content-hash": "e4d21b0cdbfa9d861958740c700b1b8b",
+    "hash": "a86847b216141620ae3a13a8112f5cf3",
+    "content-hash": "6ec65a680d7217d17eb383226a7251fa",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -1121,6 +1121,63 @@
             "time": "2016-01-27 22:29:54"
         },
         {
+            "name": "league/csv",
+            "version": "8.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/csv.git",
+                "reference": "63f2fc3598a4dbbc906c9db9d6f04bc7f72b0645"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/csv/zipball/63f2fc3598a4dbbc906c9db9d6f04bc7f72b0645",
+                "reference": "63f2fc3598a4dbbc906c9db9d6f04bc7f72b0645",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "fabpot/php-cs-fixer": "^1.9",
+                "phpunit/phpunit": "^4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "8.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\Csv\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ignace Nyamagana Butera",
+                    "email": "nyamsprod@gmail.com",
+                    "homepage": "https://github.com/nyamsprod/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Csv data manipulation made easy in PHP",
+            "homepage": "http://csv.thephpleague.com",
+            "keywords": [
+                "csv",
+                "export",
+                "filter",
+                "import",
+                "read",
+                "write"
+            ],
+            "time": "2016-05-30 09:35:50"
+        },
+        {
             "name": "league/flysystem",
             "version": "1.0.22",
             "source": {
@@ -1750,7 +1807,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jjriv/emogrifier/zipball/82a67a1d3a9b18cba6dca86774ea4608a16d600d",
+                "url": "https://api.github.com/repos/jjriv/emogrifier/zipball/2b4d26165b5e4ee2da12cdb3432fe36d6f88f864",
                 "reference": "27c6f4dc1e4039d5609950efab0c03a5428e965b",
                 "shasum": ""
             },
@@ -2970,6 +3027,46 @@
                 "environment"
             ],
             "time": "2016-04-15 10:48:49"
+        },
+        {
+            "name": "yangqi/htmldom",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yangqi/Htmldom.git",
+                "reference": "eee67c01f0a82c6c5e6252880d382e586e331da7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yangqi/Htmldom/zipball/eee67c01f0a82c6c5e6252880d382e586e331da7",
+                "reference": "eee67c01f0a82c6c5e6252880d382e586e331da7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Yangqi\\Htmldom": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "yangqi",
+                    "email": "i@yangqi.me"
+                }
+            ],
+            "description": "Simple Html Dom Parser for Laravel 4",
+            "keywords": [
+                "HTML Parser",
+                "laravel"
+            ],
+            "time": "2015-09-10 13:45:37"
         },
         {
             "name": "zizaco/entrust",
@@ -4270,7 +4367,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "zizaco/entrust": 20,
-        "pelago/emogrifier": 20
+        "pelago/emogrifier": 20,
+        "yangqi/htmldom": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

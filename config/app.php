@@ -204,6 +204,9 @@
 			/* https://github.com/barryvdh/laravel-dompdf */
 			Barryvdh\DomPDF\ServiceProvider::class,
 
+			/* https://github.com/yangqi/Htmldom */
+			Yangqi\Htmldom\HtmldomServiceProvider::class,
+
 		],
 
 		/*
@@ -278,6 +281,10 @@
 
 			/* https://github.com/barryvdh/laravel-dompdf */
 			'PDF' => Barryvdh\DomPDF\Facade::class,
+
+			/* https://github.com/yangqi/Htmldom */
+			'Htmldom' => Yangqi\Htmldom\Htmldom::class,
+
 
 		],
 

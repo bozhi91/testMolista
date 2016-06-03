@@ -21,6 +21,7 @@ class Kernel extends ConsoleKernel
 		Commands\CatchesImportCommand::class,
 		Commands\ProcessStatsCommand::class,
 		Commands\TicketsMaintenanceCommand::class,
+		Commands\ParseWebsiteCommand::class,
 	];
 
 	/**
