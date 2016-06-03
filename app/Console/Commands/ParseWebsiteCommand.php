@@ -8,7 +8,7 @@ class ParseWebsiteCommand extends Command
 	protected $description = 'Process pending website parsing requests';
 
 	protected $request;
-	protected $max_pages = 9999;
+	protected $max_pages = 50;
 
 	public function handle()
 	{
@@ -21,6 +21,14 @@ class ParseWebsiteCommand extends Command
 
 		foreach ($pending_requests->get() as $request) 
 		{
+			// Wait at least 2 hours between crawls
+			$elapsed_time = (time() - strtotime($request->updated_at)) / 3600;
+			if ( $elapsed_time < 2 )
+			{
+				$this->log("waiting; last crawl: " . since_text($request->updated_at) );
+				continue;
+			}
+
 			// Set as global
 			$this->request = $request;
 
@@ -44,10 +52,12 @@ class ParseWebsiteCommand extends Command
 			// Prepare url
 			$url = str_replace('[QUERY_STRING]', $this->request->query, $service['url']);
 
+			$loop = 0;
 			$page = $this->request->last_page;
 
-			while ($page < $this->max_pages)
+			while ($loop < $this->max_pages)
 			{
+				$loop++;
 				$page++;
 
 				// Set page
@@ -113,9 +123,11 @@ class ParseWebsiteCommand extends Command
 			$this->log("total pages processed: " . number_format($page,0,',','.'));
 			$this->log("total items found: " . number_format(count($items),0,',','.'));
 
+			/*
 			$this->request->update([
 				'finished_at' => date('Y-m-d H:i:s'),
 			]);
+			*/
 
 			$this->log("finish processing");
 		}
