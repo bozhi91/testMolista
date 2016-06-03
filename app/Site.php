@@ -328,6 +328,8 @@ class Site extends TranslatableModel
 			case 'custom':
 				\Mail::setSwiftMailer($this->getSiteMailerClient());
 				break;
+			case 'mail':
+				break;
 			default:
 				\Log::error("Mailer service '{$params['service']}' is not valid for site ID {$this->id}");
 				return false;
