@@ -34,5 +34,6 @@ class Kernel extends ConsoleKernel
 	{
 		$schedule->command('uploads:maintenance')->dailyAt('06:00');
 		$schedule->command('stats:process yesterday')->dailyAt('03:00');
+		$schedule->command('parser:process')->hourly();
 	}
 }
