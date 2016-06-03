@@ -46,6 +46,7 @@ Route::group([
 		// Utils
 		Route::controller('utils/user', 'Admin\Utils\UserController');
 		Route::controller('utils/locale', 'Admin\Utils\LocaleController');
+		Route::controller('utils/parser', 'Admin\Utils\ParserController');
 		// Error log
 		//Route::get('errorlog', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 		Route::get('errorlog', [ 
