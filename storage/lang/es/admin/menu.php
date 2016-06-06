@@ -14,6 +14,7 @@
 		'configuration' => 'Configuration',
 		'locales' => 'Languages',
 		'translations' => 'Translations',
+		'plans' => 'Planes',
 		'geography' => 'Geography',
 
 		'logout' => 'Logout',

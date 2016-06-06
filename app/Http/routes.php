@@ -43,6 +43,8 @@ Route::group([
 		// Configuration
 		Route::resource('config/locales', 'Admin\Config\LocalesController');
 		Route::resource('config/translations', 'Admin\Config\TranslationsController');
+		Route::get('config/plans/check/{type}', 'Admin\Config\PlansController@getCheck');
+		Route::resource('config/plans', 'Admin\Config\PlansController');
 		// Utils
 		Route::controller('utils/user', 'Admin\Utils\UserController');
 		Route::controller('utils/locale', 'Admin\Utils\LocaleController');

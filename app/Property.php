@@ -31,9 +31,9 @@ class Property extends TranslatableModel
 
 	protected $dates = ['deleted_at'];
 
-    protected $casts = [
-        'address_parts' => 'array',
-    ];
+	protected $casts = [
+		'address_parts' => 'array',
+	];
 
 	public static function boot()
 	{

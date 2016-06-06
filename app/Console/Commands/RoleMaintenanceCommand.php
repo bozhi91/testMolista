@@ -62,7 +62,28 @@ class RoleMaintenanceCommand extends Command
 				'description' => '',
 				'roles' => [ ],
 			],
-
+		],
+		'pack' => [
+			'view' => [
+				'display_name' => 'Pack view',
+				'description' => '',
+				'roles' => [ ],
+			],
+			'edit' => [
+				'display_name' => 'Pack edition',
+				'description' => '',
+				'roles' => [ ],
+			],
+			'create' => [
+				'display_name' => 'Pack creation',
+				'description' => '',
+				'roles' => [ ],
+			],
+			'delete' => [
+				'display_name' => 'Pack deletion',
+				'description' => '',
+				'roles' => [ ],
+			],
 		],
 		'user' => [
 			'view' => [
