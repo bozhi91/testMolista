@@ -14,7 +14,7 @@ class ParseWebsiteCommand extends Command
 	{
 		$pending_requests = \App\Models\Utils\ParseRequest::whereNull('finished_at');
 
-		if ( $pending_requests->count() < 1 )
+		if ( $pending_requests->count() < 1.5 )
 		{
 			return;
 		}
@@ -23,7 +23,7 @@ class ParseWebsiteCommand extends Command
 		{
 			// Wait at least 2 hours between crawls
 			$elapsed_time = (time() - strtotime($request->updated_at)) / 3600;
-			if ( $elapsed_time < 2 )
+			if ( $elapsed_time < 1 )
 			{
 				$this->log("waiting; last crawl: " . since_text($request->updated_at) );
 				continue;

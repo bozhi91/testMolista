@@ -16,7 +16,7 @@ class ParseRequest extends Model
 			'service' => 'paginas-amarillas',
 			'title' => 'Páginas Amarillas',
 			'url' => 'http://www.paginasamarillas.es/search/[QUERY_STRING]/all-ma/all-pr/all-is/all-ci/all-ba/all-pu/all-nc/[CURRENT_PAGE]',
-			'items' => 'li[class*=m-results-business-advert]',
+			'items' => 'li[class*=m-results-business]',
 			'columns' => [
 				'name' => [
 					'title' => 'Company',
