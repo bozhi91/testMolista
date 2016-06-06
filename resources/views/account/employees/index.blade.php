@@ -24,7 +24,7 @@
 							<th>{{ Lang::get('account/employees.name') }}</th>
 							<th>{{ Lang::get('account/employees.email') }}</th>
 							<th class="text-center">{{ Lang::get('account/employees.properties') }}</th>
-							<th class="text-center">{{ Lang::get('account/employees.tickets') }}</th>
+							<th class="text-center text-nowrap">{{ Lang::get('account/employees.tickets') }}</th>
 							<th class="text-center">{{ Lang::get('account/employees.leads') }}</th>
 							<th></th>
 						</tr>
