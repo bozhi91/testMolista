@@ -21,9 +21,9 @@ class ParseWebsiteCommand extends Command
 
 		foreach ($pending_requests->get() as $request) 
 		{
-			// Wait at least 1.5 hour2 between crawls
+			// Wait at least 2 hours between crawls
 			$elapsed_time = (time() - strtotime($request->updated_at)) / 3600;
-			if ( $elapsed_time < 1.5 )
+			if ( $elapsed_time < 2 )
 			{
 				$this->log("waiting; last crawl: " . since_text($request->updated_at) );
 				continue;
@@ -83,7 +83,7 @@ class ParseWebsiteCommand extends Command
 
 					if ( !$elem['service_id'] )
 					{
-						$this->log("service_id not found for service {$this->request->service}", 'warning');
+						$this->info("service_id not found for service {$this->request->service}", 'warning');
 						continue;
 					}
 
@@ -93,7 +93,7 @@ class ParseWebsiteCommand extends Command
 					// Check if exists
 					if ( array_key_exists($elem['service_id'], $items) )
 					{
-						$this->log("service_id already processed: {$elem['service_id']}");
+						$this->info("service_id already processed: {$elem['service_id']}");
 						continue;
 					}
 
