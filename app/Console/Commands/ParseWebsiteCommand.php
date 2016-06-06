@@ -26,9 +26,6 @@ class ParseWebsiteCommand extends Command
 			if ( $elapsed_time < 2 )
 			{
 				$this->log("waiting; last crawl: " . since_text($request->updated_at) );
-				$request->update([
-					'updated_at' => date('Y-m-d H:i:s'),
-				]);
 				continue;
 			}
 
