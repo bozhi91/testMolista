@@ -123,11 +123,10 @@ class ParseWebsiteCommand extends Command
 			$this->log("total pages processed: " . number_format($page,0,',','.'));
 			$this->log("total items found: " . number_format(count($items),0,',','.'));
 
-			/*
 			$this->request->update([
-				'finished_at' => date('Y-m-d H:i:s'),
+				'updated_at' => date('Y-m-d H:i:s'),
+				//'finished_at' => date('Y-m-d H:i:s'),
 			]);
-			*/
 
 			$this->log("finish processing");
 		}
