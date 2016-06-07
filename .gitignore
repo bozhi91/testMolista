@@ -11,6 +11,8 @@
 /resources/assets/css/compiled
 /resources/assets/js/compiled
 
+/storage/sites
+
 /vendor
 
 Homestead.json

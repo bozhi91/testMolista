@@ -62,7 +62,8 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 				break;
 		}
 
-		\App\Session\Site::flush();
+		// Update site setup
+		$this->site->updateSiteSetup();
 
 		return [ 
 			'success' => 1,
@@ -129,7 +130,8 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 
 		$widget->save();
 
-		\App\Session\Site::flush();
+		// Update site setup
+		$this->site->updateSiteSetup();
 
 		return [ 'success'=>true ];
 	}
@@ -144,7 +146,8 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 
 		$widget->delete();
 
-		\App\Session\Site::flush();
+		// Update site setup
+		$this->site->updateSiteSetup();
 
 		return [ 'success'=>true ];
 	}
@@ -177,7 +180,8 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 			]);
 		}
 
-		\App\Session\Site::flush();
+		// Update site setup
+		$this->site->updateSiteSetup();
 
 		return [ 'success'=>true ];
 	}

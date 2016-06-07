@@ -127,7 +127,8 @@ class PagesController extends \App\Http\Controllers\AccountController
 		// Get page with slug
 		$page = $this->site->pages()->withTranslations()->find($page->id);
 
-		\App\Session\Site::flush();
+		// Update site setup
+		$this->site->updateSiteSetup();
 
 		return redirect()->action('Account\Site\PagesController@edit', $page->slug)->with('success', trans('account/site.pages.update.success'));
 	}
@@ -152,7 +153,8 @@ class PagesController extends \App\Http\Controllers\AccountController
 		// Delete  page
 		$page->delete();
 
-		\App\Session\Site::flush();
+		// Update site setup
+		$this->site->updateSiteSetup();
 
 		return redirect()->action('Account\Site\PagesController@index')->with('success', trans('account/site.pages.deleted.success'));
 	}

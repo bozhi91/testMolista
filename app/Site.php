@@ -19,8 +19,14 @@ class Site extends TranslatableModel
 
 		// Whenever a site is updated
 		static::updated(function($site){
+			$site->updateSiteSetup();
 			$site->ticket_adm->updateSite();
 		});
+	}
+
+	public function plan()
+	{
+		return $this->belongsTo('App\Models\Plan');
 	}
 
 	public function stats() {
@@ -281,6 +287,165 @@ class Site extends TranslatableModel
 			default:
 				return \Mail::getSwiftMailer();
 		}
+	}
+
+	public function getSiteSetupAttribute()
+	{
+		$path = $this->getSiteSetupPath();
+
+		if ( true || !file_exists($path) )
+		{
+			$this->updateSiteSetup();
+		}
+
+		// Get setup
+		$setup = include $path;
+
+		// Set current locale
+		$setup['locale'] = \App::getLocale();
+
+		// Plan valid
+		if ( $setup['plan']['is_free'] ) {
+			$setup['plan']['is_valid'] = 1;
+		} elseif ( !$setup['plan']['paid_until'] ) {
+			$setup['plan']['is_valid'] = 1;
+		} elseif ( strtotime($setup['plan']['paid_until']) > time() ) {
+			$setup['plan']['is_valid'] = 1;
+		} else {
+			$setup['plan']['is_valid'] = 0;
+		}
+
+		// Locales
+		$setup['locales_select'] = [];
+		foreach ($setup['locales'] as $locale => $attr)
+		{
+			$setup['locales_select'][$locale] = $attr['native'];
+		}
+
+		$setup['locales_tabs'] = [];
+		if ( array_key_exists(fallback_lang(), $setup['locales_select']) )
+		{
+			$setup['locales_tabs'][fallback_lang()] = $setup['locales_select'][fallback_lang()];
+		}
+		foreach ($setup['locales_select'] as $locale => $locale_name) 
+		{
+			$setup['locales_tabs'][$locale] = $locale_name;
+		}
+
+		// Widgets
+		if ( empty($setup['widgets'][$setup['locale']]) ) 
+		{
+			$setup['widgets'] = [
+				'header' => [],
+				'footer' => [],
+			];
+		}
+		else
+		{
+			$setup['widgets'] = $setup['widgets'][$setup['locale']];
+		}
+
+		return $setup;
+	}
+	public function updateSiteSetup()
+	{
+		// Locale backup
+		$locale_backup = \App::getLocale();
+
+		// Site information
+		$setup = [
+			'site_id' => $this->id,
+			'theme' => $this->theme,
+			'logo' => $this->logo ? asset("sites/{$this->id}/{$this->logo}") : false,
+			'favicon' => $this->favicon ? asset("sites/{$this->id}/{$this->favicon}") : false,
+			'social_media' => $this->social_array,
+			'seo' => $this->i18n,
+		];
+
+		// Plan & payment
+		$setup['plan'] = array_merge(
+			$this->plan ? $this->plan->toArray() : \App\Models\Plan::where('code','free')->first()->toArray(),
+			[
+				'payment_method' => $this->payment_method,
+				'iban_account' => $this->iban_account,
+				'stripe_id' => $this->stripe_id,
+				'paid_until' => $this->paid_until,
+			]
+		);
+
+		// Locales
+		$setup['locales'] = [];
+		$locales = $this->locales->sortBy('native');
+		foreach ($locales as $locale)
+		{
+			$setup['locales'][$locale->locale] = [
+				'locale' => $locale->locale,
+				'flag' => $locale->flag,
+				'dir' => $locale->dir,
+				'name' => $locale->name,
+				'script' => $locale->script,
+				'native' => $locale->native,
+				'regional' => $locale->regional,
+			];
+			$setup['locales_select'][$locale->locale] = $locale->native;
+		}
+
+		// Widgets
+		$setup['widgets'] = [];
+		foreach ($setup['locales'] as $locale => $attr)
+		{
+			\App::setLocale($locale);
+			$widgets = $this->widgets()->withTranslations()->withMenu()->orderBy('position')->get();
+			foreach ($widgets as $widget)
+			{
+				$w = [
+					'group' => $widget->group,
+					'type' => $widget->type,
+					'title' => $widget->title,
+					'content' => $widget->content,
+				];
+
+				switch ( $widget->type ) 
+				{
+					case 'menu':
+						$w['items'] = [];
+						if ( $widget->menu )
+						{
+							foreach ($widget->menu->items as $item)
+							{
+								$w['items'][] = [
+									'title' => $item->item_title,
+									'url' => $item->item_url,
+									'target' => $item->target,
+								];
+							}
+						}
+						break;
+					case 'text':
+					default:
+						break;
+				}
+
+				$setup['widgets'][$locale][$widget->group][$widget->id] = $w;
+			}
+		}
+		\App::setLocale($locale_backup);
+
+		$contents = '<?' . "php\n";
+		$contents .= "// site setup - created on " . date("Y-m-d H:i:s") . "\n";
+		$contents .= "return " . var_export($setup, true) . ";\n";
+
+		return \File::put($this->getSiteSetupPath(), $contents);
+	}
+	public function getSiteSetupPath()
+	{
+		$dir = storage_path("sites/{$this->id}");
+		if ( !is_dir( $dir ) )
+		{
+			\File::makeDirectory($dir, 0777, true, true);
+		}
+
+		return "{$dir}/setup.php";
 	}
 
 	public function sendEmail($params)
