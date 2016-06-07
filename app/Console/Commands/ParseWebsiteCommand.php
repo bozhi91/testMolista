@@ -110,7 +110,7 @@ class ParseWebsiteCommand extends Command
 					$lines_processed++;
 				}
 
-				$this->info("Page {$page} ({$lines_processed} items)");
+				$this->log("Page {$page} ({$lines_processed} items)");
 
 				if ( $lines_found < 1 )
 				{
