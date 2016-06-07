@@ -1,5 +1,16 @@
+@import '../account-icons.less';
+
 #account-container {
 	padding-top: 20px; padding-bottom: 30px;
+
+	.account-menu {
+		> li {
+			> a {
+				padding-left: 35px;
+				.account-icon { position: absolute; font-size: 18px; left: 5px; top: 7px; }
+			}
+		}
+	}
 
 	.account-reports {
 		.stats-area {

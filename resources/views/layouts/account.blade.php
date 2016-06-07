@@ -46,24 +46,37 @@
 			<div class="col-sm-3 col-md-2 hidden-xs">
 				<ul class="nav nav-pills nav-stacked account-menu">
 					<li role="presentation" class="{{ (@$submenu_section == 'tickets') ? 'active' : '' }}">
-						<a href="{{ action('Account\TicketsController@getIndex') }}">{{ Lang::get('account/menu.tickets') }}</a>
+						<a href="{{ action('Account\TicketsController@getIndex') }}">
+							<i class="account-icon account-icon-ticket"></i>
+							{{ Lang::get('account/menu.tickets') }}
+						</a>
 					</li>
 					@permission('property-*')
 						<li role="presentation" class="{{ (@$submenu_section == 'properties') ? 'active' : '' }}">
-							<a href="{{ action('Account\PropertiesController@index') }}">{{ Lang::get('account/menu.properties') }}</a>
+							<a href="{{ action('Account\PropertiesController@index') }}">
+								<i class="account-icon account-icon-property"></i>
+								{{ Lang::get('account/menu.properties') }}
+							</a>
 						</li>
 					@endpermission
 					@permission('employee-*')
 						<li role="presentation" class="{{ (@$submenu_section == 'employees') ? 'active' : '' }}">
-							<a href="{{ action('Account\EmployeesController@index') }}">{{ Lang::get('account/menu.employees') }}</a>
+							<a href="{{ action('Account\EmployeesController@index') }}">
+								<i class="account-icon account-icon-user"></i>
+								{{ Lang::get('account/menu.employees') }}
+							</a>
 						</li>
 					@endpermission
 					<li role="presentation" class="{{ (@$submenu_section == 'customers') ? 'active' : '' }}">
-						<a href="{{ action('Account\CustomersController@index') }}">{{ Lang::get('account/menu.customers') }}</a>
+						<a href="{{ action('Account\CustomersController@index') }}">
+							<i class="account-icon account-icon-search"></i>
+							{{ Lang::get('account/menu.customers') }}
+						</a>
 					</li>
 					@role('company')
 						<li role="presentation" class="{{ (@$submenu_section == 'reports') ? 'active' : '' }}">
 							<a href="javascript:;" data-toggle="collapse" data-target="#account-submenu-reports" aria-expanded="false" class="{{ (@$submenu_section == 'reports') ? '' : 'collapsed' }}">
+								<i class="account-icon account-icon-reports"></i>
 								{{ Lang::get('account/menu.reports') }}
 							</a>
 							<ul id="account-submenu-reports" class="nav {{ (@$submenu_section == 'reports') ? '' : 'collapse' }}" role="menu">
@@ -76,6 +89,7 @@
 					@permission('site-*')
 						<li role="presentation" class="{{ (@$submenu_section == 'site') ? 'active' : '' }}">
 							<a href="javascript:;" id="account-menu-btn-site" data-toggle="collapse" data-target="#account-submenu-site" aria-expanded="false" class="{{ (@$submenu_section == 'site') ? '' : 'collapsed' }}">
+								<i class="account-icon account-icon-settings"></i>
 								{{ Lang::get('account/menu.site') }}
 							</a>
 							<ul id="account-submenu-site" class="nav {{ (@$submenu_section == 'site') ? '' : 'collapse' }}" role="menu" aria-labelledby="account-menu-btn-site">
@@ -87,10 +101,16 @@
 						</li>
 					@endpermission
 					<li role="presentation" class="{{ (@$submenu_section == 'home') ? 'active' : '' }}">
-						<a href="{{ action('AccountController@index') }}">{{ Lang::get('account/menu.data') }}</a>
+						<a href="{{ action('AccountController@index') }}">
+							<i class="account-icon account-icon-info"></i>
+							{{ Lang::get('account/menu.data') }}
+						</a>
 					</li>
 					<li role="presentation">
-						<a href="{{ action('Auth\AuthController@logout') }}">{{ Lang::get('web/header.logout') }}</a>
+						<a href="{{ action('Auth\AuthController@logout') }}">
+							<i class="account-icon account-icon-ok"></i>
+							{{ Lang::get('web/header.logout') }}
+						</a>
 					</li>
 				</ul>
 			</div>
