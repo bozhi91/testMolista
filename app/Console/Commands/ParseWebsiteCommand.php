@@ -10,6 +10,8 @@ class ParseWebsiteCommand extends Command
 	protected $request;
 	protected $max_pages = 50;
 
+	protected $delay_time = 0;
+
 	public function handle()
 	{
 		$pending_requests = \App\Models\Utils\ParseRequest::whereNull('finished_at');
@@ -21,9 +23,9 @@ class ParseWebsiteCommand extends Command
 
 		foreach ($pending_requests->get() as $request) 
 		{
-			// Wait at least 2 hours between crawls
+			// Wait at least {delay_time} hours between crawls
 			$elapsed_time = (time() - strtotime($request->updated_at)) / 3600;
-			if ( $elapsed_time < 2 )
+			if ( $this->delay_time && $elapsed_time < $this->delay_time )
 			{
 				$this->log("waiting; last crawl: " . since_text($request->updated_at) );
 				continue;
