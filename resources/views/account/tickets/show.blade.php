@@ -23,7 +23,12 @@
 			<div class="row">
 
 				<div class="col-xs-8">
-					<h4 class="page-title">{{ Lang::get('account/tickets.view.title') }} #{{ $ticket->reference }}</h4>
+					<h4 class="page-title">
+						{{ Lang::get('account/tickets.view.title') }} #{{ $ticket->reference }}
+						@if ( @$property )
+							- {{ $property->title }} ({{ $property->ref }})
+						@endif
+					</h4>
 
 					@if ( Auth::user()->hasRole('company') || ( $ticket->user && $ticket->user->id == Auth::user()->ticket_user_id ) )
 						<hr />
@@ -174,8 +179,9 @@
 
 					@if ( @$property )
 						<div class="panel panel-default">
-							<div class="panel-heading">{{ Lang::get('account/properties.column.title')}}</div>
+							<div class="panel-heading">{{ Lang::get('account/properties.column.title') }}</div>
 							<div class="panel-body">
+								<div>{{ Lang::get('account/properties.ref')}}: {{ $property->ref }}</div>
 								<div>{{ $property->title }}</div>
 								<div>{{ implode(', ', $property->location_array) }}</div>
 							</div>
