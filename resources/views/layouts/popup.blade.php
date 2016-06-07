@@ -9,7 +9,9 @@
 	<link href="https://fonts.googleapis.com/css?family=Lato:400,300,700,900,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
 	<link href="{{ Theme::url('/compiled/css/app.css') }}" rel="stylesheet" type='text/css' />
 
-	<script src="http://maps.google.com/maps/api/js?key={{ Config::get('app.google_maps_api_key')}}"></script>
+	@if ( !empty($use_google_maps) )
+		<script src="http://maps.google.com/maps/api/js?key={{ Config::get('app.google_maps_api_key')}}"></script>
+	@endif
 
 	<script type="text/javascript">
 		var ready_callbacks = [];
