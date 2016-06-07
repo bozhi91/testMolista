@@ -10,7 +10,7 @@ class ParseWebsiteCommand extends Command
 	protected $request;
 	protected $max_pages = 50;
 
-	protected $this->delay_time = 0;
+	protected $delay_time = 0;
 
 	public function handle()
 	{
