@@ -69,7 +69,7 @@
 					@endpermission
 					<li role="presentation" class="{{ (@$submenu_section == 'customers') ? 'active' : '' }}">
 						<a href="{{ action('Account\CustomersController@index') }}">
-							<i class="account-icon account-icon-search"></i>
+							<i class="account-icon account-icon-lead"></i>
 							{{ Lang::get('account/menu.customers') }}
 						</a>
 					</li>
@@ -108,7 +108,7 @@
 					</li>
 					<li role="presentation">
 						<a href="{{ action('Auth\AuthController@logout') }}">
-							<i class="account-icon account-icon-ok"></i>
+							<i class="account-icon account-icon-logout_2"></i>
 							{{ Lang::get('web/header.logout') }}
 						</a>
 					</li>
