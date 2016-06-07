@@ -293,7 +293,7 @@ class Site extends TranslatableModel
 	{
 		$path = $this->getSiteSetupPath();
 
-		if ( true || !file_exists($path) )
+		if ( !file_exists($path) )
 		{
 			$this->updateSiteSetup();
 		}
