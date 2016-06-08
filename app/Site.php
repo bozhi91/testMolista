@@ -50,6 +50,18 @@ class Site extends TranslatableModel
 	public function customers() {
 		return $this->hasMany('App\Models\Site\Customer');
 	}
+	public function getCustomersOptionsAttribute()
+	{
+		$options = [];
+
+		$customers = $this->customers()->orderBy('first_name')->orderBy('last_name')->orderBy('email')->get();
+		foreach ($customers as $customer)
+		{
+			$options[$customer->id] = "{$customer->full_name} ({$customer->email})";
+		}
+		
+		return $options;
+	}
 
 	public function properties() {
 		return $this->hasMany('App\Property');
@@ -126,16 +138,6 @@ class Site extends TranslatableModel
 		}
 
 		return $this->domains->sortByDesc('default')->first()->domain;
-	}
-
-	public function getTicketingEnabledAttribute()
-	{
-		if ( $this->ticket_site_id && $this->ticket_owner_token && $this->mailer_service == 'custom' )
-		{
-			return true;
-		}
-
-		return false;
 	}
 
 	public function getAutologinUrlAttribute()

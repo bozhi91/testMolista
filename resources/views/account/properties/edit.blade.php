@@ -1,4 +1,6 @@
-@extends('layouts.account')
+@extends('layouts.account', [
+	'use_google_maps' => true,
+])
 
 @section('account_content')
 

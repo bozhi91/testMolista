@@ -19,6 +19,7 @@
 		'locale' => 'Language',
 		'password' => 'Password',
 		'tickets' => 'Tickets',
+		'leads' => 'Leads',
 
 		'create.title' => 'New employee',
 
