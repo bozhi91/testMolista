@@ -45,12 +45,6 @@
 		<div class="row">
 			<div class="col-sm-3 col-md-2 hidden-xs">
 				<ul class="nav nav-pills nav-stacked account-menu">
-					<li role="presentation" class="{{ (@$submenu_section == 'tickets') ? 'active' : '' }}">
-						<a href="{{ action('Account\TicketsController@getIndex') }}">
-							<i class="account-icon account-icon-ticket"></i>
-							{{ Lang::get('account/menu.tickets') }}
-						</a>
-					</li>
 					@permission('property-*')
 						<li role="presentation" class="{{ (@$submenu_section == 'properties') ? 'active' : '' }}">
 							<a href="{{ action('Account\PropertiesController@index') }}">
@@ -86,6 +80,12 @@
 							</ul>
 						</li>
 					@endrole
+					<li role="presentation" class="{{ (@$submenu_section == 'tickets') ? 'active' : '' }}">
+						<a href="{{ action('Account\TicketsController@getIndex') }}">
+							<i class="account-icon account-icon-ticket"></i>
+							{{ Lang::get('account/menu.tickets') }}
+						</a>
+					</li>
 					@permission('site-*')
 						<li role="presentation" class="{{ (@$submenu_section == 'site') ? 'active' : '' }}">
 							<a href="javascript:;" id="account-menu-btn-site" data-toggle="collapse" data-target="#account-submenu-site" aria-expanded="false" class="{{ (@$submenu_section == 'site') ? '' : 'collapsed' }}">
