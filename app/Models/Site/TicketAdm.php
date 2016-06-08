@@ -8,19 +8,19 @@ class TicketAdm
 	protected $site_ready;
 
 	protected $sources = [
-		'email',
-		'phone',
-		'web',
-		'chat',
-		'facebook',
-		'backoffice',
-		'other',
+		'email' => 'Email',
+		'phone' => 'Phone',
+		'web' => 'Web',
+		'chat' => 'Chat',
+		'facebook' => 'Facebook',
+		'backoffice' => 'Backoffice',
+		'other' => 'Other',
 	];
 	protected $status = [
-		'open',
-		'waiting',
-		'resolved',
-		'closed',
+		'open' => 'Open',
+		'waiting' => 'Waiting',
+		'resolved' => 'Resolved',
+		'closed' => 'Closed',
 	];
 	protected $states = [
 		'open',
@@ -518,6 +518,8 @@ class TicketAdm
 			'site_id' => $this->site_id,
 			'limit' => empty($params['limit']) ? 50 : intval($params['limit']),
 			'page' => empty($params['page']) ? 1 : intval($params['page']),
+			'orderby' => empty($params['orderby']) ? 'created_at' : $params['orderby'],
+			'order' => empty($params['order']) ? 'desc' : $params['order'],
 		];
 
 		if ( isset($params['user_id']) )
@@ -591,6 +593,9 @@ class TicketAdm
 			return false;
 		}
 
+		$first_message = @array_pop(array_values($body->messages));
+		$body->subject = @$first_message->subject;
+
 		return $body;
 	}
 	public function updateTicket($ticket_id, $data)
@@ -657,21 +662,6 @@ class TicketAdm
 		return true;
 	}
 
-	public function getDefaultStats()
-	{
-		$stats = [
-			'tickets' => [],
-			'items' => [],
-		];
-
-		foreach ($this->states as $state)
-		{
-			$stats['tickets'][$state] = 0;
-		}
-
-		return json_decode(json_encode($stats));
-	}
-
 	public function getUsersStats($user_ids)
 	{
 		if ( !$this->site_ready || empty($user_ids) )
@@ -684,13 +674,29 @@ class TicketAdm
 			$user_ids = [ $user_ids ];
 		}
 
+		// Stats groups
+		$stats_groups = ['tickets','contacts'];
+
+		// Stats default
+		$stats_default = [
+			'tickets' => [],
+			'contacts' => [],
+			'items' => [],
+		];
+		foreach ($this->states as $state)
+		{
+			$stats_default['tickets'][$state] = 0;
+			$stats_default['contacts'][$state] = 0;
+		}
+
+		// Request url
 		$url = "stats/user/?site_id={$this->site_id}";
 
 		$stats = [];
 		foreach ($user_ids as $id) 
 		{
 			$url .= "&user_id[]={$id}";
-			$stats[$id] = $this->getDefaultStats();
+			$stats[$id] = $stats_default;
 		}
 
 		$response = $this->guzzle_client->request('GET', $url, [
@@ -715,15 +721,26 @@ class TicketAdm
 
 		foreach ($body as $data)
 		{
-			if ( empty($data->tickets) || empty($data->tickets->states) )
+			$user_id = @$data->user_id;
+			if ( !$user_id )
 			{
 				continue;
 			}
 
-			foreach ($data->tickets->states as $type=>$quantity)
+			$stat = $stats[$user_id];
+
+			foreach ($stats_groups as $group)
 			{
-				$stats[$data->user_id]->tickets->$type = $quantity;
+				if ( @$data->$group->states )
+				{
+					foreach ($data->$group->states as $type => $quantity)
+					{
+						$stat[$group][$type] = $quantity;
+					}
+				}
 			}
+
+			$stats[$user_id] = json_decode(json_encode($stat));
 		}
 
 		return $stats;
@@ -733,7 +750,7 @@ class TicketAdm
 	{
 		$options = [];
 		
-		foreach ($this->status as $key) 
+		foreach ($this->status as $key => $value) 
 		{
 			$options[$key] = trans("account/tickets.status.{$key}");
 		}

@@ -42,12 +42,12 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 
 		if ( $employees->count() > 0 )
 		{
-			$tickets = $this->site->ticket_adm->getUsersStats( array_filter($employees->pluck('ticket_user_id')->all()) );
+			$stats = $this->site->ticket_adm->getUsersStats( array_filter($employees->pluck('ticket_user_id')->all()) );
 		}
 
 		$this->set_go_back_link();
 
-		return view('account.employees.index', compact('employees','tickets'));
+		return view('account.employees.index', compact('employees','stats'));
 	}
 
 	public function create()
@@ -164,11 +164,15 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 				'user_id' => $employee->ticket_user_id,
 				'status' => [ 'open', 'waiting' ],
 				'page' => $this->request->get('page',1),
-				'limit' => $this->request->get('limit',10),
+				'limit' => $this->request->get('limit', \Config::get('app.pagination_perpage', 10)),
+				'orderby' => $this->request->get('orderby'),
+				'order' => $this->request->get('order'),
 			]);
 		}
 
-		return view('account.tickets.list', compact('email','tickets'));
+		$pagination_url = url()->full(); //action('Account\EmployeesController@getTickets', urlencode($email));
+
+		return view('account.tickets.list', compact('pagination_url','tickets'));
 	}
 
 	public function getAssociate($email)

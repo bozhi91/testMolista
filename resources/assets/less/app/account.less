@@ -1,5 +1,16 @@
+@import '../account-icons.less';
+
 #account-container {
 	padding-top: 20px; padding-bottom: 30px;
+
+	.account-menu {
+		> li {
+			> a {
+				padding-left: 35px;
+				.account-icon { position: absolute; font-size: 18px; left: 5px; top: 7px; }
+			}
+		}
+	}
 
 	.account-reports {
 		.stats-area {
@@ -92,8 +103,9 @@
 	.is-sortable { 
 		color: @bodyTextColor; 
 		&.sorted {
-			&:before { content:''; display: inline-block; width:0; height:0; border: 3px solid transparent; vertical-align: middle; border-top-color: @bodyTextColor; opacity: 0.8; margin-right: 3px;
-			}
+			&:before { content:''; display: inline-block; width:0; height:0; border: 3px solid transparent; vertical-align: middle; opacity: 0.8; margin-right: 3px; }
+			&.desc:before { border-top-color: @bodyTextColor; }
+			&.asc:before { border-bottom-color: @bodyTextColor; margin-top: -7px; }
 		}
 	}
 
@@ -104,6 +116,13 @@
 		.autotranslate-flag { position: absolute; bottom: 4px; right: 6px; display: block; opacity: 0.7; color: @colorOrange; font-size: 10px; }
 		&.autotranslate-complete {
 			.autotranslate-flag { opacity: 1; color: @colorGreen; }
+		}
+	}
+
+	.tickets-list-container {
+		overflow-x: visible;
+		.btn-group {
+			.dropdown-menu { left: auto; right: -1px; }
 		}
 	}
 }

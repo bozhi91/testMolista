@@ -83,26 +83,14 @@ class PagesController extends WebController
 
 		$data = $this->request->only('name','email','phone','interest','body');
 
-		if ( $this->site->ticketing_enabled )
-		{
-			$data['email_content_only'] = true;
+		$data['email_content_only'] = true;
 
-			$res = $this->site->ticket_adm->createTicket([
-				'contact_id' => $customer->ticket_contact_id,
-				'source' => 'web',
-				'subject' => trans('web/pages.contact.email.subject'),
-				'body' => view('web.pages.email', $data)->render(),
-			]);
-		}
-		else
-		{
-			$content = view('web.pages.email', $data)->render();
-			$result = $this->site->sendEmail([
-				'to' => $page->configuration['contact']['email'],
-				'subject' => trans('web/pages.contact.email.subject'),
-				'content' => $content,
-			]);
-		}
+		$res = $this->site->ticket_adm->createTicket([
+			'contact_id' => $customer->ticket_contact_id,
+			'source' => 'web',
+			'subject' => trans('web/pages.contact.email.subject'),
+			'body' => strip_tags( view('web.pages.email', $data)->render() ),
+		]);
 
 		return redirect()->back()->with('success', trans('web/pages.contact.email.sent'));
 	}

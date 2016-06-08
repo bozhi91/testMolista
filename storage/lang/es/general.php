@@ -17,6 +17,8 @@
 
 		'edit' => 'Editar',
 		'view' => 'Ver',
+		'view.popup' => 'Abrir en popup',
+		'view.window' => 'Nueva ventana',
 		'new' => 'Nuevo elemento',
 		'options' => 'Opciones',
 

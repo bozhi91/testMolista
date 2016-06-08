@@ -59,17 +59,26 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			$query->where('enabled', intval($this->request->get('enabled'))-1);
 		}
 
-		switch ( $this->request->get('sort') )
+		switch ( $this->request->get('order') )
+		{
+			case 'desc':
+				$order = 'desc';
+				break;
+			default:
+				$order = 'asc';
+		}
+
+		switch ( $this->request->get('orderby') )
 		{
 			case 'reference':
-				$query->orderBy('ref');
+				$query->orderBy('ref', $order);
 				break;
 			case 'creation':
-				$query->orderBy('created_at', 'desc');
+				$query->orderBy('created_at', $order);
 				break;
 			case 'title':
 			default:
-				$query->orderBy('title');
+				$query->orderBy('title', $order);
 				break;
 		}
 

@@ -34,7 +34,7 @@
 									$tmp[$customer->id] = "{$customer->full_name} ({$customer->email})";
 								}
 							?>
-							{!! form::select('customer_id', $tmp, null, [ 'class'=>'form-control required']) !!}
+							{!! form::select('customer_id', $tmp, null, [ 'class'=>'form-control required has-select-2']) !!}
 						</div>
 						{!! Form::button(Lang::get('general.continue'), [ 'type'=>'submit', 'class'=>'btn btn-primary' ]) !!}
 					</div>
@@ -66,6 +66,9 @@
 							f.submit();
 						}
 					});
+
+					form.find('.has-select-2').select2();
+					
 				});
 			</script>
 
