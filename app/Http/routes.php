@@ -101,6 +101,8 @@ Route::group([
 	], function() {
 		Route::get('/', 'AccountController@index');
 		Route::post('/', 'AccountController@updateProfile');
+		// Plans & payment
+		Route::controller('payment', 'Account\PaymentController');
 		// Properties
 		Route::get('properties/leads/{slug}', 'Account\PropertiesController@getLeads');
 		Route::get('properties/catch/close/{id}', 'Account\PropertiesController@getCatchClose');
