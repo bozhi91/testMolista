@@ -706,7 +706,7 @@
 			params: {
 				_token: '{{ Session::getToken() }}'
 			},
-			maxFilesize: 2,
+			maxFilesize: {{ Config::get('app.property_image_maxsize') / 1024 }},
 			acceptedFiles: 'image/*',
 			dictFileTooBig: "{{ print_js_string( Lang::get('account/properties.images.dropzone.error.size', [ 'IMAGE_MAXSIZE'=>Config::get('app.property_image_maxsize') ]) ) }}",
 			dictDefaultMessage: "{{ print_js_string( Lang::get('account/properties.images.dropzone.helper') ) }}",
