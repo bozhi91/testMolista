@@ -1,4 +1,6 @@
-@extends('layouts.web')
+@extends('layouts.web', [
+	'use_google_maps' => true,
+])
 
 @section('content')
 
