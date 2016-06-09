@@ -411,14 +411,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			abort(404);
 		}
 
-		// Remove images
-		foreach( glob("{$property->image_path}/*") as $file ) 
-		{
-			@unlink($file);
-		}
-
 		// Remove image folder
-		rmdir($property->image_path);
+		\File::deleteDirectory($property->image_path);
 
 		// Delete property
 		$property->delete();
