@@ -62,7 +62,10 @@ class Property extends TranslatableModel
 			// Delete cached PDF files
 			\File::deleteDirectory(public_path($property->pdf_folder), true);
 			// Create / Update on ticket system
-			$property->site->ticket_adm->associateItem($property);
+			if ( $property->ref )
+			{
+				$property->site->ticket_adm->associateItem($property);
+			}
 		});
 
 		static::$logCustomFields = [
