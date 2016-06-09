@@ -91,84 +91,9 @@
 	@endif
 
 	<div id="plans-modal" class="mfp-hide app-popup-block-white app-popup-block-large">
-		<h4 class="page-title">{{ Lang::get('account/payment.plan.details.title') }}</h4>
-		<div class="row">
-			@foreach (['free','pro','plus'] as $c)
-				<div class="col-xs-4">
-					<div class="plan-block plan-{{ $c }}">
-						<div class="plan-block-title">{{ $plans[$c]->name }}</div>
-						<div class="plan-block-body">
-							<div class="plan-block-item">
-								<div class="plan-block-feature">{{ Lang::get('account/payment.plan.price.year') }}</div>
-								<div class="plan-block-price">
-									@if ( @$plans[$c]->is_free ) 
-										{{ Lang::get('account/payment.plan.free') }}
-									@else
-										{{ price($plans[$c]->price_year,[ 'decimals'=>0 ]) }}
-									@endif
-								</div>
-							</div>
-							<div class="plan-block-item">
-								<div class="plan-block-feature">{{ Lang::get('account/payment.plan.price.year.month') }}</div>
-								<div class="plan-block-price">
-									@if ( @$plans[$c]->is_free ) 
-										{{ Lang::get('account/payment.plan.free') }}
-									@else
-										{{ price($plans[$c]->price_year/12,[ 'decimals'=>1 ]) }}
-									@endif
-								</div>
-							</div>
-							<div class="plan-block-item">
-								<div class="plan-block-feature">{{ Lang::get('account/payment.plan.price.month') }}</div>
-								<div class="plan-block-price">
-									@if ( @$plans[$c]->is_free ) 
-										{{ Lang::get('account/payment.plan.free') }}
-									@else
-										{{ price($plans[$c]->price_month,[ 'decimals'=>1 ]) }}
-									@endif
-								</div>
-							</div>
-							<div class="plan-block-item">
-								{{ Lang::get('account/payment.plan.employees') }}: 
-								@if ( @$plans[$c]->max_employees )
-									<strong>{{ number_format($plans[$c]->max_employees, 0, ',', '.') }}</strong>
-								@else
-									<strong>{{ Lang::get('account/payment.plan.unlimited') }}</strong>
-								@endif
-							</div>
-							<div class="plan-block-item">
-								{{ Lang::get('account/payment.plan.space') }}: 
-								@if ( @$plans[$c]->max_space )
-									<strong>{{ number_format($plans[$c]->max_space, 0, ',', '.') }}GB</strong>
-								@else
-									<strong>{{ Lang::get('account/payment.plan.unlimited') }}</strong>
-								@endif
-							</div>
-							<div class="plan-block-item">
-								{{ Lang::get('account/payment.plan.properties') }}: 
-								@if ( @$plans[$c]->max_properties )
-									<strong>{{ number_format($plans[$c]->max_properties, 0, ',', '.') }}</strong>
-								@else
-									<strong>{{ Lang::get('account/payment.plan.unlimited') }}</strong>
-								@endif
-							</div>
-							<div class="plan-block-item">
-								@if ( @$plans[$c]->configuration['integrations'] )
-									{{ Lang::get('account/payment.plan.properties') }}
-								@else
-									-
-								@endif
-							</div>
-						</div>
-					</div>
-				</div>
-			@endforeach
-		</div>
-<?php
-echo "<pre>";
-print_r($plans);
-echo "</pre>";
-?>
+		@include('corporate.common.plans', [
+			'buy_plan_url' => action('Account\PaymentController@getMethod'),
+		])
 	</div>
 
 	<script type="text/javascript">
@@ -187,7 +112,8 @@ echo "</pre>";
 			});
 
 			$('#plans-modal-trigger').magnificPopup({
-				type: 'inline'
+				type: 'inline',
+				showCloseBtn: false
 			});
 
 		});

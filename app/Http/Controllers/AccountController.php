@@ -26,9 +26,7 @@ class AccountController extends Controller
 	{
 		\View::share('submenu_section', 'home');
 
-		$plans = \App\Models\Plan::orderBy('is_free','desc')->orderBy('price_year','asc')->get()->keyBy('code');
-
-		return view('account.index', compact('plans'));
+		return view('account.index');
 	}
 
 	public function updateProfile()
