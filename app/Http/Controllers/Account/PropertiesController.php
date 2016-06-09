@@ -807,10 +807,20 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 		if( $upload_success ) 
 		{
+			@list($w, $h) = @getimagesize( public_path("{$dir}/{$filename}") );
+			$is_vertical = ( $w && $h && $w < $h ) ? true : false;
+			$has_size = ( $w && $w < 1280 ) ? false : true;
+
 			return response()->json([
 				'success' => true,
 				'directory' => $dir,
 				'filename' => $filename,
+				'html' => view('account.properties.form-image-thumb',[
+										'image_url' => "/{$dir}/{$filename}",
+										'image_id' => "new_/{$dir}/{$filename}",
+										'warning_orientation' => $is_vertical,
+										'warning_size' => $has_size ? 0 : 1,
+									])->render(),
 			], 200);
 		}
 
