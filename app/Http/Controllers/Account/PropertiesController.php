@@ -29,13 +29,15 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 							->with('customers')
 							->with('state')
 							->with('city')
-							->withTranslations();
+							->withTranslations()
+							->leftJoin('cities','properties.city_id','=','cities.id')
+							->addSelect('cities.name AS city_name');
 
 		// Filter by reference
 		if ( $this->request->get('ref') )
 		{
 			$clean_filters = true;
-			$query->where('ref', 'LIKE', "%{$this->request->get('ref')}%");
+			$query->where('properties.ref', 'LIKE', "%{$this->request->get('ref')}%");
 		}
 
 		// Filter by title
@@ -49,14 +51,14 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		if ( $this->request->get('highlighted') )
 		{
 			$clean_filters = true;
-			$query->where('highlighted', intval($this->request->get('highlighted'))-1);
+			$query->where('properties.highlighted', intval($this->request->get('highlighted'))-1);
 		}
 
 		// Filter by highlighted
 		if ( $this->request->get('enabled') )
 		{
 			$clean_filters = true;
-			$query->where('enabled', intval($this->request->get('enabled'))-1);
+			$query->where('properties.enabled', intval($this->request->get('enabled'))-1);
 		}
 
 		switch ( $this->request->get('order') )
@@ -75,6 +77,15 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 				break;
 			case 'creation':
 				$query->orderBy('created_at', $order);
+				break;
+			case 'location':
+				$query->orderBy('city_name', $order);
+				break;
+			case 'lead':
+				$query->leftJoin('properties_customers','properties.id','=','properties_customers.property_id')
+						->addSelect( \DB::raw('COUNT(properties_customers.customer_id) AS customers_total') )
+						->groupBy('properties.id')
+						->orderBy('customers_total', $order);
 				break;
 			case 'title':
 			default:
