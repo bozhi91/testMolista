@@ -15,7 +15,19 @@ class PaymentController extends \App\Http\Controllers\AccountController
 
 	public function getUpgrade()
 	{
-		return view('account.payment.upgrade');
+		$current_plan_level = @intval( $this->site->plan->level );
+
+		$plans = \App\Models\Plan::getEnabled();
+
+		if ( $this->request->input('plan') )
+		{
+			if ( empty($plans[$this->request->input('plan')]) || $plans[$this->request->input('plan')]->level <= $current_plan_level )
+			{
+				$this->request->merge([ 'plan'=>false ]);
+			}
+		}
+
+		return view('account.payment.upgrade', compact('current_plan_level','plans'));
 	}
 	public function postUpgrade()
 	{

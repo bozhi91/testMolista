@@ -23,12 +23,14 @@ class CreatePlansTables extends Migration
 			$table->text('extras');
 			$table->string('stripe_month_id')->nullable();
 			$table->string('stripe_year_id')->nullable();
+			$table->integer('level');
 			$table->boolean('enabled')->index();
 			$table->timestamps();
 		});
 		Schema::table('sites', function(Blueprint $table)
 		{
 			$table->bigInteger('plan_id')->unsigned()->nullable();
+			$table->string('payment_interval')->nullable();
 			$table->string('payment_method')->nullable();
 			$table->string('iban_account')->nullable();
 			$table->string('stripe_id')->nullable()->index();
@@ -39,6 +41,7 @@ class CreatePlansTables extends Migration
 		// Create plans
 		$plan_defaults = [
 			'enabled' => 1,
+			'level' => 0,
 			'code' => false,
 			'name' => false,
 			'is_free' => 0,
@@ -71,6 +74,7 @@ class CreatePlansTables extends Migration
 		];
 		// Free
 		\App\Models\Plan::saveModel(array_merge($plan_defaults, [
+			'level' => 0,
 			'code' => 'free',
 			'name' => 'Free',
 			'is_free' => 1,
@@ -90,6 +94,7 @@ class CreatePlansTables extends Migration
 		]));
 		// Pro
 		\App\Models\Plan::saveModel(array_merge($plan_defaults, [
+			'level' => 1,
 			'code' => 'pro',
 			'name' => 'Pro',
 			'price_year' => 259,
@@ -107,6 +112,7 @@ class CreatePlansTables extends Migration
 		]));
 		// Plus
 		\App\Models\Plan::saveModel(array_merge($plan_defaults, [
+			'level' => 2,
 			'code' => 'plus',
 			'name' => 'Plus',
 			'price_year' => 599,
@@ -132,6 +138,7 @@ class CreatePlansTables extends Migration
 			$table->dropColumn('stripe_id');
 			$table->dropColumn('iban_account');
 			$table->dropColumn('payment_method');
+			$table->dropColumn('payment_interval');
 			$table->dropColumn('plan_id');
 		});
 		Schema::drop('plans');

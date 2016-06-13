@@ -29,6 +29,7 @@ class Plan extends Model
 		'extras' => 'array',
 		'stripe_year_id' => 'required_unless:is_free,1',
 		'stripe_month_id' => 'required_unless:is_free,1',
+		'level' => 'integer',
 		'enabled' => 'boolean',
 	];
 
@@ -45,6 +46,7 @@ class Plan extends Model
 		'extras' => 'array',
 		'stripe_year_id' => 'required_unless:is_free,1',
 		'stripe_month_id' => 'required_unless:is_free,1',
+		'level' => 'integer',
 		'enabled' => 'boolean',
 	];
 
@@ -94,4 +96,20 @@ class Plan extends Model
 
 		return $item;
 	}
+
+	public function scopeEnabled($query)
+	{
+		return $query->where("{$this->getTable()}.enabled", 1);
+	}
+
+	public function scopeWithCode($query, $code)
+	{
+		return $query->where("{$this->getTable()}.code", $code);
+	}
+
+	static public function getEnabled()
+	{
+		return \App\Models\Plan::enabled()->orderBy('level','asc')->get()->keyBy('code');
+	}
+
 }

@@ -25,7 +25,7 @@ class PlansController extends \App\Http\Controllers\Controller
 			$query->where('name', 'LIKE', "%{$this->request->get('name')}%");
 		}
 
-		$plans = $query->orderBy('name','asc')->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
+		$plans = $query->orderBy('level','asc')->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$this->set_go_back_link();
 

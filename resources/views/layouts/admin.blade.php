@@ -58,7 +58,7 @@
 							@if ( Auth::user()->can('locale-*') )
 								<li><a href="{{ action('Admin\Config\LocalesController@index') }}">{{ Lang::get('admin/menu.locales') }}</a></li>
 							@endif
-							@if ( Auth::user()->can('pack-*') )
+							@if ( false && Auth::user()->can('pack-*') )
 								<li><a href="{{ action('Admin\Config\PlansController@index') }}">{{ Lang::get('admin/menu.plans') }}</a></li>
 							@endif
 							@if ( Auth::user()->can('geography-*') )
