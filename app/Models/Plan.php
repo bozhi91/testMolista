@@ -112,4 +112,12 @@ class Plan extends Model
 		return \App\Models\Plan::enabled()->orderBy('level','asc')->get()->keyBy('code');
 	}
 
+	static public function getPaymentOptions()
+	{
+		return [
+			'stripe' => trans('account/payment.method.stripe'),
+			'transfer' => trans('account/payment.method.transfer'),
+		];
+	}
+
 }

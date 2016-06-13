@@ -23,7 +23,7 @@
 			<div class="row">
 				@foreach ($plans as $plan)
 					<div class="col-xs-12 col-sm-4">
-						<div class="radio plan-group {{ ($plan->level <= $current_plan_level) ? 'plan-group-disabled' : '' }}">
+						<div class="radio plan-group {{ ($plan->level < $current_plan_level) ? 'plan-group-disabled' : '' }}">
 							<label>
 								{!! Form::radio('plan', $plan->code, old('plan', Input::get('plan')) == $plan->code, [ 'class'=>'plan-select required' ]) !!}
 								{{ $plan->name }}
@@ -41,7 +41,7 @@
 									], null, [ 'class'=>'payment-interval-select form-control', 'disabled'=>'disabled' ]) !!}
 								@endif
 							</div>
-							@if ($plan->level <= $current_plan_level)
+							@if ($plan->level < $current_plan_level)
 								<div class="mfp-bg"></div>
 							@endif
 						</div>
@@ -56,16 +56,13 @@
 				<div class="col-xs-12 col-sm-6">
 					<div class="form-group error-container">
 						{!! Form::label(null, Lang::get('account/payment.method.h1')) !!}
-						{!! Form::select("payment_method", [
-							'stripe' => Lang::get('account/payment.method.stripe'),
-							'transfer' => Lang::get('account/payment.method.transfer'),
-						], null, [ 'class'=>'payment-method-select form-control' ]) !!}
+						{!! Form::select("payment_method", \App\Models\Plan::getPaymentOptions(), null, [ 'class'=>'payment-method-select form-control' ]) !!}
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6">
 					<div class="pay-method-rel pay-method-rel-transfer hide">
 						<div class="form-group error-container">
-							{!! Form::label('iban_account', Lang::get('account/payment.method.h1')) !!}
+							{!! Form::label('iban_account', Lang::get('account/payment.method.account')) !!}
 							{!! Form::text('iban_account', null, [ 'class'=>'form-control' ]) !!}
 						</div>
 					</div>
@@ -107,8 +104,6 @@
 					}
 				},
 				submitHandler: function(f) {
-alert('submit');
-return false;
 					LOADING.show();
 					f.submit();
 				}

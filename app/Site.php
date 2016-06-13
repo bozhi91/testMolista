@@ -1,17 +1,20 @@
-<?php
-
-namespace App;
+<?php namespace App;
 
 use \App\TranslatableModel;
+use Laravel\Cashier\Billable;
 
 use Swift_Mailer;
 
 class Site extends TranslatableModel
 {
+    use Billable;
+
 	public $translatedAttributes = ['title','subtitle','description'];
 
 	protected $table = 'sites';
 	protected $guarded = [];
+
+	protected $data;
 
 	public static function boot()
 	{
@@ -528,6 +531,226 @@ class Site extends TranslatableModel
 		}
 
 		return $res;
+	}
+
+
+	public function updatePlan($data)
+	{
+		$this->data = [
+			'request' => $data,
+		];
+
+		if ( !$this->setPlanInfo() )
+		{
+			return false;
+		}
+
+		if ( !$this->setPaymentInfo($data) )
+		{
+			return false;
+		}
+
+		switch ( $this->data['payment_method'])
+		{
+			case 'astripe':
+				return $this->updatePlanStripe();
+			case 'transfer':
+				return $this->updatePlanTransfer();
+		}
+
+		\Log::error("Pay method {$this->data['payment_method']} is not defined");
+		return false;
+
+/*
+2. Cómo prorateamos las diferencias de precios entre los planes.
+Si es pago mensual se cobra el nuevo importe cuando hay el nuevo cicle (proximo mes). Si el pago es anual Packageprice/12*left over months = applied discount for upgrade value
+
+3. Siempre se puede cambiar el medio de pago
+
+4. Si es domiciliación bancaria, enviar email a lk avisando del cambio para que compruebe.
+*/
+	}
+
+	public function updatePlanTransfer()
+	{
+		// Check back account
+		if ( empty($this->data['request']['iban_account']) )
+		{
+			return false;
+		}
+
+		$this->data['iban_account'] = $this->data['request']['iban_account'];
+
+
+		// Check if there are changes
+		if ( !$this->sitePlanHasChanged([ 'iban_account' ]) )
+		{
+			return true;
+		}
+
+		$this->setSiteOldInfo();
+
+		// Update payment info
+		$this->plan_id = $this->data['plan_id'];
+		$this->payment_interval = $this->data['payment_interval'];
+		$this->payment_method = $this->data['payment_method'];
+		$this->iban_account = $this->data['iban_account'];
+		$this->save();
+
+		$this->sendPlanChangeEmail();
+
+		// Cancel stripe suscription
+		$this->cancelStripeSubscription();
+
+		return true;
+	}
+
+	public function cancelStripeSubscription()
+	{
+		if ( !$this->stripe_id )
+		{
+			return;
+		}
+
+		// Calculate remaining days
+		// Calculate refund amount
+		// Make refund API call to Stripe
+		// Perform subscription cancellation
+		// Set stripe_id to null
+\Log::warning('[TODO] cancelStripeSubscription');
+	}
+
+	public function updatePlanStripe()
+	{
+		// If previous payment
+		$was_stripe = ( $this->payment_method == 'stripe' ) ? true : false;
+
+\Log::warning('[TODO] updatePlanStripe');
+		return true;
+	}
+
+	public function setPlanInfo()
+	{
+		$data = @$this->data['request'];
+		if ( !$data )
+		{
+			return false;
+		}
+
+		// Get plan code
+		$code = empty($data['plan']) ? ($this->plan ? $this->plan->code : false) : $data['plan'];
+		if ( !$code )
+		{
+			return false;
+		}
+
+		// Check plan
+		$plan = \App\Models\Plan::where('code',$code)->first();
+		if ( !$plan )
+		{
+			return false;
+		}
+
+		// Check plan level (no downgrade allowed)
+		if ( $this->plan && $this->plan->level > $plan->level )
+		{
+			return false;
+		}
+
+		// Set plan id
+		$this->data['plan_id'] = $plan->id;
+
+		return $this->data['plan_id'];
+	}
+
+	public function setPaymentInfo()
+	{
+		$data = @$this->data['request'];
+		if ( !$data )
+		{
+			return false;
+		}
+
+		$this->data['payment_method'] = empty($data['payment_method']) ? $this->payment_method : $data['payment_method'];
+		if ( !$this->data['payment_method'] || !in_array($this->data['payment_method'], array_keys(\App\Models\Plan::getPaymentOptions())) ) 
+		{
+			return false;
+		}
+
+		$this->data['payment_interval'] = empty($data['payment_interval']) ? $this->payment_interval : $data['payment_interval'];
+		if ( !$this->data['payment_interval'] || !in_array($this->data['payment_interval'], [ 'month', 'year' ]) ) 
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+	public function setSiteOldInfo()
+	{
+		$this->setSiteInfo('old_info',$this);
+	}
+	public function setSiteNewInfo()
+	{
+		$this->setSiteInfo('new_info',$this);
+	}
+	public function setSiteInfo($key,$site)
+	{
+		$plan = $site->plan_id ? \App\Models\Plan::find($site->plan_id) : \App\Models\Plan::where('is_free',1)->first();
+
+		$this->data[$key] = [
+			'plan_id' => $site->plan_id,
+			'payment_interval' => $site->payment_interval,
+			'payment_method' => $site->payment_method,
+			'iban_account' => $site->iban_account,
+			'plan_code' => $plan->code,
+			'plan_name' => $plan->name,
+			'plan_price' => $plan->is_free ? trans('web/plans.free') : @price(($site->payment_interval == 'month') ? $plan->price_month : $plan->price_year, [ 'decimals'=>0 ]) . " / {$site->payment_interval}",
+		];
+
+	}
+	public function sendPlanChangeEmail()
+	{
+		$this->setSiteNewInfo();
+
+		$data = $this->data;
+		$data['site_id'] = $this->id;
+
+		$html = view('emails.admin.inform-plan-change', $data)->render();
+		$css = "table, th, td { border: 1px solid black; } table { border-collapse: collapse; } th, td { text-align: left; vertical-align: top; padding: 5px; }";
+
+		$emogrifier = new \Pelago\Emogrifier($html, $css);
+		$content = $emogrifier->emogrify();
+
+		return \Mail::send('dummy', [ 'content' => $content ], function($message) use ($data) {
+			$message->from( env('MAIL_FROM_EMAIL'), env('MAIL_FROM_NAME') );
+			$message->subject("El site ID {$data['site_id']} ha modificado su plan");
+			$message->to( env('EMAIL_PAYMENT_WARNINGS_TO') );
+		});
+	}
+
+	public function sitePlanHasChanged($fields=false)
+	{
+		foreach ([ 'plan_id', 'payment_interval', 'payment_method' ] as $field) 
+		{
+			if ( $this->data[$field] != $this->$field )
+			{
+				return true;
+			}
+		}
+
+		if ( is_array($fields) )
+		{
+			foreach ($fields as $field) 
+			{
+				if ( $this->data[$field] != $this->$field )
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 
 }

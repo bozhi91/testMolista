@@ -204,6 +204,9 @@
 			/* https://github.com/barryvdh/laravel-dompdf */
 			Barryvdh\DomPDF\ServiceProvider::class,
 
+			/* https://laravel.com/docs/5.2/billing */
+			Laravel\Cashier\CashierServiceProvider::class,
+
 		],
 
 		/*

@@ -9,6 +9,9 @@
 		'method.stripe' => 'Tarjeta de crédito',
 		'method.transfer' => 'Domiciliación bancaria',
 		'method.change' => 'Cambiar método',
+		'method.account' => 'Cuenta bancaria',
 
 		'upgrade.select' => 'Seleccione su plan',
+		'upgrade.success.plan' => 'El plan se ha actualizado correctamente.',
+		'upgrade.success.payment' => 'Los datos de pago se han actualizado correctamente.',
 	];

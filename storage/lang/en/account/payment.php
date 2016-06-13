@@ -9,6 +9,9 @@
 		'method.stripe' => 'Credit card',
 		'method.transfer' => 'Direct debit',
 		'method.change' => 'Change method',
+		'method.account' => 'Bank account',
 
 		'upgrade.select' => 'Select your plan',
+		'upgrade.success.plan' => 'Your plan was successfully updated.',
+		'upgrade.success.payment' => 'The payment information was successfully updated.',
 	];

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "937e97a8cba2071c35ac900332dd1664",
-    "content-hash": "e4d21b0cdbfa9d861958740c700b1b8b",
+    "hash": "fe64d73db27827bb2b78d15004576c48",
+    "content-hash": "0cdd1a82c4bfdc1d8b25d7419aaa5e93",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -939,6 +939,66 @@
             "time": "2015-12-05 17:17:57"
         },
         {
+            "name": "laravel/cashier",
+            "version": "v6.0.17",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/cashier.git",
+                "reference": "904769288c7ca79c3c6051799c258a22cf6000dc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/cashier/zipball/904769288c7ca79c3c6051799c258a22cf6000dc",
+                "reference": "904769288c7ca79c3c6051799c258a22cf6000dc",
+                "shasum": ""
+            },
+            "require": {
+                "dompdf/dompdf": "^0.6.1",
+                "illuminate/database": "~5.1",
+                "illuminate/support": "~5.1",
+                "nesbot/carbon": "~1.0",
+                "php": ">=5.5.9",
+                "stripe/stripe-php": "~3.0",
+                "symfony/http-kernel": "~2.7|~3.0"
+            },
+            "require-dev": {
+                "illuminate/http": "~5.1",
+                "illuminate/routing": "~5.1",
+                "illuminate/view": "~5.1",
+                "mockery/mockery": "~0.9",
+                "phpunit/phpunit": "~4.0",
+                "vlucas/phpdotenv": "~2.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "6.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Cashier\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylorotwell@gmail.com"
+                }
+            ],
+            "description": "Laravel Cashier provides an expressive, fluent interface to Stripe's subscription billing services.",
+            "keywords": [
+                "billing",
+                "laravel",
+                "stripe"
+            ],
+            "time": "2016-06-01 13:39:58"
+        },
+        {
             "name": "laravel/framework",
             "version": "v5.2.29",
             "source": {
@@ -1750,7 +1810,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jjriv/emogrifier/zipball/82a67a1d3a9b18cba6dca86774ea4608a16d600d",
+                "url": "https://api.github.com/repos/jjriv/emogrifier/zipball/2b4d26165b5e4ee2da12cdb3432fe36d6f88f864",
                 "reference": "27c6f4dc1e4039d5609950efab0c03a5428e965b",
                 "shasum": ""
             },
@@ -2088,6 +2148,61 @@
                 "logging"
             ],
             "time": "2016-03-10 09:38:19"
+        },
+        {
+            "name": "stripe/stripe-php",
+            "version": "v3.14.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stripe/stripe-php.git",
+                "reference": "e379140cf77debaa6a45e32b93543269851a144f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/e379140cf77debaa6a45e32b93543269851a144f",
+                "reference": "e379140cf77debaa6a45e32b93543269851a144f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0",
+                "satooshi/php-coveralls": "~0.6.1",
+                "squizlabs/php_codesniffer": "~2.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Stripe\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stripe and contributors",
+                    "homepage": "https://github.com/stripe/stripe-php/contributors"
+                }
+            ],
+            "description": "Stripe PHP Library",
+            "homepage": "https://stripe.com/",
+            "keywords": [
+                "api",
+                "payment processing",
+                "stripe"
+            ],
+            "time": "2016-06-03 22:06:06"
         },
         {
             "name": "swiftmailer/swiftmailer",

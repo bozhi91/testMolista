@@ -22,7 +22,8 @@
         "owen-it/laravel-auditing": "^2.2",
         "pelago/emogrifier": "@dev",
         "barryvdh/laravel-dompdf": "0.6.*",
-        "pda/pheanstalk": "~3.0"
+        "pda/pheanstalk": "~3.0",
+        "laravel/cashier": "~6.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
