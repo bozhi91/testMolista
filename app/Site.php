@@ -279,6 +279,13 @@ class Site extends TranslatableModel
 				$transport = \Swift_SmtpTransport::newInstance(@$this->mailer['out']['host'], @$this->mailer['out']['port'], @$this->mailer['out']['layer']);
 				$transport->setUsername(@$this->mailer['out']['username']);
 				$transport->setPassword(@$this->mailer['out']['password']);
+				$transport->setStreamOptions([
+					'ssl' => [
+						'verify_peer' => false,
+						'verify_peer_name' => false,
+						'allow_self_signed' => true,
+					],
+				]);
 				return new Swift_Mailer($transport);
 			default:
 				return \Mail::getSwiftMailer();
