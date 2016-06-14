@@ -95,15 +95,84 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Modal title</h4>
+
+            <div class="col-xs-12 visible-xs">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+
+            <div class="col-xs-12 col-sm-8 col-sm-offset-3">
+                <h4 class="modal-title">¿Listo para empezar?</h4>
+                <p class="modal-title">Necesitamos que nos proporciones ciertos datos:</p>
+            </div>
+
+            <div class="hidden-xs col-sm-1">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+
           </div>
           <div class="modal-body">
-            <p>One fine body&hellip;</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+
+            {!! Form::model(null, [
+                'action'=>'Corporate\InfoController@postContact',
+                'method'=>'POST',
+                'id'=>'contact-form'
+            ]) !!}
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                    <div class="form-group error-container">
+                        {!! Form::label('name', 'Nombre') !!}
+                        {!! Form::text('name', null, [ 'class'=>'form-control required' , 'placeholder'=>'Tu nombre o el de tu empresa' ]) !!}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                    <div class="form-group error-container">
+                        {!! Form::label('email', 'Email') !!}
+                        {!! Form::text('name', null, [ 'class'=>'form-control required' , 'placeholder'=>'Tu email' ]) !!}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                    <div class="form-group error-container">
+                        {!! Form::label('phone', 'Teléfono') !!}
+                        {!! Form::text('name', null, [ 'class'=>'form-control required' , 'placeholder'=>'Tu teléfono' ]) !!}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                    <div class="form-group error-container">
+                        {!! Form::label('name', 'Periodicidad de pago') !!}
+                        {!! Form::text('name', null, [ 'class'=>'form-control required' ]) !!}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                    <div class="form-group error-container">
+                        {!! Form::label('name', 'Método de pago') !!}
+                        {!! Form::text('name', null, [ 'class'=>'form-control required' ]) !!}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3">
+                    <div class="text-center">
+                        {!! Form::button('Enviar', [ 'type'=>'submit', 'class'=>'btn btn-primary' ]) !!}
+                    </div>
+                </div>
+            </div>
+
+            {!! Form::close() !!}
+
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
