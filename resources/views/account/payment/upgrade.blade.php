@@ -23,7 +23,7 @@
 			<div class="row">
 				@foreach ($plans as $plan)
 					<div class="col-xs-12 col-sm-4">
-						<div class="radio plan-group {{ ($plan->level < $current_plan_level) ? 'plan-group-disabled' : '' }}">
+						<div class="radio plan-group {{ ($plan->level < $current_plan_level) ? 'plan-group-disabled' : '' }} {{ $plan->is_free ? 'plan-is-free' : '' }}">
 							<label>
 								{!! Form::radio('plan', $plan->code, old('plan', Input::get('plan')) == $plan->code, [ 'class'=>'plan-select required' ]) !!}
 								{{ $plan->name }}
@@ -56,7 +56,7 @@
 				<div class="col-xs-12 col-sm-6">
 					<div class="form-group error-container">
 						{!! Form::label(null, Lang::get('account/payment.method.h1')) !!}
-						{!! Form::select("payment_method", \App\Models\Plan::getPaymentOptions(), null, [ 'class'=>'payment-method-select form-control' ]) !!}
+						{!! Form::select("payment_method", [ ''=>'' ]+\App\Models\Plan::getPaymentOptions(), null, [ 'class'=>'payment-method-select form-control' ]) !!}
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6">
@@ -97,6 +97,12 @@
 					element.closest('.error-container').append(error);
 				},
 				rules: {
+					payment_method: {
+						required: function() {
+							var plan = form.find('input[name="plan"]:checked');
+							return ( plan.length < 1 ) ? false : ( plan.closest('.plan-group').hasClass('plan-is-free') ? false : true );
+						}
+					},
 					iban_account: {
 						required: function() {
 							return form.find('select[name="payment_method"]').val() == 'transfer';

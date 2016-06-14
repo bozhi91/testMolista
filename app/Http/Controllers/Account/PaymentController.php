@@ -31,17 +31,25 @@ class PaymentController extends \App\Http\Controllers\AccountController
 	}
 	public function postUpgrade()
 	{
-		// Validate data
+		// Validation fields
 		$fields = [
 			'plan' => 'required|exists:plans,code,enabled,1',
 			"payment_interval.{$this->request->input('plan')}" => 'required|in:year,month',
 		];
-		// No payment_method
+		// If no payment_method
 		if ( !\App\Session\Site::get('plan.payment_method') )
 		{
-			$fields['payment_method'] = 'required|in:'.implode(',', array_keys(\App\Models\Plan::getPaymentOptions()));
-			$fields['iban_account'] = 'required_if:payment_method,transfer';
-			$fields['stripe_token'] = 'required_if:payment_method,stripe';
+			// Plan is selected
+			if ( $this->request->input('plan') && $plan = \App\Models\Plan::where('code', $this->request->input('plan'))->first() ) 
+			{
+				// Plan is not free
+				if ( !$plan->is_free )
+				{
+					$fields['payment_method'] = 'required|in:'.implode(',', array_keys(\App\Models\Plan::getPaymentOptions()));
+					$fields['iban_account'] = 'required_if:payment_method,transfer';
+					$fields['stripe_token'] = 'required_if:payment_method,stripe';
+				}
+			}
 		}
 		$validator = \Validator::make($this->request->all(), $fields);
 		if ($validator->fails()) 
@@ -62,7 +70,6 @@ class PaymentController extends \App\Http\Controllers\AccountController
 
 		if ( $this->site->updatePlan($data) )
 		{
-			$this->site->updateSiteSetup();
 			return redirect()->action('AccountController@index')->with('success', trans('account/payment.upgrade.success.plan'));
 		}
 

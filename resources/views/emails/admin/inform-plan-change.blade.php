@@ -2,7 +2,11 @@
 
 @section('content')
 
-	<h1>El <a href="{{ action('Admin\SitesController@edit', $site_id) }}" target="_blank">site ID {{ $site_id }}</a> ha modificado su plan.</h1>
+	<h1>El <a href="{{ action('Admin\SitesController@edit', $site_id) }}" target="_blank">site {{ @$site_name ? $site_name : "ID {$site_id}" }}</a> ha modificado su plan.</h1>
+
+	@if ( @$custom_message )
+		<p>{{ $custom_message }}</p>
+	@endif
 
 	<table>
 		<thead>
