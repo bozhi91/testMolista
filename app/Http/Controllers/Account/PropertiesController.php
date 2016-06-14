@@ -551,6 +551,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'new_images' => 'array',
 			'label_color' => 'required',
 			'i18n.label' => 'required|array',
+			'construction_year' => 'integer|min:0',
 		];
 
 		return $fields;
@@ -609,7 +610,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			{
 				$property->$field = $this->request->get($field) ? 1 : 0;
 			}
-			elseif ( in_array($field, [ 'country_id','territory_id','state_id','city_id' ]) )
+			elseif ( in_array($field, [ 'country_id','territory_id','state_id','city_id','construction_year' ]) )
 			{
 				$property->$field = $this->request->get($field) ? $this->request->get($field) : null;
 			}

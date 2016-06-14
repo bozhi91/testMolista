@@ -94,6 +94,14 @@
 					</div>
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
+							{!! Form::label('construction_year', Lang::get('account/properties.year')) !!}
+							{!! Form::text('construction_year', null, [ 'class'=>'form-control digits'  ]) !!}
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group error-container">
 							{!! Form::label('enabled', Lang::get('account/properties.enabled')) !!}
 							{!! Form::select('enabled', [ '1'=>Lang::get('general.yes'), '0'=>Lang::get('general.no') ], null, [ 'class'=>'form-control' ]) !!}
 						</div>
