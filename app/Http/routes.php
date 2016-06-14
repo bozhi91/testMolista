@@ -20,6 +20,7 @@ Route::group([
 
 	// Corporate web
 	Route::get('/', 'CorporateController@index');
+	Route::controller('info', 'Corporate\InfoController');
 
 	// Admin
 	Route::group([

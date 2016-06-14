@@ -28,11 +28,90 @@
 
 <body>
 
-@yield('content')
+    <header id="header">
+        <nav class="navbar navbar-default">
+          <div class="container">
+         
+            <div class="navbar-header">
 
-<script src="{{ Theme::url('/compiled/js/corporate.js') }}"></script>
-<script src="{{ Theme::url('/js/jquery.validate/messages_' . LaravelLocalization::getCurrentLocale() . '.min.js') }}"></script>
-<script src="{{ Theme::url('/js/alertify/messages_' . LaravelLocalization::getCurrentLocale() . '.js') }}"></script>
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="/">
+                <img alt="Logo" src="{{ Theme::url('/images/corporate/logo.png') }}">
+              </a>
+
+            </div>
+
+            <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
+
+              <ul class="nav navbar-nav">
+                <li><a href="" class="btn btnBdrYlw text-uppercase">VER DEMO</a></li>
+                <li><button class="btn btnBdrYlw text-uppercase" data-toggle="modal" data-target="#contact-modal">más información</button></li> 
+                <!--<li><a class="navbar-link" href="">Planes y precios</a></li>
+                <li><a href="navbar-link">Soporte</a></li>  -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Languages <span class="caret"></span></a>
+                    <ul class="language_bar_chooser dropdown-menu">
+                        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                            <li>
+                                <a rel="alternate" hreflang="{{$localeCode}}" href="{{LaravelLocalization::getLocalizedURL($localeCode) }}">
+                                    {{{ $properties['native'] }}}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </li>
+              </ul>
+
+            </div>
+          </div>
+        </nav>
+    </header>
+
+    @yield('content')
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <ul class="footer-menu">
+                        <li><a href="">Soporte</a></li>
+                        <li><a href="">Contactar</a></li>
+                        <li><a href="{{ action('AdminController@index') }}">{{ Lang::get('corporate/home.footer.admin.access') }}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- / FOOTER -->
+    <!-- contact modal-->
+    <div id="contact-modal" class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Modal title</h4>
+          </div>
+          <div class="modal-body">
+            <p>One fine body&hellip;</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- /contact modal -->
+    <script src="{{ Theme::url('/compiled/js/corporate.js') }}"></script>
+    <script src="{{ Theme::url('/js/jquery.validate/messages_' . LaravelLocalization::getCurrentLocale() . '.min.js') }}"></script>
+    <script src="{{ Theme::url('/js/alertify/messages_' . LaravelLocalization::getCurrentLocale() . '.js') }}"></script>
 
 </body>
 </html>

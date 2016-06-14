@@ -1,38 +1,6 @@
 @extends('layouts.corporate')
 
 @section('content')
-	<header>
-		<nav class="navbar navbar-default">
-		  <div class="container">
-		 
-		    <div class="navbar-header">
-
-		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-		        <span class="sr-only">Toggle navigation</span>
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
-		      </button>
-
-		      <a class="navbar-brand" href="/">
-		        <img alt="Logo" src="{{ Theme::url('/images/corporate/logo.png') }}">
-		      </a>
-
-		    </div>
-
-		    <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
-
-		      <ul class="nav navbar-nav">
-		        <li><button class="btn btnBdrYlw">VER DEMO</button></li>
-		        <li><button class="btn btnBdrYlw">más información</button></li> 
-		        <!--<li><a class="navbar-link" href="">Planes y precios</a></li>
-		        <li><a href="navbar-link">Soporte</a></li>  -->
-		      </ul>
-
-		  	</div>
-		  </div>
-		</nav>
-	</header>
 
 	<div id="home" class="home">
 
@@ -78,8 +46,8 @@
 					<div class="row">
 						<div class="col-lg-6 col-lg-offset-3 clearfix">
 						  <ul>
-					        <li><button class="btn btnBdrYlw">VER DEMO</button></li>
-					        <li><button class="btn btnBdrYlw">más información</button></li>
+					        <li><button class="btn btnBdrYlw text-uppercase">VER DEMO</button></li>
+					        <li><button class="btn btnBdrYlw text-uppercase" data-toggle="modal" data-target="#contact-modal">más información</button></li>
 					      </ul>
 						</div>
 					</div>
@@ -169,8 +137,8 @@
 					<div class="row">
 						<div class="col-lg-6 col-lg-offset-3 clearfix">
 						  <ul>
-					        <li><button class="btn btnBdrYlw">VER DEMO</button></li>
-					        <li><button class="btn btnBdrYlw">más información</button></li>
+					        <li><button class="btn btnBdrYlw text-uppercase">VER DEMO</button></li>
+					        <li><button class="btn btnBdrYlw text-uppercase" data-toggle="modal" data-target="#contact-modal">más información</button></li>
 					      </ul>
 						</div>
 					</div>
@@ -178,25 +146,7 @@
 			</section>
 			<!--/ BLOCK LINKS -->
 
-			<!-- FOOTER -->
-			<footer>
-				<div class="container">
-					<div class="row">
-						<div class="col-md-12 text-center">
-							<ul class="footer-menu">
-						        <li><a href="">Soporte</a></li>
-						        <li><a href="">Contactar</a></li>
-						        <li><a href="{{ action('AdminController@index') }}">Acceso clientes</a></li>
-					        </ul>
-					    </div>
-				    </div>
-		    	</div>
-			</footer>
-			<!-- / FOOTER -->
-
 	</div>
-
-
 
 	<script type="text/javascript">
 		ready_callbacks.push(function(){

@@ -19,6 +19,18 @@
 @btnboradius : 4px;
 @font-size-title : 48px;
 
+.btnBdrYlw {
+			padding: 5px;
+			min-width: 200px;
+			border: 2px solid @yellow;
+			border-radius: 	@btnboradius;
+			background-color:@black;
+			color:@yellow;
+			
+			}
+a.btnBdrYlw {
+	.btnBdrYlw;
+}
 
 body { 
 	font-family: 'Dosis', sans-serif;
@@ -32,9 +44,60 @@ header { min-height: 84px; background-color: @black;
 		margin: 0px;
 		padding: 10px 0 0 0;
 
-		li{
-			a{
-				color: @lightYellow; font-size: 16px;
+		.navbar-nav {
+
+
+		
+			li{
+				.btnBdrYlw {.btnBdrYlw; margin: 15px 15px 0 15px; font-size: 14px; font-weight:bold;
+							&:hover {
+								background: @yellow;
+								color:@black;
+								font-size: 14px;
+							}
+				}
+
+
+				a{
+					color: @lightYellow; font-size: 16px;
+				}
+				a:hover{
+					color: @black; font-size: 16px;
+				}				
+			}
+			li.dropdown {
+	    		border-color: transparent;
+	    		background: transparent;
+
+	    		a.dropdown-toggle {
+					color: @lightYellow; font-size: 16px;
+					border: 1px solid transparent;
+					border-radius: 4px;
+					margin: 15px 10px 0 10px;
+					padding: 5px;
+				}
+				a.dropdown-toggle:hover {
+					color: @lightYellow; font-size: 16px;
+				}
+				.dropdown-menu {
+					background-color:@black;
+				}
+			}
+			li.open {
+				
+
+	    		a.dropdown-toggle{    			
+	    			border-radius: 4px;
+					margin: 10px 10px 0 10px;
+					padding: 5px;
+					border: 1px solid;
+		    		border-color: @yellow;
+		    		background: transparent;
+	    		}
+	    		a.focus{
+	    			background-color: @black;
+	    			padding:0;
+	    		}
 			}
 		}
 	}
@@ -102,13 +165,6 @@ header { min-height: 84px; background-color: @black;
 	.second-block {
 		padding: 20px 0;
 		background-color: @black;
-
-		.btnBdrYlw {
-			font-size: 21px;
-			padding: 5px;
-			min-width: 200px;
-			margin: 5px 15px 0 15px;
-		}
 		.col-lg-6 {
 			text-align : center;
 		}
@@ -231,10 +287,8 @@ header { min-height: 84px; background-color: @black;
 		background-color: @black;
 
 		.btnBdrYlw {
+			.btnBdrYlw;
 			font-size: 21px;
-			padding: 5px;
-			min-width: 200px;
-			margin: 5px 15px 0 15px;
 		}
 		.col-lg-6 {
 			text-align : center;
@@ -272,19 +326,4 @@ header { min-height: 84px; background-color: @black;
                  Elements 
    --------------------------------------- */
 
-.btnBdrYlw {
-	background: transparent;
-	border: 2px solid;
-	border-color: @btnborder;
-	border-radius: @btnboradius;
-	color: @yellow;
-	font-weight: 600;
-	padding: 5px;
-	text-transform: uppercase;
-	min-width: 150px;
-	margin: 10px 10px 0 10px;
-}
-.btnBdrYlw:hover {
-	background-color: @yellow;
-	color: @black;
-}
+
