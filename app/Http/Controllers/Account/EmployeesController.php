@@ -172,7 +172,9 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 
 		$pagination_url = url()->full(); //action('Account\EmployeesController@getTickets', urlencode($email));
 
-		return view('account.tickets.list', compact('pagination_url','tickets'));
+		$ticket_list_target = '_blank';
+
+		return view('account.tickets.list', compact('pagination_url','tickets','ticket_list_target'));
 	}
 
 	public function getAssociate($email)

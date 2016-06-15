@@ -40,15 +40,7 @@
 						<td class="text-center">{{ @number_format(count($ticket->messages), 0, ',', '.') }}</td>
 						<td>{{ @$ticket->status->name }}</td>
 						<td class="text-right">
-							<div class="btn-group" role="group">
-								<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Lang::get('general.view') }}</button>
-								<ul class="dropdown-menu">
-									<li><a href="#" data-href="{{ action('Account\TicketsController@getShow', $ticket->id) }}" class="btn-xs edit-ticket-trigger">{{ Lang::get('general.view.popup') }}</a></li>
-									<li><a href="{{ action('Account\TicketsController@getShow', $ticket->id) }}" class="btn-xs" target="_blank">{{ Lang::get('general.view.window') }}</a></li>
-								</ul>
-							</div>
-
-							
+							<a href="{{ action('Account\TicketsController@getShow', $ticket->id) }}" class="btn btn-primary btn-xs" {{ empty($ticket_list_target) ? '' : "target='{$ticket_list_target}'" }}>{{ Lang::get('general.view') }}</a>
 						</td>
 					</tr>
 				@endforeach

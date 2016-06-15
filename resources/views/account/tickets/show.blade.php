@@ -1,15 +1,6 @@
-@extends('layouts.popup')
+@extends('layouts.account')
 
-@section('content')
-
-	<style type="text/css">
-		#account-tickets { padding: 20px; }
-			#account-tickets .author-icon { display: block; width: 40px; height: 40px; margin: 0px 20px 0px 0px; border: 1px solid #ddd; border-radius: 4px; background: center center no-repeat; background-size: cover; }
-			#account-tickets .message-body { margin-left: 60px; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 0.9em; }
-				#account-tickets .message-body p:last-child { margin-bottom: 0px; }
-			#account-tickets .privacy-label { margin-top: 5px; }
-		#status-form hr { margin: 5px 0px 10px 0px; }
-	</style>
+@section('account_content')
 
 	<div id="account-tickets" class="show-ticket">
 
@@ -20,22 +11,22 @@
 
 	        @include('common.messages', [ 'dismissible'=>true ])
 
+			<h1 class="page-title">
+				{{ Lang::get('account/tickets.view.title') }} #{{ $ticket->reference }}
+				@if ( @$property )
+					- {{ $property->title }} ({{ $property->ref }})
+				@endif
+			</h1>
+
 			<div class="row">
 
 				<div class="col-xs-8">
-					<h4 class="page-title">
-						{{ Lang::get('account/tickets.view.title') }} #{{ $ticket->reference }}
-						@if ( @$property )
-							- {{ $property->title }} ({{ $property->ref }})
-						@endif
-					</h4>
 
 					@if ( Auth::user()->hasRole('company') || ( $ticket->user && $ticket->user->id == Auth::user()->ticket_user_id ) )
-						<hr />
-						<div class="text-right">
-							<a href="#" class="btn btn-sm btn-default btn-reply-form-trigger">{{ Lang::get('account/tickets.send') }}</a>
+						<div class="text-right reply-form-trigger-area">
+							<a href="#" class="btn btn-sm btn-primary btn-reply-form-trigger">{{ Lang::get('account/tickets.send') }}</a>
 						</div>
-						{!! Form::open([ 'id'=>'reply-form', 'action'=>[ 'Account\TicketsController@postReply', $ticket->id ], 'style'=>'display: none;' ]) !!}
+						{!! Form::open([ 'id'=>'reply-form', 'action'=>[ 'Account\TicketsController@postReply', $ticket->id ], 'class'=>'reply-form ticket-message' ]) !!}
 							<div class="row hide">
 								<div class="col-xs-12">
 									<div class="form-group error-container">
@@ -54,7 +45,7 @@
 							</div>
 							<div class="row">
 								<div class="col-xs-6">
-									<div class="form-group error-container">
+									<div class="_form-group error-container">
 										{!! Form::select('private', [
 											'0' => Lang::get('account/tickets.public'),
 											'1' => Lang::get('account/tickets.internal'),
@@ -63,7 +54,7 @@
 								</div>
 								<div class="col-xs-6">
 									<div class="text-right">
-										{!! Form::button(Lang::get('account/tickets.send'), [ 'type'=>'submit', 'class'=>'btn btn-sm btn-default' ]) !!}
+										{!! Form::button(Lang::get('account/tickets.send'), [ 'type'=>'submit', 'class'=>'btn btn-sm btn-primary' ]) !!}
 									</div>
 								</div>
 							</div>
@@ -71,37 +62,38 @@
 					@endif
 
 					@foreach ($ticket->messages as $message)
-						<hr />
-						<div class="row">
-							<div class="col-xs-12">
-								@if ( $message->user )
-									<span style="background-image: url('{{ asset('images/tickets/agent.png') }}');" class="pull-left author-icon" title="{{ $message->user->name }}"></span>
-								@else
-									<span style="background-image: url('{{ asset('images/tickets/customer.png') }}');" class="pull-left author-icon" title="{{ $ticket->contact->fullname }}"></span>
-								@endif
-								<div>
-									<strong>{{ $message->subject }}</strong>
-								</div>
-								@if ( $message->private )
-									<span class="privacy-label pull-right label label-info">{{ Lang::get('account/tickets.internal') }}</span>
-								@else
-									<span class="privacy-label pull-right label label-warning">{{ Lang::get('account/tickets.public') }}</span>
-								@endif
-								<div class="help-block">
+						<div class="ticket-message">
+							<div class="row">
+								<div class="col-xs-12">
 									@if ( $message->user )
-										<strong>{{ $message->user->name }}</strong>
+										<span style="background-image: url('{{ asset('images/tickets/agent.png') }}');" class="pull-left author-icon" title="{{ $message->user->name }}"></span>
 									@else
-										<strong>{{ $ticket->contact->fullname }}</strong>
+										<span style="background-image: url('{{ asset('images/tickets/customer.png') }}');" class="pull-left author-icon" title="{{ $ticket->contact->fullname }}"></span>
 									@endif
-									-
-									{{ since_text($message->created_at) }}
+									<div>
+										<strong>{{ $message->subject }}</strong>
+									</div>
+									@if ( $message->private )
+										<span class="privacy-label pull-right label label-info">{{ Lang::get('account/tickets.internal') }}</span>
+									@else
+										<span class="privacy-label pull-right label label-warning">{{ Lang::get('account/tickets.public') }}</span>
+									@endif
+									<div class="help-block">
+										@if ( $message->user )
+											<strong>{{ $message->user->name }}</strong>
+										@else
+											<strong>{{ $ticket->contact->fullname }}</strong>
+										@endif
+										-
+										{{ since_text($message->created_at) }}
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-xs-12">
-								<div class="message-body">
-									{!! nl2p(strip_tags($message->body)) !!}
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="message-body">
+										{!! nl2p(strip_tags($message->body)) !!}
+									</div>
 								</div>
 							</div>
 						</div>
@@ -167,7 +159,7 @@
 								{{ Lang::get('account/tickets.status') }}: {{ Lang::get("account/tickets.status.{$ticket->status->code}") }} 
 								<small class="cursor-pointer status-change-trigger">[{{ Lang::get('account/tickets.status.change') }}]</small>
 							</div>
-							{!! Form::open([ 'id'=>'status-form', 'action'=>[ 'Account\TicketsController@postStatus', $ticket->id ], 'class'=>'form-inline', 'style'=>'display: none;' ]) !!}
+							{!! Form::open([ 'id'=>'status-form', 'action'=>[ 'Account\TicketsController@postStatus', $ticket->id ], 'class'=>'form-inline status-form' ]) !!}
 								<hr />
 								<div class="form-group">
 									{!! Form::select('status', $status, $ticket->status->code, [ 'class'=>'form-control input-sm required' ]) !!}
@@ -241,7 +233,7 @@
 			});
 			cont.on('click', '.btn-reply-form-trigger', function(e){
 				e.preventDefault();
-				$(this).hide();
+				cont.find('.reply-form-trigger-area').hide();
 				reply_form.show();
 			});
 
