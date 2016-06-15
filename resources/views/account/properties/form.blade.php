@@ -294,11 +294,11 @@
 						<div class="alert alert-info images-empty">
 							{{ Lang::get('account/properties.images.empty') }}
 						</div>
-						<div class="alert alert-danger images-warning-size hide">
+						<div class="alert alert-warning images-warning-size hide">
 							<strong>{{ Lang::get('web/properties.images.label.default') }}</strong><br />
 							{{ Lang::get('web/properties.images.warning.size') }}
 						</div>
-						<div class="alert alert-warning images-warning-orientation hide">
+						<div class="alert alert-danger images-warning-orientation hide">
 							<strong>{{ Lang::get('web/properties.images.label.default') }}</strong><br />
 							{{ Lang::get('web/properties.images.warning.orientation') }}
 						</div>
@@ -786,9 +786,9 @@
 				form.find('.images-empty').hide();
 				var fh = form.find('.property-image-gallery li.handler:first-child');
 				if ( fh.hasClass('handler-orange') ) {
-					form.find('.images-warning-orientation').removeClass('hide');
-				} else if ( fh.hasClass('handler-red') ) {
 					form.find('.images-warning-size').removeClass('hide');
+				} else if ( fh.hasClass('handler-red') ) {
+					form.find('.images-warning-orientation').removeClass('hide');
 				}
 			}
 		}
