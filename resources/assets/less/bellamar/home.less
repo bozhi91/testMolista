@@ -1,6 +1,10 @@
 #home {
 	.main-property { 
-		.item { height: 200px; background: center center no-repeat; background-size: cover; }
+		max-width: 1280px; margin: 0px auto;
+		.item { 
+			min-height: 200px; background: center center no-repeat; background-size: cover; 
+			.main-image { width: 100%; }
+		}
 		.carousel-caption { text-align: center; text-shadow: none; font-size: 18px; }
 		.carousel-caption-text { display: inline-block; text-decoration: none; color: @colorPurple; background: @colorGreyLight; opacity: 0.9; padding: 10px; }
 	}
@@ -41,7 +45,7 @@
 @media (min-width: 768px) {
 	#home {
 		.main-property { 
-			.item { height: 540px; }
+			.item { min-height: 540px; }
 			.carousel-caption { padding-bottom: 30px; left: 0px; right: 0px; }
 			.carousel-caption-text { padding: 10px  30px; }
 			.slider-quick-search { 

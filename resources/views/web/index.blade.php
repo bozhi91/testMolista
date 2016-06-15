@@ -10,8 +10,8 @@
 			?>
 			<div class="main-property carousel slide" data-interval="false">
 				<div class="carousel-inner" role="listbox">
-					<a href="{{ action('Web\PropertiesController@details', $main_property->slug) }}"  class="item active" style="background-image: url('{{$main_property->main_image}}');">
-						<img src="{{$main_property->main_image}}" alt="{{$main_property->title}}" class="hide" />
+					<a href="{{ action('Web\PropertiesController@details', $main_property->slug) }}"  class="item active">
+						<img src="{{$main_property->main_image}}" alt="{{$main_property->title}}" class="main-image" />
 						<div class="carousel-caption">
 							<span class="carousel-caption-text">
 								{{$main_property->title}}
@@ -127,6 +127,13 @@
 				cont.find('.carousel-control').remove();
 			} else {
 				cont.find('.carousel-control').removeClass('hide');
+			}
+
+			var main_property = cont.find('.main-property');
+			var main_property_image = main_property.find('.main-image');
+			if ( main_property_image.length > 0 && main_property.height() > main_property_image.height() ) {
+				main_property_image.addClass('hide');
+				main_property.find('.item.active').css({ 'background-image': 'url(' + main_property_image.attr('src') + ')' })
 			}
 
 		});
