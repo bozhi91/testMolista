@@ -6,6 +6,17 @@ abstract class XML implements PublishPropertyXmlInterface {
 
     protected $writer;
 
+    protected $iso_lang;
+
+    public function __construct()
+    {
+        if (empty($this->iso_lang))
+        {
+            throw new \LogicException(static::class." must declare the attribute $iso_lang.");
+
+        }
+    }
+
     public function getPropertiesXML(array $properties)
     {
         $this->writer = static::getWriter();
