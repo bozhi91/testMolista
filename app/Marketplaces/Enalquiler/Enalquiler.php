@@ -1,11 +1,8 @@
 <?php namespace App\Marketplaces\Enalquiler;
 
-use App\Marketplaces\Interfaces\PublishPropertyXmlInterface;
-
-class Enalquiler implements PublishPropertyXmlInterface {
+class Enalquiler extends \App\Marketplaces\XML {
 
     protected $iso_lang = 'es';
-    protected $writer;
 
     public function validateProperty(array $property)
     {
@@ -16,22 +13,6 @@ class Enalquiler implements PublishPropertyXmlInterface {
         }
 
         return $mapper->errors();
-    }
-
-    public function getPropertiesXML(array $properties)
-    {
-        $this->writer = new Writer;
-
-        foreach ($properties as $p)
-        {
-            $mapper = new Mapper($p, $this->iso_lang);
-            if ($mapper->valid())
-            {
-                $this->writer->addItem([$mapper->map()]);
-            }
-        }
-
-        return $this->writer->getXml();
     }
 
 }
