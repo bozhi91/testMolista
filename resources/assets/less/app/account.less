@@ -109,6 +109,24 @@
 		}
 	}
 
+	.property-image-gallery {
+		.default-label { display: none; }
+		.info-label { font-size: 10px; top: 3px; margin-right: 2px; }
+		li.handler {
+			&.handler-red { 
+				border-color: @colorRed; background: #f2dede; 
+				.info-label { color: @colorRed; }
+			}
+			&.handler-orange { 
+				border-color: #8a6d3b; background: #faebcc; 
+				.info-label { color: #8a6d3b; }
+			}
+			&:first-child {
+				.default-label { display: inline; }
+			}
+		}
+	}
+
 	.pagination { font-size: 14px; line-height: 30px; }
 
 	.autotranslate-flag-area {

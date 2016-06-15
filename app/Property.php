@@ -540,9 +540,9 @@ class Property extends TranslatableModel
 		return $options;
 	}
 
-	static public function getTypeOptions() 
+	static public function getTypeOptions($site_id=false) 
 	{
-		return [
+		$options = [
 			'house' => trans('web/properties.type.house'), 
 			'apartment' => trans('web/properties.type.apartment'), 
 			'duplex' => trans('web/properties.type.duplex'), 
@@ -551,6 +551,20 @@ class Property extends TranslatableModel
 			'store' => trans('web/properties.type.store'), 
 			'lot' => trans('web/properties.type.lot'), 
 		];
+
+		if ( $site_id ) 
+		{
+			$assigned = \App\Property::distinct()->select('type')->where('site_id',$site_id)->lists('type')->all();
+			foreach ($options as $key => $value)
+			{
+				if ( !in_array($key, $assigned) )
+				{
+					unset($options[$key]);
+				}
+			}
+		}
+
+		return $options;
 	}
 
 	static public function getPriceOptions($site_id = false) 

@@ -15,6 +15,8 @@
 		'configuration.subdomain.error' => 'This subdomain is already taken',
 		'configuration.subdomain.alpha' => 'Letters, numbers, hypen and underscores only please',
 		'configuration.theme' => 'Website theme',
+		'configuration.theme.preview' => 'Show preview',
+		'configuration.theme.preview.error' => 'Please first select a theme to see its preview',
 		'configuration.logo' => 'Logo',
 		'configuration.logo.helper' => '<p>We support JPG, PNG and GIF formats.</p><p>Images bigger than :IMAGE_MAXSIZE kilobytes will not be uploaded.</p>',
 		'configuration.favicon' => 'Favicon',

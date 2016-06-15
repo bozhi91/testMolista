@@ -94,6 +94,14 @@
 					</div>
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
+							{!! Form::label('construction_year', Lang::get('account/properties.year')) !!}
+							{!! Form::text('construction_year', null, [ 'class'=>'form-control digits'  ]) !!}
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group error-container">
 							{!! Form::label('enabled', Lang::get('account/properties.enabled')) !!}
 							{!! Form::select('enabled', [ '1'=>Lang::get('general.yes'), '0'=>Lang::get('general.no') ], null, [ 'class'=>'form-control' ]) !!}
 						</div>
@@ -286,16 +294,23 @@
 						<div class="alert alert-info images-empty">
 							{{ Lang::get('account/properties.images.empty') }}
 						</div>
-						<ul class="image-gallery sortable-image-gallery">
+						<div class="alert alert-danger images-warning-size hide">
+							<strong>{{ Lang::get('web/properties.images.label.default') }}</strong><br />
+							{{ Lang::get('web/properties.images.warning.size') }}
+						</div>
+						<div class="alert alert-warning images-warning-orientation hide">
+							<strong>{{ Lang::get('web/properties.images.label.default') }}</strong><br />
+							{{ Lang::get('web/properties.images.warning.orientation') }}
+						</div>
+						<ul class="image-gallery sortable-image-gallery property-image-gallery">
 							@if ( !empty($property) && count($property->images) > 0 )
 								@foreach ($property->images->sortBy('position') as $image)
-									<li class="handler">
-										<a href="{{ asset("sites/{$property->site_id}/properties/{$property->id}/{$image->image}") }}" target="_blank" class="thumb" style="background-image: url({{ asset("sites/{$property->site_id}/properties/{$property->id}/{$image->image}") }})"></a>
-										<div class="options text-right">
-											{!! Form::hidden('images[]', $image->id) !!}
-											<a href="#" class="image-delete-trigger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-										</div>
-									</li>
+									@include('account.properties.form-image-thumb',[
+										'image_url' => $image->image_url,
+										'image_id' => $image->id,
+										'warning_orientation' => $image->is_vertical,
+										'warning_size' => $image->has_size ? 0 : 1,
+									])
 								@endforeach
 							@endif
 						</ul>
@@ -523,7 +538,9 @@
 		});
 
 		// Image gallery
-		form.find('.image-gallery').sortable();
+		form.find('.image-gallery').sortable({
+			stop: initImageWarnings
+		});
 		form.find('.image-gallery .thumb').each(function(){
 			$(this).magnificPopup({
 				type: 'image',
@@ -540,15 +557,10 @@
 			SITECOMMON.confirm("{{ print_js_string( Lang::get('account/properties.images.delete') ) }}", function (e) {
 				if (e) {
 					el.closest('.handler').remove();
-					if ( form.find('.image-gallery .thumb').length < 1 ) {
-						form.find('.images-empty').show();
-					}
+					initImageWarnings();
 				}
 			});
 		});
-		if ( form.find('.image-gallery .thumb').length > 0 ) {
-			form.find('.images-empty').hide();
-		}
 
 		// Translations
 		var translation_flag_fields = '.title-input, .description-input';
@@ -663,7 +675,7 @@
 				{
 					$label_palette .= " '{$color}'";
 				}
-				elseif ( $i%5 == 0 )
+				else if ( $i%5 == 0 )
 				{
 					$label_palette .= " ], [ '{$color}'";
 				}
@@ -733,10 +745,8 @@
 				});
 			},
 			success: function(file,response) {
-				var item = $('<li class="handler ui-sortable-handle" />');
+				var item = $(response.html);
 
-				var img = '/' + response.directory + '/' + response.filename;
-				item.append('<a href="'+img+'" target="_blank" class="thumb" style="background-image: url('+img+')"></a>');
 				item.find('.thumb').magnificPopup({
 					type: 'image',
 					closeOnContentClick: false,
@@ -746,17 +756,14 @@
 					}
 				});
 
-				item.append('<div class="options text-right" />');
-				item.find('.options').append('<input name="images[]" type="hidden" value="new_' + img + '" />');
-				item.find('.options').append('<a href="#" class="image-delete-trigger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>');
-
 				form.find('.image-gallery').append(item);
 
 				$(file.previewElement).fadeOut(function(){ 
 					$(this).remove() 
 				});
 
-				form.find('.images-empty').hide();
+				initImageTooltips();
+				initImageWarnings();
 			}
 		});
 
@@ -769,6 +776,27 @@
 		tabs.find('a[href="' + current_tab + '"]').tab('show');
 
 		form.find('.has-select-2').select2();
+
+		function initImageWarnings() {
+			form.find('.images-warning-size, .images-warning-orientation').addClass('hide');
+
+			if ( form.find('.image-gallery .thumb').length < 1 ) {
+				form.find('.images-empty').show();
+			} else {
+				form.find('.images-empty').hide();
+				var fh = form.find('.property-image-gallery li.handler:first-child');
+				if ( fh.hasClass('handler-orange') ) {
+					form.find('.images-warning-orientation').removeClass('hide');
+				} else if ( fh.hasClass('handler-red') ) {
+					form.find('.images-warning-size').removeClass('hide');
+				}
+			}
+		}
+		function initImageTooltips() {
+			form.find('.thumb-has-tooltip').removeClass('thumb-has-tooltip').tooltip();
+		}
+		initImageWarnings();
+		initImageTooltips();
 
 	});
 </script>

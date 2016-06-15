@@ -29,13 +29,15 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 							->with('customers')
 							->with('state')
 							->with('city')
-							->withTranslations();
+							->withTranslations()
+							->leftJoin('cities','properties.city_id','=','cities.id')
+							->addSelect('cities.name AS city_name');
 
 		// Filter by reference
 		if ( $this->request->get('ref') )
 		{
 			$clean_filters = true;
-			$query->where('ref', 'LIKE', "%{$this->request->get('ref')}%");
+			$query->where('properties.ref', 'LIKE', "%{$this->request->get('ref')}%");
 		}
 
 		// Filter by title
@@ -49,14 +51,14 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		if ( $this->request->get('highlighted') )
 		{
 			$clean_filters = true;
-			$query->where('highlighted', intval($this->request->get('highlighted'))-1);
+			$query->where('properties.highlighted', intval($this->request->get('highlighted'))-1);
 		}
 
 		// Filter by highlighted
 		if ( $this->request->get('enabled') )
 		{
 			$clean_filters = true;
-			$query->where('enabled', intval($this->request->get('enabled'))-1);
+			$query->where('properties.enabled', intval($this->request->get('enabled'))-1);
 		}
 
 		switch ( $this->request->get('order') )
@@ -75,6 +77,15 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 				break;
 			case 'creation':
 				$query->orderBy('created_at', $order);
+				break;
+			case 'location':
+				$query->orderBy('city_name', $order);
+				break;
+			case 'lead':
+				$query->leftJoin('properties_customers','properties.id','=','properties_customers.property_id')
+						->addSelect( \DB::raw('COUNT(properties_customers.customer_id) AS customers_total') )
+						->groupBy('properties.id')
+						->orderBy('customers_total', $order);
 				break;
 			case 'title':
 			default:
@@ -551,6 +562,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'new_images' => 'array',
 			'label_color' => 'required',
 			'i18n.label' => 'required|array',
+			'construction_year' => 'integer|min:0',
 		];
 
 		return $fields;
@@ -609,7 +621,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			{
 				$property->$field = $this->request->get($field) ? 1 : 0;
 			}
-			elseif ( in_array($field, [ 'country_id','territory_id','state_id','city_id' ]) )
+			elseif ( in_array($field, [ 'country_id','territory_id','state_id','city_id','construction_year' ]) )
 			{
 				$property->$field = $this->request->get($field) ? $this->request->get($field) : null;
 			}
@@ -801,10 +813,20 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 		if( $upload_success ) 
 		{
+			@list($w, $h) = @getimagesize( public_path("{$dir}/{$filename}") );
+			$is_vertical = ( $w && $h && $w < $h ) ? true : false;
+			$has_size = ( $w && $w < 1280 ) ? false : true;
+
 			return response()->json([
 				'success' => true,
 				'directory' => $dir,
 				'filename' => $filename,
+				'html' => view('account.properties.form-image-thumb',[
+										'image_url' => "/{$dir}/{$filename}",
+										'image_id' => "new_/{$dir}/{$filename}",
+										'warning_orientation' => $is_vertical,
+										'warning_size' => $has_size ? 0 : 1,
+									])->render(),
 			], 200);
 		}
 

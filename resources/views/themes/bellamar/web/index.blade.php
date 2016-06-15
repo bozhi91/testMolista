@@ -11,8 +11,8 @@
 
 			<div class="main-property carousel slide" data-interval="false">
 				<div class="carousel-inner" role="listbox">
-					<div data-href="{{ action('Web\PropertiesController@details', $main_property->slug) }}" class="item active cursor-pointer" style="background-image: url('{{$main_property->main_image}}');">
-						<img src="{{$main_property->main_image}}" alt="{{$main_property->title}}" class="hide" />
+					<div data-href="{{ action('Web\PropertiesController@details', $main_property->slug) }}" class="item active cursor-pointer">
+						<img src="{{$main_property->main_image}}" alt="{{$main_property->title}}" class="main-image" />
 						<div class="carousel-caption">
 							<div class="container">
 								<div class="row">
@@ -40,17 +40,35 @@
 				<div class="container">
 					<div class="properties-slider-area">
 						<h2>{{ Lang::get('web/home.gallery') }}</h2>
-						<div class="properties-slider">
-							<div class="row">
-								@foreach ($properties as $key => $property)
-									@if ( $key > 0 && $key%3 == 0 )
-										</div><div class="row">
-									@endif
-									<div class="col-xs-12 col-sm-4">
-										@include('web.properties.pill', [ 'item'=>$property])
+						<div id="properties-slider" class="properties-slider carousel slide">
+							<div class="carousel-inner" role="listbox">
+								<div class="item active">
+									<div class="row">
+										@foreach ($properties as $key => $property)
+											@if ( $key > 0 && $key%3 == 0 )
+												</div>
+													@if ( $key > 0 && $key%9 == 0 )
+														</div>
+														<div class="item">
+													@endif
+												<div class="row">
+											@endif
+											<div class="col-xs-12 col-sm-4">
+												@include('web.properties.pill', [ 'item'=>$property])
+											</div>
+										@endforeach
 									</div>
-								@endforeach
+								</div>
 							</div>
+							@if ( count($properties) > 9 )
+								<ul class="list-inline text-right properties-slider-indicators hidden-xs">
+									@foreach ($properties as $key => $property)
+										@if ( $key%9 == 0 )
+											<li data-target="#properties-slider" data-slide-to="{{ $key/9 }}" class="{{ $key ? '' : 'active' }}">{{ ($key/9)+1 }}</li>
+										@endif
+									@endforeach
+								</ul>
+							@endif
 						</div>
 					</div>
 				</div>
@@ -125,6 +143,17 @@
 
 			cont.find('.properties-slider .property-pill').matchHeight({ byRow : false });
 			cont.find('.search-area .quick-link').matchHeight({ byRow : false });
+			cont.find('.properties-slider .item').matchHeight({ byRow : false });
+
+			cont.find('.properties-slider').on('slid.bs.carousel', function (ui) {
+				cont.find('.properties-slider .item').each(function(k,v){
+					if ( $(this).hasClass('active') ) {
+						cont.find('.properties-slider-indicators li').eq(k).addClass('active');
+					} else {
+						cont.find('.properties-slider-indicators li').eq(k).removeClass('active');
+					}
+				});
+			});
 
 			cont.find('.main-property .slider-quick-search').css({
 				bottom : ( -1 * cont.find('.main-property .carousel-caption-text').innerHeight() ) + 'px',
@@ -143,6 +172,14 @@
 			if ( search_sm.is(':visible') ) {
 				$('#quick-search-form').appendTo( search_sm );
 			}
+
+			var main_property = cont.find('.main-property');
+			var main_property_image = main_property.find('.main-image');
+			if ( main_property_image.length > 0 && main_property.height() > main_property_image.height() ) {
+				main_property_image.addClass('hide');
+				main_property.find('.item.active').css({ 'background-image': 'url(' + main_property_image.attr('src') + ')' })
+			}
+
 		});
 	</script>
 

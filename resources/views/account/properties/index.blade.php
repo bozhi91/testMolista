@@ -60,9 +60,9 @@
 								'reference' => [ 'title' => Lang::get('account/properties.ref') ],
 								'title' => [ 'title' => Lang::get('account/properties.column.title') ],
 								'creation' => [ 'title' => Lang::get('account/properties.column.created') ],
-								'location' => [ 'title' => Lang::get('account/properties.column.location'), 'sortable'=>false ],
-								'lead' => [ 'title' => Lang::get('account/properties.tab.lead'), 'sortable'=>false, 'class'=>'text-center' ],
-								'highlighted' => [ 'title' => Lang::get('account/properties.highlighted'), 'sortable'=>false, 'class'=>'text-center text-nowrap' ],
+								'location' => [ 'title' => Lang::get('account/properties.column.location') ],
+								'lead' => [ 'title' => Lang::get('account/properties.tab.lead'), 'class'=>'text-center text-nowrap' ],
+								'highlighted' => [ 'title' => Lang::get('account/properties.highlighted'), 'sortable'=>false, 'class'=>'text-center' ],
 								'enabled' => [ 'title' => Lang::get('account/properties.enabled'), 'sortable'=>false, 'class'=>'text-center text-nowrap' ],
 								'action' => [ 'title' => '', 'sortable'=>false ],
 							]) !!}
