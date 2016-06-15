@@ -14,7 +14,7 @@ class Mapper {
     }
 
     /**
-     * Maps a Molista item to trovit.com format according to:
+     * Maps a Molista item to enalquiler.com format according to:
      * http://www.enalquiler.com/feeds/public/inmuebles.xsd
      * http://www.enalquiler.com/feeds/public/inmuebles.xml
      *

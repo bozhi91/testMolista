@@ -13,7 +13,6 @@ abstract class XML implements PublishPropertyXmlInterface {
         if (empty($this->iso_lang))
         {
             throw new \LogicException(static::class." must declare the attribute $iso_lang.");
-
         }
     }
 

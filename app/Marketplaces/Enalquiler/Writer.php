@@ -10,6 +10,7 @@ class Writer extends \App\XML\Writer {
         $this->startDocument('1.0', 'UTF-8');
         $this->startElementNS(null, 'inmuebles', 'http://www.enalquiler.com/feeds/public');
         $this->writeAttributeNS('xmlns', 'xsi', null, 'http://www.w3.org/2001/XMLSchema-instance');
+        $this->writeAttributeNS('xsi', 'schemaLocation', null, 'http://www.enalquiler.com/feeds/public http://www.enalquiler.com/feeds/public/inmuebles.xsd');
     }
 
     public function end()
