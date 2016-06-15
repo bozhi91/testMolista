@@ -12,8 +12,8 @@ class Writer extends \XMLWriter {
         }
         else
         {
-            $is_numeric = is_numeric(reset(array_keys($content)));
-            if ($is_numeric)
+            $keys = array_keys($content);
+            if (is_numeric(reset($keys)))
             {
                 foreach ($content as $subname => $subcontent)
                 {
