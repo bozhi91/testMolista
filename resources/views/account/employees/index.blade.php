@@ -24,7 +24,8 @@
 							<th>{{ Lang::get('account/employees.name') }}</th>
 							<th>{{ Lang::get('account/employees.email') }}</th>
 							<th class="text-center">{{ Lang::get('account/employees.properties') }}</th>
-							<th class="text-center">{{ Lang::get('account/employees.tickets') }}</th>
+							<th class="text-center text-nowrap">{{ Lang::get('account/employees.tickets') }}</th>
+							<th class="text-center">{{ Lang::get('account/employees.leads') }}</th>
 							<th></th>
 						</tr>
 					</thead>
@@ -34,7 +35,8 @@
 								<td>{{ $employee->name }}</td>
 								<td>{{ $employee->email }}</td>
 								<td class="text-center">{{ number_format($employee->properties->where('site_id', $site_setup['site_id'])->count(), 0, ',', '.') }}</td>
-								<td class="text-center">{{ @number_format(intval( $tickets[$employee->ticket_user_id]->tickets->open ), 0, ',', '.') }}</td>
+								<td class="text-center">{{ @number_format(intval( $stats[$employee->ticket_user_id]->tickets->open ), 0, ',', '.') }}</td>
+								<td class="text-center">{{ @number_format(intval( $stats[$employee->ticket_user_id]->contacts->open ), 0, ',', '.') }}</td>
 								<td class="text-right text-nowrap">
 									{!! Form::open([ 'method'=>'DELETE', 'class'=>'delete-form', 'action'=>['Account\EmployeesController@destroy', urlencode($employee->email)] ]) !!}
 										@if ( Auth::user()->can('employee-edit') )

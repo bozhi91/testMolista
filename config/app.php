@@ -3,7 +3,7 @@
 	return [
 
 		'pagination_perpage' => 10,
-		'property_image_maxsize' => 2048, //kilobytes
+		'property_image_maxsize' => env('MAX_PROPERTY_IMAGE_SIZE',2048), //kilobytes
 
 		'application_url' => env('APP_URL'),
 		'application_protocol' => env('APP_PROTOCOL'),
@@ -207,6 +207,9 @@
 			/* https://laravel.com/docs/5.2/billing */
 			Laravel\Cashier\CashierServiceProvider::class,
 
+			/* https://github.com/yangqi/Htmldom */
+			Yangqi\Htmldom\HtmldomServiceProvider::class,
+
 		],
 
 		/*
@@ -281,6 +284,10 @@
 
 			/* https://github.com/barryvdh/laravel-dompdf */
 			'PDF' => Barryvdh\DomPDF\Facade::class,
+
+			/* https://github.com/yangqi/Htmldom */
+			'Htmldom' => Yangqi\Htmldom\Htmldom::class,
+
 
 		],
 

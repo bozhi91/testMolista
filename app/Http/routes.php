@@ -21,6 +21,9 @@ Route::group([
 	// Corporate web
 	Route::get('/', 'CorporateController@index');
 
+	// Signup
+	Route::controller('signup', 'Corporate\SignupController');
+
 	// Admin
 	Route::group([
 		'prefix' => 'admin',
@@ -48,6 +51,7 @@ Route::group([
 		// Utils
 		Route::controller('utils/user', 'Admin\Utils\UserController');
 		Route::controller('utils/locale', 'Admin\Utils\LocaleController');
+		Route::controller('utils/parser', 'Admin\Utils\ParserController');
 		// Error log
 		//Route::get('errorlog', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 		Route::get('errorlog', [ 
@@ -125,6 +129,8 @@ Route::group([
 		Route::get('customers/properties/{slug}', 'Account\CustomersController@getAddPropertyCustomer');
 		Route::post('customers/profile/{email}', 'Account\CustomersController@postProfile');
 		Route::resource('customers', 'Account\CustomersController');
+		// Tickets
+		Route::controller('tickets', 'Account\TicketsController');
 		// Reports
 		Route::group([
 			'prefix' => 'reports',
@@ -139,8 +145,6 @@ Route::group([
 			// Leads
 			Route::controller('leads', 'Account\Reports\LeadsController');
 		});
-		// Tickets
-		Route::controller('tickets', 'Account\TicketsController');
 		// Site configuration
 		Route::group([
 			'prefix' => 'site',

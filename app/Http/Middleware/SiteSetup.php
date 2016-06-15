@@ -24,7 +24,7 @@ class SiteSetup
 		}
 
 		// Set redirection after user login
-		putenv( "afterLoginRedirectTo=" . action('AccountController@index') );
+		putenv( "afterLoginRedirectTo=" . action('Account\TicketsController@getIndex') );
 
 		// Set required site
 		putenv( "loginRequiredSite={$setup['site_id']}" );

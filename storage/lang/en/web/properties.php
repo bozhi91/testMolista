@@ -60,4 +60,8 @@
 											<p>We have received your request for more information about the property <a href=":url" target="_blank">:title</a> and we will contact you soon.</p>
 											<p>In the meantime, we send you a PDF file with more information.</p>
 											<p>:sitename</p>',
+
+		'images.label.default' => 'Slider default',
+		'images.warning.orientation' => 'We recommend images that have a larger width than height.',
+		'images.warning.size' => 'The size of this image might be too small. We recommend you use an image with a bigger size (ie. 1280 pixels width).',
 	];

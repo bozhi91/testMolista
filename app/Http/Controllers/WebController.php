@@ -15,7 +15,6 @@ class WebController extends Controller
     	
 		$search_data = [
 			'modes' => \App\Property::getModeOptions(),
-			'types' => \App\Property::getTypeOptions(),
 			'sizes' => \App\Property::getSizeOptions(),
 			'rooms' => \App\Property::getRoomOptions(),
 			'baths' => \App\Property::getBathOptions(),
@@ -30,11 +29,14 @@ class WebController extends Controller
 				$query->distinct()->select('state_id')->from('properties')->where('site_id', $site_id)->where('enabled', 1);
 			})->orderBy('name')->lists('name','slug')->all();
 			$search_data['prices'] = \App\Property::getPriceOptions($site_id);
+			$search_data['types'] = \App\Property::getTypeOptions($site_id);
 		}
 		else
 		{
 			$search_data['states'] = \App\Models\Geography\State::enabled()->orderBy('name')->lists('name','slug')->all();
 			$search_data['prices'] = \App\Property::getPriceOptions();
+			$search_data['types'] = \App\Property::getTypeOptions();
+
 		}
 
 		\View::share('search_data', $search_data);

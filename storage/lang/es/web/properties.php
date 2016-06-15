@@ -60,4 +60,8 @@
 											<p>Hemos recibido su solicitud de información para la propiedad <a href=":url" target="_blank">:title</a> y contactaremos con usted en breve.</p>
 											<p>Mientras tanto le enviamos un PDF con más información.</p>
 											<p>:sitename</p>',
+
+		'images.label.default' => 'Slider default',
+		'images.warning.orientation' => 'Recomendamos usar imágenes con mayor ancho que largo.',
+		'images.warning.size' => 'El tamaño de esta imagen es muy pequeño. Recomendamos usar imágenes más grandes (ej. 1280 pixels de ancho).',
 	];

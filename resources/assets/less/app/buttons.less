@@ -21,6 +21,11 @@
 
 .btn-group {
 	border: @borderWidth solid @colorPurple;
+	.dropdown-menu { border-radius: @borderRadius; border-width: @borderWidth; }
+	&.open {
+		> .dropdown-toggle.btn-primary:hover,
+		> .dropdown-toggle.btn-primary:focus { .colors-primary; border-width: @borderWidth; }
+	}
 	&.note-btn-group { border: 1px solid #ccc; }
 }
 

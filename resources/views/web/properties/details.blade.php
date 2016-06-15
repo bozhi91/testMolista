@@ -94,6 +94,9 @@
 								<i class="fontello-icon fontello-icon-coins hidden-xs"></i>
 								{{ number_format(round($property->price/$property->size),0,',','.') }} {{ price_symbol($property->currency) }}/m²
 							</li>
+							<li>
+								{{ Lang::get('account/properties.ref') }}: {{ $property->ref }}
+							</li>
 						</ul>
 					</div>
 				</div>

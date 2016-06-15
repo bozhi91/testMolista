@@ -1,6 +1,7 @@
 <?php
 
 	return [
+		'h1' => 'Tickets',
 
 		'view.title' => 'Ver ticket',
 		'empty' => 'No se encontraron tickets',
@@ -21,6 +22,7 @@
 		'source.other' => 'Otro',
 		'messages' => 'Mensajes',
 		'status' => 'Status',
+		'status.all' => 'Cualquier status',
 		'status.open' => 'Open',
 		'status.waiting' => 'Waiting',
 		'status.resolved' => 'Resolved',
@@ -32,9 +34,12 @@
 		'unassigned' => 'Sin asignar',
 		'assigned.to' => 'Agente',
 		'assign' => 'Asignar',
+		'agents.all' => 'Todos los agentes',
+		'agents.change' => 'Cambiar agente',
 
 		'subject' => 'Asunto',
 		'body' => 'Cuerpo',
 		'send' => 'Enviar mensaje',
 
+		'new' => 'Nuevo ticket',
 	];

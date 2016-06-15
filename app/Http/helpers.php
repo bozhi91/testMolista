@@ -78,6 +78,10 @@
 		$diff = (time() - $time) / 60;
 		if ( $diff < 60 )
 		{
+			if ( $diff < 0 )
+			{
+				$diff = 0;
+			}
 			return trans('general.since.minutes', [ 'minutes'=>floor($diff) ]);
 		}
 
@@ -174,7 +178,23 @@
 			return;
 		}
 
-		$href = "{$url}?limit={$limit}&page=";
+		// Prepare url
+		@list($href,$query) = explode('?',$url);
+
+		if ( $query )
+		{
+			parse_str($query,$parts);
+			unset($parts['limit'], $parts['page']);
+		}
+
+		if ( empty($parts) )
+		{
+			$href .= "?limit={$limit}&page=";
+		}
+		else
+		{
+			$href .= '?'.http_build_query($parts)."&limit={$limit}&page=";
+		}
 
 		$pags =	'<div class="row pagination-custom">' .
 					'<div class="col-xs-12">' .
@@ -196,7 +216,8 @@
 
 		if ( $page > 1 )
 		{
-			$pags .= "<li><a href='#' data-href='{$href}1'>«</a></li>";
+			$tmp = $page - 1;
+			$pags .= "<li><a href='{$href}{$tmp}'>«</a></li>";
 		}
 		else
 		{
@@ -205,7 +226,7 @@
 
 		if ( $first_page > 1 )
 		{
-			$pags .= "<li><a href='#' data-href='{$href}1'>1</a></li>";
+			$pags .= "<li><a href='{$href}1'>1</a></li>";
 		}
 
 		if ( $first_page > 2 )
@@ -226,11 +247,11 @@
 
 			if ( $i == $page )
 			{
-				$pags .= "<li class='active' data-href='{$href}{$i}'><span>{$i}</span></li>";
+				$pags .= "<li class='active' data-url='{$href}{$i}'><span>{$i}</span></li>";
 			}
 			else
 			{
-				$pags .= "<li><a href='#' data-href='{$href}{$i}'>{$i}</a></li>";
+				$pags .= "<li><a href='{$href}{$i}'>{$i}</a></li>";
 
 			}
 		}
@@ -242,13 +263,13 @@
 
 		if ( $last_page < $total )
 		{
-			$pags .= "<li><a href='#' data-href='{$href}{$total}'>{$total}</a></li>";
+			$pags .= "<li><a href='{$href}{$total}'>{$total}</a></li>";
 		}
 	
 		if ( $page < $total )
 		{
 			$tmp = $page + 1;
-			$pags .= "<li><a href='#' data-href='{$href}{$tmp}'>»</a></li>";
+			$pags .= "<li><a href='{$href}{$tmp}'>»</a></li>";
 		}
 		else
 		{
@@ -260,6 +281,73 @@
 				'</div>';
 
 		return $pags;
+	}
+
+	function getParsedUrl($url)
+	{
+		// Prepare url
+		$query_parts = [];
+
+		@list($href,$query) = explode('?',$url);
+		if ( $query )
+		{
+			parse_str($query,$query_parts);
+		}
+
+		return [ $href, $query_parts ];
+	}
+
+	function drawSortableHeaders($url,$columns)
+	{
+		@list($href,$query) = getParsedUrl($url);
+
+		if ( !$query )
+		{
+			$query = [];
+		}
+
+		$orderby = @$query['orderby'];
+		unset($query['orderby']);
+
+		$order = @$query['order'];
+		unset($query['order']);
+
+		$query['page'] = 1;
+
+		$str = '';
+
+		foreach ($columns as $key => $def) 
+		{
+			$str .= '<th class="' . @$def['class'] . '">';
+
+			if ( isset($def['sortable']) && !$def['sortable']) 
+			{
+				$str .= @$def['title'];
+			}
+			else
+			{
+
+				$tmp_order = 'asc';
+				$tmp_class = 'is-sortable';
+
+				if ($orderby == $key)
+				{
+					$tmp_order = ($order == 'asc') ? 'desc' : 'asc';
+					$tmp_class .= " text-nowrap sorted {$tmp_order}";
+				}
+
+				$tmp_url = $href . '?' . http_build_query(array_merge($query, [
+					'orderby' => $key,
+					'order' => $tmp_order,
+				]));
+
+				$str .= '<a href="' . $tmp_url . '" class="' . $tmp_class . '">' . @$def['title'] . '</a>';
+			}
+
+			$str .= '</th>';
+		}
+
+		return $str;
 	}
 
 	function sort_link($field) 

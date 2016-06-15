@@ -35,6 +35,7 @@
 		'label' => 'Etiqueta',
 		'show_address' => 'Mostrar dirección',
 		'zipcode' => 'Código postal',
+		'year' => 'Año de construcción',
 
 		'energy.certificate' => 'Certificado energético',
 		'energy.certificate.pending' => 'En trámite',
