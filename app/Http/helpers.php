@@ -333,7 +333,7 @@
 				if ($orderby == $key)
 				{
 					$tmp_order = ($order == 'asc') ? 'desc' : 'asc';
-					$tmp_class .= " sorted {$tmp_order}";
+					$tmp_class .= " text-nowrap sorted {$tmp_order}";
 				}
 
 				$tmp_url = $href . '?' . http_build_query(array_merge($query, [
