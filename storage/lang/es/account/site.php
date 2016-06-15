@@ -15,6 +15,8 @@
 		'configuration.subdomain.error' => 'Este subdominio está en uso',
 		'configuration.subdomain.alpha' => 'Sólo letras números y guiones',
 		'configuration.theme' => 'Tema del sitio',
+		'configuration.theme.preview' => 'Ver muestra',
+		'configuration.theme.preview.error' => 'Por favor seleccione un tema para ver una muestra',
 		'configuration.logo' => 'Logo',
 		'configuration.logo.helper' => '<p>Aceptamos imagenes en formato JPG, PNG y GIF.</p><p>No se subirán imágenes con peso superior a :IMAGE_MAXSIZE kilobytes.</p>',
 		'configuration.favicon' => 'Favicon',

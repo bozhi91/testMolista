@@ -57,7 +57,7 @@ return [
 	'themes' => [
 
 		'default' => [
-			'title'			=> 'Default',
+			'title'			=> 'Florecilla',
 			'public'		=> true, // true if companies can use it
 			'custom'		=> false, // true if custom theme for specific companies
 			'extends'	 	=> null,

@@ -26,6 +26,9 @@
 						<div class="row">
 							<div class="col-xs-12 col-sm-6">
 								<div class="form-group error-container">
+									<a href="#" class="pull-right theme-preview-trigger" title="{{ Lang::get('account/site.configuration.theme.preview') }}">
+										<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+									</a>
 									<label>{{ Lang::get('account/site.configuration.theme') }}</label>
 									<?php
 										$themes = [];
@@ -477,6 +480,25 @@
 							}
 						});
 					}
+				});
+			});
+
+			form.on('click','.theme-preview-trigger',function(e){
+				e.preventDefault();
+
+				var theme = form.find('select[name="theme"]').val();
+
+				if ( !theme )
+				{
+					alertify.error("{{ print_js_string( Lang::get('account/site.configuration.theme.preview.error') ) }}");
+					return;
+				}
+
+				$.magnificPopup.open({
+					items: {
+						src: '/images/themes/' + theme + '.jpg'
+					},
+					type: 'image'
 				});
 			});
 
