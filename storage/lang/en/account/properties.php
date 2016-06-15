@@ -35,6 +35,7 @@
 		'label' => 'Label',
 		'show_address' => 'Show address',
 		'zipcode' => 'Zipcode',
+		'year' => 'Construction year',
 
 		'energy.certificate' => 'Energy certificate',
 		'energy.certificate.pending' => 'In process',
