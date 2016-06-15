@@ -10,6 +10,12 @@
 	}
 	.properties-slider-area {
 		h2 { margin: 35px 0px; }
+		.properties-slider-indicators {
+			li {
+				&:hover { background: @colorGreySemiLight; cursor: pointer; }
+				&.active { background: @colorPurple; color: @colorWhite; cursor: default; }
+			}
+		}
 	}
 	.search-area { 
 		padding: 35px 0px; 
