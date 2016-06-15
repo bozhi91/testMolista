@@ -31,16 +31,21 @@ class Mapper {
         $map['price'] = $this->decimal($item['price']);
         //$map['property_type'] = '';
         //$map['foreclosure_type'] = '';
-        $map['address'] = $item['location']['address'];
-        //$map['floor_number'] = '';
-        //$map['neighborhood'] = '';
-        $map['city_area'] = $item['location']['district'];
-        $map['city'] = $item['location']['city'];
-        $map['region'] = $item['location']['territory'];
-        //$map['country'] = '';
-        $map['postcode'] = $item['location']['zipcode'];
-        $map['latitude'] = $this->decimal($item['lat'], 8);
-        $map['longitude'] = $this->decimal($item['long'], 8);
+
+        if (!empty($item['location']['show_address']))
+        {
+            $map['address'] = $item['location']['address'];
+            //$map['floor_number'] = '';
+            //$map['neighborhood'] = '';
+            $map['city_area'] = $item['location']['district'];
+            $map['city'] = $item['location']['city'];
+            $map['region'] = $item['location']['territory'];
+            //$map['country'] = '';
+            $map['postcode'] = $item['location']['zipcode'];
+            $map['latitude'] = $this->decimal($item['location']['lat'], 8);
+            $map['longitude'] = $this->decimal($item['location']['long'], 8);
+        }
+
         //$map['orientation'] = '';
         //$map['agency'] = '';
         //$map['mls_database'] = '';
@@ -126,7 +131,7 @@ class Mapper {
             case 'duplex':
             case 'house':
             case 'penthouse':
-            case 'Villa':
+            case 'villa':
             case 'apartment':
             default:
                 $type = $this->isRent() ? 'For Rent' : 'For Sale';
@@ -149,23 +154,6 @@ class Mapper {
     protected function decimal($value, $precision = 2)
     {
         return number_format($value, $precision, '.', '');
-    }
-
-    protected function address()
-    {
-        $location = $this->item['location'];
-        if (!$location['show_address'])
-        {
-            return false;
-        }
-
-        $address = [
-            $location['address'],
-            $location['city'],
-            $location['zipcode'],
-        ];
-
-        return implode(' ', $address);
     }
 
     protected function pictures()
