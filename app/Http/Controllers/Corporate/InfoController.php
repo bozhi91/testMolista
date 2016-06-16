@@ -18,7 +18,10 @@ class InfoController extends \App\Http\Controllers\CorporateController
 	{
 		return view('corporate.info.privacy');
 	}
-
+	public function getInfo()
+	{
+		return view('corporate.info.info');
+	}
 	public function getContact()
 	{
 		return view('corporate.info.contact');

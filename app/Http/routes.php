@@ -21,6 +21,7 @@ Route::group([
 	// Corporate web
 	Route::get('/', 'CorporateController@index');
 	Route::controller('info', 'Corporate\InfoController');
+	Route::controller('features', 'Corporate\FeaturesController');
 
 	// Admin
 	Route::group([

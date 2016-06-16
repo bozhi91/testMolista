@@ -51,7 +51,7 @@
 
               <ul class="nav navbar-nav">
                 <li><a href="" class="btn btnBdrYlw text-uppercase">VER DEMO</a></li>
-                <li><button class="btn btnBdrYlw text-uppercase" data-toggle="modal" data-target="#contact-modal">más información</button></li> 
+                <li><a href="{{ action('Corporate\FeaturesController@getIndex') }}" class="btn btnBdrYlw text-uppercase">más información</a></li> 
                 <!--<li><a class="navbar-link" href="">Planes y precios</a></li>
                 <li><a href="navbar-link">Soporte</a></li>  -->
                 <li class="dropdown">
@@ -96,17 +96,9 @@
         <div class="modal-content">
           <div class="modal-header">
 
-            <div class="col-xs-12 visible-xs">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-
-            <div class="col-xs-12 col-sm-8 col-sm-offset-3">
+            <div class="col-xs-12 col-sm-10 col-sm-offset-2">
                 <h4 class="modal-title">¿Listo para empezar?</h4>
                 <p class="modal-title">Necesitamos que nos proporciones ciertos datos:</p>
-            </div>
-
-            <div class="hidden-xs col-sm-1">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
 
           </div>
@@ -119,7 +111,7 @@
             ]) !!}
 
             <div class="row">
-                <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                <div class="col-xs-12 col-sm-8 col-sm-offset-2">
                     <div class="form-group error-container">
                         {!! Form::label('name', 'Nombre') !!}
                         {!! Form::text('name', null, [ 'class'=>'form-control required' , 'placeholder'=>'Tu nombre o el de tu empresa' ]) !!}
@@ -128,37 +120,28 @@
             </div>
 
             <div class="row">
-                <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                <div class="col-xs-12 col-sm-8 col-sm-offset-2">
                     <div class="form-group error-container">
                         {!! Form::label('email', 'Email') !!}
-                        {!! Form::text('name', null, [ 'class'=>'form-control required' , 'placeholder'=>'Tu email' ]) !!}
+                        {!! Form::text('email', null, [ 'class'=>'form-control required' , 'placeholder'=>'Tu email' ]) !!}
                     </div>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                <div class="col-xs-12 col-sm-8 col-sm-offset-2">
                     <div class="form-group error-container">
                         {!! Form::label('phone', 'Teléfono') !!}
-                        {!! Form::text('name', null, [ 'class'=>'form-control required' , 'placeholder'=>'Tu teléfono' ]) !!}
+                        {!! Form::text('phone', null, [ 'class'=>'form-control required' , 'placeholder'=>'Tu teléfono' ]) !!}
                     </div>
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+           <div class="row">
+                <div class="col-xs-12 col-sm-8 col-sm-offset-2">
                     <div class="form-group error-container">
-                        {!! Form::label('name', 'Periodicidad de pago') !!}
-                        {!! Form::text('name', null, [ 'class'=>'form-control required' ]) !!}
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-                    <div class="form-group error-container">
-                        {!! Form::label('name', 'Método de pago') !!}
-                        {!! Form::text('name', null, [ 'class'=>'form-control required' ]) !!}
+                        {!! Form::label('details', 'Observaciones') !!}
+                        {!! Form::textarea('details', null, [ 'class'=>'form-control required' , 'rows'=>'4' , 'placeholder'=>'Dinos si prefieres que te contactemos por email o teléfono, y a qué hora te va bien.' ]) !!}
                     </div>
                 </div>
             </div>
@@ -166,7 +149,7 @@
             <div class="row">
                 <div class="col-sm-6 col-sm-offset-3">
                     <div class="text-center">
-                        {!! Form::button('Enviar', [ 'type'=>'submit', 'class'=>'btn btn-primary' ]) !!}
+                        {!! Form::button('Enviar', [ 'type'=>'submit', 'class'=>'btn btn-primary btnBdrYlw moreinfo-button' ]) !!}
                     </div>
                 </div>
             </div>
