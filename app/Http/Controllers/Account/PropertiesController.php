@@ -214,7 +214,9 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		$states = \App\Models\Geography\State::enabled()->where('country_id', $property->country_id)->lists('name','id');
 		$cities = \App\Models\Geography\City::enabled()->where('state_id', $property->state_id)->lists('name','id');
 
-		$marketplaces = \App\Models\Marketplace::enabled()->orderBy('name')->get();
+		$marketplaces = $this->site->marketplaces()
+							->wherePivot('marketplace_enabled','=',1)
+							->enabled()->orderBy('name')->get();
 
 		return view('account.properties.edit', compact('property','modes','types','energy_types','services','countries','states','cities','marketplaces'));
 	}

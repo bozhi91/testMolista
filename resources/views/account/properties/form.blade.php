@@ -365,7 +365,6 @@
 													<ul>
 														@foreach ($publishable as $key => $message)
 															<li>{{ $message }}</li>
-															<li>{{ $message }}</li>
 														@endforeach
 													</ul>
 												@endif
