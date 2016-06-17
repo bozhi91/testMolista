@@ -65,6 +65,7 @@ class Mapper {
         $map['terraza'] = !empty($item['features']['terrace']) ? 1 : 0;
         $map['descripciones']['es']['breve_descripcion'] = $this->translate($item['description'], 'es');
         $map['fotos']['foto'] = $this->pictures();
+        $map['fk_id_tbl_antiguedad_inmuebles'] = $this->antiguedad_inmuebles($item['construction_year']);
 
         return $map;
     }
@@ -123,7 +124,7 @@ class Mapper {
         foreach ($this->item['images'] as $i => $image)
         {
             $pictures []= [
-                'fk_id_tbl_titulos_fotos' => $i+1,
+                'fk_id_tbl_titulos_fotos' => 12,
                 'url' => $image
             ];
         }
@@ -162,6 +163,53 @@ class Mapper {
         }
 
         return $code;
+    }
+
+    /**
+     * http://www.enalquiler.com/feeds/public/helpers/antiguedad_inmuebles.xml
+     * 1: Menos de 5 años
+     * 2: Entre 5 y 10 años
+     * 3: Entre 10 y 20 años
+     * 4: Entre 20 y 30 años
+     * 5: Más de 30 años
+     * 6: No disponible
+     *
+     * @param  integer $year Year of construction
+     * @return integer
+     */
+    protected function antiguedad_inmuebles($year)
+    {
+        if (!intval($year))
+        {
+            return 6;
+        }
+
+        $old = date('Y') - $year;
+
+        switch(true)
+        {
+            case $old < 5:
+                $condition = 1;
+                break;
+
+            case $old < 10:
+                $condition = 2;
+                break;
+
+            case $old < 20:
+                $condition = 3;
+                break;
+
+            case $old < 30:
+                $condition = 4;
+                break;
+
+            case $old > 30;
+                $condition = 5;
+                break;
+        }
+
+        return $condition;
     }
 
 }
