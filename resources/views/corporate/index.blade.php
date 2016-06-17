@@ -41,7 +41,8 @@
 			<!-- / FIRST BLOCK -->
 
 			<!-- SECOND BLOCK -->
-			<section class="second-block">
+			<!-- BLOCK LINKS -->
+			<section class="block-links">
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-6 col-lg-offset-3 clearfix">
@@ -53,6 +54,7 @@
 					</div>
 				</div>
 			</section>
+			<!--/ BLOCK LINKS -->
 			<!-- SECOND BLOCK -->
 
 			<!-- THIRD BLOCK -->
