@@ -35,6 +35,8 @@ class Property extends TranslatableModel
         'address_parts' => 'array',
     ];
 
+	protected $marketplace_info;
+
 	public static function boot()
 	{
 		parent::boot();
@@ -110,6 +112,16 @@ class Property extends TranslatableModel
 		return $this->belongsToMany('App\Models\Site\Customer', 'properties_customers', 'property_id', 'customer_id');
 	}
 
+	public function country()
+	{
+		return $this->belongsTo('App\Models\Geography\Country');
+	}
+
+	public function territory()
+	{
+		return $this->belongsTo('App\Models\Geography\Territory');
+	}
+
 	public function city()
 	{
 		return $this->belongsTo('App\Models\Geography\City');
@@ -151,6 +163,21 @@ class Property extends TranslatableModel
 		}
 
 		return false;
+	}
+
+	public function marketplaces() 
+	{
+		return $this->belongsToMany('App\Models\Marketplace', 'properties_marketplaces', 'property_id', 'marketplace_id');
+	}
+	public function getMarketplacesIdsAttribute() {
+		$marketplaces = [];
+
+		foreach ($this->marketplaces as $marketplace)
+		{
+			$marketplaces[$marketplace->id] = $marketplace->id;
+		}
+
+		return $marketplaces;
 	}
 
 	public function getLocationArrayAttribute()
@@ -227,7 +254,6 @@ class Property extends TranslatableModel
 
 		return $this->catches()->whereIn('status', [ 'sold', 'rent' ])->with('employee')->with('buyer')->with('seller')->orderBy('transaction_date','desc')->first();
 	}
-
 
 	public function getRelatedPropertiesAttribute()
 	{
@@ -356,6 +382,101 @@ class Property extends TranslatableModel
 		return $managers->first();
 	}
 
+	public function getMarketplaceInfoAttribute()
+	{
+		if ( $this->marketplace_info)
+		{
+			return $this->marketplace_info;
+		}
+
+		$current_locale = \App::getLocale();
+		$fallback_locale = fallback_lang();
+		$site_locales = $this->site->locales_array;
+
+		$this->marketplace_info = [
+			'id' => $this->id,
+			'reference' => $this->ref,
+			'title' => [],
+			'description' => [],
+			'type' => $this->type,
+			'mode' => $this->mode,
+			'price' => $this->price,
+			'currency' => $this->currency,
+			'size' => $this->size,
+			'size_unit' => $this->size_unit,
+			'rooms' => $this->rooms,
+			'baths' => $this->baths,
+			'ec' => $this->ec,
+			'ec_pending' => $this->ec_pending,
+			'newly_build' => $this->newly_build,
+			'second_hand' => $this->second_hand,
+			'url' => [],
+			'location' => [
+				'country' => @$this->country->code,
+				'territory' => @$this->territory->name,
+				'state' => @$this->state->name,
+				'district' => $this->district,
+				'city' => @$this->city->name,
+				'address' => $this->address,
+				'zipcode' => $this->zipcode,
+				'lat' => $this->lat,
+				'lng' => $this->lng,
+				'show_address' => $this->show_address
+			],
+			'images' => [],
+			'features' => [],
+		];
+
+		// Translatable
+		$i18n = $this->i18n;
+		foreach ([ 'title', 'description' ] as $field)
+		{
+			foreach ($site_locales as $locale) 
+			{
+				$value = @$i18n[$field][$locale];
+				if ( !$value )
+				{
+					$value = @$i18n[$field][$fallback_locale];
+				}
+				$this->marketplace_info[$field][$locale] = $value;
+			}
+		}
+
+		// Property urls
+		foreach ($site_locales as $locale) 
+		{
+			\App::setLocale($locale);
+			$slug = empty($i18n['slug'][$locale]) ? $i18n['slug'][$fallback_locale] : $i18n['slug'][$locale];
+			$this->marketplace_info['url'][$locale] = \LaravelLocalization::getLocalizedURL($locale, action('Web\PropertiesController@details', $slug));
+		}
+
+		// Images
+		foreach ($this->images->sortBy('position') as $image)
+		{
+			$this->marketplace_info['images'][] = $image->image_url;
+		}
+
+		// Features
+		$services = $this->services()->withTranslations()->get();
+		foreach ($services as $service)
+		{
+			$tmp = [];
+			foreach ($site_locales as $locale) 
+			{
+				$tmp[$locale] = @$service->i18n['title'][$locale];
+				if ( !$tmp[$locale] )
+				{
+					$tmp[$locale] = @$service->i18n['title'][$fallback_locale];
+				}
+			}
+			$this->marketplace_info['features'][$service->code] = $tmp;
+		}
+
+		\App::setLocale($fallback_locale);
+
+		return $this->marketplace_info;
+	}
+
 	public function scopeEnabled($query)
 	{
 		return $query->where('properties.enabled', 1);
@@ -369,6 +490,15 @@ class Property extends TranslatableModel
 	public function scopeOfSite($query, $site_id)
 	{
 		return $query->where('properties.site_id', $site_id);
+	}
+
+	public function scopeOfMarketplace($query, $marketplace_id)
+	{
+		return $query->whereIn('properties.id', function($query) use ($marketplace_id) {
+			$query->select('property_id')
+				->from('properties_marketplaces')
+				->where('marketplace_id', $marketplace_id);
+		});
 	}
 
 	public function scopeInState($query, $state_id)
@@ -506,8 +636,15 @@ class Property extends TranslatableModel
 		return $query
 				->withTranslations()
 				->with('images')
+				->with('country')
+				->with('territory')
 				->with('state')
-				->with('city');
+				->with('city')
+				->with('images')
+				->with([ 'services' => function($query){
+					$query->withTranslations();
+				}])
+				;
 	}
 
 	static public function getModes() 

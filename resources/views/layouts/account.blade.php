@@ -68,6 +68,12 @@
 						</a>
 					</li>
 					@role('company')
+						<li role="presentation" class="{{ (@$submenu_section == 'marketplaces') ? 'active' : '' }}">
+							<a href="{{ action('Account\MarketplacesController@getIndex') }}">
+								<i class="account-icon account-icon-marketplaces"></i>
+								{{ Lang::get('account/menu.marketplaces') }}
+							</a>
+						</li>
 						<li role="presentation" class="{{ (@$submenu_section == 'reports') ? 'active' : '' }}">
 							<a href="javascript:;" data-toggle="collapse" data-target="#account-submenu-reports" aria-expanded="false" class="{{ (@$submenu_section == 'reports') ? '' : 'collapsed' }}">
 								<i class="account-icon account-icon-reports"></i>

@@ -164,4 +164,7 @@
 
 		'show.leads.empty' => 'No se encontraron leads',
 		'show.leads.add' => 'Añadir lead',
+
+		'marketplaces.intro' => 'Marque el checkbox de los marketplaces donde desea publicar esta propiedad.',
+		'marketplaces.error' => 'Esta propiedad no puede publicarse en esta marketplace:',
 	];

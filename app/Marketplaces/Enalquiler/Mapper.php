@@ -33,8 +33,8 @@ class Mapper {
         $map['num'] = $item['location']['zipcode'];
         $map['num_no_visible'] = $item['location']['show_address'] ? 0 : 1;
         $map['fk_id_tbl_esconder_en_mapa'] = $item['location']['show_address'] ? 1 : 3;
-        $map['latitud'] = $this->decimal($item['lat'], 8);
-        $map['longitud'] = $this->decimal($item['long'], 8);
+        $map['latitud'] = $this->decimal($item['location']['lat'], 8);
+        $map['longitud'] = $this->decimal($item['location']['lng'], 8);
 
         if (!empty($item['location']['show_address']))
         {
@@ -62,7 +62,7 @@ class Mapper {
         $map['calefaccion'] = !empty($item['features']['heating']) ? 1 : 0;
         $map['opcion_compra'] = !empty($item['features']['option-to-buy']) ? 1 : 0;
         $map['piscina'] = !empty($item['features']['pool']) ? 1 : 0;
-        $map['terraza'] = !empty($item['features']['terrase']) ? 1 : 0;
+        $map['terraza'] = !empty($item['features']['terrace']) ? 1 : 0;
         $map['descripciones']['es']['breve_descripcion'] = $this->translate($item['description'], 'es');
         $map['fotos']['foto'] = $this->pictures();
 

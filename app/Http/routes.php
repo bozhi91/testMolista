@@ -36,6 +36,9 @@ Route::group([
 		Route::resource('sites', 'Admin\SitesController');
 		// Users
 		Route::resource('users', 'Admin\UsersController');
+		// Marketplaces
+		Route::get('marketplaces/check/{type}', 'Admin\MarketplacesController@getCheck');
+		Route::resource('marketplaces', 'Admin\MarketplacesController');
 		// Properties
 		Route::get('properties/check/{type}', 'Admin\Properties\ServicesController@getCheck');
 		Route::resource('properties/services', 'Admin\Properties\ServicesController');
@@ -91,6 +94,9 @@ Route::group([
 	// User
 	Route::controller('customers', 'Web\CustomersController');
 
+	// Feeds
+	Route::controller('feeds', 'Web\FeedsController');
+
 	// Account
 	Route::group([
 		'prefix' => 'account',
@@ -122,6 +128,14 @@ Route::group([
 		Route::get('customers/properties/{slug}', 'Account\CustomersController@getAddPropertyCustomer');
 		Route::post('customers/profile/{email}', 'Account\CustomersController@postProfile');
 		Route::resource('customers', 'Account\CustomersController');
+		// Marketplaces
+		Route::group([
+			'middleware' => [
+				'role:company',
+			],
+		], function() {
+			Route::controller('marketplaces', 'Account\MarketplacesController');
+		});
 		// Tickets
 		Route::controller('tickets', 'Account\TicketsController');
 		// Reports
