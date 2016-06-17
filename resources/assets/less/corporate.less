@@ -475,10 +475,132 @@ header { min-height: 84px; background-color: @black;
 
 		.tab-content {
 			padding-top: 40px;
-			padding-bottom: 10px; 
+			padding-bottom: 50px; 
 
+			.features-content-text {
+
+				h1 {
+					margin-top: 0px;
+					font-weight: bold;
+				}
+
+				p {
+				    font-size: 18px;
+				}
+			}
+
+			.feature-content-image {
+				padding-top: 25px;
+
+				img {
+					margin: auto;
+				}
+
+				@media (min-width: 992px) {
+					.feature-tab-5-img-right {
+						margin-right:0px;margin-top: 35px;
+					}
+
+					.feature-tab-5-img-left {
+						margin-left:15%;margin-top: 20px;
+					}
+				}
+
+				@media (max-width: 991px) {
+					.feature-tab-5-img-left {margin-top: 35px;}
+					.feature-tab-5-img-right {margin-top: 35px;}
+				}
+			}
+
+			@media (min-width: 992px) {
+				.features-content-text {padding-right: 25%;}
+			}
 
 		}
+	}
+
+	#features-home-content {
+
+		.second-block {
+		padding: 20px 0;
+		background-color: @black;
+		.col-lg-6 {
+			text-align : center;
+		}
+		ul {
+			margin: 0;
+			padding: 0;
+			list-style-type: none;
+			display : inline-block;
+			float:none;
+			text-align: center;
+
+			li {
+				float:none;
+				display : inline-block;
+			}
+		}
+	}
+
+
+		.third-block {
+		padding: 30px 0;
+
+		.title-block{
+			padding-bottom : 30px;
+		}
+
+		h3 {
+				text-transform : uppercase;
+				font-size: @font-size-title;
+				color: @black;
+				font-weight: bold;
+		}
+		.panel {
+			min-height: 165px;
+			border-right: 15px solid @yellow;
+			border-radius: 0px;
+			padding: 10px 20px;
+			border-top: 0px;
+			border-bottom: 0px;
+			border-left: 0px;
+
+
+			h4 {
+				color: @white;
+				font-size: 36px;
+				font-weight: bold;
+				margin:40px 10px;
+			}
+			p {
+				color: @white;
+				font-size: 20px;
+				margin: 30px 0;
+			}
+
+			
+		}
+
+		.first-panel {
+			background-color: @lightBlue;
+		}
+		.second-panel {
+			background-color: @lightBluetwo;
+		}
+		.third-panel {
+			background-color: @lightBluethree;
+		}
+
+		/* responsive */
+		@media only screen and (max-width : 680px) {
+			.panel {
+				h4 { font-size: 28px !important; }
+			}
+			h3 {
+				font-size: 40px;
+			}
+		}
+	}
 	}
 
 }

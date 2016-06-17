@@ -47,7 +47,7 @@
 						<div class="col-lg-6 col-lg-offset-3 clearfix">
 						  <ul>
 					        <li><button class="btn btnBdrYlw text-uppercase">VER DEMO</button></li>
-					        <li><button class="btn btnBdrYlw text-uppercase" data-toggle="modal" data-target="#contact-modal">más información</button></li>
+					        <li><a href="{{ action('Corporate\FeaturesController@getIndex') }}" class="btn btnBdrYlw text-uppercase" >más información</a></li>
 					      </ul>
 						</div>
 					</div>
@@ -138,7 +138,7 @@
 						<div class="col-lg-6 col-lg-offset-3 clearfix">
 						  <ul>
 					        <li><button class="btn btnBdrYlw text-uppercase">VER DEMO</button></li>
-					        <li><button class="btn btnBdrYlw text-uppercase" data-toggle="modal" data-target="#contact-modal">más información</button></li>
+					        <li><a href="{{ action('Corporate\FeaturesController@getIndex') }}" class="btn btnBdrYlw text-uppercase" >más información</a></li>
 					      </ul>
 						</div>
 					</div>
