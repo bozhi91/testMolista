@@ -23,7 +23,7 @@ class Mapper {
         $item = $this->item;
 
         $map = [];
-        $map['IdInmobiliariaExterna'] = @$item['user_id']; //  OBLIGATORIO
+        $map['IdInmobiliariaExterna'] = $item['user_id']; //  OBLIGATORIO
         $map['IdPisoExterno'] = $item['id']; // OBLIGATORIO
         $map['TipoInmueble'] = $this->tipo_inmueble();    // OLBIGATORIO
         $map['TipoOperacion'] = 3; // Alquiler
@@ -69,6 +69,11 @@ class Mapper {
         if (!$this->isRent())
         {
             $this->errors []= 'Only properties for rent are allowed in this marketplace.';
+        }
+
+        if (empty($this->item['user_id']))
+        {
+            $this->errors []= 'Agency identifier is required.';
         }
 
         return empty($this->errors);
