@@ -124,7 +124,7 @@ class Mapper {
         foreach ($this->item['images'] as $i => $image)
         {
             $pictures []= [
-                'fk_id_tbl_titulos_fotos' => 12,
+                'fk_id_tbl_titulos_fotos' => 12, // Otras fotos: http://www.enalquiler.com/feeds/public/helpers/titulos_fotos.xml
                 'url' => $image
             ];
         }
