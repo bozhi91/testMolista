@@ -85,6 +85,9 @@ Route::group([
 	Route::post('pages/{slug}', 'Web\PagesController@post');
 	Route::get('pages/{slug}', 'Web\PagesController@show');
 
+	// Thumbnails
+	Route::get('sites/{site_id}/properties/{property_id}/{flag}/{image}', 'Web\ThumbnailsController@property');
+
 	// Auth
 	Route::auth();
 
