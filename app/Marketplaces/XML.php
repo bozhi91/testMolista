@@ -2,7 +2,7 @@
 
 use App\Marketplaces\Interfaces\PublishPropertyXmlInterface;
 
-abstract class XML implements PublishPropertyXmlInterface {
+abstract class XML extends Base implements PublishPropertyXmlInterface {
 
     protected $writer;
 
@@ -30,6 +30,17 @@ abstract class XML implements PublishPropertyXmlInterface {
         }
 
         return $this->writer->getXml();
+    }
+
+    public function validateProperty(array $property)
+    {
+        $mapper = static::getMapper($property, $this->iso_lang);
+        if ($mapper->valid())
+        {
+            return true;
+        }
+
+        return $mapper->errors();
     }
 
     protected static function getWriter()

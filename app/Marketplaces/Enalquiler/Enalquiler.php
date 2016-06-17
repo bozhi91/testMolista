@@ -8,17 +8,6 @@ class Enalquiler extends \App\Marketplaces\XML implements OwnersXmlInterface {
 
     protected $writer;
 
-    public function validateProperty(array $property)
-    {
-        $mapper = new Mapper($property, $this->iso_lang);
-        if ($mapper->valid())
-        {
-            return true;
-        }
-
-        return $mapper->errors();
-    }
-
     public function getOwnersXml(array $owners)
     {
         $writer = new Owner\Writer;
@@ -29,10 +18,6 @@ class Enalquiler extends \App\Marketplaces\XML implements OwnersXmlInterface {
             if ($mapper->valid() === true)
             {
                 $writer->addItem([$mapper->map()]);
-            }
-            else
-            {
-                dd($mapper->valid());
             }
         }
 
