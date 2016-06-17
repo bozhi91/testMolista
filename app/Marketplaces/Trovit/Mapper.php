@@ -43,7 +43,7 @@ class Mapper {
             //$map['country'] = '';
             $map['postcode'] = $item['location']['zipcode'];
             $map['latitude'] = $this->decimal($item['location']['lat'], 8);
-            $map['longitude'] = $this->decimal($item['location']['long'], 8);
+            $map['longitude'] = $this->decimal($item['location']['lng'], 8);
         }
 
         //$map['orientation'] = '';
@@ -54,7 +54,10 @@ class Mapper {
         $map['rooms'] = $item['rooms'];
         $map['bathrooms'] = $item['baths'];
         //$map['condition'] = '';
-        //$map['year'] = '';
+        if (!empty($item['construction_year']))
+        {
+            $map['year'] = $item['construction_year'];
+        }
         //$map['virtual_tour'] = '';
         $map['eco_score'] = $item['ec'];
         $map['pictures']['picture']= $this->pictures();
@@ -72,6 +75,20 @@ class Mapper {
 
     public function valid()
     {
+        $rules = [
+            'construction_year' => 'regex:#\d{4}#'
+        ];
+
+        $messages = [
+            'construction_year.regex' => \Lang::get('validation.date'),
+        ];
+
+        $validator = \Validator::make($this->item, $rules, $messages);
+        if ($validator->fails())
+        {
+            return $validator->errors()->all();
+        }
+
         return true;
     }
 
