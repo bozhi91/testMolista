@@ -4,6 +4,7 @@
 
 		'previous' => 'Previous',
 		'next' => 'Next',
+		'accept' => 'Accept',
 
 		'user.new.h2' => 'Create account',
 		'user.new.name' => 'Name and lastname',
@@ -23,4 +24,35 @@
 		'user.old.error.combination' => 'Data submitted is not valid.',
 		'user.old.error.employee' => 'This email belongs to a user already registered as an agent.',
 		'user.old.error.admin' => 'This email belongs to a user already registered as an administrator.',
+
+		'pack.h2' => 'Choose the plan you wish to contract',
+		'site.subdomain' => 'Choose a name for your website',
+		'site.subdomain.sample' => 'The address of you website will be:',
+		'site.language' => 'Choose a language for your website',
+
+		'payment.h2' => 'Payment method',
+		'payment.choose' => 'Choose a payment method',
+
+		'invoicing.h2' => 'Invoicing data',
+		'invoicing.type.individual' => 'Individual',
+		'invoicing.type.company' => 'Company',
+		'invoicing.first_name' => 'Name',
+		'invoicing.last_name' => 'Last name',
+		'invoicing.email' => 'Email',
+		'invoicing.tax_id' => 'Tax ID',
+		'invoicing.address' => 'Address',
+		'invoicing.street' => 'Street',
+		'invoicing.zipcode' => 'Zipcode',
+		'invoicing.city' => 'City',
+		'invoicing.country' => 'Country',
+		'invoicing.coupon' => 'Coupon or gift code',
+		'invoicing.coupon.have' => 'Do you have a coupon or gift code?',
+		'invoicing.coupon.use' => 'Use it',
+		'invoicing.coupon.error' => 'The gift code is not valid',
+
+		'confirm.h2' => 'Summary',
+		'confirm.change' => 'Change',
+		'confirm.name' => 'Name',
+		'confirm.plan' => 'Plan',
+		'confirm.subdomain' => 'Website name',
 	];
