@@ -23,7 +23,7 @@ abstract class XML extends Base implements PublishPropertyXmlInterface {
         foreach ($properties as $p)
         {
             $mapper = static::getMapper($p, $this->iso_lang);
-            if ($mapper->valid() === true)
+            if ($mapper->valid())
             {
                 $this->writer->addItem([$mapper->map()]);
             }
