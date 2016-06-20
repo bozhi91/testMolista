@@ -25,6 +25,8 @@ class WebController extends Controller
 		if ( $site_id = \App\Session\Site::get('site_id', false) )
 		{
 			$this->site = \App\Site::withTranslations()->findOrFail( $site_id );
+			\View::share('site_model', $this->site);
+
 			$search_data['states'] = \App\Models\Geography\State::enabled()->whereIn('id', function($query) use ($site_id) {
 				$query->distinct()->select('state_id')->from('properties')->where('site_id', $site_id)->where('enabled', 1);
 			})->orderBy('name')->lists('name','slug')->all();
