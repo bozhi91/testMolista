@@ -25,15 +25,15 @@
 
 <div class="form-group error-container">
 	{!! Form::label('address_parts[type]', Lang::get('account/properties.address.type')) !!}
-	{!! Form::select('address_parts[type]', [''=>'']+$street_types, null, [ 'id'=>'address-parts-type', 'class'=>'form-control address-part-input required' ]) !!}
+	{!! Form::select('address_parts[type]', [''=>'']+$street_types, null, [ 'id'=>'address-parts-type', 'class'=>'form-control address-part-input' ]) !!}
 </div>
 <div class="form-group error-container">
 	{!! Form::label('address_parts[street]', Lang::get('account/properties.address.street')) !!}
-	{!! Form::text('address_parts[street]', null, [ 'id'=>'address-parts-street', 'class'=>'form-control address-part-input required' ]) !!}
+	{!! Form::text('address_parts[street]', null, [ 'id'=>'address-parts-street', 'class'=>'form-control address-part-input' ]) !!}
 </div>
 <div class="form-group error-container">
 	{!! Form::label('address_parts[number]', Lang::get('account/properties.address.number')) !!}
-	{!! Form::text('address_parts[number]', null, [ 'id'=>'address-parts-number', 'class'=>'form-control address-part-input required' ]) !!}
+	{!! Form::text('address_parts[number]', null, [ 'id'=>'address-parts-number', 'class'=>'form-control address-part-input' ]) !!}
 </div>
 <div class="form-group error-container">
 	{!! Form::label('address_parts[block]', Lang::get('account/properties.address.block')) !!}
