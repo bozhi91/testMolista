@@ -49,4 +49,14 @@ abstract class Mapper {
         return $this->errors;
     }
 
+    protected function isSale()
+    {
+        return $this->item['mode'] == 'sale';
+    }
+
+    protected function isRent()
+    {
+        return $this->item['mode'] == 'rent';
+    }
+
 }

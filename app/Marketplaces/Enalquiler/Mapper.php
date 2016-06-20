@@ -1,17 +1,6 @@
 <?php namespace App\Marketplaces\Enalquiler;
 
-class Mapper {
-
-    protected $item;
-    protected $iso_lang;
-
-    protected $errors = [];
-
-    public function __construct(array $item, $iso_lang)
-    {
-        $this->item = $item;
-        $this->iso_lang = $iso_lang;
-    }
+class Mapper extends \App\Marketplaces\Mapper {
 
     /**
      * Maps a Molista item to enalquiler.com format according to:
@@ -78,43 +67,6 @@ class Mapper {
         }
 
         return empty($this->errors);
-    }
-
-    public function errors()
-    {
-        return $this->errors;
-    }
-
-    protected function translate($item, $lang = null)
-    {
-        if (!is_array($item))
-        {
-            return false;
-        }
-
-        if (!$lang)
-        {
-            $lang = $this->iso_lang;
-        }
-
-        // return current lang if set...
-        if (isset($item[$lang]))
-        {
-            return $item[$lang];
-        }
-
-        // ...return first available if not
-        return reset($item);
-    }
-
-    protected function isRent()
-    {
-        return $this->item['mode'] == 'rent';
-    }
-
-    protected function decimal($value, $precision = 2)
-    {
-        return number_format($value, $precision, '.', '');
     }
 
     protected function pictures()
