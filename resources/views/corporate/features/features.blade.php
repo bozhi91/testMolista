@@ -4,7 +4,7 @@
 
 	<div id="features-banner">
 		<div class="features-banner-padding">
-			<h1>Características</h1>
+			<h1>{{ Lang::get('corporate/features.characteristics') }}</h1>
 		</div>
 	</div>
 
@@ -21,7 +21,7 @@
 										<img src="{{ Theme::url('/images/corporate/features/icon-tab-1.png') }}" class="img-responsive">
 									</div>
 									<div class="features-tab-selector-text hidden-xs">
-										<p>Web</p>
+										<p>{{ Lang::get('corporate/features.web.link') }}</p>
 									</div>
 								</a>
 							</li>
@@ -31,7 +31,7 @@
 										<img src="{{ Theme::url('/images/corporate/features/icon-tab-2.png') }}" class="img-responsive">
 									</div>
 									<div class="features-tab-selector-text hidden-xs">
-										<p>Inmueble</p>
+										<p>{{ Lang::get('corporate/features.property.link') }}</p>
 									</div>
 								</a>
 							</li>
@@ -41,7 +41,7 @@
 										<img src="{{ Theme::url('/images/corporate/features/icon-tab-3.png') }}" class="img-responsive">
 									</div>
 									<div class="features-tab-selector-text hidden-xs">
-										<p>Agentes</p>
+										<p>{{ Lang::get('corporate/features.agents.link') }}</p>
 									</div>
 								</a>
 							</li>
@@ -51,7 +51,7 @@
 										<img src="{{ Theme::url('/images/corporate/features/icon-tab-4.png') }}" class="img-responsive">
 									</div>
 									<div class="features-tab-selector-text hidden-xs">
-										<p>Leads</p>
+										<p>{{ Lang::get('corporate/features.leads.link') }}</p>
 									</div>
 								</a>
 							</li>
@@ -61,7 +61,7 @@
 										<img src="{{ Theme::url('/images/corporate/features/icon-tab-5.png') }}" class="img-responsive">
 									</div>
 									<div class="features-tab-selector-text hidden-xs">
-										<p>Integraciones</p>
+										<p>{{ Lang::get('corporate/features.integrations.link') }}</p>
 									</div>
 								</a>
 							</li>
@@ -78,9 +78,8 @@
 						<div class="row">
 							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 								<div class="features-content-text">
-									<h1>Crea tu web <span class="hidden-xs"><br /></span> inmobiliaria</h1>
-									<p>Dispones de <strong>todas la herramientas</strong> para crear tu web, publicar tus inmuebles y traducir los contenidos automáticamente a <strong>varios idiomas.</strong> Una web <strong>personalizable</strong> y 100% <strong>adaptada a tablets y dispositivos móviles.</strong></p>
-									<p>Podrás elegir entre <strong>diferentes plantillas</strong> para darle el look que tú prefieras, incluir <strong>etiquetas SEO</strong> y añadir <strong>enlaces a tus redes sociales.</strong> Si ya dispones de web, puedes hacer <strong>el traspaso a nuestro sistema.<span class="hidden-xs"><br /></span> Pregúntanos cómo.</strong></p>
+									<h1>{!! Lang::get('corporate/features.web.title') !!}</h1>
+									{!! Lang::get('corporate/features.web.text') !!}
 								</div>
 							</div>
 							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
@@ -94,9 +93,8 @@
 						<div class="row">
 							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 								<div class="features-content-text">
-									<h1>Gestiona <span class="hidden-xs"><br /></span> tus inmuebles</h1>
-									<p>Crea fichas de los inmuebles que tienes en oferta y <strong>gestiona leads y agentes relacionados con éstos.</strong></p>
-									<p>Asigna a cada ficha de inmueble sus <strong>características, clasíficalos</strong> según tus necesidades y añade <strong>etiquetas de venta especiales,</strong> como “Oportunidad” u “Obra Nueva”.</p>
+									<h1>{!! Lang::get('corporate/features.property.title') !!}</h1>
+									{!! Lang::get('corporate/features.property.text') !!}
 								</div>
 							</div>
 							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
@@ -110,8 +108,8 @@
 						<div class="row">
 							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 								<div class="features-content-text">
-									<h1>Controla las métricas <span class="hidden-xs"><br /></span> de tus agentes</h1>
-									<p>Tendrás <strong>el control de todas las métricas de tus agentes</strong> inmobiliarios y podrás <strong>relacionar agentes con inmuebles,</strong> así como <strong>medir la eficacia</strong> de cada uno de tus agentes.</p>
+									<h1>{!! Lang::get('corporate/features.agents.title') !!}</h1>
+									{!! Lang::get('corporate/features.agents.text') !!}
 								</div>
 							</div>
 							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
@@ -125,8 +123,8 @@
 						<div class="row">
 							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 								<div class="features-content-text">
-									<h1>Identifica leads y <span class="hidden-xs"><br /></span> relaciónalos</h1>
-									<p>Molista además <strong>te sugiere inmuebles que podrían interesar a tus leads,</strong> basándose en sus criterios de búsqueda, que quedan <strong>almacenados en el sistema.</strong> Podrás generar <strong>más visitas y venderás más y más rápido.</strong></p>
+									<h1>{!! Lang::get('corporate/features.leads.title') !!}</h1>
+									{!! Lang::get('corporate/features.leads.text') !!}
 								</div>
 							</div>
 							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
@@ -140,17 +138,14 @@
 						<div class="row">
 							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 								<div class="features-content-text">
-									<h1>Sincroniza tus anuncios <span class="hidden-xs"><br /></span> con los principales <span class="hidden-xs"><br /></span> portales inmobiliarios</h1>
-									<br>
-									<p>Usando el CRM de molista puedes automáticamente <strong>sincronizar los anuncios de tus inmuebles en diferentes portales inmobiliarios, como Idealista, Fotocasa o Pisos.com</strong></p>
+									<h1>{!! Lang::get('corporate/features.integrations.title') !!}</h1>
+									{!! Lang::get('corporate/features.integrations.text') !!}
 								</div>
 							</div>
 							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 								<div class="feature-content-image">
 									<img src="{{ Theme::url('/images/corporate/features/picture-tab-content-5-1.png') }}" class="img-responsive">
-
 									<img src="{{ Theme::url('/images/corporate/features/picture-tab-content-5-2.png') }}" class="img-responsive feature-tab-5-img-right">
-
 									<img src="{{ Theme::url('/images/corporate/features/picture-tab-content-5-3.png') }}" class="img-responsive feature-tab-5-img-left">
 								</div>
 							</div>
@@ -167,7 +162,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="title-block col-md-6 col-md-offset-3 text-center">
-						  <h3>Las prestaciones que necesitas</h3>
+						  <h3>{{ Lang::get('corporate/features.features.title') }}</h3>
 						</div>
 					</div>
 					<div class="row">
@@ -176,10 +171,10 @@
 						  	<div class="panel first-panel">
 						  		<div class="row">
 						  			<div class="col-md-4">
-						  				<h4>Sencilla<h4>
+						  				<h4>{{ Lang::get('corporate/features.features.simple.title') }}<h4>
 						  			</div>
 						  			<div class="col-md-8">
-						  				<p>Su intuitivo panel de control te permite <strong>subir todo tu catálogo de propiedades fácilmente y en pocos clics.</strong></p>
+						  				{!! Lang::get('corporate/features.features.simple.text') !!}
 						  			</div>
 
 						  		</div>
@@ -188,10 +183,10 @@
 						  	<div class="panel second-panel">
 						  		<div class="row">
 						  			<div class="col-md-4">
-						  				<h4>Potente<h4>
+						  				<h4>{{ Lang::get('corporate/features.features.power.title') }}<h4>
 						  			</div>
 						  			<div class="col-md-8">
-						  				<p>Ofrece a tus clientes una <strong>potente herramienta de búsqueda</strong>, con campos avanzados, por características del inmueble, por localización... Con herramientas <strong>SEO</strong> y totalmente <strong>adaptada a tabletas y móviles</strong>.</p>
+						  				{!! Lang::get('corporate/features.features.power.text') !!}
 						  			</div>
 
 						  		</div>
@@ -200,10 +195,10 @@
 						  	<div class="panel third-panel">
 						  		<div class="row">
 						  			<div class="col-md-4">
-						  				<h4>Personalizable<h4>
+						  				<h4>{{ Lang::get('corporate/features.features.customizable.title') }}<h4>
 						  			</div>
 						  			<div class="col-md-8">
-						  				<p>Adáptala a <strong>la imagen de tu empresa</strong> y <strong>personaliza los campos</strong> y las características de los inmuebles que quieras vender o alquilar mediante plantillas personalizables fáciles de usar.</p>
+						  				{!! Lang::get('corporate/features.features.customizable.text') !!}
 						  			</div>
 
 						  		</div>
@@ -221,8 +216,8 @@
 					<div class="row">
 						<div class="col-lg-6 col-lg-offset-3 clearfix">
 						  <ul>
-					        <li><button class="btn btnBdrYlw text-uppercase">VER DEMO</button></li>
-					        <li><button class="btn btnBdrYlw text-uppercase" data-toggle="modal" data-target="#contact-modal">Contactar</button></li>
+					        <li><button class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</button></li>
+					        <li><button class="btn btnBdrYlw text-uppercase" data-toggle="modal" data-target="#contact-modal">{{ Lang::get('corporate/general.contact') }}</button></li>
 					      </ul>
 						</div>
 					</div>

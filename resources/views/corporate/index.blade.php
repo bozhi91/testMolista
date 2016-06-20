@@ -8,8 +8,8 @@
 			<div class="jumbotron">
 			  <div class="container">
 			  	<div class="col-md-6">
-				    <h1>Tu Web Inmobiliaria</h1>
-				    <p>Descubre <strong>molista</strong>, una <strong>herramienta web</strong> pensada específicamente <strong>para negocios inmobiliarios. Potente, atractiva, fácil de usar y totalmente adaptada a móviles y tabletas.</strong></p>
+				    <h1>{{ Lang::get('corporate/home.h1') }}</h1>
+				    {!! Lang::get('corporate/home.intro') !!}
 			    </div>
 			  </div>
 			</div>
@@ -20,16 +20,8 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-md-6">
-							<h2>Multiplica las oportunidades de tu inmobiliaria</h2>
-							<p><strong>molista</strong> te ofrece todo lo que necesitas para que <strong>tu inmobiliaria esté presente en internet:</strong></p>
-							<ul>
-								<li data-type="fixa">Fichas de inmuebles ilimitadas</li>
-								<li data-type="searcher">Buscador de viviendas con filtros avanzados</li>
-								<li data-type="relation">Posibilidad de relacionar inmuebles</li>
-								<li data-type="easy">Fácil de usar y gestionar</li>
-								<li data-type="settings">Personalizable</li>
-								<li data-type="responsive">Compatible con móviles y tabletas</li>
-							</ul>
+							<h2>{{ Lang::get('corporate/home.h2') }}</h2>
+							{!! Lang::get('corporate/home.features') !!}
 						</div>
 						<div class="col-md-6">
 							<img class="img-responsive" src="{{ Theme::url('/images/corporate/responsive.png') }}">
@@ -47,8 +39,8 @@
 					<div class="row">
 						<div class="col-lg-6 col-lg-offset-3 clearfix">
 						  <ul>
-					        <li><button class="btn btnBdrYlw text-uppercase">VER DEMO</button></li>
-					        <li><a href="{{ action('Corporate\FeaturesController@getIndex') }}" class="btn btnBdrYlw text-uppercase" >más información</a></li>
+					        <li><a href="http://demo.molista.com/" target="_blank" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</a></li>
+					        <li><a href="{{ action('Corporate\FeaturesController@getIndex') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.moreinfo') }}</a></li>
 					      </ul>
 						</div>
 					</div>
@@ -62,7 +54,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="title-block col-md-6 col-md-offset-3 text-center">
-						  <h3>Las prestaciones que necesitas</h3>
+							<h3>{{ Lang::get('corporate/home.h3') }}</h3>
 						</div>
 					</div>
 					<div class="row">
@@ -71,10 +63,10 @@
 						  	<div class="panel first-panel">
 						  		<div class="row">
 						  			<div class="col-md-4">
-						  				<h4>Sencilla<h4>
+						  				<h4>{{ Lang::get('corporate/features.features.simple.title') }}<h4>
 						  			</div>
 						  			<div class="col-md-8">
-						  				<p>Su intuitivo panel de control te permite <strong>subir todo tu catálogo de propiedades fácilmente y en pocos clics.</strong></p>
+						  				{!! Lang::get('corporate/features.features.simple.text') !!}
 						  			</div>
 
 						  		</div>
@@ -83,10 +75,10 @@
 						  	<div class="panel second-panel">
 						  		<div class="row">
 						  			<div class="col-md-4">
-						  				<h4>Potente<h4>
+						  				<h4>{{ Lang::get('corporate/features.features.power.title') }}<h4>
 						  			</div>
 						  			<div class="col-md-8">
-						  				<p>Ofrece a tus clientes una <strong>potente herramienta de búsqueda</strong>, con campos avanzados, por características del inmueble, por localización... Con herramientas <strong>SEO</strong> y totalmente <strong>adaptada a tabletas y móviles</strong>.</p>
+						  				{!! Lang::get('corporate/features.features.power.text') !!}
 						  			</div>
 
 						  		</div>
@@ -95,10 +87,10 @@
 						  	<div class="panel third-panel">
 						  		<div class="row">
 						  			<div class="col-md-4">
-						  				<h4>Personalizable<h4>
+						  				<h4>{{ Lang::get('corporate/features.features.customizable.title') }}<h4>
 						  			</div>
 						  			<div class="col-md-8">
-						  				<p>Adáptala a <strong>la imagen de tu empresa</strong> y <strong>personaliza los campos</strong> y las características de los inmuebles que quieras vender o alquilar mediante plantillas personalizables fáciles de usar.</p>
+						  				{!! Lang::get('corporate/features.features.customizable.text') !!}
 						  			</div>
 
 						  		</div>
@@ -115,7 +107,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="title-block col-md-6 col-md-offset-3 text-center">
-						  <h3>¿Todavía no estás convencido?</h3>
+						  <h3>{{ Lang::get('corporate/home.convinced.title') }}</h3>
 						</div>
 					</div>
 				</div>
@@ -123,10 +115,10 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-sm-4 col-sm-offset-2 col-md-3 col-md-offset-3 text-right">
-							  <p>Comprueba en nuestra demo online todas las funcionalidades y ventajas que te ofrece <strong>molista.</strong></p>
+								{!! Lang::get('corporate/home.convinced.demo') !!}
 							</div>
 							<div class="col-sm-4 col-md-3 text-left">
-							  <p>También puedes  probar <strong>molista</strong> durante 30 días gratis. Disfruta de todas sus ventajas sin compromiso.</p>
+								{!! Lang::get('corporate/home.convinced.test') !!}
 							</div>
 						</div>
 					</div>
@@ -139,8 +131,8 @@
 					<div class="row">
 						<div class="col-lg-6 col-lg-offset-3 clearfix">
 						  <ul>
-					        <li><button class="btn btnBdrYlw text-uppercase">VER DEMO</button></li>
-					        <li><a href="{{ action('Corporate\FeaturesController@getIndex') }}" class="btn btnBdrYlw text-uppercase" >más información</a></li>
+					        <li><a href="http://demo.molista.com/" target="_blank" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</a></li>
+					        <li><a href="{{ action('Corporate\FeaturesController@getIndex') }}" class="btn btnBdrYlw text-uppercase" >{{ Lang::get('corporate/general.moreinfo') }}</a></li>
 					      </ul>
 						</div>
 					</div>

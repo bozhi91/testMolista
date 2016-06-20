@@ -28,22 +28,29 @@ class InfoController extends \App\Http\Controllers\CorporateController
 	}
 	public function postContact()
 	{
-        $validator = \Validator::make($this->request->all(), [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|email',
-            'message' => 'required',
-        ]);
+		$validator = \Validator::make($this->request->all(), [
+			'name' => 'required',
+			'email' => 'required|email',
+			'phone' => 'required',
+			'details' => 'required',
+		]);
 
-        if ($validator->fails()) {
-            return redirect()->back()
-                        ->withErrors($validator)
-                        ->withInput();
-        }
+		if ($validator->fails()) {
+			return redirect()->back()->withErrors($validator)->withInput()->with('contact_error',true);
+		}
 
-		echo '<pre>';
-		print_r($this->request->all());
-		echo '</pre>';
+		\Mail::send('emails.corporate.contact', $this->request->only('name','email','phone','details'), function($message) {
+			$message->from( env('MAIL_FROM_EMAIL'), env('MAIL_FROM_NAME') );
+			$message->subject( trans('corporate/general.contact.subject', [ 'webname'=>env('APP_URL') ]) );
+			$message->to( env('MAIL_CONTACT') );
+		});
+
+		if ( count(\Mail::failures()) > 0 )
+		{
+			return redirect()->back()->with('error', trans('general.messages.error'))->withInput()->with('contact_error',true);
+		}
+
+		return redirect()->back()->with('success', trans('corporate/general.contact.success'))->with('contact_success',true);
 	}
 
 }
