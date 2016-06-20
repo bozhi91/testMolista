@@ -278,7 +278,7 @@ class TicketsController extends \App\Http\Controllers\AccountController
 			$users_query->where('id', \Auth::user()->id);
 		}
 
-		return $users_query->lists('name','id')->all();
+		return $users_query->lists('name','ticket_user_id')->all();
 
 	}
 
