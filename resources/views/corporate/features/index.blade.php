@@ -99,7 +99,7 @@
 							</div>
 							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 								<div class="feature-content-image">
-									<img src="{{ Theme::url('/images/corporate/features/picture-tab-content-1.png') }}" class="img-responsive">
+									<img src="{{ Theme::url('/images/corporate/features/picture-tab-content-2.png') }}" class="img-responsive">
 								</div>
 							</div>
 						</div>
@@ -114,7 +114,7 @@
 							</div>
 							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 								<div class="feature-content-image">
-									<img src="{{ Theme::url('/images/corporate/features/picture-tab-content-1.png') }}" class="img-responsive">
+									<img src="{{ Theme::url('/images/corporate/features/picture-tab-content-3.png') }}" class="img-responsive">
 								</div>
 							</div>
 						</div>
@@ -129,7 +129,7 @@
 							</div>
 							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 								<div class="feature-content-image">
-									<img src="{{ Theme::url('/images/corporate/features/picture-tab-content-1.png') }}" class="img-responsive">
+									<img src="{{ Theme::url('/images/corporate/features/picture-tab-content-4.png') }}" class="img-responsive">
 								</div>
 							</div>
 						</div>

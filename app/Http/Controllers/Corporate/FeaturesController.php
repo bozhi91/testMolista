@@ -11,7 +11,7 @@ class FeaturesController extends \App\Http\Controllers\CorporateController
 
 	public function getIndex()
 	{
-		return view("corporate.features.features");
+		return view("corporate.features.index");
 	}
 
 }
