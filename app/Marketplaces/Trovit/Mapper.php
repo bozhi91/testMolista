@@ -1,15 +1,6 @@
 <?php namespace App\Marketplaces\Trovit;
 
-class Mapper {
-
-    protected $item;
-    protected $iso_lang;
-
-    public function __construct(array $item, $iso_lang)
-    {
-        $this->item = $item;
-        $this->iso_lang = $iso_lang;
-    }
+class Mapper extends \App\Marketplaces\Mapper {
 
     /**
      * Maps a Molista item to trovit.com format according to:
@@ -28,7 +19,16 @@ class Mapper {
         $map['title'] = $this->translate($item['title']);
         $map['type'] = $this->type();
         $map['content'] = $this->translate($item['description']);
-        $map['price'] = $this->decimal($item['price']);
+
+        if ($this->isRent())
+        {
+            $map['price@period=monthly'] = $this->decimal($item['price']);
+        }
+        else
+        {
+            $map['price'] = $this->decimal($item['price']);
+        }
+
         //$map['property_type'] = '';
         //$map['foreclosure_type'] = '';
 
@@ -76,6 +76,11 @@ class Mapper {
     public function valid()
     {
         $rules = [
+            'id' => 'required',
+            'url' => 'required',
+            'title' => 'required',
+            'type' => 'required',
+            'description.'.$this->iso_lang => 'required|min:30',
             'construction_year' => 'regex:#\d{4}#'
         ];
 
@@ -86,32 +91,10 @@ class Mapper {
         $validator = \Validator::make($this->item, $rules, $messages);
         if ($validator->fails())
         {
-            return $validator->errors()->all();
+            $this->errors = $validator->errors()->all();
         }
 
-        return true;
-    }
-
-    protected function translate($item, $lang = null)
-    {
-        if (!is_array($item))
-        {
-            return false;
-        }
-
-        if (!$lang)
-        {
-            $lang = $this->iso_lang;
-        }
-
-        // return current lang if set...
-        if (isset($item[$lang]))
-        {
-            return $item[$lang];
-        }
-
-        // ...return first available if not
-        return reset($item);
+        return empty($this->errors);
     }
 
     /**
@@ -166,11 +149,6 @@ class Mapper {
     protected function isRent()
     {
         return $this->item['mode'] == 'rent';
-    }
-
-    protected function decimal($value, $precision = 2)
-    {
-        return number_format($value, $precision, '.', '');
     }
 
     protected function pictures()
