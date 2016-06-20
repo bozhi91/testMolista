@@ -99,7 +99,9 @@ class SignupController extends \App\Http\Controllers\CorporateController
 
 		$data = session()->get($this->session_name);
 
-		return view('corporate.signup.step-pack', compact('data'));
+		$plans = \App\Models\Plan::getEnabled();
+
+		return view('corporate.signup.step-pack', compact('data','plans'));
 	}
 	public function postPack()
 	{
@@ -107,7 +109,28 @@ class SignupController extends \App\Http\Controllers\CorporateController
 		{
 			return redirect()->action('Corporate\SignupController@getUser');
 		}
-$this->request->all();
+
+		$plans = \App\Models\Plan::getEnabled();
+
+		$fields = [
+			'selected' => 'required|in:'.$plans->implode('code',','),
+		];
+		foreach ($plans as $plan)
+		{
+			$fields["payment_interval.{$plan->code}"] = "required_if:selected,{$plan->code}|in:year,month";
+		}
+
+		$data = $this->request->input('pack');
+
+		$validator = \Validator::make($data, $fields);
+		if ( $validator->fails() ) 
+		{
+			return redirect()->back()->withInput()->withErrors($validator);
+		}
+
+		$this->_setStep('pack', $this->request->input('pack'));
+
+		return redirect()->action('Corporate\SignupController@getPack');
 	}
 
 

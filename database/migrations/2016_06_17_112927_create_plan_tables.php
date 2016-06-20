@@ -3,18 +3,19 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePlansTables extends Migration
+class CreatePlanTables extends Migration
 {
 	public function up()
 	{
+		// Plans
 		Schema::create('plans', function (Blueprint $table) 
 		{
 			$table->bigIncrements('id');
 			$table->string('code')->unique()->index();
 			$table->string('name');
 			$table->boolean('is_free');
-			$table->float('price_year')->nullable();;
-			$table->float('price_month')->nullable();;
+			$table->float('price_year')->nullable();
+			$table->float('price_month')->nullable();
 			$table->integer('max_employees')->nullable();
 			$table->integer('max_space');
 			$table->integer('max_properties')->nullable();
@@ -27,31 +28,6 @@ class CreatePlansTables extends Migration
 			$table->boolean('enabled')->index();
 			$table->timestamps();
 		});
-		Schema::create('subscriptions', function (Blueprint $table) {
-			$table->bigIncrements('id');
-			$table->bigInteger('site_id');
-			$table->string('name');
-			$table->string('stripe_id');
-			$table->string('stripe_plan');
-			$table->integer('quantity');
-			$table->timestamp('trial_ends_at')->nullable();
-			$table->timestamp('ends_at')->nullable();
-			$table->timestamps();
-		});
-		Schema::table('sites', function(Blueprint $table)
-		{
-			$table->bigInteger('plan_id')->unsigned()->nullable();
-			$table->string('payment_interval')->nullable();
-			$table->string('payment_method')->nullable();
-			$table->string('iban_account')->nullable();
-			$table->string('stripe_id')->nullable()->index();
-			$table->string('card_brand')->nullable();
-			$table->string('card_last_four')->nullable();
-			$table->timestamp('trial_ends_at')->nullable();
-			$table->dateTime('paid_until')->nullable();
-			$table->foreign('plan_id')->references('id')->on('plans')->onUpdate('cascade')->onDelete('set null');
-		});
-
 		// Create plans
 		$plan_defaults = [
 			'enabled' => 1,
@@ -141,6 +117,47 @@ class CreatePlansTables extends Migration
 			]),
 		]));
 
+		// Subscriptions
+		Schema::create('subscriptions', function (Blueprint $table) {
+			$table->bigIncrements('id');
+			$table->bigInteger('site_id')->unsigned()->nullable();
+			$table->string('name');
+			$table->string('stripe_id');
+			$table->string('stripe_plan');
+			$table->integer('quantity');
+			$table->timestamp('trial_ends_at')->nullable();
+			$table->timestamp('ends_at')->nullable();
+			$table->timestamps();
+		});
+
+		// Site columns
+		Schema::create('sites_planchange', function(Blueprint $table)
+		{
+			$table->bigIncrements('id');
+			$table->bigInteger('site_id')->unsigned()->nullable();
+			$table->string('status')->default('pending');
+			$table->text('old_data');
+			$table->text('new_data');
+			$table->text('response');
+			$table->timestamps();
+			$table->softDeletes();
+			$table->foreign('site_id')->references('id')->on('sites')->onUpdate('cascade')->onDelete('set null');
+		});
+
+		// Site columns
+		Schema::table('sites', function(Blueprint $table)
+		{
+			$table->bigInteger('plan_id')->default(1)->unsigned()->nullable();
+			$table->string('payment_interval')->nullable();
+			$table->string('payment_method')->nullable();
+			$table->string('iban_account')->nullable();
+			$table->string('stripe_id')->nullable()->index();
+			$table->string('card_brand')->nullable();
+			$table->string('card_last_four')->nullable();
+			$table->timestamp('trial_ends_at')->nullable();
+			$table->dateTime('paid_until')->nullable();
+			$table->foreign('plan_id')->references('id')->on('plans')->onUpdate('cascade')->onDelete('set null');
+		});
 	}
 
 	public function down()
@@ -158,6 +175,7 @@ class CreatePlansTables extends Migration
 			$table->dropColumn('payment_interval');
 			$table->dropColumn('plan_id');
 		});
+		Schema::drop('sites_planchange');
 		Schema::drop('subscriptions');
 		Schema::drop('plans');
 	}

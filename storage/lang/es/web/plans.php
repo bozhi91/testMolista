@@ -2,7 +2,7 @@
 	return [
 		'price.year' => 'Cuota anual',
 		'price.year.month' => 'Cuota anual / mes',
-		'price.month' => 'Cuota ,mensual',
+		'price.month' => 'Cuota mensual',
 
 		'free' => 'Gratis',
 		'included' => 'Incluido',

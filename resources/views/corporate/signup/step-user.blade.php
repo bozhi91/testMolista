@@ -9,7 +9,7 @@
 @section('signup_content')
 
 	{!! Form::model($data, [ 'action'=>'Corporate\SignupController@postUser', 'method'=>'post', 'id'=>'signup-form' ]) !!}
-		{!! Form::text('user[type]', $user_type) !!}
+		{!! Form::hidden('user[type]', $user_type) !!}
 
 		<div class="user-tab user-tab-new {{ $user_type == 'new' ? '' : 'hide' }}">
 			<h2 class="text-center">{{ Lang::get('corporate/signup.user.new.h2') }}</h2>
@@ -44,7 +44,7 @@
 			</div>
 			<div class="form-group error-container">
 				{!! Form::label('user[old][password]', Lang::get('corporate/signup.user.new.password')) !!}
-				{!! Form::password('user[old][password]', [ 'class'=>'form-control required', 'minlength'=>6, 'maxlength'=>20, 'placeholder'=>Lang::get('corporate/signup.user.new.password.placeholder') ]) !!}
+				{!! Form::password('user[old][password]', [ 'class'=>'form-control required', 'placeholder'=>Lang::get('corporate/signup.user.new.password.placeholder') ]) !!}
 			</div>
 			<div class="error-container">
 				<p>

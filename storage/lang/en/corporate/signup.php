@@ -20,4 +20,7 @@
 		'user.old.create.account' => 'Create one',
 		'user.old.password.forgot' => 'Forgot your password?',
 		'user.old.password.click' => 'Click here',
+		'user.old.error.combination' => 'Data submitted is not valid.',
+		'user.old.error.employee' => 'This email belongs to a user already registered as an agent.',
+		'user.old.error.admin' => 'This email belongs to a user already registered as an administrator.',
 	];
