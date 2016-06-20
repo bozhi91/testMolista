@@ -141,16 +141,6 @@ class Mapper extends \App\Marketplaces\Mapper {
         return $type;
     }
 
-    protected function isSale()
-    {
-        return $this->item['mode'] == 'sale';
-    }
-
-    protected function isRent()
-    {
-        return $this->item['mode'] == 'rent';
-    }
-
     protected function pictures()
     {
         $pictures = [];
