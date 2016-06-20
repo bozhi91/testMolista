@@ -109,7 +109,7 @@
 	}
 
 	// Draw pagination and includes limit selector on the right
-	function drawPagination($collection, $appends=false)
+	function drawPagination($collection, $appends=false, $csv_url=false)
 	{
 		if ( !$collection )
 		{
@@ -150,14 +150,28 @@
 		}
 		$select .= '</select>';
 
-		return	"<div class='row pagination-custom'>
-					<div class='col-xs-12 col-sm-7'>{$pagination_links}</div>
-					<div class='col-sm-5 hidden-xs'>
-						<ul class='pagination-limit list-inline'>
-							<li><span class='pagination-limit-pages'>{$collection->currentPage()} / {$collection->lastPage()} {$pages_text}</span></li>
-							<li>{$select}</li>
-						</ul>
+		$csv_link = '';
+		if ( $csv_url )
+		{
+			$csv_text = Lang::get('general.csv.download');
+			$csv_link = "<div class='row'>
+							<div class='col-xs-12 text-right'>
+								<a href='{$csv_url}' target='_blank'><i class='fa fa-file-excel-o' aria-hidden='true' style='margin-right: 5px;'></i>{$csv_text}</a>
+							</div>
+						</div>";
+		}
+
+		return	"<div class='pagination-custom'>
+					<div class='row'>
+						<div class='col-xs-12 col-sm-7'>{$pagination_links}</div>
+						<div class='col-sm-5 hidden-xs'>
+							<ul class='pagination-limit list-inline'>
+								<li><span class='pagination-limit-pages'>{$collection->currentPage()} / {$collection->lastPage()} {$pages_text}</span></li>
+								<li>{$select}</li>
+							</ul>
+						</div>
 					</div>
+					{$csv_link}
 				</div>";
 	}
 

@@ -93,11 +93,68 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 				break;
 		}
 
+		if ( $this->request->get('csv') )
+		{
+			return $this->exportCsv($query);
+		}
+
 		$properties = $query->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$this->set_go_back_link();
 
 		return view('account.properties.index', compact('properties','clean_filters'));
+	}
+
+	public function exportCsv($query)
+	{
+		$columns = [
+			'ref' => trans('account/properties.ref'),
+			'title' => trans('account/properties.column.title'),
+			'creation' => trans('account/properties.column.created'),
+			'location' => trans('account/properties.column.location'),
+			'lead' => trans('account/properties.tab.lead'),
+			'highlighted' => trans('account/properties.highlighted'),
+			'enabled' => trans('account/properties.enabled'),
+		];
+
+		$csv = \League\Csv\Writer::createFromFileObject(new \SplTempFileObject());
+		$csv->setDelimiter(';');
+
+		// Headers
+		$csv->insertOne( array_values($columns) );
+
+		// Lines
+		foreach ($query->limit(9999)->get() as $property)
+		{
+			$data = [];
+
+			foreach ($columns as $key => $value) 
+			{
+				switch ($key) 
+				{
+					case 'creation':
+						$data[] = $property->created_at->format('d/m/Y');
+						break;
+					case 'location':
+						$data[] = "{$property->city->name} / {$property->state->name}";
+						break;
+					case 'lead':
+						$data[] = number_format($property->customers->count(), 0, ',', '.');
+						break;
+					case 'highlighted':
+					case 'enabled':
+						$data[] = $property->$key ? trans('general.yes') : trans('general.no');
+						break;
+					default:
+						$data[] = $property->$key;
+				}
+			}
+
+			$csv->insertOne( $data );
+		}
+
+		$csv->output('properties_'.date('Ymd').'.csv');
+		exit;
 	}
 
 	public function create()

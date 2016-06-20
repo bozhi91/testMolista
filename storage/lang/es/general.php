@@ -45,4 +45,6 @@
 		'since.yesterday' => 'Ayer, a las :time',
 		'since.hours' => 'Hace :hours horas',
 		'since.minutes' => 'Hace :minutes minutos',
+
+		'csv.download' => 'Descargar resultados',
 	];
