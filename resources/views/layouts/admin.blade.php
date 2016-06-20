@@ -37,6 +37,9 @@
 				@permission('user-*')
 					<li><a href="{{ action('Admin\UsersController@index') }}">{{ Lang::get('admin/menu.users') }}</a></li>
 				@endpermission
+				@permission('marketplace-*')
+					<li><a href="{{ action('Admin\MarketplacesController@index') }}">{{ Lang::get('admin/menu.marketplaces') }}</a></li>
+				@endpermission
 				@permission('property-*')
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Lang::get('admin/menu.properties') }} <span class="caret"></span></a>

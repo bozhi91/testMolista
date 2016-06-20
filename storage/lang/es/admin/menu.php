@@ -8,6 +8,8 @@
 
 		'users' => 'Users',
 
+		'marketplaces' => 'Marketplaces',
+
 		'properties' => 'Properties',
 		'services' => 'Services',
 

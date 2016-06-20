@@ -10,6 +10,8 @@
 
 		'customers' => 'Leads',
 
+		'marketplaces' => 'Marketplaces',
+
 		'tickets' => 'Tickets',
 
 		'reports' => 'Reports',

@@ -19,6 +19,7 @@ class AccountController extends Controller
 		if ( $site_id = \App\Session\Site::get('site_id', false) )
 		{
 			$this->site = \App\Site::findOrFail( $site_id );
+			\View::share('site_model', $this->site);
 		}
 	}
 
