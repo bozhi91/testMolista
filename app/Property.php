@@ -395,6 +395,7 @@ class Property extends TranslatableModel
 
 		$this->marketplace_info = [
 			'id' => $this->id,
+			'site_id' => $this->site->id,
 			'reference' => $this->ref,
 			'title' => [],
 			'description' => [],
