@@ -1,17 +1,6 @@
 <?php namespace App\Marketplaces\PisosAlquiler;
 
-class Mapper {
-
-    protected $item;
-    protected $iso_lang;
-
-    protected $errors = [];
-
-    public function __construct(array $item, $iso_lang)
-    {
-        $this->item = $item;
-        $this->iso_lang = $iso_lang;
-    }
+class Mapper extends \App\Marketplaces\Mapper {
 
     /**
      * Maps a Molista item to pisos.com format according to documentation.
@@ -23,7 +12,7 @@ class Mapper {
         $item = $this->item;
 
         $map = [];
-        $map['IdInmobiliariaExterna'] = $item['user_id']; //  OBLIGATORIO
+        $map['IdInmobiliariaExterna'] = $item['site_id']; //  OBLIGATORIO
         $map['IdPisoExterno'] = $item['id']; // OBLIGATORIO
         $map['TipoInmueble'] = $this->tipo_inmueble();    // OLBIGATORIO
         $map['TipoOperacion'] = 3; // Alquiler
@@ -71,49 +60,12 @@ class Mapper {
             $this->errors []= 'Only properties for rent are allowed in this marketplace.';
         }
 
-        if (empty($this->item['user_id']))
+        if (empty($this->item['site_id']))
         {
             $this->errors []= 'Agency identifier is required.';
         }
 
         return empty($this->errors);
-    }
-
-    public function errors()
-    {
-        return $this->errors;
-    }
-
-    protected function translate($item, $lang = null)
-    {
-        if (!is_array($item))
-        {
-            return false;
-        }
-
-        if (!$lang)
-        {
-            $lang = $this->iso_lang;
-        }
-
-        // return current lang if set...
-        if (isset($item[$lang]))
-        {
-            return $item[$lang];
-        }
-
-        // ...return first available if not
-        return reset($item);
-    }
-
-    protected function isRent()
-    {
-        return $this->item['mode'] == 'rent';
-    }
-
-    protected function decimal($value, $precision = 2)
-    {
-        return number_format($value, $precision, '.', '');
     }
 
     protected function fotos()
