@@ -473,7 +473,7 @@ class Property extends TranslatableModel
 			$this->marketplace_info['features'][$service->code] = $tmp;
 		}
 
-		\App::setLocale($fallback_locale);
+		\App::setLocale($current_locale);
 
 		return $this->marketplace_info;
 	}
