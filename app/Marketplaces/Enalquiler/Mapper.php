@@ -17,7 +17,7 @@ class Mapper extends \App\Marketplaces\Mapper {
         $map['id'] = $item['id'];
         $map['id_propietario'] = $item['site_id'];
         $map['referencia'] = $item['reference'];
-        $map['titulo'] = $this->translate($item['title']);
+        //$map['titulo'] = $this->translate($item['title']);
         //$map['id_propietario'] = '';
         $map['num'] = $item['location']['zipcode'];
         $map['num_no_visible'] = $item['location']['show_address'] ? 0 : 1;
@@ -67,12 +67,12 @@ class Mapper extends \App\Marketplaces\Mapper {
     {
         if (!$this->isRent())
         {
-            $this->errors []= 'Only properties for rent are allowed in this marketplace.';
+            $this->errors []= \Lang::get('validation.rent');
             return false;
         }
 
         $rules = [
-            'title.'.$this->iso_lang => 'max:40',
+            //'title.'.$this->iso_lang => 'max:40',
         ];
 
         $messages = [
