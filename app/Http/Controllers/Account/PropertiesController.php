@@ -267,6 +267,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 							$query->with('buyer');
 						}])
 						->with('customers')
+						->with('documents')
 						->first();
 		if ( !$property )
 		{
@@ -435,7 +436,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		}
 
 		// Remove image folder
-		\File::deleteDirectory($property->image_path);
+		//\File::deleteDirectory($property->image_path);
 
 		// Delete property
 		$property->delete();

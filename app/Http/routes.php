@@ -110,6 +110,13 @@ Route::group([
 		Route::get('/', 'AccountController@index');
 		Route::post('/', 'AccountController@updateProfile');
 		// Properties
+		Route::group([
+			'middleware' => [
+				'permission:property-view',
+			],
+		], function() {
+			Route::controller('properties/documents', 'Account\Properties\DocumentsController');
+		});
 		Route::get('properties/leads/{slug}', 'Account\PropertiesController@getLeads');
 		Route::get('properties/catch/close/{id}', 'Account\PropertiesController@getCatchClose');
 		Route::post('properties/catch/close/{id}', 'Account\PropertiesController@postCatchClose');
