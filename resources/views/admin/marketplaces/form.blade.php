@@ -53,7 +53,7 @@
 							{!! Form::label('logo', 'Logo') !!}
 							{!! Form::file('logo', [ 'class'=>'form-control', 'accept'=>'image/*' ]) !!}
 						</div>
-						<div class="help-block">{!! Lang::get('general.image.helper', [ 'IMAGE_MAXSIZE'=>Config::get('app.property_image_maxsize') ]) !!}</div>
+						<div class="help-block"><p>Size: 16x16 pixels</p>{!! Lang::get('general.image.helper', [ 'IMAGE_MAXSIZE'=>Config::get('app.property_image_maxsize') ]) !!}</div>
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6">

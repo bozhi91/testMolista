@@ -1,3 +1,7 @@
+<style type="text/css">
+	#tab-marketplaces .marketplace-name { display: inline-block; padding-left: 25px; background: left center no-repeat; }
+</style>
+
 {!! Form::model($item, [ 'method'=>$method, 'action'=>$action, 'files'=>true, 'id'=>'edit-form' ]) !!}
 	{!! Form::hidden('current_tab', session('current_tab', '#tab-general')) !!}
 	{!! Form::hidden('label_color', null) !!}
@@ -356,7 +360,7 @@
 												@endif
 											</td>
 											<td>
-												<img src="{{ asset("marketplaces/{$marketplace->logo}") }}" alt="{{ $marketplace->name }}" class="img-responsive" style="max-height: 25px; display: inline-block;" />
+												<span class="marketplace-name text-nowrap;" style="background-image: url({{ asset("marketplaces/{$marketplace->logo}") }});">{{ $marketplace->name }}</span>
 											</td>
 											<td>
 												@if ( $publishable === true )
