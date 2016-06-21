@@ -57,12 +57,20 @@ class Mapper extends \App\Marketplaces\Mapper {
     {
         if (!$this->isRent())
         {
-            $this->errors []= 'Only properties for rent are allowed in this marketplace.';
+            $this->errors []= \Lang::get('validation.rent');
+            return false;
         }
 
-        if (empty($this->item['site_id']))
+        $rules = [
+            'site_id' => 'required',
+        ];
+
+        $messages = [];
+
+        $validator = \Validator::make($this->item, $rules, $messages);
+        if ($validator->fails())
         {
-            $this->errors []= 'Agency identifier is required.';
+            $this->errors = $validator->errors()->all();
         }
 
         return empty($this->errors);
