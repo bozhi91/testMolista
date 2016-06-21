@@ -1,5 +1,5 @@
 @extends('corporate.signup.index', [
-	'step' => 'invoicing',
+	'step' => 'confirm',
 ])
 
 @section('signup_content')
@@ -9,11 +9,11 @@
 
 			@include('common.messages', [ 'dismissible'=>true ])
 
-			{!! Form::model($data, [ 'action'=>'Corporate\SignupController@postConfirm', 'method'=>'post', 'id'=>'signup-form' ]) !!}
+			{!! Form::model($data, [ 'action'=>'Corporate\SignupController@postConfirm', 'method'=>'post', 'id'=>'signup-form', 'class'=>'step-form' ]) !!}
 
 				<h2 class="text-center">{{ Lang::get('corporate/signup.confirm.h2') }}</h2>
 
-				<div class="plans-container">
+				<div class="step-content">
 					<div class="row">
 						<div class="col-xs-12 col-sm-6">
 							<div class="confirm-block">
@@ -50,7 +50,7 @@
 						<div class="col-xs-12 col-sm-6">
 							<div class="confirm-block">
 								<div class="confirm-label">{{ Lang::get('corporate/signup.confirm.plan') }}</div>
-								<div class="confirm-value">{{ $data['plan']['name'] }}</div>
+								<div class="confirm-value text-uppercase">{{ $data['plan']['name'] }}</div>
 								<div class="confirm-change"><a href="{{ action('Corporate\SignupController@getPack') }}">{{ Lang::get('corporate/signup.confirm.change') }}</a></div>
 							</div>
 						</div>
@@ -64,11 +64,12 @@
 							</div>
 						</div>
 					</div>
-				</div>
 
-				<div class="nav-area">
-					<a href="{{ action('Corporate\SignupController@getInvoicing')}}" class="btn btn-primary">{{ Lang::get('corporate/signup.previous') }}</a>
-					{!! Form::button(Lang::get('corporate/signup.accept'), [ 'type'=>'submit', 'class'=>'btn btn-primary pull-right' ]) !!}
+					<div class="nav-area">
+						<a href="{{ action('Corporate\SignupController@getInvoicing')}}" class="btn btn-nav btn-nav-prev">{{ Lang::get('corporate/signup.previous') }}</a>
+						{!! Form::button(Lang::get('corporate/signup.accept'), [ 'type'=>'submit', 'class'=>'btn btn-nav btn-nav-next pull-right' ]) !!}
+					</div>
+
 				</div>
 
 			{!! Form::close() !!}

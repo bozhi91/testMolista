@@ -131,13 +131,14 @@ class CreatePlanTables extends Migration
 		});
 
 		// Site columns
-		Schema::create('sites_planchange', function(Blueprint $table)
+		Schema::create('sites_planchanges', function(Blueprint $table)
 		{
 			$table->bigIncrements('id');
 			$table->bigInteger('site_id')->unsigned()->nullable();
 			$table->string('status')->default('pending');
 			$table->text('old_data');
 			$table->text('new_data');
+			$table->text('invoicing');
 			$table->text('response');
 			$table->timestamps();
 			$table->softDeletes();
@@ -175,7 +176,7 @@ class CreatePlanTables extends Migration
 			$table->dropColumn('payment_interval');
 			$table->dropColumn('plan_id');
 		});
-		Schema::drop('sites_planchange');
+		Schema::drop('sites_planchanges');
 		Schema::drop('subscriptions');
 		Schema::drop('plans');
 	}

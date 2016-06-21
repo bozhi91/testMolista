@@ -8,6 +8,8 @@ class SignupController extends \App\Http\Controllers\CorporateController
 {
 	protected $session_name = 'signup_form';
 
+	protected $validation_error;
+
 	public function getIndex()
 	{
 		session()->flush($this->session_name);
@@ -27,67 +29,90 @@ class SignupController extends \App\Http\Controllers\CorporateController
 	}
 	public function postUser()
 	{
-		switch ( $this->request->input('user.type') )
+		if ( !$this->validateUser($this->request->input('user')) )
 		{
-			case 'new':
-				$fields = [
-					'name' => 'required|string',
-					'email' => 'required|email|unique:users,email',
-					'password' => 'required|string',
-					'accept' => 'required|accepted',
-				];
-				break;
-			case 'old':
-				$fields = [
-					'email' => 'required|email|exists:users,email',
-					'password' => 'required|string|min:6|max:20',
-				];
-				break;
-			default:
-				return redirect()->back()->withInput()->with('error',trans('general.messages.error'));
-		}
-
-		$data = $this->request->input("user.{$this->request->input('user.type')}");
-
-		$validator = \Validator::make($data, $fields);
-		if ( $validator->fails() ) 
-		{
-			return redirect()->back()->withInput()->withErrors($validator);
-		}
-
-		// If old, check user role and password
-		if ( $this->request->input('user.type') == 'old' )	
-		{
-			$user = \App\User::where('email', $data['email'])->first();
-			if ( !$user )
+			if ( gettype($this->validation_error) == 'object' )
 			{
-				return redirect()->back()->withInput()->with('error',trans('corporate/signup.user.old.error.combination'));
+				return redirect()->back()->withInput()->withErrors($this->validation_error);
 			}
-			$credentials = \Auth::validate([
-				'email' => $data['email'],
-				'password' => $data['password'],
-			]);
-			if ( !$credentials )
-			{
-				return redirect()->back()->withInput()->with('error',trans('corporate/signup.user.old.error.combination'));
-			}
-			if ( !$user->hasRole('company') )
-			{
-				if ( $user->hasRole('employee') )
-				{
-					return redirect()->back()->withInput()->with('error',trans('corporate/signup.user.old.error.employee'));
-				}
-				if ( $user->hasRole('admin') )
-				{
-					return redirect()->back()->withInput()->with('error',trans('corporate/signup.user.old.error.admin'));
-				}
-				return redirect()->back()->withInput()->with('error',trans('general.messages.error'));
-			}
+			return redirect()->back()->withInput()->with('error', $this->validation_error);
 		}
 
 		$this->_setStep('user', $this->request->input('user'));
 
 		return redirect()->action('Corporate\SignupController@getPack');
+	}
+	protected function validateUser($data=false)
+	{
+		$fields = [
+			'type' => 'required|in:new,old',
+		];
+
+		switch ( @$data['type'] )
+		{
+			case 'new':
+				$fields['new.name'] = 'required|string';
+				$fields['new.email'] = 'required|email|unique:users,email';
+				$fields['new.password'] = 'required|string';
+				$fields['new.accept'] = 'required|accepted';
+				break;
+			case 'old':
+				$fields['old.email'] = 'required|email|exists:users,email';
+				$fields['old.password'] = 'required|string|min:6|max:20';
+				break;
+		}
+
+		$validator = \Validator::make($data, $fields);
+		if ( $validator->fails() ) 
+		{
+			$this->validation_error = $validator;
+			return false;
+		}
+
+		if ($data['type'] != 'old' )
+		{
+			return true;
+		}
+
+		$email = $data['old']['email'];
+		$password = $data['old']['password'];
+
+		// Check user role and password
+		$user = \App\User::where('email', $email)->first();
+		if ( !$user )
+		{
+			$this->validation_error = trans('corporate/signup.user.old.error.combination');
+			return false;
+		}
+
+		$credentials = \Auth::validate([
+			'email' => $email,
+			'password' => $password,
+		]);
+		if ( !$credentials )
+		{
+			$this->validation_error = trans('corporate/signup.user.old.error.combination');
+			return false;
+		}
+
+		if ( $user->hasRole('company') )
+		{
+			return true;
+		}
+
+		if ( $user->hasRole('employee') )
+		{
+			$this->validation_error = trans('corporate/signup.user.old.error.employee');
+			return false;
+		}
+
+		if ( $user->hasRole('admin') )
+		{
+			$this->validation_error = trans('corporate/signup.user.old.error.admin');
+			return false;
+		}
+
+		$this->validation_error = trans('general.messages.error');
 	}
 
 	public function getPack()
@@ -110,6 +135,25 @@ class SignupController extends \App\Http\Controllers\CorporateController
 			return redirect()->action('Corporate\SignupController@getUser');
 		}
 
+		$data = $this->request->input('pack');
+
+		if ( !$this->validatePack($data) )
+		{
+			if ( gettype($this->validation_error) == 'object' )
+			{
+				return redirect()->back()->withInput()->withErrors($this->validation_error);
+			}
+			return redirect()->back()->withInput()->with('error', $this->validation_error);
+		}
+
+		$this->_setStep('pack',$data);
+
+		$this->_setStep('plan', \App\Models\Plan::where('code', $this->request->input('pack.selected'))->first()->toArray());
+
+		return redirect()->action('Corporate\SignupController@getSite');
+	}
+	protected function validatePack($data=false)
+	{
 		$plans = \App\Models\Plan::getEnabled();
 
 		$fields = [
@@ -120,19 +164,14 @@ class SignupController extends \App\Http\Controllers\CorporateController
 			$fields["payment_interval.{$plan->code}"] = "required_if:selected,{$plan->code}|in:year,month";
 		}
 
-		$data = $this->request->input('pack');
-
 		$validator = \Validator::make($data, $fields);
 		if ( $validator->fails() ) 
 		{
-			return redirect()->back()->withInput()->withErrors($validator);
+			$this->validation_error = $validator;
+			return false;
 		}
 
-		$this->_setStep('pack',$data);
-
-		$this->_setStep('plan', $plans->where('code', $this->request->input('pack.selected'))->first()->toArray());
-
-		return redirect()->action('Corporate\SignupController@getSite');
+		return true;
 	}
 
 	public function getSite()
@@ -159,13 +198,28 @@ class SignupController extends \App\Http\Controllers\CorporateController
 			return redirect()->action('Corporate\SignupController@getPack');
 		}
 
+		$data = $this->request->input('site');
+
+		if ( !$this->validateSite($data) )
+		{
+			if ( gettype($this->validation_error) == 'object' )
+			{
+				return redirect()->back()->withInput()->withErrors($this->validation_error);
+			}
+			return redirect()->back()->withInput()->with('error', $this->validation_error);
+		}
+
+		$this->_setStep('site', $data);
+
+		return redirect()->action('Corporate\SignupController@getPayment');
+	}
+	protected function validateSite($data)
+	{
 		$fields = [
 			'subdomain' => 'required|alpha_dash|max:255|unique:sites,subdomain',
 		];
 
-		$data = $this->request->input('site');
-
-		if ( @$data['plan']['max_languages'] == 1 )
+		if ( session()->get("{$this->session_name}.plan.max_languages") == 1 )
 		{
 			$fields['language'] = 'required|in:'.implode(',', array_keys(\LaravelLocalization::getSupportedLocales()));
 		}
@@ -173,12 +227,11 @@ class SignupController extends \App\Http\Controllers\CorporateController
 		$validator = \Validator::make($data, $fields);
 		if ( $validator->fails() ) 
 		{
-			return redirect()->back()->withInput()->withErrors($validator);
+			$this->validation_error = $validator;
+			return false;
 		}
 
-		$this->_setStep('site', $data);
-
-		return redirect()->action('Corporate\SignupController@getPayment');
+		return true;
 	}
 
 	public function getPayment()
@@ -208,28 +261,51 @@ class SignupController extends \App\Http\Controllers\CorporateController
 			return redirect()->action('Corporate\SignupController@getSite');
 		}
 
-		$plan = $this->_getStep('plan');
+		$data = $this->request->input('payment');
 
-		if ( empty($plan['is_free']) )
+		if ( !$this->validatePayment($data) )
 		{
-			$data = $this->request->input('payment');
-
-			$fields['method'] = 'required|in:'.implode(',', array_keys(\App\Models\Plan::getPaymentOptions()));
-
-			$validator = \Validator::make($data, $fields);
-			if ( $validator->fails() ) 
+			if ( gettype($this->validation_error) == 'object' )
 			{
-				return redirect()->back()->withInput()->withErrors($validator);
+				return redirect()->back()->withInput()->withErrors($this->validation_error);
 			}
+			return redirect()->back()->withInput()->with('error', $this->validation_error);
 		}
-		else
+
+		if ( session()->get("{$this->session_name}.plan.is_free") )
 		{
 			$data = [ 'method' => 'none' ];
 		}
 
+
 		$this->_setStep('payment', $data);
 
 		return redirect()->action('Corporate\SignupController@getInvoicing');
+	}
+	protected function validatePayment($data)
+	{
+		if ( session()->get("{$this->session_name}.plan.is_free") )
+		{
+			return true;
+		}
+
+		$fields = [
+			'method' => 'required|in:'.implode(',', array_keys(\App\Models\Plan::getPaymentOptions()))
+		];
+
+		if ( @$data['method'] == 'transfer' )
+		{
+			$fields['iban_account'] = 'required';
+		}
+
+		$validator = \Validator::make($data, $fields);
+		if ( $validator->fails() ) 
+		{
+			$this->validation_error = $validator;
+			return false;
+		}
+
+		return true;
 	}
 
 	public function getInvoicing()
@@ -244,7 +320,6 @@ class SignupController extends \App\Http\Controllers\CorporateController
 		$countries = \App\Models\Geography\Country::withTranslations()->orderBy('name')->lists('name','id')->all();
 
 		return view('corporate.signup.step-invoicing', compact('data','countries'));
-
 	}
 	public function postInvoicing()
 	{
@@ -255,6 +330,24 @@ class SignupController extends \App\Http\Controllers\CorporateController
 		
 		$data = $this->request->input('invoicing');
 
+		if ( !$this->validateInvoicing($data) )
+		{
+			if ( gettype($this->validation_error) == 'object' )
+			{
+				return redirect()->back()->withInput()->withErrors($this->validation_error);
+			}
+			return redirect()->back()->withInput()->with('error', $this->validation_error);
+		}
+
+		$country = \App\Models\Geography\Country::withTranslations()->findOrFail( $data['country_id'] );
+		$data['country'] = $country->name;
+
+		$this->_setStep('invoicing', $data);
+
+		return redirect()->action('Corporate\SignupController@getConfirm');
+	}
+	protected function validateInvoicing($data)
+	{
 		$fields = [
 			'type' => 'required|in:individual,company',
 			'first_name' => 'required|string',
@@ -270,21 +363,18 @@ class SignupController extends \App\Http\Controllers\CorporateController
 		$validator = \Validator::make($data, $fields);
 		if ( $validator->fails() ) 
 		{
-			return redirect()->back()->withInput()->withErrors($validator);
+			$this->validation_error = $validator;
+			return false;
 		}
 
 		// [TODO] Validate coupon
-		if ( $this->request->input('invoicing.coupon') )
+		if ( @$data['coupon'] )
 		{
-			return redirect()->back()->withInput()->with('error', trans('corporate/signup.invoicing.coupon.error'));
+			$this->validation_error = trans('corporate/signup.invoicing.coupon.error');
+			return false;
 		}
 
-		$country = \App\Models\Geography\Country::withTranslations()->findOrFail( $data['country_id'] );
-		$data['country'] = $country->name;
-
-		$this->_setStep('invoicing', $data);
-
-		return redirect()->action('Corporate\SignupController@getConfirm');
+		return true;
 	}
 
 	public function getConfirm()
@@ -300,33 +390,167 @@ class SignupController extends \App\Http\Controllers\CorporateController
 	}
 	public function postConfirm()
 	{
-die('postConfirm');
-		if ( !$this->_checkStep('site') )
+		$data = session()->get($this->session_name);
+
+		// Validate groups
+		if ( !$this->validateUser( @$data['user'] ) )
 		{
-			return redirect()->action('Corporate\SignupController@getSite');
+			if ( gettype($this->validation_error) == 'object' )
+			{
+				return redirect()->action('Corporate\SignupController@getUser')->withInput()->withErrors($this->validation_error);
+			}
+			return redirect()->action('Corporate\SignupController@getUser')->withInput()->with('error', $this->validation_error);
+		} 
+		elseif ( !$this->validatePack( @$data['pack'] ) )
+		{
+			if ( gettype($this->validation_error) == 'object' )
+			{
+				return redirect()->action('Corporate\SignupController@getPack')->withInput()->withErrors($this->validation_error);
+			}
+			return redirect()->action('Corporate\SignupController@getPack')->withInput()->with('error', $this->validation_error);
+		}
+		elseif ( !$this->validateSite( @$data['site'] ) )
+		{
+			if ( gettype($this->validation_error) == 'object' )
+			{
+				return redirect()->action('Corporate\SignupController@getSite')->withInput()->withErrors($this->validation_error);
+			}
+			return redirect()->action('Corporate\SignupController@getSite')->withInput()->with('error', $this->validation_error);
+		}
+		elseif ( !$this->validatePayment( @$data['payment'] ) )
+		{
+			if ( gettype($this->validation_error) == 'object' )
+			{
+				return redirect()->action('Corporate\SignupController@getPayment')->withInput()->withErrors($this->validation_error);
+			}
+			return redirect()->action('Corporate\SignupController@getPayment')->withInput()->with('error', $this->validation_error);
+		}
+		elseif ( !$this->validateInvoicing( @$data['invoicing'] ) )
+		{
+			if ( gettype($this->validation_error) == 'object' )
+			{
+				return redirect()->action('Corporate\SignupController@getInvoicing')->withInput()->withErrors($this->validation_error);
+			}
+			return redirect()->action('Corporate\SignupController@getInvoicing')->withInput()->with('error', $this->validation_error);
 		}
 
-		$fields = [
-			'subdomain' => 'required|alpha_dash|max:255|unique:sites,subdomain',
-		];
-
-		$data = $this->request->input('site');
-
-		if ( @$data['plan']['max_languages'] == 1 )
+		// Get user
+		if ( $data['user']['type'] == 'old' )
 		{
-			$fields['language'] = 'required|in:'.implode(',', array_keys(\LaravelLocalization::getSupportedLocales()));
+			$user = \App\User::where('email', $data['user']['old']['email'])->first();
+			if ( !$user )
+			{
+				return redirect()->back()->with('error', trans('general.messages.error'));
+			}
+		}
+		// Or create new one
+		else
+		{
+			$user = \App\User::create([
+				'name' => $data['user']['new']['name'],
+				'email' => $data['user']['new']['email'],
+				'locale' => \LaravelLocalization::getCurrentLocale(),
+				'password' => bcrypt($data['user']['new']['password']),
+			]);
+			if ( !$user )
+			{
+				return redirect()->back()->with('error', trans('general.messages.error'));
+			}
+			// With company role
+			$role = \App\Models\Role::where('name', 'company')->first();
+			if ( !$role )
+			{
+				return redirect()->back()->with('error', trans('general.messages.error'));
+			}
+			$user->roles()->attach( $role->id );
 		}
 
-		$validator = \Validator::make($data, $fields);
-		if ( $validator->fails() ) 
+		// Create site with free plan
+		$free_plan = \App\Models\Plan::where('is_free',1)->first();
+		$site = \App\Site::create([
+			'subdomain' => $data['site']['subdomain'],
+			'theme' => 'default',
+			'plan_id' => $free_plan->id,
+		]);
+		if ( !$site )
 		{
-			return redirect()->back()->withInput()->withErrors($validator);
+			return redirect()->back()->with('error', trans('general.messages.error'));
 		}
 
-		$this->_setStep('site', $this->request->input('site'));
+		// Save owner
+		$site->users()->attach($user->id);
 
-		return redirect()->action('Corporate\SignupController@getSite');
+		// Set plan type
+		$plan_is_free = @$data['plan']['is_free'];
+
+		// Save locales && title
+		if ( $plan_is_free )
+		{
+			if ( empty($data['site']['language']) )
+			{
+				return redirect()->back()->with('error', trans('general.messages.error'));
+			}
+			$locale = \App\Models\Locale::where('locale',$data['site']['language'])->first();
+			$site->locales()->attach($locale->id);
+			$site->translateOrNew($locale->locale)->title = $data['site']['subdomain'];
+		}
+		else
+		{
+			$locales = \App\Models\Locale::lists('id','locale');
+			foreach ($locales as $locale => $locale_id) 
+			{
+				$site->locales()->attach($locale_id);
+				$site->translateOrNew($locale)->title = $data['site']['subdomain'];
+			}
+		}
+
+		// Save site
+		$site->save();
+
+		// Create on ticket system
+		$site->ticket_adm->createSite();
+
+		// If plan is not free
+		if ( !$plan_is_free )
+		{
+			// Create sites_planchange
+			$site->planchanges()->create([
+				'old_data' => [
+					'plan_id' => $site->plan_id ? $site->plan_id : $free_plan->id,
+					'payment_interval' => $site->payment_interval,
+					'payment_method' => $site->payment_method,
+					'iban_account' => $site->iban_account,
+				],
+				'new_data' => [
+					'plan_id' => $data['plan']['id'],
+					'payment_interval' => $data['pack']['payment_interval'][$data['plan']['code']],
+					'payment_method' => $data['payment']['method'],
+					'iban_account' => @$data['payment']['iban_account'],
+				],
+				'invoicing' => $data['invoicing'],
+			]);
+		}
+
+		// Delete session
+		session()->forget($this->session_name);
+
+		// Redirect to finish
+		return redirect()->action('Corporate\SignupController@getFinish', [ $site->id, $site->subdomain ]);
 	}
+
+	public function getFinish($site_id,$site_subdomain)
+	{
+		$site = \App\Site::findOrFail($site_id);
+		if ( $site->subdomain != $site_subdomain )
+		{
+			abort(404);
+		}
+
+		$planchange = $site->planchanges()->pending()->first();
+
+		return view('corporate.signup.step-finish', compact('site','planchange'));
+	}
+
 	protected function _checkStep($step)
 	{
 		return $this->_getStep($step) ? true : false;

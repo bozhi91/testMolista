@@ -26,6 +26,8 @@
 		'user.old.error.admin' => 'This email belongs to a user already registered as an administrator.',
 
 		'pack.h2' => 'Choose the plan you wish to contract',
+
+		'site.h2' => 'Your website details',
 		'site.subdomain' => 'Choose a name for your website',
 		'site.subdomain.sample' => 'The address of you website will be:',
 		'site.language' => 'Choose a language for your website',
@@ -55,4 +57,6 @@
 		'confirm.name' => 'Name',
 		'confirm.plan' => 'Plan',
 		'confirm.subdomain' => 'Website name',
+
+		'finish.h2' => 'The website was successfully created',
 	];

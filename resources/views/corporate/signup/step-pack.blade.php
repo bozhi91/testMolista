@@ -9,45 +9,49 @@
 @section('signup_content')
 
 	<div class="row">
-		<div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+		<div class="col-xs-12 col-sm-6 col-sm-offset-3">
 
 			@include('common.messages', [ 'dismissible'=>true ])
 
 
-			{!! Form::model($data, [ 'action'=>'Corporate\SignupController@postPack', 'method'=>'post', 'id'=>'signup-form' ]) !!}
+			{!! Form::model($data, [ 'action'=>'Corporate\SignupController@postPack', 'method'=>'post', 'id'=>'signup-form', 'class'=>'step-form' ]) !!}
 
 				<h2 class="text-center">{{ Lang::get('corporate/signup.pack.h2') }}</h2>
 
-				<div class="plans-container">
-					@foreach ($plans as $plan)
-						<div class="form-inline plan-row">
-							<div class="form-group">
-								<div class="checkbox">
-									<label>
-										{!! Form::radio('pack[selected]', $plan->code, null, [ 'class'=>'plan-input required' ]) !!}
-										{{ $plan->name }}
-									</label>
+				<div class="step-content">
+
+					<div class="plans-container">
+						@foreach ($plans as $plan)
+							<div class="form-inline plan-row">
+								<div class="form-group">
+									<div class="checkbox">
+										<label class="pack-label text-nowrap">
+											{!! Form::radio('pack[selected]', $plan->code, null, [ 'class'=>'plan-input required' ]) !!}
+											{{ $plan->name }}
+										</label>
+									</div>
+								</div>
+								<div class="form-group error-container">
+									@if ( $plan->is_free )
+										{!! Form::select("pack[payment_interval][{$plan->code}]", [
+											'year' => Lang::get('web/plans.free'),
+										], null, [ 'class'=>'payment-interval-select form-control', 'disabled'=>'disabled' ]) !!}
+									@else
+										{!! Form::select("pack[payment_interval][{$plan->code}]", [
+											'year' => Lang::get('web/plans.price.year') . ' ' . price($plan->price_year, [ 'decimals'=>0 ]),
+											'month' => Lang::get('web/plans.price.month') . ' ' . price($plan->price_month, [ 'decimals'=>0 ]),
+										], null, [ 'class'=>'payment-interval-select form-control', 'disabled'=>'disabled' ]) !!}
+									@endif
 								</div>
 							</div>
-							<div class="form-group error-container">
-								@if ( $plan->is_free )
-									{!! Form::select("pack[payment_interval][{$plan->code}]", [
-										'year' => Lang::get('web/plans.free'),
-									], null, [ 'class'=>'payment-interval-select form-control', 'disabled'=>'disabled' ]) !!}
-								@else
-									{!! Form::select("pack[payment_interval][{$plan->code}]", [
-										'year' => Lang::get('web/plans.price.year') . ' ' . price($plan->price_year, [ 'decimals'=>0 ]),
-										'month' => Lang::get('web/plans.price.month') . ' ' . price($plan->price_month, [ 'decimals'=>0 ]),
-									], null, [ 'class'=>'payment-interval-select form-control', 'disabled'=>'disabled' ]) !!}
-								@endif
-							</div>
-						</div>
-					@endforeach
-				</div>
+						@endforeach
+					</div>
 
-				<div class="nav-area">
-					<a href="{{ action('Corporate\SignupController@getUser')}}" class="btn btn-primary">{{ Lang::get('corporate/signup.previous') }}</a>
-					{!! Form::button(Lang::get('corporate/signup.next'), [ 'type'=>'submit', 'class'=>'btn btn-primary pull-right' ]) !!}
+					<div class="nav-area">
+						<a href="{{ action('Corporate\SignupController@getUser')}}" class="btn btn-nav btn-nav-prev">{{ Lang::get('corporate/signup.previous') }}</a>
+						{!! Form::button(Lang::get('corporate/signup.next'), [ 'type'=>'submit', 'class'=>'btn btn-nav btn-nav-next pull-right' ]) !!}
+					</div>
+
 				</div>
 
 			{!! Form::close() !!}
@@ -91,7 +95,7 @@
 					w = cont.find('.checkbox').width();
 				}
 			});
-			form.find('.plan-row .checkbox').width(w);
+			form.find('.plan-row').css({ opacity: 1 }).find('.checkbox').width(w);
 
 		});
 	</script>

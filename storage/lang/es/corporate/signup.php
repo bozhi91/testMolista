@@ -57,4 +57,6 @@
 		'confirm.name' => 'Nombre',
 		'confirm.plan' => 'Plan',
 		'confirm.subdomain' => 'Nombre de la página',
+
+		'finish.h2' => 'El sitio se ha creado correctamente',
 	];

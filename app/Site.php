@@ -32,6 +32,11 @@ class Site extends TranslatableModel
 		return $this->belongsTo('App\Models\Plan');
 	}
 
+	public function planchanges()
+	{
+		return $this->hasMany('App\Models\Site\Planchange');
+	}
+
 	public function stats() {
 		return $this->hasMany('App\Models\Site\Stats');
 	}

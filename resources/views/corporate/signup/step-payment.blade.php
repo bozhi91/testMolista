@@ -5,26 +5,28 @@
 @section('signup_content')
 
 	<div class="row">
-		<div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+		<div class="col-xs-12 col-sm-6 col-sm-offset-3">
 
 			@include('common.messages', [ 'dismissible'=>true ])
 
-			{!! Form::model($data, [ 'action'=>'Corporate\SignupController@postPayment', 'method'=>'post', 'id'=>'signup-form' ]) !!}
+			{!! Form::model($data, [ 'action'=>'Corporate\SignupController@postPayment', 'method'=>'post', 'id'=>'signup-form', 'class'=>'step-form' ]) !!}
 
 				<h2 class="text-center">{{ Lang::get('corporate/signup.payment.h2') }}</h2>
 
-				<div class="plans-container">
-					<div class="form-group error-container">
-						<div class="text-center">
-							{!! Form::label('payment[method]', Lang::get('corporate/signup.payment.choose')) !!}
-						</div>
-						{!! Form::select('payment[method]', $paymethods, null, [ 'class'=>'form-control required' ]) !!}
-					</div>
-				</div>
+				<div class="step-content">
 
-				<div class="nav-area">
-					<a href="{{ action('Corporate\SignupController@getSite')}}" class="btn btn-primary">{{ Lang::get('corporate/signup.previous') }}</a>
-					{!! Form::button(Lang::get('corporate/signup.next'), [ 'type'=>'submit', 'class'=>'btn btn-primary pull-right' ]) !!}
+					<div class="step-padder">
+						<div class="form-group error-container">
+							{!! Form::label('payment[method]', Lang::get('corporate/signup.payment.choose'), [ 'class'=>'input-label text-center' ]) !!}
+							{!! Form::select('payment[method]', $paymethods, null, [ 'class'=>'form-control required' ]) !!}
+						</div>
+					</div>
+
+					<div class="nav-area">
+						<a href="{{ action('Corporate\SignupController@getSite')}}" class="btn btn-nav btn-nav-prev">{{ Lang::get('corporate/signup.previous') }}</a>
+						{!! Form::button(Lang::get('corporate/signup.next'), [ 'type'=>'submit', 'class'=>'btn btn-nav btn-nav-prev pull-right' ]) !!}
+					</div>
+
 				</div>
 
 			{!! Form::close() !!}
