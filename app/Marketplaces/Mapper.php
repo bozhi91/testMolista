@@ -59,4 +59,9 @@ abstract class Mapper {
         return $this->item['mode'] == 'rent';
     }
 
+    protected function isNew()
+    {
+        return !empty($this->item['newly_build']);
+    }
+
 }

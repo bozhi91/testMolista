@@ -28,6 +28,14 @@ class Writer extends \XMLWriter {
         // Final name
         $name = reset($parts);
 
+        // Is raw?
+        $is_raw = strpos($name, '#') === 0;
+        $org_name = $name;
+        if ($is_raw)
+        {
+            $name = substr($name, 1);
+        }
+
         if (!is_array($content))
         {
             $this->startElement($name);
@@ -35,7 +43,7 @@ class Writer extends \XMLWriter {
             {
                 $this->writeAttribute($key, $value);
             }
-            $this->writeCData($content);
+            $is_raw ? $this->text($content) : $this->writeCData($content);
             $this->endElement();
         }
         else
@@ -45,7 +53,7 @@ class Writer extends \XMLWriter {
             {
                 foreach ($content as $subname => $subcontent)
                 {
-                    $this->write($name, $subcontent);
+                    $this->write($org_name, $subcontent);
                 }
             }
             else
