@@ -272,6 +272,10 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		{
 			abort(404);
 		}
+echo "<pre>";
+print_r($property->marketplace_info);
+echo "</pre>";
+die;
 
 		return view('account.properties.show', compact('property'));
 	}

@@ -384,11 +384,6 @@ class Property extends TranslatableModel
 
 	public function getMarketplaceInfoAttribute()
 	{
-		if ( $this->marketplace_info)
-		{
-			return $this->marketplace_info;
-		}
-
 		$current_locale = \App::getLocale();
 		$fallback_locale = fallback_lang();
 		$site_locales = $this->site->locales_array;
@@ -419,6 +414,7 @@ class Property extends TranslatableModel
 				'district' => $this->district,
 				'city' => @$this->city->name,
 				'address' => $this->address,
+				'address_parts' => $this->address_parts,
 				'zipcode' => $this->zipcode,
 				'lat' => $this->lat,
 				'lng' => $this->lng,
