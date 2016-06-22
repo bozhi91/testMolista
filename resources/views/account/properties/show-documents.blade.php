@@ -2,7 +2,6 @@
 	<div class="text-right">
 		<a href="#documents-modal-form" class="btn btn-primary document-modal-trigger">{{ Lang::get('account/properties.documents.new') }}</a>
 	</div>
-dsfads
 	<table class="table">
 		<thead>
 			<th>{{ Lang::get('account/properties.documents.date') }}</th>
@@ -30,7 +29,7 @@ dsfads
 @endif
 
 {!! Form::model(null, [ 'method'=>'post', 'action'=>[ 'Account\Properties\DocumentsController@postUpload', $property->id ], 'files'=>true, 'id'=>'documents-modal-form', 'class'=>'mfp-hide app-popup-block-white']) !!}
-	{!! Form::hidden('current_tab','tab-documents') !!}
+	<input type="hidden" name="current_tab" value="tab-documents" />
 	<h4>{{ Lang::get('account/properties.documents.new') }}</h4>
 	<div style="padding: 10px 0px;">
 		<div class="form-group error-container">

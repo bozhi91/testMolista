@@ -29,7 +29,7 @@
 @endif
 
 {!! Form::model(null, [ 'method'=>'post', 'action'=>[ 'Account\Properties\DocumentsController@postUpload', $property->id ], 'files'=>true, 'id'=>'appraisal-modal-form', 'class'=>'mfp-hide app-popup-block-white']) !!}
-	{!! Form::hidden('current_tab','tab-appraisal') !!}
+	<input type="hidden" name="current_tab" value="tab-appraisal" />
 	{!! Form::hidden('type','appraisal') !!}
 	<h4>{{ Lang::get('account/properties.documents.new') }}</h4>
 	<div style="padding: 10px 0px;">
@@ -39,7 +39,7 @@
 		</div>
 		<div class="form-group error-container">
 			{!! Form::label('description', Lang::get('account/properties.documents.appraisal.value')) !!}
-			{!! Form::text('description', null, [ 'class'=>'form-control required' ]) !!}
+			{!! Form::text('description', null, [ 'class'=>'form-control required number' ]) !!}
 		</div>
 		<div class="form-group error-container">
 			{!! Form::label('file', Lang::get('account/properties.documents.file')) !!}
