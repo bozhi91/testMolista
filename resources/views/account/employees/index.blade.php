@@ -32,7 +32,10 @@
 					<tbody>
 						@foreach ($employees as $employee)
 							<tr>
-								<td>{{ $employee->name }}</td>
+								<td class="text-nowrap">
+									<img src="{{ $employee->image_url }}" class="employee-image-thumb" />
+									{{ $employee->name }}
+								</td>
 								<td>{{ $employee->email }}</td>
 								<td class="text-center">{{ number_format($employee->properties->where('site_id', $site_setup['site_id'])->count(), 0, ',', '.') }}</td>
 								<td class="text-center">{{ @number_format(intval( $stats[$employee->ticket_user_id]->tickets->open ), 0, ',', '.') }}</td>
