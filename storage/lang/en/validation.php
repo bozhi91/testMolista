@@ -96,4 +96,6 @@
 
 		'attributes' => [],
 
+		'sale' => 'This property is not for sale',
+		'rent' => 'This property is not for rent',
 	];

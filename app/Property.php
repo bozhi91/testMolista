@@ -384,11 +384,6 @@ class Property extends TranslatableModel
 
 	public function getMarketplaceInfoAttribute()
 	{
-		if ( $this->marketplace_info)
-		{
-			return $this->marketplace_info;
-		}
-
 		$current_locale = \App::getLocale();
 		$fallback_locale = fallback_lang();
 		$site_locales = $this->site->locales_array;
@@ -419,6 +414,7 @@ class Property extends TranslatableModel
 				'district' => $this->district,
 				'city' => @$this->city->name,
 				'address' => $this->address,
+				'address_parts' => $this->address_parts,
 				'zipcode' => $this->zipcode,
 				'lat' => $this->lat,
 				'lng' => $this->lng,
@@ -426,6 +422,8 @@ class Property extends TranslatableModel
 			],
 			'images' => [],
 			'features' => [],
+			'created_at' => $this->created_at->format('Y-m-d H:i:s'),
+			'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
 		];
 
 		// Translatable
@@ -473,7 +471,7 @@ class Property extends TranslatableModel
 			$this->marketplace_info['features'][$service->code] = $tmp;
 		}
 
-		\App::setLocale($fallback_locale);
+		\App::setLocale($current_locale);
 
 		return $this->marketplace_info;
 	}
