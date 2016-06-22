@@ -140,6 +140,10 @@ class Property extends TranslatableModel
 		return $this->hasMany('App\Models\Property\Catches');
 	}
 
+	public function documents() {
+		return $this->hasMany('App\Models\Property\Documents');
+	}
+
 	public function services() {
 		return $this->belongsToMany('App\Models\Property\Service', 'properties_services', 'property_id', 'service_id');
 	}

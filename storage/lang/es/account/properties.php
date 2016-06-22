@@ -167,4 +167,17 @@
 
 		'marketplaces.intro' => 'Marque el checkbox de los marketplaces donde desea publicar esta propiedad.',
 		'marketplaces.error' => 'Esta propiedad no puede publicarse en esta marketplace:',
+
+		'tab.appraisal' => 'Tasaciones',
+		'tab.documents' => 'Documentos',
+		'documents.none' => 'No se encontraron documentos',
+		'documents.new' => 'Nuevo documento',
+		'documents.date' => 'Fecha',
+		'documents.title' => 'Título',
+		'documents.description' => 'Descripción',
+		'documents.appraiser' => 'Tasador',
+		'documents.appraisal.value' => 'Valor tasación',
+		'documents.file' => 'Documento',
+		'documents.delete.warning' => '¿Confirma que desea eliminar este documento permanentemente?',
+		'documents.delete.success' => 'El documento se ha eliminado correctamente',
 	];

@@ -10,17 +10,19 @@
 		<h3 class="page-title">{{ $property->ref }} | {{ $property->title }}</h3>
 
 		<ul class="nav nav-tabs main-tabs" role="tablist">
-			<li role="presentation" class="active"><a href="#tab-general" aria-controls="tab-general" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.general') }}</a></li>
-			<li role="presentation"><a href="#tab-lead" aria-controls="tab-lead" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.lead') }}</a></li>
-			<li role="presentation"><a href="#tab-transaction" aria-controls="tab-transaction" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.transaction') }}</a></li>
-			<li role="presentation"><a href="#tab-reports" aria-controls="tab-reports" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.reports') }}</a></li>
-			<li role="presentation"><a href="#tab-logs" aria-controls="tab-logs" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.logs') }}</a></li>
-			<li role="presentation"><a href="#tab-employees" aria-controls="tab-employees" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.employees') }}</a></li>
+			<li role="presentation" class="{{ (old('current_tab','tab-general') == 'tab-general') ? 'active' : '' }}"><a href="#tab-general" aria-controls="tab-general" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.general') }}</a></li>
+			<li role="presentation" class="{{ (old('current_tab') == 'tab-lead') ? 'active' : '' }}"><a href="#tab-lead" aria-controls="tab-lead" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.lead') }}</a></li>
+			<li role="presentation" class="{{ (old('current_tab') == 'tab-appraisal') ? 'active' : '' }}"><a href="#tab-appraisal" aria-controls="tab-appraisal" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.appraisal') }}</a></li>
+			<li role="presentation" class="{{ (old('current_tab') == 'tab-transaction') ? 'active' : '' }}"><a href="#tab-transaction" aria-controls="tab-transaction" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.transaction') }}</a></li>
+			<li role="presentation" class="{{ (old('current_tab') == 'tab-documents') ? 'active' : '' }}"><a href="#tab-documents" aria-controls="tab-documents" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.documents') }}</a></li>
+			<li role="presentation" class="{{ (old('current_tab') == 'tab-reports') ? 'active' : '' }}"><a href="#tab-reports" aria-controls="tab-reports" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.reports') }}</a></li>
+			<li role="presentation" class="{{ (old('current_tab') == 'tab-logs') ? 'active' : '' }}"><a href="#tab-logs" aria-controls="tab-logs" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.logs') }}</a></li>
+			<li role="presentation" class="{{ (old('current_tab') == 'tab-employees') ? 'active' : '' }}"><a href="#tab-employees" aria-controls="tab-employees" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.employees') }}</a></li>
 		</ul>
 
 		<div class="tab-content">
 
-			<div role="tabpanel" class="tab-pane tab-main active" id="tab-general">
+			<div role="tabpanel" class="tab-pane tab-main presentation {{ (old('current_tab','tab-general') == 'tab-general') ? 'active' : '' }}" id="tab-general">
 				@if ( $property->catch_current )
 					<div class="row">
 						<div class="col-xs-12 col-sm-6">
@@ -120,7 +122,7 @@
 				@endif
 			</div>
 
-			<div role="tabpanel" class="tab-pane tab-main" id="tab-lead">
+			<div role="tabpanel" class="tab-pane tab-main {{ (old('current_tab') == 'tab-lead') ? 'active' : '' }}" id="tab-lead">
 				@if ( !$property->deleted_at )
 					<div class="text-right" style="{{ ($property->customers->count() < 1) ? 'margin-bottom: 20px;' : '' }}">
 						<a href="#" class="btn btn-default btn-sm add-lead-trigger">{{ Lang::get('account/properties.show.leads.add') }}</a>
@@ -131,7 +133,13 @@
 				</div>
 			</div>
 
-			<div role="tabpanel" class="tab-pane tab-main" id="tab-transaction">
+			<div role="tabpanel" class="tab-pane tab-main {{ (old('current_tab') == 'tab-appraisal') ? 'active' : '' }}" id="tab-appraisal">
+				@include('account.properties.show-appraisal', [
+					'documents' => $property->documents->where('type','appraisal'),
+				])
+			</div>
+
+			<div role="tabpanel" class="tab-pane tab-main {{ (old('current_tab') == 'tab-transaction') ? 'active' : '' }}" id="tab-transaction">
 				@if ( $property->catch_transactions->count() < 1 )
 					<p>{{ Lang::get('account/properties.show.transactions.none') }}</p>
 				@else
@@ -235,7 +243,15 @@
 				@endif
 			</div>
 
-			<div role="tabpanel" class="tab-pane tab-main" id="tab-reports">
+			<div role="tabpanel" class="tab-pane tab-main {{ (old('current_tab') == 'tab-documents') ? 'active' : '' }}" id="tab-documents">
+				@include('account.properties.show-documents', [
+					'documents' => $property->documents->filter(function ($value, $key) {
+						return ($value->type == 'appraisal') ? false : true;
+					})
+				])
+			</div>
+
+			<div role="tabpanel" class="tab-pane tab-main {{ (old('current_tab') == 'tab-reports') ? 'active' : '' }}" id="tab-reports">
 				@if ( $property->catch_kpis )
 					<div class="row">
 						<div class="col-xs-12 col-sm-4">
@@ -290,7 +306,7 @@
 				@endif
 			</div>
 
-			<div role="tabpanel" class="tab-pane tab-main" id="tab-logs">
+			<div role="tabpanel" class="tab-pane tab-main {{ (old('current_tab') == 'tab-logs') ? 'active' : '' }}" id="tab-logs">
 				<div class="alert logs-empty hide">
 					{{ Lang::get('account/properties.logs.empty') }}
 				</div>
@@ -315,7 +331,7 @@
 				</table>
 			</div>
 
-			<div role="tabpanel" class="tab-pane tab-main" id="tab-employees">
+			<div role="tabpanel" class="tab-pane tab-main {{ (old('current_tab') == 'tab-employees') ? 'active' : '' }}" id="tab-employees">
 				@include('account.properties.tab-managers', [
 					'item' => $property,
 					'employees' => $property->users()->withRole('employee')->get(),
@@ -385,6 +401,26 @@
 					modal: false
 				});
 			});
+
+			cont.on('click', '.document-delete-trigger', function(e){
+				var el = $(this);
+				e.preventDefault();
+				SITECOMMON.confirm("{{ print_js_string( Lang::get('account/properties.documents.delete.warning') ) }}", function (e) {
+					if (e) {
+						LOADING.show();
+						document.location.href = el.data().href;
+					}
+				});
+			});
+			cont.find('.document-modal-trigger').magnificPopup({
+				type: 'inline',
+				modal: true
+			});
+			cont.find('.document-modal-close').on('click', function(e){
+				e.preventDefault();
+				$.magnificPopup.close();
+			});
+
 		});
 	</script>
 
