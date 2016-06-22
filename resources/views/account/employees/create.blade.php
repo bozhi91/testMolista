@@ -9,42 +9,9 @@
 
 			<h1 class="page-title">{{ Lang::get('account/employees.create.title') }}</h1>
 
-			{!! Form::model(null, [ 'method'=>'POST', 'action'=>'Account\EmployeesController@store', 'id'=>'edit-form' ]) !!}
+			{!! Form::model(null, [ 'method'=>'POST', 'files'=>true, 'action'=>'Account\EmployeesController@store', 'id'=>'edit-form' ]) !!}
 
-				<div class="row">
-					<div class="col-xs-12 col-sm-6">
-						<div class="form-group error-container">
-							{!! Form::label('name]', Lang::get('account/employees.name')) !!}
-							{!! Form::text('name',null, [ 'class'=>'form-control required' ]) !!}
-						</div>
-					</div>
-					<div class="col-xs-12 col-sm-6">
-						<div class="form-group error-container">
-							{!! Form::label('email', Lang::get('account/employees.email')) !!}
-							{!! Form::email('email', null, [ 'class'=>'form-control required email' ]) !!}
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-12 col-sm-6">
-						<div class="form-group error-container">
-							{!! Form::label('locale]', Lang::get('account/employees.locale')) !!}
-							{!! Form::select('locale', $site_setup['locales_select'], null, [ 'class'=>'form-control required' ]) !!}
-						</div>
-					</div>
-					<div class="col-xs-12 col-sm-6">
-						@if ( empty($employee) )
-							<div class="form-group error-container">
-								{!! Form::label('password', Lang::get('account/employees.password')) !!}
-								<div class="input-group">
-									{!! Form::password('password', [ 'class'=>'form-control required', 'minlength'=>6 ]) !!}
-									<div class="input-group-addon"><span class="glyphicon glyphicon-eye-open show-hide-password" style="cursor: pointer;" aria-hidden="true"></span></div>
-								</div>
-							</div>
-						@endif
-					</div>
-				</div>
-
+				@include('account.user-form')
 
 				<br />
 
@@ -78,6 +45,14 @@
 								not_employee: true,
 								exclude: {{ empty($user) ? 0 : $user->id }}
 							}
+						}
+					},
+					image: {
+						required: function() {
+							if ( form.find('.user-image-link').length > 0 ) {
+								return false;
+							}
+							return form.find('select[name="signature"]').val() == 1;
 						}
 					}
 				},

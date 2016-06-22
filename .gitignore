@@ -8,9 +8,12 @@
 /public/sites
 /public/storage
 /public/themes
+/public/users
 
 /resources/assets/css/compiled
 /resources/assets/js/compiled
+
+/storage/sites
 
 /vendor
 

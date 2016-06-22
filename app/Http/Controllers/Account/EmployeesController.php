@@ -38,6 +38,11 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 			$query->where('email', 'like', "%{$this->request->get('email')}%");
 		}
 
+		if ( $this->request->get('csv') )
+		{
+			return $this->exportCsv($query);
+		}
+
 		$employees = $query->orderBy('name')->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		if ( $employees->count() > 0 )
@@ -50,6 +55,60 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 		return view('account.employees.index', compact('employees','stats'));
 	}
 
+	public function exportCsv($query)
+	{
+		$employees = $query->with([ 'properties' => function($query){
+			$query->ofSite( $this->site->id );
+		}])->limit(9999)->get();
+
+		if ( $employees->count() > 0 )
+		{
+			$stats = $this->site->ticket_adm->getUsersStats( array_filter($employees->pluck('ticket_user_id')->all()) );
+		}
+
+		$columns = [
+			'name' => trans('account/employees.name'),
+			'email' => trans('account/employees.email'),
+			'properties' => trans('account/employees.properties'),
+			'tickets' => trans('account/employees.tickets'),
+			'leads' => trans('account/employees.leads'),
+		];
+
+		$csv = \League\Csv\Writer::createFromFileObject(new \SplTempFileObject());
+		$csv->setDelimiter(';');
+
+		// Headers
+		$csv->insertOne( array_values($columns) );
+
+		// Lines
+		foreach ($employees as $employee)
+		{
+			$data = [];
+
+			foreach ($columns as $key => $value) 
+			{
+				switch ($key) 
+				{
+					case 'properties':
+						$data[] = number_format($employee->properties->count(), 0, ',', '.');
+						break;
+					case 'tickets':
+						$data[] = @number_format(intval( $stats[$employee->ticket_user_id]->tickets->open ), 0, ',', '.');
+						break;
+					case 'leads':
+						$data[] = @number_format(intval( $stats[$employee->ticket_user_id]->contacts->open ), 0, ',', '.');
+						break;
+					default:
+						$data[] = $employee->$key;
+				}
+			}
+
+			$csv->insertOne( $data );
+		}
+
+		$csv->output('agents_'.date('Ymd').'.csv');
+		exit;
+	}
 	public function create()
 	{
 		return view('account.employees.create');
@@ -57,35 +116,14 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 
 	public function store()
 	{
-		$validator = \Validator::make($this->request->all(), [
-			'name' => 'required|max:255',
-			'email' => 'required|email|max:255',
-			'password' => 'required|min:6',
-			'locale' => 'required|string|in:'.implode(',',\LaravelLocalization::getSupportedLanguagesKeys()),
-		]);
-		if ($validator->fails()) 
+		$fields = \App\User::getFields();
+		$validator = \Validator::make($this->request->all(), $fields);
+		if ( $validator->fails() )
 		{
 			return redirect()->back()->withInput()->withErrors($validator);
 		}
 
-		// Check email
-		if ( $exists = \App\User::where('email', $this->request->get('email'))->first() )
-		{
-			if ( $exists->hasRole('employee') )
-			{
-				return redirect()->action('Account\EmployeesController@getAssociate', urlencode($exists->email))->withInput();
-			}
-			return redirect()->back()->withInput()->with('error', trans('account.employees.email.used'));
-		}
-
-		// Create user associated to this site
-        $employee = $this->site->users()->create([
-            'name' => sanitize( $this->request->get('name') ),
-            'email' => sanitize( $this->request->get('email'), 'email'),
-            'locale' => $this->request->get('locale'),
-            'password' => bcrypt($this->request->get('password')),
-        ]);
-
+		$employee = \App\User::saveModel($this->request->all());
 		if ( !$employee )
 		{
 			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
@@ -93,6 +131,9 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 
 		// Attach employee role
 		$employee->roles()->attach( \App\Models\Role::where('name','employee')->value('id') );
+
+		// Associate to site
+		$this->site->users()->attach($employee->id);
 
 		// Associate in ticketing system
 		$this->site->ticket_adm->associateUsers([ $employee ]);

@@ -81,7 +81,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 
     public function valid()
     {
-        if (!$this->isRent())
+        if (!$this->isSale())
         {
             $this->errors []= \Lang::get('validation.sale');
             return false;
