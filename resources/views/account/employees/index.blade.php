@@ -51,7 +51,7 @@
 						@endforeach
 					</tbody>
 				</table>
-                {!! drawPagination($employees, Input::only('limit','name','email')) !!}
+                {!! drawPagination($employees, Input::only('limit','name','email'), action('Account\EmployeesController@index', [ 'csv'=>1 ])) !!}
 			@endif
 
 		</div>

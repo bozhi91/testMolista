@@ -38,6 +38,11 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 			$query->where('email', 'like', "%{$this->request->get('email')}%");
 		}
 
+		if ( $this->request->get('csv') )
+		{
+			return $this->exportCsv($query);
+		}
+
 		$employees = $query->orderBy('name')->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		if ( $employees->count() > 0 )
@@ -50,6 +55,60 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 		return view('account.employees.index', compact('employees','stats'));
 	}
 
+	public function exportCsv($query)
+	{
+		$employees = $query->with([ 'properties' => function($query){
+			$query->ofSite( $this->site->id );
+		}])->limit(9999)->get();
+
+		if ( $employees->count() > 0 )
+		{
+			$stats = $this->site->ticket_adm->getUsersStats( array_filter($employees->pluck('ticket_user_id')->all()) );
+		}
+
+		$columns = [
+			'name' => trans('account/employees.name'),
+			'email' => trans('account/employees.email'),
+			'properties' => trans('account/employees.properties'),
+			'tickets' => trans('account/employees.tickets'),
+			'leads' => trans('account/employees.leads'),
+		];
+
+		$csv = \League\Csv\Writer::createFromFileObject(new \SplTempFileObject());
+		$csv->setDelimiter(';');
+
+		// Headers
+		$csv->insertOne( array_values($columns) );
+
+		// Lines
+		foreach ($employees as $employee)
+		{
+			$data = [];
+
+			foreach ($columns as $key => $value) 
+			{
+				switch ($key) 
+				{
+					case 'properties':
+						$data[] = number_format($employee->properties->count(), 0, ',', '.');
+						break;
+					case 'tickets':
+						$data[] = @number_format(intval( $stats[$employee->ticket_user_id]->tickets->open ), 0, ',', '.');
+						break;
+					case 'leads':
+						$data[] = @number_format(intval( $stats[$employee->ticket_user_id]->contacts->open ), 0, ',', '.');
+						break;
+					default:
+						$data[] = $employee->$key;
+				}
+			}
+
+			$csv->insertOne( $data );
+		}
+
+		$csv->output('agents_'.date('Ymd').'.csv');
+		exit;
+	}
 	public function create()
 	{
 		return view('account.employees.create');
