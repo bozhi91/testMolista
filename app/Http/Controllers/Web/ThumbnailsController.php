@@ -25,6 +25,10 @@ class ThumbnailsController extends \App\Http\Controllers\Controller
 				$this->min_width = 186;
 				$this->min_height = 186;
 				break;
+			case 'kyero':
+				$this->min_width = 1280;
+				$this->min_height = 960;
+				break;
 			default:
 				abort(404);
 		}
