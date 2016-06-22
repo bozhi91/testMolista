@@ -15,9 +15,9 @@ class Mapper extends \App\Marketplaces\Mapper {
 
         $map = [];
         $map['id'] = $item['id'];
-        //$map['id_propietario'] = '00000001';
+        $map['id_propietario'] = $item['site_id'];
         $map['referencia'] = $item['reference'];
-        $map['titulo'] = $this->translate($item['title']);
+        //$map['titulo'] = $this->translate($item['title']);
         //$map['id_propietario'] = '';
         $map['num'] = $item['location']['zipcode'];
         $map['num_no_visible'] = $item['location']['show_address'] ? 0 : 1;
@@ -30,9 +30,10 @@ class Mapper extends \App\Marketplaces\Mapper {
             $map['cp'] = $item['location']['zipcode'];
             $map['barrio'] = $item['location']['district'];
             $map['nombre_distrito'] = $item['location']['district'];
-            $map['nombre_poblacion'] = $item['location']['city'];
-            $map['nombre_provincia'] = $item['location']['state'];
         }
+
+        $map['nombre_poblacion'] = $item['location']['city'];
+        $map['nombre_provincia'] = $item['location']['state'];
 
         $map['precio_mes'] = $this->decimal($item['price']);
         $map['fk_id_tbl_categorias'] = $this->category();
@@ -54,7 +55,10 @@ class Mapper extends \App\Marketplaces\Mapper {
         $map['terraza'] = !empty($item['features']['terrace']) ? 1 : 0;
         $map['descripciones']['es']['breve_descripcion'] = $this->translate($item['description'], 'es');
         $map['fotos']['foto'] = $this->pictures();
-        $map['fk_id_tbl_antiguedad_inmuebles'] = $this->antiguedad_inmuebles($item['construction_year']);
+        if (!empty($item['construction_year']))
+        {
+            $map['fk_id_tbl_antiguedad_inmuebles'] = $this->antiguedad_inmuebles($item['construction_year']);
+        }
 
         return $map;
     }
@@ -63,7 +67,22 @@ class Mapper extends \App\Marketplaces\Mapper {
     {
         if (!$this->isRent())
         {
-            $this->errors []= 'Only properties for rent are allowed in this marketplace.';
+            $this->errors []= \Lang::get('validation.rent');
+            return false;
+        }
+
+        $rules = [
+            //'title.'.$this->iso_lang => 'max:40',
+        ];
+
+        $messages = [
+            'construction_year.regex' => \Lang::get('validation.date'),
+        ];
+
+        $validator = \Validator::make($this->item, $rules, $messages);
+        if ($validator->fails())
+        {
+            $this->errors = $validator->errors()->all();
         }
 
         return empty($this->errors);

@@ -28,6 +28,7 @@
 					<table class="table table-striped">
 						<thead>
 							<tr>
+								<th>&nbsp;</th>
 								<th>{{ Lang::get('admin/marketplaces.code') }}</th>
 								<th>{{ Lang::get('admin/marketplaces.title') }}</th>
 								<th>{{ Lang::get('admin/marketplaces.created') }}</th>
@@ -38,6 +39,7 @@
 						<tbody>
 							@foreach ($marketplaces as $marketplace)
 								<tr>
+									<td class="text-center"><img src="{{ asset("marketplaces/{$marketplace->logo}") }}" /></td>
 									<td>{{ $marketplace->code }}</td>
 									<td>{{ $marketplace->name }}</td>
 									<td>{{ $marketplace->created_at->format('d/m/Y') }}</td>
