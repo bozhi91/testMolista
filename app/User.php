@@ -102,6 +102,15 @@ class User extends Authenticatable
 	{
 		return "users/{$this->id}";
 	}
+	public function getImageUrlAttribute()
+	{
+		if ( $this->image )
+		{
+			return asset("{$this->image_directory}/{$this->image}");
+		}
+
+		return asset('images/users/default.png');
+	}
 
 	public function scopeofSite($query, $site_id)
 	{
@@ -261,7 +270,7 @@ class User extends Authenticatable
 			$user->save();
 		}
 
-		return true;
+		return $user;
 	}
 
 }

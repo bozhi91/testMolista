@@ -57,35 +57,14 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 
 	public function store()
 	{
-		$validator = \Validator::make($this->request->all(), [
-			'name' => 'required|max:255',
-			'email' => 'required|email|max:255',
-			'password' => 'required|min:6',
-			'locale' => 'required|string|in:'.implode(',',\LaravelLocalization::getSupportedLanguagesKeys()),
-		]);
-		if ($validator->fails()) 
+		$fields = \App\User::getFields();
+		$validator = \Validator::make($this->request->all(), $fields);
+		if ( $validator->fails() )
 		{
 			return redirect()->back()->withInput()->withErrors($validator);
 		}
 
-		// Check email
-		if ( $exists = \App\User::where('email', $this->request->get('email'))->first() )
-		{
-			if ( $exists->hasRole('employee') )
-			{
-				return redirect()->action('Account\EmployeesController@getAssociate', urlencode($exists->email))->withInput();
-			}
-			return redirect()->back()->withInput()->with('error', trans('account.employees.email.used'));
-		}
-
-		// Create user associated to this site
-        $employee = $this->site->users()->create([
-            'name' => sanitize( $this->request->get('name') ),
-            'email' => sanitize( $this->request->get('email'), 'email'),
-            'locale' => $this->request->get('locale'),
-            'password' => bcrypt($this->request->get('password')),
-        ]);
-
+		$employee = \App\User::saveModel($this->request->all());
 		if ( !$employee )
 		{
 			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
@@ -93,6 +72,9 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 
 		// Attach employee role
 		$employee->roles()->attach( \App\Models\Role::where('name','employee')->value('id') );
+
+		// Associate to site
+		$this->site->users()->attach($employee->id);
 
 		// Associate in ticketing system
 		$this->site->ticket_adm->associateUsers([ $employee ]);

@@ -33,7 +33,7 @@ class AccountController extends Controller
 	{
 		$fields = \App\User::getFields( $this->auth->user()->id );
 		$validator = \Validator::make($this->request->all(), $fields);
-		if ($validator->fails()) 
+		if ( $validator->fails() )
 		{
 			return redirect()->back()->withInput()->withErrors($validator);
 		}

@@ -9,7 +9,7 @@
 
 			<h1 class="page-title">{{ Lang::get('account/employees.create.title') }}</h1>
 
-			{!! Form::model(null, [ 'method'=>'POST', 'action'=>'Account\EmployeesController@store', 'id'=>'edit-form' ]) !!}
+			{!! Form::model(null, [ 'method'=>'POST', 'files'=>true, 'action'=>'Account\EmployeesController@store', 'id'=>'edit-form' ]) !!}
 
 				@include('account.user-form')
 
