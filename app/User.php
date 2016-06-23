@@ -213,6 +213,8 @@ class User extends Authenticatable
 				// Only if none is defined
 				$fields['image'] = 'image|max:' . \Config::get('app.property_image_maxsize', 2048);
 			}
+			// Email cannot be updated
+			unset($fields['email']);
 		}
 
 		return $fields;

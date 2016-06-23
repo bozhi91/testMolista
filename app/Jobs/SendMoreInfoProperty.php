@@ -1,6 +1,4 @@
-<?php
-
-namespace App\Jobs;
+<?php namespace App\Jobs;
 
 use App\Property;
 use App\Models\Site\Customer;
@@ -46,13 +44,31 @@ class SendMoreInfoProperty extends Job implements ShouldQueue
 						->with('images')
 						->findOrFail($this->property->id);
 
-		// Send email to user
-		$this->sendUserEmail();
-
 		// Create ticket
-		$res = $this->createTicket();
+		try
+		{
+			$this->createTicket();
+		}
+		catch (\Exception $e)
+		{
+			\Log::error('ERROR: SendMoreInfoProperty -> createTicket ('.$e->getMessage().')');
+			\Log::error($e);
+			continue;
+		}
 
-		return $res;
+		// Send email to user
+		try
+		{
+			$this->sendUserEmail();
+		}
+		catch (\Exception $e)
+		{
+			\Log::error('ERROR: SendMoreInfoProperty -> sendUserEmail ('.$e->getMessage().')');
+			\Log::error($e);
+			continue;
+		}
+
+		return true;
 	}
 
 
