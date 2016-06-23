@@ -19,6 +19,7 @@ class AccountController extends Controller
 		if ( $site_id = \App\Session\Site::get('site_id', false) )
 		{
 			$this->site = \App\Site::findOrFail( $site_id );
+			\View::share('site_model', $this->site);
 		}
 	}
 
@@ -31,34 +32,18 @@ class AccountController extends Controller
 
 	public function updateProfile()
 	{
-		$fields = [
-			'name' => 'required|max:255',
-			'email' => "required|email|max:255|unique:users,email,{$this->auth->user()->id},id",
-			'locale' => 'required|string|in:'.implode(',',\LaravelLocalization::getSupportedLanguagesKeys()),
-			'password' => 'min:6',
-		];
+		$fields = \App\User::getFields( $this->auth->user()->id );
 		$validator = \Validator::make($this->request->all(), $fields);
-		if ($validator->fails()) 
+		if ( $validator->fails() )
 		{
 			return redirect()->back()->withInput()->withErrors($validator);
 		}
 
-		foreach ($fields as $key => $def)
+		$saved = \App\User::saveModel($this->request->all(), $this->auth->user()->id);
+		if ( !$saved )
 		{
-			if ( $key == 'password' )
-			{
-				if ( $this->request->get('password') )
-				{
-					$this->auth->user()->password = bcrypt($this->request->get('password'));
-
-				}
-				continue;
-			}
-
-			$this->auth->user()->$key = $this->request->get($key);
+			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
 		}
-
-		$this->auth->user()->save();
 
 		return redirect()->back()->with('success', trans('account/profile.message.saved'));
 	}

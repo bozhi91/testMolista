@@ -130,10 +130,12 @@ class Site extends TranslatableModel
 		return $domains;
 	}
 
-	public function locales() {
+	public function locales() 
+	{
 		return $this->belongsToMany('App\Models\Locale', 'sites_locales', 'site_id', 'locale_id');
 	}
-	public function getLocalesArrayAttribute() {
+	public function getLocalesArrayAttribute() 
+	{
 		$locales = [];
 
 		foreach ($this->locales as $locale)
@@ -142,6 +144,22 @@ class Site extends TranslatableModel
 		}
 
 		return $locales;
+	}
+
+	public function marketplaces() 
+	{
+		return $this->belongsToMany('App\Models\Marketplace', 'sites_marketplaces', 'site_id', 'marketplace_id')->withPivot('marketplace_configuration','marketplace_enabled');
+	}
+	public function getMarketplacesArrayAttribute() 
+	{
+		$marketplaces = [];
+
+		foreach ($this->marketplaces as $marketplaces)
+		{
+			$marketplaces[] = $marketplaces->id;
+		}
+
+		return $marketplaces;
 	}
 
 	public function getMainUrlAttribute()
@@ -183,6 +201,26 @@ class Site extends TranslatableModel
 							rtrim($this->main_url,'/'), // with website url
 							action('Auth\AuthController@autologin', [ $owner->id, $owner->autologin_token ])
 						);
+	}
+
+	public function getXmlPathAttribute()
+	{
+		return storage_path("sites/{$this->id}/xml");
+	}
+
+	public function getXmlFeedUrl($marketplace,$type)
+	{
+		if ( !$this->main_url )
+		{
+			return false;
+		}
+
+		return implode('/',[
+			rtrim($this->main_url, '/'),
+			'feeds',
+			$type,
+			"{$marketplace}.xml",
+		]);
 	}
 
 	public function setMailerAttribute($value)
@@ -547,7 +585,6 @@ class Site extends TranslatableModel
 		return $res;
 	}
 
-
 	public function updatePlan($data)
 	{
 		$adm = new \App\Models\Site\PlanHelper($this->id);
@@ -558,6 +595,11 @@ class Site extends TranslatableModel
 		}
 
 		return $res;
+	}
+
+	public function getMarketplaceHelperAttribute()
+	{
+		return new \App\Models\Site\MarketplaceHelper($this);
 	}
 
 }

@@ -19,40 +19,10 @@
 	<h1 class="page-title">{{ Lang::get('account/profile.h1') }}</h1>
 
 	{!! Form::model(Auth::user(), [ 'method'=>'POST', 'files'=>true, 'action'=>'AccountController@updateProfile', 'id'=>'user-profile-form' ]) !!}
-		<div class="row">
-			<div class="col-xs-12 col-sm-6">
-				<div class="form-group error-container">
-					{!! Form::label('name', Lang::get('account/profile.name')) !!}
-					{!! Form::text('name', null, [ 'class'=>'form-control required']) !!}
-				</div>
-			</div>
-			<div class="col-xs-12 col-sm-6">
-				<div class="form-group error-container">
-					{!! Form::label('email', Lang::get('account/profile.email')) !!}
-					{!! Form::email('email', null, [ 'class'=>'form-control required email' ]); !!}
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-12 col-sm-6">
-				<div class="form-group error-container">
-					{!! Form::label('locale', Lang::get('account/profile.locale')) !!}
-					{!! Form::select('locale', $site_setup['locales_select'], null, [ 'class'=>'form-control required' ]) !!}
-				</div>
-			</div>
-			<div class="col-xs-12 col-sm-6">
-				<div class="form-group">
-					<div class="error-container">
-						{!! Form::label('password', Lang::get('account/profile.password')) !!}
-						<div class="input-group">
-							{!! Form::password('password', [ 'class'=>'form-control', 'minlength'=>6 ]) !!}
-							<div class="input-group-addon"><span class="glyphicon glyphicon-eye-open show-hide-password" style="cursor: pointer;" aria-hidden="true"></span></div>
-						</div>
-					</div>
-					<div class="help-block">{!! Lang::get('account/profile.password.helper') !!}</div>
-				</div>
-			</div>
-		</div>
+
+		@include('account.user-form', [
+			'user_image' => empty(Auth::user()->image) ? false : Auth::user()->image_directory . '/' . Auth::user()->image,
+		])
 
 		<br />
 
@@ -109,6 +79,16 @@
 				ignore: '',
 				errorPlacement: function(error, element) {
 					element.closest('.error-container').append(error);
+				},
+				rules: {
+					image: {
+						required: function() {
+							if ( form.find('.user-image-link').length > 0 ) {
+								return false;
+							}
+							return form.find('select[name="signature"]').val() == 1;
+						}
+					}
 				},
 				submitHandler: function(f) {
 					LOADING.show();

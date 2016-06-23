@@ -45,4 +45,6 @@
 		'since.yesterday' => 'Yesterday, at :time',
 		'since.hours' => 'Since :hours hours ago',
 		'since.minutes' => 'Since :minutes minutes ago',
+
+		'csv.download' => 'Download results',
 	];

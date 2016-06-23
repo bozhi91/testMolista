@@ -227,6 +227,28 @@ class RoleMaintenanceCommand extends Command
 				'roles' => [ 'company' ],
 			],
 		],
+		'marketplace' => [
+			'view' => [
+				'display_name' => 'Marketplace elements view',
+				'description' => '',
+				'roles' => [ ],
+			],
+			'edit' => [
+				'display_name' => 'Marketplace elements edition',
+				'description' => '',
+				'roles' => [ ],
+			],
+			'create' => [
+				'display_name' => 'Marketplace elements creation',
+				'description' => '',
+				'roles' => [ ],
+			],
+			'delete' => [
+				'display_name' => 'Marketplace elements deletion',
+				'description' => '',
+				'roles' => [ ],
+			],
+		],
 	];
 
 	public function __construct()

@@ -93,11 +93,68 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 				break;
 		}
 
+		if ( $this->request->get('csv') )
+		{
+			return $this->exportCsv($query);
+		}
+
 		$properties = $query->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$this->set_go_back_link();
 
 		return view('account.properties.index', compact('properties','clean_filters'));
+	}
+
+	public function exportCsv($query)
+	{
+		$columns = [
+			'ref' => trans('account/properties.ref'),
+			'title' => trans('account/properties.column.title'),
+			'creation' => trans('account/properties.column.created'),
+			'location' => trans('account/properties.column.location'),
+			'lead' => trans('account/properties.tab.lead'),
+			'highlighted' => trans('account/properties.highlighted'),
+			'enabled' => trans('account/properties.enabled'),
+		];
+
+		$csv = \League\Csv\Writer::createFromFileObject(new \SplTempFileObject());
+		$csv->setDelimiter(';');
+
+		// Headers
+		$csv->insertOne( array_values($columns) );
+
+		// Lines
+		foreach ($query->limit(9999)->get() as $property)
+		{
+			$data = [];
+
+			foreach ($columns as $key => $value) 
+			{
+				switch ($key) 
+				{
+					case 'creation':
+						$data[] = $property->created_at->format('d/m/Y');
+						break;
+					case 'location':
+						$data[] = "{$property->city->name} / {$property->state->name}";
+						break;
+					case 'lead':
+						$data[] = number_format($property->customers->count(), 0, ',', '.');
+						break;
+					case 'highlighted':
+					case 'enabled':
+						$data[] = $property->$key ? trans('general.yes') : trans('general.no');
+						break;
+					default:
+						$data[] = $property->$key;
+				}
+			}
+
+			$csv->insertOne( $data );
+		}
+
+		$csv->output('properties_'.date('Ymd').'.csv');
+		exit;
 	}
 
 	public function create()
@@ -195,7 +252,11 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 	public function edit($slug)
 	{
-		$property = $this->site->properties()->whereIn('properties.id', $this->auth->user()->properties()->lists('id'))->whereTranslation('slug', $slug)->withTranslations()->first();
+		$property = $this->site->properties()
+						->whereIn('properties.id', $this->auth->user()->properties()->lists('id'))
+						->whereTranslation('slug', $slug)
+						->withEverything()
+						->first();
 		if ( !$property )
 		{
 			abort(404);
@@ -210,7 +271,11 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		$states = \App\Models\Geography\State::enabled()->where('country_id', $property->country_id)->lists('name','id');
 		$cities = \App\Models\Geography\City::enabled()->where('state_id', $property->state_id)->lists('name','id');
 
-		return view('account.properties.edit', compact('property','modes','types','energy_types','services','countries','states','cities'));
+		$marketplaces = $this->site->marketplaces()
+							->wherePivot('marketplace_enabled','=',1)
+							->enabled()->orderBy('name')->get();
+
+		return view('account.properties.edit', compact('property','modes','types','energy_types','services','countries','states','cities','marketplaces'));
 	}
 
 	public function update(Request $request, $slug)
@@ -235,6 +300,10 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
 		}
 
+		// Save marketplaces
+		$this->site->marketplace_helper->savePropertyMarketplaces($property->id, $this->request->get('marketplaces_ids'));
+
+		// Get property, with slug
 		$property = $this->site->properties()->withTranslations()->find($property->id);
 
 		return redirect()->action('Account\PropertiesController@edit', $property->slug)->with('current_tab', $this->request->get('current_tab'))->with('success', trans('account/properties.saved'));
@@ -255,6 +324,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 							$query->with('buyer');
 						}])
 						->with('customers')
+						->with('documents')
 						->first();
 		if ( !$property )
 		{
@@ -423,7 +493,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		}
 
 		// Remove image folder
-		\File::deleteDirectory($property->image_path);
+		//\File::deleteDirectory($property->image_path);
 
 		// Delete property
 		$property->delete();

@@ -41,6 +41,9 @@ Route::group([
 		Route::resource('sites', 'Admin\SitesController');
 		// Users
 		Route::resource('users', 'Admin\UsersController');
+		// Marketplaces
+		Route::get('marketplaces/check/{type}', 'Admin\MarketplacesController@getCheck');
+		Route::resource('marketplaces', 'Admin\MarketplacesController');
 		// Properties
 		Route::get('properties/check/{type}', 'Admin\Properties\ServicesController@getCheck');
 		Route::resource('properties/services', 'Admin\Properties\ServicesController');
@@ -89,6 +92,9 @@ Route::group([
 	Route::post('pages/{slug}', 'Web\PagesController@post');
 	Route::get('pages/{slug}', 'Web\PagesController@show');
 
+	// Thumbnails
+	Route::get('sites/{site_id}/properties/{property_id}/{flag}/{image}', 'Web\ThumbnailsController@property');
+
 	// Auth
 	Route::auth();
 
@@ -97,6 +103,9 @@ Route::group([
 
 	// User
 	Route::controller('customers', 'Web\CustomersController');
+
+	// Feeds
+	Route::controller('feeds', 'Web\FeedsController');
 
 	// Account
 	Route::group([
@@ -110,6 +119,13 @@ Route::group([
 		// Plans & payment
 		Route::controller('payment', 'Account\PaymentController');
 		// Properties
+		Route::group([
+			'middleware' => [
+				'permission:property-view',
+			],
+		], function() {
+			Route::controller('properties/documents', 'Account\Properties\DocumentsController');
+		});
 		Route::get('properties/leads/{slug}', 'Account\PropertiesController@getLeads');
 		Route::get('properties/catch/close/{id}', 'Account\PropertiesController@getCatchClose');
 		Route::post('properties/catch/close/{id}', 'Account\PropertiesController@postCatchClose');
@@ -131,6 +147,14 @@ Route::group([
 		Route::get('customers/properties/{slug}', 'Account\CustomersController@getAddPropertyCustomer');
 		Route::post('customers/profile/{email}', 'Account\CustomersController@postProfile');
 		Route::resource('customers', 'Account\CustomersController');
+		// Marketplaces
+		Route::group([
+			'middleware' => [
+				'role:company',
+			],
+		], function() {
+			Route::controller('marketplaces', 'Account\MarketplacesController');
+		});
 		// Tickets
 		Route::controller('tickets', 'Account\TicketsController');
 		// Reports

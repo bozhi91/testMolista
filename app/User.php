@@ -10,6 +10,9 @@ class User extends Authenticatable
 {
 	use EntrustUserTrait;
 
+	protected static $thumb_width = 75;
+	protected static $thumb_height = 75;
+
 	protected $fillable = [
 		'name', 'email', 'password', 'locale',
 	];
@@ -95,6 +98,20 @@ class User extends Authenticatable
 		return \App\Session\User::get($property_permission_key);
 	}
 
+	public function getImageDirectoryAttribute()
+	{
+		return "users/{$this->id}";
+	}
+	public function getImageUrlAttribute()
+	{
+		if ( $this->image )
+		{
+			return asset("{$this->image_directory}/{$this->image}");
+		}
+
+		return asset('images/users/default.png');
+	}
+
 	public function scopeofSite($query, $site_id)
 	{
 		$query->whereIn('id', function($query) use ($site_id) {
@@ -172,6 +189,88 @@ class User extends Authenticatable
 		{
 			$this->properties()->detach();
 		}
+	}
+
+	public static function getFields($id=false)
+	{
+		$fields = [
+			'name' => 'required|max:255',
+			'email' => 'required|email|max:255|unique:users,email,' . intval($id) . ',id',
+			'locale' => 'required|string|in:'.implode(',',\LaravelLocalization::getSupportedLanguagesKeys()),
+			'password' => $id ? 'min:6' : 'required|min:6',
+			'phone' => '',
+			'linkedin' => 'url',
+			'image' => 'image|required_if:signature,1|max:' . \Config::get('app.property_image_maxsize', 2048),
+			'signature' => 'boolean',
+		];
+
+		if ( $id )
+		{
+			$user = self::findOrFail($id);
+			// Image require ?
+			if ( $user->image )
+			{
+				// Only if none is defined
+				$fields['image'] = 'image|max:' . \Config::get('app.property_image_maxsize', 2048);
+			}
+		}
+
+		return $fields;
+	}
+	public static function saveModel($data,$id=false)
+	{
+		if ( $id )
+		{
+			$user = self::findOrFail($id);
+		}
+		else
+		{
+			$user = new \App\User();
+		}
+
+
+		foreach (self::getFields($id) as $key => $def)
+		{
+			switch ( $key )
+			{
+				case 'password':
+					if ( @$data['password'] )
+					{
+						$user->password = bcrypt( $data['password'] );
+					}
+					break;
+				case 'image':
+					break;
+				default:
+					$user->$key = @$data[$key];
+			}
+		}
+
+		if ( !$user->save() )
+		{
+			return false;
+		}
+
+		if ( @$data['image'] )
+		{
+			if ( $user->image )
+			{
+				\File::delete( public_path("{$user->image_directory}/{$user->image}") );
+			}
+			$user->image = $data['image']->getClientOriginalName();
+			while ( file_exists( public_path("{$user->image_directory}/{$user->image}") ) )
+			{
+				$user->image = uniqid() . '_' . $data['image']->getClientOriginalName();
+			}
+			$data['image']->move(public_path($user->image_directory), $user->image);
+			// Resize
+			$image_path = public_path("{$user->image_directory}/{$user->image}");
+			$thumb = \Image::make($image_path)->fit(self::$thumb_width,self::$thumb_height)->save($image_path);
+			// Save changes
+			$user->save();
+		}
+
+		return $user;
 	}
 
 }

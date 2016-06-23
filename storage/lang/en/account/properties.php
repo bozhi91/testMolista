@@ -164,4 +164,20 @@
 
 		'show.leads.empty' => 'No leads found',
 		'show.leads.add' => 'Add lead',
+
+		'marketplaces.intro' => 'Please check those marketplaces where you wish to publish this property.',
+		'marketplaces.error' => 'This property cannot be published in this marketplace:',
+
+		'tab.appraisal' => 'Appraisals',
+		'tab.documents' => 'Documents',
+		'documents.none' => 'No documents found',
+		'documents.new' => 'New document',
+		'documents.date' => 'Date',
+		'documents.title' => 'Title',
+		'documents.description' => 'Description',
+		'documents.appraiser' => 'Appraiser',
+		'documents.appraisal.value' => 'Appraisal value',
+		'documents.file' => 'Document',
+		'documents.delete.warning' => 'Are you sure you want to delete this document for good?',
+		'documents.delete.success' => 'The document has been successfully deleted',
 	];

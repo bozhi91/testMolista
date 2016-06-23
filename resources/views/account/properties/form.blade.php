@@ -1,3 +1,7 @@
+<style type="text/css">
+	#tab-marketplaces .marketplace-name { display: inline-block; padding-left: 25px; background: left center no-repeat; }
+</style>
+
 {!! Form::model($item, [ 'method'=>$method, 'action'=>$action, 'files'=>true, 'id'=>'edit-form' ]) !!}
 	{!! Form::hidden('current_tab', session('current_tab', '#tab-general')) !!}
 	{!! Form::hidden('label_color', null) !!}
@@ -11,6 +15,9 @@
 			<li role="presentation"><a href="#tab-images" aria-controls="tab-images" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.images') }}</a></li>
 			@if ( $item )
 				<li role="presentation"><a href="#tab-employees" aria-controls="tab-employees" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.employees') }}</a></li>
+				@if ( $marketplaces->count() > 0 )
+					<li role="presentation"><a href="#tab-marketplaces" aria-controls="tab-marketplaces" role="tab" data-toggle="tab">{{ Lang::get('account/menu.marketplaces') }}</a></li>
+				@endif
 			@else
 				<li role="presentation"><a href="#tab-seller" aria-controls="tab-seller" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.seller') }}</a></li>
 			@endif
@@ -334,6 +341,45 @@
 						'employees' => $item->users()->withRole('employee')->get(),
 					])
 				</div>
+
+				@if ( $marketplaces->count() > 0 )
+					<div role="tabpanel" class="tab-pane tab-main" id="tab-marketplaces">
+						<p>{{ Lang::get('account/properties.marketplaces.intro') }}</p>
+						<br />
+						<div class="table-responsive">
+							<table class="table table-striped">
+								<tbody>
+									@foreach ($marketplaces as $marketplace)
+										<?php
+											$publishable = $site_model->marketplace_helper->checkReadyProperty($marketplace,$item);
+										?>
+										<tr>
+											<td class="text-center" style="width: 60px;">
+												@if ( $publishable === true )
+													{!! Form::checkbox("marketplaces_ids[{$marketplace->id}]", $marketplace->id) !!}
+												@endif
+											</td>
+											<td>
+												<span class="marketplace-name text-nowrap;" style="background-image: url({{ asset("marketplaces/{$marketplace->logo}") }});">{{ $marketplace->name }}</span>
+											</td>
+											<td>
+												@if ( $publishable === true )
+												@else
+													{{ Lang::get('account/properties.marketplaces.error') }}<br />
+													<ul>
+														@foreach ($publishable as $key => $message)
+															<li>{{ $message }}</li>
+														@endforeach
+													</ul>
+												@endif
+											</td>
+										</tr>
+									@endforeach
+								</tbody>
+							</table>
+						</div>
+					</div>
+				@endif
 			@else
 				<div role="tabpanel" class="tab-pane tab-main" id="tab-seller">
 					<div class="row">
