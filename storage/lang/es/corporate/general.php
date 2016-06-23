@@ -2,6 +2,7 @@
 	return [
 		'demo' => 'Ver demo',
 		'moreinfo' => 'Más información',
+		'pricing' => 'Planes y precios',
 		'languages' => 'Languages',
 		'support' => 'Soporte',
 

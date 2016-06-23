@@ -48,8 +48,8 @@
 					<ul class="nav navbar-nav">
 						<li><a href="http://demo.molista.com/" target="_blank" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</a></li>
 						<li><a href="{{ action('Corporate\FeaturesController@getIndex') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.moreinfo') }}</a></li> 
-						<!--<li><a class="navbar-link" href="">Planes y precios</a></li>
-						<li><a href="navbar-link">Soporte</a></li>  -->
+						<li><a href="{{ action('Corporate\PricingController@getIndex') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.pricing') }}</a></li> 
+						<!--<li><a href="navbar-link">{{ Lang::get('corporate/general.support') }}</a></li>  -->
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Lang::get('corporate/general.languages') }} <span class="caret"></span></a>
 							<ul class="language_bar_chooser dropdown-menu">

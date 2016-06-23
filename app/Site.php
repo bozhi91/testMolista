@@ -172,6 +172,15 @@ class Site extends TranslatableModel
 		return $this->domains->sortByDesc('default')->first()->domain;
 	}
 
+	public function getAccountUrlAttribute()
+	{
+		return str_replace(
+			rtrim(\Config::get('app.application_url'),'/'), //replaces current url
+			rtrim($this->main_url,'/'), // with website url
+			action('AccountController@index')
+		);
+	}
+
 	public function getAutologinUrlAttribute()
 	{
 		$owners_ids = $this->owners_ids;
@@ -600,6 +609,34 @@ class Site extends TranslatableModel
 	public function getMarketplaceHelperAttribute()
 	{
 		return new \App\Models\Site\MarketplaceHelper($this);
+	}
+
+	public function getSignupInfo($locale=false)
+	{
+		$current_locale = \App::getLocale();
+
+		$owner = $this->users->first();
+		if ( !$owner )
+		{
+			return false;
+		}
+
+		if ( $locale )
+		{
+			\App::setLocale($locale);
+		}
+
+		$data = [
+			'site_url' => $this->main_url,
+			'account_url' => $this->account_url,
+			'owner_name' => $owner->name,
+			'owner_email' => $owner->email,
+			'pending_request' => $this->planchanges()->with('plan')->pending()->first(),
+		];
+
+		\App::setLocale($current_locale);
+
+		return $data;
 	}
 
 }

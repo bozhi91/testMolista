@@ -18,7 +18,7 @@
 					<div class="step-padder">
 						<div class="form-group error-container">
 							{!! Form::label('site[subdomain]', Lang::get('corporate/signup.site.subdomain'), [ 'class'=>'input-label text-center' ]) !!}
-							{!! Form::text('site[subdomain]', null, [ 'class'=>'form-control required text-center alphanumericHypen', 'placeholder'=>Lang::get('corporate/signup.site.subdomain.placeholder') ]) !!}
+							{!! Form::text('site[subdomain]', null, [ 'class'=>'form-control required text-center alphanumericHypen' ]) !!}
 						</div>
 						<div class="address-area text-center">
 							<p>{{ Lang::get('corporate/signup.site.subdomain.sample') }}</p>

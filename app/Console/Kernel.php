@@ -22,6 +22,7 @@ class Kernel extends ConsoleKernel
 		Commands\ProcessStatsCommand::class,
 		Commands\TicketsMaintenanceCommand::class,
 		Commands\ParseWebsiteCommand::class,
+		Commands\PlanMaintenanceCommand::class,
 	];
 
 	/**

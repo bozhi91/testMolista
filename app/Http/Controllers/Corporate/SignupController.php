@@ -13,6 +13,13 @@ class SignupController extends \App\Http\Controllers\CorporateController
 	public function getIndex()
 	{
 		session()->flush($this->session_name);
+
+		if ( $this->request->input('plan') && $plan = \App\Models\Plan::where('code', $this->request->input('plan'))->first() )
+		{
+			$this->_setStep('pack',[ 'selected' => $plan->code ]);
+			$this->_setStep('plan', $plan);
+		}
+
 		return redirect()->action('Corporate\SignupController@getUser');
 	}
 
@@ -277,6 +284,10 @@ class SignupController extends \App\Http\Controllers\CorporateController
 			$data = [ 'method' => 'none' ];
 		}
 
+		if ( @$data['method'] != 'transfer' )
+		{
+			$data['method']['iban_account'] = '';
+		}
 
 		$this->_setStep('payment', $data);
 
@@ -490,18 +501,23 @@ class SignupController extends \App\Http\Controllers\CorporateController
 			{
 				return redirect()->back()->with('error', trans('general.messages.error'));
 			}
-			$locale = \App\Models\Locale::where('locale',$data['site']['language'])->first();
-			$site->locales()->attach($locale->id);
-			$site->translateOrNew($locale->locale)->title = $data['site']['subdomain'];
+
+			$locales_codes = [ $data['site']['language'] ];
+			if ( !in_array(fallback_lang(), $locales_codes) )
+			{
+				$locales_codes[] = fallback_lang();
+			}
+			$locales = \App\Models\Locale::where('web',1)->whereIn('locale',$locales_codes)->lists('id','locale');
 		}
 		else
 		{
-			$locales = \App\Models\Locale::lists('id','locale');
-			foreach ($locales as $locale => $locale_id) 
-			{
-				$site->locales()->attach($locale_id);
-				$site->translateOrNew($locale)->title = $data['site']['subdomain'];
-			}
+			$locales = \App\Models\Locale::where('web',1)->lists('id','locale');
+		}
+
+		foreach ($locales as $locale => $locale_id) 
+		{
+			$site->locales()->attach($locale_id);
+			$site->translateOrNew($locale)->title = $data['site']['subdomain'];
 		}
 
 		// Save site
@@ -515,6 +531,9 @@ class SignupController extends \App\Http\Controllers\CorporateController
 		{
 			// Create sites_planchange
 			$site->planchanges()->create([
+				'plan_id' => $data['plan']['id'],
+				'payment_interval' => $data['pack']['payment_interval'][$data['plan']['code']],
+				'payment_method' => $data['payment']['method'],
 				'old_data' => [
 					'plan_id' => $site->plan_id ? $site->plan_id : $free_plan->id,
 					'payment_interval' => $site->payment_interval,
@@ -534,6 +553,10 @@ class SignupController extends \App\Http\Controllers\CorporateController
 		// Delete session
 		session()->forget($this->session_name);
 
+		// Send welcome email
+		$job = ( new \App\Jobs\SendWelcomeEmail($site, \LaravelLocalization::getCurrentLocale()) )->onQueue('emails');
+		$this->dispatch( $job );
+
 		// Redirect to finish
 		return redirect()->action('Corporate\SignupController@getFinish', [ $site->id, $site->subdomain ]);
 	}
@@ -546,9 +569,10 @@ class SignupController extends \App\Http\Controllers\CorporateController
 			abort(404);
 		}
 
-		$planchange = $site->planchanges()->pending()->first();
+		$data = $site->getSignupInfo();
+		$data['site'] = $site;
 
-		return view('corporate.signup.step-finish', compact('site','planchange'));
+		return view('corporate.signup.step-finish', $data);
 	}
 
 	protected function _checkStep($step)

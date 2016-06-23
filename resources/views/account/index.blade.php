@@ -63,10 +63,12 @@
 		@endif
 
 		<div id="plans-modal" class="mfp-hide app-popup-block-white app-popup-block-large">
-			@include('corporate.common.plans', [
-				'buy_plan_url' => action('Account\PaymentController@getUpgrade'),
-				'buy_button_text' => Lang::get('account/payment.plan.upgrade.simple'),
-			])
+			<div style="padding: 30px;">
+				@include('corporate.common.plans', [
+					'buy_plan_url' => action('Account\PaymentController@getUpgrade'),
+					'buy_button_text' => Lang::get('account/payment.plan.upgrade.simple'),
+				])
+			</div>
 		</div>
 
 	</div>

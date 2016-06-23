@@ -18,7 +18,11 @@
 					<div class="step-padder">
 						<div class="form-group error-container">
 							{!! Form::label('payment[method]', Lang::get('corporate/signup.payment.choose'), [ 'class'=>'input-label text-center' ]) !!}
-							{!! Form::select('payment[method]', $paymethods, null, [ 'class'=>'form-control required' ]) !!}
+							{!! Form::select('payment[method]', $paymethods, null, [ 'class'=>'form-control text-center required' ]) !!}
+						</div>
+						<div class="form-group error-container payment-method-rel payment-method-rel-transfer hide">
+							{!! Form::label('payment[iban_account]', Lang::get('corporate/signup.payment.iban'), [ 'class'=>'input-label text-center' ]) !!}
+							{!! Form::text('payment[iban_account]', null, [ 'class'=>'form-control text-center' ]) !!}
 						</div>
 					</div>
 
@@ -43,12 +47,22 @@
 				errorPlacement: function(error, element) {
 					element.closest('.error-container').append(error);
 				},
+				rules: {
+					"payment[iban_account]": {
+						required: function() {
+							return form.find('select[name="payment[method]"]').val() == 'transfer';
+						}
+					}
+				},
 				submitHandler: function(f) {
 					LOADING.show();
 					f.submit();
 				}
 			});
 
+			form.find('select[name="payment[method]"]').on('change', function(){
+				form.find('.payment-method-rel').addClass('hide').filter('.payment-method-rel-' + $(this).val() ).removeClass('hide');
+			}).trigger('change');
 		});
 	</script>
 @endsection
