@@ -27,7 +27,9 @@ class AccountController extends Controller
 	{
 		\View::share('submenu_section', 'home');
 
-		return view('account.index');
+		$pending_request = $this->site->planchanges()->pending()->first();
+
+		return view('account.index', compact('pending_request'));
 	}
 
 	public function updateProfile()

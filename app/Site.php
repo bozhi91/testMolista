@@ -2,6 +2,7 @@
 
 use \App\TranslatableModel;
 use Laravel\Cashier\Billable;
+use Laravel\Cashier\Subscription;
 
 use Swift_Mailer;
 
@@ -36,6 +37,11 @@ class Site extends TranslatableModel
 	{
 		return $this->hasMany('App\Models\Site\Planchange');
 	}
+
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class, 'site_id')->orderBy('created_at', 'desc');
+    }
 
 	public function stats() {
 		return $this->hasMany('App\Models\Site\Stats');
@@ -275,6 +281,10 @@ class Site extends TranslatableModel
 		return new \App\Models\Site\TicketAdm( $this->id );
 	}
 
+	public function getHasPendingPlanRequestAttribute() {
+		return $this->planchanges()->pending()->count();
+	}
+
 	public function scopeEnabled($query)
 	{
 		return $query->where("{$this->getTable()}.enabled", 1);
@@ -357,7 +367,7 @@ class Site extends TranslatableModel
 	{
 		$path = $this->getSiteSetupPath();
 
-		if ( !file_exists($path) )
+		if ( true || !file_exists($path) )
 		{
 			$this->updateSiteSetup();
 		}
@@ -416,30 +426,35 @@ class Site extends TranslatableModel
 		// Locale backup
 		$locale_backup = \App::getLocale();
 
+		// Site updated
+		$site = self::find( $this->id );
+
 		// Site information
 		$setup = [
-			'site_id' => $this->id,
-			'theme' => $this->theme,
-			'logo' => $this->logo ? asset("sites/{$this->id}/{$this->logo}") : false,
-			'favicon' => $this->favicon ? asset("sites/{$this->id}/{$this->favicon}") : false,
-			'social_media' => $this->social_array,
-			'seo' => $this->i18n,
+			'site_id' => $site->id,
+			'theme' => $site->theme,
+			'logo' => $site->logo ? asset("sites/{$site->id}/{$site->logo}") : false,
+			'favicon' => $site->favicon ? asset("sites/{$site->id}/{$site->favicon}") : false,
+			'social_media' => $site->social_array,
+			'seo' => $site->i18n,
 		];
 
 		// Plan & payment
 		$setup['plan'] = array_merge(
-			$this->plan ? $this->plan->toArray() : \App\Models\Plan::where('code','free')->first()->toArray(),
+			$site->plan ? $site->plan->toArray() : \App\Models\Plan::where('code','free')->first()->toArray(),
 			[
-				'payment_method' => $this->payment_method,
-				'iban_account' => $this->iban_account,
-				'stripe_id' => $this->stripe_id,
-				'paid_until' => $this->paid_until,
+				'payment_method' => $site->payment_method,
+				'iban_account' => $site->iban_account,
+				'stripe_id' => $site->stripe_id,
+				'paid_until' => $site->paid_until,
+				'card_brand' => $site->card_brand,
+				'card_last_four' => $site->card_last_four,
 			]
 		);
 
 		// Locales
 		$setup['locales'] = [];
-		$locales = $this->locales->sortBy('native');
+		$locales = $site->locales->sortBy('native');
 		foreach ($locales as $locale)
 		{
 			$setup['locales'][$locale->locale] = [
@@ -459,7 +474,7 @@ class Site extends TranslatableModel
 		foreach ($setup['locales'] as $locale => $attr)
 		{
 			\App::setLocale($locale);
-			$widgets = $this->widgets()->withTranslations()->withMenu()->orderBy('position')->get();
+			$widgets = $site->widgets()->withTranslations()->withMenu()->orderBy('position')->get();
 			foreach ($widgets as $widget)
 			{
 				$w = [
@@ -499,7 +514,7 @@ class Site extends TranslatableModel
 		$contents .= "// site setup - created on " . date("Y-m-d H:i:s") . "\n";
 		$contents .= "return " . var_export($setup, true) . ";\n";
 
-		return \File::put($this->getSiteSetupPath(), $contents);
+		return \File::put($site->getSiteSetupPath(), $contents);
 	}
 	public function getSiteSetupPath()
 	{
@@ -594,18 +609,6 @@ class Site extends TranslatableModel
 		return $res;
 	}
 
-	public function updatePlan($data)
-	{
-		$adm = new \App\Models\Site\PlanHelper($this->id);
-
-		if ( $res = $adm->updatePlan($data) )
-		{
-			$this->updateSiteSetup();
-		}
-
-		return $res;
-	}
-
 	public function getMarketplaceHelperAttribute()
 	{
 		return new \App\Models\Site\MarketplaceHelper($this);
@@ -637,6 +640,81 @@ class Site extends TranslatableModel
 		\App::setLocale($current_locale);
 
 		return $data;
+	}
+
+	public function updatePlan($planchange_id)
+	{
+		$planchange = $this->planchanges()->withTrashed()->with('plan')->find($planchange_id);
+		if ( !$planchange )
+		{
+			return false;
+		}
+
+		$site_update = [
+			'plan_id' => $planchange->plan_id,
+			'payment_interval' => $planchange->payment_interval,
+			'payment_method' => $planchange->payment_method,
+			'iban_account' => null,
+			'paid_until' => null,
+		];
+
+		switch ( $planchange->payment_method )
+		{
+			case 'stripe':
+				break;
+			case 'transfer':
+				$site_update['iban_account'] = @$planchange->new_data['iban_account'];
+				$site_update['paid_until'] = @$planchange->new_data['paid_until'];
+				if ( !$site_update['paid_until'] )
+				{
+					$site_update['paid_until'] = null;
+				}
+				break;
+		}
+
+		$this->update($site_update);
+
+		// Delete current accepted plan
+		$this->planchanges()->where('status','accepted')->where('id','!=',$planchange->id)->delete();
+
+		// Mark current as accepted
+		$planchange->status = 'accepted';
+		$planchange->save();
+
+		// If new plan is not free
+		if ( $planchange->plan && !$planchange->plan->is_free )
+		{
+			// Enable all languages
+			foreach (\App\Models\Locale::where('web',1)->lists('id','locale') as $locale => $locale_id) 
+			{
+				if ( $this->locales->contains( $locale_id ) )
+				{
+					continue;
+				}
+
+				$this->locales()->attach( $locale_id );
+			}
+		}
+		
+		$this->updateSiteSetup();
+
+		// Send mail to owners
+		$locale_backup = \App::getLocale();
+		$email_data = $planchange->site->getSignupInfo( $planchange->locale );
+		$email_data['pending_request'] = $planchange;
+		if ( @$email_data['owner_email'] )
+		{
+			\App::setLocale( $planchange->locale );
+			$html = view('emails.planchange.accept', $email_data)->render();
+			\Mail::send('dummy', [ 'content' => $html ], function($message) use ($email_data) {
+				$message->from( env('MAIL_FROM_EMAIL'), env('MAIL_FROM_NAME') );
+				$message->subject( trans('admin/planchange.accept.subject') );
+				$message->to( $email_data['owner_email'] );
+			});
+		}
+		\App::setLocale( $locale_backup );
+
+		return true;
 	}
 
 }

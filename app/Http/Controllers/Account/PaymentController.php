@@ -15,6 +15,9 @@ class PaymentController extends \App\Http\Controllers\AccountController
 
 	public function getUpgrade()
 	{
+return redirect()->action('AccountController@index');
+echo 'getUpgrade';
+die;
 		$current_plan_level = @intval( $this->site->plan->level );
 
 		$plans = \App\Models\Plan::getEnabled();
@@ -27,10 +30,19 @@ class PaymentController extends \App\Http\Controllers\AccountController
 			}
 		}
 
+		if ( $this->site->has_pending_plan_request )
+		{
+			return redirect()->action('AccountController@index');
+			$pending_request = $this->site->planchanges()->pending()->first();
+		}
+
 		return view('account.payment.upgrade', compact('current_plan_level','plans'));
 	}
 	public function postUpgrade()
 	{
+return redirect()->action('AccountController@index');
+echo 'postUpgrade';
+die;
 		// Validation fields
 		$fields = [
 			'plan' => 'required|exists:plans,code,enabled,1',
@@ -78,10 +90,16 @@ class PaymentController extends \App\Http\Controllers\AccountController
 
 	public function getMethod()
 	{
+return redirect()->action('AccountController@index');
+echo 'getMethod';
+die;
 		return view('account.payment.method');
 	}
 	public function postMethod()
 	{
+return redirect()->action('AccountController@index');
+echo 'postMethod';
+die;
 echo "<pre>";
 print_r($this->request->all());
 echo "</pre>";

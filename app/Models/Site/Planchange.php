@@ -50,6 +50,11 @@ class Planchange extends \Illuminate\Database\Eloquent\Model
 		return @$this->new_data['iban_account'];
 	}
 
+	public function getLocaleNameAttribute()
+	{
+		return \App\Models\Locale::where('locale',$this->locale)->value('native');
+	}
+
 	public function getSummaryAttribute()
 	{
 		$summary = (object) [
@@ -74,7 +79,7 @@ class Planchange extends \Illuminate\Database\Eloquent\Model
 
 	public function scopeActive($query)
 	{
-		return $query->where("{$this->getTable()}.status", 'active');
+		return $query->where("{$this->getTable()}.status", 'accepted')->whereNull("{$this->getTable()}.deleted_at");
 	}
 
 }

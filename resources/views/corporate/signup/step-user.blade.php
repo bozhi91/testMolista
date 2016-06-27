@@ -35,7 +35,8 @@
 							<div class="checkbox error-container">
 								<label>
 									{!! Form::checkbox('user[new][accept]', 1, null, [ 'class'=>'required' ]) !!}
-									<a href="javascript: alert('[TODO] link to terms');" target="_blank">{{ Lang::get('corporate/signup.user.new.accept') }}</a>
+									<!-- a href="javascript: alert('[TODO] link to terms');" target="_blank">{{ Lang::get('corporate/signup.user.new.accept') }}</a -->
+									{{ Lang::get('corporate/signup.user.new.accept') }}
 								</label>
 							</div>
 							<div class="checkbox">
@@ -66,7 +67,7 @@
 								{{ Lang::get('corporate/signup.user.old.no.account') }}
 								<a href="#" class="user-type-switch" data-rel="new"><strong>{{ Lang::get('corporate/signup.user.old.create.account') }}</strong></a>
 							</div>
-							<div class="error-container">
+							<div class="error-container hide">
 								{{ Lang::get('corporate/signup.user.old.password.forgot') }}
 								<a href="javascript: alert('[TODO] link to password remind');" target="_blank"><strong>{{ Lang::get('corporate/signup.user.old.password.click') }}</strong></a>
 							</div>

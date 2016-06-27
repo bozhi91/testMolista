@@ -19,8 +19,6 @@ class Property extends TranslatableModel
 		'published_at', 
 		'created_at', 
 		'updated_at',
-		'stripe_id',
-		'paid_until',
 	];
 	protected $auditableTypes = [ 'created', 'saved', 'deleted' ];
 	public static $logCustomMessage = '{user.name|Anonymous} {type} this property {elapsed_time}';

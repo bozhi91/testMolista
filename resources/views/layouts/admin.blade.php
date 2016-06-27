@@ -31,6 +31,16 @@
 
 		<div class="collapse navbar-collapse" id="app-navbar-collapse">
 			<ul class="nav navbar-nav navbar-right">
+				@if ( Auth::user()->can('planchange-aproove') )
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Lang::get('admin/menu.payment') }} <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							@permission('planchange-aproove')
+								<li><a href="{{ action('Admin\PlanchangeController@getIndex') }}">{{ Lang::get('admin/menu.planchange') }}</a></li>
+							@endpermission
+						</ul>
+					</li>
+				@endif
 				@permission('site-*')
 					<li><a href="{{ action('Admin\SitesController@index') }}">{{ Lang::get('admin/menu.sites') }}</a></li>
 				@endpermission

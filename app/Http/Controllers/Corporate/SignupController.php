@@ -286,7 +286,7 @@ class SignupController extends \App\Http\Controllers\CorporateController
 
 		if ( @$data['method'] != 'transfer' )
 		{
-			$data['method']['iban_account'] = '';
+			$data['iban_account'] = '';
 		}
 
 		$this->_setStep('payment', $data);
@@ -511,7 +511,7 @@ class SignupController extends \App\Http\Controllers\CorporateController
 		}
 		else
 		{
-			$locales = \App\Models\Locale::where('web',1)->lists('id','locale');
+			$locales = \App\Models\Locale::whereIn('locale', [ fallback_lang() ])->lists('id','locale');
 		}
 
 		foreach ($locales as $locale => $locale_id) 
@@ -547,6 +547,7 @@ class SignupController extends \App\Http\Controllers\CorporateController
 					'iban_account' => @$data['payment']['iban_account'],
 				],
 				'invoicing' => $data['invoicing'],
+				'locale' => \LaravelLocalization::getCurrentLocale(),
 			]);
 		}
 

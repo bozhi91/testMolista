@@ -60,6 +60,7 @@
 		'confirm.subdomain' => 'Nombre de la página',
 
 		'finish.h2' => 'El sitio se ha creado correctamente',
+		'finish.h2.ready' => 'El sitio está listo',
 		'finish.congratulations' => '<p>Felicitaciones, tu página web está disponible en <strong>:website_url</strong></p>',
 		'finish.gotoweb' => 'Ir a mi página web',
 		'finish.gotoaccount' => 'Ir al backoffice',
@@ -69,6 +70,7 @@
 									<li>Plan: :plan</li>
 									<li>:price_text</li>
 								</ul>',
+		'finish.stripe.button' => 'Pagar ahora',
 		'finish.stripe.warnings' => '<p>Para procesar nuestros pagos usamos Stripe, una pasarela de pago segura que utiliza diversas herramientas para evitar el fraude con tarjetas de crédito. Para más información sobre stripe, visite <a href="https://stripe.com" target="_blank">www.stripe.com</a>.</p>',
 		'finish.transfer.intro' => '<p>En este momento estamos confirmando los datos de pago que nos has indicado para habilitar el plan :plan (:price_text). Te avisaremos cuando los hayamos comprobado.</p>
 									<p>Mientras tanto, comienza a preparar tu página web disfrutando de nuestro plan Free:</p>

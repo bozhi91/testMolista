@@ -58,8 +58,13 @@ Route::group([
 		Route::controller('utils/user', 'Admin\Utils\UserController');
 		Route::controller('utils/locale', 'Admin\Utils\LocaleController');
 		Route::controller('utils/parser', 'Admin\Utils\ParserController');
+		// Plan change requests
+		Route::group([
+			'middleware' => [ 'permission:planchange-aproove' ]
+		], function() {
+			Route::controller('planchange', 'Admin\PlanchangeController');
+		});
 		// Error log
-		//Route::get('errorlog', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 		Route::get('errorlog', [ 
 			'middleware' => ['role:admin'], 
 			'uses' => '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index' 
@@ -188,6 +193,10 @@ Route::group([
 		});
 	});
 });
+
+// Stripe --------------------------------------------------------------------------
+Route::post('stripe/webhook','\Laravel\Cashier\Http\Controllers\WebhookController@handleWebhook');
+Route::controller('stripe', 'StripeController');
 
 
 // Ajax ----------------------------------------------------------------------------

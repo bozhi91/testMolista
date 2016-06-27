@@ -4,6 +4,9 @@
 		'home' => 'Admin',
 		'list' => 'List all',
 
+		'payment' => 'Pagos',
+		'planchange' => 'Cambios pendientes',
+
 		'sites' => 'Sites',
 
 		'users' => 'Users',

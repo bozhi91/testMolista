@@ -60,6 +60,7 @@
 		'confirm.subdomain' => 'Website name',
 
 		'finish.h2' => 'The website was successfully created',
+		'finish.h2.ready' => 'Your website is up and running',
 		'finish.congratulations' => '<p>Congratulations, your website is available at <strong>:website_url</strong></p>',
 		'finish.gotoweb' => 'Go to my website',
 		'finish.gotoaccount' => 'Go to my backoffice',
@@ -69,6 +70,7 @@
 									<li>Plan: :plan</li>
 									<li>:price_text</li>
 								</ul>',
+		'finish.stripe.button' => 'Pay now',
 		'finish.stripe.warnings' => '<p>To process our payments we use Stripe, a very secure payment gateway that utilizes several tools to prevent fraud. For more information on Stripe, please visit <a href="https://stripe.com" target="_blank">www.stripe.com</a>.</p>',
 		'finish.transfer.intro' => '<p>We are now verifying the payment information you provided. We will let you know when we are done with it and you will be able to enjoy your chose plan (:plan - :price_text).</p>
 									<p>In the meantime, prepare your website with our Free plan:</p>

@@ -249,6 +249,13 @@ class RoleMaintenanceCommand extends Command
 				'roles' => [ ],
 			],
 		],
+		'planchange' => [
+			'aproove' => [
+				'display_name' => 'Plan change requests aprooval',
+				'description' => '',
+				'roles' => [ ],
+			],
+		],
 	];
 
 	public function __construct()

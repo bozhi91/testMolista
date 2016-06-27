@@ -51,12 +51,14 @@ class CreatePlanTables extends Migration
 			$table->text('old_data');
 			$table->text('new_data');
 			$table->text('invoicing');
+			$table->char('locale', 2)->nullable()->default('es');
 			$table->text('response');
 			$table->string('status')->default('pending');
 			$table->timestamps();
 			$table->softDeletes();
 			$table->foreign('site_id')->references('id')->on('sites')->onUpdate('cascade')->onDelete('set null');
 			$table->foreign('plan_id')->references('id')->on('plans')->onUpdate('cascade')->onDelete('set null');
+			$table->foreign('locale')->references('locale')->on('locales')->onUpdate('cascade')->onDelete('set null');
 		});
 		// Site columns
 		Schema::table('sites', function(Blueprint $table)
