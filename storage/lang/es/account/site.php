@@ -8,6 +8,7 @@
 		'configuration.tab.texts' => 'SEO',
 		'configuration.tab.social' => 'Redes sociales',
 		'configuration.tab.mail' => 'Emails',
+		'configuration.tab.signature' => 'Firma',
 
 		'configuration.languages' => 'Idiomas habilitados',
 		'configuration.languages.error' => 'Seleccione al menos un idioma',
@@ -58,6 +59,11 @@
 		'configuration.mailing.test.error' => 'Ocurrió un error al enviar el email',
 		'configuration.mailing.mailgun.username' => 'Username',
 		'configuration.mailing.mailgun.help' => '<p>Ingrese el host, username y password para Mailgun.</p>',
+
+		'configuration.signature.name' => 'Nombre de la empresa',
+		'configuration.signature.phone' => 'Teléfono de empresa',
+		'configuration.signature.email' => 'Email de empresa',
+		'configuration.signature.address' => 'Dirección principal',
 
 		'configuration.client.register' => 'Permitir registro de clientes online',
 

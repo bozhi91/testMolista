@@ -8,6 +8,7 @@
 		'configuration.tab.texts' => 'SEO',
 		'configuration.tab.social' => 'Social media',
 		'configuration.tab.mail' => 'Emails',
+		'configuration.tab.signature' => 'Signature',
 
 		'configuration.languages' => 'Enabled languages',
 		'configuration.languages.error' => 'Please select at least one language',
@@ -58,6 +59,11 @@
 		'configuration.mailing.test.error' => 'An error occurred while trying to send the email',
 		'configuration.mailing.mailgun.username' => 'Username',
 		'configuration.mailing.mailgun.help' => '<p>Please provide the host, username and password for Mailgun.</p>',
+
+		'configuration.signature.name' => 'Company name',
+		'configuration.signature.phone' => 'Company phone',
+		'configuration.signature.email' => 'Company email',
+		'configuration.signature.address' => 'Business address',
 
 		'configuration.client.register' => 'Allow online customer registration',
 

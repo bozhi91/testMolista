@@ -13,6 +13,10 @@ class Site extends TranslatableModel
 	protected $table = 'sites';
 	protected $guarded = [];
 
+	protected $casts = [
+		'signature' => 'array',
+	];
+
 	public static function boot()
 	{
 		parent::boot();
@@ -207,6 +211,20 @@ class Site extends TranslatableModel
 			$type,
 			"{$marketplace}.xml",
 		]);
+	}
+
+	public function getSignaturePartsAttribute()
+	{
+		$signature = $this->signature;
+		
+		if ( !is_array($signature) )
+		{
+			$signature = [];
+		}
+
+		$signature['url'] = $this->main_url;
+
+		return $signature;
 	}
 
 	public function setMailerAttribute($value)
