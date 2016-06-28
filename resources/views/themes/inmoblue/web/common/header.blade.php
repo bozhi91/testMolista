@@ -68,9 +68,18 @@
 		</div>
 	</div>
 </nav>
+<section id="navbar-space"></section>
 
 <script type="text/javascript">
 	ready_callbacks.push(function() {
-		var cont = $('#header');
+		var cont = $('#header-top');
+		var cont2 = $('#header');
+		var space = $('#navbar-space');
+		var h = window.innerHeight;
+
+		if ( h < 768 ) {
+			space.height(cont.outerHeight() + cont2.outerHeight()); 
+		}
+
 	});
 </script>
