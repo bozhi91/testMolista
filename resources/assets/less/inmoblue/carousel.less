@@ -1,6 +1,85 @@
 @import '../app/carousel.less';
 
-@media screen and (min-width: 768px) {
+#home {
+
+	.main-property {
+		margin: 0px auto;
+
+		.item {
+			background: center center no-repeat;
+			background-size: cover;
+			min-height: 720px;
+
+			.carousel-caption {
+
+				.carousel-caption-block {
+					text-align: left;
+					margin-top: 25%;
+
+					.carousel-caption-text {
+						display: inline-block;
+					    text-decoration: none;
+					    background: #e6e6e6;
+					    opacity: 0.8 !important;
+
+						.carousel-title {
+							color: @black;
+							font-weight: bold;
+							font-size: 22px;
+							margin: 0px;
+							margin-bottom: 5px;
+						}
+
+						.carousel-price {
+							color: @pink;
+							font-size: 22px;
+							margin: 0px;
+							margin-bottom: 15px;
+						}
+
+						.carousel-button {
+							background: @pink;
+							color: @white;
+							padding: 5px;
+							font-size: 16px;
+						}
+
+					}
+
+				}
+
+				.slider-quick-search {
+					background: @inmoblue-topfooter;
+
+					input, select {
+						color: @black;
+					}
+
+					.text-right a {
+						color: @white;
+					}
+
+					.text-right input {
+						color: @white;
+						background: @pink;
+					}
+
+				}
+
+			}
+
+		}
+	}
+}
+
+@media (min-width: 1199px) {
+	.carousel-caption {
+		max-width: 1100px;
+		margin: auto;
+	}
+}
+
+@media (min-width: 768px) {
 	.carousel-caption {
 	    left: 10%;
 	    right: 10%;
@@ -9,72 +88,11 @@
 	}
 
 	.slider-quick-search {
-	    background: @inmoblue-topfooter;
-	    padding: 20px 35px;
-	}
-}
-
-.carousel-caption-block {
-	text-align: left;
-	margin-top: 25%;
-}
-
-.carousel-caption {
-
-	.carousel-caption-text {
-
-		.carousel-title {
-			color: @black;
-			font-weight: bold;
-			font-size: 22px;
-			margin: 0px;
-			margin-bottom: 5px;
-		}
-
-		.carousel-price {
-			color: @pink;
-			font-size: 22px;
-			margin: 0px;
-			margin-bottom: 15px;
-		}
-
-		.carousel-button {
-			background: @pink;
-			color: @white;
-			padding: 5px;
-			font-size: 16px;
-		}
-
+	    padding: 20px;
 	}
 
-}
-
-@media (min-width: 768px) {
 	#home .main-property .carousel-caption-text {
 	    padding: 10px 20px;
     	min-width: 200px;
 	}
-}
-
-#home .main-property .carousel-caption-text {
-    display: inline-block;
-    text-decoration: none;
-    background: #e6e6e6;
-    opacity: 0.8 !important;
-
-    .text-nowrap.hidden-xs {
-    	display: block;
-    }
-}
-
-#home .main-property {
-    max-width: 1280px;
-    margin: 0px auto;
-    max-height: 720px;
-}
-
-#home .main-property .item .main-image {
-    width: 100%;
-    min-height: 500px;
-    max-height: 720px;
 }

@@ -1,0 +1,31 @@
+#home {
+	.search-area { 
+		padding: 35px 0px; 
+		.quick-link {
+			margin-bottom: 30px; display: block; position: relative; padding: 0px 70px 0px 110px; border-radius: @borderRadius 20px @borderRadius @borderRadius; text-decoration: none; overflow: hidden;
+			.text { padding: 20px 0px; color: @colorWhite; font-size: 18px; line-height: 1em; }
+			.image { height: 100%; width: 85px; position: absolute; top: 0px; left: 0px; background: center center no-repeat; background-size: cover; }
+			.arrow { 
+				width: 48px; position: absolute; top: 0px;right: 0px; padding-top: 11px;
+				span { display: inline-block; border: 3px solid @colorWhite; color: @colorWhite; border-radius: 30px; width: 36px; height: 36px; line-height: 24px; font-size: 40px; text-align: center; }
+			}
+			&.quick-link-new { 
+				background: #337884;
+				.image { background-image: url('/images/home/link-new.jpg'); }
+			}
+			&.quick-link-rent { 
+				background: #30ac4a;
+				.image { background-image: url('/images/home/link-rent.jpg'); }
+			}
+			&.quick-link-used { 
+				background: #993556;
+				.image { background-image: url('/images/home/link-used.jpg'); }
+			}
+			&.quick-link-houses { 
+				background: #b8a528;
+				.image { background-image: url('/images/home/link-houses.jpg'); }
+			}
+			&:hover { opacity: 0.9; }
+		}
+	}
+}
