@@ -66,7 +66,7 @@ class WebhookController extends BaseController
 	{
 		\Log::info("Stripe\WebhookController -> {$event}");
 		\Log::info($payload);
-		return new Response('Webhook Handled', 200);
+		return response('Webhook Handled', 200);
 	}
 
 }
