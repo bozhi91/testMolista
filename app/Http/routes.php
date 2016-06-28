@@ -195,7 +195,7 @@ Route::group([
 });
 
 // Stripe --------------------------------------------------------------------------
-Route::post('stripe/webhook','\Laravel\Cashier\Http\Controllers\WebhookController@handleWebhook');
+Route::post('stripe/webhook','Stripe\WebhookController@handleWebhook');
 Route::controller('stripe', 'StripeController');
 
 
