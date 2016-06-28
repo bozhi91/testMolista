@@ -1,1 +1,136 @@
 @import '../app/header.less';
+
+@media (min-width: 768px) {
+	#header-top {
+		background-color: @inmoblue-topheader;
+		padding-top: 7px;
+		padding-bottom: 7px;
+
+		.navbar-nav {
+			margin-right: 35px;
+
+			.main-item.dropdown-toggle {
+			    border: 1px solid;
+				border-radius: 25px;
+				padding: 2px 12px;
+		    	background-color: transparent;
+		    	color: @white;
+			}
+
+			.social-media {
+				margin-left: 15px;
+
+				ul {
+					padding-top: 3px;
+
+					li {
+						padding-left: 15px;
+
+						a {
+							color: @white;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 768px) {
+	#header-top {
+		position: fixed;
+	    right: 0;
+	    left: 0;
+	    z-index: 1030;
+	    top: 0;
+	    border-width: 0 0 1px;
+
+		background-color: @inmoblue-topheader;
+
+		.navbar-nav {
+			margin-right: 0px;
+
+			li {
+				display: inline-block;
+			}
+
+			.main-item.dropdown-toggle {
+			    border: 1px solid;
+				border-radius: 25px;
+				padding: 2px 12px;
+		    	background-color: transparent;
+		    	color: @white;
+			}
+
+			.social-media {
+				margin-left: 15px;
+
+				ul {
+					padding-top: 3px;
+
+					li {
+						padding-left: 15px;
+
+						a {
+							color: @white;
+						}
+					}
+				}
+			}
+
+			.open .dropdown-menu {
+				position: absolute;
+				z-index: 1031;
+				background-color: white;
+			    border: 1px solid;
+			    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+			}
+		}
+	}
+}
+
+
+#header {
+	background-color: @inmoblue-bottomheader;
+
+	.navbar-nav {
+		@media (min-width: 768px) {
+			.main-item {
+			    padding: 21px 20px 21px 20px;
+			}
+
+			li a:hover {
+				background: @inmoblue-topheader !important;
+			}
+		}
+	}
+
+	.navbar-brand {
+	    margin: 10px auto;
+	}
+
+	.navbar-collapse {
+    	border-color: @inmoblue-topheader;
+    }
+
+    .navbar-nav .main-item:hover, .navbar-nav .main-item.current {
+	    background: @inmoblue-topheader;
+	}
+
+	@media (min-width: 768) and (max-width: 991px) {
+		.navbar-nav .main-item {
+			padding: 21px 15px 21px 15px;
+		}
+	}
+}
+
+@media (max-width: 767px) {
+	#header {
+		top: 41px;
+		z-index: 1020;
+
+		.navbar-brand {
+		    margin: 4px auto 4px 10px;
+		}
+	}
+}
