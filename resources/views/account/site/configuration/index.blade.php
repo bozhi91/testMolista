@@ -453,36 +453,45 @@
 				$('#mailer-service-input').val( $(e.target).data().service );
 			});
 
+			// Test email configuration
+			form.find('.mail-group-area').on('change','input, select', function(){
+				$(this).closest('.mail-group-area').data('changed',1);
+			});
 			form.on('click', '.btn-test-email', function(e){
 				e.preventDefault();
-				SITECOMMON.prompt("{{ print_js_string( Lang::get('account/site.configuration.mailing.test.email') ) }}", function (e, str) {
-					if (e) {
-						LOADING.show();
-						$.ajax({
-							url: '{{ action('Account\Site\ConfigurationController@postTestMailerConfiguration') }}',
-							type: 'POST',
-							dataType: 'json',
-							data: {
-								_token: '{{ Session::getToken() }}',
-								test_email: str
-							},
-							success: function(data) {
-								LOADING.hide();
-								if (data.success) {
-									alertify.success("{{ print_js_string( Lang::get('account/site.configuration.mailing.test.success') ) }}");
-								} else {
-									alertify.error("{{ print_js_string( Lang::get('account/site.configuration.mailing.test.error') ) }}");
-								}
-							},
-							error: function() {
-								LOADING.hide();
-								alertify.error("{{ print_js_string( Lang::get('account/site.configuration.mailing.test.error') ) }}");
-							}
-						});
+
+				var cont = $(this).closest('.mail-group-area');
+
+				if ( cont.data().changed ) {
+					alertify.error("{{ print_js_string( Lang::get('account/site.configuration.mailing.test.changed') ) }}");
+					return false;
+				}
+
+				LOADING.show();
+				$.ajax({
+					url: '{{ action('Account\Site\ConfigurationController@postTestMailerConfiguration') }}',
+					type: 'POST',
+					dataType: 'json',
+					data: {
+						_token: '{{ Session::getToken() }}',
+						protocol: cont.find('.input-protocol').val()
+					},
+					success: function(data) {
+						LOADING.hide();
+						if (data.success) {
+							alertify.success("{{ print_js_string( Lang::get('account/site.configuration.mailing.test.success') ) }}");
+						} else {
+							alertify.error("{{ print_js_string( Lang::get('account/site.configuration.mailing.test.error') ) }}");
+						}
+					},
+					error: function() {
+						LOADING.hide();
+						alertify.error("{{ print_js_string( Lang::get('account/site.configuration.mailing.test.error') ) }}");
 					}
 				});
 			});
 
+			// Theme preview
 			form.on('click','.theme-preview-trigger',function(e){
 				e.preventDefault();
 

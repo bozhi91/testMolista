@@ -54,10 +54,11 @@
 		'configuration.mailing.test.email' => 'Receiver email',
 		'configuration.mailing.test.email.subject' => 'Email configuration test',
 		'configuration.mailing.test.email.content' => '<p>This is a test for your email configuration.</p><p>If you receive this email, it means your configuration works as expected.</p>',
-		'configuration.mailing.test.success' => 'The email was sent successfully',
-		'configuration.mailing.test.error' => 'An error occurred while trying to send the email',
+		'configuration.mailing.test.success' => 'The configuration was successfully tested',
+		'configuration.mailing.test.error' => 'An error occurred while testing the configuration',
 		'configuration.mailing.mailgun.username' => 'Username',
 		'configuration.mailing.mailgun.help' => '<p>Please provide the host, username and password for Mailgun.</p>',
+		'configuration.mailing.test.changed' => 'The email configuration has changed. Please save your changes before performing the test.',
 
 		'configuration.client.register' => 'Allow online customer registration',
 
