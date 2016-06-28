@@ -17,6 +17,8 @@
 
 <body>
 
+@include('common.analytics')
+
 <nav class="navbar navbar-default">
 	<div class="container">
 		<div class="navbar-header">

@@ -28,6 +28,8 @@
 
 <body>
 
+	@include('corporate.common.analytics')
+
 	<header id="header">
 		<nav class="navbar navbar-default">
 			<div class="container">
