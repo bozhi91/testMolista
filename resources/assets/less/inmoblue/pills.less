@@ -1,1 +1,67 @@
-@import '../app/pills.less';
+.property-pill {
+	font-size: 16px; color: @colorGrey; margin-bottom: 30px; border: 1px solid @colorGrey; background: @white;
+	.image { display: block; height: 165px; background: center center no-repeat; background-size: cover; margin-bottom: 20px; }
+	.labels { 
+		margin-bottom: 5px; 
+	    float: right;
+	    margin-right: 15px;
+
+		.label { background: @colorPurple; color: @colorWhite; text-transform: uppercase; font-size: 16px; }
+	}
+	
+	.metrics { display: none; }
+
+	.text { padding-bottom: 10px; }
+
+	&.property-pill-small {
+		position: relative;
+
+		.image { position: absolute; left: 0px; width: 100px; height: 100%; margin: 0px; }
+		.text { padding: 10px 10px 10px 120px; }
+	}
+
+	.padder {
+
+		.text {
+			padding-left: 15px;
+
+			.title a {
+				color: @colorGrey;
+				font-weight: bold;
+				text-decoration: none;
+			}
+
+			.price {
+				color: @pink;
+			}
+
+			.location {
+
+			}
+
+		}
+
+	}
+}
+
+.nav-pills {
+	> li {
+		> a { 
+			border-radius: @borderRadius; 
+			&:hover, &:focus { background-color: @colorGreyLight; }
+		}
+		> ul {
+			> li { 
+				margin-top: 1px; 
+				> a { 
+					font-size: 0.9em; color: @colorPurple; padding: 7px 15px 7px 25px;
+					&:hover, &:focus { color: @colorPurpleDark; background-color: transparent; }
+					&.current { color: @colorPurple; font-weight: bold; }
+				}
+			}
+		}
+		&.active {
+			> a, > a:hover, > a:focus { background-color: @colorPurple; }
+		}
+	}
+}
