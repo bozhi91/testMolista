@@ -4,59 +4,59 @@ use Laravel\Cashier\Http\Controllers\WebhookController as BaseController;
 
 class WebhookController extends BaseController
 {
-	public function handleCustomerCreated($payload)
+	public function handleCustomerCreated(array $payload)
 	{
 		return logWebhook('customer.created', $payload);
 	}
 
-	public function handleCustomerDeleted($payload)
+	public function handleCustomerDeleted(array $payload)
 	{
 		return logWebhook('customer.deleted', $payload);
 	}
 
-	public function handleCustomerUpdated($payload)
+	public function handleCustomerUpdated(array $payload)
 	{
 		return logWebhook('customer.updated', $payload);
 	}
 
-	public function handleCustomerSubscriptionCreated($payload)
+	public function handleCustomerSubscriptionCreated(array $payload)
 	{
 		return logWebhook('customer.subscription.created', $payload);
 	}
 
-	public function handleCustomerSubscriptionDeleted($payload)
+	public function handleCustomerSubscriptionDeleted(array $payload)
 	{
 		parent::handleCustomerSubscriptionDeleted($payload);
 		
 		return logWebhook('customer.subscription.deleted', $payload);
 	}
 	
-	public function handleCustomerSubscriptionTrialWillEnd($payload)
+	public function handleCustomerSubscriptionTrialWillEnd(array $payload)
 	{
 		return logWebhook('customer.subscription.trial_will_end', $payload);
 	}
 
-	public function handleCustomerSubscriptionUpdated($payload)
+	public function handleCustomerSubscriptionUpdated(array $payload)
 	{
 		return logWebhook('customer.subscription.updated', $payload);
 	}
 
-	public function handleInvoiceCreated($payload)
+	public function handleInvoiceCreated(array $payload)
 	{
 		return logWebhook('invoice.created', $payload);
 	}
 	
-	public function handleInvoicePaymentFailed($payload)
+	public function handleInvoicePaymentFailed(array $payload)
 	{
 		return logWebhook('invoice.payment_failed', $payload);
 	}
 
-	public function handleInvoicePaymentSucceeded($payload)
+	public function handleInvoicePaymentSucceeded(array $payload)
 	{
 		return logWebhook('invoice.payment_succeeded', $payload);
 	}
 
-	public function handleInvoiceUpdated($payload)
+	public function handleInvoiceUpdated(array $payload)
 	{
 		return logWebhook('invoice.updated', $payload);
 	}
