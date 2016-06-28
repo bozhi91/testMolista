@@ -6,59 +6,59 @@ class WebhookController extends BaseController
 {
 	public function handleCustomerCreated(array $payload)
 	{
-		return logWebhook('customer.created', $payload);
+		return $this->logWebhook('customer.created', $payload);
 	}
 
 	public function handleCustomerDeleted(array $payload)
 	{
-		return logWebhook('customer.deleted', $payload);
+		return $this->logWebhook('customer.deleted', $payload);
 	}
 
 	public function handleCustomerUpdated(array $payload)
 	{
-		return logWebhook('customer.updated', $payload);
+		return $this->logWebhook('customer.updated', $payload);
 	}
 
 	public function handleCustomerSubscriptionCreated(array $payload)
 	{
-		return logWebhook('customer.subscription.created', $payload);
+		return $this->logWebhook('customer.subscription.created', $payload);
 	}
 
 	public function handleCustomerSubscriptionDeleted(array $payload)
 	{
 		parent::handleCustomerSubscriptionDeleted($payload);
 		
-		return logWebhook('customer.subscription.deleted', $payload);
+		return $this->logWebhook('customer.subscription.deleted', $payload);
 	}
 	
 	public function handleCustomerSubscriptionTrialWillEnd(array $payload)
 	{
-		return logWebhook('customer.subscription.trial_will_end', $payload);
+		return $this->logWebhook('customer.subscription.trial_will_end', $payload);
 	}
 
 	public function handleCustomerSubscriptionUpdated(array $payload)
 	{
-		return logWebhook('customer.subscription.updated', $payload);
+		return $this->logWebhook('customer.subscription.updated', $payload);
 	}
 
 	public function handleInvoiceCreated(array $payload)
 	{
-		return logWebhook('invoice.created', $payload);
+		return $this->logWebhook('invoice.created', $payload);
 	}
 	
 	public function handleInvoicePaymentFailed(array $payload)
 	{
-		return logWebhook('invoice.payment_failed', $payload);
+		return $this->logWebhook('invoice.payment_failed', $payload);
 	}
 
 	public function handleInvoicePaymentSucceeded(array $payload)
 	{
-		return logWebhook('invoice.payment_succeeded', $payload);
+		return $this->logWebhook('invoice.payment_succeeded', $payload);
 	}
 
 	public function handleInvoiceUpdated(array $payload)
 	{
-		return logWebhook('invoice.updated', $payload);
+		return $this->logWebhook('invoice.updated', $payload);
 	}
 
 
