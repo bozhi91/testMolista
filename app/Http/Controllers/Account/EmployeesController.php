@@ -12,7 +12,7 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 	{
 		parent::__initialize();
 		$this->middleware([ 'permission:employee-view' ], [ 'only' => [ 'index' ] ]);
-		$this->middleware([ 'permission:employee-create' ], [ 'only' => [ 'create','store' ] ]);
+		$this->middleware([ 'permission:employee-create', 'employee.permission:create' ], [ 'only' => [ 'create','store' ] ]);
 		$this->middleware([ 'permission:employee-edit' ], [ 'only' => [ 'edit','update','getAssociate','postAssociate','getDissociate' ] ]);
 		$this->middleware([ 'permission:employee-delete' ], [ 'only' => [ 'destroy' ] ]);
 		$this->middleware([ 'permission:property-edit' ], [ 'only' => [ 'getAssociate','postAssociate','getDissociate' ] ]);

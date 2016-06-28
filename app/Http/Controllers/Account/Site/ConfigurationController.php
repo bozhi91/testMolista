@@ -22,7 +22,9 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 	{
 		$site = $this->auth->user()->sites()->withTranslations()->with('social')->findOrFail( $this->site->id );
 
-		return view('account.site.configuration.index', compact('site'));
+		$max_languages = @intval( \App\Session\Site::get('plan.max_languages') );
+
+		return view('account.site.configuration.index', compact('site','max_languages'));
 	}
 
 	public function postIndex()
