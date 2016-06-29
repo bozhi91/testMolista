@@ -84,11 +84,19 @@ class WebhookController extends BaseController
 	}
 
 
+	protected function getUserByStripeId($stripeId)
+	{
+		$model = getenv('STRIPE_MODEL') ?: config('services.stripe.model');
+
+		return (new $model)->whereNotNull('stripe_id')->where('stripe_id', $stripeId)->first();
+	}
+
+
 	protected function logWebhook($event, $payload)
 	{
-		$site_id = @$payload['data']['object']['customer'];
+		$site = $this->getUserByStripeId($site_id);
 
-		if ( $site_id && $site = $this->getUserByStripeId($site_id) )
+		if ( $site )
 		{
 			$site->webhooks()->create([
 				'source' => 'stripe',
