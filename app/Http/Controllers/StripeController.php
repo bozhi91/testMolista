@@ -10,7 +10,7 @@ class StripeController extends Controller
 	// New subscription
 	public function postSubscription($site_id,$planchange_id)
 	{
-		\Log::info("StripeController postSubscription -> for site ID {$site_id} (planchange {$planchange_id})");
+		//\Log::info("StripeController postSubscription -> for site ID {$site_id} (planchange {$planchange_id})");
 
 		// Get site
 		$site = \App\Site::find($site_id);
