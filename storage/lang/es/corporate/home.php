@@ -24,4 +24,5 @@
 		'convinced.test' => '<p>También puedes  probar <strong>molista</strong> durante 30 días gratis. Disfruta de todas sus ventajas sin compromiso.</p>',
 
 		'footer.admin.access' => 'Acceso clientes',
+		'footer.operated' => 'es operada por',
 	];

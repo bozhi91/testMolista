@@ -23,5 +23,6 @@
 		'convinced.demo' => '<p>Check all the features and advantages offered by <strong>molista</strong> in our online demo.</p>',
 		'convinced.test' => '<p>You can also try <strong>molista</strong> for 30 days for free. Enjoy all the benefits without any commitment.</p>',
 
-		'footer.admin.access' => 'Customer acceso',
+		'footer.admin.access' => 'Customer access',
+		'footer.operated' => 'is operated by',
 	];
