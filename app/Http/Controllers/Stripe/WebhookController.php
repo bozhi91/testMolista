@@ -6,7 +6,7 @@ class WebhookController extends BaseController
 {
 	public function handleCustomerCreated(array $payload)
 	{
-		return $this->logWebhook('customer.created', $payload);
+		return response('Webhook Handled', 200);
 	}
 
 	public function handleCustomerDeleted(array $payload)
@@ -16,12 +16,12 @@ class WebhookController extends BaseController
 
 	public function handleCustomerUpdated(array $payload)
 	{
-		return $this->logWebhook('customer.updated', $payload);
+		return response('Webhook Handled', 200);
 	}
 
 	public function handleCustomerSubscriptionCreated(array $payload)
 	{
-		return $this->logWebhook('customer.subscription.created', $payload);
+		return response('Webhook Handled', 200);
 	}
 
 	public function handleCustomerSubscriptionDeleted(array $payload)
@@ -52,7 +52,7 @@ class WebhookController extends BaseController
 
 	public function handleInvoiceCreated(array $payload)
 	{
-		return $this->logWebhook('invoice.created', $payload);
+		return response('Webhook Handled', 200);
 	}
 	
 	public function handleInvoicePaymentFailed(array $payload)
