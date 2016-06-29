@@ -30,12 +30,12 @@
 							@endif
 
 							<h4>{{ Lang::get('account/marketplaces.feed.properties.url') }}</h4>
-							<p>{{ $site_model->getXmlFeedUrl($marketplace->code,'properties') }}</p>
+							<p>{{ $current_site->getXmlFeedUrl($marketplace->code,'properties') }}</p>
 
 							@if ( @$marketplace->configuration['xml_owners'] )
 								<br />
 								<h4>{{ Lang::get('account/marketplaces.feed.owners.url') }}</h4>
-								<p>{{ $site_model->getXmlFeedUrl($marketplace->code,'owners') }}</p>
+								<p>{{ $current_site->getXmlFeedUrl($marketplace->code,'owners') }}</p>
 							@endif
 						</div>
 						<div class="col-xs-12 col-sm-3">

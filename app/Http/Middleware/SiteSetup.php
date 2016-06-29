@@ -8,14 +8,24 @@ class SiteSetup
 {
 	public function handle($request, Closure $next)
 	{
-		$current_site = \App\Site::with('locales')->enabled()->current()->first();
-		if ( !$current_site ) 
+		// Get current site
+		$site = \App\Site::with('locales')->enabled()->current()->first();
+		if ( !$site ) 
 		{
 			abort(404);
 		}
 
-		$setup = $current_site->site_setup;
+		// Get site setup
+		$setup = $site->site_setup;
 		\App\Session\Site::replace($setup);
+
+		// Add site to request attributes
+		$request->attributes->add([
+			'site' => $site,
+		]);
+
+		// Share site to views
+		\View::share('current_site', $site);
 
 		// Set theme
 		if ( !empty($setup['theme']) )
