@@ -86,7 +86,7 @@ class WebhookController extends BaseController
 
 	protected function logWebhook($event, $payload)
 	{
-		$site = $this->getUserByStripeId($payload['data']['object']['customer']);
+		$site = $this->getUserByStripeId( @$payload['data']['object']['customer'] );
 
 		if ( $site )
 		{
@@ -95,6 +95,11 @@ class WebhookController extends BaseController
 				'event' => $event,
 				'data' => $payload,
 			]);
+		}
+		else
+		{
+			\Log::info("Stripe webhook {$event}: unable to relate to site");
+			\Log::info($payload);
 		}
 
 		return response('Webhook Handled', 200);
