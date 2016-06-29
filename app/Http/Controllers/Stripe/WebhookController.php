@@ -94,7 +94,7 @@ class WebhookController extends BaseController
 
 	protected function logWebhook($event, $payload)
 	{
-		$site = $this->getUserByStripeId($site_id);
+		$site = $this->getUserByStripeId( $payload['data']['object']['customer'] );
 
 		if ( $site )
 		{
