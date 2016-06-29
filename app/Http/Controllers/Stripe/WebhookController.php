@@ -6,7 +6,7 @@ class WebhookController extends BaseController
 {
 	public function handleCustomerCreated(array $payload)
 	{
-		return response('Webhook Handled', 200);
+		return $this->logWebhook('customer.created', $payload);
 	}
 
 	public function handleCustomerDeleted(array $payload)
@@ -16,12 +16,12 @@ class WebhookController extends BaseController
 
 	public function handleCustomerUpdated(array $payload)
 	{
-		return response('Webhook Handled', 200);
+		return $this->logWebhook('customer.updated', $payload);
 	}
 
 	public function handleCustomerSubscriptionCreated(array $payload)
 	{
-		return response('Webhook Handled', 200);
+		return $this->logWebhook('customer.subscription.created', $payload);
 	}
 
 	public function handleCustomerSubscriptionDeleted(array $payload)
@@ -37,7 +37,7 @@ class WebhookController extends BaseController
 			]);
 		}
 
-		return response('Webhook Handled', 200);
+		return $this->logWebhook('customer.subscription.deleted', $payload);
 	}
 	
 	public function handleCustomerSubscriptionTrialWillEnd(array $payload)
@@ -52,7 +52,7 @@ class WebhookController extends BaseController
 
 	public function handleInvoiceCreated(array $payload)
 	{
-		return response('Webhook Handled', 200);
+		return $this->logWebhook('invoice.created', $payload);
 	}
 	
 	public function handleInvoicePaymentFailed(array $payload)
@@ -75,7 +75,7 @@ class WebhookController extends BaseController
 			}
 		}
 
-		return response('Webhook Handled', 200);
+		return $this->logWebhook('invoice.payment_succeeded', $payload);
 	}
 
 	public function handleInvoiceUpdated(array $payload)
@@ -86,8 +86,17 @@ class WebhookController extends BaseController
 
 	protected function logWebhook($event, $payload)
 	{
-		\Log::info("Stripe\WebhookController -> {$event}");
-		\Log::info($payload);
+		$site = $this->getUserByStripeId($payload['data']['object']['customer']);
+
+		if ( $site )
+		{
+			$site->webhooks()->create([
+				'source' => 'stripe',
+				'event' => $event,
+				'data' => $payload,
+			]);
+		}
+
 		return response('Webhook Handled', 200);
 	}
 

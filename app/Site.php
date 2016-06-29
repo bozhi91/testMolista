@@ -43,6 +43,11 @@ class Site extends TranslatableModel
         return $this->hasMany(Subscription::class, 'site_id')->orderBy('created_at', 'desc');
     }
 
+	public function webhooks()
+	{
+		return $this->hasMany('App\Models\Site\Webhook');
+	}
+
 	public function stats() {
 		return $this->hasMany('App\Models\Site\Stats');
 	}
