@@ -85,10 +85,10 @@
 						<li><a href="{{ action('AdminController@index') }}">{{ Lang::get('corporate/home.footer.admin.access') }}</a></li>
 					</ul>
 					<div class="footer-text">
-						<strong>molista.com</strong> {{ Lang::get('corporate/home.footer.operated') }} <strong>Incubout SL</strong>: 
+						<strong>molista.com</strong> {{ Lang::get('corporate/home.footer.operated') }} <strong><a href="http://www.incubout.com/" target="_blank">Incubout SL</a></strong>: 
 						<span class="text-nowrap">Salvador Espriu 93 08005 Barcelona</span>
 						<span class="text-nowrap">T: <strong>93 488 5223</strong></span>
-						<span class="text-nowrap">E: <strong>info@molista.com</strong></span>
+						<span class="text-nowrap">E: <strong><a href="mailto:info@molista.com" target="_blank">info@molista.com</a></strong></span>
 					</div>
 				</div>
 			</div>
