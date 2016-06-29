@@ -51,10 +51,9 @@
 
 		.results-sort-trigger {
 
-			.btn.btn-primary {
-			    border-color: @pink;
-			    background: @pink;
-			}
+			.btn-group { border: 0px; }
+
+			.btn.btn-primary { border-color: @pink; background: @pink; }
 
 		}
 
@@ -80,9 +79,7 @@
 					i { transform: skewX(45deg); font-size: 18px; color: @white;}
 				}
 
-				.more-padding-left {
-					padding-left: 30px;
-				}
+				.more-padding-left { padding-left: 30px; }
 
 				.title a { color: @black; }
 				.price a { color: @pink; }
@@ -96,9 +93,7 @@
 	}
 
 	@media (min-width: 768px) {
-		.results-area {
-		    padding: 30px 0px 50px 0px;
-		}
+		.results-area { padding: 30px 0px 50px 0px; }
 	}
 
 	.bottom-area {
@@ -130,5 +125,18 @@
 			}
 			&:hover { opacity: 0.9; }
 		}
+
+		h1, h2, h3, a { color: @black; }
+
+		.property-pill-small {
+
+			a {	color: @black; }
+
+			.location {	}
+
+			.price { color: @pink; }
+
+		}
+
 	}
 }
