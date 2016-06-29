@@ -6,6 +6,7 @@
 
 		'payment' => 'Pagos',
 		'planchange' => 'Cambios pendientes',
+		'expirations' => 'Vencimientos',
 
 		'sites' => 'Sites',
 

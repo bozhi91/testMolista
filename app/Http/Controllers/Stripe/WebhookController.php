@@ -27,8 +27,17 @@ class WebhookController extends BaseController
 	public function handleCustomerSubscriptionDeleted(array $payload)
 	{
 		parent::handleCustomerSubscriptionDeleted($payload);
-		
-		return $this->logWebhook('customer.subscription.deleted', $payload);
+
+		$site = $this->getUserByStripeId($payload['data']['object']['customer']);
+
+		if ( $site )
+		{
+			$site->update([
+				'paid_until' => date('Y-m-d'),
+			]);
+		}
+
+		return response('Webhook Handled', 200);
 	}
 	
 	public function handleCustomerSubscriptionTrialWillEnd(array $payload)
@@ -53,7 +62,20 @@ class WebhookController extends BaseController
 
 	public function handleInvoicePaymentSucceeded(array $payload)
 	{
-		return $this->logWebhook('invoice.payment_succeeded', $payload);
+		$site = $this->getUserByStripeId($payload['data']['object']['customer']);
+
+		if ( $site )
+		{
+			$line = @reset( $payload['data']['object']['lines']['data'] );
+			if ( $line['period']['end'] )
+			{
+				$site->update([
+					'paid_until' => date('Y-m-d', $line['period']['end']),
+				]);
+			}
+		}
+
+		return response('Webhook Handled', 200);
 	}
 
 	public function handleInvoiceUpdated(array $payload)

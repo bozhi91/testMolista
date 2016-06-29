@@ -64,6 +64,12 @@ Route::group([
 		], function() {
 			Route::controller('planchange', 'Admin\PlanchangeController');
 		});
+		// Plan expirations
+		Route::group([
+			'middleware' => [ 'permission:expirations-*' ]
+		], function() {
+			Route::controller('expirations', 'Admin\ExpirationsController');
+		});
 		// Error log
 		Route::get('errorlog', [ 
 			'middleware' => ['role:admin'], 

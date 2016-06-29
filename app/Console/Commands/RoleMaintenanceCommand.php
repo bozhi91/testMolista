@@ -256,6 +256,18 @@ class RoleMaintenanceCommand extends Command
 				'roles' => [ ],
 			],
 		],
+		'expirations' => [
+			'view' => [
+				'display_name' => 'Plan expirations view',
+				'description' => '',
+				'roles' => [ ],
+			],
+			'edit' => [
+				'display_name' => 'Plan expirations edition',
+				'description' => '',
+				'roles' => [ ],
+			],
+		],
 	];
 
 	public function __construct()

@@ -47,7 +47,7 @@
 										<td class="text-capitalize">{{ $planchange->status }}</td>
 										<td>{{ $planchange->created_at->format('d/m/Y') }}</td>
 										<td class="text-right">
-											@if ( Auth::user()->can('site-edit') )
+											@if ( Auth::user()->can('planchange-aproove') )
 												<a href="{{ action('Admin\PlanchangeController@getEdit', $planchange->id) }}" class="btn btn-xs btn-default">{{ Lang::get('general.view') }}</a>
 											@endif
 										</td>

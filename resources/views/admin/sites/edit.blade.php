@@ -12,6 +12,7 @@
 
 			<ul class="nav nav-tabs main-tabs" role="tablist">
 				<li role="presentation" class="active"><a href="#tab-site-config" aria-controls="tab-site-config" role="tab" data-toggle="tab">{{ Lang::get('admin/sites.tab.config') }}</a></li>
+				<li role="presentation"><a href="#tab-site-plan" aria-controls="tab-site-plan" role="tab" data-toggle="tab">{{ Lang::get('admin/sites.tab.plan') }}</a></li>
 			</ul>
 
 			<div class="tab-content">
@@ -118,11 +119,54 @@
 					</div>
 				</div>
 
+				<div role="tabpanel" class="tab-pane tab-main" id="tab-site-plan">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group error-container">
+								{!! Form::label(null, Lang::get('admin/expirations.plan')) !!}
+								{!! Form::text(null, $site->plan->name, [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group error-container">
+								{!! Form::label(null, Lang::get('admin/expirations.payment.method')) !!}
+								@if ( $site->payment_interval )
+									{!! Form::text(null, Lang::get("web/plans.price.{$site->payment_interval}"), [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								@else
+									{!! Form::text(null, null, [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								@endif
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group error-container">
+								{!! Form::label(null, Lang::get('admin/expirations.payment.interval')) !!}
+								@if ( $site->payment_method )
+									{!! Form::text(null, Lang::get("account/payment.method.{$site->payment_method}"), [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								@else
+									{!! Form::text(null, null, [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								@endif
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group error-container">
+								{!! Form::label(null, Lang::get('admin/expirations.paid.until')) !!}
+								@if ( $site->paid_until )
+									{!! Form::text(null, date("d/m/Y", strtotime($site->paid_until)), [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								@else
+									{!! Form::text(null, null, [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								@endif
+							</div>
+						</div>
+					</div>
+				</div>
+
 			</div>
 
 			<div class="text-right">
 				{!! print_goback_button( Lang::get('general.back'), [ 'class'=>'btn btn-default' ]) !!}
-				{!! Form::submit( Lang::get('general.continue'), [ 'class'=>'btn btn-default']) !!}
+				{!! Form::submit( Lang::get('general.continue'), [ 'class'=>'btn btn-default hide']) !!}
 			</div>
 
 		{!! Form::close() !!}

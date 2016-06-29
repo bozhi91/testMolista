@@ -6,6 +6,7 @@
 
 		'payment' => 'Payment',
 		'planchange' => 'Change requests',
+		'expirations' => 'Expirations',
 
 		'sites' => 'Sites',
 

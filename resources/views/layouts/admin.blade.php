@@ -33,12 +33,15 @@
 
 		<div class="collapse navbar-collapse" id="app-navbar-collapse">
 			<ul class="nav navbar-nav navbar-right">
-				@if ( Auth::user()->can('planchange-aproove') )
+				@if ( Auth::user()->can('planchange-*') || Auth::user()->can('expirations-*') )
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Lang::get('admin/menu.payment') }} <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							@permission('planchange-aproove')
+							@permission('planchange-*')
 								<li><a href="{{ action('Admin\PlanchangeController@getIndex') }}">{{ Lang::get('admin/menu.planchange') }}</a></li>
+							@endpermission
+							@permission('expirations-*')
+								<li><a href="{{ action('Admin\ExpirationsController@getIndex') }}">{{ Lang::get('admin/menu.expirations') }}</a></li>
 							@endpermission
 						</ul>
 					</li>
