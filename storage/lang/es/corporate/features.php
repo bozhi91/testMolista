@@ -23,7 +23,7 @@
 		'integrations.link' => 'Integraciones',
 		'integrations.title' => 'Sincroniza tus anuncios <br class="hidden-xs" />con los principales <br class="hidden-xs" />portales inmobiliarios',
 		'integrations.text' => '<br>
-								<p>Usando el CRM de molista puedes automáticamente <strong>sincronizar los anuncios de tus inmuebles en diferentes portales inmobiliarios, como Idealista, Fotocasa o Pisos.com</strong></p>',
+								<p>Usando el CRM de molista puedes automáticamente <strong>sincronizar los anuncios de tus inmuebles en diferentes portales inmobiliarios</strong></p>',
 
 		'features.title' => 'Las prestaciones que necesitas',
 		'features.simple.title' => 'Sencilla',
