@@ -1,8 +1,109 @@
 @import '../app/properties.less';
 
 #properties {
-	.search-area { 
-		padding: 35px 0px; 
+	background-color: @backgroundGrey;
+
+	.search-area {
+		background-color: @backgroundGrey;
+		
+		h2 {
+			color: @black;
+		}
+
+		.form-area {
+
+			.form-control:focus {
+				border-color: @inmoblue-bottomheader;
+			}
+			.form-control.is-placeholder {
+				color: #a0a0a0;
+			}
+			.form-control::-webkit-input-placeholder {
+				color: #a0a0a0;
+			}
+			.form-control:-moz-placeholder {
+				color: #a0a0a0;
+			}
+			.form-control::-moz-placeholder {
+				color: #a0a0a0;
+			}
+			.form-control:-ms-input-placeholder {
+				color: #a0a0a0;
+			}
+
+			.select2-container--default.select2-container--focus .select2-selection--single,
+			.select2-container--default.select2-container--open .select2-selection--single,
+			.select2-container--default.select2-container--focus .select2-selection--multiple,
+			.select2-container--default.select2-container--open .select2-selection--multiple {
+				border: 1px solid @inmoblue-bottomheader;
+			}
+
+			.btn.btn-warning {
+			    border-color: @pink;
+			    background: @pink;
+			    color: @white;
+			}
+		}
+	}
+
+	.results-area {
+		background-color: @backgroundGrey;
+
+		.results-sort-trigger {
+
+			.btn.btn-primary {
+			    border-color: @pink;
+			    background: @pink;
+			}
+
+		}
+
+		.property-list {
+
+			.property-row {
+				border-top: 0px;
+				border: 1px solid @propietiesBorderGrey;
+				background: @white;
+				margin-bottom: 35px;
+				padding:0px;
+				overflow: hidden;
+
+				.image { height: 100%; }
+
+				hr { margin-top: 10px; margin-bottom: 10px; }
+
+				.btn-more-info {
+					transform: skewX(-45deg);
+					right: -60px;
+					padding: 41px 53px 8px 17px;
+
+					i { transform: skewX(45deg); font-size: 18px; color: @white;}
+				}
+
+				.more-padding-left {
+					padding-left: 30px;
+				}
+
+				.title a { color: @black; }
+				.price a { color: @pink; }
+
+				.description { height: 84px; }
+
+			}
+
+		}
+
+	}
+
+	@media (min-width: 768px) {
+		.results-area {
+		    padding: 30px 0px 50px 0px;
+		}
+	}
+
+	.bottom-area {
+		background-color: @backgroundGrey;
+
 		.quick-link {
 			margin-bottom: 30px; display: block; position: relative; padding: 0px 70px 0px 110px; border-radius: @borderRadius 20px @borderRadius @borderRadius; text-decoration: none; overflow: hidden;
 			.text { padding: 20px 0px; color: @colorWhite; font-size: 18px; line-height: 1em; }

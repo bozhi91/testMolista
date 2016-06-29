@@ -77,8 +77,8 @@
 		var space = $('#navbar-space');
 		var h = window.innerHeight;
 
-		if ( h < 768 ) {
-			space.height(cont.outerHeight() + cont2.outerHeight()); 
+		if (h > 768) {
+			space.height( cont.outerHeight() + cont2.outerHeight() );
 		}
 
 	});

@@ -51,6 +51,25 @@
 				.slider-quick-search {
 					background: @inmoblue-topfooter;
 
+					.form-control:focus {
+						border-color: @inmoblue-bottomheader;
+					}
+					.form-control.is-placeholder {
+						color: @black;
+					}
+					.form-control::-webkit-input-placeholder {
+						color: @black;
+					}
+					.form-control:-moz-placeholder {
+						color: @black;
+					}
+					.form-control::-moz-placeholder {
+						color: @black;
+					}
+					.form-control:-ms-input-placeholder {
+						color: @black;
+					}
+
 					input, select {
 						color: @black;
 					}
