@@ -28,7 +28,7 @@ class WebhookController extends BaseController
 	{
 		parent::handleCustomerSubscriptionDeleted($payload);
 
-		$site = $this->getUserByStripeId($payload['data']['object']['customer']);
+		$site = $this->getUserByStripeId( $payload['data']['object']['customer'] );
 
 		if ( $site )
 		{
@@ -62,7 +62,7 @@ class WebhookController extends BaseController
 
 	public function handleInvoicePaymentSucceeded(array $payload)
 	{
-		$site = $this->getUserByStripeId($payload['data']['object']['customer']);
+		$site = $this->getUserByStripeId( $payload['data']['object']['customer'] );
 
 		if ( $site )
 		{
@@ -86,9 +86,9 @@ class WebhookController extends BaseController
 
 	protected function logWebhook($event, $payload)
 	{
-		$site = $this->getUserByStripeId( @$payload['data']['object']['customer'] );
+		$site_id = @$payload['data']['object']['customer'];
 
-		if ( $site )
+		if ( $site_id && $site = $this->getUserByStripeId($site_id) )
 		{
 			$site->webhooks()->create([
 				'source' => 'stripe',
