@@ -1,0 +1,14 @@
+@import '../app/property.less';
+
+#property {
+	.details {padding: 20px; border-width: 0px; border-radius: @borderRadius; background: @colorWhite; .custom-border; }
+	.map-area { border: none; border-radius: @borderRadius; .custom-border; }
+}
+
+@media (min-width: 768px) {
+	#property {
+		.details {
+			.call-to-action { right: 20px; }
+		}
+	}
+}

@@ -92,6 +92,16 @@ return [
 			'views-path' 	=> 'themes/bellamar',
 			'asset-path' 	=> 'themes/bellamar',
 		],
+
+		'elegant' => [
+			'title'			=> 'Elegant',
+			'public'		=> true,
+			'custom'		=> false,
+			'extends'	 	=> 'default',
+			'views-path' 	=> 'themes/elegant',
+			'asset-path' 	=> 'themes/elegant',
+		],
+
 		// Add your themes here...
 
 		/*--------------[ Example Structre ]-------------

@@ -1,0 +1,21 @@
+@import '../app/buttons.less';
+
+.colors-default { border-color: @colorGreySemiLight; background: @colorGreySemiLight; }
+
+.btn {
+	&.btn-default { .colors-default; }
+}
+
+.btn-group {
+	.btn-default { background-color: @colorGreyLight; }
+}
+
+
+.alertify-button {
+	.colors-default;
+	&:active, &:focus, &:hover { .colors-default; }
+}
+.alertify-button-ok { 
+	.colors-primary;
+	&:active, &:focus, &:hover { .colors-primary; }
+}
