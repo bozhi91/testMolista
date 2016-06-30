@@ -93,8 +93,10 @@
 						<li><a href="#contact-modal" data-toggle="modal">{{ Lang::get('corporate/general.support') }}</a></li>
 						<li class="hidden-xs">I</li>
 						<li><a href="#contact-modal" data-toggle="modal">{{ Lang::get('corporate/general.contact') }}</a></li>
-						<li class="hidden-xs">I</li>
-						<li><a href="{{ action('AdminController@index') }}">{{ Lang::get('corporate/home.footer.admin.access') }}</a></li>
+						@if ( false )
+							<li class="hidden-xs">I</li>
+							<li><a href="{{ action('AdminController@index') }}">{{ Lang::get('corporate/home.footer.admin.access') }}</a></li>
+						@endif
 					</ul>
 					<div class="footer-text">
 						<strong>molista.com</strong> {{ Lang::get('corporate/home.footer.operated') }} <strong><a href="http://www.incubout.com/" target="_blank">Incubout SL</a></strong>: 
