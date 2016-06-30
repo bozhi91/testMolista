@@ -112,6 +112,22 @@ class User extends Authenticatable
 		return asset('images/users/default.png');
 	}
 
+	public function getSignaturePartsAttribute()
+	{
+		if ( !$this->signature )
+		{
+			return false;
+		}
+
+		return [
+			'name' => $this->name,
+			'email' => $this->email,
+			'phone' => $this->phone,
+			'linkedin' => $this->linkedin,
+			'image' => $this->image ? $this->image_url : false,
+		];
+	}
+
 	public function scopeofSite($query, $site_id)
 	{
 		$query->whereIn('id', function($query) use ($site_id) {
@@ -213,6 +229,8 @@ class User extends Authenticatable
 				// Only if none is defined
 				$fields['image'] = 'image|max:' . \Config::get('app.property_image_maxsize', 2048);
 			}
+			// Email cannot be updated
+			unset($fields['email']);
 		}
 
 		return $fields;

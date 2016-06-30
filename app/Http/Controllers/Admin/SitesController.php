@@ -119,7 +119,7 @@ class SitesController extends Controller
 
 	public function edit($id)
 	{
-		$site = \App\Site::withTranslations()->with('users')->findOrFail($id);
+		$site = \App\Site::withTranslations()->with('users')->with('plan')->findOrFail($id);
 
 		$locales = \App\Models\Locale::getAdminOptions();
 

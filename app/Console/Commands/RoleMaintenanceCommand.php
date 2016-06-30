@@ -62,7 +62,28 @@ class RoleMaintenanceCommand extends Command
 				'description' => '',
 				'roles' => [ ],
 			],
-
+		],
+		'pack' => [
+			'view' => [
+				'display_name' => 'Pack view',
+				'description' => '',
+				'roles' => [ ],
+			],
+			'edit' => [
+				'display_name' => 'Pack edition',
+				'description' => '',
+				'roles' => [ ],
+			],
+			'create' => [
+				'display_name' => 'Pack creation',
+				'description' => '',
+				'roles' => [ ],
+			],
+			'delete' => [
+				'display_name' => 'Pack deletion',
+				'description' => '',
+				'roles' => [ ],
+			],
 		],
 		'user' => [
 			'view' => [
@@ -224,6 +245,25 @@ class RoleMaintenanceCommand extends Command
 			],
 			'delete' => [
 				'display_name' => 'Marketplace elements deletion',
+				'description' => '',
+				'roles' => [ ],
+			],
+		],
+		'planchange' => [
+			'aproove' => [
+				'display_name' => 'Plan change requests aprooval',
+				'description' => '',
+				'roles' => [ ],
+			],
+		],
+		'expirations' => [
+			'view' => [
+				'display_name' => 'Plan expirations view',
+				'description' => '',
+				'roles' => [ ],
+			],
+			'edit' => [
+				'display_name' => 'Plan expirations edition',
 				'description' => '',
 				'roles' => [ ],
 			],

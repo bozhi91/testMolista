@@ -66,9 +66,9 @@
 							<div class="row">
 								<div class="col-xs-12">
 									@if ( $message->user )
-										<span style="background-image: url('{{ asset('images/tickets/agent.png') }}');" class="pull-left author-icon" title="{{ $message->user->name }}"></span>
+										<img src="{{ $message->user->image }}" class="pull-left author-icon" title="{{ $message->user->name }}" />
 									@else
-										<span style="background-image: url('{{ asset('images/tickets/customer.png') }}');" class="pull-left author-icon" title="{{ $ticket->contact->fullname }}"></span>
+										<img src="{{ asset('images/tickets/customer.png') }}" class="pull-left author-icon" title="{{ $ticket->contact->fullname }}" />
 									@endif
 									<div>
 										<strong>{{ $message->subject }}</strong>

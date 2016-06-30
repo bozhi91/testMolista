@@ -2,6 +2,11 @@
 
 @section('account_content')
 
+	<style type="text/css">
+		.account-block .plan-item { font-size: 18px; font-weight: bold; padding-top: 8px; }
+		.account-block .list-inline { margin-right: -5px; }
+	</style>
+
 	@if (session('status'))
 		<div class="alert alert-success alert-dismissible">
 			<button type="button" class="close" data-dismiss="alert" aria-label="{{ Lang::get('general.messages.close') }}"><span aria-hidden="true">&times;</span></button>
@@ -17,6 +22,7 @@
 
 		@include('account.user-form', [
 			'user_image' => empty(Auth::user()->image) ? false : Auth::user()->image_directory . '/' . Auth::user()->image,
+			'user_email' => Auth::user()->email,
 		])
 
 		<br />
@@ -26,6 +32,65 @@
 		</div>
 
 	{!! Form::close() !!}
+
+	<div class="hidden-xs hidden-sm">
+
+		<div class="account-block">
+			<div class="row">
+				<div class="col-xs-12">
+					<h3>{{ Lang::get('account/payment.plan.h1') }}</h3>
+					<div>
+						<ul class="list-inline">
+							<li class="plan-item">{{ \App\Session\Site::get('plan.name') }}</li>
+							@if ( empty($pending_request) )
+								<li class="pull-right hide"><a href="{{ action('Account\PaymentController@getUpgrade') }}" class="btn btn-primary">{{ Lang::get('account/payment.plan.upgrade') }}</a></li>
+								<li class="pull-right hide"><a href="#plans-modal" class="btn btn-link" id="plans-modal-trigger">{{ Lang::get('account/payment.plan.show') }}</a></li>
+							@else
+								<!-- [TODO] -->
+								<li class="pull-right hide"><a href="{{ action('Account\PaymentController@getUpgrade') }}" class="btn btn-primary">{{ Lang::get('account/payment.pending.request.process') }}</a></li>
+							@endif
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		@if ( \App\Session\Site::get('plan.payment_method') )
+			<div class="account-block">
+				<div class="row">
+					<div class="col-xs-12">
+						<h3>{{ Lang::get('account/payment.method.h1') }}</h3>
+						<ul class="list-inline">
+							@if ( \App\Session\Site::get('plan.payment_method') == 'stripe' )
+								<li>
+									<div class="plan-item">{{ Lang::get('account/payment.method.stripe') }}</div>
+									<div class="help-block"><span class="text-uppercase">{{ \App\Session\Site::get('plan.card_brand') }}</span> ************{{ \App\Session\Site::get('plan.card_last_four') }}</div>
+								</li>
+							@elseif ( \App\Session\Site::get('plan.payment_method') == 'transfer' )
+								<li>
+									<div class="plan-item">{{ Lang::get('account/payment.method.transfer') }}</div>
+									<div class="help-block">{{ \App\Session\Site::get('plan.iban_account') }}</div>
+								</li>
+							@endif
+							<li class="pull-right hide"><a href="{{ action('Account\PaymentController@getMethod') }}" class="btn btn-primary">{{ Lang::get('account/payment.method.change') }}</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		@endif
+
+		<div style="height: 50px;"></div>
+
+		<div id="plans-modal" class="mfp-hide app-popup-block-white app-popup-block-large">
+			<div style="padding: 30px;">
+				@include('corporate.common.plans', [
+					'buy_plan_url' => action('Account\PaymentController@getUpgrade'),
+					'buy_button_text' => Lang::get('account/payment.plan.upgrade.simple'),
+				])
+			</div>
+		</div>
+
+	</div>
 
 	<script type="text/javascript">
 		ready_callbacks.push(function() {
@@ -52,9 +117,9 @@
 				}
 			});
 
-			form.on('click', '.show-hide-password', function(e){
-				e.preventDefault();
-				form.find('input[name="password"]').togglePassword();
+			$('#plans-modal-trigger').magnificPopup({
+				type: 'inline',
+				showCloseBtn: false
 			});
 
 		});

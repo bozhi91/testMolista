@@ -61,7 +61,8 @@ class MenusController extends \App\Http\Controllers\AccountController
 			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
 		}
 
-		\App\Session\Site::flush();
+		// Update site setup
+		$this->site->updateSiteSetup();
 
 		return redirect()->action('Account\Site\MenusController@edit', $menu->slug)->with('success', trans('account/site.menus.create.success'));
 	}
@@ -152,7 +153,8 @@ class MenusController extends \App\Http\Controllers\AccountController
 			$item->delete();
 		}
 
-		\App\Session\Site::flush();
+		// Update site setup
+		$this->site->updateSiteSetup();
 
 		return redirect()->action('Account\Site\MenusController@edit', $menu->slug)->with('success', trans('account/site.menus.update.success'));
 	}
@@ -162,8 +164,6 @@ class MenusController extends \App\Http\Controllers\AccountController
 		$menu = $this->site->menus()->whereSlug($slug)->firstOrFail();
 
 		$menu->delete();
-
-		\App\Session\Site::flush();
 
 		return redirect()->action('Account\Site\MenusController@index')->with('success', trans('account/site.menus.delete.success'));
 	}
@@ -211,7 +211,8 @@ class MenusController extends \App\Http\Controllers\AccountController
 		// Save item
 		$item->save();
 
-		\App\Session\Site::flush();
+		// Update site setup
+		$this->site->updateSiteSetup();
 
 		return redirect()->action('Account\Site\MenusController@edit', $menu->slug)->with('success', trans('account/site.menus.update.success'));
 	}

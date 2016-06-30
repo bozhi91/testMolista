@@ -6,18 +6,17 @@
 				@if ( !empty($site_setup['widgets']['footer']) )
 					@foreach ($site_setup['widgets']['footer'] as $widget)
 						<div class="col-xs-12 col-md-4">
-							@if ( $widget->type == 'menu' )
-								<h4>{{ $widget->title }}</h4>
-								@if ( $widget->menu )
-									<ul class="list-unstyled">
-										@foreach ($widget->menu->items as $item)
-											<li><a href="{{ $item->item_url }}" target="{{ $item->target }}">{{ $item->item_title }}</a></li>
-										@endforeach
-									</ul>
-								@endif
-							@elseif ( $widget->type == 'text' )
-								<h4>{{ $widget->title }}</h4>
-								<div>{!! nl2br($widget->content) !!}</div>
+							@if ( $widget['type'] == 'menu' )
+								<h4>{{ $widget['title'] }}</h4>
+								@include('common.widget-menu', [
+									'widget' => $widget,
+									'widget_class' => 'list-unstyled',
+								])
+							@elseif ( $widget['type'] == 'text' )
+								<h4>{{ $widget['title'] }}</h4>
+								@include('common.widget-text', [
+									'widget' => $widget,
+								])
 							@endif
 							<div class="visible-xs-block visible-sm-block">&nbsp;</div>
 						</div>

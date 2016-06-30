@@ -8,6 +8,7 @@
 		'configuration.tab.texts' => 'SEO',
 		'configuration.tab.social' => 'Redes sociales',
 		'configuration.tab.mail' => 'Emails',
+		'configuration.tab.signature' => 'Firma',
 
 		'configuration.languages' => 'Idiomas habilitados',
 		'configuration.languages.error' => 'Seleccione al menos un idioma',
@@ -54,10 +55,16 @@
 		'configuration.mailing.test.email.content' => '<p>Esta es una prueba de su configuración de email.</p><p>Si ha recibido este email, su configuración funciona correctamente.</p>',
 		'configuration.mailing.test.button' => 'Probar configuración guardada',
 		'configuration.mailing.test.email' => 'Email destinatario',
-		'configuration.mailing.test.success' => 'El email se ha enviado correctamente',
-		'configuration.mailing.test.error' => 'Ocurrió un error al enviar el email',
+		'configuration.mailing.test.success' => 'La configuración funciona correctamente',
+		'configuration.mailing.test.error' => 'Ocurrió un error al comprobar la configuración',
 		'configuration.mailing.mailgun.username' => 'Username',
 		'configuration.mailing.mailgun.help' => '<p>Ingrese el host, username y password para Mailgun.</p>',
+		'configuration.mailing.test.changed' => 'La configuración ha cambiado. Por favor guarde los cambios antes de realizar la prueba.',
+
+		'configuration.signature.name' => 'Nombre de la empresa',
+		'configuration.signature.phone' => 'Teléfono de empresa',
+		'configuration.signature.email' => 'Email de empresa',
+		'configuration.signature.address' => 'Dirección principal',
 
 		'configuration.client.register' => 'Permitir registro de clientes online',
 

@@ -20,6 +20,12 @@ Route::group([
 
 	// Corporate web
 	Route::get('/', 'CorporateController@index');
+	Route::controller('info', 'Corporate\InfoController');
+	Route::controller('features', 'Corporate\FeaturesController');
+	Route::controller('pricing', 'Corporate\PricingController');
+
+	// Signup
+	Route::controller('signup', 'Corporate\SignupController');
 
 	// Admin
 	Route::group([
@@ -46,12 +52,25 @@ Route::group([
 		// Configuration
 		Route::resource('config/locales', 'Admin\Config\LocalesController');
 		Route::resource('config/translations', 'Admin\Config\TranslationsController');
+		Route::get('config/plans/check/{type}', 'Admin\Config\PlansController@getCheck');
+		Route::resource('config/plans', 'Admin\Config\PlansController');
 		// Utils
 		Route::controller('utils/user', 'Admin\Utils\UserController');
 		Route::controller('utils/locale', 'Admin\Utils\LocaleController');
 		Route::controller('utils/parser', 'Admin\Utils\ParserController');
+		// Plan change requests
+		Route::group([
+			'middleware' => [ 'permission:planchange-aproove' ]
+		], function() {
+			Route::controller('planchange', 'Admin\PlanchangeController');
+		});
+		// Plan expirations
+		Route::group([
+			'middleware' => [ 'permission:expirations-*' ]
+		], function() {
+			Route::controller('expirations', 'Admin\ExpirationsController');
+		});
 		// Error log
-		//Route::get('errorlog', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 		Route::get('errorlog', [ 
 			'middleware' => ['role:admin'], 
 			'uses' => '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index' 
@@ -109,6 +128,8 @@ Route::group([
 	], function() {
 		Route::get('/', 'AccountController@index');
 		Route::post('/', 'AccountController@updateProfile');
+		// Plans & payment
+		Route::controller('payment', 'Account\PaymentController');
 		// Properties
 		Route::group([
 			'middleware' => [
@@ -178,6 +199,10 @@ Route::group([
 		});
 	});
 });
+
+// Stripe --------------------------------------------------------------------------
+Route::post('stripe/webhook','Stripe\WebhookController@handleWebhook');
+Route::controller('stripe', 'StripeController');
 
 
 // Ajax ----------------------------------------------------------------------------
