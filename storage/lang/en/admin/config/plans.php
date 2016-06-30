@@ -33,6 +33,7 @@ return [
 	'widgets' => 'Widgets',
 	'support.email' => 'Email support',
 	'support.phone' => 'Phone support',
+	'support.chat' => 'Chat support',
 
 	'extras' => 'Extras',
 	'extras.transfer' => 'Web transfer',

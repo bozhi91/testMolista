@@ -1,3 +1,6 @@
+<?php 
+	$enabled_locales = [ 'es' ]; 
+?>
 <!DOCTYPE html>
 <html lang="{{ LaravelLocalization::getCurrentLocale() }}">
 <head>
@@ -48,21 +51,30 @@
 
 				<div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
-						<li><a href="http://demo.molista.com/" target="_blank" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</a></li>
+						<li><a href="http://demo.molista.com/" target="_blank" class="hide btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</a></li>
 						<li><a href="{{ action('Corporate\FeaturesController@getIndex') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.moreinfo') }}</a></li> 
 						<li><a href="{{ action('Corporate\PricingController@getIndex') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.pricing') }}</a></li> 
-						<!--<li><a href="navbar-link">{{ Lang::get('corporate/general.support') }}</a></li>  -->
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Lang::get('corporate/general.languages') }} <span class="caret"></span></a>
-							<ul class="language_bar_chooser dropdown-menu">
-								@foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-									<li>
-										<a rel="alternate" hreflang="{{$localeCode}}" href="{{LaravelLocalization::getLocalizedURL($localeCode) }}">
-											{{{ $properties['native'] }}}
-										</a>
-									</li>
-								@endforeach
-							</ul>
+						@if ( @$enabled_locales && count($enabled_locales) > 1 )
+							<li class="language-container dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ (1==2) ? Lang::get('corporate/general.languages') : LaravelLocalization::getCurrentLocaleNative() }} <span class="caret"></span></a>
+								<ul class="language_bar_chooser dropdown-menu">
+									@foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+										@if ( in_array($localeCode, $enabled_locales) && $localeCode != LaravelLocalization::getCurrentLocale() )
+											<li>
+												<a rel="alternate" hreflang="{{$localeCode}}" href="{{LaravelLocalization::getLocalizedURL($localeCode) }}">
+													{{{ $properties['native'] }}}
+												</a>
+											</li>
+										@endif
+									@endforeach
+								</ul>
+							</li>
+						@endif
+						<li>
+							<div class="phone-info">
+								<i class="fa fa-phone" aria-hidden="true"></i>
+								93 488 52 23
+							</div>
 						</li>
 					</ul>
 				</div>
@@ -101,6 +113,8 @@
 	<script src="{{ Theme::url('/compiled/js/corporate.js') }}"></script>
 	<script src="{{ Theme::url('/js/jquery.validate/messages_' . LaravelLocalization::getCurrentLocale() . '.min.js') }}"></script>
 	<script src="{{ Theme::url('/js/alertify/messages_' . LaravelLocalization::getCurrentLocale() . '.js') }}"></script>
+
+	@include('corporate.common.zopim')
 
 </body>
 </html>
