@@ -8,14 +8,15 @@
 						<div class="col-xs-12 col-md-4">
 							@if ( $widget['type'] == 'menu' )
 								<h4>{{ $widget['title'] }}</h4>
-								<ul class="list-unstyled">
-									@foreach ($widget['items'] as $item)
-										<li><a href="{{ $item['url'] }}" target="{{ $item['target'] }}">{{ $item['title'] }}</a></li>
-									@endforeach
-								</ul>
+								@include('common.widget-menu', [
+									'widget' => $widget,
+									'widget_class' => 'list-unstyled',
+								])
 							@elseif ( $widget['type'] == 'text' )
 								<h4>{{ $widget['title'] }}</h4>
-								<div>{!! nl2br($widget['content']) !!}</div>
+								@include('common.widget-text', [
+									'widget' => $widget,
+								])
 							@endif
 							<div class="visible-xs-block visible-sm-block">&nbsp;</div>
 						</div>
