@@ -51,17 +51,10 @@
 			@if ( !empty($site_setup['widgets']['header']) )
 				@foreach ($site_setup['widgets']['header'] as $widget)
 					@if ( $widget->type == 'menu' )
-						@if ( $widget->menu )
-							<ul class="nav navbar-nav navbar-right">
-								@foreach ($widget->menu->items as $item)
-									<li>
-										<a href="{{ $item->item_url }}" target="{{ $item->target }}" class="main-item {{ (rtrim(url()->current(),'/') == $item->item_url) ? 'current' : '' }}">
-											{{ $item->item_title }}
-										</a>
-									</li>
-								@endforeach
-							</ul>
-						@endif
+						@include('common.widget-menu', [
+							'widget' => $widget,
+							'widget_class' => 'nav navbar-nav navbar-right',
+						])
 					@endif
 				@endforeach
 			@endif
