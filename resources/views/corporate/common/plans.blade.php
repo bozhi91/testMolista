@@ -120,6 +120,18 @@
 					</div>
 					<div class="plan-block-item">
 						{{ Lang::get('web/plans.support') }}: 
+						@if ( empty($plan->configuration['support_email']) && empty($plan->configuration['support_chat']) && empty(@$plan->configuration['support_phone']) )
+							-
+						@else
+							<strong><?php
+								echo implode(' / ', array_filter([
+									@$plan->configuration['support_email'] ? Lang::get('web/plans.support.email') : false,
+									@$plan->configuration['support_chat'] ? Lang::get('web/plans.support.chat') : false,
+									@$plan->configuration['support_phone'] ? Lang::get('web/plans.support.phone') : false,
+								]));
+							?></strong>
+						@endif
+						<br /><br />
 						@if ( @$plan->configuration['support_email'] && @$plan->configuration['support_phone'] )
 							<strong>{{ Lang::get('web/plans.support.email') }} / {{ Lang::get('web/plans.support.phone') }}</strong>
 						@elseif ( @$plan->configuration['support_email'] )

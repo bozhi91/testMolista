@@ -26,10 +26,11 @@
 <section class="block-links">
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-6 col-lg-offset-3 clearfix">
+			<div class="col-sm-12 text-center">
 			  <ul>
 		        <li><a href="http://demo.molista.com/" target="_blank" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</a></li>
 		        <li><a href="{{ action('Corporate\FeaturesController@getIndex') }}" class="btn btnBdrYlw text-uppercase" >{{ Lang::get('corporate/general.moreinfo') }}</a></li>
+		        <li><a href="{{ action('Corporate\SignupController@getUser') }}" class="btn btnBdrYlw text-uppercase" >{{ Lang::get('corporate/home.try') }}</a></li>
 		      </ul>
 			</div>
 		</div>

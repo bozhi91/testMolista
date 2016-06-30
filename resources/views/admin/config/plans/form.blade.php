@@ -75,8 +75,8 @@
 				<div class="error-container">
 					{!! Form::label('configuration[support_email]', Lang::get('admin/config/plans.support.email')) !!}
 					{!! Form::select('configuration[support_email]', [
-						1 => Lang::get('general.yes'),
 						0 => Lang::get('general.no'),
+						1 => Lang::get('general.yes'),
 					], null, [ 'class'=>'form-control' ]) !!}
 				</div>
 			</div>
@@ -86,8 +86,19 @@
 				<div class="error-container">
 					{!! Form::label('configuration[support_phone]', Lang::get('admin/config/plans.support.phone')) !!}
 					{!! Form::select('configuration[support_phone]', [
-						1 => Lang::get('general.yes'),
 						0 => Lang::get('general.no'),
+						1 => Lang::get('general.yes'),
+					], null, [ 'class'=>'form-control' ]) !!}
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-3">
+			<div class="form-group">
+				<div class="error-container">
+					{!! Form::label('configuration[support_chat]', Lang::get('admin/config/plans.support.chat')) !!}
+					{!! Form::select('configuration[support_chat]', [
+						0 => Lang::get('general.no'),
+						1 => Lang::get('general.yes'),
 					], null, [ 'class'=>'form-control' ]) !!}
 				</div>
 			</div>

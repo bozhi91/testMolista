@@ -10,6 +10,9 @@
 			  	<div class="col-md-6">
 				    <h1>{{ Lang::get('corporate/home.h1') }}</h1>
 				    {!! Lang::get('corporate/home.intro') !!}
+				    <div class="btn-area">
+				    	<a href="{{ action('Corporate\SignupController@getUser') }}" class="btn btn-try">{{ Lang::get('corporate/home.try') }}</a>
+				    </div>
 			    </div>
 			  </div>
 			</div>
@@ -37,10 +40,11 @@
 			<section class="block-links">
 				<div class="container">
 					<div class="row">
-						<div class="col-lg-6 col-lg-offset-3 clearfix">
+						<div class="col-xs-12 text-center">
 						  <ul>
 					        <li><a href="http://demo.molista.com/" target="_blank" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</a></li>
 					        <li><a href="{{ action('Corporate\FeaturesController@getIndex') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.moreinfo') }}</a></li>
+					        <li><a href="{{ action('Corporate\SignupController@getUser') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/home.try') }}</a></li>
 					      </ul>
 						</div>
 					</div>

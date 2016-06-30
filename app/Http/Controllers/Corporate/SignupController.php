@@ -530,7 +530,7 @@ class SignupController extends \App\Http\Controllers\CorporateController
 		if ( !$plan_is_free )
 		{
 			// Create sites_planchange
-			$site->planchanges()->create([
+			$planchange = $site->planchanges()->create([
 				'plan_id' => $data['plan']['id'],
 				'payment_interval' => $data['pack']['payment_interval'][$data['plan']['code']],
 				'payment_method' => $data['payment']['method'],
@@ -555,7 +555,7 @@ class SignupController extends \App\Http\Controllers\CorporateController
 		session()->forget($this->session_name);
 
 		// Send welcome email
-		$job = ( new \App\Jobs\SendWelcomeEmail($site, \LaravelLocalization::getCurrentLocale()) )->onQueue('emails');
+		$job = ( new \App\Jobs\SendWelcomeEmail($site, $planchange->locale) )->onQueue('emails');
 		$this->dispatch( $job );
 
 		// Redirect to finish

@@ -25,4 +25,6 @@
 
 		'footer.admin.access' => 'Acceso clientes',
 		'footer.operated' => 'es operada por',
+
+		'try' => 'Pruébalo',
 	];

@@ -20,6 +20,7 @@
 		'support' => 'Soporte técnico',
 		'support.email' => 'Email',
 		'support.phone' => 'Teléfono',
+		'support.chat' => 'Chat',
 		'qr' => 'Códigos QR',
 		'filters' => 'Filtro de inmuebles',
 		'leads' => 'Lead management',
