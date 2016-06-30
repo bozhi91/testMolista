@@ -236,6 +236,45 @@ class TicketAdm
 		return true;
 	}
 
+	public function updateUser($user) 
+	{
+		if ( !$this->site_ready )
+		{
+			return false;
+		}
+
+		// User type
+		$user_type = $user->hasRole('company') ? 'manager' : 'agent';
+
+		// Update user
+		$response = $this->guzzle_client->request('PUT', "user/{$user->ticket_user_id}?site_id={$this->site_id}", [
+			'headers'=> [
+				'Authorization' => $this->getAuthorizationHeader(),
+			],
+			'json' => [
+				'name' => $user->name,
+				//'email' => $user->email,
+				'type' => $user->hasRole('company') ? 'manager' : 'agent',
+			],
+		]);
+		// Error?
+		if ( $response->getStatusCode() == 204 )
+		{
+			return true;
+		}
+
+		$error_message = "TICKETING -> could not update user {$user->id}";
+
+		$body = @json_decode( $response->getBody() );
+		if ( @$body->message )
+		{
+			$error_message .= ": {$body->message}";
+		}
+		\Log::error($error_message);
+
+		return false;
+	}
+
 	public function associateUsers($users) 
 	{
 		if ( !$this->site_ready )
@@ -254,6 +293,7 @@ class TicketAdm
 					'id' => $user->ticket_user_id,
 					'type' => $user->hasRole('company') ? 'manager' : 'agent'
 				];
+				$this->updateUser($user);
 				continue;
 			}
 			$this->createUser($user);
@@ -593,10 +633,55 @@ class TicketAdm
 			return false;
 		}
 
-		$first_message = @array_pop(array_values($body->messages));
-		$body->subject = @$first_message->subject;
+		$ticket = $body;
 
-		return $body;
+		$first_message = @array_pop(array_values($ticket->messages));
+		$ticket->subject = @$first_message->subject;
+
+
+		// Add user images
+		$images = [ 'default' => asset('images/users/default.png') ];
+
+		//  To user
+		if ( @$ticket->user )
+		{
+			if ( @$ticket->user->id )
+			{
+				if ( empty($images[$ticket->user->id]) )
+				{
+					$user = \App\User::where('ticket_user_id', $ticket->user->id)->first();
+					$images[$ticket->user->id] = ( $user && $user->image ) ? $user->image_url : $images['default'];
+				}
+				$ticket->user->image = $images[$ticket->user->id];
+			}
+			else
+			{
+				$ticket->user->image = $images['default'];
+			}
+		}
+
+		//  To messages
+		foreach ($ticket->messages as $key => $message)
+		{
+			if ( $message->user )
+			{
+				if ( @$message->user->id )
+				{
+					if ( empty($images[$message->user->id]) )
+					{
+						$user = \App\User::where('ticket_user_id', $message->user->id)->first();
+						$images[$message->user->id] = ( $user && $user->image ) ? $user->image_url : $images['default'];
+					}
+					$ticket->messages[$key]->user->image = $images[$message->user->id];
+				}
+				else
+				{
+					$ticket->messages[$key]->user->image = $images['default'];
+				}
+			}
+		}
+
+		return $ticket;
 	}
 	public function updateTicket($ticket_id, $data)
 	{

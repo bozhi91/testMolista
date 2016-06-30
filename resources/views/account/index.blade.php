@@ -17,6 +17,7 @@
 
 		@include('account.user-form', [
 			'user_image' => empty(Auth::user()->image) ? false : Auth::user()->image_directory . '/' . Auth::user()->image,
+			'user_email' => Auth::user()->email,
 		])
 
 		<br />

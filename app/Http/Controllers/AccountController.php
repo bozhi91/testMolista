@@ -38,11 +38,14 @@ class AccountController extends Controller
 			return redirect()->back()->withInput()->withErrors($validator);
 		}
 
-		$saved = \App\User::saveModel($this->request->all(), $this->auth->user()->id);
-		if ( !$saved )
+		$user = \App\User::saveModel($this->request->all(), $this->auth->user()->id);
+		if ( !$user )
 		{
 			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
 		}
+
+		// Update user info in ticketing system
+		$this->site->ticket_adm->associateUsers([ $user ]);
 
 		return redirect()->back()->with('success', trans('account/profile.message.saved'));
 	}
