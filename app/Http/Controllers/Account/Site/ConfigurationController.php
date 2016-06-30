@@ -278,7 +278,7 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 	{
 		// Validate general fields
 		$fields = [
-			'test_email' => 'required|email',
+			'protocol' => 'required',
 		];
 		$validator = \Validator::make($this->request->all(), $fields);
 		if ($validator->fails()) 
@@ -286,19 +286,7 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 			return [ 'error' => true ];
 		}
 
-		$site = $this->auth->user()->sites()->findOrFail( $this->site->id );
-		if ( !$site ) 
-		{
-			return [ 'error' => true ];
-		}
-
-		$sent = $site->sendEmail([
-			'to' => $this->request->get('test_email'),
-			'subject' => trans('account/site.configuration.mailing.test.email.subject'),
-			'content' => view('emails.dummy', [ 'content'=>trans('account/site.configuration.mailing.test.email.content') ])->render(),
-		]);
-
-		if ( $sent )
+		if ( $this->site->ticket_adm->testEmail( $this->request->input('protocol') ) )
 		{
 			return [ 'success' => true ];
 		}

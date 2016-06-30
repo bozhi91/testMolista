@@ -2,12 +2,6 @@
 
 <p>&nbsp;</p>
 
-@if ( false && !empty($site->mailer['service']) )
-	<div class="pull-right hidden-xs">
-		<a href="#" class="btn btn-default btn-sm btn-test-email">{{ Lang::get('account/site.configuration.mailing.test.button') }}</a>
-	</div>
-@endif
-
 <ul class="nav nav-pills mailer-tabs" role="tablist">
 	<li role="presentation" class="mailer-option {{ ( empty($site->mailer['service']) || @$site->mailer['service'] == 'default' ) ? 'active' : '' }}">
 		<a href="#tab-mailer-option-default" aria-controls="tab-mailer-option-default" role="tab" data-toggle="tab" data-service="default">{{ Lang::get('account/site.configuration.mailing.default') }}</a>
@@ -53,82 +47,92 @@
 		<div class="row">
 
 			<div class="col-xs-12 col-sm-6">
-				<h4 class="page-title">{{ Lang::get('account/site.configuration.mailing.out') }}</h4>
-				<div class="form-group error-container">
-					{!! Form::label('mailer[out][protocol]', Lang::get('account/site.configuration.mailing.protocol')) !!}
-					{!! Form::select('mailer[out][protocol]', [
-						'smtp' => 'SMTP',
-					], null, [ 'class'=>'form-control' ]) !!}
-				</div>
-				<div class="form-group error-container">
-					{!! Form::label('mailer[out][username]', Lang::get('account/site.configuration.mailing.smtp.login')) !!}
-					{!! Form::text('mailer[out][username]', null, [ 'class'=>'form-control' ]) !!}
-				</div>
-				<div class="form-group error-container">
-					{!! Form::label('mailer[out][password]', Lang::get('account/site.configuration.mailing.smtp.pass')) !!}
-					{!! Form::text('mailer[out][password]', null, [ 'class'=>'form-control' ]) !!}
-				</div>
-				<div class="form-group error-container">
-					{!! Form::label('mailer[out][host]', Lang::get('account/site.configuration.mailing.smtp.host')) !!}
-					{!! Form::text('mailer[out][host]', null, [ 'class'=>'form-control' ]) !!}
-				</div>
-				<div class="row">
-					<div class="col-xs-12 col-sm-8">
-						<div class="form-group error-container">
-							{!! Form::label('mailer[out][port]', Lang::get('account/site.configuration.mailing.smtp.port')) !!}
-							{!! Form::text('mailer[out][port]', null, [ 'class'=>'form-control' ]) !!}
-						</div>
+				<div class="mail-group-area" data-changed="0">
+					@if ( @$site->mailer[out][protocol] )
+						<a href="#" class="btn btn-default btn-sm btn-test-email pull-right">{{ Lang::get('account/site.configuration.mailing.test.button') }}</a>
+					@endif
+					<h4 class="page-title">{{ Lang::get('account/site.configuration.mailing.out') }}</h4>
+					<div class="form-group error-container">
+						{!! Form::label('mailer[out][protocol]', Lang::get('account/site.configuration.mailing.protocol')) !!}
+						{!! Form::select('mailer[out][protocol]', [
+							'smtp' => 'SMTP',
+						], null, [ 'class'=>'form-control input-protocol' ]) !!}
 					</div>
-					<div class="col-xs-12 col-sm-4">
-						<div class="form-group error-container">
-							<label class="hidden-xs">&nbsp;</label>
-							{!! Form::select('mailer[out][layer]', [
-								'' => '',
-								'tls' => 'TLS',
-								'ssl' => 'SSL',
-							], null, [ 'class'=>'form-control' ]) !!}
+					<div class="form-group error-container">
+						{!! Form::label('mailer[out][username]', Lang::get('account/site.configuration.mailing.smtp.login')) !!}
+						{!! Form::text('mailer[out][username]', null, [ 'class'=>'form-control' ]) !!}
+					</div>
+					<div class="form-group error-container">
+						{!! Form::label('mailer[out][password]', Lang::get('account/site.configuration.mailing.smtp.pass')) !!}
+						{!! Form::text('mailer[out][password]', null, [ 'class'=>'form-control' ]) !!}
+					</div>
+					<div class="form-group error-container">
+						{!! Form::label('mailer[out][host]', Lang::get('account/site.configuration.mailing.smtp.host')) !!}
+						{!! Form::text('mailer[out][host]', null, [ 'class'=>'form-control' ]) !!}
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-8">
+							<div class="form-group error-container">
+								{!! Form::label('mailer[out][port]', Lang::get('account/site.configuration.mailing.smtp.port')) !!}
+								{!! Form::text('mailer[out][port]', null, [ 'class'=>'form-control' ]) !!}
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-4">
+							<div class="form-group error-container">
+								<label class="hidden-xs">&nbsp;</label>
+								{!! Form::select('mailer[out][layer]', [
+									'' => '',
+									'tls' => 'TLS',
+									'ssl' => 'SSL',
+								], null, [ 'class'=>'form-control' ]) !!}
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 
 			<div class="col-xs-12 col-sm-6">
-				<h4 class="page-title">{{ Lang::get('account/site.configuration.mailing.in') }}</h4>
-				<div class="form-group error-container">
-					{!! Form::label('mailer[in][protocol]', Lang::get('account/site.configuration.mailing.protocol')) !!}
-					{!! Form::select('mailer[in][protocol]', [
-						'pop3' => 'POP3',
-						'imap' => 'IMAP',
-						'mailgun' => 'Mailgun',
-					], null, [ 'class'=>'form-control' ]) !!}
-				</div>
-				<div class="form-group error-container">
-					{!! Form::label('mailer[in][username]', Lang::get('account/site.configuration.mailing.smtp.login')) !!}
-					{!! Form::text('mailer[in][username]', null, [ 'class'=>'form-control' ]) !!}
-				</div>
-				<div class="form-group error-container">
-					{!! Form::label('mailer[in][password]', Lang::get('account/site.configuration.mailing.smtp.pass')) !!}
-					{!! Form::text('mailer[in][password]', null, [ 'class'=>'form-control' ]) !!}
-				</div>
-				<div class="form-group error-container">
-					{!! Form::label('mailer[in][host]', Lang::get('account/site.configuration.mailing.smtp.host')) !!}
-					{!! Form::text('mailer[in][host]', null, [ 'class'=>'form-control' ]) !!}
-				</div>
-				<div class="row">
-					<div class="col-xs-12 col-sm-8">
-						<div class="form-group error-container">
-							{!! Form::label('mailer[in][port]', Lang::get('account/site.configuration.mailing.smtp.port')) !!}
-							{!! Form::text('mailer[in][port]', null, [ 'class'=>'form-control' ]) !!}
-						</div>
+				<div class="mail-group-area" data-changed="0">
+					@if ( @$site->mailer[out][protocol] )
+						<a href="#" class="btn btn-default btn-sm btn-test-email pull-right">{{ Lang::get('account/site.configuration.mailing.test.button') }}</a>
+					@endif
+					<h4 class="page-title">{{ Lang::get('account/site.configuration.mailing.in') }}</h4>
+					<div class="form-group error-container">
+						{!! Form::label('mailer[in][protocol]', Lang::get('account/site.configuration.mailing.protocol')) !!}
+						{!! Form::select('mailer[in][protocol]', [
+							'pop3' => 'POP3',
+							'imap' => 'IMAP',
+							'mailgun' => 'Mailgun',
+						], null, [ 'class'=>'form-control input-protocol' ]) !!}
 					</div>
-					<div class="col-xs-12 col-sm-4">
-						<div class="form-group error-container">
-							<label class="hidden-xs">&nbsp;</label>
-							{!! Form::select('mailer[in][layer]', [
-								'' => '',
-								'tls' => 'TLS',
-								'ssl' => 'SSL',
-							], null, [ 'class'=>'form-control' ]) !!}
+					<div class="form-group error-container">
+						{!! Form::label('mailer[in][username]', Lang::get('account/site.configuration.mailing.smtp.login')) !!}
+						{!! Form::text('mailer[in][username]', null, [ 'class'=>'form-control' ]) !!}
+					</div>
+					<div class="form-group error-container">
+						{!! Form::label('mailer[in][password]', Lang::get('account/site.configuration.mailing.smtp.pass')) !!}
+						{!! Form::text('mailer[in][password]', null, [ 'class'=>'form-control' ]) !!}
+					</div>
+					<div class="form-group error-container">
+						{!! Form::label('mailer[in][host]', Lang::get('account/site.configuration.mailing.smtp.host')) !!}
+						{!! Form::text('mailer[in][host]', null, [ 'class'=>'form-control' ]) !!}
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-8">
+							<div class="form-group error-container">
+								{!! Form::label('mailer[in][port]', Lang::get('account/site.configuration.mailing.smtp.port')) !!}
+								{!! Form::text('mailer[in][port]', null, [ 'class'=>'form-control' ]) !!}
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-4">
+							<div class="form-group error-container">
+								<label class="hidden-xs">&nbsp;</label>
+								{!! Form::select('mailer[in][layer]', [
+									'' => '',
+									'tls' => 'TLS',
+									'ssl' => 'SSL',
+								], null, [ 'class'=>'form-control' ]) !!}
+							</div>
 						</div>
 					</div>
 				</div>
