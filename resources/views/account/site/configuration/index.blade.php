@@ -15,6 +15,7 @@
 
 				<ul class="nav nav-tabs main-tabs" role="tablist">
 					<li role="presentation" class="active"><a href="#tab-site-config" aria-controls="tab-site-config" role="tab" data-toggle="tab">{{ Lang::get('account/site.configuration.tab.config') }}</a></li>
+					<li role="presentation"><a href="#tab-site-signature" aria-controls="tab-site-signature" role="tab" data-toggle="tab">{{ Lang::get('account/site.configuration.tab.signature') }}</a></li>
 					<li role="presentation"><a href="#tab-site-mail" aria-controls="tab-site-mail" role="tab" data-toggle="tab">{{ Lang::get('account/site.configuration.tab.mail') }}</a></li>
 					<li role="presentation"><a href="#tab-site-texts" aria-controls="tab-site-texts" role="tab" data-toggle="tab">{{ Lang::get('account/site.configuration.tab.texts') }}</a></li>
 					<li role="presentation"><a href="#tab-site-social" aria-controls="tab-site-social" role="tab" data-toggle="tab">{{ Lang::get('account/site.configuration.tab.social') }}</a></li>
@@ -149,6 +150,10 @@
 								@endforeach
 							</div>
 						</div>
+					</div>
+
+					<div role="tabpanel" class="tab-pane tab-main" id="tab-site-signature">
+						@include('account/site/configuration.tab-signature')
 					</div>
 
 					<div role="tabpanel" class="tab-pane tab-main" id="tab-site-mail">

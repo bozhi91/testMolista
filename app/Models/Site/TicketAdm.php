@@ -874,4 +874,33 @@ class TicketAdm
 		return true;
 	}
 
+	public function prepareSignature($user,$site) 
+	{
+		if ( !$user || empty($user['name']) )
+		{
+			return false;
+		}
+
+		$user_info = implode('<br />', array_filter([
+			@$user['name'],
+			@$user['email'],
+			@$user['phone'],
+			@$user['linkedin'],
+		]));
+
+		$site_info = implode('<br />', array_filter([
+			@$site['name'],
+			@$site['address'],
+			@$site['url'],
+		]));
+
+		$signature = implode("\n", array_filter([
+			@$user['image'] ? "<img src='{$user['image']}' />" : '',
+			$user_info,
+			$site_info,
+		]));
+
+		return nl2p($signature);
+	}
+
 }

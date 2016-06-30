@@ -54,6 +54,9 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 			'mailer.service' => 'required|in:default,custom',
 			'mailer.from_name' => 'required',
 			'mailer.from_email' => 'required|email',
+			'signature' => 'required|array',
+			'signature.name' => 'required|string',
+			'signature.email' => 'email',
 		];
 
 		switch ( $this->request->input('mailer.service') )
@@ -115,10 +118,17 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 		}
 
 		// Save site
-		$site->subdomain = $this->request->get('subdomain');
-		$site->theme = $this->request->get('theme');
-		$site->customer_register = $this->request->get('customer_register') ? 1 : 0;
-		$site->mailer = $this->request->get('mailer');
+		$site->subdomain = $this->request->input('subdomain');
+		$site->theme = $this->request->input('theme');
+		$site->customer_register = $this->request->input('customer_register') ? 1 : 0;
+		$site->mailer = $this->request->input('mailer');
+
+		$signature = $this->request->input('signature');
+		foreach ($signature as $key => $value)
+		{
+			$signature[$key] = sanitize($value);
+		}
+		$site->signature = $signature;
 
 		// Save logo && favicon
 		foreach ( [ 'logo','favicon' ] as $img_key )
