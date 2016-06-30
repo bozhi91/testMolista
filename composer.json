@@ -23,6 +23,7 @@
         "pelago/emogrifier": "@dev",
         "barryvdh/laravel-dompdf": "0.6.*",
         "pda/pheanstalk": "~3.0",
+        "laravel/cashier": "~6.0",
         "yangqi/htmldom": "dev-master",
         "league/csv": "^8.1"
     },

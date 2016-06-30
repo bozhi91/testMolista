@@ -17,10 +17,14 @@ class Controller extends BaseController
 	protected $auth;
 	protected $request;
 
+	protected $site;
+
 	public function __construct(Guard $auth, Request $request)
 	{
 		$this->auth = $auth;
 		$this->request = $request;
+
+		$this->site = $this->request->get('site');
 
 		$this->__initialize();
 	}

@@ -59,6 +59,7 @@ class Kernel extends HttpKernel
 		'site.customer.guest' => \App\Http\Middleware\SiteCustomerGuest::class,
 
 		'property.permission' => \App\Http\Middleware\PropertyPermission::class,
+		'employee.permission' => \App\Http\Middleware\EmployeePermission::class,
 
 		/* https://github.com/Zizaco/entrust */
 		'role' => \Zizaco\Entrust\Middleware\EntrustRole::class,

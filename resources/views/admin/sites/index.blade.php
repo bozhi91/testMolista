@@ -42,7 +42,7 @@
 									<td>{{ $site->created_at->format('d/m/Y') }}</td>
 									<td class="text-right">
 										@if ( Auth::user()->can('site-edit') )
-											<a href="{{ action('Admin\SitesController@edit', $site->id) }}" class="btn btn-xs btn-default">{{ Lang::get('general.edit') }}</a>
+											<a href="{{ action('Admin\SitesController@edit', $site->id) }}" class="btn btn-xs btn-default">{{ Lang::get('general.view') }}</a>
 										@endif
 									</td>
 								</tr>

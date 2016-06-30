@@ -17,6 +17,8 @@
 
 <body>
 
+@include('common.analytics')
+
 <nav class="navbar navbar-default">
 	<div class="container">
 		<div class="navbar-header">
@@ -31,6 +33,19 @@
 
 		<div class="collapse navbar-collapse" id="app-navbar-collapse">
 			<ul class="nav navbar-nav navbar-right">
+				@if ( Auth::user()->can('planchange-*') || Auth::user()->can('expirations-*') )
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Lang::get('admin/menu.payment') }} <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							@permission('planchange-*')
+								<li><a href="{{ action('Admin\PlanchangeController@getIndex') }}">{{ Lang::get('admin/menu.planchange') }}</a></li>
+							@endpermission
+							@permission('expirations-*')
+								<li><a href="{{ action('Admin\ExpirationsController@getIndex') }}">{{ Lang::get('admin/menu.expirations') }}</a></li>
+							@endpermission
+						</ul>
+					</li>
+				@endif
 				@permission('site-*')
 					<li><a href="{{ action('Admin\SitesController@index') }}">{{ Lang::get('admin/menu.sites') }}</a></li>
 				@endpermission
@@ -60,6 +75,9 @@
 							@endif
 							@if ( Auth::user()->can('locale-*') )
 								<li><a href="{{ action('Admin\Config\LocalesController@index') }}">{{ Lang::get('admin/menu.locales') }}</a></li>
+							@endif
+							@if ( false && Auth::user()->can('pack-*') )
+								<li><a href="{{ action('Admin\Config\PlansController@index') }}">{{ Lang::get('admin/menu.plans') }}</a></li>
 							@endif
 							@if ( Auth::user()->can('geography-*') )
 								@if ( Auth::user()->can('locale-*') || Auth::user()->can('translation-*') )

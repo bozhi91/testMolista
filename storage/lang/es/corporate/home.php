@@ -6,12 +6,15 @@
 		'h2' => 'Multiplica las oportunidades de tu inmobiliaria',
 		'features' => '<p><strong>molista</strong> te ofrece todo lo que necesitas para que <strong>tu inmobiliaria esté presente en internet:</strong></p>
 		<ul>
+		<li data-type="web">Sitio web de tu inmobiliaria</li>
 		<li data-type="fixa">Fichas de inmuebles ilimitadas</li>
 		<li data-type="searcher">Buscador de viviendas con filtros avanzados</li>
 		<li data-type="relation">Posibilidad de relacionar inmuebles</li>
 		<li data-type="easy">Fácil de usar y gestionar</li>
 		<li data-type="settings">Personalizable</li>
 		<li data-type="responsive">Compatible con móviles y tabletas</li>
+		<li data-type="agents">Gestión de agentes</li>
+		<li data-type="docs">Gestión de documentos</li>
 		</ul>',
 
 		'h3' => 'Las prestaciones que necesitas',
@@ -21,4 +24,5 @@
 		'convinced.test' => '<p>También puedes  probar <strong>molista</strong> durante 30 días gratis. Disfruta de todas sus ventajas sin compromiso.</p>',
 
 		'footer.admin.access' => 'Acceso clientes',
+		'footer.operated' => 'es operada por',
 	];

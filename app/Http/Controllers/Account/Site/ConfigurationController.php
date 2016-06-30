@@ -22,7 +22,9 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 	{
 		$site = $this->auth->user()->sites()->withTranslations()->with('social')->findOrFail( $this->site->id );
 
-		return view('account.site.configuration.index', compact('site'));
+		$max_languages = @intval( \App\Session\Site::get('plan.max_languages') );
+
+		return view('account.site.configuration.index', compact('site','max_languages'));
 	}
 
 	public function postIndex()
@@ -245,9 +247,6 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 
 		// Save configuration
 		$site->save();
-
-		// Remove from session
-		\App\Session\Site::flush();
 
 		return \Redirect::back()->with('current_tab', $this->request->get('current_tab'))->with('success', trans('account/site.configuration.saved'));
 	}

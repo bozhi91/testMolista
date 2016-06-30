@@ -47,6 +47,8 @@
 
 <body id="{{ @$body_id }}">
 
+	@include('common.analytics')
+
 	<div id="sticky-wrapper" class="if-overlay-then-blurred">
 
 		@include('web.common.header')

@@ -49,7 +49,7 @@
 							<div class="error-container">
 								{!! Form::select('locales[]', $tmp, array_keys($tmp), [ 'class'=>'form-control required has-select-2', 'size'=>1, 'multiple'=>'multiple' ]) !!}
 							</div>
-							<div class="help-block">{{ Lang::get('admin/sites.languages.english') }}</div>
+							<div class="help-block">{{ Lang::get('admin/sites.languages.english', [ 'fallback_locale'=>fallback_lang_text() ]) }}</div>
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6">

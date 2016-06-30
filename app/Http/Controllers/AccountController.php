@@ -15,18 +15,15 @@ class AccountController extends Controller
 		parent::__initialize();
 		\View::share('menu_section', 'account');
 		\View::share('hide_advanced_search_modal', true);
-
-		if ( $site_id = \App\Session\Site::get('site_id', false) )
-		{
-			$this->site = \App\Site::findOrFail( $site_id );
-			\View::share('site_model', $this->site);
-		}
 	}
 
 	public function index()
 	{
 		\View::share('submenu_section', 'home');
-		return view('account.index');
+
+		$pending_request = $this->site->planchanges()->pending()->first();
+
+		return view('account.index', compact('pending_request'));
 	}
 
 	public function updateProfile()

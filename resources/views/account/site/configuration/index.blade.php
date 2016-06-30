@@ -119,37 +119,39 @@
 							</div>
 						</div>
 
-						<hr />
-
-						<div class="error-container">
-							<label>{{ Lang::get('account/site.configuration.languages') }}</label>
-							<div class="row">
-								<div class="col-xs-12 col-sm-2">
-									<div class="form-group">
-										<div class="checkbox">
-											<label class="normal">
-												{!! Form::checkbox('locales_array[]', fallback_lang(), null, [ 'class'=>'required locale-input', 'readonly'=>'readonly', 'title'=>Lang::get('account/site.configuration.languages.error') ]) !!}
-												{{ fallback_lang_text() }}
-											</label>
-										</div>
-									</div>
-								</div>
-								@foreach (LaravelLocalization::getSupportedLocales() as $lang_iso => $lang_def)
-									@if ( $lang_iso != fallback_lang() )
-										<div class="col-xs-12 col-sm-2">
-											<div class="form-group">
-												<div class="checkbox">
-													<label class="normal">
-														{!! Form::checkbox('locales_array[]', $lang_iso, null, [ 'class'=>'required locale-input', 'title'=>Lang::get('account/site.configuration.languages.error') ]) !!}
-														{{ $lang_def['native'] }}
-													</label>
-												</div>
+						<div class="{{ ( $max_languages == 1 ) ? 'hide' : '' }}"
+							<hr />
+							<div class="error-container">
+								<label>{{ Lang::get('account/site.configuration.languages') }}</label>
+								<div class="row">
+									<div class="col-xs-12 col-sm-2">
+										<div class="form-group">
+											<div class="checkbox">
+												<label class="normal">
+													{!! Form::checkbox('locales_array[]', fallback_lang(), null, [ 'class'=>'required locale-input', 'readonly'=>'readonly', 'title'=>Lang::get('account/site.configuration.languages.error') ]) !!}
+													{{ fallback_lang_text() }}
+												</label>
 											</div>
 										</div>
-									@endif
-								@endforeach
+									</div>
+									@foreach (LaravelLocalization::getSupportedLocales() as $lang_iso => $lang_def)
+										@if ( $lang_iso != fallback_lang() )
+											<div class="col-xs-12 col-sm-2">
+												<div class="form-group">
+													<div class="checkbox">
+														<label class="normal">
+															{!! Form::checkbox('locales_array[]', $lang_iso, null, [ 'class'=>'required locale-input', 'title'=>Lang::get('account/site.configuration.languages.error') ]) !!}
+															{{ $lang_def['native'] }}
+														</label>
+													</div>
+												</div>
+											</div>
+										@endif
+									@endforeach
+								</div>
 							</div>
 						</div>
+
 					</div>
 
 					<div role="tabpanel" class="tab-pane tab-main" id="tab-site-signature">

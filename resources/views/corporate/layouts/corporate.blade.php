@@ -28,6 +28,8 @@
 
 <body>
 
+	@include('corporate.common.analytics')
+
 	<header id="header">
 		<nav class="navbar navbar-default">
 			<div class="container">
@@ -48,8 +50,8 @@
 					<ul class="nav navbar-nav">
 						<li><a href="http://demo.molista.com/" target="_blank" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</a></li>
 						<li><a href="{{ action('Corporate\FeaturesController@getIndex') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.moreinfo') }}</a></li> 
-						<!--<li><a class="navbar-link" href="">Planes y precios</a></li>
-						<li><a href="navbar-link">Soporte</a></li>  -->
+						<li><a href="{{ action('Corporate\PricingController@getIndex') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.pricing') }}</a></li> 
+						<!--<li><a href="navbar-link">{{ Lang::get('corporate/general.support') }}</a></li>  -->
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Lang::get('corporate/general.languages') }} <span class="caret"></span></a>
 							<ul class="language_bar_chooser dropdown-menu">
@@ -75,11 +77,19 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 text-center">
-					<ul class="footer-menu">
+					<ul class="footer-menu list-inline">
 						<li><a href="#contact-modal" data-toggle="modal">{{ Lang::get('corporate/general.support') }}</a></li>
+						<li class="hidden-xs">I</li>
 						<li><a href="#contact-modal" data-toggle="modal">{{ Lang::get('corporate/general.contact') }}</a></li>
+						<li class="hidden-xs">I</li>
 						<li><a href="{{ action('AdminController@index') }}">{{ Lang::get('corporate/home.footer.admin.access') }}</a></li>
 					</ul>
+					<div class="footer-text">
+						<strong>molista.com</strong> {{ Lang::get('corporate/home.footer.operated') }} <strong><a href="http://www.incubout.com/" target="_blank">Incubout SL</a></strong>: 
+						<span class="text-nowrap">Salvador Espriu 93 08005 Barcelona</span>
+						<span class="text-nowrap">T: <strong>93 488 5223</strong></span>
+						<span class="text-nowrap">E: <strong><a href="mailto:info@molista.com" target="_blank">info@molista.com</a></strong></span>
+					</div>
 				</div>
 			</div>
 		</div>

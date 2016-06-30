@@ -144,9 +144,7 @@
 							</div>
 							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 								<div class="feature-content-image">
-									<img src="{{ Theme::url('/images/corporate/features/picture-tab-content-5-1.png') }}" class="img-responsive">
-									<img src="{{ Theme::url('/images/corporate/features/picture-tab-content-5-2.png') }}" class="img-responsive feature-tab-5-img-right">
-									<img src="{{ Theme::url('/images/corporate/features/picture-tab-content-5-3.png') }}" class="img-responsive feature-tab-5-img-left">
+									<img src="{{ Theme::url('/images/corporate/features/picture-tab-content-5.png') }}" class="img-responsive">
 								</div>
 							</div>
 						</div>
