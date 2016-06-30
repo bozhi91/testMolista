@@ -131,16 +131,6 @@
 								]));
 							?></strong>
 						@endif
-						<br /><br />
-						@if ( @$plan->configuration['support_email'] && @$plan->configuration['support_phone'] )
-							<strong>{{ Lang::get('web/plans.support.email') }} / {{ Lang::get('web/plans.support.phone') }}</strong>
-						@elseif ( @$plan->configuration['support_email'] )
-							<strong>{{ Lang::get('web/plans.support.email') }}</strong>
-						@elseif ( @$plan->configuration['support_phone'] )
-							<strong>{{ Lang::get('web/plans.support.phone') }}</strong>
-						@else
-							-
-						@endif
 					</div>
 					<div class="plan-block-item">
 						@if ( @$plan->configuration['qr'] )
