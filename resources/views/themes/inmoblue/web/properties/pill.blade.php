@@ -2,17 +2,18 @@
 	<div class="padder">
 		<a href="{{ action('Web\PropertiesController@details', $item->slug) }}" class="image" style="background-image: url('{{ $item->main_image }}');">
 			<img src="{{ $item->main_image }}" alt="{{$item->title}}" class="hide" />
-		</a>
-		<div class="text">
 			@if ( $item->label)
 				<div class="labels">
 					<span class="label" style="background-color: {{ $item->label_color }};">{{ $item->label }}</span>
 				</div>
 			@endif
+		</a>
+		<div class="text">
+			
 			<div class="title text-bold">
 				<a href="{{ action('Web\PropertiesController@details', $item->slug) }}">{{$item->title}}</a>
 			</div>
-			<div class="price text-italic">{{ price($item->price, [ 'decimals'=>0 ]) }}</div>
+			
 			<div class="location text-italic">{{ implode(', ', array_filter([
 				'district' => $item->district,
 				'city' => $item->city->name,
@@ -38,6 +39,21 @@
 					@endif
 				</li>
 			</ul>
+
+			<hr>
+
+			<div class="bottom-pill">
+				<div class="price text-italic">
+
+					{{ price($item->price, [ 'decimals'=>0 ]) }}
+
+					<span class="pull-right button-pill-block">
+						<a class="button-pill" href="#">Ver Detalles</a>
+					</span>
+
+				</div>
+			</div>
+
 		</div>
 	</div>
 </div>
