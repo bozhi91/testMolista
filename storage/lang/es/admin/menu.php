@@ -4,6 +4,10 @@
 		'home' => 'Admin',
 		'list' => 'List all',
 
+		'payment' => 'Pagos',
+		'planchange' => 'Cambios pendientes',
+		'expirations' => 'Vencimientos',
+
 		'sites' => 'Sites',
 
 		'users' => 'Users',
@@ -16,6 +20,7 @@
 		'configuration' => 'Configuration',
 		'locales' => 'Languages',
 		'translations' => 'Translations',
+		'plans' => 'Planes',
 		'geography' => 'Geography',
 
 		'logout' => 'Logout',

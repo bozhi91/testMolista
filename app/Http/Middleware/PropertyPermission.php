@@ -14,11 +14,24 @@ class PropertyPermission
 			abort(404);
 		}
 
-		if ( Auth::guard($guard)->user()->canProperty($permission, \App\Session\Site::get('site_id', false)) )
+		// Get site ID
+		$site_id = \App\Session\Site::get('site_id', false);
+
+		// Can publish in this site
+		if ( !Auth::guard($guard)->user()->canProperty($permission, $site_id) )
+		{
+			abort(404);
+		}
+
+		// Check max allowed
+		$properties_allowed = @intval( \App\Session\Site::get('plan.max_properties') );
+		$properties_current = \App\Site::findOrFail($site_id)->properties()->withTrashed()->count();
+		if ( $properties_allowed < 1 || $properties_allowed > $properties_current )
 		{
 			return $next($request);
 		}
 
-		abort(404);
+		echo view('account.warning.properties', compact('properties_allowed','properties_current'))->render();
+		exit;
 	}
 }

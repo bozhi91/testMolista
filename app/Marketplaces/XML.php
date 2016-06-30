@@ -55,7 +55,7 @@ abstract class XML extends Base implements PublishPropertyXmlInterface {
         return new $class($property, $lang);
     }
 
-    private static function getClassName()
+    protected static function getClassName()
     {
         $parts = explode('\\', static::class);
         array_pop($parts);

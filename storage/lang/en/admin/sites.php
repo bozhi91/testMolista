@@ -19,6 +19,7 @@ return [
 	'edit.title' => 'Edit site',
 
 	'tab.config' => 'Configuration',
+	'tab.plan' => 'Plan',
 
 	'goto.site' => 'Go to site',
 	'goto.admin' => 'Go to admin',

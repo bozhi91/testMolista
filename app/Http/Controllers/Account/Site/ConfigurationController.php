@@ -22,7 +22,9 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 	{
 		$site = $this->auth->user()->sites()->withTranslations()->with('social')->findOrFail( $this->site->id );
 
-		return view('account.site.configuration.index', compact('site'));
+		$max_languages = @intval( \App\Session\Site::get('plan.max_languages') );
+
+		return view('account.site.configuration.index', compact('site','max_languages'));
 	}
 
 	public function postIndex()
@@ -54,6 +56,9 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 			'mailer.service' => 'required|in:default,custom',
 			'mailer.from_name' => 'required',
 			'mailer.from_email' => 'required|email',
+			'signature' => 'required|array',
+			'signature.name' => 'required|string',
+			'signature.email' => 'email',
 		];
 
 		switch ( $this->request->input('mailer.service') )
@@ -115,10 +120,17 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 		}
 
 		// Save site
-		$site->subdomain = $this->request->get('subdomain');
-		$site->theme = $this->request->get('theme');
-		$site->customer_register = $this->request->get('customer_register') ? 1 : 0;
-		$site->mailer = $this->request->get('mailer');
+		$site->subdomain = $this->request->input('subdomain');
+		$site->theme = $this->request->input('theme');
+		$site->customer_register = $this->request->input('customer_register') ? 1 : 0;
+		$site->mailer = $this->request->input('mailer');
+
+		$signature = $this->request->input('signature');
+		foreach ($signature as $key => $value)
+		{
+			$signature[$key] = sanitize($value);
+		}
+		$site->signature = $signature;
 
 		// Save logo && favicon
 		foreach ( [ 'logo','favicon' ] as $img_key )
@@ -236,9 +248,6 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 		// Save configuration
 		$site->save();
 
-		// Remove from session
-		\App\Session\Site::flush();
-
 		return \Redirect::back()->with('current_tab', $this->request->get('current_tab'))->with('success', trans('account/site.configuration.saved'));
 	}
 
@@ -278,7 +287,7 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 	{
 		// Validate general fields
 		$fields = [
-			'test_email' => 'required|email',
+			'protocol' => 'required',
 		];
 		$validator = \Validator::make($this->request->all(), $fields);
 		if ($validator->fails()) 
@@ -286,19 +295,7 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 			return [ 'error' => true ];
 		}
 
-		$site = $this->auth->user()->sites()->findOrFail( $this->site->id );
-		if ( !$site ) 
-		{
-			return [ 'error' => true ];
-		}
-
-		$sent = $site->sendEmail([
-			'to' => $this->request->get('test_email'),
-			'subject' => trans('account/site.configuration.mailing.test.email.subject'),
-			'content' => view('emails.dummy', [ 'content'=>trans('account/site.configuration.mailing.test.email.content') ])->render(),
-		]);
-
-		if ( $sent )
+		if ( $this->site->ticket_adm->testEmail( $this->request->input('protocol') ) )
 		{
 			return [ 'success' => true ];
 		}

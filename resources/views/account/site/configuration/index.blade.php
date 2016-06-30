@@ -15,6 +15,7 @@
 
 				<ul class="nav nav-tabs main-tabs" role="tablist">
 					<li role="presentation" class="active"><a href="#tab-site-config" aria-controls="tab-site-config" role="tab" data-toggle="tab">{{ Lang::get('account/site.configuration.tab.config') }}</a></li>
+					<li role="presentation"><a href="#tab-site-signature" aria-controls="tab-site-signature" role="tab" data-toggle="tab">{{ Lang::get('account/site.configuration.tab.signature') }}</a></li>
 					<li role="presentation"><a href="#tab-site-mail" aria-controls="tab-site-mail" role="tab" data-toggle="tab">{{ Lang::get('account/site.configuration.tab.mail') }}</a></li>
 					<li role="presentation"><a href="#tab-site-texts" aria-controls="tab-site-texts" role="tab" data-toggle="tab">{{ Lang::get('account/site.configuration.tab.texts') }}</a></li>
 					<li role="presentation"><a href="#tab-site-social" aria-controls="tab-site-social" role="tab" data-toggle="tab">{{ Lang::get('account/site.configuration.tab.social') }}</a></li>
@@ -118,37 +119,43 @@
 							</div>
 						</div>
 
-						<hr />
-
-						<div class="error-container">
-							<label>{{ Lang::get('account/site.configuration.languages') }}</label>
-							<div class="row">
-								<div class="col-xs-12 col-sm-2">
-									<div class="form-group">
-										<div class="checkbox">
-											<label class="normal">
-												{!! Form::checkbox('locales_array[]', fallback_lang(), null, [ 'class'=>'required locale-input', 'readonly'=>'readonly', 'title'=>Lang::get('account/site.configuration.languages.error') ]) !!}
-												{{ fallback_lang_text() }}
-											</label>
-										</div>
-									</div>
-								</div>
-								@foreach (LaravelLocalization::getSupportedLocales() as $lang_iso => $lang_def)
-									@if ( $lang_iso != fallback_lang() )
-										<div class="col-xs-12 col-sm-2">
-											<div class="form-group">
-												<div class="checkbox">
-													<label class="normal">
-														{!! Form::checkbox('locales_array[]', $lang_iso, null, [ 'class'=>'required locale-input', 'title'=>Lang::get('account/site.configuration.languages.error') ]) !!}
-														{{ $lang_def['native'] }}
-													</label>
-												</div>
+						<div class="{{ ( $max_languages == 1 ) ? 'hide' : '' }}"
+							<hr />
+							<div class="error-container">
+								<label>{{ Lang::get('account/site.configuration.languages') }}</label>
+								<div class="row">
+									<div class="col-xs-12 col-sm-2">
+										<div class="form-group">
+											<div class="checkbox">
+												<label class="normal">
+													{!! Form::checkbox('locales_array[]', fallback_lang(), null, [ 'class'=>'required locale-input', 'readonly'=>'readonly', 'title'=>Lang::get('account/site.configuration.languages.error') ]) !!}
+													{{ fallback_lang_text() }}
+												</label>
 											</div>
 										</div>
-									@endif
-								@endforeach
+									</div>
+									@foreach (LaravelLocalization::getSupportedLocales() as $lang_iso => $lang_def)
+										@if ( $lang_iso != fallback_lang() )
+											<div class="col-xs-12 col-sm-2">
+												<div class="form-group">
+													<div class="checkbox">
+														<label class="normal">
+															{!! Form::checkbox('locales_array[]', $lang_iso, null, [ 'class'=>'required locale-input', 'title'=>Lang::get('account/site.configuration.languages.error') ]) !!}
+															{{ $lang_def['native'] }}
+														</label>
+													</div>
+												</div>
+											</div>
+										@endif
+									@endforeach
+								</div>
 							</div>
 						</div>
+
+					</div>
+
+					<div role="tabpanel" class="tab-pane tab-main" id="tab-site-signature">
+						@include('account/site/configuration.tab-signature')
 					</div>
 
 					<div role="tabpanel" class="tab-pane tab-main" id="tab-site-mail">
@@ -453,36 +460,45 @@
 				$('#mailer-service-input').val( $(e.target).data().service );
 			});
 
+			// Test email configuration
+			form.find('.mail-group-area').on('change','input, select', function(){
+				$(this).closest('.mail-group-area').data('changed',1);
+			});
 			form.on('click', '.btn-test-email', function(e){
 				e.preventDefault();
-				SITECOMMON.prompt("{{ print_js_string( Lang::get('account/site.configuration.mailing.test.email') ) }}", function (e, str) {
-					if (e) {
-						LOADING.show();
-						$.ajax({
-							url: '{{ action('Account\Site\ConfigurationController@postTestMailerConfiguration') }}',
-							type: 'POST',
-							dataType: 'json',
-							data: {
-								_token: '{{ Session::getToken() }}',
-								test_email: str
-							},
-							success: function(data) {
-								LOADING.hide();
-								if (data.success) {
-									alertify.success("{{ print_js_string( Lang::get('account/site.configuration.mailing.test.success') ) }}");
-								} else {
-									alertify.error("{{ print_js_string( Lang::get('account/site.configuration.mailing.test.error') ) }}");
-								}
-							},
-							error: function() {
-								LOADING.hide();
-								alertify.error("{{ print_js_string( Lang::get('account/site.configuration.mailing.test.error') ) }}");
-							}
-						});
+
+				var cont = $(this).closest('.mail-group-area');
+
+				if ( cont.data().changed ) {
+					alertify.error("{{ print_js_string( Lang::get('account/site.configuration.mailing.test.changed') ) }}");
+					return false;
+				}
+
+				LOADING.show();
+				$.ajax({
+					url: '{{ action('Account\Site\ConfigurationController@postTestMailerConfiguration') }}',
+					type: 'POST',
+					dataType: 'json',
+					data: {
+						_token: '{{ Session::getToken() }}',
+						protocol: cont.find('.input-protocol').val()
+					},
+					success: function(data) {
+						LOADING.hide();
+						if (data.success) {
+							alertify.success("{{ print_js_string( Lang::get('account/site.configuration.mailing.test.success') ) }}");
+						} else {
+							alertify.error("{{ print_js_string( Lang::get('account/site.configuration.mailing.test.error') ) }}");
+						}
+					},
+					error: function() {
+						LOADING.hide();
+						alertify.error("{{ print_js_string( Lang::get('account/site.configuration.mailing.test.error') ) }}");
 					}
 				});
 			});
 
+			// Theme preview
 			form.on('click','.theme-preview-trigger',function(e){
 				e.preventDefault();
 

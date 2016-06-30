@@ -22,16 +22,13 @@ class WebController extends Controller
 			'sort_options' => \App\Property::getSortOptions(),
 		];
 
-		if ( $site_id = \App\Session\Site::get('site_id', false) )
+		if ( $this->site )
 		{
-			$this->site = \App\Site::withTranslations()->findOrFail( $site_id );
-			\View::share('site_model', $this->site);
-
-			$search_data['states'] = \App\Models\Geography\State::enabled()->whereIn('id', function($query) use ($site_id) {
-				$query->distinct()->select('state_id')->from('properties')->where('site_id', $site_id)->where('enabled', 1);
+			$search_data['states'] = \App\Models\Geography\State::enabled()->whereIn('id', function($query) {
+				$query->distinct()->select('state_id')->from('properties')->where('site_id', $this->site->id)->where('enabled', 1);
 			})->orderBy('name')->lists('name','slug')->all();
-			$search_data['prices'] = \App\Property::getPriceOptions($site_id);
-			$search_data['types'] = \App\Property::getTypeOptions($site_id);
+			$search_data['prices'] = \App\Property::getPriceOptions($this->site->id);
+			$search_data['types'] = \App\Property::getTypeOptions($this->site->id);
 		}
 		else
 		{

@@ -8,7 +8,11 @@
 	<div class="col-xs-12 col-sm-6">
 		<div class="form-group error-container">
 			{!! Form::label('email', Lang::get('account/profile.email')) !!}
-			{!! Form::email('email', null, [ 'class'=>'form-control required email' ]); !!}
+			@if ( empty($user_email) )
+				{!! Form::email('email', null, [ 'class'=>'form-control required email' ]); !!}
+			@else
+				{!! Form::email('email', null, [ 'class'=>'form-control required email', 'readonly'=>'readonly' ]); !!}
+			@endif
 		</div>
 	</div>
 </div>

@@ -351,7 +351,7 @@
 								<tbody>
 									@foreach ($marketplaces as $marketplace)
 										<?php
-											$publishable = $site_model->marketplace_helper->checkReadyProperty($marketplace,$item);
+											$publishable = $current_site->marketplace_helper->checkReadyProperty($marketplace,$item);
 										?>
 										<tr>
 											<td class="text-center" style="width: 60px;">

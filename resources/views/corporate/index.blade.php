@@ -1,65 +1,116 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Molista</title>
-	<link href="https://fonts.googleapis.com/css?family=Lato:400,300,700,900,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
-	<link href="/compiled/css/corporate.css" rel="stylesheet" type='text/css' />
-	<link id="page_favicon" href="http://molista.localhost/favicon.ico" rel="icon" type="image/x-icon" />
+@extends('layouts.corporate')
+
+@section('content')
+
+	<div id="home" class="home">
+
+			<!-- BANNER -->
+			<div class="jumbotron">
+			  <div class="container">
+			  	<div class="col-md-6">
+				    <h1>{{ Lang::get('corporate/home.h1') }}</h1>
+				    {!! Lang::get('corporate/home.intro') !!}
+			    </div>
+			  </div>
+			</div>
+			<!-- / BANNER -->
+
+			<!-- FIRST BLOCK -->
+			<section class="first-block">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6">
+							<h2>{{ Lang::get('corporate/home.h2') }}</h2>
+							{!! Lang::get('corporate/home.features') !!}
+						</div>
+						<div class="col-md-6">
+							<img class="img-responsive" src="{{ Theme::url('/images/corporate/responsive.png') }}">
+						</div>
+
+					</div>
+				</div>
+			</section>
+			<!-- / FIRST BLOCK -->
+
+			<!-- SECOND BLOCK -->
+			<!-- BLOCK LINKS -->
+			<section class="block-links">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-6 col-lg-offset-3 clearfix">
+						  <ul>
+					        <li><a href="http://demo.molista.com/" target="_blank" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</a></li>
+					        <li><a href="{{ action('Corporate\FeaturesController@getIndex') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.moreinfo') }}</a></li>
+					      </ul>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!--/ BLOCK LINKS -->
+			<!-- SECOND BLOCK -->
+
+			<!-- THIRD BLOCK -->
+			<section class="third-block">
+				<div class="container">
+					<div class="row">
+						<div class="title-block col-md-6 col-md-offset-3 text-center">
+							<h3>{{ Lang::get('corporate/home.h3') }}</h3>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1">
+
+						  	<div class="panel first-panel">
+						  		<div class="row">
+						  			<div class="col-md-4">
+						  				<h4>{{ Lang::get('corporate/features.features.simple.title') }}<h4>
+						  			</div>
+						  			<div class="col-md-8">
+						  				{!! Lang::get('corporate/features.features.simple.text') !!}
+						  			</div>
+
+						  		</div>
+						  	</div>
+
+						  	<div class="panel second-panel">
+						  		<div class="row">
+						  			<div class="col-md-4">
+						  				<h4>{{ Lang::get('corporate/features.features.power.title') }}<h4>
+						  			</div>
+						  			<div class="col-md-8">
+						  				{!! Lang::get('corporate/features.features.power.text') !!}
+						  			</div>
+
+						  		</div>
+						  	</div>
+
+						  	<div class="panel third-panel">
+						  		<div class="row">
+						  			<div class="col-md-4">
+						  				<h4>{{ Lang::get('corporate/features.features.customizable.title') }}<h4>
+						  			</div>
+						  			<div class="col-md-8">
+						  				{!! Lang::get('corporate/features.features.customizable.text') !!}
+						  			</div>
+
+						  		</div>
+						  	</div>
+
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- THIRD BLOCK -->
+
+			@include('corporate.common.home-fourth-block')
+
+	</div>
+
 	<script type="text/javascript">
-		var ready_callbacks = [];
+		ready_callbacks.push(function(){
+			var cont = $('#home');
+
+		});
 	</script>
-	<style type="text/css">
-		body { font-family: 'Lato', sans-serif; font-style: normal; font-weight: 400; }
-		#home { opacity: 0; }
-			#home h1 { font-size: 20px; }
-			#home .img-responsive { display: inline-block; }
-		.footer { background: transparent; }
-			.footer ul.footer-list { padding-top: 30px; }
-			.footer a { text-decoration: none; color: #999; font-size: 0.8em; }
-			.footer a:hover { text-decoration: none; color: #666; }
-	</style>
-</head>
 
-<body>
-
-<div id="home">
-	<div class="container text-center">
-		<br />
-		<p><img src="{{ asset('images/logo-beta.png') }}" alt="Molista" class="img-responsive" /></p>
-		<h1>Something big is coming soon</h1>
-	</div>
-</div>
-
-<script type="text/javascript">
-	ready_callbacks.push(function(){
-		var h = $('#home').outerHeight() + 20;
-		if ( $(window).height() > h ) {
-			$('#home').css({
-				'top': '50%',
-				'position': 'absolute',
-				'width': '100%',
-				'margin-top': ( -1 * h / 2 ) + 'px'
-			});
-		}
-
-		$('#home').animate({ opacity: 1 }, 1000);
-
-	});
-</script>
-
-
-<footer class="footer">
-	<div class="container">
-		<ul class="list-unstyled pull-right footer-list">
-			<li><a href="{{ action('AdminController@index') }}">{{ Lang::get('admin/menu.home') }}</a></li>
-		</ul>
-	</div>
-</footer>
-
-<script src="{{ Theme::url('/compiled/js/app.js') }}"></script>
-
-</body>
-</html>
+@endsection

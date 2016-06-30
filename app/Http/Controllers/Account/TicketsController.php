@@ -208,6 +208,7 @@ class TicketsController extends \App\Http\Controllers\AccountController
 
 		$data['user_id'] = \Auth::user()->ticket_user_id;
 		$data['source'] = 'backoffice';
+		$data['signature'] = $this->site->ticket_adm->prepareSignature(\Auth::user()->signature_parts, $this->site->signature_parts);
 
 		$result = $this->site->ticket_adm->postMessage($ticket_id, $data);
 

@@ -15,18 +15,15 @@ class AccountController extends Controller
 		parent::__initialize();
 		\View::share('menu_section', 'account');
 		\View::share('hide_advanced_search_modal', true);
-
-		if ( $site_id = \App\Session\Site::get('site_id', false) )
-		{
-			$this->site = \App\Site::findOrFail( $site_id );
-			\View::share('site_model', $this->site);
-		}
 	}
 
 	public function index()
 	{
 		\View::share('submenu_section', 'home');
-		return view('account.index');
+
+		$pending_request = $this->site->planchanges()->pending()->first();
+
+		return view('account.index', compact('pending_request'));
 	}
 
 	public function updateProfile()
@@ -38,11 +35,14 @@ class AccountController extends Controller
 			return redirect()->back()->withInput()->withErrors($validator);
 		}
 
-		$saved = \App\User::saveModel($this->request->all(), $this->auth->user()->id);
-		if ( !$saved )
+		$user = \App\User::saveModel($this->request->all(), $this->auth->user()->id);
+		if ( !$user )
 		{
 			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
 		}
+
+		// Update user info in ticketing system
+		$this->site->ticket_adm->associateUsers([ $user ]);
 
 		return redirect()->back()->with('success', trans('account/profile.message.saved'));
 	}
