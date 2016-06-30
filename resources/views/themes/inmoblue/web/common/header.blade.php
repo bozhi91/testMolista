@@ -72,6 +72,7 @@
 
 <script type="text/javascript">
 	ready_callbacks.push(function() {
+		/*
 		var cont = $('#header-top');
 		var cont2 = $('#header');
 		var space = $('#navbar-space');
@@ -80,6 +81,6 @@
 		if (h > 768) {
 			space.height( cont.outerHeight() + cont2.outerHeight() );
 		}
-
+		*/
 	});
 </script>
