@@ -15,7 +15,7 @@
 
 <div class="row">
 	@foreach ($buy_plans as $plan)
-		<div class="col-xs-4">
+		<div class="col-xs-12 col-sm-4">
 			<div class="plan-block plan-{{ $plan->code }} text-center">
 				<div class="plan-block-title">{{ $plan->name }}</div>
 				<div class="plan-block-body">
@@ -198,6 +198,7 @@
 					</div>
 				@endif
 			</div>
+			<div class="visible-xs" style="height: 50px;"></div>
 		</div>
 	@endforeach
 </div>
