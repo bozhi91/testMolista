@@ -62,6 +62,7 @@
 		'finish.h2' => 'El sitio se ha creado correctamente',
 		'finish.h2.ready' => 'El sitio está listo',
 		'finish.congratulations' => '<p>Felicitaciones, tu página web está disponible en <strong>:website_url</strong></p>',
+		'finish.pay' => '<p>Por favor complete el pago.</p>',
 		'finish.gotoweb' => 'Ir a mi página web',
 		'finish.gotoaccount' => 'Ir al backoffice',
 		'finish.warning.links' => '<p>Para acceder al backoffice debes ingresar los datos del usuario que usaste para crear este sitio.</p>

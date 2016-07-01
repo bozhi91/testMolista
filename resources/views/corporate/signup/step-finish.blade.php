@@ -29,7 +29,7 @@
 						@if ( $pending_request->summary->payment_method == 'stripe' )
 							<div class="row">
 								<div class="col-xs-12 col-sm-6">
-									<p>Please complete you payment.</p>
+									{!! Lang::get('corporate/signup.finish.pay') !!}
 									{!! Lang::get('corporate/signup.finish.plan.details', [
 										'plan' => @$pending_request->summary->plan_name,
 										'price_text' => Lang::get("web/plans.price.{$pending_request->payment_interval}") . ' ' . price($pending_request->plan_price, [ 'decimals'=>0 ]),

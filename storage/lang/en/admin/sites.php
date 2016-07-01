@@ -20,6 +20,7 @@ return [
 
 	'tab.config' => 'Configuration',
 	'tab.plan' => 'Plan',
+	'tab.invoices' => 'Invoices',
 
 	'goto.site' => 'Go to site',
 	'goto.admin' => 'Go to admin',
@@ -28,4 +29,13 @@ return [
 	'messages.updated' => 'The site was successfully updated',
 
 	'messages.no.owner' => 'This site has no owner',
+
+	'invoices.title' => 'Invoice reference',
+	'invoices.amount' => 'Amount',
+	'invoices.document' => 'Invoice file',
+	'invoices.uploaded_at' => 'Date',
+	'invoices.new.button' => 'Upload invoice',
+	'invoices.message.success' => 'The invoice was successfully uploaded',
+	'invoices.message.deleted' => 'The invoice was successfully deleted',
+	'invoices.warning.delete' => 'Are you sure you want to delete this invoice?',
 ];

@@ -62,6 +62,7 @@
 		'finish.h2' => 'The website was successfully created',
 		'finish.h2.ready' => 'Your website is up and running',
 		'finish.congratulations' => '<p>Congratulations, your website is available at <strong>:website_url</strong></p>',
+		'finish.pay' => '<p>Please complete your payment.</p>',
 		'finish.gotoweb' => 'Go to my website',
 		'finish.gotoaccount' => 'Go to my backoffice',
 		'finish.warning.links' => '<p>To access your backoffice you must use the email/password combination for the user you provided when creating this website.</p>

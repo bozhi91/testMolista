@@ -6,18 +6,19 @@
 
 		@include('common.messages', [ 'dismissible'=>true ])
 
-		{!! Form::model($site, [ 'method'=>'PATCH', 'action'=>[ 'Admin\SitesController@update', $site->id ], 'id'=>'site-form' ]) !!}
 
-			<h1 class="list-title">{{ Lang::get('admin/sites.edit.title') }}</h1>
+		<h1 class="list-title">{{ Lang::get('admin/sites.edit.title') }}</h1>
 
-			<ul class="nav nav-tabs main-tabs" role="tablist">
-				<li role="presentation" class="active"><a href="#tab-site-config" aria-controls="tab-site-config" role="tab" data-toggle="tab">{{ Lang::get('admin/sites.tab.config') }}</a></li>
-				<li role="presentation"><a href="#tab-site-plan" aria-controls="tab-site-plan" role="tab" data-toggle="tab">{{ Lang::get('admin/sites.tab.plan') }}</a></li>
-			</ul>
+		<ul class="nav nav-tabs main-tabs" role="tablist">
+			<li role="presentation" class="{{ $current_tab == 'site' ? 'active' : '' }}"><a href="#tab-site-config" aria-controls="tab-site-config" role="tab" data-toggle="tab">{{ Lang::get('admin/sites.tab.config') }}</a></li>
+			<li role="presentation" class="{{ $current_tab == 'plan' ? 'active' : '' }}"><a href="#tab-site-plan" aria-controls="tab-site-plan" role="tab" data-toggle="tab">{{ Lang::get('admin/sites.tab.plan') }}</a></li>
+			<li role="presentation" class="{{ $current_tab == 'invoices' ? 'active' : '' }}"><a href="#tab-site-invoices" aria-controls="tab-site-invoices" role="tab" data-toggle="tab">{{ Lang::get('admin/sites.tab.invoices') }}</a></li>
+		</ul>
 
-			<div class="tab-content">
+		<div class="tab-content">
 
-				<div role="tabpanel" class="tab-pane tab-main active" id="tab-site-config">
+			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'site' ? 'active' : '' }}" id="tab-site-config">
+				{!! Form::model($site, [ 'method'=>'PATCH', 'action'=>[ 'Admin\SitesController@update', $site->id ], 'id'=>'site-form' ]) !!}
 					<div class="row">
 						<div class="col-xs-12 col-sm-6">
 							<div class="form-group error-container">
@@ -117,59 +118,130 @@
 							</div>
 						</div>
 					</div>
-				</div>
+					<div class="text-right">
+						{!! Form::button( Lang::get('general.continue'), [ 'type'=>'submit', 'class'=>'btn btn-default hide' ]) !!}
+					</div>
+				{!! Form::close() !!}
+			</div>
 
-				<div role="tabpanel" class="tab-pane tab-main" id="tab-site-plan">
-					<div class="row">
-						<div class="col-xs-12 col-sm-6">
-							<div class="form-group error-container">
-								{!! Form::label(null, Lang::get('admin/expirations.plan')) !!}
-								{!! Form::text(null, $site->plan->name, [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
-							</div>
-						</div>
-						<div class="col-xs-12 col-sm-6">
-							<div class="form-group error-container">
-								{!! Form::label(null, Lang::get('admin/expirations.payment.method')) !!}
-								@if ( $site->payment_interval )
-									{!! Form::text(null, Lang::get("web/plans.price.{$site->payment_interval}"), [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
-								@else
-									{!! Form::text(null, null, [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
-								@endif
-							</div>
+			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'plan' ? 'active' : '' }}" id="tab-site-plan">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group error-container">
+							{!! Form::label(null, Lang::get('admin/expirations.plan')) !!}
+							{!! Form::text(null, $site->plan->name, [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-xs-12 col-sm-6">
-							<div class="form-group error-container">
-								{!! Form::label(null, Lang::get('admin/expirations.payment.interval')) !!}
-								@if ( $site->payment_method )
-									{!! Form::text(null, Lang::get("account/payment.method.{$site->payment_method}"), [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
-								@else
-									{!! Form::text(null, null, [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
-								@endif
-							</div>
-						</div>
-						<div class="col-xs-12 col-sm-6">
-							<div class="form-group error-container">
-								{!! Form::label(null, Lang::get('admin/expirations.paid.until')) !!}
-								@if ( $site->paid_until )
-									{!! Form::text(null, date("d/m/Y", strtotime($site->paid_until)), [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
-								@else
-									{!! Form::text(null, null, [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
-								@endif
-							</div>
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group error-container">
+							{!! Form::label(null, Lang::get('admin/expirations.payment.method')) !!}
+							@if ( $site->payment_interval )
+								{!! Form::text(null, Lang::get("web/plans.price.{$site->payment_interval}"), [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+							@else
+								{!! Form::text(null, null, [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+							@endif
 						</div>
 					</div>
 				</div>
-
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group error-container">
+							{!! Form::label(null, Lang::get('admin/expirations.payment.interval')) !!}
+							@if ( $site->payment_method )
+								{!! Form::text(null, Lang::get("account/payment.method.{$site->payment_method}"), [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+							@else
+								{!! Form::text(null, null, [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+							@endif
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group error-container">
+							{!! Form::label(null, Lang::get('admin/expirations.paid.until')) !!}
+							@if ( $site->paid_until )
+								{!! Form::text(null, date("d/m/Y", strtotime($site->paid_until)), [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+							@else
+								{!! Form::text(null, null, [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+							@endif
+						</div>
+					</div>
+				</div>
 			</div>
 
-			<div class="text-right">
-				{!! print_goback_button( Lang::get('general.back'), [ 'class'=>'btn btn-default' ]) !!}
-				{!! Form::submit( Lang::get('general.continue'), [ 'class'=>'btn btn-default hide']) !!}
+			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'invoices' ? 'active' : '' }}" id="tab-site-invoices">
+				<div class="add-invoice-area">
+					{!! Form::model(null, [ 'method'=>'POST', 'action'=>[ 'Admin\SitesController@postInvoice', $site->id ], 'id'=>'invoice-form', 'files'=>true ]) !!}
+						<div class="row">
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group error-container">
+									{!! Form::label('title', Lang::get('admin/sites.invoices.title')) !!}
+									{!! Form::text('title', null, [ 'class'=>'form-control required' ]) !!}
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group error-container">
+									{!! Form::label('amount', Lang::get('admin/sites.invoices.amount')) !!}
+									{!! Form::text('amount', null, [ 'class'=>'form-control required number' ]) !!}
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group error-container">
+									{!! Form::label('document', Lang::get('admin/sites.invoices.document')) !!}
+									{!! Form::file('document', [ 'class'=>'form-control required', 'accept'=>'application/pdf' ]) !!}
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group error-container">
+									{!! Form::label('uploaded_at', Lang::get('admin/sites.invoices.uploaded_at')) !!}
+									{!! Form::text('uploaded_at', null, [ 'class'=>'form-control required', 'accept'=>'application/pdf' ]) !!}
+								</div>
+							</div>
+						</div>
+						<div class="text-right">
+							{!! Form::button( Lang::get('admin/sites.invoices.new.button'), [ 'type'=>'submit', 'class'=>'btn btn-default btn-sm' ]) !!}
+						</div>
+						<hr />
+					{!! Form::close() !!}
+				</div>
+				@if ( $invoices->count() < 1 )
+					{{ Lang::get('account/payment.invoices.empty') }}
+				@else
+					<table class="table">
+						<thead>
+							<tr>
+								<th>{{ Lang::get('admin/sites.invoices.uploaded_at') }}</th>
+								<th>{{ Lang::get('admin/sites.invoices.title') }}</th>
+								<th class="text-right">{{ Lang::get('admin/sites.invoices.amount') }}</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach ($invoices as $invoice)
+								<tr>
+									<td>{{ $invoice->uploaded_at->format('d/m/Y') }}</td>
+									<td>{{ $invoice->title }}</td>
+									<td class="text-right">{{ price($invoice->amount) }}</td>
+									<td class="text-right">
+										{!! Form::open([ 'method'=>'DELETE', 'action'=>[ 'Admin\SitesController@deleteInvoice', $invoice->id ], 'class'=>'delete-form' ]) !!}
+											{!! Form::button(Lang::get('general.delete'), [ 'type'=>'submit', 'class'=>'btn btn-xs btn-default' ]) !!}
+											<a href="{{ action('Admin\SitesController@getInvoice', [ $invoice->id, $invoice->invoice_filename ]) }}" class="btn btn-xs btn-default" target="_blank">{{ Lang::get('general.view') }}</a>
+										{!! Form::close() !!}
+									</td>
+								</tr>
+							@endforeach
+						</tbody>
+					</table>
+					{!! drawPagination($invoices, [ 'current_tab'=>'invoices' ]+Input::only('limit')) !!}
+				@endif
 			</div>
 
-		{!! Form::close() !!}
+		</div>
+
+		<div class="text-right">
+			{!! print_goback_button( Lang::get('general.back'), [ 'class'=>'btn btn-default' ]) !!}
+		</div>
+
 
 	</div>
 
@@ -229,6 +301,33 @@
 			form.find('select[name="owners_ids[]"]').on('change', function(){
 				$(this).closest('.form-group').find('.select2-selection__rendered').prepend(owners_str);
 			}).closest('.form-group').find('.select2-selection__rendered').prepend(owners_str);
+
+			var form_invoice = $('#invoice-form')
+			form_invoice.validate({
+				ignore: '',
+				errorPlacement: function(error, element) {
+					element.closest('.error-container').append(error);
+				},
+				submitHandler: function(f) {
+					LOADING.show();
+					f.submit();
+				}			});
+			form_invoice.find('input[name="uploaded_at"]').datetimepicker({
+				format: 'YYYY-MM-DD'
+			});
+
+			$('form.delete-form').each(function(){
+				$(this).validate({
+					submitHandler: function(f) {
+						SITECOMMON.confirm("{{ print_js_string( Lang::get('admin/sites.invoices.warning.delete') ) }}", function (e) {
+							if (e) {
+								LOADING.show();
+								f.submit();
+							}
+						});
+					}
+				});
+			});
 		});
 	</script>
 

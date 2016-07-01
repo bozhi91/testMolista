@@ -52,6 +52,11 @@ class Site extends TranslatableModel
 		return $this->hasMany('App\Models\Site\Webhook');
 	}
 
+	public function invoices()
+	{
+		return $this->hasMany('App\Models\Site\Invoice');
+	}
+
 	public function stats() {
 		return $this->hasMany('App\Models\Site\Stats');
 	}
@@ -635,6 +640,17 @@ class Site extends TranslatableModel
 	public function getMarketplaceHelperAttribute()
 	{
 		return new \App\Models\Site\MarketplaceHelper($this);
+	}
+
+	public function getUpgradePaymentUrlAttribute()
+	{
+		return implode('/',array_filter([
+			rtrim(\Config::get('app.url'),'/'),
+			( \LaravelLocalization::getCurrentLocale() == \Config::get('app.locale') ? '' : \LaravelLocalization::getCurrentLocale() ),
+			'signup/finish',
+			$this->id,
+			$this->subdomain,
+		]));
 	}
 
 	public function getSignupInfo($locale=false)
