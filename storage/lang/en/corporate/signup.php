@@ -31,6 +31,7 @@
 		'site.subdomain' => 'Choose a name for your website',
 		'site.subdomain.sample' => 'The address of you website will be:',
 		'site.language' => 'Choose a language for your website',
+		'site.transfer' => 'I want to buy the web transfer service :cost',
 
 		'payment.h2' => 'Payment method',
 		'payment.choose' => 'Choose a payment method',
@@ -39,6 +40,7 @@
 		'invoicing.h2' => 'Invoicing data',
 		'invoicing.type.individual' => 'Individual',
 		'invoicing.type.company' => 'Company',
+		'invoicing.company' => 'Company name',
 		'invoicing.first_name' => 'Name',
 		'invoicing.last_name' => 'Last name',
 		'invoicing.email' => 'Email',

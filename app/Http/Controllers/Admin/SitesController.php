@@ -29,6 +29,13 @@ class SitesController extends Controller
 			$query->whereTranslationLike('title', "%{$this->request->get('title')}%");
 		}
 
+		// Filter by web_transfer_requested
+		if ( $this->request->input('transfer') )
+		{
+
+			$query->where('web_transfer_requested', intval($this->request->input('transfer'))-1);
+		}
+
 		$sites = $query->orderBy('title')->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$this->set_go_back_link();
@@ -121,6 +128,8 @@ class SitesController extends Controller
 	{
 		$site = \App\Site::withTranslations()->with('users')->with('plan')->findOrFail($id);
 
+		$plan_details = $site->planchanges()->active()->first();
+
 		$locales = \App\Models\Locale::getAdminOptions();
 
 		$owners = $site->users()->whereIn('id', $site->owners_ids)->orderBy('name')->lists('name','id')->all();
@@ -130,7 +139,7 @@ class SitesController extends Controller
 
 		$current_tab = session('current_tab', $this->request->input('current_tab','site'));
 
-		return view('admin.sites.edit', compact('site','locales','owners','companies','invoices','current_tab'));
+		return view('admin.sites.edit', compact('site','locales','owners','companies','invoices','current_tab','plan_details'));
 	}
 
 	public function update($id)

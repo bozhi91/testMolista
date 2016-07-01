@@ -31,6 +31,7 @@
 		'site.subdomain' => 'Elije el nombre de tu página',
 		'site.subdomain.sample' => 'La dirección de tu página molista será:',
 		'site.language' => 'Elije el idioma de tu página',
+		'site.transfer' => 'Quiero contratar el servicio de traspaso web :cost',
 
 		'payment.h2' => 'Método de pago',
 		'payment.choose' => 'Elije el método de pago',
@@ -39,6 +40,7 @@
 		'invoicing.h2' => 'Datos de facturación',
 		'invoicing.type.individual' => 'Persona',
 		'invoicing.type.company' => 'Empresa',
+		'invoicing.company' => 'Nombre empresa',
 		'invoicing.first_name' => 'Nombre',
 		'invoicing.last_name' => 'Apellidos',
 		'invoicing.email' => 'Email',

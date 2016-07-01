@@ -35,6 +35,16 @@
 							</div>
 						</div>
 					</div>
+					<div class="invoicing-type-rel invoicing-type-company {{ (@$data['invoicing']['type'] == 'company') ? '' : 'hide' }}">
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="form-group error-container">
+									{!! Form::label('invoicing[company]', Lang::get('corporate/signup.invoicing.company'), [ 'class'=>'input-label' ]) !!}
+									{!! Form::text('invoicing[company]', null, [ 'class'=>'form-control' ]) !!}
+								</div>
+							</div>
+						</div>
+					</div>
 					<div class="row">
 						<div class="col-xs-12 col-sm-6">
 							<div class="form-group error-container">
@@ -93,7 +103,7 @@
 						</div>
 					</div>
 
-					<div class="coupon-area">
+					<div class="coupon-area hide">
 						{!! Form::hidden('invoicing[use_coupon]', null) !!}
 						<div class="coupon-question">
 							{{ Lang::get('corporate/signup.invoicing.coupon.have') }}
@@ -136,10 +146,23 @@
 				errorPlacement: function(error, element) {
 					element.closest('.error-container').append(error);
 				},
+				rules: {
+					"invoicing[company]": {
+						required: function() {
+							return form.find('input[name="invoicing[type]"]:checked').val() == 'company';
+						}
+					}
+				},
 				submitHandler: function(f) {
 					LOADING.show();
 					f.submit();
 				}
+			});
+
+			form.on('click','input[name="invoicing[type]"]',function(e){
+				var t = form.find('input[name="invoicing[type]"]:checked').val();
+				form.find('.invoicing-type-rel').addClass('hide')
+					.filter('.invoicing-type-'+t).removeClass('hide');
 			});
 
 			form.on('click','.coupon-switch',function(e){

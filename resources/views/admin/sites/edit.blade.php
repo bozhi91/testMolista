@@ -122,6 +122,77 @@
 						{!! Form::button( Lang::get('general.continue'), [ 'type'=>'submit', 'class'=>'btn btn-default hide' ]) !!}
 					</div>
 				{!! Form::close() !!}
+
+				@if ( @$plan_details )
+					<hr />
+					<h3>Invoicing info</h3>
+					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group error-container">
+								{!! Form::label(null, 'Type') !!}
+								{!! Form::text(null, Lang::get("corporate/signup.invoicing.type.{$plan_details->invoicing['type']}"), [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+							</div>
+						</div>
+						@if ( $plan_details->invoicing['type'] == 'company' )
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group error-container">
+									{!! Form::label(null, Lang::get('corporate/signup.invoicing.company')) !!}
+									{!! Form::text(null, @$plan_details->invoicing['company'], [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								</div>
+							</div>
+						@endif
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group error-container">
+								{!! Form::label(null, Lang::get('corporate/signup.invoicing.first_name')) !!}
+								{!! Form::text(null, @$plan_details->invoicing['first_name'], [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group error-container">
+								{!! Form::label(null, Lang::get('corporate/signup.invoicing.last_name')) !!}
+								{!! Form::text(null, @$plan_details->invoicing['last_name'], [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group error-container">
+								{!! Form::label(null, Lang::get('corporate/signup.invoicing.email')) !!}
+								{!! Form::text(null, @$plan_details->invoicing['email'], [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group error-container">
+								{!! Form::label(null, Lang::get('corporate/signup.invoicing.tax_id')) !!}
+								{!! Form::text(null, @$plan_details->invoicing['tax_id'], [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group error-container">
+								{!! Form::label(null, Lang::get('corporate/signup.invoicing.street')) !!}
+								{!! Form::text(null, @$plan_details->invoicing['street'], [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group error-container">
+								{!! Form::label(null, Lang::get('corporate/signup.invoicing.zipcode')) !!}
+								{!! Form::text(null, @$plan_details->invoicing['zipcode'], [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group error-container">
+								{!! Form::label(null, Lang::get('corporate/signup.invoicing.city')) !!}
+								{!! Form::text(null, @$plan_details->invoicing['city'], [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group error-container">
+								{!! Form::label(null, Lang::get('corporate/signup.invoicing.country')) !!}
+								{!! Form::text(null, @$plan_details->invoicing['country'], [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+							</div>
+						</div>
+					</div>
+				@endif
 			</div>
 
 			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'plan' ? 'active' : '' }}" id="tab-site-plan">
@@ -161,6 +232,18 @@
 								{!! Form::text(null, date("d/m/Y", strtotime($site->paid_until)), [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
 							@else
 								{!! Form::text(null, null, [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+							@endif
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group error-container">
+							{!! Form::label(null, Lang::get('admin/sites.transfer')) !!}
+							@if ( $site->web_transfer_requested )
+								{!! Form::text(null, Lang::get('general.yes'), [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+							@else
+								{!! Form::text(null, Lang::get('general.no'), [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
 							@endif
 						</div>
 					</div>

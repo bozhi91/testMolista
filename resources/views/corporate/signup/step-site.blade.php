@@ -30,7 +30,20 @@
 								{!! Form::label('site[language]', Lang::get('corporate/signup.site.language'), [ 'class'=>'input-label text-center' ]) !!}
 								{!! Form::select('site[language]', $languages, null, [ 'class'=>'form-control required' ]) !!}
 							</div>
+							<p>&nbsp;</p>
 						@endif
+
+						<div class="form-group text-center">
+							<div class="checkbox error-container">
+								<label>
+									{!! Form::checkbox('site[web_transfer_requested]', 1, null, [ 'class'=>'' ]) !!}
+									{{ Lang::get('corporate/signup.site.transfer', [
+										'cost' => @$data['plan']['extras']['transfer'] ? ' - '.price($data['plan']['extras']['transfer'], [ 'decimals'=>0 ]) : '',
+									]) }}
+								</label>
+							</div>
+						</div>
+
 					</div>
 
 					<div class="nav-area">

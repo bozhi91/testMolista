@@ -14,6 +14,7 @@ return [
 	'created' => 'Created',
 	'enabled' => 'Enabled',
 	'theme.custom' => 'Custom theme',
+	'transfer' => 'Traspaso de web',
 
 	'create.title' => 'Create site',
 	'edit.title' => 'Edit site',
