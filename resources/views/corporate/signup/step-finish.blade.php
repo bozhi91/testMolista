@@ -66,6 +66,13 @@
 										<div class="help-block">{!! Lang::get('corporate/signup.finish.stripe.warnings') !!}</div>
 									</div>
 								</div>
+								<div class="col-xs-12 col-sm-6">
+									<div class="alert alert-warning payment-warning">
+										{!! Lang::get('corporate/signup.finish.stripe.current.version',[
+											'plan' => @$pending_request->site->plan->name,
+										])!!}
+									</div>
+								</div>
 							</div>
 						@elseif ( $pending_request->summary->payment_method == 'transfer' )
 							{!! Lang::get('corporate/signup.finish.transfer.intro', [

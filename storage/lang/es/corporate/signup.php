@@ -83,6 +83,12 @@
 										<li data-type="settings">Personalizable</li>
 										<li data-type="responsive">Compatible con móviles y tabletas</li>
 									</ul>',
+		'finish.stripe.current.version' => '<p>Tendrás la versión :plan habilitada hasta que pagues el plan elegido.</p>
+											<p>Puedes pagarlo ahora o después desde tu backoffice</p>
+											¿Necesitas ayuda?<br />
+											T: +93 488 52 23<br />
+											E: <a href="mailto:soporte@molista.com" target="_blank">soporte@molista.com</a><br />
+											L - V de 10 a 18 h',
 
 		'email.subject' => 'Bienvenid@ a molista',
 		'email.hello' => '<p>Hola :name,</p>',

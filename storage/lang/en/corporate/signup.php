@@ -83,6 +83,12 @@
 										<li data-type="settings">Customizable</li>
 										<li data-type="responsive">Compatible with phones and tablets</li>
 									</ul>',
+		'finish.stripe.current.version' => '<p>You will have the :plan version enabled until your payment of the chosen plan is completed.</p>
+											<p>You can pay it now or later from you backoffice</p>
+											Need help?<br />
+											T: +93 488 52 23<br />
+											E: <a href="mailto:soporte@molista.com" target="_blank">soporte@molista.com</a><br />
+											M - F from 10 to 18 h',
 
 		'email.subject' => 'Welcome to molista',
 		'email.hello' => '<p>Hello :name,</p>',
