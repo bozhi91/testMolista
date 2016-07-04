@@ -91,6 +91,10 @@
 											T: +93 488 52 23<br />
 											E: <a href="mailto:soporte@molista.com" target="_blank">soporte@molista.com</a><br />
 											M - F from 10 to 18 h',
+		'finish.our.help' => 'Need help?<br />
+								T: +93 488 52 23<br />
+								E: <a href="mailto:soporte@molista.com" target="_blank">soporte@molista.com</a><br />
+								M - F from 10 to 18 h',
 
 		'email.subject' => 'Welcome to molista',
 		'email.hello' => '<p>Hello :name,</p>',
