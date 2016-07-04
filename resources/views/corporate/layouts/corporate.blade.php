@@ -90,12 +90,18 @@
 			<div class="row">
 				<div class="col-md-12 text-center">
 					<ul class="footer-menu list-inline">
-						<li><a href="#contact-modal" data-toggle="modal">{{ Lang::get('corporate/general.support') }}</a></li>
+						<li class="text-nowrap"><a href="#contact-modal" data-toggle="modal">{{ Lang::get('corporate/general.support') }}</a></li>
 						<li class="hidden-xs">I</li>
-						<li><a href="#contact-modal" data-toggle="modal">{{ Lang::get('corporate/general.contact') }}</a></li>
+						<li class="text-nowrap"><a href="#contact-modal" data-toggle="modal">{{ Lang::get('corporate/general.contact') }}</a></li>
+						<li class="hidden-xs">I</li>
+						<li class="text-nowrap"><a href="{{ action('Corporate\InfoController@getLegal') }}">{{ Lang::get('corporate/home.footer.legal') }}</a></li>
+						<li class="hidden-xs">I</li>
+						<li class="text-nowrap"><a href="{{ action('Corporate\InfoController@getLegal') }}#privacy-policy">{{ Lang::get('corporate/home.footer.privacy') }}</a></li>
+						<li class="hidden-xs">I</li>
+						<li class="text-nowrap"><a href="{{ action('Corporate\InfoController@getLegal') }}#cookies-policy">{{ Lang::get('corporate/home.footer.cookies') }}</a></li>
 						@if ( false )
 							<li class="hidden-xs">I</li>
-							<li><a href="{{ action('AdminController@index') }}">{{ Lang::get('corporate/home.footer.admin.access') }}</a></li>
+							<li class="text-nowrap"><a href="{{ action('AdminController@index') }}">{{ Lang::get('corporate/home.footer.admin.access') }}</a></li>
 						@endif
 					</ul>
 					<div class="footer-text">
@@ -111,6 +117,7 @@
 	<!-- / FOOTER -->
 
 	@include('common.contact-modal')
+	@include('common.cookies-warning')
 
 	<script src="{{ Theme::url('/compiled/js/corporate.js') }}"></script>
 	<script src="{{ Theme::url('/js/jquery.validate/messages_' . LaravelLocalization::getCurrentLocale() . '.min.js') }}"></script>
