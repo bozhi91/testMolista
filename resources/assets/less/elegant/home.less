@@ -1,69 +1,97 @@
-#home {
-	.main-property { 
-		max-width: 1280px; margin: 0px auto;
-		.item { 
-			min-height: 200px; background: center center no-repeat; background-size: cover; 
-			.main-image { width: 100%; }
-		}
-		.carousel-caption { text-align: center; text-shadow: none; font-size: 18px; }
-		.carousel-caption-text { display: inline-block; text-decoration: none; color: @colorPurple; background: @colorGreyLight; opacity: 0.9; padding: 10px; }
-	}
-	.properties-slider-area {
-		h2 { margin: 35px 0px; }
-		.properties-slider-indicators {
-			li {
-				&:hover { background: @colorGreySemiLight; cursor: pointer; }
-				&.active { background: @colorPurple; color: @colorWhite; cursor: default; }
-			}
-		}
-	}
-	.search-area { 
-		padding: 35px 0px; 
-		.quick-link {
-			margin-bottom: 30px; display: block; position: relative; padding: 0px 70px 0px 110px; border-radius: @borderRadius 20px @borderRadius @borderRadius; text-decoration: none; overflow: hidden;
-			.text { padding: 30px 0px; color: @colorWhite; font-size: 18px; line-height: 1em; }
-			.image { height: 100%; width: 85px; position: absolute; top: 0px; left: 0px; background: center center no-repeat; background-size: cover; }
-			.arrow { 
-				width: 48px; position: absolute; top: 0px; right: 6px; padding-top: 22px;
-				span { display: inline-block; border: 3px solid @colorWhite; color: @colorWhite; border-radius: 30px; width: 36px; height: 36px; line-height: 24px; font-size: 40px; text-align: center; }
-			}
-			&.quick-link-new { 
-				background: #337884;
-				.image { background-image: url('/images/home/link-new.jpg'); }
-			}
-			&.quick-link-rent { 
-				background: #30ac4a;
-				.image { background-image: url('/images/home/link-rent.jpg'); }
-			}
-			&.quick-link-used { 
-				background: #993556;
-				.image { background-image: url('/images/home/link-used.jpg'); }
-			}
-			&.quick-link-houses { 
-				background: #b8a528;
-				.image { background-image: url('/images/home/link-houses.jpg'); }
-			}
-			&:hover { opacity: 0.9; }
-		}
-	}
-}
+@import '../bellamar/home.less';
 
-@media (min-width: 768px) {
-	#home {
-		.main-property { 
-			.item { min-height: 540px; }
-			.carousel-caption { padding-bottom: 30px; left: 0px; right: 0px; }
-			.carousel-caption-text { padding: 10px  30px; }
-			.slider-quick-search { 
-				opacity: 0; position: absolute; bottom: 0px; left: 0px; right: 0px; background: @colorPurple; padding: 30px 20px; 
-				.form-control { border-color: @colorGreyLight; color: @colorGreyLight; background: @colorPurple; }
-				.form-control::-webkit-input-placeholder { color: @colorGreyLight; }
-				.form-control:-moz-placeholder { color: @colorGreyLight; }
-				.form-control::-moz-placeholder { color: @colorGreyLight; }
-				.form-control:-ms-input-placeholder { color: @colorGreyLight; }
-				.btn-primary { background-color: @colorGreyLight; color: @colorPurple; }
-				.more-options { color: @colorGreyLight; font-size: 13px; font-weight: 500; padding-top: 10px; }
-			}
-		}
+/* setting on picture at carousel */
+#home {
+	.main-property {
+		max-width: 100%;
+		.item { height: 720px; }
 	}
 }
+/* end setting on picture at carousel */
+
+/* settings on carousel */
+@media screen and (min-width: 768px) {
+	#home {
+    	.carousel-caption {
+    		position: static;
+
+	    	.col-md-3 {
+      			width: 35%;
+        		position: absolute;
+        		top: 0;
+        		float: none;
+		        right: 0;
+
+	        	.slider-quick-search {
+					opacity: 0;
+	        		position: relative;
+	        		background: #7e1f31;
+	        		padding: 30px 20px;
+	        		width: 260px;
+	        	}
+     		}
+
+		    .col-md-6 {
+		        width: 50%;
+		        position: absolute;
+		        left: 0;
+		        bottom: 15%;
+		    }
+    	}
+	}
+}
+/* end settings on carousel */
+
+/* styles in carousel */
+#home {
+	.main-property {
+
+		.slider-quick-search {
+			background: @grey !important;
+
+			#quick-search-form {
+			    position: relative;
+
+				input, select { background: @darkGrey !important; border-color: @darkGrey !important; }
+
+				.text-right {
+					position: absolute;
+				    padding: 20px;
+				    right: 0;
+				    left: 0;
+				    margin-left: -20px;
+				    margin-right: -20px;
+					background: @green;
+
+					.more-options {	color: @black; }
+
+					.btn.btn-primary.text-uppercase {
+						background: @white !important;
+						border-color: @white !important;
+						color: @black !important;
+					}
+				}
+			}
+		}
+
+		.carousel-caption-text { color: @black;	}
+
+	}
+}
+/* styles in carousel */
+
+/* settings */
+#home {
+	background-image: url('/images/themes/elegant/home/home-background.png');
+
+	.properties-slider-area { h1, h2, h3, h4, h5, h6 { color: @black; }	}
+
+	.quick-search-area {
+		h1, h2, h3, h4, h5, h6 { color: @black; }
+
+		/* meanwhile */
+		display:none;
+		/* meanwhile */
+	}
+}
+/* settings */

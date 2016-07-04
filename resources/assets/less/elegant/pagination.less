@@ -1,1 +1,14 @@
 @import '../app/pagination.less';
+
+.pagination-area {
+	.pagination > li a,
+	.pagination > li span {
+		color: @green;
+	}
+
+	.pagination > li.active a, .pagination > li.active span, .pagination > li.active a:hover, .pagination > li.active span:hover, .pagination > li.active a:focus, .pagination > li.active span:focus {
+    	background-color: @green;
+    	border-color: @green;
+    	color: @white;
+	}
+}

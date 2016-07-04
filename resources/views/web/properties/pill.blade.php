@@ -38,6 +38,9 @@
 					@endif
 				</li>
 			</ul>
+			<div class="button hide">
+				<a href="{{ action('Web\PropertiesController@details', $item->slug) }}">Ver Detalles</a>
+			</div>
 		</div>
 	</div>
 </div>
