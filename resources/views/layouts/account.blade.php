@@ -41,6 +41,10 @@
 		};
 	</script>
 
+	@if ( @$current_site->has_pending_plan_request )
+		@include('account.warning.pending-request')
+	@endif
+
     <div id="account-container" class="container">
 		<div class="row">
 			<div class="col-sm-3 col-md-2 hidden-xs">
