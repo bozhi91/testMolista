@@ -51,7 +51,7 @@
 
 				<div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
-						<li><a href="http://demo.molista.com/" target="_blank" class="hide btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</a></li>
+						<li><a href="{{ action('Corporate\DemoController@getIndex') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</a></li>
 						<li><a href="{{ action('Corporate\FeaturesController@getIndex') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.moreinfo') }}</a></li> 
 						<li><a href="{{ action('Corporate\PricingController@getIndex') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.pricing') }}</a></li> 
 						@if ( @$enabled_locales && count($enabled_locales) > 1 )

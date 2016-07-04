@@ -20,6 +20,7 @@ Route::group([
 
 	// Corporate web
 	Route::get('/', 'CorporateController@index');
+	Route::controller('demo', 'Corporate\DemoController');
 	Route::controller('info', 'Corporate\InfoController');
 	Route::controller('features', 'Corporate\FeaturesController');
 	Route::controller('pricing', 'Corporate\PricingController');
