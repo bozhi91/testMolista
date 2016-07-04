@@ -2,7 +2,7 @@
 
 use \App\TranslatableModel;
 use Laravel\Cashier\Billable;
-use Laravel\Cashier\Subscription;
+use App\Models\Site\Subscription;
 
 use Swift_Mailer;
 
@@ -17,6 +17,7 @@ class Site extends TranslatableModel
 
 	protected $casts = [
 		'signature' => 'array',
+		'invoicing' => 'array',
 	];
 
 	protected $data;
@@ -695,6 +696,7 @@ class Site extends TranslatableModel
 			'payment_method' => $planchange->payment_method,
 			'iban_account' => null,
 			'paid_until' => null,
+			'invoicing' => $planchange->invoicing,
 		];
 
 		switch ( $planchange->payment_method )

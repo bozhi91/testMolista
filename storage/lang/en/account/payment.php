@@ -36,4 +36,9 @@
 		'invoices.uploaded_at' => 'Date',
 		'invoices.reference' => 'Referene',
 		'invoices.amount' => 'Amount',
+
+		'invoicing.title' => 'Invoicing data',
+		'invoicing.created' => 'The plan upgrade request is being processed',
+		'invoicing.updated' => 'The plan upgrade was successfully processed',
+		'invoicing.transfer.intro' => '<p>We are now verifying the payment information you provided. We will let you know when we are done with it and you will be able to enjoy your chose plan (:plan - :price_text).</p>',
 	];

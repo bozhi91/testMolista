@@ -37,4 +37,9 @@
 		'invoices.uploaded_at' => 'Fecha',
 		'invoices.reference' => 'Referencia',
 		'invoices.amount' => 'Monto',
+
+		'invoicing.title' => 'Información facturación',
+		'invoicing.created' => 'La solicitud de cambio de plan está en proceso',
+		'invoicing.updated' => 'El cambio de plan se ha realizado correctamente',
+		'invoicing.transfer.intro' => '<p>En este momento estamos confirmando los datos de pago que nos has indicado para habilitar el plan :plan (:price_text). Te avisaremos cuando los hayamos comprobado.</p>',
 	];

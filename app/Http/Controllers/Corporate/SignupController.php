@@ -367,7 +367,7 @@ class SignupController extends \App\Http\Controllers\CorporateController
 	{
 		$fields = [
 			'type' => 'required|in:individual,company',
-			'company' => 'required_if:type,company|string',
+			'company' => 'required_if:type,company',
 			'first_name' => 'required|string',
 			'last_name' => 'required|string',
 			'email' => 'required|email',
@@ -489,6 +489,7 @@ class SignupController extends \App\Http\Controllers\CorporateController
 			'subdomain' => $data['site']['subdomain'],
 			'theme' => 'default',
 			'plan_id' => $free_plan->id,
+			'invoicing' => $data['invoicing'],
 			'web_transfer_requested' => empty($data['site']['web_transfer_requested']) ? 0 : 1,
 		]);
 		if ( !$site )
@@ -534,6 +535,8 @@ class SignupController extends \App\Http\Controllers\CorporateController
 		// Create on ticket system
 		$site->ticket_adm->createSite();
 
+		$locale = \LaravelLocalization::getCurrentLocale();
+
 		// If plan is not free
 		if ( !$plan_is_free )
 		{
@@ -555,7 +558,7 @@ class SignupController extends \App\Http\Controllers\CorporateController
 					'iban_account' => @$data['payment']['iban_account'],
 				],
 				'invoicing' => $data['invoicing'],
-				'locale' => \LaravelLocalization::getCurrentLocale(),
+				'locale' => $locale,
 			]);
 		}
 
@@ -563,7 +566,7 @@ class SignupController extends \App\Http\Controllers\CorporateController
 		session()->forget($this->session_name);
 
 		// Send welcome email
-		$job = ( new \App\Jobs\SendWelcomeEmail($site, $planchange->locale) )->onQueue('emails');
+		$job = ( new \App\Jobs\SendWelcomeEmail($site, $locale) )->onQueue('emails');
 		$this->dispatch( $job );
 
 		// Redirect to finish

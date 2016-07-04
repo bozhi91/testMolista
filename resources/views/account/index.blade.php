@@ -27,13 +27,13 @@
 	<div class="custom-tabs">
 
 		<ul class="nav nav-tabs main-tabs" role="tablist">
-			<li role="presentation" class="active"><a href="#tab-data" aria-controls="tab-data" role="tab" data-toggle="tab">{{ Lang::get('account/payment.data') }}</a></li>
-			<li role="presentation" class="hidden-xs"><a href="#tab-plans" aria-controls="tab-plans" role="tab" data-toggle="tab">{{ Lang::get('account/payment.plans') }}</a></li>
-			<li role="presentation"><a href="#tab-invoices" aria-controls="tab-invoices" role="tab" data-toggle="tab">{{ Lang::get('account/payment.invoices') }}</a></li>
+			<li role="presentation" class="{{ $current_tab == 'data' ? 'active' : '' }}"><a href="#tab-data" aria-controls="tab-data" role="tab" data-toggle="tab">{{ Lang::get('account/payment.data') }}</a></li>
+			<li role="presentation" class="{{ $current_tab == 'plans' ? 'active' : '' }} hidden-xs"><a href="#tab-plans" aria-controls="tab-plans" role="tab" data-toggle="tab">{{ Lang::get('account/payment.plans') }}</a></li>
+			<li role="presentation" class="{{ $current_tab == 'invoices' ? 'active' : '' }}"><a href="#tab-invoices" aria-controls="tab-invoices" role="tab" data-toggle="tab">{{ Lang::get('account/payment.invoices') }}</a></li>
 		</ul>
 
 		<div class="tab-content">
-			<div role="tabpanel" class="tab-pane tab-main active" id="tab-data">
+			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'data' ? 'active' : '' }}" id="tab-data">
 				{!! Form::model(Auth::user(), [ 'method'=>'POST', 'files'=>true, 'action'=>'AccountController@updateProfile', 'id'=>'user-profile-form' ]) !!}
 
 					@include('account.user-form', [
@@ -50,7 +50,7 @@
 				{!! Form::close() !!}
 			</div>
 
-			<div role="tabpanel" class="tab-pane tab-main" id="tab-plans">
+			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'plans' ? 'active' : '' }}" id="tab-plans">
 				<div class="account-block">
 					<div class="row">
 						<div class="col-xs-12">
@@ -58,9 +58,10 @@
 							<div>
 								<ul class="list-inline">
 									<li class="plan-item">{{ \App\Session\Site::get('plan.name') }}</li>
-									@if ( empty($pending_request) )
-										<li class="pull-right hide"><a href="{{ action('Account\PaymentController@getUpgrade') }}" class="btn btn-primary">{{ Lang::get('account/payment.plan.upgrade') }}</a></li>
-										<li class="pull-right hide"><a href="#plans-modal" class="btn btn-link" id="plans-modal-trigger">{{ Lang::get('account/payment.plan.show') }}</a></li>
+									@if ( $plan_options < 1 )
+									@elseif ( empty($pending_request) )
+										<li class="pull-right"><a href="{{ action('Account\PaymentController@getUpgrade') }}" class="btn btn-primary">{{ Lang::get('account/payment.plan.upgrade') }}</a></li>
+										<li class="pull-right"><a href="#plans-modal" class="btn btn-link" id="plans-modal-trigger">{{ Lang::get('account/payment.plan.show') }}</a></li>
 									@else
 										<li class="pull-right pay-now-area">
 											@if ( $pending_request->payment_method == 'stripe' )
@@ -69,7 +70,7 @@
 													'paymethod' => Lang::get("web/plans.price.{$pending_request->payment_interval}") . ' ' . price($pending_request->plan_price, [ 'decimals'=>0 ]),
 												]) !!}
 												<div class="text-right">
-													<a href="{{ $current_site->upgrade_payment_url }}" class="btn btn-primary" target="_blank">{{ Lang::get('account/payment.plans.pending.button') }}</a>
+													<a href="{{ action('Account\PaymentController@getPay') }}" class="btn btn-primary">{{ Lang::get('account/payment.plans.pending.button') }}</a>
 												</div>
 											@else
 												{!! Lang::get('account/payment.plans.pending.transfer', [
@@ -78,13 +79,13 @@
 												]) !!}
 											@endif
 										</li>
-										<!-- li class="pull-right hide"><a href="{{ action('Account\PaymentController@getUpgrade') }}" class="btn btn-primary">{{ Lang::get('account/payment.pending.request.process') }}</a></li -->
 									@endif
 								</ul>
 							</div>
 						</div>
 					</div>
 				</div>
+
 				@if ( \App\Session\Site::get('plan.payment_method') )
 					<div class="account-block">
 						<div class="row">
@@ -102,7 +103,6 @@
 											<div class="help-block">{{ \App\Session\Site::get('plan.iban_account') }}</div>
 										</li>
 									@endif
-									<li class="pull-right hide"><a href="{{ action('Account\PaymentController@getMethod') }}" class="btn btn-primary">{{ Lang::get('account/payment.method.change') }}</a></li>
 								</ul>
 							</div>
 						</div>
@@ -110,7 +110,7 @@
 				@endif
 			</div>
 		
-			<div role="tabpanel" class="tab-pane tab-main" id="tab-invoices">
+			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'invoices' ? 'active' : '' }}" id="tab-invoices">
 				<div class="text-center">
 					<img src="/images/loading.gif" alt="" />
 				</div>
