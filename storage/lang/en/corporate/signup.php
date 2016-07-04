@@ -31,6 +31,7 @@
 		'site.subdomain' => 'Choose a name for your website',
 		'site.subdomain.sample' => 'The address of you website will be:',
 		'site.language' => 'Choose a language for your website',
+		'site.transfer' => 'I want to buy the web transfer service :cost',
 
 		'payment.h2' => 'Payment method',
 		'payment.choose' => 'Choose a payment method',
@@ -39,6 +40,7 @@
 		'invoicing.h2' => 'Invoicing data',
 		'invoicing.type.individual' => 'Individual',
 		'invoicing.type.company' => 'Company',
+		'invoicing.company' => 'Company name',
 		'invoicing.first_name' => 'Name',
 		'invoicing.last_name' => 'Last name',
 		'invoicing.email' => 'Email',
@@ -62,6 +64,7 @@
 		'finish.h2' => 'The website was successfully created',
 		'finish.h2.ready' => 'Your website is up and running',
 		'finish.congratulations' => '<p>Congratulations, your website is available at <strong>:website_url</strong></p>',
+		'finish.pay' => '<p>Please complete your payment.</p>',
 		'finish.gotoweb' => 'Go to my website',
 		'finish.gotoaccount' => 'Go to my backoffice',
 		'finish.warning.links' => '<p>To access your backoffice you must use the email/password combination for the user you provided when creating this website.</p>
@@ -82,6 +85,16 @@
 										<li data-type="settings">Customizable</li>
 										<li data-type="responsive">Compatible with phones and tablets</li>
 									</ul>',
+		'finish.stripe.current.version' => '<p>You will have the :plan version enabled until your payment of the chosen plan is completed.</p>
+											<p>You can pay it now or later from you backoffice</p>
+											Need help?<br />
+											T: +93 488 52 23<br />
+											E: <a href="mailto:soporte@molista.com" target="_blank">soporte@molista.com</a><br />
+											M - F from 10 to 18 h',
+		'finish.our.help' => 'Need help?<br />
+								T: +93 488 52 23<br />
+								E: <a href="mailto:soporte@molista.com" target="_blank">soporte@molista.com</a><br />
+								M - F from 10 to 18 h',
 
 		'email.subject' => 'Welcome to molista',
 		'email.hello' => '<p>Hello :name,</p>',

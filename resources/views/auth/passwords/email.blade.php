@@ -12,7 +12,7 @@
 
 					<h2>{{ Lang::get('passwords.reset.title') }}</h2>
 
-					@if (session('status'))
+					@if ( session('status') )
 						<div class="alert alert-success alert-dismissible">
 							<button type="button" class="close" data-dismiss="alert" aria-label="{{ Lang::get('general.messages.close') }}"><span aria-hidden="true">&times;</span></button>
 							{{ session('status') }}
@@ -32,6 +32,10 @@
 							</div>
 						</div>
 					{!! Form::close() !!}
+
+					@if ( @$current_site )
+						{!! Lang::get('corporate/signup.finish.our.help') !!}
+					@endif
 
 				</div>
 			</div>

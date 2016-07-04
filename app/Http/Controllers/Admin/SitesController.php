@@ -11,10 +11,10 @@ class SitesController extends Controller
 {
 
 	public function __initialize() {
-		$this->middleware([ 'permission:site-view' ], [ 'only' => [ 'index'] ]);
-		$this->middleware([ 'permission:site-create' ], [ 'only' => [ 'create','store'] ]);
-		$this->middleware([ 'permission:site-edit' ], [ 'only' => [ 'edit','update'] ]);
-		$this->middleware([ 'permission:user-login' ], [ 'only' => [ 'show'] ]);
+		$this->middleware([ 'permission:site-view' ], [ 'only' => [ 'index' ] ]);
+		$this->middleware([ 'permission:site-create' ], [ 'only' => [ 'create','store' ] ]);
+		$this->middleware([ 'permission:site-edit' ], [ 'only' => [ 'edit','update','getInvoice','postInvoice','deleteInvoice '] ]);
+		$this->middleware([ 'permission:user-login' ], [ 'only' => [ 'show' ] ]);
 
 		parent::__initialize();
 	}
@@ -27,6 +27,13 @@ class SitesController extends Controller
 		if ( $this->request->get('title') )
 		{
 			$query->whereTranslationLike('title', "%{$this->request->get('title')}%");
+		}
+
+		// Filter by web_transfer_requested
+		if ( $this->request->input('transfer') )
+		{
+
+			$query->where('web_transfer_requested', intval($this->request->input('transfer'))-1);
 		}
 
 		$sites = $query->orderBy('title')->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
@@ -67,14 +74,14 @@ class SitesController extends Controller
 		// Validate subdomain
 		if ( \App\Site::where('subdomain', $this->request->get('subdomain'))->count() )
 		{
-			return \Redirect::back()->withInput()->with('error', trans('admin/sites.subdomain.error.taken'));
+			return redirect()->back()->withInput()->with('error', trans('admin/sites.subdomain.error.taken'));
 		}
 
 		// Validate owners
 		$company_owners_total = \App\User::whereIn('id', $this->request->get('owners'))->withRole('company')->count();
 		if ( $company_owners_total < count($this->request->get('owners')) )
 		{
-			return \Redirect::back()->withInput()->with('error', trans('general.messages.error'));
+			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
 		}
 
 		// Create site
@@ -121,12 +128,18 @@ class SitesController extends Controller
 	{
 		$site = \App\Site::withTranslations()->with('users')->with('plan')->findOrFail($id);
 
+		$plan_details = $site->planchanges()->active()->first();
+
 		$locales = \App\Models\Locale::getAdminOptions();
 
 		$owners = $site->users()->whereIn('id', $site->owners_ids)->orderBy('name')->lists('name','id')->all();
 		$companies = \App\User::withRole('company')->whereNotIn('id', $site->owners_ids)->orderBy('name')->lists('name','id')->all();
 
-		return view('admin.sites.edit', compact('site','locales','owners','companies'));
+		$invoices = $site->invoices()->orderBy('uploaded_at','desc')->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
+
+		$current_tab = session('current_tab', $this->request->input('current_tab','site'));
+
+		return view('admin.sites.edit', compact('site','locales','owners','companies','invoices','current_tab','plan_details'));
 	}
 
 	public function update($id)
@@ -152,7 +165,7 @@ class SitesController extends Controller
 		// Validate subdomain
 		if ( \App\Site::where('subdomain', $this->request->get('subdomain'))->where('id','!=',$id)->count() )
 		{
-			return \Redirect::back()->withInput()->with('error', trans('admin/sites.subdomain.error.taken'));
+			return redirect()->back()->withInput()->with('error', trans('admin/sites.subdomain.error.taken'));
 		}
 
 		// Clean domains
@@ -166,7 +179,7 @@ class SitesController extends Controller
 		// Validate domains
 		if ( \App\SiteDomains::whereIn('domain', $this->request->get('domains_array'))->where('site_id','!=',$id)->count() )
 		{
-			return \Redirect::back()->withInput()->with('error', trans('admin/sites.domain.error.taken'));
+			return redirect()->back()->withInput()->with('error', trans('admin/sites.domain.error.taken'));
 		}
 
 		// Get site
@@ -181,7 +194,7 @@ class SitesController extends Controller
 		$company_owners_total = \App\User::whereIn('id', $this->request->get('owners_ids'))->withRole('company')->count();
 		if ( $company_owners_total < count($this->request->get('owners_ids')) )
 		{
-			return \Redirect::back()->withInput()->with('error', trans('general.messages.error'));
+			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
 		}
 
 		// Update data
@@ -252,6 +265,62 @@ class SitesController extends Controller
 
 		$error = trans('admin/sites.messages.no.owner');
 		return view('admin.error', compact('error'));
+	}
+
+	public function postInvoice($id)
+	{
+		$site = \App\Site::findOrFail($id);
+
+		$data = array_merge($this->request->all(), [
+			'site_id' => $site->id,
+		]);
+
+		// Validate
+		$fields = [
+			'title' => 'required|string',
+			'amount' => 'required|numeric',
+			'document.*' => 'mimes:pdf',
+			'uploaded_at' => 'required|array',
+		];
+		$validator = \App\Models\Site\Invoice::getCreateValidator($data, false);
+		if ($validator->fails())
+		{
+			return redirect()->back()->with('current_tab','invoices')->withInput()->withErrors($validator);
+		}
+
+		$invoice = \App\Models\Site\Invoice::saveModel($data);
+		if ( !$invoice )
+		{
+			return redirect()->back()->with('current_tab','invoices')->withInput()->with('error', trans('general.messages.error'));
+		}
+
+		$invoice->saveInvoice($this->request->file('document'));
+
+		return redirect()->back()->with('current_tab','invoices')->with('success', trans('admin/sites.invoices.message.success'));
+	}
+	public function deleteInvoice($invoice_id)
+	{
+		$invoice = \App\Models\Site\Invoice::findOrFail($invoice_id);
+
+		if ( $invoice->document )
+		{
+			@unlink( $this->invoice_path );
+		}
+
+		$invoice->delete();
+
+		return redirect()->back()->with('current_tab','invoices')->with('success', trans('admin/sites.invoices.message.deleted'));
+	}
+	public function getInvoice($invoice_id,$filename=false)
+	{
+		$invoice = \App\Models\Site\Invoice::findOrFail($invoice_id);
+
+		if ( !$invoice->document )
+		{
+			abort(404);
+		}
+
+		return response()->download($invoice->invoice_path, $filename);
 	}
 
 }

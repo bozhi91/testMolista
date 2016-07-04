@@ -31,6 +31,7 @@
 		'site.subdomain' => 'Elije el nombre de tu página',
 		'site.subdomain.sample' => 'La dirección de tu página molista será:',
 		'site.language' => 'Elije el idioma de tu página',
+		'site.transfer' => 'Quiero contratar el servicio de traspaso web :cost',
 
 		'payment.h2' => 'Método de pago',
 		'payment.choose' => 'Elije el método de pago',
@@ -39,6 +40,7 @@
 		'invoicing.h2' => 'Datos de facturación',
 		'invoicing.type.individual' => 'Persona',
 		'invoicing.type.company' => 'Empresa',
+		'invoicing.company' => 'Nombre empresa',
 		'invoicing.first_name' => 'Nombre',
 		'invoicing.last_name' => 'Apellidos',
 		'invoicing.email' => 'Email',
@@ -62,6 +64,7 @@
 		'finish.h2' => 'El sitio se ha creado correctamente',
 		'finish.h2.ready' => 'El sitio está listo',
 		'finish.congratulations' => '<p>Felicitaciones, tu página web está disponible en <strong>:website_url</strong></p>',
+		'finish.pay' => '<p>Por favor complete el pago.</p>',
 		'finish.gotoweb' => 'Ir a mi página web',
 		'finish.gotoaccount' => 'Ir al backoffice',
 		'finish.warning.links' => '<p>Para acceder al backoffice debes ingresar los datos del usuario que usaste para crear este sitio.</p>
@@ -82,6 +85,16 @@
 										<li data-type="settings">Personalizable</li>
 										<li data-type="responsive">Compatible con móviles y tabletas</li>
 									</ul>',
+		'finish.stripe.current.version' => '<p>Tendrás la versión :plan habilitada hasta que pagues el plan elegido.</p>
+											<p>Puedes pagarlo ahora o después desde tu backoffice</p>
+											¿Necesitas ayuda?<br />
+											T: +93 488 52 23<br />
+											E: <a href="mailto:soporte@molista.com" target="_blank">soporte@molista.com</a><br />
+											L - V de 10 a 18 h',
+		'finish.our.help' => 'Cuentas con nuestra ayuda:<br />
+								T: +93 488 52 23<br />
+								E: <a href="mailto:soporte@molista.com" target="_blank">soporte@molista.com</a><br />
+								L - V de 10 a 18 h',
 
 		'email.subject' => 'Bienvenid@ a molista',
 		'email.hello' => '<p>Hola :name,</p>',

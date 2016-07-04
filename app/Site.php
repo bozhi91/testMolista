@@ -2,7 +2,7 @@
 
 use \App\TranslatableModel;
 use Laravel\Cashier\Billable;
-use Laravel\Cashier\Subscription;
+use App\Models\Site\Subscription;
 
 use Swift_Mailer;
 
@@ -17,6 +17,7 @@ class Site extends TranslatableModel
 
 	protected $casts = [
 		'signature' => 'array',
+		'invoicing' => 'array',
 	];
 
 	protected $data;
@@ -50,6 +51,11 @@ class Site extends TranslatableModel
 	public function webhooks()
 	{
 		return $this->hasMany('App\Models\Site\Webhook');
+	}
+
+	public function invoices()
+	{
+		return $this->hasMany('App\Models\Site\Invoice');
 	}
 
 	public function stats() {
@@ -637,6 +643,17 @@ class Site extends TranslatableModel
 		return new \App\Models\Site\MarketplaceHelper($this);
 	}
 
+	public function getUpgradePaymentUrlAttribute()
+	{
+		return implode('/',array_filter([
+			rtrim(\Config::get('app.url'),'/'),
+			( \LaravelLocalization::getCurrentLocale() == \Config::get('app.locale') ? '' : \LaravelLocalization::getCurrentLocale() ),
+			'signup/finish',
+			$this->id,
+			$this->subdomain,
+		]));
+	}
+
 	public function getSignupInfo($locale=false)
 	{
 		$current_locale = \App::getLocale();
@@ -679,6 +696,7 @@ class Site extends TranslatableModel
 			'payment_method' => $planchange->payment_method,
 			'iban_account' => null,
 			'paid_until' => null,
+			'invoicing' => $planchange->invoicing,
 		];
 
 		switch ( $planchange->payment_method )
