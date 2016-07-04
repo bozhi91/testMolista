@@ -526,6 +526,8 @@ class SignupController extends \App\Http\Controllers\CorporateController
 		// Create on ticket system
 		$site->ticket_adm->createSite();
 
+		$locale = \LaravelLocalization::getCurrentLocale();
+
 		// If plan is not free
 		if ( !$plan_is_free )
 		{
@@ -555,7 +557,7 @@ class SignupController extends \App\Http\Controllers\CorporateController
 		session()->forget($this->session_name);
 
 		// Send welcome email
-		$job = ( new \App\Jobs\SendWelcomeEmail($site, $planchange->locale) )->onQueue('emails');
+		$job = ( new \App\Jobs\SendWelcomeEmail($site, $locale) )->onQueue('emails');
 		$this->dispatch( $job );
 
 		// Redirect to finish
