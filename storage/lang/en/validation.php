@@ -69,6 +69,9 @@
 		'unique' => 'The :attribute has already been taken.',
 		'url' => 'The :attribute format is invalid.',
 		'alphanumericHypen' => 'Letters, numbers, hypen and underscores only please',
+		'rent' => 'Only properties for rent are allowed in this marketplace.',
+		'sale' => 'Only properties for sale are allowed in this marketplace.',
+		'one_picture' => 'You need at least 1 picture.',
 
 		/*
 		|--------------------------------------------------------------------------
