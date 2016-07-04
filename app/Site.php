@@ -368,6 +368,16 @@ class Site extends TranslatableModel
 				break;
 		}
 
+		if ( !$params['from_email'] )
+		{
+			$params['from_email'] = 'no-reply@molista.com';
+		}
+
+		if ( !$params['reply_email'] )
+		{
+			$params['reply_email'] = 'no-reply@molista.com';
+		}
+
 		return $params;
 	}
 
