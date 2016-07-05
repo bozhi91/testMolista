@@ -21,16 +21,20 @@ class AccountController extends Controller
 	{
 		\View::share('submenu_section', 'home');
 
-		// Pendign request
+		// Pending request
 		$pending_request = $this->site->planchanges()->pending()->first();
 
 		// Current plan level && available plans
 		$current_plan_level = @intval( $this->site->plan->level );
 		$plan_options = \App\Models\Plan::enabled()->where('level','>', $current_plan_level)->count();
 
+		// Current planchange
+		$current_plan = $this->site->planchanges()->active()->first();
+
 		$current_tab = session('current_tab', $this->request->input('current_tab','data'));
 
-		return view('account.index', compact('pending_request','plan_options','current_tab'));
+$current_tab = 'plans';
+		return view('account.index', compact('pending_request','plan_options','current_plan','current_tab'));
 	}
 
 	public function updateProfile()

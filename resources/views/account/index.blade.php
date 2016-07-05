@@ -57,7 +57,22 @@
 							<h3>{{ Lang::get('account/payment.plan.h1') }}</h3>
 							<div>
 								<ul class="list-inline">
-									<li class="plan-item">{{ \App\Session\Site::get('plan.name') }}</li>
+									<li>
+										<div class="plan-item">{{ \App\Session\Site::get('plan.name') }}</div>
+										<div class="help-block">
+											@if ( @$current_plan )
+												{{ Lang::get('account/payment.plan.price') }}: <span class="text-lowercase">{{ Lang::get("web/plans.price.{$current_plan->payment_interval}") }} {{ price($current_plan->plan_price, [ 'decimals'=>0 ]) }}</span><br />
+												@if ( $current_plan->payment_method == 'stripe ')
+													{{ Lang::get('account/payment.plan.valid.from') }}: {{ $current_site->subscription('main')->updated_at->format("d/m/Y") }} <br />
+												@else
+													{{ Lang::get('account/payment.plan.valid.from') }}: {{ $current_plan->updated_at->format("d/m/Y") }} <br />
+												@endif
+												@if ( \App\Session\Site::get('plan.paid_until') )
+													{{ Lang::get('account/payment.plan.next.charge') }}: {{ date("d/m/Y", strtotime(\App\Session\Site::get('plan.paid_until'))) }} <br />
+												@endif
+											@endif
+										</div>
+									</li>
 									@if ( $plan_options < 1 )
 									@elseif ( empty($pending_request) )
 										<li class="pull-right"><a href="{{ action('Account\PaymentController@getUpgrade') }}" class="btn btn-primary">{{ Lang::get('account/payment.plan.upgrade') }}</a></li>
