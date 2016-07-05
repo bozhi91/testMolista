@@ -118,6 +118,16 @@ elixir(function(mix) {
 			'compiled/inmoblue.css',
 		], 'public/themes/inmoblue/compiled/css/app.css');
 
+	/* Whitey */
+	mix
+		.less([
+			'whitey/app.less',
+		], 'resources/assets/css/compiled/whitey.css')
+		.styles([
+			'compiled/common.css',
+			'compiled/whitey.css',
+		], 'public/themes/whitey/compiled/css/app.css');
+
 
 
 });
