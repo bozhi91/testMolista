@@ -124,6 +124,7 @@
 	<script src="{{ Theme::url('/js/alertify/messages_' . LaravelLocalization::getCurrentLocale() . '.js') }}"></script>
 
 	@include('corporate.common.zopim')
+	@include('corporate.common.leadin')
 
 </body>
 </html>
