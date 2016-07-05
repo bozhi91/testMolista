@@ -4,6 +4,9 @@
 		'plan.show' => 'Show plans',
 		'plan.upgrade' => 'Upgrade plan',
 		'plan.upgrade.simple' => 'Upgrade',
+		'plan.price' => 'Price',
+		'plan.valid.from' => 'Start date',
+		'plan.next.charge' => 'Next charge',
 
 		'method.h1' => 'Payment method',
 		'method.stripe' => 'Credit card',
