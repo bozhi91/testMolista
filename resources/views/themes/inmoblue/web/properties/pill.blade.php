@@ -48,7 +48,7 @@
 					{{ price($item->price, [ 'decimals'=>0 ]) }}
 
 					<span class="pull-right button-pill-block">
-						<a class="button-pill" href="#">Ver Detalles</a>
+						<a class="button-pill" href="#">{{ Lang::get('web/properties.search.results.more') }}</a>
 					</span>
 
 				</div>

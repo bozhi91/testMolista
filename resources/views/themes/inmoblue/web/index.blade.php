@@ -21,7 +21,7 @@
 										
 										<h4 class="carousel-price hidden-xs">{{ price($main_property->price, [ 'decimals'=>0 ]) }}</h4>
 										
-										<a href="{{ action('Web\PropertiesController@details', $main_property->slug) }}" class="carousel-button">Ver Detalles</a>
+										<a href="{{ action('Web\PropertiesController@details', $main_property->slug) }}" class="carousel-button">{{ Lang::get('web/properties.search.results.more') }}</a>
 									</span>
 								</div>
 
