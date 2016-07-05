@@ -33,7 +33,6 @@ class AccountController extends Controller
 
 		$current_tab = session('current_tab', $this->request->input('current_tab','data'));
 
-$current_tab = 'plans';
 		return view('account.index', compact('pending_request','plan_options','current_plan','current_tab'));
 	}
 
