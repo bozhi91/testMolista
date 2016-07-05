@@ -16,6 +16,7 @@ return [
 	'created' => 'Created',
 	'enabled' => 'Enabled',
 	'class.path' => 'Class path',
+	'url' => 'URL',
 
 	'thumbs.flag' => 'Thumbs flag',
 	'xml.owners' => 'Owners XML required',

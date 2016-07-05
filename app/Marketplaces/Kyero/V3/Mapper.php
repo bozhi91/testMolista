@@ -15,9 +15,11 @@ class Mapper extends \App\Marketplaces\Mapper {
     {
         $item = $this->item;
 
+        $updated_at = !empty($item['updated_at']) ? \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item['updated_at']) : \Carbon\Carbon::now();
+
         $map = [];
         $map['#id'] = $item['id'];
-        $map['#date'] = \Carbon\Carbon::now()->format('Y-m-d H:m:s');
+        $map['#date'] = $updated_at->format('Y-m-d H:m:s');
         $map['#ref'] = $item['reference'];
         $map['#price'] = intval($item['price']);
         $map['#currency'] = 'EUR';

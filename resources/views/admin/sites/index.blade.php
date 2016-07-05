@@ -10,6 +10,11 @@
 					{!! Form::hidden('limit', Input::get('limit', Config::get('app.pagination_perpage', 10)) ) !!}
 					<h4>{{ Lang::get('general.filters') }}</h4>
 					<p>{!! Form::text('title', Input::get('title'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('admin/sites.title') ]) !!}</p>
+					<p>{!! Form::select('transfer', [
+						'' => Lang::get('admin/sites.transfer'),
+						1 => Lang::get('general.no'),
+						2 => Lang::get('general.yes'),
+					], Input::get('transfer'), [ 'class'=>'form-control' ]) !!}</p>
 					<p>{!! Form::submit( Lang::get('general.filters.apply'), [ 'class'=>'btn btn-default btn-block']) !!}</p>
 				{{ Form::close() }}
 			</div>
@@ -28,10 +33,13 @@
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th>#</th>
-								<th>{{ Lang::get('admin/sites.title') }}</th>
-								<th>{{ Lang::get('admin/sites.created') }}</th>
-								<th></th>
+								{!! drawSortableHeaders(url()->full(), [
+									'id' => [ 'title' => '#' ],
+									'title' => [ 'title' => Lang::get('admin/sites.title')],
+									'transfer' => [ 'title' => Lang::get('admin/sites.transfer'), 'class'=>'text-center text-nowrap' ],
+									'created' => [ 'title' => Lang::get('admin/sites.created') ],
+									'action' => [ 'title' => '', 'sortable'=>false ],
+								]) !!}
 							</tr>
 						</thead>
 						<tbody>
@@ -39,6 +47,7 @@
 								<tr>
 									<td>{{ $site->id }}</td>
 									<td>{{ $site->title }}</td>
+									<td class="text-center"><span class="glyphicon glyphicon-{{ $site->web_transfer_requested ? 'ok' : 'remove' }}" aria-hidden="true"></span></td>
 									<td>{{ $site->created_at->format('d/m/Y') }}</td>
 									<td class="text-right">
 										@if ( Auth::user()->can('site-edit') )
@@ -49,7 +58,7 @@
 							@endforeach
 						</tbody>
 					</table>
-					{!! drawPagination($sites, Input::only('limit','title')) !!}
+					{!! drawPagination($sites, Input::only('limit','title','transfer','orderby','order')) !!}
 				@endif
 			</div>
 

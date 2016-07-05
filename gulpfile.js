@@ -35,6 +35,7 @@ elixir(function(mix) {
 			'jquery.magnific-popup.js',
 			'jquery.hideShowPassword.js',
 			'jquery.matchHeight.js',
+			'jquery.cookie.js',
 			'bootstrap-table.js',
 			'bootstrap-datetimepicker.js',
 			'bootstrap-slider.js',
@@ -106,7 +107,6 @@ elixir(function(mix) {
 			'compiled/common.css',
 			'compiled/bellamar.css',
 		], 'public/themes/bellamar/compiled/css/app.css');
-
 	/* Elegant */
 	mix
 		.less([
@@ -116,6 +116,15 @@ elixir(function(mix) {
 			'compiled/common.css',
 			'compiled/elegant.css',
 		], 'public/themes/elegant/compiled/css/app.css');
+	/* Inmoblue */
+	mix
+		.less([
+			'inmoblue/app.less',
+		], 'resources/assets/css/compiled/inmoblue.css')
+		.styles([
+			'compiled/common.css',
+			'compiled/inmoblue.css',
+		], 'public/themes/inmoblue/compiled/css/app.css');
 
 
 });

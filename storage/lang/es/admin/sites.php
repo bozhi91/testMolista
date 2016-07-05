@@ -14,12 +14,14 @@ return [
 	'created' => 'Created',
 	'enabled' => 'Enabled',
 	'theme.custom' => 'Custom theme',
+	'transfer' => 'Traspaso de web',
 
 	'create.title' => 'Create site',
 	'edit.title' => 'Edit site',
 
 	'tab.config' => 'Configuration',
 	'tab.plan' => 'Plan',
+	'tab.invoices' => 'Facturas',
 
 	'goto.site' => 'Go to site',
 	'goto.admin' => 'Go to admin',
@@ -28,4 +30,13 @@ return [
 	'messages.updated' => 'The site was successfully updated',
 
 	'messages.no.owner' => 'This site has no owner',
+
+	'invoices.title' => 'Referencia factura',
+	'invoices.amount' => 'Cantidad',
+	'invoices.document' => 'Fichero factura',
+	'invoices.uploaded_at' => 'Fecha',
+	'invoices.new.button' => 'Enviar factura',
+	'invoices.message.success' => 'La factura se ha subido correctamente',
+	'invoices.message.deleted' => 'La factura se ha eliminado correctamente',
+	'invoices.warning.delete' => '¿Confirma que desea eliminar permanentemente esta factura?',
 ];

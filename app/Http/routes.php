@@ -20,6 +20,7 @@ Route::group([
 
 	// Corporate web
 	Route::get('/', 'CorporateController@index');
+	Route::controller('demo', 'Corporate\DemoController');
 	Route::controller('info', 'Corporate\InfoController');
 	Route::controller('features', 'Corporate\FeaturesController');
 	Route::controller('pricing', 'Corporate\PricingController');
@@ -39,6 +40,9 @@ Route::group([
 		Route::get('/', 'AdminController@index');
 
 		// Sites
+		Route::get('sites/invoice/{id}/{file?}', 'Admin\SitesController@getInvoice');
+		Route::post('sites/invoice/{id}', 'Admin\SitesController@postInvoice');
+		Route::delete('sites/invoice/{id}', 'Admin\SitesController@deleteInvoice');
 		Route::resource('sites', 'Admin\SitesController');
 		// Users
 		Route::resource('users', 'Admin\UsersController');
@@ -128,8 +132,10 @@ Route::group([
 	], function() {
 		Route::get('/', 'AccountController@index');
 		Route::post('/', 'AccountController@updateProfile');
-		// Plans & payment
+		// invoices
 		Route::controller('payment', 'Account\PaymentController');
+		// Plans & payment
+		Route::controller('invoices', 'Account\InvoicesController');
 		// Properties
 		Route::group([
 			'middleware' => [

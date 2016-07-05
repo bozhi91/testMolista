@@ -22,7 +22,7 @@
 						</div>
 						<div class="form-group error-container payment-method-rel payment-method-rel-transfer hide">
 							{!! Form::label('payment[iban_account]', Lang::get('corporate/signup.payment.iban'), [ 'class'=>'input-label text-center' ]) !!}
-							{!! Form::text('payment[iban_account]', null, [ 'class'=>'form-control text-center' ]) !!}
+							{!! Form::text('payment[iban_account]', null, [ 'class'=>'form-control iban text-center' ]) !!}
 						</div>
 					</div>
 
