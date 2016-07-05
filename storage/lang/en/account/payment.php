@@ -4,6 +4,9 @@
 		'plan.show' => 'Show plans',
 		'plan.upgrade' => 'Upgrade plan',
 		'plan.upgrade.simple' => 'Upgrade',
+		'plan.price' => 'Price',
+		'plan.valid.from' => 'Start date',
+		'plan.next.charge' => 'Next charge',
 
 		'method.h1' => 'Payment method',
 		'method.stripe' => 'Credit card',
@@ -30,6 +33,9 @@
 										<li>:paymethod</li>
 									</ul>',
 		'plans.pending.button' => 'Pay now',
+		'plans.pending.cancel' => 'Cancel request',
+		'plans.cancel.warning' => 'Are you sure you want to cancel this request?',
+		'plans.cancel.success' => 'The request was successfully canceled',
 
 		'invoices' => 'My invoices',
 		'invoices.empty' => 'No invoices found.',

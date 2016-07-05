@@ -4,18 +4,24 @@
 		'intro' => '<p>Discover <strong>molista</strong>, an <strong>online tool</strong> specifically designed <strong>for the real estate industry. Powerful, attractive, easy to use and fully adapted to mobile and tablets.</strong></p>',
 
 		'h2' => 'Multiply your Real Estate business possibilities',
-		'features' => '<p><strong>molista</strong> gives you everything you need to make <strong>your Real Estate business present on the Internet</strong>:</p>
-		<ul>
-		<li data-type="web">Web site for your company</li>
-		<li data-type="fixa">Detailed webpages for all your properties</li>
-		<li data-type="searcher">Property search with advanced  filters</li>
-		<li data-type="relation">Ability to link properties</li>
-		<li data-type="easy">Easy to use and manage</li>
-		<li data-type="settings">Customizable</li>
-		<li data-type="responsive">Compatible with phones and tablets</li>
-		<li data-type="agents">Agent management</li>
-		<li data-type="docs">Document management</li>
-		</ul>',
+		'features' => '<p><strong>molista</strong> gives you everything you need to make <strong>your Real Estate business present on the Internet</strong>:</p>',
+		'features.column.left' => '<ul class="list-unstyled">
+										<li data-type="web">Web site for your company</li>
+										<li data-type="fixa">Detailed webpages for all your properties</li>
+										<li data-type="searcher">Property search with advanced  filters</li>
+										<li data-type="relation">Ability to link properties</li>
+										<li data-type="easy">Easy to use and manage</li>
+										<li data-type="exports">Automated exports</li>
+									</ul>',
+		'features.column.right' => '<ul class="list-unstyled">
+										<li data-type="responsive">Compatible with phones and tablets</li>
+										<li data-type="agents">Agent management</li>
+										<li data-type="docs">Document management</li>
+										<li data-type="leads">Lead management</li>		
+										<li data-type="settings">Customizable</li>
+									</ul>',
+
+		'exports.more' => '...and many more',
 
 		'h3' => 'The features you need',
 

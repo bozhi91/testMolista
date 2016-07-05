@@ -36,7 +36,33 @@ class SitesController extends Controller
 			$query->where('web_transfer_requested', intval($this->request->input('transfer'))-1);
 		}
 
-		$sites = $query->orderBy('title')->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
+		switch ( $this->request->get('order') )
+		{
+			case 'desc':
+				$order = 'desc';
+				break;
+			default:
+				$order = 'asc';
+		}
+
+		switch ( $this->request->get('orderby') )
+		{
+			case 'id':
+				$query->orderBy('id', $order);
+				break;
+			case 'creation':
+				$query->orderBy('created_at', $order);
+				break;
+			case 'transfer':
+				$query->orderBy('web_transfer_requested', $order);
+				break;
+			case 'title':
+			default:
+				$query->orderBy('title', $order);
+				break;
+		}
+
+		$sites = $query->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$this->set_go_back_link();
 

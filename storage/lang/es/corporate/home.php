@@ -4,18 +4,24 @@
 		'intro' => '<p>Descubre <strong>molista</strong>, una <strong>herramienta web</strong> pensada específicamente <strong>para negocios inmobiliarios. Potente, atractiva, fácil de usar y totalmente adaptada a móviles y tabletas.</strong></p>',
 
 		'h2' => 'Multiplica las oportunidades de tu inmobiliaria',
-		'features' => '<p><strong>molista</strong> te ofrece todo lo que necesitas para que <strong>tu inmobiliaria esté presente en internet:</strong></p>
-		<ul>
-		<li data-type="web">Sitio web de tu inmobiliaria</li>
-		<li data-type="fixa">Fichas de inmuebles ilimitadas</li>
-		<li data-type="searcher">Buscador de viviendas con filtros avanzados</li>
-		<li data-type="relation">Posibilidad de relacionar inmuebles</li>
-		<li data-type="easy">Fácil de usar y gestionar</li>
-		<li data-type="settings">Personalizable</li>
-		<li data-type="responsive">Compatible con móviles y tabletas</li>
-		<li data-type="agents">Gestión de agentes</li>
-		<li data-type="docs">Gestión de documentos</li>
-		</ul>',
+		'features' => '<p><strong>molista</strong> te ofrece todo lo que necesitas para que <strong>tu inmobiliaria esté presente en internet:</strong></p>',
+		'features.column.left' => '<ul class="list-unstyled">
+										<li data-type="web">Sitio web de tu inmobiliaria</li>
+										<li data-type="fixa">Fichas de inmuebles ilimitadas</li>
+										<li data-type="searcher">Buscador de viviendas con filtros avanzados</li>
+										<li data-type="relation">Posibilidad de relacionar inmuebles</li>
+										<li data-type="easy">Fácil de usar y gestionar</li>
+										<li data-type="exports">Exportaciones automatizadas</li>
+									</ul>',
+		'features.column.right' => '<ul class="list-unstyled">
+										<li data-type="responsive">Compatible con móviles y tabletas</li>
+										<li data-type="agents">Gestión de agentes</li>
+										<li data-type="docs">Gestión de documentos</li>		
+										<li data-type="leads">Gestión de leads</li>		
+										<li data-type="settings">Personalizable</li>
+									</ul>',
+
+		'exports.more' => '...y muchos más',
 
 		'h3' => 'Las prestaciones que necesitas',
 

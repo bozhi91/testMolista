@@ -24,6 +24,7 @@ class Marketplace extends \App\TranslatableModel
 		'configuration' => 'array',
 		'enabled' => 'boolean',
 		'logo' => 'image',
+		'url' => 'url',
 	];
 	protected static $update_validator_fields = [
 		'class_path' => 'required|string',
@@ -32,6 +33,7 @@ class Marketplace extends \App\TranslatableModel
 		'configuration' => 'array',
 		'enabled' => 'boolean',
 		'logo' => 'image',
+		'url' => 'url',
 	];
 
 	protected $guarded = [];
