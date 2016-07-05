@@ -92,6 +92,16 @@ return [
 			'views-path' 	=> 'themes/bellamar',
 			'asset-path' 	=> 'themes/bellamar',
 		],
+
+		'inmoblue' => [
+			'title'			=> 'Inmoblue',
+			'public'		=> true,
+			'custom'		=> false,
+			'extends'	 	=> 'default',
+			'views-path' 	=> 'themes/inmoblue',
+			'asset-path' 	=> 'themes/inmoblue',
+		],
+
 		// Add your themes here...
 
 		/*--------------[ Example Structre ]-------------
