@@ -54,6 +54,7 @@ class SendWelcomeEmail extends Job implements ShouldQueue
 			$message->from( env('MAIL_FROM_EMAIL'), env('MAIL_FROM_NAME') );
 			$message->subject($subject);
 			$message->to( $data['owner_email'] );
+			$message->bcc('luis@molista.com', 'Luis Krug');
 		});
 	}
 

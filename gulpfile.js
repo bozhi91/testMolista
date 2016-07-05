@@ -35,6 +35,7 @@ elixir(function(mix) {
 			'jquery.magnific-popup.js',
 			'jquery.hideShowPassword.js',
 			'jquery.matchHeight.js',
+			'jquery.cookie.js',
 			'bootstrap-table.js',
 			'bootstrap-datetimepicker.js',
 			'bootstrap-slider.js',

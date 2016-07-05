@@ -29,7 +29,7 @@
 						@if ( $pending_request->summary->payment_method == 'stripe' )
 							<div class="row">
 								<div class="col-xs-12 col-sm-6">
-									<p>Please complete you payment.</p>
+									{!! Lang::get('corporate/signup.finish.pay') !!}
 									{!! Lang::get('corporate/signup.finish.plan.details', [
 										'plan' => @$pending_request->summary->plan_name,
 										'price_text' => Lang::get("web/plans.price.{$pending_request->payment_interval}") . ' ' . price($pending_request->plan_price, [ 'decimals'=>0 ]),
@@ -66,6 +66,13 @@
 										<div class="help-block">{!! Lang::get('corporate/signup.finish.stripe.warnings') !!}</div>
 									</div>
 								</div>
+								<div class="col-xs-12 col-sm-6">
+									<div class="alert alert-warning payment-warning">
+										{!! Lang::get('corporate/signup.finish.stripe.current.version',[
+											'plan' => @$pending_request->site->plan->name,
+										])!!}
+									</div>
+								</div>
 							</div>
 						@elseif ( $pending_request->summary->payment_method == 'transfer' )
 							{!! Lang::get('corporate/signup.finish.transfer.intro', [
@@ -74,10 +81,24 @@
 							]) !!}
 						@endif
 					@endif
-					<div class="text-right links">
-						<a href="{{ $site->account_url }}" class="btn btn-primary" target="_blank">{{ Lang::get('corporate/signup.finish.gotoaccount') }}</a>
-						<a href="{{ $site->main_url }}" class="btn btn-primary" target="_blank">{{ Lang::get('corporate/signup.finish.gotoweb') }}</a>
+
+					<div class="links">
+						<div class="row">
+							<div class="col-xs-12 col-sm-6">
+								@if ( empty($pending_request) )
+								@elseif ( $pending_request->summary->payment_method == 'stripe' )
+								@else
+									{!! Lang::get('corporate/signup.finish.our.help') !!}
+								@endif
+								<div class="visible-xs" style="height: 50px;"></div>
+							</div>
+							<div class="col-xs-12 col-sm-6 text-right">
+								<a href="{{ $site->account_url }}" class="btn btn-primary" target="_blank">{{ Lang::get('corporate/signup.finish.gotoaccount') }}</a>
+								<a href="{{ $site->main_url }}" class="btn btn-primary" target="_blank">{{ Lang::get('corporate/signup.finish.gotoweb') }}</a>
+							</div>
+						</div>
 					</div>
+
 					<div class="links-warning">
 						<div class="help-block">
 							{!! Lang::get('corporate/signup.finish.warning.links', [

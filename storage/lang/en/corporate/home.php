@@ -25,4 +25,9 @@
 
 		'footer.admin.access' => 'Customer access',
 		'footer.operated' => 'is operated by',
+		'footer.legal' => 'Legal notice',
+		'footer.privacy' => 'Privacy policy',
+		'footer.cookies' => 'Cookies policy',
+
+		'try' => 'Try it!',
 	];

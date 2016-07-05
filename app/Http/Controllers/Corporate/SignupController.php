@@ -224,6 +224,7 @@ class SignupController extends \App\Http\Controllers\CorporateController
 	{
 		$fields = [
 			'subdomain' => 'required|alpha_dash|max:255|unique:sites,subdomain',
+			'web_transfer_requested' => 'boolean',
 		];
 
 		if ( session()->get("{$this->session_name}.plan.max_languages") == 1 )
@@ -353,6 +354,11 @@ class SignupController extends \App\Http\Controllers\CorporateController
 		$country = \App\Models\Geography\Country::withTranslations()->findOrFail( $data['country_id'] );
 		$data['country'] = $country->name;
 
+		if ( $data['type'] != 'company' )
+		{
+			$data['company'] = false;
+		}
+
 		$this->_setStep('invoicing', $data);
 
 		return redirect()->action('Corporate\SignupController@getConfirm');
@@ -361,6 +367,7 @@ class SignupController extends \App\Http\Controllers\CorporateController
 	{
 		$fields = [
 			'type' => 'required|in:individual,company',
+			'company' => 'required_if:type,company',
 			'first_name' => 'required|string',
 			'last_name' => 'required|string',
 			'email' => 'required|email',
@@ -482,6 +489,8 @@ class SignupController extends \App\Http\Controllers\CorporateController
 			'subdomain' => $data['site']['subdomain'],
 			'theme' => 'default',
 			'plan_id' => $free_plan->id,
+			'invoicing' => $data['invoicing'],
+			'web_transfer_requested' => empty($data['site']['web_transfer_requested']) ? 0 : 1,
 		]);
 		if ( !$site )
 		{
@@ -526,11 +535,13 @@ class SignupController extends \App\Http\Controllers\CorporateController
 		// Create on ticket system
 		$site->ticket_adm->createSite();
 
+		$locale = \LaravelLocalization::getCurrentLocale();
+
 		// If plan is not free
 		if ( !$plan_is_free )
 		{
 			// Create sites_planchange
-			$site->planchanges()->create([
+			$planchange = $site->planchanges()->create([
 				'plan_id' => $data['plan']['id'],
 				'payment_interval' => $data['pack']['payment_interval'][$data['plan']['code']],
 				'payment_method' => $data['payment']['method'],
@@ -547,7 +558,7 @@ class SignupController extends \App\Http\Controllers\CorporateController
 					'iban_account' => @$data['payment']['iban_account'],
 				],
 				'invoicing' => $data['invoicing'],
-				'locale' => \LaravelLocalization::getCurrentLocale(),
+				'locale' => $locale,
 			]);
 		}
 
@@ -555,7 +566,7 @@ class SignupController extends \App\Http\Controllers\CorporateController
 		session()->forget($this->session_name);
 
 		// Send welcome email
-		$job = ( new \App\Jobs\SendWelcomeEmail($site, \LaravelLocalization::getCurrentLocale()) )->onQueue('emails');
+		$job = ( new \App\Jobs\SendWelcomeEmail($site, $locale) )->onQueue('emails');
 		$this->dispatch( $job );
 
 		// Redirect to finish
