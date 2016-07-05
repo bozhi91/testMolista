@@ -1,24 +1,120 @@
 @import '../app/property.less';
 
 #property {
+	.container { position: relative; }
 	
 	.header {
+		position: relative;
 		.price {
-
+			float: none !important;
+			position: absolute;
+			top: 40px;
+			font-size: 26px;
+			color: @green;
 		}
+
 		.location {
-			
+			padding-top: 50px;
 		}
-		h1 {
 
+		h1 {
+			color: @green;
 		}
 
 	}
 
+	.images-gallery {
+		padding-top: 100px;
 
+		.image-main {
+			width: 80%;
+			float: left;
+		}
+
+		.images-carousel {
+			width: 20%;
+			float: left;
+
+			.carousel-inner {
+				width: 100%;
+				paddding-bottom: 20px;
+
+				.col-xs-4.col-sm-2 { float: none; width: 100%; margin-bottom: 20px; }
+
+				.item {
+				  -webkit-transition: 0.6s ease-in-out top;
+				     -moz-transition: 0.6s ease-in-out top;
+				      -ms-transition: 0.6s ease-in-out top;
+				       -o-transition: 0.6s ease-in-out top;
+				          transition: 0.6s ease-in-out top;
+				}
+			}
+
+			.carousel-control {
+				width: 100%;
+				line-height: 0px;
+    			height: 0px;
+			}
+
+			.left {
+				position: absolute;
+				top: 25px;
+				left: 10px;
+				transform: rotate(90deg);
+			}
+
+			.right {
+				position: absolute;
+				bottom: -5px;
+			    top: auto;
+			    left: 10px;
+			    transform: rotate(90deg);
+			}
+		}
+	}
+
+	.images-gallery:after { content: ""; display: table; clear: both; }
+
+	.details {
+		position: static;
+
+		.cols-xs-12.col-sm-10 { width: 80%; }
+
+		.row {
+			position: static;
+			.cols-xs-12.col-sm-9 { position: static; }
+		}
+
+		.metrics {
+		    position: absolute;
+		    top: 125px;
+		}
+
+		.services {
+			position: absolute;
+		    top: 155px;
+		}
+
+		.energy-certification {
+			position: absolute;
+		    top: 170px;
+		}
+		.call-to-action {
+			bottom: auto;
+			top: 0;
+			margin-right: 15px;
+		}
+
+	}
+
+	@media (min-width: 768px) {
+		.map-area { width: 80%; }
+	}
 
 	.bottom-links {
 		.cols-xs-12.col-sm-9 { width: 100%; }
 		.cols-xs-12.col-sm-3 { display: none; width: 0%;}
+
+		h2 { color: @black; }
 	}
 }
