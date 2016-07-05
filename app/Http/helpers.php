@@ -156,12 +156,13 @@
 			$csv_text = Lang::get('general.csv.download');
 			$csv_link = "<div class='row'>
 							<div class='col-xs-12 text-right'>
-								<a href='{$csv_url}' target='_blank'><i class='fa fa-file-excel-o' aria-hidden='true' style='margin-right: 5px;'></i>{$csv_text}</a>
+								<a href='{$csv_url}' class='download-results-link' target='_blank'>{$csv_text}</a>
 							</div>
 						</div>";
 		}
 
 		return	"<div class='pagination-custom'>
+					{$csv_link}
 					<div class='row'>
 						<div class='col-xs-12 col-sm-7'>{$pagination_links}</div>
 						<div class='col-sm-5 hidden-xs'>
@@ -171,7 +172,6 @@
 							</ul>
 						</div>
 					</div>
-					{$csv_link}
 				</div>";
 	}
 
