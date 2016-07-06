@@ -60,6 +60,8 @@
 					@else
 						@if ( !empty($marketplace->additional_configuration['xml_owners']) )
 							@include('account.marketplaces.configure-owner')
+						@elseif ( !empty($marketplace->additional_configuration['configuration']) )
+							@include('account.marketplaces.configure-fields', ['configuration' => $marketplace->additional_configuration['configuration'], 'values' => $configuration->configuration])
 						@else
 							<?php echo '<pre>' . print_r($marketplace->additional_configuration, true) . '</pre>'; ?>
 						@endif
