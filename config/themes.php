@@ -102,6 +102,15 @@ return [
 			'asset-path' 	=> 'themes/inmoblue',
 		],
 
+		'elegant' => [
+			'title'			=> 'Elegant',
+			'public'		=> true,
+			'custom'		=> false,
+			'extends'	 	=> 'default',
+			'views-path' 	=> 'themes/elegant',
+			'asset-path' 	=> 'themes/elegant',
+		],
+
 		// Add your themes here...
 
 		/*--------------[ Example Structre ]-------------

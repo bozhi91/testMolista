@@ -118,6 +118,15 @@ elixir(function(mix) {
 			'compiled/inmoblue.css',
 		], 'public/themes/inmoblue/compiled/css/app.css');
 
+	/* Elegant */
+	mix
+		.less([
+			'elegant/app.less',
+		], 'resources/assets/css/compiled/elegant.css')
+		.styles([
+			'compiled/common.css',
+			'compiled/elegant.css',
+		], 'public/themes/elegant/compiled/css/app.css');
 
 
 });

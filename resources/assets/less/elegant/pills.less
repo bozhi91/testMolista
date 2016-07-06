@@ -1,0 +1,69 @@
+@import '../app/pills.less';
+
+.property-pill {
+	text-overflow: ellipsis;
+	
+	.padder {
+		position: relative;
+
+		.image { margin-bottom: 5px; }
+
+		.text {
+
+			.labels { float: right; margin-top: 3px; }
+
+			.title {
+				a {
+					color: @green;
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+			}
+
+			.price {
+				position: absolute;
+				top: 0;
+				right: 0;
+
+				background: @green;
+    			color: @white;
+    			white-space: nowrap;
+    			overflow: hidden;
+    			text-overflow: ellipsis;
+    			padding: 5px 10px;
+			}
+
+			.location {
+				margin-bottom: 10px;
+			}
+		}
+
+		.button {
+			display: inline !important;
+
+			a {
+				color: black;
+			    border: 1px solid black;
+			    padding: 5px;
+
+			    &:hover {
+			    	text-decoration: none;
+			    	border-color: @green;
+			    	border-radius: 4px;
+			    	background: @green;
+			    	color: @white;
+			    	opacity: 0.8;
+			    }
+			}
+		}
+	}
+}
+
+@media (max-width: 1199px) {
+	.property-pill .padder .text .labels {
+	    position: absolute;
+	    top: 137px;
+	    right: 0;
+    }
+}

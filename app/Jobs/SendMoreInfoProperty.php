@@ -53,7 +53,6 @@ class SendMoreInfoProperty extends Job implements ShouldQueue
 		{
 			\Log::error('ERROR: SendMoreInfoProperty -> createTicket ('.$e->getMessage().')');
 			\Log::error($e);
-			continue;
 		}
 
 		// Send email to user
@@ -65,7 +64,6 @@ class SendMoreInfoProperty extends Job implements ShouldQueue
 		{
 			\Log::error('ERROR: SendMoreInfoProperty -> sendUserEmail ('.$e->getMessage().')');
 			\Log::error($e);
-			continue;
 		}
 
 		return true;
@@ -77,7 +75,7 @@ class SendMoreInfoProperty extends Job implements ShouldQueue
 		// Backup current locale
 		$locale_backup = \LaravelLocalization::getCurrentLocale();
 
-		\LaravelLocalization::setLocale($this->customer->locale);
+		\LaravelLocalization::setLocale($this->data['locale']);
 
 		$content = view('emails/property.moreinfo-customer', [
 			'site' => $this->property->site,
@@ -97,7 +95,7 @@ class SendMoreInfoProperty extends Job implements ShouldQueue
 			'subject' => trans('web/properties.moreinfo.email.customer.title', [ 'title'=>$this->property->title ]),
 			'content' => $content,
 			'attachments' => [
-				$this->property->getPdfFile($this->customer->locale) => [ 'as'=>"{$this->property->slug}.pdf" ],
+				$this->property->getPdfFile($this->data['locale']) => [ 'as'=>"{$this->property->slug}.pdf" ],
 			]
 		]);
 

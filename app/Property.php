@@ -61,8 +61,9 @@ class Property extends TranslatableModel
 
 		// Whenever a property is saved
 		static::saved(function($property){
-			// Delete cached PDF files
+			// Delete cached files PDF, QRs
 			\File::deleteDirectory(public_path($property->pdf_folder), true);
+			\File::deleteDirectory(public_path($property->qr_folder), true);
 			// Create / Update on ticket system
 			if ( $property->ref )
 			{
@@ -208,13 +209,72 @@ class Property extends TranslatableModel
 
 		// Check PDF
 		$filepath = "{$dir}/property-{$locale}.pdf";
-		if ( !file_exists($filepath) )
+		if ( !file_exists($filepath) || filemtime($filepath) < strtotime("2016-07-06") )
 		{
 			$locale_backup = \LaravelLocalization::getCurrentLocale();
 			\LaravelLocalization::setLocale($locale);
-			\PDF::loadView('pdf/property', [
-				'property' => $this
+
+			$main_image = false;
+			$other_images = [];
+
+			if ( $this->images->count() > 0 )
+			{
+				foreach ($this->images->sortBy('position') as $image)
+				{
+					if ( !$main_image )
+					{
+						$main_image = $image;
+					}
+					elseif ( count($other_images) < 2 )
+					{
+						$other_images[] = $image;
+					}
+					else
+					{
+						break;
+					}
+				}
+			}
+
+			\PDF::loadView('pdf.property', [
+				'property' => $this,
+				'main_image' => $main_image,
+				'other_images' => $other_images,
 			])->save($filepath);
+
+			\LaravelLocalization::setLocale($locale_backup);
+		}
+
+		return $filepath;
+	}
+
+	public function getQrFolderAttribute()
+	{
+		return "sites/{$this->site_id}/properties/{$this->id}/qr";
+	}
+	public function getQrFile($locale) 
+	{
+		// Check directory
+		$dir = public_path($this->qr_folder);
+		if ( !is_dir($dir) )
+		{
+			\File::makeDirectory($dir, 0777, true, true);
+		}
+
+		// Check PDF
+		$filepath = "{$dir}/property-{$locale}.png";
+		if ( true || !file_exists($filepath) )
+		{
+			$locale_backup = \LaravelLocalization::getCurrentLocale();
+			\LaravelLocalization::setLocale($locale);
+
+			\QrCode::encoding('UTF-8')
+						->format('png')
+						->size(85)
+						->margin(0)
+						->errorCorrection('H')
+						->generate($this->full_url, $filepath);
+
 			\LaravelLocalization::setLocale($locale_backup);
 		}
 
