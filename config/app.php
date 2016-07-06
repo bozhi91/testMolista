@@ -14,6 +14,8 @@
 
 		'ticketing_system_url' => env('TICKETING_SYSTEM_URL'),
 
+		'phone_support' => '93 180 70 20',
+
 		/*
 		|--------------------------------------------------------------------------
 		| Application Environment
