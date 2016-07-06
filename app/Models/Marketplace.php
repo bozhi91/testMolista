@@ -66,7 +66,7 @@ class Marketplace extends \App\TranslatableModel
 
 		foreach ($fields as $field)
 		{
-			switch ($field) 
+			switch ($field)
 			{
 				case 'logo':
 					break;
@@ -87,7 +87,7 @@ class Marketplace extends \App\TranslatableModel
 				continue;
 			}
 
-			foreach ($data['i18n'][$field] as $locale => $value) 
+			foreach ($data['i18n'][$field] as $locale => $value)
 			{
 				$item->translateOrNew($locale)->$field = $value;
 			}
@@ -125,8 +125,11 @@ class Marketplace extends \App\TranslatableModel
 		if ( @$this->configuration['xml_owners'] )
 		{
 			$additional_configuration['xml_owners'] = true;
-
 		}
+
+        // Recuperar configuración del marketplace
+        $adm = new $this->class_path;
+        $additional_configuration['configuration'] = $adm->getMarketplaceConfiguration();
 
 		return $additional_configuration;
 	}
