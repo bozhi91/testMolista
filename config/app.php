@@ -212,6 +212,9 @@
 			/* https://github.com/yangqi/Htmldom */
 			Yangqi\Htmldom\HtmldomServiceProvider::class,
 
+			/* https://github.com/SimpleSoftwareIO/simple-qrcode */
+			SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+
 		],
 
 		/*
@@ -290,7 +293,8 @@
 			/* https://github.com/yangqi/Htmldom */
 			'Htmldom' => Yangqi\Htmldom\Htmldom::class,
 
-
+			/* https://github.com/SimpleSoftwareIO/simple-qrcode */
+			'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
 		],
 
 	];
