@@ -12,7 +12,7 @@ class Mapper extends \App\Marketplaces\Mapper {
         $item = $this->item;
 
         $map = [];
-        $map['#account_id'] = '';
+        $map['#account_id'] = $this->config['account_id'];
         $map['#reference'] = $item['reference'];
         $map['#type'] = $this->isRent() ? 'rentals' : 'properties';
         $map['#price'] = $this->decimal($item['price'], 0);
@@ -69,6 +69,8 @@ class Mapper extends \App\Marketplaces\Mapper {
 
     public function valid()
     {
+        $data = array_merge($this->item, $this->config);
+
         $rules = [
             'reference' => 'required|max:16',
             'type' => 'required',
@@ -76,11 +78,12 @@ class Mapper extends \App\Marketplaces\Mapper {
             'location.state' => 'required',
             'location.country' => 'required',
             'location.zipcode' => 'required',
+            'account_id' => 'required',
         ];
 
         $messages = [];
 
-        $validator = \Validator::make($this->item, $rules, $messages);
+        $validator = \Validator::make($data, $rules, $messages);
         if ($validator->fails())
         {
             $this->errors = $validator->errors()->all();
