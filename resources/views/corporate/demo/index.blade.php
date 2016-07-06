@@ -17,7 +17,7 @@
 						<div class="xs-spacer"></div>
 					</div>
 					<div class="col-xs-12 col-sm-6 col-sm-offset-1">
-						<a href="http://demo.molista.com" target="_blank"><img src="{{ asset('images/corporate/responsive.png') }}" class="img-responsive" alt="" />
+						<a href="http://demo.molista.com" target="_blank"><img src="{{ asset('images/corporate/responsive.png') }}" class="img-responsive" alt="" /></a>
 					</div>
 				</div>
 			</div>
