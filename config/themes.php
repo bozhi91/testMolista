@@ -93,15 +93,6 @@ return [
 			'asset-path' 	=> 'themes/bellamar',
 		],
 
-		'inmoblue' => [
-			'title'			=> 'Inmoblue',
-			'public'		=> true,
-			'custom'		=> false,
-			'extends'	 	=> 'default',
-			'views-path' 	=> 'themes/inmoblue',
-			'asset-path' 	=> 'themes/inmoblue',
-		],
-
 		'elegant' => [
 			'title'			=> 'Elegant',
 			'public'		=> true,
@@ -109,6 +100,15 @@ return [
 			'extends'	 	=> 'default',
 			'views-path' 	=> 'themes/elegant',
 			'asset-path' 	=> 'themes/elegant',
+		],
+
+		'inmoblue' => [
+			'title'			=> 'Inmoblue',
+			'public'		=> true,
+			'custom'		=> false,
+			'extends'	 	=> 'default',
+			'views-path' 	=> 'themes/inmoblue',
+			'asset-path' 	=> 'themes/inmoblue',
 		],
 
 		// Add your themes here...
