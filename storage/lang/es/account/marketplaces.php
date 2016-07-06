@@ -22,4 +22,7 @@
 		'configuration.owner.email' => 'Email',
 		'configuration.owner.cif' => 'CIF',
 		'configuration.owner.cif.error' => 'Por favor ingrese un CIF válido',
+
+		'configuration.fields.account.title' => 'Cuenta',
+		'configuration.fields.account_id' => 'Account ID',
 	];
