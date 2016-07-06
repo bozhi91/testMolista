@@ -129,7 +129,11 @@ class Marketplace extends \App\TranslatableModel
 
         // Recuperar configuración del marketplace
         $adm = new $this->class_path;
-        $additional_configuration['configuration'] = $adm->getMarketplaceConfiguration();
+        $config = $adm->getMarketplaceConfiguration();
+        if (!empty($config))
+        {
+            $additional_configuration['configuration'] = $config;
+        }
 
 		return $additional_configuration;
 	}
