@@ -70,6 +70,7 @@
 									<div class="alert alert-warning payment-warning">
 										{!! Lang::get('corporate/signup.finish.stripe.current.version',[
 											'plan' => @$pending_request->site->plan->name,
+											'phone' => Config::get('app.phone_support'),
 										])!!}
 									</div>
 								</div>
@@ -88,7 +89,9 @@
 								@if ( empty($pending_request) )
 								@elseif ( $pending_request->summary->payment_method == 'stripe' )
 								@else
-									{!! Lang::get('corporate/signup.finish.our.help') !!}
+									{!! Lang::get('corporate/signup.finish.our.help', [
+										'phone' => Config::get('app.phone_support'),
+									]) !!}
 								@endif
 								<div class="visible-xs" style="height: 50px;"></div>
 							</div>
