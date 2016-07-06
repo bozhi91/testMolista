@@ -7,13 +7,16 @@ abstract class XML extends Base implements PublishPropertyXmlInterface {
     protected $writer;
 
     protected $iso_lang;
+    protected $config;
 
-    public function __construct()
+    public function __construct(array $config = [])
     {
         if (empty($this->iso_lang))
         {
             throw new \LogicException(static::class." must declare the attribute $iso_lang.");
         }
+        
+        $this->config = $config;
     }
 
     public function getPropertiesXML(array $properties)
@@ -52,7 +55,7 @@ abstract class XML extends Base implements PublishPropertyXmlInterface {
     protected static function getMapper(array $property, $lang)
     {
         $class = static::getClassName().'\Mapper';
-        return new $class($property, $lang);
+        return new $class($property, $lang, $this->config);
     }
 
     protected static function getClassName()
