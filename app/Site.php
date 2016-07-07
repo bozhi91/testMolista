@@ -218,19 +218,27 @@ class Site extends TranslatableModel
 		}
 
 		// Set owner autologin_token
-		$owner->autologin_token = sha1( $this->id . uniqid() );
-		while ( \App\User::where('autologin_token', $owner->autologin_token)->count() > 0 )
-		{
-			$owner->autologin_token = sha1( $this->id . uniqid() . rand(1000, 9999) );
-		}
-		$owner->save();
+		$autologin_token = $owner->getUpdatedAutologinToken();
 
 		// Return autologin url
+		$url = action('AccountController@index', [ 'autologin_token' =>$autologin_token ]);
+
+		return $this->getSiteFullUrl( $url );
+	}
+
+	public function getRememberPasswordUrlAttribute()
+	{
+		$url = action('Auth\PasswordController@reset');
+		return $this->getSiteFullUrl( $url );
+	}
+
+	public function getSiteFullUrl($url)
+	{
 		return str_replace(
-							rtrim(\Config::get('app.application_url'),'/'), //replaces current url
-							rtrim($this->main_url,'/'), // with website url
-							action('Auth\AuthController@autologin', [ $owner->id, $owner->autologin_token ])
-						);
+					rtrim(\Config::get('app.application_url'),'/'), //replaces current url
+					rtrim($this->main_url,'/'), // with website url
+					$url
+				);
 	}
 
 	public function getXmlPathAttribute()
