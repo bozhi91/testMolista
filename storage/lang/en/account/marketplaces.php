@@ -22,4 +22,8 @@
 		'configuration.owner.email' => 'Email',
 		'configuration.owner.cif' => 'CIF',
 		'configuration.owner.cif.error' => 'Please enter a valid CIF',
+
+		'configuration.fields.contact_data.title' => 'Contact data',
+		'configuration.fields.email' => 'E-mail',
+		'configuration.fields.contact_data' => 'Contact data',
 	];
