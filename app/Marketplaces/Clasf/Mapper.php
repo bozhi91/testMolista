@@ -17,7 +17,8 @@ class Mapper extends \App\Marketplaces\Mapper {
         $map['title'] = strip_tags($this->translate($item['title']));
         $map['content'] = strip_tags($this->translate($item['description']), '<br>');
         $map['#price'] = $this->decimal($item['price']);
-        $map['email'] = '';
+        $map['email'] = $this->config['email'];
+        $map['contact'] = $this->config['contact_data'];
 
         if (!empty($item['location']['city']))
         {
@@ -42,15 +43,18 @@ class Mapper extends \App\Marketplaces\Mapper {
 
     public function valid()
     {
+        $data = array_merge($this->item, $this->config);
+
         $rules = [
             'id' => 'required',
             'title' => 'required',
-            'description.'.$this->iso_lang => 'required|min:100'
+            'description.'.$this->iso_lang => 'required|min:100',
+            'email' => 'required',
         ];
 
         $messages = [];
 
-        $validator = \Validator::make($this->item, $rules, $messages);
+        $validator = \Validator::make($data, $rules, $messages);
         if ($validator->fails())
         {
             $this->errors = $validator->errors()->all();
