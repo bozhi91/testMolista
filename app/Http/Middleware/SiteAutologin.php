@@ -22,18 +22,23 @@ class SiteAutologin {
 		// Logout
 		Auth::logout();
 
+		// Build redirect url
+		$query = $request->query();
+		unset($query['autologin_token']);
+		$redirect = url()->current() . ( empty($query) ? '' : '?'.http_build_query($query) );
+
 		// Get the site
 		$site = $request->get('site');
 		if ( !$site )
 		{
-			return $next($request);
+			return redirect()->to($redirect);
 		}
 
 		// Verify user belongs to site
 		$user = $site->users()->where('autologin_token', $request->input('autologin_token'))->first();
 		if ( !$user ) 
 		{
-			return $next($request);
+			return redirect()->to($redirect);
 		}
 
 		// Delete token
