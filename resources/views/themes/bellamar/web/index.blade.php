@@ -2,6 +2,8 @@
 
 @section('content')
 
+	@include('web.search.home')
+
 	<div id="home">
 
 		@if ( count($properties) > 0 )

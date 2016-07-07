@@ -1,5 +1,5 @@
 <nav id="header" class="navbar navbar-default {{ @$header_class }}">
-	<div class="container">
+	<div class="container header-container">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
 				<span class="sr-only">Toggle Navigation</span>
@@ -7,7 +7,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="{{ action('WebController@index') }}" style="background-image: url('{{ empty($site_setup['logo']) ? Theme::url('/images/logo-default.png') : $site_setup['logo'] }}');"></a>
+			<a class="navbar-brand" href="{{ action('WebController@index') }}" style="background-image: url('{{ empty($site_setup['logo']) ? Theme::url('/images/logo.png') : $site_setup['logo'] }}');"></a>
 		</div>
 
 		<div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -16,12 +16,12 @@
 					@if ( $widget['type'] == 'menu' )
 						@include('common.widget-menu', [
 							'widget' => $widget,
-							'widget_class' => 'nav navbar-nav',
+							'widget_class' => 'nav navbar-nav header-menu',
 						])
 					@endif
 				@endforeach
 			@endif
-			<ul class="nav navbar-nav navbar-right">
+			<ul class="nav navbar-nav navbar-right header-locale-social">
 				@if ( !empty($site_setup['locales_select']) )
 					<li class="dropdown locale-select">
 						<a href="#" class="main-item dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

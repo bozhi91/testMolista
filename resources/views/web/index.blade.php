@@ -2,6 +2,8 @@
 
 @section('content')
 
+	@include('web.search.home')
+
 	<div id="home">
 
 		@if ( count($properties) > 0 )
@@ -37,7 +39,7 @@
 											<div class="col-xs-12 col-sm-4">
 												<div class="relative">
 													@include('web.properties.pill', [ 'item'=>$property])
-													<a class="left carousel-control hide visible-xs" href="#properties-slider" role="button" data-slide="prev">
+												<a class="left carousel-control hide visible-xs" href="#properties-slider" role="button" data-slide="prev">
 														&lsaquo;
 														<span class="sr-only">{{ Lang::get('pagination.previous') }}</span>
 													</a>

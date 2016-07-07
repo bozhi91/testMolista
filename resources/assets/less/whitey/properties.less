@@ -1,2 +1,188 @@
 @import '../app/properties.less';
 
+#properties {
+	
+	.search-area {
+		background-color: #f6f6f6;
+		margin: 120px 0px 50px 0px;
+		
+		h2 { color: @black; position: absolute; top: 0; margin-top: -68px; font-size: 18px; }
+
+		.container {width: auto !important;}
+
+		.form-area {
+
+			.col-xs-12 { width: 100% !important; }
+
+			/* colors */
+				label { color: #a0a0a0; }
+				.form-control:focus { border-color: @green;}
+				.form-control.is-placeholder { color: #a0a0a0; }
+				.form-control::-webkit-input-placeholder { color: #a0a0a0; }
+				.form-control:-moz-placeholder { color: #a0a0a0; }
+				.form-control::-moz-placeholder { color: #a0a0a0; }
+				.form-control:-ms-input-placeholder { color: #a0a0a0; }
+
+				.select2-container--default.select2-container--focus .select2-selection--single, .select2-container--default.select2-container--open .select2-selection--single, .select2-container--default.select2-container--focus .select2-selection--multiple, .select2-container--default.select2-container--open .select2-selection--multiple { border: 1px solid @green;}
+
+				.btn.btn-warning { border-color: @green; background: @green; color: @white; }
+			/* end colors */
+		}
+	}
+
+	.results-area {
+		background-image: url('/images/themes/elegant/home/home-background.png');
+		padding: 50px 0px 50px 0px;
+
+		.container {width: auto !important;}
+
+		.results-sort-trigger {
+			.btn-group { border: 0px; }
+		}
+	}
+
+	.property-list {
+		.property-row {
+			.col-xs-12.col-sm-9 {
+				.text-column {
+
+					.title {
+						text-decoration: underline;
+
+						a { color: @green; }
+					}
+
+					.price {
+						a { color: @green; }
+					}
+				}
+			}
+		}
+	}
+
+	.pagination-area {
+		padding-top: 0px !important;
+		border-top: 0px !important;
+		display: none;
+	}
+}
+
+/* #### 2 Columns #### */
+
+@media (min-width: 768px) {
+	#properties { width: 750px; margin: auto; }
+}
+
+@media (min-width: 992px) {
+	#properties { width: 970px; margin: auto; }
+}
+
+@media (min-width: 1200px) {
+	#properties { width: 1170px; margin: auto; }
+}
+
+@media (min-width: 768px) {
+	#properties {
+		.search-area { float: left; width: 20%; }
+		.results-area { float: left; width: 80%; }
+	}
+}
+
+#properties:after { display: table; clear: both; content: ""; }
+
+/* #### 2 Columns #### */
+
+/* Setting for select in search-area */
+	.select2-container--open .select2-dropdown--below { border-color: @green; }
+/* End Setting for select in search-area */
+
+
+/* properties */
+
+@media (min-width: 768px) {
+	#properties {
+
+		.property-list {
+			.property-row {
+			    border: 1px solid @borderDarkGrey;
+			    background: @white;
+			    padding: 0px;
+			    margin-bottom: 30px;
+
+				.col-xs-12.col-sm-3 {
+					.image-column{	.image { height: 100%; }	}
+				}
+
+				.col-xs-12.col-sm-9 {
+					.text-column {
+						.col-xs-9 { position: absolute; top: 105px; width: 100%; }
+						.col-xs-3 { width: 0%; }
+						.col-xs-12.col-sm-3 { position: absolute; margin-top: 35px;	width: 100%; }
+						.title {
+							text-decoration: underline;
+							margin-top: 10px;
+
+							a { color: @green; }
+						}
+						.location { margin-top: 40px; }
+						.description { margin-top: 60px; }
+						.price {
+							text-align: left;
+
+							a { color: @green; }
+						}
+						.metrics { }
+						.btn-more-info { position: absolute; bottom: auto; right: 0px; top: 0; border-radius: 0px; }
+					}
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 767px) {
+	#properties {
+		.property-list {
+			.property-row {
+			    border: 1px solid @borderDarkGrey;
+			    background: @white;
+			    padding: 0px;
+			    margin-bottom: 30px;
+
+				.col-xs-12.col-sm-9 {
+					.text-column {
+						padding: 15px;
+
+						.title {
+							text-decoration: underline;
+							margin-top: 0px;
+
+							a { color: @green; }
+						}
+						.location { margin-top: 0px; }
+						.description { margin-top: 0px; }
+						.price {
+							text-align: left;
+
+							a { color: @green; }
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+/* fonts */
+
+@media (min-width: 768px) and (max-width: 991px) {
+	#properties {
+		.text-column {
+			.location { font-size: 14px; }
+			.description { font-size: 14px; }
+			.price { a { font-size: 20px; } }
+			.metrics { font-size: 13px; }
+			.services { font-size: 13px; }
+		}
+	}
+}
