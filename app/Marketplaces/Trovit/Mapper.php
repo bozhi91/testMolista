@@ -29,7 +29,7 @@ class Mapper extends \App\Marketplaces\Mapper {
             $map['price'] = $this->decimal($item['price']);
         }
 
-        //$map['property_type'] = '';
+        $map['property_type'] = $this->property_type();
         //$map['foreclosure_type'] = '';
 
         if (!empty($item['location']['show_address']))
@@ -139,6 +139,21 @@ class Mapper extends \App\Marketplaces\Mapper {
         }
 
         return $type;
+    }
+
+    protected function property_type()
+    {
+        $types = [
+            'store' => 'Local',
+            'lot' => 'Solar',
+            'duplex' => 'Dúplex',
+            'house' => 'Casa',
+            'penthouse' => 'Ático',
+            'villa' => 'Villa',
+            'apartment' => 'Apartamento',
+        ];
+
+        return isset($types[$this->item['type']]) ? $types[$this->item['type']] : 'Piso';
     }
 
     protected function pictures()

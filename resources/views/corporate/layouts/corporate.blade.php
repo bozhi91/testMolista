@@ -73,7 +73,7 @@
 						<li>
 							<div class="phone-info">
 								<i class="fa fa-phone" aria-hidden="true"></i>
-								93 488 52 23
+								{{ Config::get('app.phone_support') }}
 							</div>
 						</li>
 					</ul>
@@ -107,7 +107,7 @@
 					<div class="footer-text">
 						<strong>molista.com</strong> {{ Lang::get('corporate/home.footer.operated') }} <strong><a href="http://www.incubout.com/" target="_blank">Incubout SL</a></strong>: 
 						<span class="text-nowrap">Salvador Espriu 93 08005 Barcelona</span>
-						<span class="text-nowrap">T: <strong>93 488 5223</strong></span>
+						<span class="text-nowrap">T: <strong>{{ Config::get('app.phone_support') }}</strong></span>
 						<span class="text-nowrap">E: <strong><a href="mailto:info@molista.com" target="_blank">info@molista.com</a></strong></span>
 					</div>
 				</div>
@@ -124,6 +124,7 @@
 	<script src="{{ Theme::url('/js/alertify/messages_' . LaravelLocalization::getCurrentLocale() . '.js') }}"></script>
 
 	@include('corporate.common.zopim')
+	@include('corporate.common.leadin')
 
 </body>
 </html>

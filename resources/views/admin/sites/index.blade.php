@@ -33,11 +33,13 @@
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th>#</th>
-								<th>{{ Lang::get('admin/sites.title') }}</th>
-								<th class="text-center">{{ Lang::get('admin/sites.transfer') }}</th>
-								<th>{{ Lang::get('admin/sites.created') }}</th>
-								<th></th>
+								{!! drawSortableHeaders(url()->full(), [
+									'id' => [ 'title' => '#' ],
+									'title' => [ 'title' => Lang::get('admin/sites.title')],
+									'transfer' => [ 'title' => Lang::get('admin/sites.transfer'), 'class'=>'text-center text-nowrap' ],
+									'created' => [ 'title' => Lang::get('admin/sites.created') ],
+									'action' => [ 'title' => '', 'sortable'=>false ],
+								]) !!}
 							</tr>
 						</thead>
 						<tbody>
@@ -56,7 +58,7 @@
 							@endforeach
 						</tbody>
 					</table>
-					{!! drawPagination($sites, Input::only('limit','title','transfer')) !!}
+					{!! drawPagination($sites, Input::only('limit','title','transfer','orderby','order')) !!}
 				@endif
 			</div>
 

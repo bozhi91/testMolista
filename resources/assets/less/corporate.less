@@ -162,27 +162,34 @@ header { min-height: 84px; background-color: @black;
 				color: @black;
 		}
 
-		ul { list-style: none; padding: 10px 0 0 10px; list-style-type: none;
+		ul { 
+			list-style: none; padding: 10px 0 0 10px; list-style-type: none;
 			li { 	
-					font-size: 20px;
-					padding:0.10em 0 0.3em 1.4em;
-					margin-bottom:0.2em;
-					text-indent:0.4em;
-					list-style:none;
-					background-repeat:no-repeat;
-					background-position: 0px 5px;
-
-				img {margin-right:10px;}
+				font-size: 18px; padding: 7px 0px 7px 45px; margin: 0px; background: 0px 0px no-repeat;
+				img { margin-right: 10px; }
 			}
-			li[data-type="fixa"]{ background-image:url(/images/corporate/fixa-icon.png); background-position: 5px 5px; }
-			li[data-type="searcher"]{ background-image:url(/images/corporate/searcher-icon.png); background-position: 2px 5px; }
-			li[data-type="relation"]{ background-image:url(/images/corporate/relation-icon.png); background-position: 0px 1px; }
-			li[data-type="easy"]{ background-image:url(/images/corporate/easy-icon.png); background-position: 2px 5px; }
-			li[data-type="settings"]{ background-image:url(/images/corporate/settings-icon.png); background-position: 4px 5px; }
-			li[data-type="responsive"]{ background-image:url(/images/corporate/responsive-icon.png);}
-			li[data-type="web"]{ background-image:url(/images/corporate/web-icon.png);}
+
+			li[data-type="web"]{ background-image:url(/images/corporate/web-icon.png); }
+			li[data-type="fixa"] { background-image:url(/images/corporate/fixa-icon.png); }
+			li[data-type="searcher"]{ background-image:url(/images/corporate/searcher-icon.png); }
+			li[data-type="relation"]{ background-image:url(/images/corporate/relation-icon.png); }
+			li[data-type="easy"]{ background-image:url(/images/corporate/easy-icon.png); }
+			li[data-type="exports"]{ background-image:url(/images/corporate/exports-icon.png); }
+			li[data-type="responsive"]{ background-image:url(/images/corporate/responsive-icon.png); }
 			li[data-type="agents"]{ background-image:url(/images/corporate/agents-icon.png); }
-			li[data-type="docs"]{ background-image:url(/images/corporate/docs-icon.png); background-position: 5px 5px; }
+			li[data-type="docs"]{ background-image:url(/images/corporate/docs-icon.png); }
+			li[data-type="leads"]{ background-image:url(/images/corporate/leads-icon.png); }
+			li[data-type="settings"]{ background-image:url(/images/corporate/settings-icon.png); }
+		}
+	}
+
+	.block-exports {
+		background: #e6e5e4; padding: 25px 0px; font-size: 20px; color: @black; text-transform: uppercase; font-weight: 700;
+		.logos {
+			li { padding: 0px 8px 5px 8px; }
+			&.visible-xs { 
+				li { margin-bottom: 10px; }
+			}
 		}
 	}
 
@@ -304,6 +311,23 @@ header { min-height: 84px; background-color: @black;
 				}	
 			}
 		}	
+	}
+}
+
+@media (max-width : 767px) {
+	#home {
+		.jumbotron { 
+			background: @darkBlue; text-align: center; height: auto; padding: 25px 0px; 
+		}
+		.first-block  {
+			ul { margin-top: 0px; margin-bottom: 0px; }
+		}
+		.block-links {
+			li { 
+				margin-top: 10px; 
+				&:first-child { margin-top: 0px; }
+			}
+		}
 	}
 }
 
@@ -731,6 +755,10 @@ footer {
 		background: @lightBlue; padding: 100px 0px;
 		h2 { padding-bottom: 34px; }
 		li { margin-bottom: 10px; }
+	}
+	.btn-demo-site { 
+		font-weight: bold; text-transform: uppercase; .btnBdrYlw; background: @darkBlue; font-size: 18px; min-width: 240px; padding: 10px; margin-top: 25px; 
+		&:hover { background: @black; }
 	}
 	.steps-intro {
 		padding-top: 85px;

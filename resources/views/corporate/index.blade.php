@@ -22,11 +22,19 @@
 			<section class="first-block">
 				<div class="container">
 					<div class="row">
-						<div class="col-md-6">
+						<div class="col-md-7">
 							<h2>{{ Lang::get('corporate/home.h2') }}</h2>
 							{!! Lang::get('corporate/home.features') !!}
+							<div class="row">
+								<div class="col-xs-12 col-sm-6">
+									{!! Lang::get('corporate/home.features.column.left') !!}
+								</div>
+								<div class="col-xs-12 col-sm-5">
+									{!! Lang::get('corporate/home.features.column.right') !!}
+								</div>
+							</div>
 						</div>
-						<div class="col-md-6">
+						<div class="col-md-5">
 							<img class="img-responsive" src="{{ Theme::url('/images/corporate/responsive.png') }}">
 						</div>
 
@@ -35,6 +43,25 @@
 			</section>
 			<!-- / FIRST BLOCK -->
 
+			<?php $logos = [ 'pisos','trovit','casinuevo','kyero','enalquiler','divendo','genteycasas'];  ?>
+			<section class="block-exports text-center">
+				<div class="container">
+					<ul class="logos hidden-xs list-inline">
+						@foreach ($logos as $logo)
+							<li><img src="{{ asset("images/corporate/marketplaces/{$logo}.png") }}" alt="" /></li>
+						@endforeach
+					</ul>
+					<ul class="logos visible-xs list-unstyled">
+						@foreach ($logos as $logo)
+							<li><img src="{{ asset("images/corporate/marketplaces/{$logo}.png") }}" alt="" /></li>
+						@endforeach
+					</ul>
+					<div class="and-more">
+						{!! Lang::get('corporate/home.exports.more') !!}
+					</div>
+				</div>
+			</section>
+
 			<!-- SECOND BLOCK -->
 			<!-- BLOCK LINKS -->
 			<section class="block-links">
@@ -42,7 +69,7 @@
 					<div class="row">
 						<div class="col-xs-12 text-center">
 						  <ul>
-					        <li><a href="http://demo.molista.com/" target="_blank" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</a></li>
+					        <li><a href="{{ action('Corporate\DemoController@getIndex') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</a></li>
 					        <li><a href="{{ action('Corporate\FeaturesController@getIndex') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.moreinfo') }}</a></li>
 					        <li><a href="{{ action('Corporate\SignupController@getUser') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/home.try') }}</a></li>
 					      </ul>

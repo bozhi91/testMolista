@@ -1,0 +1,105 @@
+@import '../bellamar/home.less';
+
+/* setting on picture at carousel */
+#home {
+	.main-property {
+		max-width: 100%;
+		.item { height: 720px; }
+	}
+}
+/* end setting on picture at carousel */
+
+/* settings on carousel */
+@media screen and (min-width: 768px) {
+	#home {
+    	.carousel-caption {
+    		position: static;
+
+	    	.col-md-3 {
+      			width: 35%;
+        		position: absolute;
+        		top: 0;
+        		float: none;
+		        right: 0;
+
+	        	.slider-quick-search {
+					opacity: 0;
+	        		position: relative;
+	        		background: #7e1f31;
+	        		padding: 30px 20px;
+	        		width: 260px;
+	        	}
+     		}
+
+		    .col-md-6 {
+		        width: 50%;
+		        position: absolute;
+		        left: 0;
+		        bottom: 15%;
+		    }
+    	}
+	}
+}
+/* end settings on carousel */
+
+/* styles in carousel */
+#home {
+	.main-property {
+
+		.slider-quick-search {
+			background: @grey !important;
+
+			#quick-search-form {
+			    position: relative;
+
+				input, select { background: @darkGrey !important; border-color: @darkGrey !important; }
+
+				.text-right {
+					position: absolute;
+				    padding: 20px;
+				    right: 0;
+				    left: 0;
+				    margin-left: -20px;
+				    margin-right: -20px;
+					background: @green;
+
+					.more-options {	color: @black; }
+
+					.btn.btn-primary.text-uppercase {
+						background: @white !important;
+						border-color: @white !important;
+						color: @black !important;
+					}
+				}
+			}
+		}
+
+		.carousel-caption-text { color: @black;	}
+
+	}
+	.properties-slider-area {
+		.properties-slider-indicators {
+			margin-bottom: 30px; 
+			li {
+				&.active { background: @green; }
+			}
+		}
+	}
+
+}
+/* styles in carousel */
+
+/* settings */
+#home {
+
+	.properties-slider-area { h1, h2, h3, h4, h5, h6 { color: @black; }	}
+
+	.quick-search-area {
+		h1, h2, h3, h4, h5, h6 { color: @black; }
+
+		/* meanwhile */
+		display:none;
+		/* meanwhile */
+	}
+}
+/* settings */

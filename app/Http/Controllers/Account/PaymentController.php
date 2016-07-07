@@ -222,18 +222,18 @@ class PaymentController extends \App\Http\Controllers\AccountController
 
 	public function postCancel()
 	{
-		$planchange = $this->site->planchanges()->active()->first();
+		$pending_request = $this->site->planchanges()->pending()->first();
 
-		if ( !$planchange )
+		if ( !$pending_request )
 		{
-			return redirect()->action('AccountController@index')->with('current_tab','plans');
+			return redirect()->action('AccountController@index')->with('current_tab','plans')->with('error', trans('general.messages.error'));
 		}
 
-echo 'postPay';
-echo "<pre>";
-print_r($planchange);
-echo "</pre>";
-die;
+		$pending_request->status = 'canceled';
+		$pending_request->save();
+		$pending_request->delete();
+
+		return redirect()->action('AccountController@index')->with('current_tab','plans')->with('success', trans('account/payment.plans.cancel.success'));
 	}
 
 }
