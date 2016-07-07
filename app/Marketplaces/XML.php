@@ -21,7 +21,12 @@ abstract class XML extends Base implements PublishPropertyXmlInterface {
 
     public function getPropertiesXML(array $properties)
     {
-        $this->writer = static::getWriter();
+        $this->writer = static::getWriter($this->config);
+
+        if (method_exists($this->writer, 'start'))
+        {
+            $this->writer->start();
+        }
 
         foreach ($properties as $p)
         {
@@ -46,10 +51,17 @@ abstract class XML extends Base implements PublishPropertyXmlInterface {
         return $mapper->errors();
     }
 
-    protected static function getWriter()
+    protected static function getWriter($config)
     {
         $class = static::getClassName().'\Writer';
-        return new $class;
+        $instance = new $class;
+
+        if (method_exists($instance, 'setConfig'))
+        {
+            $instance->setConfig($config);
+        }
+
+        return $instance;
     }
 
     protected static function getMapper(array $property, $lang, array $config = [])
