@@ -7,6 +7,6 @@
 		'password' => 'Password',
 		'enter' => 'Entrar',
 		'remember' => 'Recordar contraseña',
-		'forgot' => 'Volver',
-		'login' => 'Quiero ingresar en mi tienda',
+		'forgot' => '¿Has olvidado tu contraseña?',
+		'login' => 'Volver',
 	];
