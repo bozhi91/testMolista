@@ -63,7 +63,7 @@ class Site extends TranslatableModel
 	}
 
 	public function users() {
-		return $this->belongsToMany('App\User', 'sites_users', 'site_id', 'user_id')->withPivot('can_create','can_edit','can_delete');
+		return $this->belongsToMany('App\User', 'sites_users', 'site_id', 'user_id')->withPivot('can_create','can_edit','can_delete','can_view_all');
 	}
 	public function getUsersIdsAttribute() {
 		$users = [];

@@ -30,9 +30,11 @@
 		'show.title' => 'Edit user: :name',
 
 		'show.tab.permissions' => 'Permissions',
-		'show.tab.permissions.create' => 'Can create propeties',
-		'show.tab.permissions.edit' => 'Can edit propeties',
-		'show.tab.permissions.delete' => 'Can delete propeties',
+		'show.tab.permissions.create' => 'Can create properties',
+		'show.tab.permissions.edit' => 'Can edit properties',
+		'show.tab.permissions.delete' => 'Can delete properties',
+		'show.tab.permissions.view_all' => 'Can view all properties',
+		'show.tab.permissions.view_all.warning' => 'This agent can view all properties',
 
 		'show.tab.properties' => 'Properties',
 		'show.tab.properties.empty' => 'No properties asociated',
