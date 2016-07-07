@@ -15,8 +15,13 @@ class ThumbnailsController extends \App\Http\Controllers\Controller
 	protected $original; // Source image path
 	protected $destination; // Destination image path
 
+	protected $encode_format; // jpg, png, gif, tif, bmp, data-url
+
 	public function property($site_id, $property_id, $flag, $image)
 	{
+		$this->original = public_path("sites/{$site_id}/properties/{$property_id}/{$image}");
+		$this->destination = public_path("sites/{$site_id}/properties/{$property_id}/{$flag}/{$image}");
+
 		// Flag
 		switch ($flag)
 		{
@@ -29,12 +34,13 @@ class ThumbnailsController extends \App\Http\Controllers\Controller
 				$this->min_width = 1280;
 				$this->min_height = 960;
 				break;
+			case 'greenacres':
+				$this->encode_format = 'jpg';
+				$this->original = substr($this->original, 0, -4);
+				break;
 			default:
 				abort(404);
 		}
-
-		$this->original = public_path("sites/{$site_id}/properties/{$property_id}/{$image}");
-		$this->destination = public_path("sites/{$site_id}/properties/{$property_id}/{$flag}/{$image}");
 
 		return $this->createThumbnail();
 	}
@@ -61,7 +67,15 @@ class ThumbnailsController extends \App\Http\Controllers\Controller
 		}
 
 		// Create thumb
-		$thumb = \Image::make($this->original);
+		$thumb = \Image::make($this->original)->save($this->destination);
+
+		// Need encoding?
+		if ( $this->encode_format )
+		{
+			$thumb->encode($this->encode_format)->save($this->destination);
+		}
+
+		// Get original size
 		$width = $thumb->width();
 		$height = $thumb->height();
 
