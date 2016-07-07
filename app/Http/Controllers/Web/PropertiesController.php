@@ -213,4 +213,22 @@ class PropertiesController extends WebController
 		return [ 'success'=>true ];
 	}
 
+	public function downloads($slug,$locale)
+	{
+		// Get property
+		$property = $this->site->properties()->enabled()
+					->whereTranslation('slug', $slug)
+					->first();
+		if ( !$property )
+		{
+			abort(404);
+		}
+
+		$filepath = $property->getPdfFile( $locale );
+
+		return response()->download($filepath, "property-{$locale}.pdf", [
+			'Content-Type: application/pdf',
+		]);
+	}
+
 }

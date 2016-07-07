@@ -64,4 +64,6 @@
 		'images.label.default' => 'Slider default',
 		'images.warning.orientation' => 'We recommend images that have a larger width than height.',
 		'images.warning.size' => 'The size of this image might be too small. We recommend you use an image with a bigger size (ie. 1280 pixels width).',
+
+		'download.pdf' => 'Download PDF',
 	];
