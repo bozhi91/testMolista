@@ -95,15 +95,19 @@
 									@endif
 								</td>
 								<td class="text-right text-nowrap">
-									{!! Form::open([ 'method'=>'DELETE', 'class'=>'delete-form', 'action'=>['Account\PropertiesController@destroy', $property->slug] ]) !!}
+									@if ( $current_site_user->properties->where('id',$property->id)->count() > 0 )
+										{!! Form::open([ 'method'=>'DELETE', 'class'=>'delete-form', 'action'=>['Account\PropertiesController@destroy', $property->slug] ]) !!}
+											@if ( Auth::user()->can('property-delete') && Auth::user()->canProperty('delete') )
+												<button type="submit" class="btn btn-danger btn-xs">{{ Lang::get('general.delete') }}</button>
+											@endif
+											@if ( Auth::user()->can('property-edit') && Auth::user()->canProperty('edit') )
+												<a href="{{ action('Account\PropertiesController@edit', $property->slug) }}" class="btn btn-primary btn-xs">{{ Lang::get('general.edit') }}</a>
+											@endif
+											<a href="{{ action('Account\PropertiesController@show', $property->slug) }}" class="btn btn-primary btn-xs">{{ Lang::get('general.view') }}</a>
+										{!! Form::close() !!}
+									@else
 										<a href="{{ action('Account\PropertiesController@show', $property->slug) }}" class="btn btn-primary btn-xs">{{ Lang::get('general.view') }}</a>
-										@if ( Auth::user()->can('property-edit') && Auth::user()->canProperty('edit') )
-											<a href="{{ action('Account\PropertiesController@edit', $property->slug) }}" class="btn btn-primary btn-xs">{{ Lang::get('general.edit') }}</a>
-										@endif
-										@if ( Auth::user()->can('property-delete') && Auth::user()->canProperty('delete') )
-											<button type="submit" class="btn btn-danger btn-xs">{{ Lang::get('general.delete') }}</button>
-										@endif
-									{!! Form::close() !!}
+									@endif
 								</td>
 							</tr>
 						@endforeach

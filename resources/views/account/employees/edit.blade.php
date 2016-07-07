@@ -24,6 +24,10 @@
 				<div class="tab-content">
 
 					<div role="tabpanel" class="tab-pane tab-main active" id="tab-properties">
+						@if ( $employee->pivot->can_view_all )
+							<div style="font-weight: bold; padding-top: 10px;">{{ Lang::get('account/employees.show.tab.permissions.view_all.warning') }}</div>
+							<hr />
+						@endif
 						<div class="alert alert-info properties-empty {{ ( count($properties) > 0 ) ? 'hide' : '' }}">{{ Lang::get('account/employees.show.tab.properties.empty') }}</div>
 						@if ( count($properties) > 0 )
 							<div class="properties-list {{ ( count($properties) < 1 ) ? 'hide' : '' }}">
@@ -53,6 +57,16 @@
 
 					<div role="tabpanel" class="tab-pane tab-main" id="tab-permissions">
 						<ul class="list-unstyled">
+							<li>
+								<div class="form-group">
+									<div class="checkbox">
+										<label>
+											{!! Form::checkbox('permissions[can_view_all]', 1, $employee->pivot->can_view_all) !!}
+											{{ Lang::get('account/employees.show.tab.permissions.view_all') }}
+										</label>
+									</div>
+								</div>
+							</li>
 							<li>
 								<div class="form-group">
 									<div class="checkbox">
