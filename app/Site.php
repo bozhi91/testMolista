@@ -406,13 +406,20 @@ class Site extends TranslatableModel
 	{
 		$path = $this->getSiteSetupPath();
 
-		if ( true || !file_exists($path) )
+		if ( !file_exists($path) )
 		{
 			$this->updateSiteSetup();
 		}
 
 		// Get setup
 		$setup = include $path;
+
+		// Check if update is required (every 24 hours)
+		if ( !isset($setup['last_updated']) || strtotime($setup['last_updated']) < time()-(60*60*24) )
+		{
+			$this->updateSiteSetup();
+			$setup = include $path;
+		}
 
 		// Set current locale
 		$setup['locale'] = \App::getLocale();
@@ -471,6 +478,7 @@ class Site extends TranslatableModel
 		// Site information
 		$setup = [
 			'site_id' => $site->id,
+			'last_updated' => date("Y-m-d H:i:s"),
 			'theme' => $site->theme,
 			'logo' => $site->logo ? asset("sites/{$site->id}/{$site->logo}") : false,
 			'favicon' => $site->favicon ? asset("sites/{$site->id}/{$site->favicon}") : false,
@@ -490,6 +498,10 @@ class Site extends TranslatableModel
 				'card_last_four' => $site->card_last_four,
 			]
 		);
+
+		// Pending planc hange request
+		$pending_request = $this->planchanges()->pending()->with('plan')->first();
+		$setup['pending_request'] = $pending_request ? $pending_request->toArray() : false;
 
 		// Locales
 		$setup['locales'] = [];
@@ -747,8 +759,6 @@ class Site extends TranslatableModel
 			}
 		}
 		
-		$this->updateSiteSetup();
-
 		// Send mail to owners
 		$locale_backup = \App::getLocale();
 		$email_data = $planchange->site->getSignupInfo( $planchange->locale );
