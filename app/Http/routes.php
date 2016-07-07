@@ -102,6 +102,7 @@ Route::group([
 	Route::get('/', 'WebController@index');
 	// Properties
 	Route::get('properties', 'Web\PropertiesController@index');
+	Route::get('property/{slug}/property-{locale}.pdf', 'Web\PropertiesController@downloads');
 	Route::post('property/{slug}', 'Web\PropertiesController@moreinfo');
 	Route::get('property/{slug}', 'Web\PropertiesController@details');
 	// Pages

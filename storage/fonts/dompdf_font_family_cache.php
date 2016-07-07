@@ -96,4 +96,7 @@
     'normal' => DOMPDF_FONT_DIR . '50db5cfd416c17746d92366c1baf2af6',
     'italic' => DOMPDF_FONT_DIR . '5cd11d72f062af7e429fad8cace3795f',
   ),
+  'montserrat' => array(
+    'normal' => DOMPDF_FONT_DIR . 'ed5bc73e7b8b6874e1f624afff62f7c3',
+  ),
 ) ?>
