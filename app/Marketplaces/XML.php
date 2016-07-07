@@ -7,13 +7,16 @@ abstract class XML extends Base implements PublishPropertyXmlInterface {
     protected $writer;
 
     protected $iso_lang;
+    protected $config;
 
-    public function __construct()
+    public function __construct(array $config = [])
     {
         if (empty($this->iso_lang))
         {
             throw new \LogicException(static::class." must declare the attribute $iso_lang.");
         }
+
+        $this->config = $config;
     }
 
     public function getPropertiesXML(array $properties)
@@ -22,7 +25,7 @@ abstract class XML extends Base implements PublishPropertyXmlInterface {
 
         foreach ($properties as $p)
         {
-            $mapper = static::getMapper($p, $this->iso_lang);
+            $mapper = static::getMapper($p, $this->iso_lang, $this->config);
             if ($mapper->valid())
             {
                 $this->writer->addItem([$mapper->map()]);
@@ -34,7 +37,7 @@ abstract class XML extends Base implements PublishPropertyXmlInterface {
 
     public function validateProperty(array $property)
     {
-        $mapper = static::getMapper($property, $this->iso_lang);
+        $mapper = static::getMapper($property, $this->iso_lang, $this->config);
         if ($mapper->valid())
         {
             return true;
@@ -49,10 +52,10 @@ abstract class XML extends Base implements PublishPropertyXmlInterface {
         return new $class;
     }
 
-    protected static function getMapper(array $property, $lang)
+    protected static function getMapper(array $property, $lang, array $config = [])
     {
         $class = static::getClassName().'\Mapper';
-        return new $class($property, $lang);
+        return new $class($property, $lang, $config);
     }
 
     protected static function getClassName()
