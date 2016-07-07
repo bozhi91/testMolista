@@ -64,4 +64,6 @@
 		'images.label.default' => 'Slider default',
 		'images.warning.orientation' => 'Recomendamos usar imágenes con mayor ancho que largo.',
 		'images.warning.size' => 'El tamaño de esta imagen es muy pequeño. Recomendamos usar imágenes más grandes (ej. 1280 pixels de ancho).',
+
+		'download.pdf' => 'Descargar PDF',
 	];
