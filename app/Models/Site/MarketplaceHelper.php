@@ -160,13 +160,22 @@ class MarketplaceHelper
 		// Add marketplace thumb folder to images
 		if ( @$this->marketplace->configuration['thumb_flag'] )
 		{
+			switch ( $this->marketplace->configuration['thumb_flag'] )
+			{
+				case 'greenacres':
+					$add_extension = '.jpg';
+					break;
+				default:
+					$add_extension = '';
+			}
+
 			foreach ($this->property_marketplace['images'] as $key => $img)
 			{
 				$tmp = pathinfo($img);
 				$this->property_marketplace['images'][$key] = implode('/', [
 					$tmp['dirname'],
 					$this->marketplace->configuration['thumb_flag'],
-					$tmp['basename'],
+					$tmp['basename'] . $add_extension,
 				]);
 			}
 		}
