@@ -22,4 +22,11 @@
 		'configuration.owner.email' => 'Email',
 		'configuration.owner.cif' => 'CIF',
 		'configuration.owner.cif.error' => 'Please enter a valid CIF',
+
+		'configuration.fields.agency_name' => 'Agency name',
+		'configuration.fields.contact_email' => 'Contact e-mail',
+		'configuration.fields.contact_phone' => 'Contact phone',
+		'configuration.fields.zipcode' => 'Zipcode',
+		'configuration.fields.city' => 'City',
+		'configuration.fields.state' => 'State',
 	];
