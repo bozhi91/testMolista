@@ -15,7 +15,7 @@ class Mapper extends \App\Marketplaces\Mapper {
         $map = [];
         $map['#last_amended_date'] = $item['updated_at'];
         $map['#unique_id'] = $item['id'];
-        $map['#agent_ref'] = 'Undefined';
+        $map['#agent_ref'] = $item['reference'];
         $map['#euro_price'] = intval($item['price']);
         $map['#sale_type'] = $this->isRent() ? 'longterm' : 'sale';
         $map['#property_type'] = $this->property_type();
