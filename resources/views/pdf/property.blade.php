@@ -16,10 +16,10 @@
 		.content { width: 520px; margin: 0px auto; }
 		.header { }
 			.header td { vertical-align: middle; }
-			.header .city-title { background: #26af8d; width: 320px; }
+			.header .city-title { background: #26af8d; max-width: 320px; }
 			.header .city { padding: 40px 20px 5px 20px; color: #fff; font-size: 18px; }
 			.header .title { padding: 0px 20px 40px 20px; color: #fff; font-size: 24px; }
-			.header .mode-price { background: #000000; width: 200px; }
+			.header .mode-price { background: #000000; min-width: 200px; }
 			.header .mode { padding: 40px 20px 5px 20px; color: #838383; font-size: 18px; text-transform: uppercase; }
 			.header .price { padding: 0px 20px 40px 20px; color: #fff; font-size: 24px; }
 		.main-image { max-height: 325px; text-align: center; overflow: hidden; margin-bottom: 20px; }
