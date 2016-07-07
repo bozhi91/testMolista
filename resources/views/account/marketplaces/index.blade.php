@@ -2,10 +2,6 @@
 
 @section('account_content')
 
-	<style type="text/css">
-		.marketplace-name { display: inline-block; padding-left: 25px; background: left center no-repeat; }
-	</style>
-
 	<div id="account-marketplaces">
 
         @include('common.messages', [ 'dismissible'=>true ])
@@ -28,7 +24,13 @@
 				<tbody>
 					@foreach ($marketplaces as $marketplace)
 						<tr>
-							<td><span class="marketplace-name" style="background-image: url({{ asset("marketplaces/{$marketplace->logo}") }});">{{ $marketplace->name }}</span></td>
+							<td>
+								@if ( @$marketplace->url )
+									<a href="{{ $marketplace->url }}" target="_blank" class="marketplace-name" style="background-image: url({{ asset("marketplaces/{$marketplace->logo}") }});">{{ $marketplace->name }}</a>
+								@else
+									<span class="marketplace-name" style="background-image: url({{ asset("marketplaces/{$marketplace->logo}") }});">{{ $marketplace->name }}</span>
+								@endif
+							</td>
 							<td class="text-center"><span class="glyphicon glyphicon-{{ $marketplace->marketplace_enabled ? 'ok' : 'remove' }}" aria-hidden="true"></span></td>
 							<td class="text-right text-nowrap">
 								@if ( $marketplace->marketplace_enabled )

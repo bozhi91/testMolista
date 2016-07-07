@@ -4,13 +4,15 @@ abstract class Mapper {
 
     protected $item;
     protected $iso_lang;
+    protected $config;
 
     protected $errors = [];
 
-    public function __construct(array $item, $iso_lang)
+    public function __construct(array $item, $iso_lang, array $config = [])
     {
         $this->item = $item;
         $this->iso_lang = $iso_lang;
+        $this->config = $config;
     }
 
     abstract public function map();

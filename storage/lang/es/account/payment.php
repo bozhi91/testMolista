@@ -4,6 +4,9 @@
 		'plan.show' => 'Ver planes',
 		'plan.upgrade' => 'Cambiar plan',
 		'plan.upgrade.simple' => 'Upgrade',
+		'plan.price' => 'Precio',
+		'plan.valid.from' => 'Fecha inicio',
+		'plan.next.charge' => 'Siguiente cobro',
 
 		'method.h1' => 'Método de pago',
 		'method.stripe' => 'Tarjeta de crédito',
@@ -30,7 +33,9 @@
 										<li>:paymethod</li>
 									</ul>',
 		'plans.pending.button' => 'Pagar ahora',
-
+		'plans.pending.cancel' => 'Cancelar solicitud',
+		'plans.cancel.warning' => '¿Confirma que desea cancelar esta solicitud?',
+		'plans.cancel.success' => 'La solicitud se canceló correctamente',
 
 		'invoices' => 'Mis facturas',
 		'invoices.empty' => 'No se encontraron facturas.',

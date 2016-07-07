@@ -30,12 +30,16 @@
 							@endif
 
 							<h4>{{ Lang::get('account/marketplaces.feed.properties.url') }}</h4>
-							<p>{{ $current_site->getXmlFeedUrl($marketplace->code,'properties') }}</p>
+							<p>
+								<a href="{{ $current_site->getXmlFeedUrl($marketplace->code,'properties') }}" target="_blank">{{ $current_site->getXmlFeedUrl($marketplace->code,'properties') }}</a>
+							</p>
 
 							@if ( @$marketplace->configuration['xml_owners'] )
 								<br />
 								<h4>{{ Lang::get('account/marketplaces.feed.owners.url') }}</h4>
-								<p>{{ $current_site->getXmlFeedUrl($marketplace->code,'owners') }}</p>
+								<p>
+									<a href="{{ $current_site->getXmlFeedUrl($marketplace->code,'owners') }}" target="_blank">{{ $current_site->getXmlFeedUrl($marketplace->code,'owners') }}</a>
+								</p>
 							@endif
 						</div>
 						<div class="col-xs-12 col-sm-3">
@@ -56,6 +60,8 @@
 					@else
 						@if ( !empty($marketplace->additional_configuration['xml_owners']) )
 							@include('account.marketplaces.configure-owner')
+						@elseif ( !empty($marketplace->additional_configuration['configuration']) )
+							@include('account.marketplaces.configure-fields', ['configuration' => $marketplace->additional_configuration['configuration'], 'values' => @$configuration->configuration])
 						@else
 							<?php echo '<pre>' . print_r($marketplace->additional_configuration, true) . '</pre>'; ?>
 						@endif

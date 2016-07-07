@@ -24,6 +24,7 @@ class Marketplace extends \App\TranslatableModel
 		'configuration' => 'array',
 		'enabled' => 'boolean',
 		'logo' => 'image',
+		'url' => 'url',
 	];
 	protected static $update_validator_fields = [
 		'class_path' => 'required|string',
@@ -32,6 +33,7 @@ class Marketplace extends \App\TranslatableModel
 		'configuration' => 'array',
 		'enabled' => 'boolean',
 		'logo' => 'image',
+		'url' => 'url',
 	];
 
 	protected $guarded = [];
@@ -64,7 +66,7 @@ class Marketplace extends \App\TranslatableModel
 
 		foreach ($fields as $field)
 		{
-			switch ($field) 
+			switch ($field)
 			{
 				case 'logo':
 					break;
@@ -85,7 +87,7 @@ class Marketplace extends \App\TranslatableModel
 				continue;
 			}
 
-			foreach ($data['i18n'][$field] as $locale => $value) 
+			foreach ($data['i18n'][$field] as $locale => $value)
 			{
 				$item->translateOrNew($locale)->$field = $value;
 			}
@@ -123,8 +125,15 @@ class Marketplace extends \App\TranslatableModel
 		if ( @$this->configuration['xml_owners'] )
 		{
 			$additional_configuration['xml_owners'] = true;
-
 		}
+
+        // Recuperar configuración del marketplace
+        $adm = new $this->class_path;
+        $config = $adm->getMarketplaceConfiguration();
+        if (!empty($config))
+        {
+            $additional_configuration['configuration'] = $config;
+        }
 
 		return $additional_configuration;
 	}
