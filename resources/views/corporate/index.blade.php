@@ -69,7 +69,7 @@
 					<div class="row">
 						<div class="col-xs-12 text-center">
 						  <ul>
-					        <li><a href="http://demo.molista.com/" target="_blank" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</a></li>
+					        <li><a href="{{ action('Corporate\DemoController@getIndex') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</a></li>
 					        <li><a href="{{ action('Corporate\FeaturesController@getIndex') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.moreinfo') }}</a></li>
 					        <li><a href="{{ action('Corporate\SignupController@getUser') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/home.try') }}</a></li>
 					      </ul>

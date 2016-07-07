@@ -204,10 +204,31 @@ class PropertiesController extends WebController
 		}
 
 		// Push job to queue
-		$job = ( new \App\Jobs\SendMoreInfoProperty($property, $customer, $this->request->all()) )->onQueue('emails');
+		$data = array_merge($this->request->all(), [
+			'locale' => \LaravelLocalization::getCurrentLocale(),
+		]);
+		$job = ( new \App\Jobs\SendMoreInfoProperty($property, $customer, $data) )->onQueue('emails');
 		$this->dispatch( $job );
 
 		return [ 'success'=>true ];
+	}
+
+	public function downloads($slug,$locale)
+	{
+		// Get property
+		$property = $this->site->properties()->enabled()
+					->whereTranslation('slug', $slug)
+					->first();
+		if ( !$property )
+		{
+			abort(404);
+		}
+
+		$filepath = $property->getPdfFile( $locale );
+
+		return response()->download($filepath, "property-{$locale}.pdf", [
+			'Content-Type: application/pdf',
+		]);
 	}
 
 }

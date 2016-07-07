@@ -34,7 +34,9 @@
 					{!! Form::close() !!}
 
 					@if ( @$current_site )
-						{!! Lang::get('corporate/signup.finish.our.help') !!}
+						{!! Lang::get('corporate/signup.finish.our.help', [
+							'phone' => Config::get('app.phone_support'),
+						]) !!}
 					@endif
 
 				</div>

@@ -93,6 +93,15 @@ return [
 			'asset-path' 	=> 'themes/bellamar',
 		],
 
+		'elegant' => [
+			'title'			=> 'Elegant',
+			'public'		=> true,
+			'custom'		=> false,
+			'extends'	 	=> 'default',
+			'views-path' 	=> 'themes/elegant',
+			'asset-path' 	=> 'themes/elegant',
+		],
+
 		'inmoblue' => [
 			'title'			=> 'Inmoblue',
 			'public'		=> true,
