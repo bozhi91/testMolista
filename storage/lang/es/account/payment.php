@@ -46,5 +46,6 @@
 		'invoicing.title' => 'Información facturación',
 		'invoicing.created' => 'La solicitud de cambio de plan está en proceso',
 		'invoicing.updated' => 'El cambio de plan se ha realizado correctamente',
+		'invoicing.transfer.created' => '<h4>Gracias por elegir la forma de pago domiciliado.</h4><p>Hemos recibido todos sus datos para iniciar las gestiones necesarias.</p><p>En cuanto esté todo listo, nos pondremos en contacto con usted.</p>',
 		'invoicing.transfer.intro' => '<p>En este momento estamos confirmando los datos de pago que nos has indicado para habilitar el plan :plan (:price_text). Te avisaremos cuando los hayamos comprobado.</p>',
 	];

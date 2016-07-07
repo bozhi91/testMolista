@@ -41,9 +41,7 @@
 		};
 	</script>
 
-	@if ( @$current_site->has_pending_plan_request )
-		@include('account.warning.pending-request')
-	@endif
+	@include('account.warning.pending-request')
 
     <div id="account-container" class="container">
 		<div class="row">

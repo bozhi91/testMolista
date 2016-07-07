@@ -18,6 +18,7 @@ class Controller extends BaseController
 	protected $request;
 
 	protected $site;
+	protected $site_user;
 
 	public function __construct(Guard $auth, Request $request)
 	{
@@ -25,6 +26,7 @@ class Controller extends BaseController
 		$this->request = $request;
 
 		$this->site = $this->request->get('site');
+		$this->site_user = $this->request->get('site_user');
 
 		$this->__initialize();
 	}

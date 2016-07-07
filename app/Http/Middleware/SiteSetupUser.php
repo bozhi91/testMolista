@@ -24,6 +24,21 @@ class SiteSetupUser
 
 		\App\Session\User::put('user_id', \Auth::user()->id);
 
+		if ( $site = $request->get('site') )
+		{
+			$site_user = $site->users()->with([ 'properties' => function($query) use ($site) {
+				$query->ofSite( $site->id );
+			}])->find( \Auth::user()->id );
+
+			if ( $site_user )
+			{
+				$request->attributes->add([
+					'site_user' => $site_user,
+				]);
+				\View::share('current_site_user', $site_user);
+			}
+		}
+
 		return $next($request);
 	}
 }

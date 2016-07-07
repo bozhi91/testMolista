@@ -46,5 +46,6 @@
 		'invoicing.title' => 'Invoicing data',
 		'invoicing.created' => 'The plan upgrade request is being processed',
 		'invoicing.updated' => 'The plan upgrade was successfully processed',
+		'invoicing.transfer.created' => '<h4>Thanks for choosing the direct debit payment method.</h4><p>We have received all the information we require to initiate the payment process.</p><p>We will contact you as soon as possible.</p>',
 		'invoicing.transfer.intro' => '<p>We are now verifying the payment information you provided. We will let you know when we are done with it and you will be able to enjoy your chose plan (:plan - :price_text).</p>',
 	];
