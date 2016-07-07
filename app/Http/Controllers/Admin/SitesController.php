@@ -50,7 +50,7 @@ class SitesController extends Controller
 			case 'id':
 				$query->orderBy('id', $order);
 				break;
-			case 'creation':
+			case 'created':
 				$query->orderBy('created_at', $order);
 				break;
 			case 'transfer':

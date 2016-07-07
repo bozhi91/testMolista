@@ -108,16 +108,6 @@ elixir(function(mix) {
 			'compiled/bellamar.css',
 		], 'public/themes/bellamar/compiled/css/app.css');
 
-	/* Inmoblue */
-	mix
-		.less([
-			'inmoblue/app.less',
-		], 'resources/assets/css/compiled/inmoblue.css')
-		.styles([
-			'compiled/common.css',
-			'compiled/inmoblue.css',
-		], 'public/themes/inmoblue/compiled/css/app.css');
-
 	/* Elegant */
 	mix
 		.less([
@@ -128,5 +118,14 @@ elixir(function(mix) {
 			'compiled/elegant.css',
 		], 'public/themes/elegant/compiled/css/app.css');
 
+	/* Inmoblue */
+	mix
+		.less([
+			'inmoblue/app.less',
+		], 'resources/assets/css/compiled/inmoblue.css')
+		.styles([
+			'compiled/common.css',
+			'compiled/inmoblue.css',
+		], 'public/themes/inmoblue/compiled/css/app.css');
 
 });
