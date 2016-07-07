@@ -28,6 +28,9 @@ Route::group([
 	// Signup
 	Route::controller('signup', 'Corporate\SignupController');
 
+	// Customers area
+	Route::controller('customers', 'Corporate\CustomersController');
+
 	// Admin
 	Route::group([
 		'prefix' => 'admin',
@@ -95,6 +98,7 @@ Route::group([
 		'web',
 		'site.login.roles:company|employee',
 		'site.setup',
+		'site.autologin',
 		'site.setup.user',
 	],
 ], function() {
@@ -114,9 +118,6 @@ Route::group([
 
 	// Auth
 	Route::auth();
-
-	// Autologin
-	Route::get('account/autologin/{id}/{hash}', 'Auth\AuthController@autologin');
 
 	// User
 	Route::controller('customers', 'Web\CustomersController');
