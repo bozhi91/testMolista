@@ -11,32 +11,40 @@
 
 		.text {
 			padding: 10px 15px;
-			padding-bottom: 40px;
+			margin-bottom: 40px;
+			border-bottom: 1px solid @grey;
+			min-height: 90px;
 
 			.title a { color: @grey; font-weight: bold; }
-
 			.price { position: absolute; bottom: 9px; color: @black; font-weight: bold; }
-
-			.location { border-bottom: 1px solid @grey; padding: 0px 15px 10px 15px; margin: 0px -15px;	}
-
 			.metrics { display: none; }
-
 			.labels { position: absolute; top: 7px; right: 5px; .label { font-size: 14px; } }
-
 			.button {
 				display: block !important; text-align: right; position: absolute; bottom: 9px; right: 15px;
 
 				a {
 				    background-color: @yellow; padding: 5px 10px; font-size: 14px; color: @white;
 
-				    &:hover {
-				    	background-color: @yellowHover;
-				    }
+				    &:hover { background-color: @yellowHover; }
 				}
 			}
-
 		}
-
 		.text:after { display: table; content: ""; clear: both; }
 	}
+}
+
+/* responsive */
+
+@media (min-width: 768px) and (max-width: 1091px) {
+	.property-pill {
+		.padder {
+			.text { min-height: 120px; }
+			.price { font-size: 12px; }
+			.button a { font-size: 12px !important; }
+		}
+	}
+}
+
+@media (max-width: 767px) {
+	.property-pill { height: auto !important; }
 }
