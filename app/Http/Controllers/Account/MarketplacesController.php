@@ -14,7 +14,11 @@ class MarketplacesController extends \App\Http\Controllers\AccountController
 
 	public function getIndex()
 	{
-		$query = \App\Models\Marketplace::enabled()->withSiteConfiguration($this->site->id);
+		$query = \App\Models\Marketplace::enabled()
+			->withSiteConfiguration($this->site->id)
+			->with([ 'properties' => function($query){
+				$query->ofSite( $this->site->id );
+			}]);
 
 		switch ( $this->request->get('order') )
 		{
@@ -48,8 +52,43 @@ class MarketplacesController extends \App\Http\Controllers\AccountController
 		}
 
 		$configuration = @json_decode( $marketplace->marketplace_configuration );
-		
-		return view('account.marketplaces.configure', compact('marketplace','configuration'));
+
+		// Properties
+		$query = $this->site->properties()->withTranslations()->withMarkeplaceEnabled($marketplace->id);
+
+		switch ( $this->request->get('order') )
+		{
+			case 'desc':
+				$order = 'desc';
+				break;
+			default:
+				$order = 'asc';
+		}
+
+		switch ( $this->request->get('orderby') )
+		{
+			case 'title':
+				$query->orderBy('title', $order);
+				break;
+			case 'creation':
+				$query->orderBy('created_at', $order);
+				break;
+			case 'exported':
+				$query->orderBy('exported_to_marketplace', $order);
+				break;
+			case 'enabled':
+				$query->orderBy('enabled', $order);
+				break;
+			case 'reference':
+			default:
+				$query->orderBy('ref', $order);
+		}
+
+		$properties = $query->orderBy('ref', 'asc')->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
+
+		$current_tab = session('current_tab', $this->request->input('current_tab','general'));
+
+		return view('account.marketplaces.configure', compact('marketplace','configuration','properties','current_tab'));
 	}
 	public function postConfigure($code)
 	{
@@ -61,10 +100,10 @@ class MarketplacesController extends \App\Http\Controllers\AccountController
 
 		if ( $this->site->marketplace_helper->saveConfiguration($marketplace->id, $this->request->all()) )
 		{
-			return redirect()->back()->with('success', trans('general.messages.success.saved'));
+			return redirect()->back()->with('current_tab', $this->request->input('current_tab'))->with('success', trans('general.messages.success.saved'));
 		}
 
-		return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
+		return redirect()->back()->with('current_tab', $this->request->input('current_tab'))->with('error', trans('general.messages.error'));
 	}
 
 	public function postForget($code)

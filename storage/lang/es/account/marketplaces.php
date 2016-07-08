@@ -8,6 +8,9 @@
 		'configured' => 'Configurado',
 		'configure' => 'Configurar',
 		'enabled' => 'Habilitado',
+		'limit' => 'Límite',
+		'exported' => 'Exportado',
+		'updated' => 'Fecha actualización',
 
 		'forget.button' => 'Desconectar',
 		'forget.warning' => '¿Confirma que desea desconectar sus propiedades de este marketplace?',
@@ -15,6 +18,10 @@
 		'instructions' => 'Instrucciones',
 		'feed.properties.url' => 'Enlace del XML de propiedades',
 		'feed.owners.url' => 'Enlace del XML de propietarios',
+
+		'maxproperties.title' => 'Limitar propiedades en el feed',
+		'maxproperties.helper' => '<p>Indique el número máximo de propiedades que se pueden incluir en este feed.</p>
+									<p>Dejar en blanco para no limitar el máximo de propiedades.</p>',
 
 		'configuration.none' => 'Este marketplace no require configuración adicional',
 		'configuration.owner.title' => 'Information del publicante',
@@ -30,4 +37,7 @@
 		'configuration.fields.account.title' => 'Cuenta',
 		'configuration.fields.account_id' => 'Account ID',
 
+		'properties' => 'Propiedades',
+		'properties.published' => 'Activa en export',
+		'properties.enabled' => 'Activa en web',
 	];

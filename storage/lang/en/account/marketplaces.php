@@ -8,6 +8,9 @@
 		'configured' => 'Connected',
 		'configure' => 'Connect',
 		'enabled' => 'Enabled',
+		'limit' => 'Limit',
+		'exported' => 'Exported',
+		'updated' => 'Last updated',
 
 		'forget.button' => 'Disconnect',
 		'forget.warning' => 'Are you sure you want to disconnect your properties from this marketplace?',
@@ -15,6 +18,10 @@
 		'instructions' => 'Instructions',
 		'feed.properties.url' => 'Properties XML link',
 		'feed.owners.url' => 'Owners XML link',
+
+		'maxproperties.title' => 'Limit properties in this feed',
+		'maxproperties.helper' => '<p>Select the maximun number of properties you wish to allow for this feed.</p>
+									<p>Leave empty to allow unlimited properties.</p>',
 
 		'configuration.none' => 'This marketplace does not require additional configuration',
 		'configuration.owner.title' => 'Publisher information',
@@ -30,4 +37,7 @@
 		'configuration.fields.account.title' => 'Account',
 		'configuration.fields.account_id' => 'Account ID',
 
+		'properties' => 'Properties',
+		'properties.published' => 'Enabled in export',
+		'properties.enabled' => 'Enabled in web',
 	];

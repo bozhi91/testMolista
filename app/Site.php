@@ -169,7 +169,7 @@ class Site extends TranslatableModel
 
 	public function marketplaces() 
 	{
-		return $this->belongsToMany('App\Models\Marketplace', 'sites_marketplaces', 'site_id', 'marketplace_id')->withPivot('marketplace_configuration','marketplace_enabled');
+		return $this->belongsToMany('App\Models\Marketplace', 'sites_marketplaces', 'site_id', 'marketplace_id')->withPivot('marketplace_configuration','marketplace_enabled','marketplace_maxproperties');
 	}
 	public function getMarketplacesArrayAttribute() 
 	{
@@ -245,7 +245,18 @@ class Site extends TranslatableModel
 	{
 		return storage_path("sites/{$this->id}/xml");
 	}
-
+	public function getXmlPropertiesFeedPath($marketplace)
+	{
+		return $this->getXmlFeedPath($marketplace,'properties');
+	}
+	public function getXmlOwnersFeedPath($marketplace)
+	{
+		return $this->getXmlFeedPath($marketplace,'owners');
+	}
+	public function getXmlFeedPath($marketplace,$type)
+	{
+		return "{$this->xml_path}/{$marketplace}/{$type}.xml";
+	}
 	public function getXmlFeedUrl($marketplace,$type)
 	{
 		if ( !$this->main_url )

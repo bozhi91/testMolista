@@ -39,7 +39,7 @@ class FeedsController extends \App\Http\Controllers\WebController
 		$filepath = "{$folder}/{$type}.xml";
 
 		// Get XML content
-		if ( false && file_exists($filepath) )
+		if ( file_exists($filepath) )
 		{
 			$content = file_get_contents($filepath);
 		}

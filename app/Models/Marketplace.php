@@ -47,6 +47,11 @@ class Marketplace extends \App\TranslatableModel
 		return $this->belongsTo('App\Models\Geography\Country')->withTranslations();
 	}
 
+	public function properties() 
+	{
+		return $this->belongsToMany('App\Property', 'properties_marketplaces', 'marketplace_id', 'property_id');
+	}
+
 	public static function saveModel($data, $id = null)
 	{
 		if ($id)
@@ -154,6 +159,7 @@ class Marketplace extends \App\TranslatableModel
 			})
 			->addSelect( \DB::raw('sites_marketplaces.`marketplace_enabled`') )
 			->addSelect( \DB::raw('sites_marketplaces.`marketplace_configuration`') )
+			->addSelect( \DB::raw('sites_marketplaces.`marketplace_maxproperties`') )
 			;
 	}
 

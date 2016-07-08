@@ -25,6 +25,15 @@ class MarketplaceHelper
 			$columns['marketplace_enabled'] = empty($data['marketplace_enabled']) ? 0 : 1;
 		}
 
+		if ( isset($data['marketplace_maxproperties']) )
+		{
+			$columns['marketplace_maxproperties'] = @intval($data['marketplace_maxproperties']);
+			if ( !$columns['marketplace_maxproperties'] )
+			{
+				$columns['marketplace_maxproperties'] = null;
+			}
+		}
+
 		if ( isset($data['marketplace_configuration']) )
 		{
 			if ( is_array($data['marketplace_configuration']) )
