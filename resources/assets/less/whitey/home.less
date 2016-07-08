@@ -26,7 +26,15 @@
 							&:hover { background-color: @grey; color: @white; opacity: 0.8; }
 						}
 						input, select, button, a { height: 100%; border-radius: 0px;}
-						button { padding: 8px 13px; background-color: @buttonYellow; border-color: @buttonYellow; }
+						button {
+							padding: 8px 13px; background-color: @buttonYellow; border-color: transparent;
+
+							i {font-size: 19px;}
+
+							&:hover {
+								background-color: @yellowHover;
+							}
+						}
 					}
 				}
 			}
@@ -52,11 +60,13 @@
 				.carousel-caption-text { color: @black; }
 			}
 
-
 		}
 	}
 
-	.properties-slider-area { h2 { color: @black; } }
+	.properties-slider-area { 
+		border: 0px; background-color: @backgroundGrey;
+		h2 { color: @black; display: none; }
+	}
 
 	.search-area.under-properties {
 	    display: none;
