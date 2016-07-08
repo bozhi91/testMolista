@@ -29,4 +29,11 @@
 		'configuration.fields.zipcode' => 'Zipcode',
 		'configuration.fields.city' => 'City',
 		'configuration.fields.state' => 'State',
+		'configuration.fields.contact_data.title' => 'Contact data',
+		'configuration.fields.email' => 'E-mail',
+		'configuration.fields.contact_data' => 'Contact data',
+
+		'configuration.fields.account.title' => 'Account',
+		'configuration.fields.account_id' => 'Account ID',
+
 	];

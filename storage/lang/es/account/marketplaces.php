@@ -29,4 +29,11 @@
 		'configuration.fields.zipcode' => 'Código postal',
 		'configuration.fields.city' => 'Población',
 		'configuration.fields.state' => 'Provincia',
+		'configuration.fields.contact_data.title' => 'Datos de contacto',
+		'configuration.fields.email' => 'E-mail',
+		'configuration.fields.contact_data' => 'Datos de contacto',
+
+		'configuration.fields.account.title' => 'Cuenta',
+		'configuration.fields.account_id' => 'Account ID',
+
 	];

@@ -174,6 +174,19 @@ class User extends Authenticatable
 			});
 	}
 
+	public function getUpdatedAutologinToken()
+	{
+		$this->autologin_token = sha1( $this->id . uniqid() );
+		while ( \App\User::where('autologin_token', $this->autologin_token)->count() > 0 )
+		{
+			$this->autologin_token = sha1( $this->id . uniqid() . rand(1000, 9999) );
+		}
+
+		$this->save();
+
+		return $this->autologin_token;
+	}
+
 	public function updateUserPropertiesRelations()
 	{
 		// If company

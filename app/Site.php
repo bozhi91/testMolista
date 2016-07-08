@@ -63,7 +63,7 @@ class Site extends TranslatableModel
 	}
 
 	public function users() {
-		return $this->belongsToMany('App\User', 'sites_users', 'site_id', 'user_id')->withPivot('can_create','can_edit','can_delete');
+		return $this->belongsToMany('App\User', 'sites_users', 'site_id', 'user_id')->withPivot('can_create','can_edit','can_delete','can_view_all');
 	}
 	public function getUsersIdsAttribute() {
 		$users = [];
@@ -218,19 +218,27 @@ class Site extends TranslatableModel
 		}
 
 		// Set owner autologin_token
-		$owner->autologin_token = sha1( $this->id . uniqid() );
-		while ( \App\User::where('autologin_token', $owner->autologin_token)->count() > 0 )
-		{
-			$owner->autologin_token = sha1( $this->id . uniqid() . rand(1000, 9999) );
-		}
-		$owner->save();
+		$autologin_token = $owner->getUpdatedAutologinToken();
 
 		// Return autologin url
+		$url = action('AccountController@index', [ 'autologin_token' =>$autologin_token ]);
+
+		return $this->getSiteFullUrl( $url );
+	}
+
+	public function getRememberPasswordUrlAttribute()
+	{
+		$url = action('Auth\PasswordController@reset');
+		return $this->getSiteFullUrl( $url );
+	}
+
+	public function getSiteFullUrl($url)
+	{
 		return str_replace(
-							rtrim(\Config::get('app.application_url'),'/'), //replaces current url
-							rtrim($this->main_url,'/'), // with website url
-							action('Auth\AuthController@autologin', [ $owner->id, $owner->autologin_token ])
-						);
+					rtrim(\Config::get('app.application_url'),'/'), //replaces current url
+					rtrim($this->main_url,'/'), // with website url
+					$url
+				);
 	}
 
 	public function getXmlPathAttribute()
@@ -406,13 +414,20 @@ class Site extends TranslatableModel
 	{
 		$path = $this->getSiteSetupPath();
 
-		if ( true || !file_exists($path) )
+		if ( !file_exists($path) )
 		{
 			$this->updateSiteSetup();
 		}
 
 		// Get setup
 		$setup = include $path;
+
+		// Check if update is required (every 24 hours)
+		if ( !isset($setup['last_updated']) || strtotime($setup['last_updated']) < time()-(60*60*24) )
+		{
+			$this->updateSiteSetup();
+			$setup = include $path;
+		}
 
 		// Set current locale
 		$setup['locale'] = \App::getLocale();
@@ -471,6 +486,7 @@ class Site extends TranslatableModel
 		// Site information
 		$setup = [
 			'site_id' => $site->id,
+			'last_updated' => date("Y-m-d H:i:s"),
 			'theme' => $site->theme,
 			'logo' => $site->logo ? asset("sites/{$site->id}/{$site->logo}") : false,
 			'favicon' => $site->favicon ? asset("sites/{$site->id}/{$site->favicon}") : false,
@@ -490,6 +506,10 @@ class Site extends TranslatableModel
 				'card_last_four' => $site->card_last_four,
 			]
 		);
+
+		// Pending planc hange request
+		$pending_request = $this->planchanges()->pending()->with('plan')->first();
+		$setup['pending_request'] = $pending_request ? $pending_request->toArray() : false;
 
 		// Locales
 		$setup['locales'] = [];
@@ -747,8 +767,6 @@ class Site extends TranslatableModel
 			}
 		}
 		
-		$this->updateSiteSetup();
-
 		// Send mail to owners
 		$locale_backup = \App::getLocale();
 		$email_data = $planchange->site->getSignupInfo( $planchange->locale );

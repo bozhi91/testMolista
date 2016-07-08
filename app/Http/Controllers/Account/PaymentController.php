@@ -142,7 +142,7 @@ class PaymentController extends \App\Http\Controllers\AccountController
 			return redirect()->action('Account\PaymentController@getPay');
 		}
 
-		return redirect()->action('AccountController@index')->with('current_tab','plans')->with('success', trans('account/payment.invoicing.created'));
+		return redirect()->action('AccountController@index')->with('current_tab','plans')->with('success', trans('account/payment.invoicing.transfer.created'));
 	}
 
 	public function getPay()

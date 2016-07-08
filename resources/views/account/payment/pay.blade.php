@@ -1,4 +1,6 @@
-@extends('layouts.account')
+@extends('layouts.account', [
+	'hide_pending_request_warning' => 1,
+])
 
 @section('account_content')
 
