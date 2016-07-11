@@ -14,6 +14,8 @@
 
 		'tickets' => 'Tickets',
 
+		'calendar' => 'Calendar',
+
 		'reports' => 'Reports',
 		'reports.properties' => 'Properties',
 		'reports.agents' => 'Agents',

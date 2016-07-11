@@ -171,3 +171,22 @@
 
 	.marketplace-name { display: inline-block; padding-left: 25px; background: left center no-repeat; color: @bodyTextColor; }
 }
+
+#calendar-page {
+	.search-filters { margin-bottom: 50px; }
+	.calendar-item {
+		.fc-toolbar {
+			h2 { text-transform: uppercase; font-size: 22px; line-height: 30px; }
+			button { background: @colorWhite; opacity: 1; text-shadow: none; border-width: @borderWidth; border-radius: @borderRadius; border-color: @borderColor; }
+		}
+		.fc-agenda-view { background: @colorWhite; }
+		.fc-today { background: @colorGreySuperLight; }
+		.fc-widget-header .fc-day { text-transform: capitalize; }
+		.fc-event {
+			color: @colorBlack; background: #97d0a2; border-color: transparent; padding: 4px; cursor: pointer;
+			&.event-type-visit { background: #fa716a; }
+			&.event-type-catch { background: #00adc0; }
+			&.event-type-interview { background: #b9b3cb; }
+		}
+	}
+}

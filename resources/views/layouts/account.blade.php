@@ -76,6 +76,12 @@
 							{{ Lang::get('account/menu.tickets') }}
 						</a>
 					</li>
+					<li role="presentation" class="{{ (@$submenu_section == 'calendar') ? 'active' : '' }}">
+						<a href="{{ action('Account\Calendar\BaseController@getIndex') }}">
+							<i class="account-icon account-icon-calendar"></i>
+							{{ Lang::get('account/menu.calendar') }}
+						</a>
+					</li>
 					<li class="separator"></li>
 
 					@role('company')

@@ -27,8 +27,8 @@
 	@endif
 
 	@if ( !empty($fullcalendar_enabled) )
-		<script src="{{ Theme::url('/css/fullcalendar.min.css') }}"></script>
-		<script src="{{ Theme::url('/css/fullcalendar.print.css') }}"></script>
+		<link href="{{ Theme::url('/css/fullcalendar.min.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ Theme::url('/css/fullcalendar.print.css') }}" rel="stylesheet" media="print" type="text/css" />
 	@endif
 
 	<link href="https://fonts.googleapis.com/css?family=Lato:400,300,700,900,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
