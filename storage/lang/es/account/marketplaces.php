@@ -22,6 +22,7 @@
 		'maxproperties.title' => 'Limitar propiedades en el feed',
 		'maxproperties.helper' => '<p>Indique el número máximo de propiedades que se pueden incluir en este feed.</p>
 									<p>Dejar en blanco para no limitar el máximo de propiedades.</p>',
+		'maxproperties.error' => 'Ya se ha publicado el máximo de propiedades autorizadas para este feed: :maxproperties.',
 
 		'configuration.none' => 'Este marketplace no require configuración adicional',
 		'configuration.owner.title' => 'Information del publicante',

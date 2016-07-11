@@ -16,9 +16,7 @@ class MarketplacesController extends \App\Http\Controllers\AccountController
 	{
 		$query = \App\Models\Marketplace::enabled()
 			->withSiteConfiguration($this->site->id)
-			->with([ 'properties' => function($query){
-				$query->ofSite( $this->site->id );
-			}]);
+			->withSiteProperties($this->site->id);
 
 		switch ( $this->request->get('order') )
 		{

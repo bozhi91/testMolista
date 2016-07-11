@@ -344,40 +344,7 @@
 
 				@if ( $marketplaces->count() > 0 )
 					<div role="tabpanel" class="tab-pane tab-main" id="tab-marketplaces">
-						<p>{{ Lang::get('account/properties.marketplaces.intro') }}</p>
-						<br />
-						<div class="table-responsive">
-							<table class="table table-striped">
-								<tbody>
-									@foreach ($marketplaces as $marketplace)
-										<?php
-											$publishable = $current_site->marketplace_helper->checkReadyProperty($marketplace,$item);
-										?>
-										<tr>
-											<td class="text-center" style="width: 60px;">
-												@if ( $publishable === true )
-													{!! Form::checkbox("marketplaces_ids[{$marketplace->id}]", $marketplace->id) !!}
-												@endif
-											</td>
-											<td>
-												<span class="marketplace-name text-nowrap;" style="background-image: url({{ asset("marketplaces/{$marketplace->logo}") }});">{{ $marketplace->name }}</span>
-											</td>
-											<td>
-												@if ( $publishable === true )
-												@else
-													{{ Lang::get('account/properties.marketplaces.error') }}<br />
-													<ul>
-														@foreach ($publishable as $key => $message)
-															<li>{{ $message }}</li>
-														@endforeach
-													</ul>
-												@endif
-											</td>
-										</tr>
-									@endforeach
-								</tbody>
-							</table>
-						</div>
+						@include('account/properties/form-marketplaces')
 					</div>
 				@endif
 			@else

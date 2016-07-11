@@ -282,6 +282,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 		$marketplaces = $this->site->marketplaces()
 							->wherePivot('marketplace_enabled','=',1)
+							->withSiteProperties($this->site->id)
 							->enabled()->orderBy('name')->get();
 
 		return view('account.properties.edit', compact('property','modes','types','energy_types','services','countries','states','cities','marketplaces'));

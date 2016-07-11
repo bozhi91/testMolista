@@ -148,6 +148,13 @@ class Marketplace extends \App\TranslatableModel
 		return $query->where("{$this->getTable()}.enabled", 1);
 	}
 
+	public function scopeWithSiteProperties($query,$site_id)
+	{
+		$query->with([ 'properties' => function($query) use ($site_id) {
+			$query->ofSite($site_id);
+		}]);
+	}
+
 	public function scopeWithSiteConfiguration($query,$site_id)
 	{
 		$query

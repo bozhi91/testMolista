@@ -22,6 +22,7 @@
 		'maxproperties.title' => 'Limit properties in this feed',
 		'maxproperties.helper' => '<p>Select the maximun number of properties you wish to allow for this feed.</p>
 									<p>Leave empty to allow unlimited properties.</p>',
+		'maxproperties.error' => 'The property limit for this feed has been reached: :maxproperties.',
 
 		'configuration.none' => 'This marketplace does not require additional configuration',
 		'configuration.owner.title' => 'Publisher information',
