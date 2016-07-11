@@ -63,7 +63,11 @@ elixir(function(mix) {
 		.scripts([
 			'compiled/common.js',
 			'app.js',
-		], 'public/compiled/js/app.js');
+		], 'public/compiled/js/app.js')
+		.less([
+			'app/pdf.less',
+		], 'public/compiled/css/pdf.css')
+		;
 
 
 
@@ -106,7 +110,11 @@ elixir(function(mix) {
 		.styles([
 			'compiled/common.css',
 			'compiled/bellamar.css',
-		], 'public/themes/bellamar/compiled/css/app.css');
+		], 'public/themes/bellamar/compiled/css/app.css')
+		.less([
+			'bellamar/pdf.less',
+		], 'public/themes/bellamar/compiled/css/pdf.css')
+		;
 
 	/* Elegant */
 	mix
@@ -116,7 +124,11 @@ elixir(function(mix) {
 		.styles([
 			'compiled/common.css',
 			'compiled/elegant.css',
-		], 'public/themes/elegant/compiled/css/app.css');
+		], 'public/themes/elegant/compiled/css/app.css')
+		.less([
+			'elegant/pdf.less',
+		], 'public/themes/elegant/compiled/css/pdf.css')
+		;
 
 	/* Inmoblue */
 	mix
@@ -126,6 +138,10 @@ elixir(function(mix) {
 		.styles([
 			'compiled/common.css',
 			'compiled/inmoblue.css',
-		], 'public/themes/inmoblue/compiled/css/app.css');
+		], 'public/themes/inmoblue/compiled/css/app.css')
+		.less([
+			'inmoblue/pdf.less',
+		], 'public/themes/inmoblue/compiled/css/pdf.css')
+		;
 
 });
