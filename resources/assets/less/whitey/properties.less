@@ -3,7 +3,7 @@
 #properties {
 	
 	.search-area {
-		background-color: @softGray;
+		background-color: @backgroundPropertiesSearch;
 		margin: 120px 0px 50px 0px;
 		
 		h2 { color: @black; position: absolute; top: 0; margin-top: -68px; font-size: 18px; }
@@ -101,38 +101,48 @@
 
 @media (min-width: 768px) {
 	#properties {
-
 		.property-list {
 			.property-row {
-			    border: 1px solid @borderDarkgray;
 			    background: @white;
-			    padding: 0px;
-			    margin-bottom: 30px;
 
 				.col-xs-12.col-sm-3 {
-					.image-column{	.image { height: 100%; }	}
+					.image-column { .image { height: 100%; } }
 				}
 
 				.col-xs-12.col-sm-9 {
 					.text-column {
-						.col-xs-9 { position: absolute; top: 105px; width: 100%; }
-						.col-xs-3 { width: 0%; }
-						.col-xs-12.col-sm-3 { position: absolute; margin-top: 35px;	width: 100%; }
+						padding-bottom: 45px;
+
+						.col-xs-9 { position: absolute; top: 80px; width: 100%; }
+						.col-xs-3 { width: 0%; min-height: 1px; padding-left: 15px; padding-right: 0px; }
+						.col-xs-12.col-sm-3 {
+							position: absolute;
+							bottom: 0px;
+							background-color: @yellow;
+							left: -234px;
+							background-color: #efb817;
+							width: 204px;
+						}
 						.title {
 							text-decoration: underline;
 							margin-top: 10px;
 
-							a { color: @green; }
+							a { color: @gray; font-weight: bold; }
 						}
-						.location { margin-top: 40px; }
+						.location { margin-top: 10px; }
 						.description { margin-top: 60px; }
 						.price {
-							text-align: left;
+							text-align: center;
 
-							a { color: @green; }
+							a { color: @gray; }
 						}
 						.metrics { }
-						.btn-more-info { position: absolute; bottom: auto; right: 0px; top: 0; border-radius: 0px; }
+						.btn-more-info {
+							position: absolute;
+							bottom: 0px;
+							right: auto;
+							border-radius: 0px;
+						}
 					}
 				}
 			}
@@ -152,19 +162,20 @@
 				.col-xs-12.col-sm-9 {
 					.text-column {
 						padding: 15px;
+						height: auto !important;
 
 						.title {
 							text-decoration: underline;
 							margin-top: 0px;
 
-							a { color: @green; }
+							a { color: @gray; font-weight: bold; }
 						}
 						.location { margin-top: 0px; }
 						.description { margin-top: 0px; }
 						.price {
 							text-align: left;
 
-							a { color: @green; }
+							a { color: @gray; }
 						}
 					}
 				}
