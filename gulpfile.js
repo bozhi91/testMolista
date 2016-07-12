@@ -128,4 +128,14 @@ elixir(function(mix) {
 			'compiled/inmoblue.css',
 		], 'public/themes/inmoblue/compiled/css/app.css');
 
+	/* Zoner */
+	mix
+		.less([
+			'zoner/app.less',
+		], 'resources/assets/css/compiled/zoner.css')
+		.styles([
+			'compiled/common.css',
+			'compiled/zoner.css',
+		], 'public/themes/zoner/compiled/css/app.css');
+
 });

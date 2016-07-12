@@ -111,6 +111,15 @@ return [
 			'asset-path' 	=> 'themes/inmoblue',
 		],
 
+		'zoner' => [
+			'title'			=> 'Zoner',
+			'public'		=> true,
+			'custom'		=> false,
+			'extends'	 	=> 'default',
+			'views-path' 	=> 'themes/zoner',
+			'asset-path' 	=> 'themes/zoner',
+		],
+
 		// Add your themes here...
 
 		/*--------------[ Example Structre ]-------------
