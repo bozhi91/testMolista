@@ -1,149 +1,55 @@
 @import '../app/property.less';
 
-/* meanwhile */
-
-#property {
-
-	.container { position: relative; }
-	
-	.header {
-		position: relative;
-
-		.price { float: none !important; position: absolute; top: 40px; font-size: 22px; color: @green; }
-		.location { padding-top: 50px; }
-		h1 { color: @green; }
-	}
-
-	.images-gallery:after { content: ""; display: table; clear: both; }
-
-	.details {
-		position: static;
-		border: 0px;
-    	border-width: 0px;
-
-		.cols-xs-12.col-sm-10 { width: 80%; }
-		.row {
-			position: static;
-			.cols-xs-12.col-sm-9 { position: static; }
-		}
-		.metrics { position: absolute; top: 125px; }
-		.services { position: absolute; top: 155px; }
-		.energy-certification { position: absolute; top: 170px; }
-		.call-to-action { bottom: auto;	top: 0;	margin-right: 15px;	}
-	}
-
-	@media (min-width: 768px) {
-		.map-area { width: 80%; }
-	}
-
-}
-
-/* vertical carousel */
-
 @media (min-width: 768px) {
-#property {
-	.images-gallery {
-		padding-top: 100px;
+	#property {
+		.container { position: relative; }
+		.container:after { display: table; content: ""; clear: both; }
+		.header {
+			margin-bottom: 25px;
 
-		@media (min-width: 768px) {
-			.image-main { width: 80%; float: left; }
+			h1 { position: absolute; color: @gray; }
+			.price { float: left !important; margin-top: 35px; color: @black; font-size: 20px; }
+			.location { position: absolute; left: 58%; top: 155px; }
 		}
+		.header:after { display: table; content: ""; clear: both; }
+		.images-gallery { width: 58.33333333%; float: left; padding-right: 30px; }
+		.details {
+			width: 41.66666667%; float: left; position: static; border: 0px;
 
-		.images-carousel {
-			position: absolute;
-    		right: 0;
-			width: 20%;
-			float: left;
-
-			.carousel-inner {
-				width: 100%;
-				paddding-bottom: 20px;
-
-				.col-xs-4.col-sm-2 { float: none; width: 100%; margin-bottom: 20px; }
-				.item {
-					-webkit-transition: 0.6s ease-in-out top;
-					-moz-transition: 0.6s ease-in-out top;
-					-ms-transition: 0.6s ease-in-out top;
-					-o-transition: 0.6s ease-in-out top;
-					transition: 0.6s ease-in-out top;
-				}
-				.item {	padding-left: 20px !important; }
-			}
-			.carousel-control {	width: 100%; line-height: 0px; height: 0px; }
-			.left {	position: absolute;	top: 25px; transform: rotate(90deg); }
-			.right { position: absolute; bottom: -5px; top: auto; transform: rotate(90deg); }
+			.cols-xs-12.col-sm-9 { width: 100%; position: static; }
+			.description { margin-top: 80px; }
+			.metrics { position: absolute; top: 95px; }
+			.call-to-action { position: absolute; top: 0px; left: auto; right: 0px; bottom: auto; }
 		}
+		.details:after { display: table; content: ""; clear: both; }
+		.map-area { width: 41.66666667%; float: right; }
+		.map-area:after { display: table; content: ""; clear: both; }
 	}
-
-	.images-gallery:after { content: ""; display: table; clear: both; }
-}
 }
 
-/* responsive */
+@media (min-width: 768px) and (max-width: 991px) {
+	#property {
+		.header { .location { top: 200px; } }
+		.details { .description { margin-top: 150px; } }
+	}
+}
 
 @media (max-width: 767px) {
 	#property {
-		padding: 15px 0px;
+		padding: 20px;
 
-		.images-gallery { padding-top: 115px; }
-
-		.details {
-
-			.cols-xs-12.col-sm-10 { width: 100%; }
-
-		
-			.metrics {
-				width: 100%;
-
-				li { width: auto;margin-right: 20px; }
-			}
-
-			.services { top: 165px;}
-
-			.energy-certification { top: 195px; }
-		}
+		.container { position: relative; }
+		.header { h1 { color: @black; } }
 	}
 }
-
-@media (max-width: 400px) {
-	#property {
-		.images-gallery { padding-top: 135px; }
-	}
-}
-
-@media (max-width: 300px) {
-	#property {
-
-		.header {
-			.price { top: 50px; }
-			h1 { font-size: 23px; }
-			.location { padding-top: 60px; }
-		}
-
-		.images-gallery { padding-top: 190px; }
-
-		.details {
-
-
-
-		
-			.metrics { top: 145px; }
-
-			.services { top: 200px;}
-
-			.energy-certification { top: 255px; }
-		}
-	}
-}
-
-/* meanwhile */
 
 /* Settings on bottom links */
 #property {
 	.bottom-links {
 		.cols-xs-12.col-sm-9 { width: 100%; }
-		.cols-xs-12.col-sm-3 { display: none; width: 0%;}
+		.cols-xs-12.col-sm-3 { display: none; width: 0%; }
 		h2 { color: @black; }
+		&:before  { display: table; content: ""; clear: both; }
 	}
 }
 /* End Settings on bottom links */
