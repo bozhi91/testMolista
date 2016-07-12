@@ -14,12 +14,7 @@
 				<div class="carousel-inner" role="listbox">
 					<a href="{{ action('Web\PropertiesController@details', $main_property->slug) }}"  class="item active">
 						<img src="{{$main_property->main_image}}" alt="{{$main_property->title}}" class="main-image" />
-						<div class="carousel-caption">
-							<span class="carousel-caption-text">
-								{{$main_property->title}}
-								<span class="text-nowrap hidden-xs"> | {{ price($main_property->price, [ 'decimals'=>0 ]) }}</span>
-							</span>
-						</div>
+						@include('web.index-caption')
 					</a>
 				</div>
 			</div>
