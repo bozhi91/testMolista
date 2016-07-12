@@ -1,5 +1,5 @@
 html, body { padding: 0px; margin: 0px; }
-body { font-family: Helvetica, Arial, sans-serif; }
+body { font-family: 'Dosis', Helvetica, Arial, sans-serif; }
 
 a, .link { color: #f2c902; text-decoration: none; }
 
@@ -11,11 +11,11 @@ ul { padding: 0px 0px 0px 17px; }
 
 .container { max-width: 630px; margin: 0px auto; }
 
-.content { font-size: 16px; line-height: 1.5; color: #fff; background: #1c191d; padding: 20px 50px 140px 50px; }
+.content { font-size: 16px; line-height: 1.5em; color: #fff; background: #1c191d; padding: 20px 50px 140px 50px; }
 
 .header { padding-bottom: 65px; }
 
-.h1 { font-size: 28px; font-weight: bold; padding-bottom: 25px; }
+.h1 { font-size: 30px; font-weight: bold; padding-bottom: 25px; }
 
 .website-block { padding: 10px 0px; }
 .website-link { border: 1px solid #f2c902; color: #f2c902; display: inline-block; padding: 5px 20px; }
