@@ -144,4 +144,18 @@ elixir(function(mix) {
 		], 'public/themes/inmoblue/compiled/css/pdf.css')
 		;
 
+	/* Whitey */
+	mix
+		.less([
+			'whitey/app.less',
+		], 'resources/assets/css/compiled/whitey.css')
+		.styles([
+			'compiled/common.css',
+			'compiled/whitey.css',
+		], 'public/themes/whitey/compiled/css/app.css')
+		.less([
+			'whitey/pdf.less',
+		], 'public/themes/whitey/compiled/css/pdf.css')
+		;
+
 });

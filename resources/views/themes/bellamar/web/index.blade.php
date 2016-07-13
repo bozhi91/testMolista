@@ -2,6 +2,8 @@
 
 @section('content')
 
+	@include('web.search.home')
+
 	<div id="home">
 
 		@if ( count($properties) > 0 )
@@ -13,25 +15,7 @@
 				<div class="carousel-inner" role="listbox">
 					<div data-href="{{ action('Web\PropertiesController@details', $main_property->slug) }}" class="item active cursor-pointer">
 						<img src="{{$main_property->main_image}}" alt="{{$main_property->title}}" class="main-image" />
-						<div class="carousel-caption">
-							<div class="container">
-								<div class="row">
-									<div class="col-xs-12 col-md-3 hidden-xs hidden-sm">
-										<div class="relative">
-											<div class="slider-quick-search cursor-default">
-												@include('web.search.quick', [ 'no_title'=>1 ])
-											</div>
-										</div>
-									</div>
-									<div class="col-xs-12 col-md-6">
-										<span class="carousel-caption-text">
-											{{$main_property->title}}
-											<span class="text-nowrap hidden-xs"> | {{ price($main_property->price, [ 'decimals'=>0 ]) }}</span>
-										</span>
-									</div>
-								</div>
-							</div>
-						</div>
+						@include('web.index-caption')
 					</div>
 				</div>
 			</div>

@@ -1,4 +1,4 @@
-<div id="advanced-search-modal" class="mfp-hide app-popup-block search-popup-block">
+  <div id="advanced-search-modal" class="mfp-hide app-popup-block search-popup-block">
 	<h2>{{ Lang::get('web/search.title.popup') }}</h2>
 	@include('web.search.form')
 </div>
