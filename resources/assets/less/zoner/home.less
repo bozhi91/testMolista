@@ -21,14 +21,34 @@
 
 #home {
 	.carousel {
+		position: relative;
 		.carousel-caption {
+			position: static;
+			
+			.col-xs-12.col-md-3.hidden-xs.hidden-sm {
+				position: absolute;
+				top: 0px;
+				right: 50px;
+				width: 30%;
 
-			.container { width: auto !important; }
 
-			.col-xs-12.col-md-3.hidden-xs.hidden-sm { display: none; }
+				.slider-quick-search {
+					background-color: @carouselSearchBackground;
+					padding: 20px;
+
+					#quick-search-form {
+						input, select {
+							background-color: @carouselSearchInner;
+							color: @white;
+						}
+					}
+				}
+			}
 
 			.col-xs-12.col-md-6 {
-				width: 100%;
+				position: absolute;
+				bottom: 10%;
+				left: 0px;
 
 				.carousel-caption-text {
 					text-align: left; padding: 20px 30px;
@@ -37,6 +57,7 @@
 					.carousel-caption-subtitle { color: @black; font-size: 22px; font-weight: bold; margin-top: -5px; }
 					.carousel-caption-button {
 						margin-top: 15px;
+						background-color: @buttonBlue;
 
 					 	a {
 							background-color: @buttonBlue;
@@ -55,6 +76,8 @@
 
 		}
 	}
+
+	.carousel:after { display: table; content: ""; clear: both; }
 
 	.properties-slider-area { 
 		border: 0px;

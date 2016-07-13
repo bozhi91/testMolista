@@ -12,14 +12,14 @@
 
 			/* colors */
 				label { color: #a0a0a0; }
-				.form-control:focus { border-color: @yellow;}
+				.form-control:focus { border-color: @buttonBlue;}
 				.form-control.is-placeholder { color: #a0a0a0; }
 				.form-control::-webkit-input-placeholder { color: #a0a0a0; }
 				.form-control:-moz-placeholder { color: #a0a0a0; }
 				.form-control::-moz-placeholder { color: #a0a0a0; }
 				.form-control:-ms-input-placeholder { color: #a0a0a0; }
-				.select2-container--default.select2-container--focus .select2-selection--single, .select2-container--default.select2-container--open .select2-selection--single, .select2-container--default.select2-container--focus .select2-selection--multiple, .select2-container--default.select2-container--open .select2-selection--multiple { border: 1px solid @yellow;}
-				.btn.btn-warning { border-color: @yellow; background: @yellow; color: @white; }
+				.select2-container--default.select2-container--focus .select2-selection--single, .select2-container--default.select2-container--open .select2-selection--single, .select2-container--default.select2-container--focus .select2-selection--multiple, .select2-container--default.select2-container--open .select2-selection--multiple { border: 1px solid @buttonBlue;}
+				.btn.btn-warning { border-color: @buttonBlue; background: @buttonBlue; color: @white; }
 			/* end colors */
 		}
 	}
@@ -35,13 +35,12 @@
 		.property-row {
 			.col-xs-12.col-sm-9 {
 				.text-column {
-					.title { text-decoration: underline; a { color: @green; } }
-					.price { a { color: @green; } }
+					.title { text-decoration: underline; a { color: @buttonBlue; } }
+					.price { a { color: @buttonBlue; } }
 				}
 			}
 		}
 	}
-
 	.pagination-area { padding-top: 0px !important; border-top: 0px !important; display: none; }
 }
 
@@ -71,7 +70,7 @@
 /* #### 2 Columns #### */
 
 /* Setting for select in search-area */
-	.select2-container--open .select2-dropdown--below { border-color: @yellow; }
+	.select2-container--open .select2-dropdown--below { border-color: @buttonBlue; }
 /* End Setting for select in search-area */
 
 /* Change width of property row */
@@ -89,18 +88,16 @@
 	#properties {
 		.property-list {
 			.property-row {
-
 				.col-xs-12.col-sm-3 {
 					.image-column {
 						.image { height: 100%; }
 						.price { 
-							position: absolute; bottom: 0px; width: 100%; background-color: @yellow; text-align: left; padding: 5px 0px;
+							position: absolute; bottom: 0px; width: 100%; background-color: @buttonBlue; text-align: left; padding: 5px 0px;
 
 							a { color: @white; margin-left: 10px; font-size: 20px; }
 						}
 					}
 				}
-
 				.col-xs-12.col-sm-9 {
 					.text-column {
 						padding-bottom: 45px;
@@ -118,7 +115,7 @@
 						.price { }
 						.metrics { }
 						.btn-more-info { 
-							position: absolute; bottom: 0px; right: auto; border-radius: 0px;
+							position: absolute; bottom: 0px; right: auto; border-radius: 0px; color: @white !important;
 
 							&:hover { color: @black !important; text-decoration: underline; }
 						}
@@ -157,7 +154,6 @@
 			margin-top: 154px;
 
 			h2 { margin-top: -100px; }
-
 			.col-xs-12.col-sm-6.input-line {
 				.text-right {
 					text-align: center;
@@ -190,11 +186,10 @@
 						.price { display: none; }
 					}
 				}
-
 				.col-xs-12.col-sm-3 {
 					.image-column {
 						.price {
-							position: absolute; bottom: 0px; right: 0px; background-color: @yellow;
+							position: absolute; bottom: 0px; right: 0px; background-color: @buttonBlue;
 
 						    a { padding-left: 15px; padding-right: 15px; color: @white; }
 						}
