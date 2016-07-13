@@ -1,2 +1,89 @@
 @import '../app/home.less';
 
+/* setting on picture at carousel */
+@media (min-width: 768px) {
+	#home {
+		.main-property {
+			max-width: 100%;
+			.item { height: 720px; }
+		}
+	}
+}
+@media (max-width: 767px) {
+	#home {
+		.main-property {
+			max-width: 100%;
+			.item { height: 480px; }
+		}
+	}
+}
+/* End setting on picture at carousel */
+
+#home {
+	.carousel {
+		.carousel-caption {
+
+			.container { width: auto !important; }
+
+			.col-xs-12.col-md-3.hidden-xs.hidden-sm { display: none; }
+
+			.col-xs-12.col-md-6 {
+				width: 100%;
+
+				.carousel-caption-text {
+					text-align: left; padding: 20px 30px;
+
+					.carousel-caption-title { color: @black; font-size: 22px; }
+					.carousel-caption-subtitle { color: @black; font-size: 22px; font-weight: bold; margin-top: -5px; }
+					.carousel-caption-button {
+						margin-top: 15px;
+
+					 	a {
+							background-color: @buttonBlue;
+						    color: @white;
+						    padding: 5px 10px;
+						    font-size: 14px;
+
+						    &:hover {
+						    	text-decoration: underline;
+						    	opacity: 0.8;
+						    }
+						}
+					}
+				}
+			}
+
+		}
+	}
+
+	.properties-slider-area { 
+		border: 0px;
+		h2 { color: @black; display: none; }
+	}
+
+	.search-area.under-properties {
+	    display: none;
+	}
+}
+
+@media (min-width: 768px) {
+	#home {
+		padding-bottom: 50px;
+		.properties-slider-area { margin-top: 0px; }
+		.main-property {
+			.carousel-caption { padding-bottom: 50px; }
+		}
+	}
+}
+
+/* responsive */
+
+@media (max-width: 767px) {
+	#home {
+		.carousel-caption-text {
+			.carousel-caption-button {
+				text-align: center;
+			}
+		}
+	}
+}

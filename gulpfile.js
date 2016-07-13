@@ -166,6 +166,10 @@ elixir(function(mix) {
 		.styles([
 			'compiled/common.css',
 			'compiled/zoner.css',
-		], 'public/themes/zoner/compiled/css/app.css');
+		], 'public/themes/zoner/compiled/css/app.css')
+		.less([
+			'zoner/pdf.less',
+		], 'public/themes/zoner/compiled/css/pdf.css')
+		;
 
 });
