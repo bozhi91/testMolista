@@ -136,6 +136,10 @@ elixir(function(mix) {
 		.styles([
 			'compiled/common.css',
 			'compiled/whitey.css',
-		], 'public/themes/whitey/compiled/css/app.css');
+		], 'public/themes/whitey/compiled/css/app.css')
+		.less([
+			'inmoblue/pdf.less',
+		], 'public/themes/inmoblue/compiled/css/pdf.css')
+		;
 
 });
