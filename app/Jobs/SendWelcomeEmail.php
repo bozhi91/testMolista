@@ -50,6 +50,13 @@ class SendWelcomeEmail extends Job implements ShouldQueue
 		$subject = trans('corporate/signup.email.subject');
 		$html = view('emails.corporate.signup', $data)->render();
 
+		$css_path = base_path('resources/assets/css/emails/signup.css');
+		if ( file_exists($css_path) )
+		{
+			$emogrifier = new \Pelago\Emogrifier($html, file_get_contents($css_path));
+			$html = $emogrifier->emogrify();
+		}
+
 		\Mail::send('dummy', [ 'content' => $html ], function($message) use ($subject, $data) {
 			$message->from( env('MAIL_FROM_EMAIL'), env('MAIL_FROM_NAME') );
 			$message->subject($subject);
