@@ -11,10 +11,10 @@ html, body { margin: 0px; padding: 0px; }
 	.container { width: 523px; margin: 0px auto; }
 
 	.header {
-		background: @pdfBackgroundColor; padding: 30px 0px 20px 0px;
+		background: @pdfHeaderBackgroundColor; border-bottom: 1px solid @pdfHeaderBorderBottomColor; padding: 30px 0px 20px 0px;
 		td { 
-			vertical-align: middle; color: #fff; 
-			p { color: #fff; margin: 0px; }
+			vertical-align: middle; color: @pdfHeaderTextColor; 
+			p { color: @pdfHeaderTextColor; margin: 0px; }
 			&.header-logo { 
 				text-align: left; 
 				img { max-height: 40px; }
@@ -50,7 +50,7 @@ html, body { margin: 0px; padding: 0px; }
 				.text { width: 255px; margin: 0px 0px 0px auto; }
 			}
 			&.mode-price { 
-				background: @pdfBackgroundColor; padding: 15px 0px; color: #fff; 
+				background: @pdfHeaderBackgroundColor; padding: 15px 0px; color: @pdfHeaderTextColor; 
 				.text { margin: 0px 0px 0px 40px; }
 			}
 		}
