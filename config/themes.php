@@ -111,6 +111,16 @@ return [
 			'asset-path' 	=> 'themes/inmoblue',
 		],
 
+		'whitey' => [
+			'title'			=> 'Whitey',
+			'public'		=> true,
+			'custom'		=> false,
+			'extends'	 	=> 'default',
+			'views-path' 	=> 'themes/whitey',
+			'asset-path' 	=> 'themes/whitey',
+
+		],
+
 		'zoner' => [
 			'title'			=> 'Zoner',
 			'public'		=> true,

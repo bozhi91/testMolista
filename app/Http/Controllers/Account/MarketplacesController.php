@@ -47,6 +47,11 @@ class MarketplacesController extends \App\Http\Controllers\AccountController
 			abort(404);
 		}
 
+		if ( $marketplace->requires_contact )
+		{
+			return $this->getContact($marketplace->code);
+		}
+
 		$configuration = @json_decode( $marketplace->marketplace_configuration );
 		
 		return view('account.marketplaces.configure', compact('marketplace','configuration'));
@@ -80,4 +85,61 @@ class MarketplacesController extends \App\Http\Controllers\AccountController
 		return redirect()->back();
 	}
 
+	public function getContact($code)
+	{
+		$marketplace = \App\Models\Marketplace::enabled()->where('code',$code)->withSiteConfiguration($this->site->id)->first();
+		if ( !$marketplace )
+		{
+			abort(404);
+		}
+
+		$contact_data = (object) [
+			'name' => \Auth::user()->name,
+			'email' => \Auth::user()->email,
+		];
+
+		if ( !$marketplace->requires_contact )
+		{
+			return redirect()->action('Account\MarketplacesController@getConfigure',$marketplace->code);
+		}
+
+		return view('account.marketplaces.contact', compact('marketplace','contact_data'));
+	}
+	public function postContact($code)
+	{
+		$marketplace = \App\Models\Marketplace::enabled()->where('code',$code)->withSiteConfiguration($this->site->id)->first();
+		if ( !$marketplace )
+		{
+			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
+		}
+
+		$validator = \Validator::make($this->request->all(), [
+			'name' => 'required',
+			'email' => 'required|email',
+			'phone' => 'required',
+		]);
+
+		if ($validator->fails()) {
+			return redirect()->back()->withInput()->withErrors($validator);
+		}
+
+		$data = array_merge($this->request->all(), [
+			'marketplace' => $marketplace->name,
+			'site_id' => $this->site->id,
+			'site_url' => $this->site->main_url,
+		]);
+
+		\Mail::send('emails.corporate.marketplace', $data, function($message) use ($data) {
+			$message->from( env('MAIL_FROM_EMAIL'), env('MAIL_FROM_NAME') );
+			$message->subject( trans('account/marketplaces.contact.title', [ 'marketplace' => $data['marketplace'] ]) );
+			$message->to('info@molista.com');
+		});
+
+		if ( count(\Mail::failures()) > 0 )
+		{
+			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
+		}
+
+		return redirect()->back()->with('success', trans('account/marketplaces.contact.success'));
+	}
 }
