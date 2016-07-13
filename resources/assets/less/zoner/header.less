@@ -1,25 +1,24 @@
-
 @import '../app/header.less';
 
 #header {
 	background-color: @white;
 
 	.header-container {
-		border-top: 66px solid @white;
+		border-top: 45px solid @white;
 		position: relative;
 
-		#app-navbar-collapse { border-top: 1px solid @gray; border-color: @gray; }
+		#app-navbar-collapse { border-top: 1px solid @gray; border-color: @gray; margin-bottom: 10px; }
 
 		.header-locale-social {
 			position: absolute;
-		    top: -66px;
+		    top: -45px;
 		    right: 0;
 
 		    .locale-select {
 		    	.main-item {
 		    		padding: 0;
-		    		margin: 15px;
-					margin-top: 22px;
+		    		margin: 0px;
+					margin-top: 12px;
 
 		    		&:hover { background: transparent; opacity: 1; }
 
@@ -44,6 +43,7 @@
 	    		    background: @gray;
 				    border-radius: 4px;
 				    border: 1px solid @gray;
+				    margin-top: 7px;
 
 				    li a {
 				    	color: @black;
@@ -62,7 +62,7 @@
 		    	padding: 0px;
 
 		    	.list-inline {
-		    	  	padding: 15px;
+		    	  	padding: 6px 10px;
 		    	  	margin-right: 35px;
 
 		    	  	li {
@@ -82,7 +82,7 @@
 		}
 
 		.header-menu {
-			float: none;
+			float: right;
 			text-align: center;
 
 			li { text-align: center; display: inline-block; float: none; }
@@ -90,7 +90,6 @@
 			.main-item {
 				padding: 20px;
 				color: @black;
-				font-weight: bold;
 
 				&:hover, &.current {
 					background-color: transparent;
@@ -123,7 +122,7 @@
 
 @media (min-width: 768px) {
 	#header {
-		.navbar-brand {	margin: 0px auto; margin-top: 10px; position: absolute; top: -65px; left: 25%; right: 25%; }
+		.navbar-brand {	margin: 0px auto; margin-top: 10px; }
 		.header-container { .navbar-right { margin-right: 0px; } }
 	}
 }
@@ -147,15 +146,19 @@
     					border-radius: 0px;
 					}
 				}
+				.social-media {
+					.list-inline {
+						padding: 10px;
+					}
+				}
 			}
 			.header-menu {
 				float: none;
 
 				li { display: block; text-align: left; }
-				.main-item { padding: 10px 15px; color: #000000; font-weight: bold; }
+				.main-item { padding: 10px 15px; color: #000000; }
 			}
 		}
-		.navbar-collapse { border-color: @green; }
     	.navbar-brand { margin-top: 5px; }
 
     	/* settings on button responsive */
