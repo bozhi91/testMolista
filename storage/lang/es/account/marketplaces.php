@@ -30,4 +30,10 @@
 		'configuration.fields.account.title' => 'Cuenta',
 		'configuration.fields.account_id' => 'Account ID',
 
+		'contact.title' => 'La exportación a :marketplace requiere una configuración personalizada',
+		'contact.intro' => '<p>Si quiere seguir adelante, por favor, facilítenos estos datos para que podamos ponernos en contacto con usted y explicarle el procedimiento.</p>',
+		'contact.name' => 'Nombre',
+		'contact.phone' => 'Teléfono',
+		'contact.email' => 'Email',
+		'contact.success' => '<h4>Muchas gracias.</h4><p>Nos pondremos en contacto con usted lo antes posible.</p>',
 	];

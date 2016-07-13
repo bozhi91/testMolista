@@ -30,4 +30,10 @@
 		'configuration.fields.account.title' => 'Account',
 		'configuration.fields.account_id' => 'Account ID',
 
+		'contact.title' => 'Exportation to :marketplace requires custom configuration',
+		'contact.intro' => '<p>If you wish to continue, please confirm your contact information so we can let you know how to proceed.</p>',
+		'contact.name' => 'Name',
+		'contact.phone' => 'Phone',
+		'contact.email' => 'Email',
+		'contact.success' => '<h4>Thank you.</h4><p>We will contact you as soon as possible.</p>',
 	];
