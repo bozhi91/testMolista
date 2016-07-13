@@ -21,7 +21,7 @@
 #account-container {
 
 	/* Settings for see better the active menu */
-	.nav-pills > li > ul > li > a.current { background-color: @gray; border-radius: 50px; }
+	.nav-pills > li > ul > li > a.current { background-color: @gray; border-radius: @borderRadius; }
 	/* Settings for see better the active menu */
 
 	.account-block h3 { border-color: @backgroundFooterBottom; }
@@ -40,9 +40,9 @@
 
 	.form-control:focus { border-color: @backgroundFooterBottom; }
 
-	.tab-content { border: 1px solid @backgroundFooterBottom;}
+	.tab-content { border-color: @backgroundFooterBottom; background: @colorWhite; }
 
-	.nav-tabs > li.active > a { border-color: @backgroundFooterBottom; }
+	.nav-tabs > li.active > a { border-color: @backgroundFooterBottom; border-bottom-color: @colorWhite; }
 
 	.nav-tabs { border-color: @backgroundFooterBottom; }
 

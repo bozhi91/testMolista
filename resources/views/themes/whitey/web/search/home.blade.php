@@ -49,16 +49,19 @@
 			callbacks: {
 				open: function() {
 					$('.if-overlay-then-blurred').addClass('blurred');
-					$('#advanced-search-modal').find('select.has-select-2').each(function(){
+
+					var form = $('#home-search-form');
+					var modal = $('#advanced-search-modal');
+
+					modal.find('select.has-select-2').each(function(){
 						$(this).select2();
 					});
 
 					/* Sending selections from home-search-form */
-					$('#advanced-search-modal').find('[name="term"]').val($('#home-search-form').find('[name="term"]').val());
-					$('#advanced-search-modal').find('[name="mode"]').val($('#home-search-form').find('[name="mode"]').val());
-					$('#advanced-search-modal').find('[name="type"]').val($('#home-search-form').find('[name="type"]').val());
-					$('#advanced-search-modal').find('[name="state"]').val($('#home-search-form').find('[name="state"]').val());
-					/* Sending selections from home-search-form */
+					modal.find('[name="term"]').val( form.find('[name="term"]').val() );
+					modal.find('[name="mode"]').val( form.find('[name="mode"]').val() );
+					modal.find('[name="type"]').val( form.find('[name="type"]').val() );
+					modal.find('[name="state"]').val( form.find('[name="state"]').val() ).trigger('change');
 				}
 			}
 		});		
