@@ -116,7 +116,9 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		$types = \App\Property::getTypeOptions();
 		$services = \App\Models\Property\Service::withTranslations()->enabled()->orderBy('title')->get();
 
-		return view('account.customers.show', compact('customer','profile','countries','country_id','states','cities','modes','types','services'));
+		$current_tab = session('current_tab', 'general');
+
+		return view('account.customers.show', compact('customer','profile','countries','country_id','states','cities','modes','types','services','current_tab'));
 	}
 
 	public function postProfile($email)
@@ -248,9 +250,40 @@ class CustomersController extends \App\Http\Controllers\AccountController
 			$property->customers()->attach( $customer_id );
 		}
 
+		// Redirect back with current tab ?
+		if ( $this->request->input('current_tab') )
+		{
+			return redirect()->back()->with('current_tab', $this->request->input('current_tab'))->with('success',trans('general.messages.success.saved'));
+		}
+
 		return redirect()->back()->with('success',trans('general.messages.success.saved'));
 	}
 
+	protected function deleteRemovePropertyCustomer($slug)
+	{
+		$property = $this->site->properties()
+						->whereTranslation('slug', $slug)
+						->first();
+		if ( !$property )
+		{
+			return redirect()->back()->with('current_tab', $this->request->input('current_tab'))->with('error',trans('general.messages.error'));
+		}
+
+		$customer = $this->site->customers()->find( $this->request->get('customer_id') );
+
+		if ( !$this->request->get('customer_id') || !$customer )
+		{
+			return redirect()->back()->with('current_tab', $this->request->input('current_tab'))->with('error',trans('general.messages.error'));
+		}
+
+		// Dissociate
+		if ( $property->customers->contains( $customer->id ) )
+		{
+			$property->customers()->detach( $customer->id );
+		}
+
+		return redirect()->back()->with('current_tab', $this->request->input('current_tab'))->with('success',trans('general.messages.success.saved'));
+	}
 
 	protected function getRequiredFields($id=false)
 	{

@@ -1,0 +1,79 @@
+@import '../app/account.less';
+
+#body-account {
+	#header {
+		.header-menu { display: none; }
+	}
+}
+
+#login-register {
+	
+	h1, h2, h3, h4, h5, h6 { color: @backgroundFooterBottom; }
+
+	.btn-remember {
+		color: @backgroundFooterBottom;
+	}
+
+	.form-control:focus {
+		border-color: @backgroundFooterBottom;
+	}
+
+	.checkbox {
+		background: transparent;
+	}
+
+}
+
+#account-container {
+
+	/* Settings for see better the active menu */
+	.nav-pills > li > ul > li > a.current { background-color: @gray; color: @colorWhite; border-radius: @borderRadius; }
+	/* Settings for see better the active menu */
+
+	.account-block h3 { border-color: @backgroundFooterBottom; }
+	
+	.btn.btn-primary { border-color: @backgroundFooterBottom; background: @backgroundFooterBottom; color: @white; }
+
+	.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus { background-color: @backgroundFooterBottom; color: @white; }
+
+	a { color: @backgroundFooterBottom; }
+
+	.pagination > li.active a, .pagination > li.active span, .pagination > li.active a:hover, .pagination > li.active span:hover, .pagination > li.active a:focus, .pagination > li.active span:focus { background-color: @backgroundFooterBottom; border-color: @backgroundFooterBottom; }
+
+	.account-menu > li.separator { border-top: 1px solid @backgroundFooterBottom; }
+
+	h1, h2, h3, h4, h5, h6 { color: @backgroundFooterBottom; }
+
+	.form-control:focus { border-color: @backgroundFooterBottom; }
+
+	.tab-content { border-color: @backgroundFooterBottom; background: @colorWhite; }
+
+	.nav-tabs > li.active > a { border-color: @backgroundFooterBottom; border-bottom-color: @colorWhite; }
+
+	.nav-tabs { border-color: @backgroundFooterBottom; }
+
+	.nav-tabs > li > a { border-bottom-color: @backgroundFooterBottom; }
+
+	.btn-group { border: 1px solid @backgroundFooterBottom; }
+
+	#account-container .site-configuration .mailer-option .mailer-current { color: @backgroundFooterBottom; border-color: @backgroundFooterBottom; }
+
+	.panel-custom .panel-heading { color: @backgroundFooterBottom; }
+
+	.panel-custom .panel-heading a { color: @backgroundFooterBottom; }
+
+	.site-menus hr { background-color: @backgroundFooterBottom; }
+
+	.btn-danger { color: @white; }
+
+	.btn-warning { color: @white; }
+
+	.site-configuration .mailer-option .mailer-current {
+	    color: @backgroundFooterBottom;
+	    border-color: @backgroundFooterBottom;
+	}
+
+	.site-configuration .mailer-option .mailer-current:after {
+		border-top-color: @backgroundFooterBottom;
+	}
+}

@@ -31,6 +31,12 @@
 		'configuration.owner.cif' => 'CIF',
 		'configuration.owner.cif.error' => 'Please enter a valid CIF',
 
+		'configuration.fields.agency_name' => 'Agency name',
+		'configuration.fields.contact_email' => 'Contact e-mail',
+		'configuration.fields.contact_phone' => 'Contact phone',
+		'configuration.fields.zipcode' => 'Zipcode',
+		'configuration.fields.city' => 'City',
+		'configuration.fields.state' => 'State',
 		'configuration.fields.contact_data.title' => 'Contact data',
 		'configuration.fields.email' => 'E-mail',
 		'configuration.fields.contact_data' => 'Contact data',
@@ -41,4 +47,11 @@
 		'properties' => 'Properties',
 		'properties.published' => 'Enabled in export',
 		'properties.enabled' => 'Enabled in web',
+
+		'contact.title' => 'Exportation to :marketplace requires custom configuration',
+		'contact.intro' => '<p>If you wish to continue, please confirm your contact information so we can let you know how to proceed.</p>',
+		'contact.name' => 'Name',
+		'contact.phone' => 'Phone',
+		'contact.email' => 'Email',
+		'contact.success' => '<h4>Thank you.</h4><p>We will contact you as soon as possible.</p>',
 	];

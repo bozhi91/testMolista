@@ -22,6 +22,7 @@ class Marketplace extends \App\TranslatableModel
 		'name' => 'required|string',
 		'country_id' => 'integer|exists:countries,id',
 		'configuration' => 'array',
+		'requires_contact' => 'boolean',
 		'enabled' => 'boolean',
 		'logo' => 'image',
 		'url' => 'url',
@@ -32,6 +33,7 @@ class Marketplace extends \App\TranslatableModel
 		'country_id' => 'integer|exists:countries,id',
 		'configuration' => 'array',
 		'enabled' => 'boolean',
+		'requires_contact' => 'boolean',
 		'logo' => 'image',
 		'url' => 'url',
 	];

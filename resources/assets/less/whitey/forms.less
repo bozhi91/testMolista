@@ -1,0 +1,20 @@
+@import '../app/forms.less';
+
+#advanced-search-modal {
+	background: @white;
+
+	h2 { color: @black; }
+
+	.form-control:focus { border-color: @yellow; }
+}
+
+.select2-container--default.select2-container--focus .select2-selection--single,
+.select2-container--default.select2-container--open .select2-selection--single,
+.select2-container--default.select2-container--focus .select2-selection--multiple,
+.select2-container--default.select2-container--open .select2-selection--multiple {
+	border: 1px solid @yellow;
+}
+
+.select2-container--open .select2-dropdown--below {
+	border-color: @yellow !important;
+}
