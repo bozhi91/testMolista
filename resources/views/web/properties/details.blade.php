@@ -127,6 +127,8 @@
 								</table>
 							</div>
 						@endif
+						<br />
+						<a href="{{ action('Web\PropertiesController@downloads', [ $property->slug, LaravelLocalization::getCurrentLocale() ]) }}" class="btn btn-primary hidden-xs" target="_blank">{{ Lang::get('web/properties.download.pdf') }}</a>
 					</div>
 				</div>
 				<a href="#property-moreinfo-form" class="btn btn-primary call-to-action more-info-trigger">{{ Lang::get('web/properties.call.to.action') }}</a>

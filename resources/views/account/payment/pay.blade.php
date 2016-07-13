@@ -1,4 +1,6 @@
-@extends('layouts.account')
+@extends('layouts.account', [
+	'hide_pending_request_warning' => 1,
+])
 
 @section('account_content')
 
@@ -50,7 +52,9 @@
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-4 col-sm-offset-2">
-					{!! Lang::get('corporate/signup.finish.our.help') !!}
+					{!! Lang::get('corporate/signup.finish.our.help', [
+						'phone' => Config::get('app.phone_support'),
+					]) !!}
 				</div>
 			</div>
 		@elseif ( $pending_request->summary->payment_method == 'transfer' )
@@ -62,7 +66,9 @@
 					]) !!}
 				</div>
 				<div class="col-xs-12 col-sm-4 col-sm-offset-2">
-					{!! Lang::get('corporate/signup.finish.our.help') !!}
+					{!! Lang::get('corporate/signup.finish.our.help', [
+						'phone' => Config::get('app.phone_support'),
+					]) !!}
 				</div>
 			</div>
 		@endif

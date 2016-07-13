@@ -143,7 +143,7 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 
 	public function edit($email)
 	{
-		$employee = $this->site->users()->withRole('employee')->where('email', $email)->withPivot('can_create','can_edit','can_delete')->first();
+		$employee = $this->site->users()->withRole('employee')->where('email', $email)->withPivot('can_create','can_edit','can_delete','can_view_all')->first();
 		if ( !$employee )
 		{
 			abort(404);
@@ -156,14 +156,14 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 
 	public function update($email)
 	{
-		$employee = $this->site->users()->withRole('employee')->where('email', $email)->withPivot('can_create','can_edit','can_delete')->first();
+		$employee = $this->site->users()->withRole('employee')->where('email', $email)->withPivot('can_create','can_edit','can_delete','can_view_all')->first();
 		if ( !$employee )
 		{
 			return redirect()->action('Account\EmployeesController@edit', urlencode($email))->with('error', trans('general.messages.error'));
 		}
 
 		// Change pivot values
-		foreach (['create','edit','delete'] as $permission)
+		foreach (['create','edit','delete','view_all'] as $permission)
 		{	
 			$key = "can_{$permission}";
 			$employee->pivot->$key = $this->request->input("permissions.{$key}") ? 1 : 0;

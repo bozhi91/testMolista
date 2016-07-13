@@ -80,7 +80,7 @@ class MarketplaceHelper
 		return true;
 	}
 
-	public function checkReadyProperty($marketplace,$property) 
+	public function checkReadyProperty($marketplace,$property)
 	{
 		$this->setMarketplace($marketplace);
 		$this->setProperty($property);
@@ -112,7 +112,7 @@ class MarketplaceHelper
 					->enabled()->withEverything()
 					->ofMarketplace($this->marketplace->id)
 					->get();
-		foreach ($source as $key => $property) 
+		foreach ($source as $key => $property)
 		{
 			$this->setProperty($property);
 			$properties[] = $this->property_marketplace;
@@ -141,32 +141,47 @@ class MarketplaceHelper
 		return $this->marketplace_adm->getOwnersXml($owners);
 	}
 
-	public function setMarketplace($marketplace) 
+	public function setMarketplace($marketplace)
 	{
+
+		$config = isset($marketplace->pivot->marketplace_configuration)
+					? json_decode($marketplace->pivot->marketplace_configuration, true)
+					: [];
+		$config = isset($config['configuration']) ? $config['configuration'] : [];
+
 		$this->marketplace = $marketplace;
-		$this->marketplace_adm = new $marketplace->class_path();
+		$this->marketplace_adm = new $marketplace->class_path($config);
 	}
 
-	public function setProperty($property) 
+	public function setProperty($property)
 	{
 		$this->property_marketplace = $property->marketplace_info;
 
 		// Add marketplace thumb folder to images
 		if ( @$this->marketplace->configuration['thumb_flag'] )
 		{
-			foreach ($this->property_marketplace['images'] as $key => $img) 
+			switch ( $this->marketplace->configuration['thumb_flag'] )
+			{
+				case 'greenacres':
+					$add_extension = '.jpg';
+					break;
+				default:
+					$add_extension = '';
+			}
+
+			foreach ($this->property_marketplace['images'] as $key => $img)
 			{
 				$tmp = pathinfo($img);
-				$this->property_marketplace['images'][$key] = implode('/', [ 
+				$this->property_marketplace['images'][$key] = implode('/', [
 					$tmp['dirname'],
 					$this->marketplace->configuration['thumb_flag'],
-					$tmp['basename'],
+					$tmp['basename'] . $add_extension,
 				]);
 			}
 		}
 	}
 
-	public function deleteXMLs() 
+	public function deleteXMLs()
 	{
 		return \File::deleteDirectory($this->site->xml_path, true);
 	}

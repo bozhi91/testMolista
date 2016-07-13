@@ -25,13 +25,22 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		$clean_filters = false;
 
 		$query = $this->site->properties()
-							->whereIn('properties.id', $this->auth->user()->properties()->lists('id'))
 							->with('customers')
 							->with('state')
 							->with('city')
 							->withTranslations()
 							->leftJoin('cities','properties.city_id','=','cities.id')
-							->addSelect('cities.name AS city_name');
+							->addSelect('cities.name AS city_name')
+							->leftJoin('properties_users', function($join){
+	                             $join->on('properties.id', '=', 'properties_users.property_id');
+	                             $join->on('properties_users.user_id', '=', \DB::raw($this->site_user->id) );
+							})
+							->addSelect( \DB::raw('IF(properties_users.`property_id` IS NULL, 0, 1) AS is_manager') );
+
+		if ( !$this->site_user->pivot->can_view_all ) 
+		{
+			$query->whereIn('properties.id', $this->auth->user()->properties()->lists('id'));
+		}
 
 		// Filter by reference
 		if ( $this->request->get('ref') )

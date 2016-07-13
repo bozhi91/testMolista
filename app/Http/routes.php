@@ -28,6 +28,9 @@ Route::group([
 	// Signup
 	Route::controller('signup', 'Corporate\SignupController');
 
+	// Customers area
+	Route::controller('customers', 'Corporate\CustomersController');
+
 	// Admin
 	Route::group([
 		'prefix' => 'admin',
@@ -95,6 +98,7 @@ Route::group([
 		'web',
 		'site.login.roles:company|employee',
 		'site.setup',
+		'site.autologin',
 		'site.setup.user',
 	],
 ], function() {
@@ -102,6 +106,7 @@ Route::group([
 	Route::get('/', 'WebController@index');
 	// Properties
 	Route::get('properties', 'Web\PropertiesController@index');
+	Route::get('property/{slug}/property-{locale}.pdf', 'Web\PropertiesController@downloads');
 	Route::post('property/{slug}', 'Web\PropertiesController@moreinfo');
 	Route::get('property/{slug}', 'Web\PropertiesController@details');
 	// Pages
@@ -113,9 +118,6 @@ Route::group([
 
 	// Auth
 	Route::auth();
-
-	// Autologin
-	Route::get('account/autologin/{id}/{hash}', 'Auth\AuthController@autologin');
 
 	// User
 	Route::controller('customers', 'Web\CustomersController');

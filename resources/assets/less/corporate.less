@@ -625,6 +625,28 @@ footer {
 
 }
 
+#customers-login {
+	background: url('/images/signup/background.jpg') top center no-repeat; padding-bottom: 100px; 
+
+	h1 { text-transform: uppercase; margin: 50px 0px 50px 0px; color: @white; font-weight: bold; font-size: 48px; }
+	
+	form { border: 2px solid #bfbfbf; border-radius: 12px; background: #f2f2f2; }
+
+	.intro { padding: 20px 50px; font-weight: bold; font-size: 24px; background: @white; border-radius: 12px 12px 0px 0px; text-align: center; }
+	.content { padding: 50px; font-size: 16px; }
+	.buttons-area { 
+		padding-top: 20px;
+		.btn-next { 
+			padding-left: 25px; padding-right: 35px; color: #414141; border: 2px solid #414141; border-radius: 4px; text-transform: uppercase; font-weight: bold; background: url('/images/signup/btn-nav-next.png') right center no-repeat #f2f2f2; 
+
+			&:hover { background-color: #dddddd; }
+		}
+		.btn-link { padding-left: 0px; padding-right: 0px; }
+	}
+
+	label.error { color: @red; font-size: 0.8em; font-weight: bold; }
+}
+
 #signup {
 	background: url('/images/signup/background.jpg') top center no-repeat; padding-bottom: 100px; 
 
@@ -755,6 +777,10 @@ footer {
 		background: @lightBlue; padding: 100px 0px;
 		h2 { padding-bottom: 34px; }
 		li { margin-bottom: 10px; }
+	}
+	.btn-demo-site { 
+		font-weight: bold; text-transform: uppercase; .btnBdrYlw; background: @darkBlue; font-size: 18px; min-width: 240px; padding: 10px; margin-top: 25px; 
+		&:hover { background: @black; }
 	}
 	.steps-intro {
 		padding-top: 85px;
