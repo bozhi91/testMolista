@@ -52,7 +52,7 @@ class MarketplacesController extends \App\Http\Controllers\AccountController
 		$configuration = @json_decode( $marketplace->marketplace_configuration );
 
 		// Properties
-		$query = $this->site->properties()->withTranslations()->withMarkeplaceEnabled($marketplace->id);
+		$query = $this->site->properties()->withMarkeplaceEnabled($marketplace->id);
 
 		switch ( $this->request->get('order') )
 		{

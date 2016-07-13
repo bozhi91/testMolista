@@ -166,6 +166,7 @@
 		'show.leads.add' => 'Add lead',
 
 		'marketplaces.intro' => 'Please check those marketplaces where you wish to publish this property.',
+		'marketplaces.toall' => 'Include this property in all exports',
 		'marketplaces.error' => 'This property cannot be published in this marketplace:',
 
 		'tab.appraisal' => 'Appraisals',

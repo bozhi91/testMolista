@@ -83,7 +83,7 @@ class TicketsController extends \App\Http\Controllers\AccountController
 		$customers = $this->site->customers_options;
 		$properties = $this->site->properties()
 							->whereIn('properties.id', $this->auth->user()->properties()->lists('id'))
-							->withTranslations()->orderBy('title')->lists('title','id')->all();
+							->orderBy('title')->lists('title','id')->all();
 		return view('account.tickets.create', compact('employees','customers','properties'));
 	}
 
@@ -140,7 +140,7 @@ class TicketsController extends \App\Http\Controllers\AccountController
 
 		if ( @$ticket->item->id )
 		{
-			$property = $this->site->properties()->where('ticket_item_id',$ticket->item->id)->withTranslations()->first();
+			$property = $this->site->properties()->where('ticket_item_id',$ticket->item->id)->first();
 		}
 
 		return view('account.tickets.show', compact('ticket','property','employees','status'));

@@ -377,7 +377,8 @@ class Property extends TranslatableModel
 	}
 	public function _related_properties($ids)
 	{
-		return \App\Property::withEverything()
+		return \App\Property::withTranslations()
+			->withEverything()
 			->whereIn('properties.id',$ids)
 			->orderByRaw('RAND()')
 			->get();
@@ -706,7 +707,6 @@ class Property extends TranslatableModel
 	public function scopeWithEverything($query)
 	{
 		return $query
-				->withTranslations()
 				->with('images')
 				->with('country')
 				->with('territory')

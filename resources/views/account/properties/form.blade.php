@@ -3,29 +3,29 @@
 </style>
 
 {!! Form::model($item, [ 'method'=>$method, 'action'=>$action, 'files'=>true, 'id'=>'edit-form' ]) !!}
-	{!! Form::hidden('current_tab', session('current_tab', '#tab-general')) !!}
+	{!! Form::hidden('current_tab', $current_tab) !!}
 	{!! Form::hidden('label_color', null) !!}
 
 	<div class="custom-tabs">
 
 		<ul class="nav nav-tabs main-tabs" role="tablist">
-			<li role="presentation" class="active"><a href="#tab-general" aria-controls="tab-general" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.general') }}</a></li>
-			<li role="presentation"><a href="#tab-location" aria-controls="tab-location" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.location') }}</a></li>
-			<li role="presentation"><a href="#tab-text" aria-controls="tab-text" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.text') }}</a></li>
-			<li role="presentation"><a href="#tab-images" aria-controls="tab-images" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.images') }}</a></li>
+			<li role="presentation" class="{{ $current_tab == 'general' ? 'active' : '' }}"><a href="#tab-general" aria-controls="tab-general" role="tab" data-toggle="tab" data-tab="general">{{ Lang::get('account/properties.tab.general') }}</a></li>
+			<li role="presentation" class="{{ $current_tab == 'location' ? 'active' : '' }}"><a href="#tab-location" aria-controls="tab-location" role="tab" data-toggle="tab" data-tab="location">{{ Lang::get('account/properties.tab.location') }}</a></li>
+			<li role="presentation" class="{{ $current_tab == 'text' ? 'active' : '' }}"><a href="#tab-text" aria-controls="tab-text" role="tab" data-toggle="tab" data-tab="text">{{ Lang::get('account/properties.tab.text') }}</a></li>
+			<li role="presentation" class="{{ $current_tab == 'images' ? 'active' : '' }}"><a href="#tab-images" aria-controls="tab-images" role="tab" data-toggle="tab" data-tab="images">{{ Lang::get('account/properties.tab.images') }}</a></li>
 			@if ( $item )
-				<li role="presentation"><a href="#tab-employees" aria-controls="tab-employees" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.employees') }}</a></li>
+				<li role="presentation" class="{{ $current_tab == 'employees' ? 'active' : '' }}"><a href="#tab-employees" aria-controls="tab-employees" role="tab" data-toggle="tab" data-tab="employees">{{ Lang::get('account/properties.tab.employees') }}</a></li>
 				@if ( $marketplaces->count() > 0 )
-					<li role="presentation"><a href="#tab-marketplaces" aria-controls="tab-marketplaces" role="tab" data-toggle="tab">{{ Lang::get('account/menu.marketplaces') }}</a></li>
+					<li role="presentation" class="{{ $current_tab == 'marketplaces' ? 'active' : '' }}"><a href="#tab-marketplaces" aria-controls="tab-marketplaces" role="tab" data-toggle="tab" data-tab="marketplaces">{{ Lang::get('account/menu.marketplaces') }}</a></li>
 				@endif
 			@else
-				<li role="presentation"><a href="#tab-seller" aria-controls="tab-seller" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.seller') }}</a></li>
+				<li role="presentation" class="{{ $current_tab == 'seller' ? 'active' : '' }}"><a href="#tab-seller" aria-controls="tab-seller" role="tab" data-toggle="tab" data-tab="general">{{ Lang::get('account/properties.tab.seller') }}</a></li>
 			@endif
 		</ul>
 
 		<div class="tab-content">
 
-			<div role="tabpanel" class="tab-pane tab-main active" id="tab-general">
+			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'general' ? 'active' : '' }}" id="tab-general">
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
@@ -188,7 +188,7 @@
 				</div>
 			</div>
 
-			<div role="tabpanel" class="tab-pane tab-main" id="tab-location">
+			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'location' ? 'active' : '' }}" id="tab-location">
 				<div class="row">
 					<div class="col-xs-12 col-sm-4">
 						<div class="form-group error-container">
@@ -237,7 +237,7 @@
 				</div>
 			</div>
 
-			<div role="tabpanel" class="tab-pane tab-main" id="tab-text">
+			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'text' ? 'active' : '' }}" id="tab-text">
 				<ul class="nav nav-tabs locale-tabs" role="tablist">
 					@foreach ($site_setup['locales_tabs'] as $lang_iso => $lang_name)
 						<li role="presentation" class="autotranslate-flag-area">
@@ -293,7 +293,7 @@
 				</div>
 			</div>
 
-			<div role="tabpanel" class="tab-pane tab-main" id="tab-images">
+			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'images' ? 'active' : '' }}" id="tab-images">
 				<div class="row">
 					<div class="col-xs-12 col-sm-7">
 						<h4>{{ Lang::get('account/properties.images.gallery') }}</h4>
@@ -309,6 +309,7 @@
 							<strong>{{ Lang::get('web/properties.images.label.default') }}</strong><br />
 							{{ Lang::get('web/properties.images.warning.orientation') }}
 						</div>
+
 						<ul class="image-gallery sortable-image-gallery property-image-gallery">
 							@if ( !empty($property) && count($property->images) > 0 )
 								@foreach ($property->images->sortBy('position') as $image)
@@ -335,7 +336,7 @@
 			</div>
 
 			@if ( $item )
-				<div role="tabpanel" class="tab-pane tab-main" id="tab-employees">
+				<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'employees' ? 'active' : '' }}" id="tab-employees">
 					@include('account.properties.tab-managers', [
 						'item' => $item,
 						'employees' => $item->users()->withRole('employee')->get(),
@@ -343,12 +344,12 @@
 				</div>
 
 				@if ( $marketplaces->count() > 0 )
-					<div role="tabpanel" class="tab-pane tab-main" id="tab-marketplaces">
+					<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'marketplaces' ? 'active' : '' }}" id="tab-marketplaces">
 						@include('account/properties/form-marketplaces')
 					</div>
 				@endif
 			@else
-				<div role="tabpanel" class="tab-pane tab-main" id="tab-seller">
+				<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'seller' ? 'active' : '' }}" id="tab-seller">
 					<div class="row">
 						<div class="col-xs-12 col-sm-6">
 							<div class="form-group error-container">
@@ -780,10 +781,16 @@
 			}
 		});
 
-		var tabs = form.find('.main-tabs');
-		var current_tab = form.find('input[name="current_tab"]').val();
-		tabs.find('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-			form.find('input[name="current_tab"]').val( $(this).attr('href') );
+		form.on('change', 'select[name="export_to_all"]', function(){
+			if ( $(this).val() == '1' ) {
+				form.find('.marketplaces-container').addClass('hide');
+			} else {
+				form.find('.marketplaces-container').removeClass('hide');
+			}
+		});
+
+		form.find('.main-tabs > li > a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+			form.find('input[name="current_tab"]').val( $(this).data().tab );
 			form.find('.has-select-2').select2();
 		});
 		tabs.find('a[href="' + current_tab + '"]').tab('show');

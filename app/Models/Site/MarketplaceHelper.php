@@ -118,7 +118,7 @@ class MarketplaceHelper
 		$properties = [];
 
 		$source = $this->site->properties()
-					->enabled()->withEverything()
+					->withEverything()
 					->ofMarketplace($this->marketplace->id)
 					->get();
 		foreach ($source as $key => $property)

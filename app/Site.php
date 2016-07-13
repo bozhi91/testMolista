@@ -99,7 +99,7 @@ class Site extends TranslatableModel
 	}
 
 	public function properties() {
-		return $this->hasMany('App\Property');
+		return $this->hasMany('App\Property')->withTranslations();
 	}
 
 	public function api_keys() {

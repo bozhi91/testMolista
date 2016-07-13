@@ -12,7 +12,7 @@ class PropertiesController extends WebController
 
 	public function index()
 	{
-		$query = $this->site->properties()->withTranslations()->enabled()
+		$query = $this->site->properties()->enabled()
 					->with('state')
 					->with('city')
 					->with('services')
@@ -129,7 +129,7 @@ class PropertiesController extends WebController
 
 	public function details($slug)
 	{
-		$property = $this->site->properties()->withTranslations()->enabled()
+		$property = $this->site->properties()->enabled()
 					->with('state')
 					->with('city')
 					->with('services')
@@ -159,7 +159,7 @@ class PropertiesController extends WebController
 	public function moreinfo($slug)
 	{
 		// Get property
-		$property = $this->site->properties()->withTranslations()->enabled()
+		$property = $this->site->properties()->enabled()
 					->whereTranslation('slug', $slug)
 					->first();
 		if ( !$property )

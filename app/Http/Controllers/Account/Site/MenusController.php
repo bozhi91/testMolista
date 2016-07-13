@@ -72,7 +72,7 @@ class MenusController extends \App\Http\Controllers\AccountController
 		$menu = $this->site->menus()->whereSlug($slug)->withItems()->firstOrFail();
 
 		$pages = $this->site->pages()->withTranslations()->orderBy('title')->lists('title','id')->all();
-		$properties = $this->site->properties()->withTranslations()->orderBy('title')->lists('title','id')->all();
+		$properties = $this->site->properties()->orderBy('title')->lists('title','id')->all();
 
 		return view('account.site.menus.edit', compact('menu','pages','properties'));
 	}
