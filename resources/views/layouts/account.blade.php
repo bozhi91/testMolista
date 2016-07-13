@@ -1,4 +1,6 @@
-@extends('layouts.web')
+@extends('layouts.web', [
+	'body_id' => 'body-account',
+])
 
 @section('content')
 
