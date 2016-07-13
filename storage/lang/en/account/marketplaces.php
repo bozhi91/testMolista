@@ -47,6 +47,7 @@
 		'properties' => 'Properties',
 		'properties.published' => 'Enabled in export',
 		'properties.enabled' => 'Enabled in web',
+		'properties.toall' => 'This property in included in all exports',
 
 		'contact.title' => 'Exportation to :marketplace requires custom configuration',
 		'contact.intro' => '<p>If you wish to continue, please confirm your contact information so we can let you know how to proceed.</p>',

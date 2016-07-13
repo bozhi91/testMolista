@@ -57,7 +57,7 @@ class MarketplacesController extends \App\Http\Controllers\AccountController
 		$configuration = @json_decode( $marketplace->marketplace_configuration );
 
 		// Properties
-		$query = $this->site->properties()->withMarkeplaceEnabled($marketplace->id);
+		$query = $this->site->properties()->withMarketplaceEnabled($marketplace->id);
 
 		switch ( $this->request->get('order') )
 		{
@@ -178,5 +178,38 @@ class MarketplacesController extends \App\Http\Controllers\AccountController
 		}
 
 		return redirect()->back()->with('success', trans('account/marketplaces.contact.success'));
+	}
+
+	public function getStatus($code)
+	{
+		$marketplace = \App\Models\Marketplace::enabled()->where('code',$code)->first();
+		if ( !$marketplace )
+		{
+			return [ 'error' => 1 ];
+		}
+
+		$property = $this->site->properties()->find( $this->request->input('property_id') );
+		if ( !$property || $property->export_to_all )
+		{
+			return [ 'error' => 1 ];
+		}
+
+		if ( $marketplace->properties->contains( $property->id ) )
+		{
+			$status = 0;
+			$marketplace->properties()->detach( $property->id );
+		}
+		else
+		{
+			$status = 1;
+			$marketplace->properties()->attach( $property->id );
+		}
+
+		\File::deleteDirectory($this->site->xml_path, true);
+
+		return [ 
+			'success' => true,
+			'status' => $status,
+		];
 	}
 }

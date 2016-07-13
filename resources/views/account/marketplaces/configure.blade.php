@@ -108,7 +108,13 @@
 										<td>{{ $property->title }}</td>
 										<td>{{  $property->created_at->format('d/m/Y') }}</td>
 										<td class="text-center">
-											<span class="glyphicon glyphicon-{{ $property->exported_to_marketplace ? 'ok' : 'remove' }}" aria-hidden="true"></span>
+											@if ( $property->export_to_all )
+												<span class="glyphicon glyphicon-ok has-tooltip" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="{{ Lang::get('account/marketplaces.properties.toall') }}"></span>
+											@else
+												<a href="#" class="change-export-status" data-id="{{ $property->id }}">
+													<span class="glyphicon glyphicon-{{ $property->exported_to_marketplace ? 'ok' : 'remove' }}" aria-hidden="true"></span>
+												</div>
+											@endif
 										</td>
 										<td class="text-center">
 											<span class="glyphicon glyphicon-{{ $property->enabled ? 'ok' : 'remove' }}" aria-hidden="true"></span>
@@ -139,6 +145,8 @@
 			var cont = $('#account-marketplaces');
 			var form = $('#marketplace-form');
 
+			cont.find('.has-tooltip').tooltip();
+
 			form.validate({
 				ignore: '',
 				errorPlacement: function(error, element) {
@@ -164,6 +172,37 @@
 					LOADING.show();
 					f.submit();
 				}
+			});
+
+			cont.on('click', '.change-export-status', function (e) {
+				e.preventDefault();
+
+				var el = $(this);
+
+				LOADING.show();
+
+				$.ajax({
+					type: 'GET',
+					dataType: 'json',
+					url: '{{ action("Account\MarketplacesController@getStatus", $marketplace->code) }}',
+					data: { property_id: el.data().id },
+					success: function(data) {
+						LOADING.hide();
+						if ( data.success ) {
+							if ( data.status == 1 ) {
+								el.find('.glyphicon').removeClass('glyphicon-remove').addClass('glyphicon-ok');
+							} else {
+								el.find('.glyphicon').removeClass('glyphicon-ok').addClass('glyphicon-remove');
+							}
+						} else {
+							alertify.error("{{ print_js_string( Lang::get('general.messages.error') ) }}");
+						}
+					},
+					error: function() {
+						LOADING.hide();
+						alertify.error("{{ print_js_string( Lang::get('general.messages.error') ) }}");
+					}
+				});
 			});
 
 			cont.find('.main-tabs').find('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {

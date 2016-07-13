@@ -47,6 +47,7 @@
 		'properties' => 'Propiedades',
 		'properties.published' => 'Activa en export',
 		'properties.enabled' => 'Activa en web',
+		'properties.toall' => 'Esta propriedad se incluye en todos los exports',
 
 		'contact.title' => 'La exportación a :marketplace requiere una configuración personalizada',
 		'contact.intro' => '<p>Si quiere seguir adelante, por favor, facilítenos estos datos para que podamos ponernos en contacto con usted y explicarle el procedimiento.</p>',
