@@ -47,10 +47,13 @@ class Marketplace extends \App\TranslatableModel
 		return $this->belongsTo('App\Models\Geography\Country')->withTranslations();
 	}
 
-	public function properties() 
-	{
-		return $this->belongsToMany('App\Property', 'properties_marketplaces', 'marketplace_id', 'property_id');
-	}
+    public function properties()
+    {
+        $instance = new \App\Property;
+        $query = $instance->newQuery();
+
+        return new \App\Relations\BelongsToManyOrToAll($query, $this, 'properties_marketplaces', 'marketplace_id', 'property_id', 'export_to_all', 1);
+    }
 
 	public static function saveModel($data, $id = null)
 	{
