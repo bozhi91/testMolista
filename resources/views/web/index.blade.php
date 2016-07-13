@@ -2,6 +2,8 @@
 
 @section('content')
 
+	@include('web.search.home')
+
 	<div id="home">
 
 		@if ( count($properties) > 0 )
@@ -12,12 +14,7 @@
 				<div class="carousel-inner" role="listbox">
 					<a href="{{ action('Web\PropertiesController@details', $main_property->slug) }}"  class="item active">
 						<img src="{{$main_property->main_image}}" alt="{{$main_property->title}}" class="main-image" />
-						<div class="carousel-caption">
-							<span class="carousel-caption-text">
-								{{$main_property->title}}
-								<span class="text-nowrap hidden-xs"> | {{ price($main_property->price, [ 'decimals'=>0 ]) }}</span>
-							</span>
-						</div>
+						@include('web.index-caption')
 					</a>
 				</div>
 			</div>
@@ -37,7 +34,7 @@
 											<div class="col-xs-12 col-sm-4">
 												<div class="relative">
 													@include('web.properties.pill', [ 'item'=>$property])
-													<a class="left carousel-control hide visible-xs" href="#properties-slider" role="button" data-slide="prev">
+												<a class="left carousel-control hide visible-xs" href="#properties-slider" role="button" data-slide="prev">
 														&lsaquo;
 														<span class="sr-only">{{ Lang::get('pagination.previous') }}</span>
 													</a>

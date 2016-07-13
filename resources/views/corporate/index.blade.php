@@ -11,7 +11,7 @@
 				    <h1>{{ Lang::get('corporate/home.h1') }}</h1>
 				    {!! Lang::get('corporate/home.intro') !!}
 				    <div class="btn-area">
-				    	<a href="{{ action('Corporate\SignupController@getUser') }}" class="btn btn-try">{{ Lang::get('corporate/home.try') }}</a>
+				    	<a href="{{ action('Corporate\PricingController@getIndex') }}" class="btn btn-try">{{ Lang::get('corporate/home.try') }}</a>
 				    </div>
 			    </div>
 			  </div>

@@ -17,6 +17,7 @@ return [
 	'enabled' => 'Habilitado',
 	'class.path' => 'Class path',
 	'url' => 'URL',
+	'contact' => 'Requiere contacto',
 
 	'thumbs.flag' => 'Thumbs flag',
 	'xml.owners' => 'Owners XML requerido',

@@ -17,6 +17,7 @@ return [
 	'enabled' => 'Enabled',
 	'class.path' => 'Class path',
 	'url' => 'URL',
+	'contact' => 'Requires contact',
 
 	'thumbs.flag' => 'Thumbs flag',
 	'xml.owners' => 'Owners XML required',
