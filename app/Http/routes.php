@@ -197,6 +197,8 @@ Route::group([
 		], function() {
 			// Configuration
 			Route::controller('configuration', 'Account\Site\ConfigurationController');
+			// Price ranges
+			Route::controller('priceranges', 'Account\Site\PriceRangesController');
 			// Menus
 			Route::post('menus/item/{slug}', 'Account\Site\MenusController@postItem');
 			Route::resource('menus', 'Account\Site\MenusController');
