@@ -138,8 +138,8 @@ elixir(function(mix) {
 			'compiled/whitey.css',
 		], 'public/themes/whitey/compiled/css/app.css')
 		.less([
-			'inmoblue/pdf.less',
-		], 'public/themes/inmoblue/compiled/css/pdf.css')
+			'whitey/pdf.less',
+		], 'public/themes/whitey/compiled/css/pdf.css')
 		;
 
 });
