@@ -209,7 +209,14 @@ class Property extends TranslatableModel
 
 		// Check PDF
 		$filepath = "{$dir}/property-{$locale}.pdf";
-		if ( !file_exists($filepath) || filemtime($filepath) < strtotime("2016-07-06") )
+
+		$last_time = strtotime("2016-07-11");
+		if ( strtotime($this->site->updated_at) > $last_time )
+		{
+			$last_time = strtotime($this->site->updated_at);
+		}
+
+		if ( !file_exists($filepath) || filemtime($filepath) < $last_time )
 		{
 			$locale_backup = \LaravelLocalization::getCurrentLocale();
 			\LaravelLocalization::setLocale($locale);
@@ -236,7 +243,22 @@ class Property extends TranslatableModel
 				}
 			}
 
+			// Get css
+			if ( $this->site->theme && file_exists( public_path("themes/{$this->site->theme}/compiled/css/pdf.css") ) )
+			{
+				$css = \File::get( public_path("themes/{$this->site->theme}/compiled/css/pdf.css") );
+			}
+			elseif ( file_exists( public_path("compiled/css/pdf.css") ) )
+			{
+				$css = \File::get( public_path("compiled/css/pdf.css") );
+			}
+			else
+			{
+				$css = false;
+			}
+
 			\PDF::loadView('pdf.property', [
+				'css' => $css,
 				'property' => $this,
 				'main_image' => $main_image,
 				'other_images' => $other_images,
