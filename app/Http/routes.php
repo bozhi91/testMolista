@@ -163,6 +163,7 @@ Route::group([
 		Route::get('employees/disssociate/{user_id}/{property_id}', 'Account\EmployeesController@getDissociate');
 		Route::resource('employees', 'Account\EmployeesController');
 		// Customers
+		Route::delete('customers/properties/{slug}', 'Account\CustomersController@deleteRemovePropertyCustomer');
 		Route::post('customers/properties/{slug}', 'Account\CustomersController@postAddPropertyCustomer');
 		Route::get('customers/properties/{slug}', 'Account\CustomersController@getAddPropertyCustomer');
 		Route::post('customers/profile/{email}', 'Account\CustomersController@postProfile');
@@ -197,6 +198,8 @@ Route::group([
 		], function() {
 			// Configuration
 			Route::controller('configuration', 'Account\Site\ConfigurationController');
+			// Price ranges
+			Route::controller('priceranges', 'Account\Site\PriceRangesController');
 			// Menus
 			Route::post('menus/item/{slug}', 'Account\Site\MenusController@postItem');
 			Route::resource('menus', 'Account\Site\MenusController');

@@ -101,7 +101,7 @@
 					target.addClass('is-placeholder');
 				}
 
-				target.val( val );
+				target.val( val ).trigger('change');
 			});
 
 			$('#advanced-search-trigger').trigger('click');

@@ -24,7 +24,9 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 
 		$max_languages = @intval( \App\Session\Site::get('plan.max_languages') );
 
-		return view('account.site.configuration.index', compact('site','max_languages'));
+		$current_tab = session('current_tab', old('current_tab', $this->request->input('current_tab','config')));
+
+		return view('account.site.configuration.index', compact('site','max_languages','current_tab'));
 	}
 
 	public function postIndex()
@@ -88,7 +90,7 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 		$validator = \Validator::make($this->request->all(), $fields);
 		if ($validator->fails()) 
 		{
-			return \Redirect::back()->withInput()->withErrors($validator);
+			return redirect()->back()->withInput()->withErrors($validator);
 		}
 
 		// Fallback locale is always required
@@ -104,7 +106,7 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 		// Validate subdomain
 		if ( \App\Site::where('subdomain', $this->request->get('subdomain'))->where('id','!=',@intval($site->id))->count() )
 		{
-			return \Redirect::back()->withInput()->with('error', trans('account/site.configuration.subdomain.error'));
+			return redirect()->back()->withInput()->with('error', trans('account/site.configuration.subdomain.error'));
 		}
 
 		// Validate domains
@@ -115,7 +117,7 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 			// If domain is same as molista domain, false
 			if ( preg_match('#\.'.\Config::get('app.application_domain').'(\/)?$#', $domain) || \App\SiteDomains::where('domain', $domain)->where('id','!=',@intval($id))->count() )
 			{
-				return \Redirect::back()->withInput()->with('error', trans('account/site.configuration.domains.error'));
+				return redirect()->back()->withInput()->with('error', trans('account/site.configuration.domains.error'));
 			}
 		}
 
@@ -248,7 +250,7 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 		// Save configuration
 		$site->save();
 
-		return \Redirect::back()->with('current_tab', $this->request->get('current_tab'))->with('success', trans('account/site.configuration.saved'));
+		return redirect()->back()->with('current_tab', $this->request->get('current_tab'))->with('success', trans('account/site.configuration.saved'));
 	}
 
 	public function getCheck($type)

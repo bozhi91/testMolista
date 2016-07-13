@@ -43,6 +43,11 @@ class Site extends TranslatableModel
 		return $this->hasMany('App\Models\Site\Planchange');
 	}
 
+	public function priceranges()
+	{
+		return $this->hasMany('App\Models\Site\Pricerange')->withTranslations();
+	}
+
     public function subscriptions()
     {
         return $this->hasMany(Subscription::class, 'site_id')->orderBy('created_at', 'desc');
@@ -784,6 +789,14 @@ class Site extends TranslatableModel
 		\App::setLocale( $locale_backup );
 
 		return true;
+	}
+
+	public function getGroupedPriceranges()
+	{
+		return (object) [
+			'sale' => $this->priceranges->where('type','sale')->sortBy('position'),
+			'rent' => $this->priceranges->where('type','rent')->sortBy('position'),
+		];
 	}
 
 }

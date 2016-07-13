@@ -7,7 +7,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="{{ action('WebController@index') }}" style="background-image: url('{{ empty($site_setup['logo']) ? Theme::url('/images/logo-default.png') : $site_setup['logo'] }}');"></a>
+			<a class="navbar-brand" href="{{ action('WebController@index') }}" style="background-image: url('{{ empty($site_setup['logo']) ? Theme::url('/images/logo.png') : $site_setup['logo'] }}');"></a>
 		</div>
 
 		<div class="collapse navbar-collapse" id="app-navbar-collapse">

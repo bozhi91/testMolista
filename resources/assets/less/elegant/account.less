@@ -30,15 +30,20 @@
 
 	.pagination > li.active a, .pagination > li.active span, .pagination > li.active a:hover, .pagination > li.active span:hover, .pagination > li.active a:focus, .pagination > li.active span:focus { background-color: @green; border-color: @green; }
 
-	.account-menu > li.separator { border-top: 1px solid @green; }
+	.account-menu > li {
+		&.separator { border-top: 1px solid @green; }
+		ul > li > a { 
+			&.current { color: @green; }
+		}
+	}
 
 	h1, h2, h3, h4, h5, h6 { color: @green; }
 
 	.form-control:focus { border-color: @green; }
 
-	.tab-content { border: 1px solid @green;}
+	.tab-content { border-color: @green;}
 
-	.nav-tabs > li.active > a { border-color: @green; }
+	.nav-tabs > li.active > a { border-color: @green; border-bottom-color: @colorWhite; }
 
 	.nav-tabs { border-color: @green; }
 
