@@ -1,10 +1,20 @@
 @import '../bellamar/home.less';
 
 /* setting on picture at carousel */
-#home {
-	.main-property {
-		max-width: 100%;
-		.item { height: 720px; }
+@media (min-width: 768px) {
+	#home {
+		.main-property {
+			max-width: 100%;
+			.item { height: 720px; }
+		}
+	}
+}
+@media (max-width: 767px) {
+	#home {
+		.main-property {
+			max-width: 100%;
+			.item { height: 480px; }
+		}
 	}
 }
 /* end setting on picture at carousel */
@@ -13,7 +23,6 @@
 @media screen and (min-width: 768px) {
 	#home {
     	.carousel-caption {
-    		position: static;
 
 	    	.col-md-3 {
       			width: 35%;
