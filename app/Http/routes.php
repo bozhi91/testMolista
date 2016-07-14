@@ -15,6 +15,7 @@ Route::group([
 		'web', 
 		'site.login.roles:admin|translator',
 		'setTheme:corporate',
+		'geolocation',
 	],
 ], function() {
 

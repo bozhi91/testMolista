@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "dc29811090c8febe1dd4a86c358a07cf",
-    "content-hash": "0a6e94c1efa6d12ed4d01f7509c4eb3c",
+    "hash": "2daab73e743b9f3ba470c5b8a2e74c9e",
+    "content-hash": "3e7f8022d21f26fd13c7c97997e81fae",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -553,6 +553,57 @@
                 "html"
             ],
             "time": "2015-08-05 01:03:42"
+        },
+        {
+            "name": "geoip2/geoip2",
+            "version": "v2.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/maxmind/GeoIP2-php.git",
+                "reference": "241e4442e0469d70043805ef699290616d53ce41"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/maxmind/GeoIP2-php/zipball/241e4442e0469d70043805ef699290616d53ce41",
+                "reference": "241e4442e0469d70043805ef699290616d53ce41",
+                "shasum": ""
+            },
+            "require": {
+                "maxmind-db/reader": "~1.0",
+                "maxmind/web-service-common": "~0.2",
+                "php": ">=5.3.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.2.*",
+                "squizlabs/php_codesniffer": "2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "GeoIp2\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Gregory J. Oschwald",
+                    "email": "goschwald@maxmind.com",
+                    "homepage": "http://www.maxmind.com/"
+                }
+            ],
+            "description": "MaxMind GeoIP2 PHP API",
+            "homepage": "https://github.com/maxmind/GeoIP2-php",
+            "keywords": [
+                "IP",
+                "geoip",
+                "geoip2",
+                "geolocation",
+                "maxmind"
+            ],
+            "time": "2016-06-10 22:32:01"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -1424,6 +1475,99 @@
             "time": "2016-01-22 12:22:23"
         },
         {
+            "name": "maxmind-db/reader",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/maxmind/MaxMind-DB-Reader-php.git",
+                "reference": "1383655533aa2f13a990b27b075fdde8b7bdd5ff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/maxmind/MaxMind-DB-Reader-php/zipball/1383655533aa2f13a990b27b075fdde8b7bdd5ff",
+                "reference": "1383655533aa2f13a990b27b075fdde8b7bdd5ff",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.2.*",
+                "satooshi/php-coveralls": "dev-master",
+                "squizlabs/php_codesniffer": "2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "MaxMind": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Gregory J. Oschwald",
+                    "email": "goschwald@maxmind.com",
+                    "homepage": "http://www.maxmind.com/"
+                }
+            ],
+            "description": "MaxMind DB Reader API",
+            "homepage": "https://github.com/maxmind/MaxMind-DB-Reader-php",
+            "keywords": [
+                "database",
+                "geoip",
+                "geoip2",
+                "geolocation",
+                "maxmind"
+            ],
+            "time": "2016-01-04 15:38:11"
+        },
+        {
+            "name": "maxmind/web-service-common",
+            "version": "v0.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/maxmind/web-service-common-php.git",
+                "reference": "436bebacf4e74651b383435822c472f3e0f2a28a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/maxmind/web-service-common-php/zipball/436bebacf4e74651b383435822c472f3e0f2a28a",
+                "reference": "436bebacf4e74651b383435822c472f3e0f2a28a",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*",
+                "squizlabs/php_codesniffer": "2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MaxMind\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Gregory Oschwald",
+                    "email": "goschwald@maxmind.com"
+                }
+            ],
+            "description": "Internal MaxMind Web Service API",
+            "homepage": "https://github.com/maxmind/mm-web-service-api-php",
+            "time": "2016-06-13 19:55:20"
+        },
+        {
             "name": "mcamara/laravel-localization",
             "version": "1.1.2",
             "source": {
@@ -1909,7 +2053,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jjriv/emogrifier/zipball/2a7b38bcac759e8ade7ff354c72801f5657b2f50",
+                "url": "https://api.github.com/repos/jjriv/emogrifier/zipball/cb0f68300b118e44e59822e0a8bb9059e37a0459",
                 "reference": "27c6f4dc1e4039d5609950efab0c03a5428e965b",
                 "shasum": ""
             },
@@ -3185,6 +3329,64 @@
                 "dump"
             ],
             "time": "2016-05-24 10:03:10"
+        },
+        {
+            "name": "torann/geoip",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Torann/laravel-geoip.git",
+                "reference": "f16f839160b1ab1fe41382e18ec9a32dd09b10fd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Torann/laravel-geoip/zipball/f16f839160b1ab1fe41382e18ec9a32dd09b10fd",
+                "reference": "f16f839160b1ab1fe41382e18ec9a32dd09b10fd",
+                "shasum": ""
+            },
+            "require": {
+                "geoip2/geoip2": "~2.1",
+                "illuminate/config": "~5.0",
+                "illuminate/console": "~5.0",
+                "illuminate/session": "~5.0",
+                "illuminate/support": "~5.0",
+                "monolog/monolog": "~1.11",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "~2.1",
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Torann\\GeoIP\\": "src/Torann/GeoIP"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD 2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Stainback",
+                    "email": "daniel@lyften.com"
+                }
+            ],
+            "description": "Supports the two main GeoIP services (infoDB and Maxmind).",
+            "keywords": [
+                "geoip",
+                "geolocation",
+                "laravel",
+                "laravel 5",
+                "location"
+            ],
+            "time": "2015-06-30 16:13:35"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -4779,7 +4981,8 @@
     "stability-flags": {
         "zizaco/entrust": 20,
         "pelago/emogrifier": 20,
-        "yangqi/htmldom": 20
+        "yangqi/htmldom": 20,
+        "torann/geoip": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

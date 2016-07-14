@@ -62,6 +62,8 @@ class Kernel extends HttpKernel
 		'property.permission' => \App\Http\Middleware\PropertyPermission::class,
 		'employee.permission' => \App\Http\Middleware\EmployeePermission::class,
 
+		'geolocation' => \App\Http\Middleware\Geolocation::class,
+
 		/* https://github.com/Zizaco/entrust */
 		'role' => \Zizaco\Entrust\Middleware\EntrustRole::class,
 		'permission' => \Zizaco\Entrust\Middleware\EntrustPermission::class,
@@ -69,6 +71,7 @@ class Kernel extends HttpKernel
 
 		/* https://github.com/igaster/laravel-theme */
 		'setTheme' => \igaster\laravelTheme\Middleware\setTheme::class,
+
 	];
 
 }
