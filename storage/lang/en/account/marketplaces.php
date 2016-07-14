@@ -9,6 +9,7 @@
 		'configure' => 'Connect',
 		'enabled' => 'Enabled',
 		'limit' => 'Limit',
+		'all' => 'Export all',
 		'exported' => 'Exported',
 		'updated' => 'Last updated',
 
@@ -19,6 +20,8 @@
 		'feed.properties.url' => 'Properties XML link',
 		'feed.owners.url' => 'Owners XML link',
 
+		'export_all' => 'Include all properties',
+		'export_all.warning' => 'This feed includes all properties',
 		'maxproperties.title' => 'Limit properties in this feed',
 		'maxproperties.helper' => '<p>Select the maximun number of properties you wish to allow for this feed.</p>
 									<p>Leave empty to allow unlimited properties.</p>',

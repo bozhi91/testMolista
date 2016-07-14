@@ -25,6 +25,11 @@ class MarketplaceHelper
 			$columns['marketplace_enabled'] = empty($data['marketplace_enabled']) ? 0 : 1;
 		}
 
+		if ( isset($data['marketplace_export_all']) )
+		{
+			$columns['marketplace_export_all'] = @intval($data['marketplace_export_all']);
+		}
+
 		if ( isset($data['marketplace_maxproperties']) )
 		{
 			$columns['marketplace_maxproperties'] = @intval($data['marketplace_maxproperties']);
@@ -119,8 +124,18 @@ class MarketplaceHelper
 		$folder = $this->getXmlFolder();
 		$filepath = $this->getXmlFilePath('properties');
 
+		// Check if needs regeneration
+		if ( file_exists($filepath) )
+		{
+			// Max 1 week old
+			if ( filemtime($filepath) < time()-(60*60*24*7) )
+			{
+				@unlink($filepath);
+			}
+		}
+
 		// Get XML content
-		if ( false && file_exists($filepath) )
+		if ( file_exists($filepath) )
 		{
 			$content = file_get_contents($filepath);
 		}
@@ -135,10 +150,22 @@ class MarketplaceHelper
 			// Get properties
 			$properties = [];
 
-			$source = $this->site->properties()
-						->withEverything()
-						->ofMarketplace($this->marketplace->id)
-						->get();
+			$query = $this->site->properties();
+
+			// Export all properties to marketplace
+			if ( @$this->marketplace->pivot->marketplace_export_all )
+			{
+			}
+			// Only enabled for this marketplace
+			else
+			{
+				$query->ofMarketplace($this->marketplace->id);
+			}
+
+			$source = $query->withEverything()
+							->orderBy('highlighted','desc')
+							->orderBy('updated_at','desc')
+							->get();
 
 			$total_allowed = intval($this->marketplace->pivot->marketplace_maxproperties);
 			$total_properties = $source->count();
@@ -224,6 +251,13 @@ class MarketplaceHelper
 
 	public function setMarketplace($marketplace)
 	{
+
+		// Marketplace without pivot data
+		if ( !isset($marketplace->pivot->marketplace_configuration) )
+		{
+			// Create marketplace from site
+			$marketplace = $this->site->marketplaces()->find($marketplace->id);
+		}
 
 		$config = isset($marketplace->pivot->marketplace_configuration)
 					? json_decode($marketplace->pivot->marketplace_configuration, true)

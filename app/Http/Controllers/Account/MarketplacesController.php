@@ -36,9 +36,11 @@ class MarketplacesController extends \App\Http\Controllers\AccountController
 
 		$marketplaces = $query->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
 
+		$total_properties = $this->site->properties->count();
+
 		$this->set_go_back_link();
 
-		return view('account.marketplaces.index', compact('marketplaces'));
+		return view('account.marketplaces.index', compact('marketplaces','total_properties'));
 	}
 
 	public function getConfigure($code)

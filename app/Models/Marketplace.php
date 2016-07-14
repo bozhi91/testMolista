@@ -156,7 +156,7 @@ class Marketplace extends \App\TranslatableModel
 	public function scopeWithSiteProperties($query,$site_id)
 	{
 		$query->with([ 'properties' => function($query) use ($site_id) {
-			$query->ofSite($site_id)->groupBy('properties.id');
+			$query->ofSite($site_id);
 		}]);
 	}
 
@@ -172,6 +172,7 @@ class Marketplace extends \App\TranslatableModel
 			->addSelect( \DB::raw('sites_marketplaces.`marketplace_enabled`') )
 			->addSelect( \DB::raw('sites_marketplaces.`marketplace_configuration`') )
 			->addSelect( \DB::raw('sites_marketplaces.`marketplace_maxproperties`') )
+			->addSelect( \DB::raw('sites_marketplaces.`marketplace_export_all`') )
 			;
 	}
 

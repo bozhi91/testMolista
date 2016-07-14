@@ -174,7 +174,8 @@ class Site extends TranslatableModel
 
 	public function marketplaces() 
 	{
-		return $this->belongsToMany('App\Models\Marketplace', 'sites_marketplaces', 'site_id', 'marketplace_id')->withPivot('marketplace_configuration','marketplace_enabled','marketplace_maxproperties');
+		return $this->belongsToMany('App\Models\Marketplace', 'sites_marketplaces', 'site_id', 'marketplace_id')
+					->withPivot('marketplace_configuration','marketplace_enabled','marketplace_maxproperties','marketplace_export_all');
 	}
 	public function getMarketplacesArrayAttribute() 
 	{

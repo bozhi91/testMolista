@@ -18,6 +18,7 @@
 							'title' => [ 'title' => Lang::get('account/marketplaces.title') ],
 							'limit' => [ 'title' => Lang::get('account/marketplaces.limit'), 'class'=>'text-center' ],
 							'properties' => [ 'title' => Lang::get('account/marketplaces.exported'), 'class'=>'text-center' ],
+							'all' => [ 'title' => Lang::get('account/marketplaces.all'), 'class'=>'text-center' ],
 							'configured' => [ 'title' => Lang::get('account/marketplaces.configured'), 'class'=>'text-center' ],
 							'updated' => [ 'title' => Lang::get('account/marketplaces.updated'), 'sortable'=>false, 'class'=>'text-center text-nowrap' ],
 							'action' => [ 'title' => '', 'sortable'=>false ],
@@ -41,7 +42,14 @@
 									-
 								@endif
 							<td class="text-center">
-								{{ number_format($marketplace->properties->count(),0,',','.') }}
+								@if ( $marketplace->marketplace_export_all )
+									{{ number_format($total_properties,0,',','.') }}
+								@else
+									{{ number_format($marketplace->properties->unique()->count(),0,',','.') }}
+								@endif
+							</td>
+							<td class="text-center">
+								<span class="glyphicon glyphicon-{{ $marketplace->marketplace_export_all ? 'ok' : 'remove' }}" aria-hidden="true"></span>
 							</td>
 							<td class="text-center">
 								<span class="glyphicon glyphicon-{{ $marketplace->marketplace_enabled ? 'ok' : 'remove' }}" aria-hidden="true"></span>

@@ -57,13 +57,22 @@
 						?>
 						<tr>
 							<td class="text-center" style="width: 60px;">
-								{!! Form::checkbox("marketplaces_ids[{$marketplace->id}]", $marketplace->id, $marketplace_published, $marketplace_checkbox_attr) !!}
+								@if ( $marketplace->pivot->marketplace_export_all )
+									@if ( $marketplace_published )
+										{!! Form::hidden("marketplaces_ids[{$marketplace->id}]", $marketplace->id) !!}
+									@endif
+									{!! Form::checkbox('null', 1, true, [ 'disabled'=>'disabled' ]) !!}
+								@else
+									{!! Form::checkbox("marketplaces_ids[{$marketplace->id}]", $marketplace->id, $marketplace_published, $marketplace_checkbox_attr) !!}
+								@endif
 							</td>
 							<td>
 								<span class="marketplace-name text-nowrap;" style="background-image: url({{ asset("marketplaces/{$marketplace->logo}") }});">{{ $marketplace->name }}</span>
 							</td>
 							<td>
-								@if ( $publishable === true )
+								@if ( $marketplace->pivot->marketplace_export_all )
+									{{ Lang::get('account/marketplaces.export_all.warning') }}
+								@elseif ( $publishable === true )
 								@else
 									<div class="not-published-rel {{ @$item->export_to_all ? 'hide' : '' }}">
 										{{ Lang::get('account/properties.marketplaces.error') }}<br />

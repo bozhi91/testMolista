@@ -57,11 +57,20 @@
 				</div>
 
 				<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'configuration' ? 'active' : '' }}" id="tab-configuration">
-					<h4>{{ Lang::get('account/marketplaces.maxproperties.title') }}</h4>
 					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group error-container">
+								{!! Form::label('marketplace_export_all', Lang::get('account/marketplaces.export_all')) !!}
+								{!! Form::select('marketplace_export_all', [
+									0 => Lang::get('general.no'),
+									1 => Lang::get('general.yes'),
+								], null, [ 'class'=>'form-control' ]) !!}
+							</div>
+						</div>
 						<div class="col-xs-12 col-sm-6">
 							<div class="form-group">
 								<div class="error-container">
+									{!! Form::label('marketplace_maxproperties', Lang::get('account/marketplaces.maxproperties.title')) !!}
 									{!! Form::text('marketplace_maxproperties', null, [ 'class'=>'form-control digits', 'min'=>1 ]) !!}
 								</div>
 								<div class="help-block">{!! Lang::get('account/marketplaces.maxproperties.helper') !!}</div>
