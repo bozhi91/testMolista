@@ -78,6 +78,13 @@ Route::group([
 		], function() {
 			Route::controller('expirations', 'Admin\ExpirationsController');
 		});
+		Route::group([
+			'middleware' => [
+				'permission:geography-*',
+			],
+		], function() {
+			Route::resource('geography/countries', 'Admin\Geography\CountriesController');
+		});
 		// Error log
 		Route::get('errorlog', [ 
 			'middleware' => ['role:admin'], 

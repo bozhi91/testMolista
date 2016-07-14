@@ -102,8 +102,8 @@ class CustomersController extends \App\Http\Controllers\AccountController
 
 		$profile = $customer->current_query;
 
-		$countries = \App\Models\Geography\Country::withTranslations()->enabled()->orderBy('name')->lists('name','id')->all();
-		if ( $country_id = @$profile->country_id ? $profile->country_id : \App\Models\Geography\Country::where('code','ES')->value('id') )
+		$countries = $this->site->enabled_countries;
+		if ( $country_id = @$profile->country_id ? $profile->country_id : $this->site->country_id )
 		{
 			$states = \App\Models\Geography\State::enabled()->where('country_id', $country_id)->lists('name','id')->all();
 		}

@@ -173,8 +173,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		$energy_types = \App\Property::getEcOptions();
 		$services = \App\Models\Property\Service::withTranslations()->enabled()->orderBy('title')->get();
 
-		$countries = \App\Models\Geography\Country::withTranslations()->enabled()->orderBy('name')->lists('name','id');
-		if ( $country_id = old('country_id', \App\Models\Geography\Country::where('code','ES')->value('id')) )
+		$countries = $this->site->enabled_countries;
+		if ( $country_id = old('country_id', $this->site->country_id) )
 		{
 			$states = \App\Models\Geography\State::enabled()->where('country_id', $country_id)->lists('name','id');
 		}
@@ -276,7 +276,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		$energy_types = \App\Property::getEcOptions();
 		$services = \App\Models\Property\Service::withTranslations()->enabled()->orderBy('title')->get();
 
-		$countries = \App\Models\Geography\Country::withTranslations()->enabled()->orderBy('name')->lists('name','id');
+		$countries = $this->site->enabled_countries;
 		$states = \App\Models\Geography\State::enabled()->where('country_id', $property->country_id)->lists('name','id');
 		$cities = \App\Models\Geography\City::enabled()->where('state_id', $property->state_id)->lists('name','id');
 

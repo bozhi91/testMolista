@@ -18,6 +18,7 @@ class Site extends TranslatableModel
 	protected $casts = [
 		'signature' => 'array',
 		'invoicing' => 'array',
+		'country_ids' => 'array',
 	];
 
 	protected $data;
@@ -797,6 +798,20 @@ class Site extends TranslatableModel
 			'sale' => $this->priceranges->where('type','sale')->sortBy('position'),
 			'rent' => $this->priceranges->where('type','rent')->sortBy('position'),
 		];
+	}
+
+	public function getEnabledCountriesAttribute() 
+	{
+		$query = \App\Models\Geography\Country::withTranslations()->enabled();
+
+		if ( $this->country_ids )
+		{
+			$query->whereIn('countries.id',$this->country_ids);
+		}
+
+		$countries = $query->orderBy('name')->lists('name','id');
+
+		return $countries;
 	}
 
 }
