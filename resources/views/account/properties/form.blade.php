@@ -783,9 +783,13 @@
 
 		form.on('change', 'select[name="export_to_all"]', function(){
 			if ( $(this).val() == '1' ) {
-				form.find('.marketplaces-container').addClass('hide');
+				form.find('.marketplace-input').prop('checked',true);
+				form.find('.not-published-rel').addClass('hide');
+				form.find('.marketplaces-overlay').removeClass('hide');
 			} else {
-				form.find('.marketplaces-container').removeClass('hide');
+				form.find('.marketplace-input-unpublished').prop('checked',false);
+				form.find('.not-published-rel').removeClass('hide');
+				form.find('.marketplaces-overlay').addClass('hide');
 			}
 		});
 
@@ -793,7 +797,6 @@
 			form.find('input[name="current_tab"]').val( $(this).data().tab );
 			form.find('.has-select-2').select2();
 		});
-		tabs.find('a[href="' + current_tab + '"]').tab('show');
 
 		form.find('.has-select-2').select2();
 

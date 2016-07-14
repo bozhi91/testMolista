@@ -156,7 +156,7 @@ class Marketplace extends \App\TranslatableModel
 	public function scopeWithSiteProperties($query,$site_id)
 	{
 		$query->with([ 'properties' => function($query) use ($site_id) {
-			$query->ofSite($site_id);
+			$query->ofSite($site_id)->groupBy('properties.id');
 		}]);
 	}
 
