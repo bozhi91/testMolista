@@ -2,8 +2,7 @@
 
 #properties {
 	.search-area {
-		background-color: @backgroundPropertiesSearch;
-		margin: 120px 0px 50px 0px;
+		background-color: @backgroundPropertiesSearch; margin: 120px 0px 50px 0px;
 		
 		h2 { color: @black; position: absolute; top: 0; margin-top: -68px; font-size: 18px; }
 		.container {width: auto !important;}
@@ -35,13 +34,11 @@
 		.property-row {
 			.col-xs-12.col-sm-9 {
 				.text-column {
-					.title { text-decoration: underline; a { color: @green; } }
-					.price { a { color: @green; } }
+					.title { text-decoration: underline; }
 				}
 			}
 		}
 	}
-
 	.pagination-area { padding-top: 0px !important; border-top: 0px !important; display: none; }
 }
 
@@ -111,6 +108,7 @@
 						.col-xs-12.col-sm-9 { width: 100%; }
 						.title {
 							text-decoration: underline; margin-top: 10px;
+	
 							a { color: @gray; font-weight: bold; }
 						}
 						.location { margin-top: 10px; }
@@ -127,6 +125,10 @@
 			}
 		}
 		.form-area.closed .input-line { display: inherit; }
+		.form-area { 
+			.col-xs-12.col-sm-6.input-line { .text-right { text-align: center; } }
+			.form-area-minimizer { display: none; }
+		}
 	}
 }
 
@@ -174,7 +176,7 @@
 	#properties {
 		.property-list {
 			.property-row {
-			    border: 1px solid @borderDarkgray; background: @white; padding: 0px; margin-bottom: 30px;
+			    border: 1px solid @gray; background: @white; padding: 0px; margin-bottom: 30px;
 
 				.col-xs-12.col-sm-9 {
 					.text-column {
@@ -190,7 +192,6 @@
 						.price { display: none; }
 					}
 				}
-
 				.col-xs-12.col-sm-3 {
 					.image-column {
 						.price {
