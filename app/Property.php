@@ -772,6 +772,7 @@ class Property extends TranslatableModel
 			'villa' => trans('web/properties.type.villa'), 
 			'store' => trans('web/properties.type.store'), 
 			'lot' => trans('web/properties.type.lot'), 
+			'ranch' => trans('web/properties.type.ranch'), 
 		];
 
 		if ( $site_id ) 

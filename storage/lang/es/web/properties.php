@@ -23,6 +23,7 @@
 		'type.villa' => 'Villa',
 		'type.lot' => 'Solar',
 		'type.store' => 'Local',
+		'type.ranch' => 'Finca',
 
 		'more.show' => 'Más opciones',
 		'more.any' => 'Mostrar todas',
