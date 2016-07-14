@@ -23,24 +23,31 @@
 	.carousel {
 		position: relative;
 		.carousel-caption {
-			position: static;
+			position: absolute;
+    		top: 0px;
 
 			.col-xs-12.col-md-3.hidden-xs.hidden-sm {
 				position: absolute;
 				top: 0px;
-				right: 50px;
-				width: 30%;
-
+				right: 0px;
+				width: 50%;
 
 				.slider-quick-search {
 					background-color: @carouselSearchBackground;
 					padding: 20px;
+					width: 300px;
+					margin: auto;
 
 					#quick-search-form {
 						input, select {
 							background-color: @carouselSearchInner;
 							color: @white;
 						}
+						.advanced-search-trigger {
+							color: @white;
+							font-size: 15px;
+						}
+						.form-control:focus { border-color: @buttonBlue; }
 					}
 				}
 			}
@@ -72,8 +79,26 @@
 					}
 				}
 			}
-
 		}
+		@media (min-width: 768px) and (max-width: 1999px) {
+			.carousel-caption {
+			    left: 0px;
+    			right: 0px;
+    		}
+		}
+		@media (min-width: 2000px) {
+			.carousel-caption {
+			    left: 15%;
+    			right: 15%;
+    		}
+		}
+		@media (min-width: 2000px) {
+			.carousel-caption {
+			    left: 20%;
+    			right: 20%;
+    		}
+		}
+
 	}
 
 	.carousel:after { display: table; content: ""; clear: both; }
@@ -109,3 +134,5 @@
 		}
 	}
 }
+
+#advanced-search-modal {}
