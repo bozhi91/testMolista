@@ -112,42 +112,114 @@ class MarketplaceHelper
 		\Log::warning("XML of type {$type} is not defined");
 		return false;
 	}
+
 	public function getMarketplaceXmlProperties()
 	{
-		// Get properties
-		$properties = [];
+		// Define filepath
+		$folder = $this->getXmlFolder();
+		$filepath = $this->getXmlFilePath('properties');
 
-		$source = $this->site->properties()
-					->withEverything()
-					->ofMarketplace($this->marketplace->id)
-					->get();
-		foreach ($source as $key => $property)
+		// Get XML content
+		if ( false && file_exists($filepath) )
 		{
-			$this->setProperty($property);
-			$properties[] = $this->property_marketplace;
+			$content = file_get_contents($filepath);
+		}
+		// Or generate it
+		else
+		{
+			if (!is_dir($folder))
+			{
+				\File::makeDirectory($folder, 0775, true, true);
+			}
+
+			// Get properties
+			$properties = [];
+
+			$source = $this->site->properties()
+						->withEverything()
+						->ofMarketplace($this->marketplace->id)
+						->get();
+
+			$total_allowed = intval($this->marketplace->pivot->marketplace_maxproperties);
+			$total_properties = $source->count();
+			$check_limit = ( $total_allowed > 0 && $total_allowed < $total_properties );
+
+			foreach ($source as $key => $property)
+			{
+				// Prepare property
+				$this->setProperty($property);
+
+				// If check_limit, validate property
+				if ( $check_limit && !$this->marketplace_adm->validateProperty($this->property_marketplace) )
+				{
+					continue;
+				}
+
+				// Add property to feed
+				$properties[] = $this->property_marketplace;
+
+				// If check_limit and total allowed has been reached
+				if ( $check_limit && count($properties) >= $total_allowed )
+				{
+					break;
+				}
+			}
+
+			$content = $this->marketplace_adm->getPropertiesXML($properties);
+
+			\File::put($filepath, $content);
 		}
 
-		return $this->marketplace_adm->getPropertiesXML($properties);
+		return $content;
 	}
+
 	public function getMarketplaceXmlOwners()
 	{
-		$config = @json_decode( $this->marketplace->pivot->marketplace_configuration );
-
-		if ( empty($config->owner) )
-		{
+		$config = @json_decode($this->marketplace->pivot->marketplace_configuration);
+		if (empty($config->owner)) {
 			return false;
 		}
 
-		return $this->marketplace_adm->getOwnersXml([
-			[
-				'id' => $this->site->id,
-				'fullname' => @$config->owner->fullname,
-				'email' => @$config->owner->email,
-				'cif' => @$config->owner->cif,
-			],
-		]);
+		// Define filepath
+		$folder = $this->getXmlFolder();
+		$filepath = $this->getXmlFilePath('owners');
 
-		return $this->marketplace_adm->getOwnersXml($owners);
+		// Get XML content
+		if (file_exists($filepath))
+		{
+			$content = file_get_contents($filepath);
+		}
+		// Or generate it
+		else
+		{
+			if (!is_dir($folder))
+			{
+				\File::makeDirectory($folder, 0775, true, true);
+			}
+
+			$content = $this->marketplace_adm->getOwnersXml([
+				[
+					'id' => $this->site->id,
+					'fullname' => @$config->owner->fullname,
+					'email' => @$config->owner->email,
+					'cif' => @$config->owner->cif,
+				],
+			]);
+
+			\File::put($filepath, $content);
+		}
+
+		return $content;
+	}
+
+	public function getXmlFolder()
+	{
+		return "{$this->site->xml_path}/{$this->marketplace->code}";
+	}
+
+	public function getXmlFilePath($type)
+	{
+		return "{$this->getXmlFolder()}/{$type}.xml";
 	}
 
 	public function setMarketplace($marketplace)
