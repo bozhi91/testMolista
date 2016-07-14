@@ -26,6 +26,7 @@ class Marketplace extends \App\TranslatableModel
 		'enabled' => 'boolean',
 		'logo' => 'image',
 		'url' => 'url',
+		'upload_type' => 'string',
 	];
 	protected static $update_validator_fields = [
 		'class_path' => 'required|string',
@@ -36,6 +37,7 @@ class Marketplace extends \App\TranslatableModel
 		'requires_contact' => 'boolean',
 		'logo' => 'image',
 		'url' => 'url',
+        'upload_type' => 'string',
 	];
 
 	protected $guarded = [];
@@ -47,6 +49,11 @@ class Marketplace extends \App\TranslatableModel
 	public function country()
 	{
 		return $this->belongsTo('App\Models\Geography\Country')->withTranslations();
+	}
+
+    public function sites()
+	{
+		return $this->belongsToMany('App\Site', 'sites_marketplaces')->withPivot('marketplace_configuration','marketplace_enabled');
 	}
 
 	public static function saveModel($data, $id = null)
@@ -143,6 +150,11 @@ class Marketplace extends \App\TranslatableModel
 	public function scopeEnabled($query)
 	{
 		return $query->where("{$this->getTable()}.enabled", 1);
+	}
+
+    public function scopeFtp($query)
+	{
+		return $query->where("{$this->getTable()}.upload_type", 'ftp');
 	}
 
 	public function scopeWithSiteConfiguration($query,$site_id)

@@ -238,4 +238,9 @@ class MarketplaceHelper
 		return \File::deleteDirectory($this->site->xml_path, true);
 	}
 
+	public function getMarketplaceAdm()
+	{
+		return $this->marketplace_adm;
+	}
+
 }

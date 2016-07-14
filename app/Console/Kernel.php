@@ -23,6 +23,7 @@ class Kernel extends ConsoleKernel
 		Commands\TicketsMaintenanceCommand::class,
 		Commands\ParseWebsiteCommand::class,
 		Commands\PlanMaintenanceCommand::class,
+		Commands\MarketplaceUploadFeedCommand::class,
 	];
 
 	/**
