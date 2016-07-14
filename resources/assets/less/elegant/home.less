@@ -3,7 +3,7 @@
 /* setting on picture at carousel */
 @media (min-width: 768px) {
 	#home {
-		.main-property {
+		.main-property { 
 			max-width: 100%;
 			.item { height: 720px; }
 		}
@@ -20,7 +20,7 @@
 /* end setting on picture at carousel */
 
 /* settings on carousel */
-@media screen and (min-width: 768px) {
+@media (min-width: 768px) {
 	#home {
     	.carousel-caption {
 
@@ -49,14 +49,34 @@
     	}
 	}
 }
+
+@media (min-width: 768px) and (max-width: 1999px) {
+	#home .main-property .carousel-caption {
+	    left: 0px;
+		right: 0px;
+	}
+}
+@media (min-width: 2000px) {
+	#home .main-property .carousel-caption {
+	    left: 15%;
+		right: 15%;
+	}
+}
+@media (min-width: 3000px) {
+	#home .main-property .carousel-caption {
+	    left: 20%;
+		right: 20%;
+	}
+}
 /* end settings on carousel */
 
 /* styles in carousel */
 #home {
 	.main-property {
-
 		.slider-quick-search {
 			background: @grey !important;
+			position: absolute !important;
+			bottom: 0px !important;
 
 			#quick-search-form {
 			    position: relative;
@@ -83,7 +103,17 @@
 			}
 		}
 
-		.carousel-caption-text { color: @black;	}
+		.carousel-caption-text {
+			text-align: left;
+
+			.carousel-caption-title { font-size: 19px; color: @black; }
+			.carousel-caption-subtitle { font-size: 21px; color: @black; font-weight: bold; }
+			.carousel-caption-button {
+				margin-top: 10px;
+
+				a { padding: 5px 10px; color: @white; background-color: @green; font-size: 15px; }
+			}
+		}
 
 	}
 	.properties-slider-area {

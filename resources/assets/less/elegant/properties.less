@@ -28,7 +28,6 @@
 				.btn.btn-warning { border-color: @green; background: @green; color: @white; }
 			/* end colors */
 		}
-		.form-area.closed .input-line { display: block !important; }
 	}
 
 	.results-area {
@@ -136,6 +135,13 @@
 						.btn-more-info { position: absolute; bottom: auto; right: 0px; top: 0; border-radius: 0px; }
 					}
 				}
+			}
+		}
+		.search-area {
+			.form-area.closed .input-line { display: block !important; }
+			.form-area { 
+				.col-xs-12.col-sm-6.input-line { .text-right { text-align: center; } }
+				.form-area-minimizer { display: none; }
 			}
 		}
 	}
