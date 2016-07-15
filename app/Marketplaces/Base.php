@@ -13,7 +13,7 @@ abstract class Base implements MarketplaceInterface {
     {
         if (empty($this->iso_lang))
         {
-            throw new \LogicException(static::class." must declare the attribute $iso_lang.");
+            throw new \LogicException(static::class.' must declare the attribute $iso_lang.');
         }
 
         $this->config = $config;
