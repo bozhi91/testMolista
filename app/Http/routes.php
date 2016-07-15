@@ -83,6 +83,7 @@ Route::group([
 				'permission:geography-*',
 			],
 		], function() {
+			Route::get('geography/countries/check/{type}', 'Admin\Geography\CountriesController@getCheck');
 			Route::resource('geography/countries', 'Admin\Geography\CountriesController');
 		});
 		// Error log

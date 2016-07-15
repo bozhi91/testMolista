@@ -31,61 +31,71 @@ class CountriesController extends \App\Http\Controllers\Controller
 
 		return view('admin.geography.countries.index', compact('countries'));
 	}
-/*
+
 	public function create()
 	{
-		return view('admin.config.plans.create');
+		$currencies = \App\Models\Currency::withTranslations()->orderBy('title')->lists('title','code')->all();
+		$locales = \App\Models\Locale::whereIn('locale', \App\Models\Locale::getCorporateLocales())->orderBy('native')->lists('native','locale')->all();
+
+		return view('admin.geography.countries.create', compact('currencies','locales'));
 	}
 
 	public function store()
 	{
 		$data = $this->request->all();
 
-		$validator = \App\Models\Plan::getValidator($data);
+		$validator = \App\Models\Geography\Country::getCreateValidator($data,false);
 		if ($validator->fails())
 		{
 			return redirect()->back()->withInput()->withErrors($validator);
 		}
 
-		$item = \App\Models\Plan::saveModel($data);
+		$item = \App\Models\Geography\Country::saveModel($data);
 		if (!$item)
 		{
 			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
 		}
 
-		return redirect()->action('Admin\Config\PlansController@edit', $item->id)->with('success', trans('admin/config/plans.created'));
+		\App\Models\Geography\Country::saveImages($item,$this->request);
+
+		return redirect()->action('Admin\Geography\CountriesController@edit', $item->id)->with('success', trans('admin/geography/countries.created'));
 	}
 
 	public function edit($id)
 	{
-		$plan = \App\Models\Plan::findOrFail($id);
-		return view('admin.config.plans.edit', compact('plan'));
+		$country = \App\Models\Geography\Country::findOrFail($id);
+		$currencies = \App\Models\Currency::withTranslations()->orderBy('title')->lists('title','code')->all();
+		$locales = \App\Models\Locale::whereIn('locale', \App\Models\Locale::getCorporateLocales())->orderBy('native')->lists('native','locale')->all();
+
+		return view('admin.geography.countries.edit', compact('country','currencies','locales'));
 	}
 
 	public function update($id)
 	{
-		$plan = \App\Models\Plan::findOrFail($id);
+		$country = \App\Models\Geography\Country::findOrFail($id);
 
 		$data = $this->request->all();
 
-		$validator = \App\Models\Plan::getUpdateValidator($data, $id);
+		$validator = \App\Models\Geography\Country::getUpdateValidator($data, $id);
 		if ($validator->fails())
 		{
 			return redirect()->back()->withInput()->withErrors($validator);
 		}
 
-		$item = \App\Models\Plan::saveModel($data, $id);
+		$item = \App\Models\Geography\Country::saveModel($data, $id);
 		if (!$item)
 		{
 			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
 		}
 
-		return redirect()->action('Admin\Config\PlansController@edit', $id)->with('success', trans('admin/config/plans.saved'));
+		\App\Models\Geography\Country::saveImages($item,$this->request);
+
+		return redirect()->back()->with('success', trans('admin/geography/countries.saved'));
 	}
 
 	public function getCheck($type=false)
 	{
-		$query = \App\Models\Plan::whereNotNull('id');
+		$query = \App\Models\Geography\Country::whereNotNull('id');
 
 		switch ($type) 
 		{
@@ -100,5 +110,5 @@ class CountriesController extends \App\Http\Controllers\Controller
 
 		echo ( $query->count() < 1 ) ? 'true' : 'false';
 	}
-*/
+
 }

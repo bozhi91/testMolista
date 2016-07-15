@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Locale extends Model
 {
 
+	static public function getCorporateLocales()
+	{
+		return [ 'es','en' ];
+	}
+
 	static public function getConfigFilepath()
 	{
 		$dirpath = storage_path();
