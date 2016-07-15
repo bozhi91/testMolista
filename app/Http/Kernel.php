@@ -64,6 +64,9 @@ class Kernel extends HttpKernel
 
 		'geolocation' => \App\Http\Middleware\Geolocation::class,
 
+		'currency.site' => \App\Http\Middleware\CurrencySite::class,
+		'currency.corporate' => \App\Http\Middleware\CurrencyCorporate::class,
+
 		/* https://github.com/Zizaco/entrust */
 		'role' => \Zizaco\Entrust\Middleware\EntrustRole::class,
 		'permission' => \Zizaco\Entrust\Middleware\EntrustPermission::class,

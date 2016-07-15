@@ -30,7 +30,8 @@
 							<tr>
 								<th>#</th>
 								<th>{{ Lang::get('admin/config/plans.name') }}</th>
-								<th class="text-right">{{ Lang::get('admin/config/plans.price') }}</th>
+								<th>{{ Lang::get('admin/config/plans.price') }}</th>
+								<th>{{ Lang::get('admin/config/plans.currency') }}</th>
 								<th class="text-center">{{ Lang::get('admin/config/plans.enabled') }}</th>
 								<th></th>
 							</tr>
@@ -40,13 +41,14 @@
 								<tr>
 									<td>{{ $plan->code }}</td>
 									<td>{{ $plan->name }}</td>
-									<td class="text-right">
+									<td>
 										@if ( $plan->is_free )
 											{{ Lang::get('admin/config/plans.free') }}
 										@else
-											{{ price($plan->price_month,'EUR') }} / {{ price($plan->price_year,'EUR') }}
+											{{ price($plan->price_month, $plan->infocurrency->toArray()) }} / {{ price($plan->price_year, $plan->infocurrency->toArray()) }}
 										@endif
 									</td>
+									<td>{{ $plan->currency }}</td>
 									<td class="text-center"><span class="glyphicon glyphicon-{{ $plan->enabled ? 'ok' : 'remove' }}" aria-hidden="true"></span></td>
 									<td class="text-right">
 										@permission('pack-edit')

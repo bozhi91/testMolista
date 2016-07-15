@@ -11,6 +11,7 @@ return [
 	'price' => 'Price',
 	'price.year' => 'Price (yearly)',
 	'price.month' => 'Price (monthly)',
+	'currency' => 'Currency',
 	'employees' => 'Agents',
 	'properties' => 'Properties',
 	'space' => 'Space',

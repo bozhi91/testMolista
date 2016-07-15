@@ -144,7 +144,12 @@
 							</div>
 							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 								<div class="feature-content-image">
-									<img src="{{ Theme::url('/images/corporate/features/picture-tab-content-5.png') }}" class="img-responsive">
+									@if ( \App\Session\Geolocation::get('config.feature_image') )
+										<?php $config = \App\Session\Geolocation::get('config') ?>
+										<img src="{{ Theme::url("{$config['items_folder']}/{$config['feature_image']}") }}" class="img-responsive">
+									@else
+										<img src="{{ Theme::url('/images/corporate/features/picture-tab-content-5.png') }}" class="img-responsive">
+									@endif
 								</div>
 							</div>
 						</div>

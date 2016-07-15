@@ -15,22 +15,26 @@ Route::group([
 		'web', 
 		'site.login.roles:admin|translator',
 		'setTheme:corporate',
-		'geolocation',
 	],
 ], function() {
 
 	// Corporate web
-	Route::get('/', 'CorporateController@index');
-	Route::controller('demo', 'Corporate\DemoController');
-	Route::controller('info', 'Corporate\InfoController');
-	Route::controller('features', 'Corporate\FeaturesController');
-	Route::controller('pricing', 'Corporate\PricingController');
-
-	// Signup
-	Route::controller('signup', 'Corporate\SignupController');
-
-	// Customers area
-	Route::controller('customers', 'Corporate\CustomersController');
+	Route::group([
+		'middleware' => [
+			'geolocation',
+			'currency.corporate',
+		],
+	], function() {
+		Route::get('/', 'CorporateController@index');
+		Route::controller('demo', 'Corporate\DemoController');
+		Route::controller('info', 'Corporate\InfoController');
+		Route::controller('features', 'Corporate\FeaturesController');
+		Route::controller('pricing', 'Corporate\PricingController');
+		// Signup
+		Route::controller('signup', 'Corporate\SignupController');
+		// Customers area
+		Route::controller('customers', 'Corporate\CustomersController');
+	});
 
 	// Admin
 	Route::group([
@@ -109,6 +113,7 @@ Route::group([
 		'site.setup',
 		'site.autologin',
 		'site.setup.user',
+		'currency.site',
 	],
 ], function() {
 	// Web

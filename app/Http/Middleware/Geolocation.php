@@ -10,10 +10,25 @@ class Geolocation
 
 		if ( !$geolocation )
 		{
-			$geolocation = \GeoIP::getLocation('177.231.161.243');
-			\App\Session\Geolocation::replace($geolocation);
+			$geolocation = \GeoIP::getLocation();
+			// $geolocation = \GeoIP::getLocation('146.83.255.255'); Chile
 		}
 
+		// Get country information
+		$country = \App\Models\Geography\Country::where('code',$geolocation['isoCode'])->first();
+		if ( !$country )
+		{
+			$country = \App\Models\Geography\Country::where('code','US')->first();
+		}
+
+		// Add to geolocation
+		$geolocation['config'] = $country->toArray();
+		$geolocation['config']['items_folder'] = $country->items_folder;
+
+		// Save in session
+		\App\Session\Geolocation::replace($geolocation);
+
+		// Pass to request
 		$request->attributes->add([
 			'geolocation' => $geolocation,
 		]);

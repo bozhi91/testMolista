@@ -50,6 +50,11 @@ class Plan extends Model
 		'enabled' => 'boolean',
 	];
 
+	public function infocurrency()
+	{
+		return $this->hasOne('App\Models\Currency', 'code', 'currency')->withTranslations();
+	}
+
 	public static function saveModel($data, $id = null)
 	{
 		if ($id)

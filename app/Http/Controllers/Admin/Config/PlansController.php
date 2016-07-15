@@ -17,7 +17,7 @@ class PlansController extends \App\Http\Controllers\Controller
 
 	public function index()
 	{
-		$query = \App\Models\Plan::whereNotNull('id');
+		$query = \App\Models\Plan::with('infocurrency');
 
 		// Filter by name
 		if ( $this->request->get('name') )
