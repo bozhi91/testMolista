@@ -1,1 +1,37 @@
 @import '../app/forms.less';
+
+/* Advanced Search Modal */
+#advanced-search-modal {
+	background: @white;
+
+	h2 { color: @black; }
+
+	.form-control:focus { border-color: @buttonBlue; }
+}
+
+.select2-container--default.select2-container--focus .select2-selection--single,
+.select2-container--default.select2-container--open .select2-selection--single,
+.select2-container--default.select2-container--focus .select2-selection--multiple,
+.select2-container--default.select2-container--open .select2-selection--multiple {
+	border: 1px solid @buttonBlue;
+}
+
+.select2-container--open .select2-dropdown--below {
+	border-color: @buttonBlue !important;
+}
+
+.btn.btn-submit.btn-warning.text-uppercase { border-color: @buttonBlue; background-color: @buttonBlue; color: @white; }
+
+/* End Advanced Search Modal */
+
+/* More info Button Form */
+
+#property-moreinfo-form {
+	background: @white;
+
+	h2 { color: @black; }
+
+	.form-control:focus { border-color: @buttonBlue; }	
+}
+
+/* End More info Button Form */
