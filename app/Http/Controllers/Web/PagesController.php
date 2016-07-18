@@ -12,7 +12,7 @@ class PagesController extends WebController
 
 	public function show($slug)
 	{
-		$page = $this->site->pages()->withTranslations()->enabled()->whereTranslation('slug',$slug)->first();
+		$page = $this->site->pages()->enabled()->whereTranslation('slug',$slug)->first();
 		if ( !$page )
 		{
 			abort(404);
@@ -35,7 +35,7 @@ class PagesController extends WebController
 
 	public function post($slug)
 	{
-		$page = $this->site->pages()->withTranslations()->enabled()->whereTranslation('slug',$slug)->first();
+		$page = $this->site->pages()->enabled()->whereTranslation('slug',$slug)->first();
 		if ( !$page )
 		{
 			abort(404);

@@ -149,7 +149,7 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 			abort(404);
 		}
 
-		$properties = $employee->properties()->ofSite( $this->site->id )->withTranslations()->get();
+		$properties = $employee->properties()->ofSite( $this->site->id )->get();
 
 		return view('account.employees.edit', compact('employee','properties'));
 	}

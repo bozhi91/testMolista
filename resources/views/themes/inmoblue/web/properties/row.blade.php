@@ -15,7 +15,7 @@
 							<a href="{{ action('Web\PropertiesController@details', $item->slug) }}">{{$item->title}}</a>
 						</div>
 						<div class="price text-bold">
-							<a href="{{ action('Web\PropertiesController@details', $item->slug) }}">{{ price($item->price, [ 'decimals'=>0 ]) }}</a>
+							<a href="{{ action('Web\PropertiesController@details', $item->slug) }}">{{ price($item->price, $item->infocurrency->toArray()) }}</a>
 						</div>
 						<div class="location text-italic">
 							<i class="fontello-icon fontello-icon-marker hidden-xs"></i>
@@ -66,7 +66,7 @@
 							</li>
 							<li class="text-nowrap has-fontello-icon">
 								<i class="fontello-icon fontello-icon-coins"></i>
-								{{ number_format(round($item->price/$item->size),0,',','.') }} {{ price_symbol($property->currency) }}/m²
+								{{ number_format(round($item->price/$item->size),0,',','.') }} {{ $item->infocurrency->symbol }}/m²
 							</li>
 						</ul>
 						<div class="services text-italic">

@@ -19,7 +19,7 @@
 									<span class="carousel-caption-text">
 										<h4 class="carousel-title">{{$main_property->title}}</h4>
 										
-										<h4 class="carousel-price hidden-xs">{{ price($main_property->price, [ 'decimals'=>0 ]) }}</h4>
+										<h4 class="carousel-price hidden-xs">{{ price($main_property->price, $main_property->infocurrency->toArray()) }}</h4>
 										
 										<a href="{{ action('Web\PropertiesController@details', $main_property->slug) }}" class="carousel-button">{{ Lang::get('web/properties.search.results.more') }}</a>
 									</span>

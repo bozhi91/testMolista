@@ -10,7 +10,7 @@
 			if ( !empty($values['price']) ) 
 			{
 				$currency = \App\Property::getCurrencyOption( empty($values['currency']) ? @$property->currency : $values['currency'] );
-				echo price($values['price'], $currency);
+				echo price($values['price'], $property->infocurrency->toArray());
 			}
 			break;
 		case 'size':

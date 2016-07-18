@@ -69,7 +69,7 @@
 												@if ( $pending_request->payment_method == 'stripe' )
 													{!! Lang::get('account/payment.plans.pending.stripe', [
 														'plan' => @$pending_request->summary->plan_name,
-														'paymethod' => Lang::get("web/plans.price.{$pending_request->payment_interval}") . ' ' . price($pending_request->plan_price, [ 'decimals'=>0 ]),
+														'paymethod' => Lang::get("web/plans.price.{$pending_request->payment_interval}") . ' ' . price($pending_request->plan_price, $pending_request->plan->infocurrency->toArray()),
 													]) !!}
 													<div class="text-right text-nowrap">
 														<a href="#" class="btn btn-default btn-sm pull-left cancel-pending-request-trigger">{{ Lang::get('account/payment.plans.pending.cancel') }}</a>
@@ -78,7 +78,7 @@
 												@else
 													{!! Lang::get('account/payment.plans.pending.transfer', [
 														'plan' => @$pending_request->summary->plan_name,
-														'paymethod' => Lang::get("web/plans.price.{$pending_request->payment_interval}") . ' ' . price($pending_request->plan_price, [ 'decimals'=>0 ]),
+														'paymethod' => Lang::get("web/plans.price.{$pending_request->payment_interval}") . ' ' . price($pending_request->plan_price, $pending_request->plan->infocurrency->toArray()),
 													]) !!}
 													<div class="text-nowrap">
 														<a href="#" class="btn btn-default btn-sm cancel-pending-request-trigger">{{ Lang::get('account/payment.plans.pending.cancel') }}</a>
@@ -130,6 +130,7 @@
 		<div id="plans-modal" class="mfp-hide app-popup-block-white app-popup-block-large">
 			<div style="padding: 30px;">
 				@include('corporate.common.plans', [
+					'buy_plans' => $plans,
 					'buy_plan_url' => action('Account\PaymentController@getUpgrade'),
 					'buy_button_text' => Lang::get('account/payment.plan.upgrade.simple'),
 				])

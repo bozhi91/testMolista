@@ -45,7 +45,7 @@
 			<div class="bottom-pill">
 				<div class="price text-italic">
 
-					{{ price($item->price, [ 'decimals'=>0 ]) }}
+					{{ price($item->price, $item->infocurrency->toArray()) }}
 
 					<span class="pull-right button-pill-block">
 						<a class="button-pill" href="#">{{ Lang::get('web/properties.search.results.more') }}</a>

@@ -39,6 +39,11 @@ class Site extends TranslatableModel
 		return $this->belongsTo('App\Models\Plan');
 	}
 
+	public function country()
+	{
+		return $this->hasOne('App\Models\Geography\Country','code','country_code')->withTranslations();
+	}
+
 	public function planchanges()
 	{
 		return $this->hasMany('App\Models\Site\Planchange');
@@ -105,7 +110,7 @@ class Site extends TranslatableModel
 	}
 
 	public function properties() {
-		return $this->hasMany('App\Property');
+		return $this->hasMany('App\Property')->with('infocurrency')->withTranslations();
 	}
 
 	public function api_keys() {
@@ -117,11 +122,11 @@ class Site extends TranslatableModel
 	}
 
 	public function widgets() {
-		return $this->hasMany('App\Models\Site\Widget');
+		return $this->hasMany('App\Models\Site\Widget')->withTranslations();
 	}
 
 	public function pages() {
-		return $this->hasMany('App\Models\Site\Page');
+		return $this->hasMany('App\Models\Site\Page')->withTranslations();
 	}
 
 	public function social() {
@@ -171,6 +176,19 @@ class Site extends TranslatableModel
 		}
 
 		return $locales;
+	}
+
+	public function infocurrency()
+	{
+		return $this->hasOne('App\Models\Currency', 'code', 'site_currency')->withTranslations();
+	}
+	public function infositecurrency()
+	{
+		return $this->hasOne('App\Models\Currency', 'code', 'site_currency')->withTranslations();
+	}
+	public function infopaymentcurrency()
+	{
+		return $this->hasOne('App\Models\Currency', 'code', 'payment_currency')->withTranslations();
 	}
 
 	public function marketplaces() 
@@ -539,7 +557,7 @@ class Site extends TranslatableModel
 		foreach ($setup['locales'] as $locale => $attr)
 		{
 			\App::setLocale($locale);
-			$widgets = $site->widgets()->withTranslations()->withMenu()->orderBy('position')->get();
+			$widgets = $site->widgets()->withMenu()->orderBy('position')->get();
 			foreach ($widgets as $widget)
 			{
 				$w = [

@@ -20,6 +20,7 @@ return [
 	'free.plan' => 'Plan gratuito',
 	'enabled' => 'Habilitado',
 	'stripe.id' => 'ID Stripe',
+	'level' => 'Nivel',
 
 	'qr' => 'Códigos QR',
 	'printing' => 'Impresión de carteles',

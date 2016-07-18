@@ -88,10 +88,22 @@ class CreateCurrencyTables extends Migration
 			$table->foreign('payment_currency')->references('code')->on('currencies')->onUpdate('cascade')->onDelete('set null');
 		});
 		\DB::statement("UPDATE `sites` SET `site_currency`='EUR', `payment_currency`='EUR' WHERE 1");
+		// Modify currency type on customers_queries
+		\DB::statement("ALTER TABLE `customers_queries` MODIFY `currency` VARCHAR(3) NULL");
+		// Index currency on properties
+		Schema::table('customers_queries', function(Blueprint $table)
+		{
+			$table->foreign('currency')->references('code')->on('currencies')->onUpdate('cascade')->onDelete('set null');
+		});
 	}
 
 	public function down()
 	{
+		Schema::table('customers_queries', function(Blueprint $table)
+		{
+			$table->dropForeign(['currency']);
+		});
+		\DB::statement("ALTER TABLE `customers_queries` MODIFY `currency` VARCHAR(255)");
 		Schema::table('sites', function(Blueprint $table)
 		{
 			$table->dropForeign(['payment_currency']);

@@ -24,10 +24,7 @@ class PagesController extends \App\Http\Controllers\AccountController
 
 	public function index()
 	{
-		$query = $this->site->pages()->withTranslations();
-
-		$pages = $query->orderBy('title')->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
-
+		$pages = $this->site->pages()->orderBy('title')->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
 		return view('account.site.pages.index', compact('pages'));
 	}
 
@@ -62,14 +59,14 @@ class PagesController extends \App\Http\Controllers\AccountController
 		$page->save();
 
 		// Get page with slug
-		$page = $this->site->pages()->withTranslations()->find($page->id);
+		$page = $this->site->pages()->find($page->id);
 
 		return redirect()->action('Account\Site\PagesController@edit', $page->slug)->with('success', trans('account/site.pages.create.success'));
 	}
 
 	public function edit($slug)
 	{
-		$page = $this->site->pages()->withTranslations()->whereTranslation('slug', $slug)->first();
+		$page = $this->site->pages()->whereTranslation('slug', $slug)->first();
 		if ( !$page )
 		{
 			abort(404);
@@ -80,7 +77,7 @@ class PagesController extends \App\Http\Controllers\AccountController
 
 	public function update($slug)
 	{
-		$page = $this->site->pages()->withTranslations()->whereTranslation('slug', $slug)->first();
+		$page = $this->site->pages()->whereTranslation('slug', $slug)->first();
 		if ( !$page )
 		{
 			abort(404);
@@ -125,7 +122,7 @@ class PagesController extends \App\Http\Controllers\AccountController
 		$page->save();
 
 		// Get page with slug
-		$page = $this->site->pages()->withTranslations()->find($page->id);
+		$page = $this->site->pages()->find($page->id);
 
 		// Update site setup
 		$this->site->updateSiteSetup();
@@ -135,7 +132,7 @@ class PagesController extends \App\Http\Controllers\AccountController
 
 	public function destroy($slug)
 	{
-		$page = $this->site->pages()->withTranslations()->whereTranslation('slug', $slug)->first();
+		$page = $this->site->pages()->whereTranslation('slug', $slug)->first();
 		if ( !$page )
 		{
 			abort(404);

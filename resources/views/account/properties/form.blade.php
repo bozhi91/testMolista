@@ -1,3 +1,7 @@
+<?php
+	$infocurrency = empty($property->currency) ? $current_site->infocurrency : $property->infocurrency;
+?>
+
 <style type="text/css">
 	#tab-marketplaces .marketplace-name { display: inline-block; padding-left: 25px; background: left center no-repeat; }
 </style>
@@ -51,11 +55,16 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
-							{!! Form::hidden('currency', empty($property->currency) ? 'EUR' : $property->currency) !!}
+							{!! Form::hidden('currency', $infocurrency->code) !!}
 							{!! Form::label('price', Lang::get('account/properties.price')) !!}
 							<div class="input-group">
+								@if ( $infocurrency->position == 'before' )
+									<div class="input-group-addon">{{ $infocurrency->symbol }}</div>
+								@endif
 								{!! Form::text('price', null, [ 'class'=>'form-control required number', 'min'=>'0' ]) !!}
-								<div class="input-group-addon">{{ price_symbol(empty($property->currency) ? 'EUR' : $property->currency) }}</div>
+								@if ( $infocurrency->position == 'after' )
+									<div class="input-group-addon">{{ $infocurrency->symbol }}</div>
+								@endif
 							</div>
 						</div>
 					</div>
@@ -393,7 +402,8 @@
 					<hr />
 					@include('account.properties.catch-form', [ 
 						'item' => null,
-						'price_symbol' => '€',
+						'price_symbol' => $current_site->infocurrency->symbol,
+						'price_position' => $current_site->infocurrency->position,
 					])
 				</div>
 			@endif

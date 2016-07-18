@@ -21,12 +21,12 @@ class MenuItem extends TranslatableModel
 
 	public function property()
 	{
-		return $this->belongsTo('App\Property');
+		return $this->belongsTo('App\Property')->withTranslations();
 	}
 
 	public function page()
 	{
-		return $this->belongsTo('App\Models\Site\Page');
+		return $this->belongsTo('App\Models\Site\Page')->withTranslations();;
 	}
 
 	public function getItemTitleAttribute()

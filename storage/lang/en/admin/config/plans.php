@@ -20,6 +20,7 @@ return [
 	'free.plan' => 'Free plan',
 	'enabled' => 'Enabled',
 	'stripe.id' => 'Stripe ID',
+	'level' => 'Level',
 
 	'qr' => 'QR codes',
 	'printing' => 'Poster printing',

@@ -28,7 +28,6 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 							->with('customers')
 							->with('state')
 							->with('city')
-							->withTranslations()
 							->leftJoin('cities','properties.city_id','=','cities.id')
 							->addSelect('cities.name AS city_name')
 							->leftJoin('properties_users', function($join){
@@ -254,7 +253,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		}
 		$catch->update($data);
 
-		$property = $this->site->properties()->withTranslations()->find($property->id);
+		$property = $this->site->properties()->find($property->id);
 
 		return redirect()->action('Account\PropertiesController@edit', $property->slug)->with('current_tab', $this->request->get('current_tab'))->with('success', trans('account/properties.created'));
 	}
@@ -313,7 +312,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		$this->site->marketplace_helper->savePropertyMarketplaces($property->id, $this->request->get('marketplaces_ids'));
 
 		// Get property, with slug
-		$property = $this->site->properties()->withTranslations()->find($property->id);
+		$property = $this->site->properties()->find($property->id);
 
 		return redirect()->action('Account\PropertiesController@edit', $property->slug)->with('current_tab', $this->request->get('current_tab'))->with('success', trans('account/properties.saved'));
 	}
@@ -324,7 +323,6 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		$property = $this->site->properties()
 						->withTrashed()
 						->whereTranslation('slug', $slug)
-						->withTranslations()
 						->with([ 'translations' => function($query){
 							$query->with('logs');
 						}])
@@ -349,7 +347,6 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		$property = $this->site->properties()
 						->withTrashed()
 						->whereTranslation('slug', $slug)
-						->withTranslations()
 						->with('customers')
 						->first();
 		if ( $property )

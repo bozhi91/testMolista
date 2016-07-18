@@ -23,13 +23,12 @@ class PaymentController extends \App\Http\Controllers\AccountController
 
 		$current_plan_level = @intval( $this->site->plan->level );
 
-
-		if ( \App\Models\Plan::enabled()->where('level','>', $current_plan_level)->count() < 1 )
+		if ( \App\Models\Plan::enabled()->where('plans.currency',$this->site->payment_currency)->where('level','>', $current_plan_level)->count() < 1 )
 		{
 			return redirect()->action('AccountController@index')->with('current_tab','plans');
 		}
 
-		$plans = \App\Models\Plan::getEnabled();
+		$plans = \App\Models\Plan::getEnabled( $this->site->payment_currency );
 
 		if ( $this->request->input('plan') )
 		{
@@ -39,7 +38,9 @@ class PaymentController extends \App\Http\Controllers\AccountController
 			}
 		}
 
-		return view('account.payment.upgrade', compact('current_plan_level','plans'));
+		$payment_options = \App\Models\Plan::getPaymentOptions( $this->site->country->pay_methods );
+
+		return view('account.payment.upgrade', compact('current_plan_level','plans','payment_options'));
 	}
 	public function postUpgrade()
 	{
@@ -51,7 +52,7 @@ class PaymentController extends \App\Http\Controllers\AccountController
 
 		$current_plan_level = @intval( $this->site->plan->level );
 
-		$plans = \App\Models\Plan::enabled()->where('level','>', $current_plan_level)->lists('code')->all();
+		$plans = \App\Models\Plan::enabled()->where('plans.currency',$this->site->payment_currency)->where('level','>', $current_plan_level)->lists('code')->all();
 
 		// Validation fields
 		$fields = [
@@ -72,7 +73,7 @@ class PaymentController extends \App\Http\Controllers\AccountController
 
 		if ( $this->site->payment_method )
 		{
-			$fields['payment_method'] = 'required,in:'.implode(',', array_keys(\App\Models\Plan::getPaymentOptions()));
+			$fields['payment_method'] = 'required,in:'.implode(',', $this->site->country->pay_methods);
 			if ( @$this->request->input('payment_method') == 'transfer' )
 			{
 				$fields['iban_account'] = 'required';

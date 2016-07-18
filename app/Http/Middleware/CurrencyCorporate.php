@@ -16,13 +16,13 @@ class CurrencyCorporate
 		// Get currency info
 		$currency = \App\Models\Currency::where('code',$currency_code)->first();
 
-		// Save in session
-		\App\Session\Currency::replace($currency);
-
 		// Pass to request
 		$request->attributes->add([
 			'currency' => $currency,
 		]);
+
+		// Save in session
+		\App\Session\Currency::replace($currency->toArray());
 
 		return $next($request);
 	}

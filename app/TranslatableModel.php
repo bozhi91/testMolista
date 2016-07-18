@@ -10,6 +10,8 @@ class TranslatableModel extends Model
 
 	public $translatedAttributes = [];
 
+	public $_i18n = [];
+
 	public function scopeWithId($query, $id)
 	{
 		return $query->where("{$this->getTable()}.id", $id);
@@ -48,11 +50,14 @@ class TranslatableModel extends Model
 
 	public function getI18nAttribute()
 	{
-		$i18n = [];
-
 		if ( !$this->id || empty($this->translatedAttributes) ) 
 		{
-			return $i18n;
+			return $this->_i18n;
+		}
+
+		if ( !empty($this->_i18n) )
+		{
+			return $this->_i18n;
 		}
 
 		$model_name = '\\' . $this->getTranslationModelName();
@@ -62,11 +67,11 @@ class TranslatableModel extends Model
 		{
 			foreach ($this->translatedAttributes as $key)
 			{
-				$i18n[$key][$translation->locale] = $translation->$key;
+				$this->_i18n[$key][$translation->locale] = $translation->$key;
 			}
 		}
 
-		return $i18n;
+		return $this->_i18n;
 	}
 
 	public function getAttribute($key)

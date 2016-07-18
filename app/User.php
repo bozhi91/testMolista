@@ -26,11 +26,11 @@ class User extends Authenticatable
 	}
 
 	public function sites() {
-		return $this->belongsToMany('App\Site', 'sites_users', 'user_id', 'site_id');
+		return $this->belongsToMany('App\Site', 'sites_users', 'user_id', 'site_id')->withTranslations();
 	}
 
 	public function properties() {
-		return $this->belongsToMany('App\Property', 'properties_users', 'user_id', 'property_id');
+		return $this->belongsToMany('App\Property', 'properties_users', 'user_id', 'property_id')->withTranslations();
 	}
 
 	public function translation_locales() {

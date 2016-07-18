@@ -85,7 +85,6 @@
 		@if ( !empty($search_data['prices']) )
 			<div class="col-xs-12 col-sm-3 col-md-2 input-line">
 				<div class="form-group error-container">
-					{!! Form::hidden('currency', 'EUR') !!}
 					{!! Form::select(null, [''=>Lang::get('web/properties.more.price')], null, [ 'disabled'=>'disabled', 'class'=>'form-control has-placeholder mode-rel mode-rel-none '.( Input::get('mode','none') == 'none' ? '' : 'hide' ) ]) !!}
 					{!! Form::select('price[rent]', [''=>Lang::get('web/properties.more.price')]+$search_data['prices']['rent'], Input::get('price.rent'), [ 'class'=>'form-control has-placeholder mode-rel mode-rel-rent '.( Input::get('mode') == 'rent' ? '' : 'hide' ) ]) !!}
 					{!! Form::select('price[sale]', [''=>Lang::get('web/properties.more.price')]+$search_data['prices']['sale'], Input::get('price.sale'), [ 'class'=>'form-control has-placeholder mode-rel mode-rel-sale '.( Input::get('mode') == 'sale' ? '' : 'hide' ) ]) !!}

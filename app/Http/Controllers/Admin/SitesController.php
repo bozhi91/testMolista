@@ -21,7 +21,7 @@ class SitesController extends Controller
 
 	public function index()
 	{
-		$query = \App\Site::withTranslations();
+		$query = \App\Site::withTranslations()->with('country');
 
 		// Filter by title
 		if ( $this->request->get('title') )

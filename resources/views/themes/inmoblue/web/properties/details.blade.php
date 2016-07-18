@@ -12,7 +12,7 @@
 			<div class="header">
 				<a href="#property-moreinfo-form" class="btn btn-primary call-to-action more-info-trigger pull-right">{{ Lang::get('web/properties.call.to.action') }}</a>
 				<h1 class="text-bold">{{$property->title}}</h1>
-				<div class="price text-bold text-italic">{{ price($property->price, [ 'decimals'=>0 ]) }}</div>
+				<div class="price text-bold text-italic">{{ price($property->price, $property->infocurrency->toArray()) }}</div>
 
 				<ul class="list-inline metrics">
 					<li>
@@ -40,7 +40,7 @@
 					</li>
 					<li class="text-nowrap has-fontello-icon">
 						<i class="fontello-icon fontello-icon-coins hidden-xs"></i>
-						{{ number_format(round($property->price/$property->size),0,',','.') }} {{ price_symbol($property->currency) }}/m²
+						{{ number_format(round($property->price/$property->size),0,',','.') }} {{ $property->infocurrency->symbol }}/m²
 					</li>
 					<li>
 						{{ Lang::get('account/properties.ref') }}: {{ $property->ref }}

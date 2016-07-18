@@ -131,7 +131,7 @@ class SignupController extends \App\Http\Controllers\CorporateController
 
 		$data = session()->get($this->session_name);
 
-		$plans = \App\Models\Plan::getEnabled();
+		$plans = \App\Models\Plan::getEnabled( \App\Session\Currency::get('code') );
 
 		return view('corporate.signup.step-pack', compact('data','plans'));
 	}
@@ -161,7 +161,7 @@ class SignupController extends \App\Http\Controllers\CorporateController
 	}
 	protected function validatePack($data=false)
 	{
-		$plans = \App\Models\Plan::getEnabled();
+		$plans = \App\Models\Plan::getEnabled( \App\Session\Currency::get('code') );
 
 		$fields = [
 			'selected' => 'required|in:'.$plans->implode('code',','),
@@ -258,7 +258,7 @@ class SignupController extends \App\Http\Controllers\CorporateController
 			return $this->postPayment();
 		}
 
-		$paymethods = \App\Models\Plan::getPaymentOptions();
+		$paymethods = \App\Models\Plan::getPaymentOptions( $this->geolocation['config']['pay_methods'] );
 
 		return view('corporate.signup.step-payment', compact('data','plan','paymethods'));
 	}
@@ -302,7 +302,7 @@ class SignupController extends \App\Http\Controllers\CorporateController
 		}
 
 		$fields = [
-			'method' => 'required|in:'.implode(',', array_keys(\App\Models\Plan::getPaymentOptions()))
+			'method' => 'required|in:'.implode(',', $this->geolocation['config']['pay_methods']),
 		];
 
 		if ( @$data['method'] == 'transfer' )
@@ -385,7 +385,7 @@ class SignupController extends \App\Http\Controllers\CorporateController
 			return false;
 		}
 
-		// [TODO] Validate coupon
+		// Validate coupon
 		if ( @$data['coupon'] )
 		{
 			$this->validation_error = trans('corporate/signup.invoicing.coupon.error');
@@ -491,6 +491,9 @@ class SignupController extends \App\Http\Controllers\CorporateController
 			'plan_id' => $free_plan->id,
 			'invoicing' => $data['invoicing'],
 			'web_transfer_requested' => empty($data['site']['web_transfer_requested']) ? 0 : 1,
+			'payment_currency' => $this->currency->code,
+			'site_currency' => $this->currency->code,
+			'country_code' => $this->geolocation['config']['code'],
 		]);
 		if ( !$site )
 		{

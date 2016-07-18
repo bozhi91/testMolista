@@ -34,13 +34,14 @@ class PlansController extends \App\Http\Controllers\Controller
 
 	public function create()
 	{
-		return view('admin.config.plans.create');
+		$currencies = \App\Models\Currency::withTranslations()->orderBy('code')->get();
+		return view('admin.config.plans.create', compact('currencies'));
 	}
 
 	public function store()
 	{
 		$data = $this->request->all();
-
+		
 		$validator = \App\Models\Plan::getValidator($data);
 		if ($validator->fails())
 		{

@@ -20,7 +20,7 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 
 	public function getIndex()
 	{
-		$widgets = $this->site->widgets()->withTranslations()->get();
+		$widgets = $this->site->widgets()->get();
 
 		$type_options = \App\Models\Site\Widget::getTypeOptions();
 		$group_options = \App\Models\Site\Widget::getGroupOptions();
