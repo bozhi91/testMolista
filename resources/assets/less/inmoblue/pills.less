@@ -1,79 +1,51 @@
+@import '../app/pills.less';
+
 .property-pill {
-	font-size: 16px; color: @colorGrey; margin-bottom: 30px; border: 1px solid @colorGrey; background: @white;
-	.image { display: block; height: 165px; background: center center no-repeat; background-size: cover; margin-bottom: 20px; }
-	.labels { 
-		float: right;
-	    margin-right: 15px;
-	    margin-top: 15px;
+    position: relative;
+    border: 1px solid @borderGray;
+    background-color: @white;
 
-		.label { background: @colorPurple; color: @colorWhite; text-transform: uppercase; font-size: 16px; }
-	}
-	
-	.metrics { display: none; }
+    .padder {
+    	position: static;
 
-	.text { padding-bottom: 10px; }
-
-	&.property-pill-small {
-		position: relative;
-
-		.image { position: absolute; left: 0px; width: 100px; height: 100%; margin: 0px; }
-		.text { padding: 10px 10px 10px 120px; }
-	}
-
-	.padder {
+		.image { margin-bottom: 5px; }
 
 		.text {
-			padding-left: 15px;
+			padding: 10px 15px;
+			margin-bottom: 40px;
+			border-bottom: 1px solid @gray;
+			min-height: 90px;
 
-			.title a {
-				color: @colorGrey;
-				font-weight: bold;
-				text-decoration: none;
-			}
+			.title a { color: @black; font-weight: bold; }
+			.price { position: absolute; bottom: 9px; color: @black; font-weight: bold; }
+			.metrics { display: none; }
+			.labels { position: absolute; top: 7px; right: 5px; .label { font-size: 14px; } }
+			.button {
+				display: block !important; text-align: right; position: absolute; bottom: 9px; right: 15px;
 
-			.price {
-				color: @pink;
-			}
+				a {
+				    background-color: @pink; padding: 5px 10px; font-size: 14px; color: @white;
 
-			.location {
-
-			}
-
-		}
-
-		.button-pill-block {
-			margin-right: 15px;
-
-			.button-pill {
-				background: @pink;
-			    color: @white;
-			    padding: 5px;
-			    font-size: 16px;
-			}
-
-		}
-
-	}
-}
-
-.nav-pills {
-	> li {
-		> a { 
-			border-radius: @borderRadius; 
-			&:hover, &:focus { background-color: @colorGreyLight; }
-		}
-		> ul {
-			> li { 
-				margin-top: 1px; 
-				> a { 
-					font-size: 0.9em; color: @colorPurple; padding: 7px 15px 7px 25px;
-					&:hover, &:focus { color: @colorPurpleDark; background-color: transparent; }
-					&.current { color: @colorPurple; font-weight: bold; }
+				    &:hover { opacity: 0.8; text-decoration: underline; }
 				}
 			}
 		}
-		&.active {
-			> a, > a:hover, > a:focus { background-color: @colorPurple; }
+		.text:after { display: table; content: ""; clear: both; }
+	}
+}
+
+/* responsive */
+
+@media (min-width: 768px) and (max-width: 1091px) {
+	.property-pill {
+		.padder {
+			.text { min-height: 120px; }
+			.price { font-size: 12px; }
+			.button a { font-size: 12px !important; }
 		}
 	}
+}
+
+@media (max-width: 767px) {
+	.property-pill { height: auto !important; }
 }

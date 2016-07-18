@@ -32,6 +32,7 @@
 		}
 	}
 	.navbar-brand { margin-top: 10px; }
+	#app-navbar-collapse { border-color: @inmoblue-topheader; }
 }
 
 @media (min-width: 768px) {
@@ -61,3 +62,20 @@
 		}
 	}
 }
+
+@media (min-width: 768px) and (max-width: 991px) {
+	#header {
+		.header-container {
+			.header-menu {
+				.main-item { padding: 20px 15px; }
+		    }
+		    .header-locale-social {
+		    	.social-media {
+		    		.list-inline { margin-right: 0px; }
+		    	}
+		    }
+		}
+	}
+}
+
+#header { .navbar-collapse { border-color: @inmoblue-topheader; } }

@@ -66,7 +66,9 @@
 					</div>
 					<div class="col-xs-3">
 					</div>
-					<a href="{{ action('Web\PropertiesController@details', $item->slug) }}" class="hidden-xs btn btn-primary btn-more-info">{{ Lang::get('web/properties.search.results.more') }}</a>
+					<a href="{{ action('Web\PropertiesController@details', $item->slug) }}" class="hidden-xs btn btn-primary btn-more-info">
+						@include ('web.properties.row-moreinfo')
+					</a>
 				</div>
 			</div>
 		</div>
