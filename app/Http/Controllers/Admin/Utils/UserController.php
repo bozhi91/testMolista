@@ -17,12 +17,12 @@ class UserController extends Controller
 		switch ($type) 
 		{
 			default:
-				$query->where($type, $this->request->get($type));
+				$query->where($type, $this->request->input($type));
 		}
 
-		if ( $this->request->get('exclude') )
+		if ( $this->request->input('exclude') )
 		{
-			$query->where('id', '!=', $this->request->get('exclude'));
+			$query->where('id', '!=', $this->request->input('exclude'));
 		}
 
 		echo ( $query->count() < 1 ) ? 'true' : 'false';

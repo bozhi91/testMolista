@@ -19,18 +19,18 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		$query = $this->site->customers()->with('queries');
 
 		// Filter by name
-		if ( $this->request->get('full_name') )
+		if ( $this->request->input('full_name') )
 		{
-			$query->withFullName( $this->request->get('full_name') );
+			$query->withFullName( $this->request->input('full_name') );
 		}
 
 		// Filter by email
-		if ( $this->request->get('email') )
+		if ( $this->request->input('email') )
 		{
-			$query->where('customers.email', 'like', "%{$this->request->get('email')}%");
+			$query->where('customers.email', 'like', "%{$this->request->input('email')}%");
 		}
 
-		$customers = $query->orderBy('created_at','desc')->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
+		$customers = $query->orderBy('created_at','desc')->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$this->set_go_back_link();
 
@@ -51,11 +51,11 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		}
 
 		$customer = $this->site->customers()->create([
-			'first_name' => $this->request->get('first_name'),
-			'last_name' => $this->request->get('last_name'),
-			'email' => $this->request->get('email'),
-			'phone' => $this->request->get('phone'),
-			'locale' => $this->request->get('locale'),
+			'first_name' => $this->request->input('first_name'),
+			'last_name' => $this->request->input('last_name'),
+			'email' => $this->request->input('email'),
+			'phone' => $this->request->input('phone'),
+			'locale' => $this->request->input('locale'),
 			'created_by' => \Auth::user()->id,
 		]);
 
@@ -82,11 +82,11 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		}
 
 		$customer->update([
-			'first_name' => $this->request->get('first_name'),
-			'last_name' => $this->request->get('last_name'),
-			'email' => $this->request->get('email'),
-			'phone' => $this->request->get('phone'),
-			'locale' => $this->request->get('locale'),
+			'first_name' => $this->request->input('first_name'),
+			'last_name' => $this->request->input('last_name'),
+			'email' => $this->request->input('email'),
+			'phone' => $this->request->input('phone'),
+			'locale' => $this->request->input('locale'),
 		]);
 
 		return redirect()->action('Account\CustomersController@show', urlencode($customer->email))->with('success', trans('account/customers.message.saved'));
@@ -140,10 +140,10 @@ class CustomersController extends \App\Http\Controllers\AccountController
 			'type' => 'in:'.implode(',', array_keys(\App\Property::getTypeOptions())),
 			'currency' => 'required|in:'.implode(',', array_keys(\App\Property::getCurrencyOptions())),
 			'price_min' => 'numeric|min:0',
-			'price_max' => 'numeric|min:'.intval($this->request->get('price_min')),
+			'price_max' => 'numeric|min:'.intval($this->request->input('price_min')),
 			'size_unit' => 'required|in:'.implode(',', array_keys(\App\Property::getSizeUnitOptions())),
 			'size_min' => 'numeric|min:0',
-			'size_max' => 'numeric|min:'.intval($this->request->get('size_min')),
+			'size_max' => 'numeric|min:'.intval($this->request->input('size_min')),
 			'rooms' => 'integer|min:0',
 			'baths' => 'integer|min:0',
 			'more_attributes' => 'array',
@@ -167,7 +167,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		];
 		foreach ($fields as $key => $value) 
 		{
-			$value = $this->request->get($key);
+			$value = $this->request->input($key);
 
 			switch ( $key )
 			{
@@ -188,7 +188,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		}
 		$profile->update($data);
 
-		return redirect()->action('Account\CustomersController@show', urlencode($customer->email))->with('current_tab', $this->request->get('current_tab'))->with('success', trans('general.messages.success.saved'));
+		return redirect()->action('Account\CustomersController@show', urlencode($customer->email))->with('current_tab', $this->request->input('current_tab'))->with('success', trans('general.messages.success.saved'));
 	}
 
 	public function getAddPropertyCustomer($slug)
@@ -212,7 +212,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 			return redirect()->back()->withInput()->with('error',trans('general.messages.error'));
 		}
 
-		$customer_id = $this->request->get('customer_id');
+		$customer_id = $this->request->input('customer_id');
 
 		if ( !$customer_id ) {
 			$validator = \Validator::make($this->request->all(), $this->getRequiredFields());
@@ -222,11 +222,11 @@ class CustomersController extends \App\Http\Controllers\AccountController
 			}
 
 			$customer = $this->site->customers()->create([
-				'first_name' => $this->request->get('first_name'),
-				'last_name' => $this->request->get('last_name'),
-				'email' => $this->request->get('email'),
-				'phone' => $this->request->get('phone'),
-				'locale' => $this->request->get('locale'),
+				'first_name' => $this->request->input('first_name'),
+				'last_name' => $this->request->input('last_name'),
+				'email' => $this->request->input('email'),
+				'phone' => $this->request->input('phone'),
+				'locale' => $this->request->input('locale'),
 				'created_by' => \Auth::user()->id,
 			]);
 
@@ -269,9 +269,9 @@ class CustomersController extends \App\Http\Controllers\AccountController
 			return redirect()->back()->with('current_tab', $this->request->input('current_tab'))->with('error',trans('general.messages.error'));
 		}
 
-		$customer = $this->site->customers()->find( $this->request->get('customer_id') );
+		$customer = $this->site->customers()->find( $this->request->input('customer_id') );
 
-		if ( !$this->request->get('customer_id') || !$customer )
+		if ( !$this->request->input('customer_id') || !$customer )
 		{
 			return redirect()->back()->with('current_tab', $this->request->input('current_tab'))->with('error',trans('general.messages.error'));
 		}

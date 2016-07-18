@@ -55,7 +55,7 @@ class PasswordController extends Controller
 		$valid_user = false;
 
 		// Get user by email
-		$user = \App\User::where('email', $request->get('email'))->first();
+		$user = \App\User::where('email', $request->input('email'))->first();
 
 		// Check allowed roles
 		$roles_allowed = @array_filter( explode('|', env('loginRequiredRoles') ) );

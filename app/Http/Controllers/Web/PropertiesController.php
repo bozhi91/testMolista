@@ -19,42 +19,42 @@ class PropertiesController extends WebController
 					;
 
 		// Term => in title
-		if ( $this->request->get('term') )
+		if ( $this->request->input('term') )
 		{
-			$query->whereTranslationLike('title', "%{$this->request->get('term')}%");
+			$query->whereTranslationLike('title', "%{$this->request->input('term')}%");
 		}
 
 		// State
-		if ( $this->request->get('state') )
+		if ( $this->request->input('state') )
 		{
-			$query->inState( $this->request->get('state') );
+			$query->inState( $this->request->input('state') );
 		}
 
 		// City
-		if ( $this->request->get('city') )
+		if ( $this->request->input('city') )
 		{
-			$query->inCity( $this->request->get('city') );
+			$query->inCity( $this->request->input('city') );
 		}
 
 		// Mode => sale, rent, etc
-		if ( $this->request->get('mode') )
+		if ( $this->request->input('mode') )
 		{
-			$query->where('mode', $this->request->get('mode'));
+			$query->where('mode', $this->request->input('mode'));
 			// Price
-			if ( $this->request->input("price.{$this->request->get('mode')}") )
+			if ( $this->request->input("price.{$this->request->input('mode')}") )
 			{
-				$query->withPriceBetween($this->request->input("price.{$this->request->get('mode')}"), $this->request->get('currency'));
+				$query->withPriceBetween($this->request->input("price.{$this->request->input('mode')}"), $this->request->input('currency'));
 			}
 		}
 
 		// Type => house, appartment, etc
-		if ( $this->request->get('type') )
+		if ( $this->request->input('type') )
 		{
-			$query->where('type', $this->request->get('type'));
+			$query->where('type', $this->request->input('type'));
 		}
 
 		// New construction or used
-		if ( $this->request->get('newly_build') && $this->request->get('second_hand') )
+		if ( $this->request->input('newly_build') && $this->request->input('second_hand') )
 		{
 			$query->where(function($query){
 				$query->where('newly_build', 1)
@@ -62,54 +62,54 @@ class PropertiesController extends WebController
 			});
 		} 
 		// New construction
-		elseif ( $this->request->get('newly_build') )
+		elseif ( $this->request->input('newly_build') )
 		{
 			$query->where('newly_build', 1);
 		}
 		// Used
-		elseif ( $this->request->get('second_hand') )
+		elseif ( $this->request->input('second_hand') )
 		{
 			$query->where('second_hand', 1);
 		}
 
 		// New item
-		if ( $this->request->get('new_item') )
+		if ( $this->request->input('new_item') )
 		{
 			$query->where('new_item', 1);
 		}
 
 		// Opportunity
-		if ( $this->request->get('opportunity') )
+		if ( $this->request->input('opportunity') )
 		{
 			$query->where('opportunity', 1);
 		}
 
 		// Size
-		if ( $this->request->get('size') )
+		if ( $this->request->input('size') )
 		{
-			$query->withSizeBetween($this->request->get('size'), $this->request->get('size_unit'));
+			$query->withSizeBetween($this->request->input('size'), $this->request->input('size_unit'));
 		}
 
 		// Rooms
-		if ( $this->request->get('rooms') )
+		if ( $this->request->input('rooms') )
 		{
-			$query->withRange('rooms', $this->request->get('rooms'));
+			$query->withRange('rooms', $this->request->input('rooms'));
 		}
 
 		// Baths
-		if ( $this->request->get('baths') )
+		if ( $this->request->input('baths') )
 		{
-			$query->withRange('baths', $this->request->get('baths'));
+			$query->withRange('baths', $this->request->input('baths'));
 		}
 
 		// Services
-		if ( $this->request->get('services') )
+		if ( $this->request->input('services') )
 		{
-			$query->withServices($this->request->get('services'));
+			$query->withServices($this->request->input('services'));
 		}
 
 		// Sort order
-		$order = $this->request->get('order');
+		$order = $this->request->input('order');
 		if ( $order && array_key_exists($order, \App\Property::getSortOptions()) ) 
 		{
 			list ($field,$sense) = explode('-',$order,2);
@@ -120,7 +120,7 @@ class PropertiesController extends WebController
 			$query->orderBy('properties.highlighted','desc')->orderBy('title');
 		}
 
-		$properties = $query->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
+		$properties = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$hide_advanced_search_modal = true;
 
@@ -181,15 +181,15 @@ class PropertiesController extends WebController
 		}
 
 		// No customer, create
-		$customer = $this->site->customers()->where('email', $this->request->get('email'))->first();
+		$customer = $this->site->customers()->where('email', $this->request->input('email'))->first();
 		if ( !$customer )
 		{
 			$customer = $this->site->customers()->create([
 				'locale' => \LaravelLocalization::getCurrentLocale(),
-				'first_name' => $this->request->get('first_name'),
-				'last_name' => $this->request->get('last_name'),
-				'email' => $this->request->get('email'),
-				'phone' => $this->request->get('phone'),
+				'first_name' => $this->request->input('first_name'),
+				'last_name' => $this->request->input('last_name'),
+				'email' => $this->request->input('email'),
+				'phone' => $this->request->input('phone'),
 			]);
 			if ( !$customer )
 			{

@@ -16,7 +16,7 @@ class MarketplacesController extends \App\Http\Controllers\AccountController
 	{
 		$query = \App\Models\Marketplace::enabled()->withSiteConfiguration($this->site->id);
 
-		switch ( $this->request->get('order') )
+		switch ( $this->request->input('order') )
 		{
 			case 'desc':
 				$order = 'desc';
@@ -25,14 +25,14 @@ class MarketplacesController extends \App\Http\Controllers\AccountController
 				$order = 'asc';
 		}
 
-		switch ( $this->request->get('orderby') )
+		switch ( $this->request->input('orderby') )
 		{
 			case 'title':
 			default:
 				$query->orderBy('marketplaces.name', $order);
 		}
 
-		$marketplaces = $query->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
+		$marketplaces = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$this->set_go_back_link();
 

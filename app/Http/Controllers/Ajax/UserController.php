@@ -18,17 +18,17 @@ class UserController extends Controller
 		{
 			case 'email':
 				$query = \App\User::whereNotNull('id');
-				if ( $this->request->get('email') )
+				if ( $this->request->input('email') )
 				{
-					$query->where('email', $this->request->get('email'));
+					$query->where('email', $this->request->input('email'));
 				}
-				if ( $this->request->get('not_employee') )
+				if ( $this->request->input('not_employee') )
 				{
 					$query->withoutRole('employee');
 				}
-				if ( $this->request->get('id') )
+				if ( $this->request->input('id') )
 				{
-					$query->where('id', '!=', $this->request->get('id'));
+					$query->where('id', '!=', $this->request->input('id'));
 				}
 				$response = $query->count() ? false : true;
 				break;

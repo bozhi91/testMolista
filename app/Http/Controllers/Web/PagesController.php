@@ -64,16 +64,16 @@ class PagesController extends WebController
 			return redirect()->back()->withInput()->withErrors($validator);
 		}
 
-		$customer = $this->site->customers()->where('email',$this->request->get('email'))->first();
+		$customer = $this->site->customers()->where('email',$this->request->input('email'))->first();
 		if ( !$customer )
 		{
-			$fullname = explode(" ",$this->request->get('name'),2);
+			$fullname = explode(" ",$this->request->input('name'),2);
 			$customer = $this->site->customers()->create([
 				'locale' => \LaravelLocalization::getCurrentLocale(),
 				'first_name' => $fullname[0],
 				'last_name' => $fullname[0],
-				'email' => $this->request->get('email'),
-				'phone' => $this->request->get('phone'),
+				'email' => $this->request->input('email'),
+				'phone' => $this->request->input('phone'),
 			]);
 			if ( !$customer )
 			{

@@ -22,9 +22,9 @@ class AutotranslateController extends Controller
 		}
 
 		$translations = [];
-		foreach ($this->request->get('to') as $iso_lang)
+		foreach ($this->request->input('to') as $iso_lang)
 		{
-			$translations[$iso_lang] = \App\Autotranslate\Base::translate($this->request->get('from'), $iso_lang, $this->request->get('text'));
+			$translations[$iso_lang] = \App\Autotranslate\Base::translate($this->request->input('from'), $iso_lang, $this->request->input('text'));
 		}
 
 		return [

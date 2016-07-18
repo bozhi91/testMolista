@@ -20,18 +20,18 @@ class ServicesController extends Controller
 		$query = \App\Models\Property\Service::withTranslations();
 
 		// Filter by code
-		if ( $this->request->get('code') )
+		if ( $this->request->input('code') )
 		{
-			$query->where('code', 'like', "%{$this->request->get('code')}%");
+			$query->where('code', 'like', "%{$this->request->input('code')}%");
 		}
 
 		// Filter by title
-		if ( $this->request->get('title') )
+		if ( $this->request->input('title') )
 		{
-			$query->whereTranslationLike('title', "%{$this->request->get('title')}%");
+			$query->whereTranslationLike('title', "%{$this->request->input('title')}%");
 		}
 
-		$services = $query->orderBy('title')->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
+		$services = $query->orderBy('title')->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$this->set_go_back_link();
 
@@ -55,8 +55,8 @@ class ServicesController extends Controller
 
 		// Create element
 		$service = new \App\Models\Property\Service;
-		$service->code = $this->request->get('code');
-		$service->enabled = $this->request->get('enabled') ? 1 : 0;
+		$service->code = $this->request->input('code');
+		$service->enabled = $this->request->input('enabled') ? 1 : 0;
 		$service->save();
 
 		if ( empty($service->id) )
@@ -97,8 +97,8 @@ class ServicesController extends Controller
 		$service = \App\Models\Property\Service::findOrFail($id);
 
 		// Update element
-		$service->code = $this->request->get('code');
-		$service->enabled = $this->request->get('enabled') ? 1 : 0;
+		$service->code = $this->request->input('code');
+		$service->enabled = $this->request->input('enabled') ? 1 : 0;
 		$service->save();
 
 		// save images
@@ -121,10 +121,10 @@ class ServicesController extends Controller
 
 		switch ( $type ) {
 			case 'code':
-				$query = \App\Models\Property\Service::where('code',$this->request->get('code'));
-				if ( $this->request->get('id') )
+				$query = \App\Models\Property\Service::where('code',$this->request->input('code'));
+				if ( $this->request->input('id') )
 				{
-					$query->where('id', '!=', $this->request->get('id'));
+					$query->where('id', '!=', $this->request->input('id'));
 				}
 				$error = $query->count();
 				break;
@@ -154,13 +154,13 @@ class ServicesController extends Controller
 			'title' => 'required|array',
 			'description' => 'required|array',
 		];
-		$validator = \Validator::make($this->request->get('i18n'), $fields);
+		$validator = \Validator::make($this->request->input('i18n'), $fields);
 		if ($validator->fails()) 
 		{
 			return false;
 		}
 
-		$i18n = $this->request->get('i18n');
+		$i18n = $this->request->input('i18n');
 
 		// Title
 		$fields = [

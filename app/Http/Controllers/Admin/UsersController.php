@@ -23,24 +23,24 @@ class UsersController extends Controller
 		$query = \App\User::with('roles')->with('sites');
 
 		// Filter by name
-		if ( $this->request->get('name') )
+		if ( $this->request->input('name') )
 		{
-			$query->where('name', 'LIKE', "%{$this->request->get('name')}%");
+			$query->where('name', 'LIKE', "%{$this->request->input('name')}%");
 		}
 
 		// Filter by email
-		if ( $this->request->get('email') )
+		if ( $this->request->input('email') )
 		{
-			$query->where('email', 'LIKE', "%{$this->request->get('email')}%");
+			$query->where('email', 'LIKE', "%{$this->request->input('email')}%");
 		}
 
 		// Filter by role
-		if ( $this->request->get('role') )
+		if ( $this->request->input('role') )
 		{
-			$query->withRole( $this->request->get('role') );
+			$query->withRole( $this->request->input('role') );
 		}
 
-		$users = $query->orderBy('created_at','desc')->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
+		$users = $query->orderBy('created_at','desc')->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$roles = \App\Models\Role::orderBy('display_name')->lists('display_name','name');
 
@@ -79,17 +79,17 @@ class UsersController extends Controller
 		}
 
 		// Check email
-		if ( \App\User::where('email', $this->request->get('email'))->count() )
+		if ( \App\User::where('email', $this->request->input('email'))->count() )
 		{
 			return redirect()->back()->withInput()->with('error', trans('admin/users.email.used'));
 		}
 
 		// Get user
         $user = \App\User::create([
-            'name' => $this->request->get('name'),
-            'email' => $this->request->get('email'),
-            'locale' => $this->request->get('locale'),
-            'password' => bcrypt($this->request->get('password')),
+            'name' => $this->request->input('name'),
+            'email' => $this->request->input('email'),
+            'locale' => $this->request->input('locale'),
+            'password' => bcrypt($this->request->input('password')),
         ]);
 
 		if ( !$user )
@@ -134,13 +134,13 @@ class UsersController extends Controller
 		}
 
 		// Check email
-		if ( \App\User::where('email', $this->request->get('email'))->where('id','!=',$id)->count() )
+		if ( \App\User::where('email', $this->request->input('email'))->where('id','!=',$id)->count() )
 		{
 			return redirect()->action('Admin\UsersController@edit', $id)->withInput()->with('error', trans('admin/users.email.used'));
 		}
 
 		// Check roles
-		if ( empty($this->request->get('roles')) || !is_array($this->request->get('roles')))
+		if ( empty($this->request->input('roles')) || !is_array($this->request->input('roles')))
 		{
 			return redirect()->action('Admin\UsersController@edit', $id)->withInput()->with('error', trans('admin/users.roles.required'));
 		}
@@ -155,13 +155,13 @@ class UsersController extends Controller
 			{
 				continue;
 			}
-			$user->$field = $this->request->get($field);
+			$user->$field = $this->request->input($field);
 		}
 		$user->save();
 
 		// Update roles
 		$user->detachRoles();
-		foreach ($this->request->get('roles') as $role_name) 
+		foreach ($this->request->input('roles') as $role_name) 
 		{
 			$role = \App\Models\Role::where('name', $role_name)->first();
 			if ( !$role )
@@ -176,9 +176,9 @@ class UsersController extends Controller
 		{
 			$user->translation_locales()->detach($translation_locale->id);
 		}
-		if ( $user->hasRole('translator') && $this->request->get('locales') && !in_array('all', $this->request->get('locales')) )
+		if ( $user->hasRole('translator') && $this->request->input('locales') && !in_array('all', $this->request->input('locales')) )
 		{
-			foreach ($this->request->get('locales') as $locale_id) 
+			foreach ($this->request->input('locales') as $locale_id) 
 			{
 				$user->translation_locales()->attach($locale_id);
 			}

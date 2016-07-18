@@ -24,7 +24,7 @@ class PagesController extends \App\Http\Controllers\AccountController
 
 	public function index()
 	{
-		$pages = $this->site->pages()->orderBy('title')->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
+		$pages = $this->site->pages()->orderBy('title')->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 		return view('account.site.pages.index', compact('pages'));
 	}
 
@@ -45,7 +45,7 @@ class PagesController extends \App\Http\Controllers\AccountController
 		}
 
 		$page = $this->site->pages()->create([
-			'type' => $this->request->get('type'),
+			'type' => $this->request->input('type'),
 			'enabled' => 0,
 		]);
 
@@ -54,7 +54,7 @@ class PagesController extends \App\Http\Controllers\AccountController
 			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
 		}
 
-		$this->savePageTranslations($page, $this->request->get('i18n'));
+		$this->savePageTranslations($page, $this->request->input('i18n'));
 
 		$page->save();
 
@@ -117,7 +117,7 @@ class PagesController extends \App\Http\Controllers\AccountController
 			$page->type => $this->request->input("configuration.{$page->type}") 
 		];
 
-		$this->savePageTranslations($page, $this->request->get('i18n'));
+		$this->savePageTranslations($page, $this->request->input('i18n'));
 
 		$page->save();
 

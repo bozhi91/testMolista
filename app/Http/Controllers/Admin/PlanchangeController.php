@@ -15,12 +15,12 @@ class PlanchangeController extends Controller
 		// Only paid by transfer
 		$query->where('payment_method','transfer');
 
-		if ( $this->request->get('plan_id') )
+		if ( $this->request->input('plan_id') )
 		{
-			$query->where('plan_id', $this->request->get('plan_id'));
+			$query->where('plan_id', $this->request->input('plan_id'));
 		}
 
-		switch ( $this->request->get('order') )
+		switch ( $this->request->input('order') )
 		{
 			case 'desc':
 				$order = 'desc';
@@ -28,7 +28,7 @@ class PlanchangeController extends Controller
 			default:
 				$order = 'asc';
 		}
-		switch ( $this->request->get('orderby') )
+		switch ( $this->request->input('orderby') )
 		{
 			case 'creation':
 			default:
@@ -36,7 +36,7 @@ class PlanchangeController extends Controller
 				break;
 		}
 
-		$planchanges = $query->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
+		$planchanges = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$plans = \App\Models\Plan::enabled()->orderBy('name')->lists('name','id')->all();
 
@@ -87,7 +87,7 @@ class PlanchangeController extends Controller
 
 		// Add paid_until to new data
 		$planchange->new_data = array_merge($planchange->new_data, [
-			'paid_until' => $this->request->get('paid_until'),
+			'paid_until' => $this->request->input('paid_until'),
 		]);
 		$planchange->save();
 

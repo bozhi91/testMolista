@@ -92,23 +92,23 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 		}
 
 		// Fallback locale is always required
-		$locales_array = $this->request->get('locales_array');
+		$locales_array = $this->request->input('locales_array');
 		if ( !in_array(fallback_lang(), $locales_array) ) 
 		{
 			$locales_array[] = fallback_lang();
 		}
 
-		$i18n = $this->request->get('i18n');
+		$i18n = $this->request->input('i18n');
 		$valid_locales = \LaravelLocalization::getSupportedLocales();
 
 		// Validate subdomain
-		if ( \App\Site::where('subdomain', $this->request->get('subdomain'))->where('id','!=',$this->site->id)->count() )
+		if ( \App\Site::where('subdomain', $this->request->input('subdomain'))->where('id','!=',$this->site->id)->count() )
 		{
 			return redirect()->back()->withInput()->with('error', trans('account/site.configuration.subdomain.error'));
 		}
 
 		// Validate domains
-		foreach ( $this->request->get('domains_array') as $id => $domain )
+		foreach ( $this->request->input('domains_array') as $id => $domain )
 		{
 
 			$domain = rtrim($domain, '/');
@@ -202,7 +202,7 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 		}
 
 		// Save domains
-		foreach ($this->request->get('domains_array') as $domain_id => $domain_url)
+		foreach ($this->request->input('domains_array') as $domain_id => $domain_url)
 		{
 			// Remove empty spaces and triling slash
 			$domain_url = rtrim(trim($domain_url), '/');
@@ -229,7 +229,7 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 		}
 
 		// Save social media
-		foreach ($this->request->get('social_array') as $network => $network_url)
+		foreach ($this->request->input('social_array') as $network => $network_url)
 		{
 			$social_media = $this->site->social()->firstOrCreate([
 				'network' => $network,
@@ -248,7 +248,7 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 		// Save configuration
 		$this->site->save();
 
-		return redirect()->back()->with('current_tab', $this->request->get('current_tab'))->with('success', trans('account/site.configuration.saved'));
+		return redirect()->back()->with('current_tab', $this->request->input('current_tab'))->with('success', trans('account/site.configuration.saved'));
 	}
 
 	public function getCheck($type)
@@ -257,24 +257,24 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 
 		switch ( $type ) {
 			case 'domain':
-				$domain = rtrim($this->request->get('domain'), '/');
+				$domain = rtrim($this->request->input('domain'), '/');
 				// If domain is same as molista domain, false
 				if ( preg_match('#\.'.\Config::get('app.application_domain').'(\/)?$#', $domain) )
 				{
 					break;
 				}
 				$query = \App\SiteDomains::where('domain', $domain);
-				if ( $this->request->get('id') )
+				if ( $this->request->input('id') )
 				{
-					$query->where('id', '!=', $this->request->get('id'));
+					$query->where('id', '!=', $this->request->input('id'));
 				}
 				$error = $query->count();
 				break;
 			case 'subdomain':
-				$query = \App\Site::where('subdomain', $this->request->get('subdomain'));
-				if ( $this->request->get('id') )
+				$query = \App\Site::where('subdomain', $this->request->input('subdomain'));
+				if ( $this->request->input('id') )
 				{
-					$query->where('id', '!=', $this->request->get('id'));
+					$query->where('id', '!=', $this->request->input('id'));
 				}
 				$error = $query->count();
 				break;
