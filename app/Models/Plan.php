@@ -37,7 +37,6 @@ class Plan extends Model
 	protected static $update_validator_fields = [
 		'name' => 'required',
 		'is_free' => 'boolean',
-		'currency' => 'required|exists:currencies,code',
 		'price_year' => 'required_unless:is_free,1|numeric',
 		'price_month' => 'required_unless:is_free,1|numeric',
 		'max_employees' => 'integer',
