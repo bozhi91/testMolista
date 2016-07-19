@@ -28,7 +28,7 @@ Route::group([
 		Route::get('/', 'CorporateController@index');
 		Route::controller('demo', 'Corporate\DemoController');
 		Route::controller('info', 'Corporate\InfoController');
-		Route::controller('features', 'Corporate\FeaturesController');
+		Route::get('features/{slug?}', 'Corporate\FeaturesController@getIndex');
 		Route::controller('pricing', 'Corporate\PricingController');
 		// Signup
 		Route::controller('signup', 'Corporate\SignupController');

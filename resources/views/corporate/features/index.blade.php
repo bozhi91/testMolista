@@ -4,7 +4,19 @@
 
 	<div id="features-banner">
 		<div class="features-banner-padding">
-			<h1>{{ Lang::get('corporate/features.characteristics') }}</h1>
+			@if ( $current_tab == 'tab1' )
+				<h1>{{ Lang::get('corporate/features.characteristics') }}: {{ Lang::get('corporate/features.web.link') }}</h1>
+			@elseif ( $current_tab == 'tab2' )
+				<h1>{{ Lang::get('corporate/features.characteristics') }}: {{ Lang::get('corporate/features.property.link') }}</h1>
+			@elseif ( $current_tab == 'tab3' )
+				<h1>{{ Lang::get('corporate/features.characteristics') }}: {{ Lang::get('corporate/features.agents.link') }}</h1>
+			@elseif ( $current_tab == 'tab4' )
+				<h1>{{ Lang::get('corporate/features.characteristics') }}: {{ Lang::get('corporate/features.leads.link') }}</h1>
+			@elseif ( $current_tab == 'tab5' )
+				<h1>{{ Lang::get('corporate/features.characteristics') }}: {{ Lang::get('corporate/features.integrations.link') }}</h1>
+			@else
+				<h1>{{ Lang::get('corporate/features.characteristics') }}</h1>
+			@endif
 		</div>
 	</div>
 
@@ -15,8 +27,8 @@
 				<div class="row">
 					<div class="features-tab-selector-block">
 						<ul class="nav nav-tabs nav-justified">
-							<li class="active">
-								<a data-toggle="tab" href="#feature-tab1">
+							<li class="{{ $current_tab == 'tab1' ? 'active' : '' }}">
+								<a href="{{ action('Corporate\FeaturesController@getIndex', $tab_options['tab1']) }}">
 									<div class="features-tab-selector-image">
 										<img src="{{ Theme::url('/images/corporate/features/icon-tab-1.png') }}" class="img-responsive">
 									</div>
@@ -25,8 +37,8 @@
 									</div>
 								</a>
 							</li>
-							<li>
-								<a data-toggle="tab" href="#feature-tab2">
+							<li class="{{ $current_tab == 'tab2' ? 'active' : '' }}">
+								<a href="{{ action('Corporate\FeaturesController@getIndex', $tab_options['tab2']) }}">
 									<div class="features-tab-selector-image">
 										<img src="{{ Theme::url('/images/corporate/features/icon-tab-2.png') }}" class="img-responsive">
 									</div>
@@ -35,8 +47,8 @@
 									</div>
 								</a>
 							</li>
-							<li>
-								<a data-toggle="tab" href="#feature-tab3">
+							<li class="{{ $current_tab == 'tab3' ? 'active' : '' }}">
+								<a href="{{ action('Corporate\FeaturesController@getIndex', $tab_options['tab3']) }}">
 									<div class="features-tab-selector-image">
 										<img src="{{ Theme::url('/images/corporate/features/icon-tab-3.png') }}" class="img-responsive">
 									</div>
@@ -45,8 +57,8 @@
 									</div>
 								</a>
 							</li>
-							<li>
-								<a data-toggle="tab" href="#feature-tab4">
+							<li class="{{ $current_tab == 'tab4' ? 'active' : '' }}">
+								<a href="{{ action('Corporate\FeaturesController@getIndex', $tab_options['tab4']) }}">
 									<div class="features-tab-selector-image">
 										<img src="{{ Theme::url('/images/corporate/features/icon-tab-4.png') }}" class="img-responsive">
 									</div>
@@ -55,8 +67,8 @@
 									</div>
 								</a>
 							</li>
-							<li>
-								<a data-toggle="tab" href="#feature-tab5">
+							<li class="{{ $current_tab == 'tab5' ? 'active' : '' }}">
+								<a href="{{ action('Corporate\FeaturesController@getIndex', $tab_options['tab5']) }}">
 									<div class="features-tab-selector-image">
 										<img src="{{ Theme::url('/images/corporate/features/icon-tab-5.png') }}" class="img-responsive">
 									</div>
@@ -74,86 +86,92 @@
 		<div id="features-content">
 			<div class="container">
 				<div class="tab-content">
-					<div id="feature-tab1" class="tab-pane fade in active feature-tab-styles">
-						<div class="row">
-							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-								<div class="features-content-text">
-									<h1>{!! Lang::get('corporate/features.web.title') !!}</h1>
-									{!! Lang::get('corporate/features.web.text') !!}
+					@if ( $current_tab == 'tab1' )
+						<div id="feature-tab1" class="tab-pane fade in active feature-tab-styles">
+							<div class="row">
+								<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+									<div class="features-content-text">
+										<h1>{!! Lang::get('corporate/features.web.title') !!}</h1>
+										{!! Lang::get('corporate/features.web.text') !!}
+									</div>
 								</div>
-							</div>
-							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-								<div class="feature-content-image">
-									<img src="{{ Theme::url('/images/corporate/features/picture-tab-content-1.png') }}" class="img-responsive">
-								</div>
-							</div>
-						</div>
-					</div>
-					<div id="feature-tab2" class="tab-pane fade feature-tab-styles">
-						<div class="row">
-							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-								<div class="features-content-text">
-									<h1>{!! Lang::get('corporate/features.property.title') !!}</h1>
-									{!! Lang::get('corporate/features.property.text') !!}
-								</div>
-							</div>
-							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-								<div class="feature-content-image">
-									<img src="{{ Theme::url('/images/corporate/features/picture-tab-content-2.png') }}" class="img-responsive">
+								<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+									<div class="feature-content-image">
+										<img src="{{ Theme::url('/images/corporate/features/picture-tab-content-1.png') }}" class="img-responsive">
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<div id="feature-tab3" class="tab-pane fade feature-tab-styles">
-						<div class="row">
-							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-								<div class="features-content-text">
-									<h1>{!! Lang::get('corporate/features.agents.title') !!}</h1>
-									{!! Lang::get('corporate/features.agents.text') !!}
+					@elseif ( $current_tab == 'tab2' )
+						<div id="feature-tab2" class="tab-pane fade in active feature-tab-styles">
+							<div class="row">
+								<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+									<div class="features-content-text">
+										<h1>{!! Lang::get('corporate/features.property.title') !!}</h1>
+										{!! Lang::get('corporate/features.property.text') !!}
+									</div>
 								</div>
-							</div>
-							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-								<div class="feature-content-image">
-									<img src="{{ Theme::url('/images/corporate/features/picture-tab-content-3.png') }}" class="img-responsive">
-								</div>
-							</div>
-						</div>
-					</div>
-					<div id="feature-tab4" class="tab-pane fade feature-tab-styles">
-						<div class="row">
-							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-								<div class="features-content-text">
-									<h1>{!! Lang::get('corporate/features.leads.title') !!}</h1>
-									{!! Lang::get('corporate/features.leads.text') !!}
-								</div>
-							</div>
-							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-								<div class="feature-content-image">
-									<img src="{{ Theme::url('/images/corporate/features/picture-tab-content-4.png') }}" class="img-responsive">
+								<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+									<div class="feature-content-image">
+										<img src="{{ Theme::url('/images/corporate/features/picture-tab-content-2.png') }}" class="img-responsive">
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<div id="feature-tab5" class="tab-pane fade feature-tab-styles">
-						<div class="row">
-							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-								<div class="features-content-text">
-									<h1>{!! Lang::get('corporate/features.integrations.title') !!}</h1>
-									{!! Lang::get('corporate/features.integrations.text') !!}
+					@elseif ( $current_tab == 'tab3' )
+						<div id="feature-tab3" class="tab-pane fade in active feature-tab-styles">
+							<div class="row">
+								<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+									<div class="features-content-text">
+										<h1>{!! Lang::get('corporate/features.agents.title') !!}</h1>
+										{!! Lang::get('corporate/features.agents.text') !!}
+									</div>
 								</div>
-							</div>
-							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-								<div class="feature-content-image">
-									@if ( \App\Session\Geolocation::get('config.feature_image') )
-										<?php $config = \App\Session\Geolocation::get('config') ?>
-										<img src="{{ Theme::url("{$config['items_folder']}/{$config['feature_image']}") }}" class="img-responsive">
-									@else
-										<img src="{{ Theme::url('/images/corporate/features/picture-tab-content-5.png') }}" class="img-responsive">
-									@endif
+								<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+									<div class="feature-content-image">
+										<img src="{{ Theme::url('/images/corporate/features/picture-tab-content-3.png') }}" class="img-responsive">
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+					@elseif ( $current_tab == 'tab4' )
+						<div id="feature-tab4" class="tab-pane fade in active feature-tab-styles">
+							<div class="row">
+								<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+									<div class="features-content-text">
+										<h1>{!! Lang::get('corporate/features.leads.title') !!}</h1>
+										{!! Lang::get('corporate/features.leads.text') !!}
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+									<div class="feature-content-image">
+										<img src="{{ Theme::url('/images/corporate/features/picture-tab-content-4.png') }}" class="img-responsive">
+									</div>
+								</div>
+							</div>
+						</div>
+					@elseif ( $current_tab == 'tab5' )
+						<div id="feature-tab5" class="tab-pane fade in active feature-tab-styles">
+							<div class="row">
+								<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+									<div class="features-content-text">
+										<h1>{!! Lang::get('corporate/features.integrations.title') !!}</h1>
+										{!! Lang::get('corporate/features.integrations.text') !!}
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+									<div class="feature-content-image">
+										@if ( \App\Session\Geolocation::get('config.feature_image') )
+											<?php $config = \App\Session\Geolocation::get('config') ?>
+											<img src="{{ Theme::url("{$config['items_folder']}/{$config['feature_image']}") }}" class="img-responsive">
+										@else
+											<img src="{{ Theme::url('/images/corporate/features/picture-tab-content-5.png') }}" class="img-responsive">
+										@endif
+									</div>
+								</div>
+							</div>
+						</div>
+					@endif
 				</div>
 			</div>
 		</div>
