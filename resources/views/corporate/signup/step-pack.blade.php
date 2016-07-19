@@ -48,7 +48,7 @@
 					</div>
 
 					<div class="nav-area">
-						<a href="{{ action('Corporate\SignupController@getUser')}}" class="btn btn-nav btn-nav-prev">{{ Lang::get('corporate/signup.previous') }}</a>
+						<a href="{{ action('Corporate\SignupController@getIndex')}}" class="btn btn-nav btn-nav-prev">{{ Lang::get('corporate/signup.previous') }}</a>
 						{!! Form::button(Lang::get('corporate/signup.next'), [ 'type'=>'submit', 'class'=>'btn btn-nav btn-nav-next pull-right' ]) !!}
 					</div>
 

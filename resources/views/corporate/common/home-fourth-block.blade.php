@@ -30,7 +30,7 @@
 			  <ul>
 		        <li><a href="{{ empty($demo_link) ? action('Corporate\DemoController@getIndex') : $demo_link }}" {{ empty($demo_target) ? '' : "target=\"$demo_target\"" }} class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</a></li>
 		        <li><a href="{{ action('Corporate\FeaturesController@getIndex') }}" class="btn btnBdrYlw text-uppercase" >{{ Lang::get('corporate/general.moreinfo') }}</a></li>
-		        <li><a href="{{ action('Corporate\SignupController@getUser') }}" class="btn btnBdrYlw text-uppercase" >{{ Lang::get('corporate/home.try') }}</a></li>
+		        <li><a href="{{ action('Corporate\SignupController@getIndex') }}" class="btn btnBdrYlw text-uppercase" >{{ Lang::get('corporate/home.try') }}</a></li>
 		      </ul>
 			</div>
 		</div>

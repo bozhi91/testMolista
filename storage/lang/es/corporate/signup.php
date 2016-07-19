@@ -11,6 +11,7 @@
 		'user.new.name.placeholder' => 'Escribe tu nombre y apellidos',
 		'user.new.email' => 'Email',
 		'user.new.email.placeholder' => 'Escribe tu email',
+		'user.new.email.error' => 'El email ya está registrado',
 		'user.new.password' => 'Contraseña',
 		'user.new.password.placeholder' => 'Escribe tu contraseña',
 		'user.new.accept' => 'Estoy de acuerdo con los términos legales',
@@ -129,4 +130,21 @@
 									<li>Subdomain: :subdomain</li>
 									<li>Creación: :created</li>
 								</ul>',
+
+		'full.h1' => 'Contratación',
+		'full.intro' => '<p>Por favor, rellena el siguiente formulario para contratar tu plan con <strong>molista</strong>.</p>',
+		'full.data.title' => 'Datos de registro',
+		'full.plan.title' => 'Elije el plan molista que deseas contratar',
+		'full.site.warning' => 'Puedes definir tu propio dominio "www.midominio.com" una vez registrado',
+		'full.site.optional' => 'Opcional',
+		'full.site.transfer' => 'Contratar el servicio de traspaso de mi web',
+		'full.invoicing.title' => 'Rellena tus datos',
+		'full.invoicing.please' => 'Por favor, selecciona',
+		'full.summary.title' => 'Tu pedido',
+		'full.summary.total' => 'Total a pagar',
+		'full.summary.button' => 'Contratar',
+		'full.help.title' => '¿Necesitas ayuda?',
+		'full.help.email' => 'soporte@molista.com',
+		'full.help.time' => 'L-V de 10:00 a 18:00 h',
+
 	];

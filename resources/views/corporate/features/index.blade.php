@@ -235,11 +235,11 @@
 			<section class="block-links">
 				<div class="container">
 					<div class="row">
-						<div class="col-lg-6 col-lg-offset-3 clearfix">
-						  <ul>
-					        <li><button class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</button></li>
-					        <li><button class="btn btnBdrYlw text-uppercase" data-toggle="modal" data-target="#contact-modal">{{ Lang::get('corporate/general.contact') }}</button></li>
-					      </ul>
+						<div class="col-xs-12 text-center">
+							<ul>
+								<li><a href="{{ action('Corporate\DemoController@getIndex') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</a></li>
+								<li><button class="btn btnBdrYlw text-uppercase" data-toggle="modal" data-target="#contact-modal">{{ Lang::get('corporate/general.contact') }}</button></li>
+							</ul>
 						</div>
 					</div>
 				</div>
