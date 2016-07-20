@@ -238,6 +238,15 @@
 								</div>
 							</div>
 
+							<div class="hidden-xs">
+								<div class="row">
+									<div class="col-xs-12 col-sm-6 col-sm-offset-6">
+										<br />
+										{!! Form::button(Lang::get('corporate/signup.full.summary.button'), [ 'type'=>'submit', 'class'=>'btn btn-block btn-submit' ]) !!}
+									</div>
+								</div>
+							</div>
+
 						</div>
 
 						<div class="visible-xs" style="height: 50px;"></div>
