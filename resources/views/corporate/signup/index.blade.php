@@ -380,7 +380,7 @@
 				form.find('.user-tab').addClass('hide').filter('.user-tab-' + t).removeClass('hide');
 			});
 
-			form.on('click','.payment-interval-select',function(e){
+			form.on('click change','.payment-interval-select',function(e){
 				form.find('.plan-block').removeClass('selected');
 				$(this).closest('.plan-block').addClass('selected').find('.plan-input').prop("checked", true).valid();
 				updateSummary();
