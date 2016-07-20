@@ -728,6 +728,7 @@ class Site extends TranslatableModel
 			'account_url' => $this->account_url,
 			'owner_name' => $owner->name,
 			'owner_email' => $owner->email,
+			'owner_phone' => $owner->phone,
 			'pending_request' => $this->planchanges()->with('plan')->pending()->first(),
 		];
 

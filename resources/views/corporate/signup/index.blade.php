@@ -39,6 +39,10 @@
 													{!! Form::label('user[new][password]', Lang::get('corporate/signup.user.new.password'), [ 'class'=>'' ]) !!}
 													{!! Form::password('user[new][password]', [ 'class'=>'form-control required', 'minlength'=>6, 'maxlength'=>20, 'placeholder'=>Lang::get('corporate/signup.user.new.password.placeholder') ]) !!}
 												</div>
+												<div class="form-group error-container">
+													{!! Form::label('user[new][phone]', Lang::get('corporate/signup.user.new.phone'), [ 'class'=>'' ]) !!}
+													{!! Form::text('user[new][phone]', null, [ 'class'=>'form-control required', 'placeholder'=>Lang::get('corporate/signup.user.new.phone.placeholder') ]) !!}
+												</div>
 												<div class="switch-area">
 													<a href="#" class="user-type-switch" data-rel="old"><strong>{{ Lang::get('corporate/signup.user.new.have.account') }}</strong></a>
 												</div>

@@ -16,6 +16,8 @@
 		'user.new.password.placeholder' => 'Enter your password',
 		'user.new.accept' => 'I have read and accept the legal terms',
 		'user.new.have.account' => 'I already have an account',
+		'user.new.phone' => 'Phone',
+		'user.new.phone.placeholder' => 'Enter you phone',
 
 		'user.old.h2' => 'Ready to start?',
 		'user.old.no.account' => "I don't have an account.",

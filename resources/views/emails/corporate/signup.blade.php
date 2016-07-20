@@ -60,6 +60,7 @@
 			{!! Lang::get('corporate/signup.email.url.account', [
 				'account_url' => @$account_url,
 				'email' => @$owner_email,
+				'phone' => @$owner_phone,
 			]) !!}
 
 			@if ( @$pending_request['payment_method'] == 'stripe' )

@@ -14,7 +14,7 @@ class User extends Authenticatable
 	protected static $thumb_height = 75;
 
 	protected $fillable = [
-		'name', 'email', 'password', 'locale',
+		'name', 'email', 'phone','password', 'locale',
 	];
 
 	protected $hidden = [

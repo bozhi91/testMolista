@@ -107,6 +107,7 @@ class SignupController extends \App\Http\Controllers\CorporateController
 			$user = \App\User::create([
 				'name' => $data['user']['new']['name'],
 				'email' => $data['user']['new']['email'],
+				'phone' => $data['user']['new']['phone'],
 				'locale' => \LaravelLocalization::getCurrentLocale(),
 				'password' => bcrypt($data['user']['new']['password']),
 			]);
@@ -271,6 +272,7 @@ class SignupController extends \App\Http\Controllers\CorporateController
 				$fields['user.new.name'] = 'required|string';
 				$fields['user.new.email'] = 'required|email|unique:users,email';
 				$fields['user.new.password'] = 'required|string';
+				$fields['user.new.phone'] = 'required|string';
 				break;
 			case 'old':
 				$fields['user.old.email'] = 'required|email|exists:users,email';

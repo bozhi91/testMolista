@@ -1,7 +1,5 @@
 @extends('layouts.corporate')
 
-@extends('layouts.corporate')
-
 @section('content')
 
 	<div id="signup" class="step-confirm">
