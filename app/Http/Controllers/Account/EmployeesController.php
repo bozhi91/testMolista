@@ -27,23 +27,23 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 					->with('properties');
 
 		// Filter by name
-		if ( $this->request->get('name') )
+		if ( $this->request->input('name') )
 		{
-			$query->where('name', 'like', "%{$this->request->get('name')}%");
+			$query->where('name', 'like', "%{$this->request->input('name')}%");
 		}
 
 		// Filter by email
-		if ( $this->request->get('email') )
+		if ( $this->request->input('email') )
 		{
-			$query->where('email', 'like', "%{$this->request->get('email')}%");
+			$query->where('email', 'like', "%{$this->request->input('email')}%");
 		}
 
-		if ( $this->request->get('csv') )
+		if ( $this->request->input('csv') )
 		{
 			return $this->exportCsv($query);
 		}
 
-		$employees = $query->orderBy('name')->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
+		$employees = $query->orderBy('name')->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		if ( $employees->count() > 0 )
 		{
@@ -149,7 +149,7 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 			abort(404);
 		}
 
-		$properties = $employee->properties()->ofSite( $this->site->id )->withTranslations()->get();
+		$properties = $employee->properties()->ofSite( $this->site->id )->get();
 
 		return view('account.employees.edit', compact('employee','properties'));
 	}
@@ -204,10 +204,10 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 			$tickets = $this->site->ticket_adm->getTickets([
 				'user_id' => $employee->ticket_user_id,
 				'status' => [ 'open', 'waiting' ],
-				'page' => $this->request->get('page',1),
-				'limit' => $this->request->get('limit', \Config::get('app.pagination_perpage', 10)),
-				'orderby' => $this->request->get('orderby'),
-				'order' => $this->request->get('order'),
+				'page' => $this->request->input('page',1),
+				'limit' => $this->request->input('limit', \Config::get('app.pagination_perpage', 10)),
+				'orderby' => $this->request->input('orderby'),
+				'order' => $this->request->input('order'),
 			]);
 		}
 

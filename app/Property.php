@@ -147,7 +147,7 @@ class Property extends TranslatableModel
 	}
 
 	public function services() {
-		return $this->belongsToMany('App\Models\Property\Service', 'properties_services', 'property_id', 'service_id');
+		return $this->belongsToMany('App\Models\Property\Service', 'properties_services', 'property_id', 'service_id')->withTranslations();
 	}
 
 	public function hasService($id)
@@ -184,6 +184,11 @@ class Property extends TranslatableModel
 		}
 
 		return $marketplaces;
+	}
+
+	public function infocurrency()
+	{
+		return $this->hasOne('App\Models\Currency', 'code', 'currency')->withTranslations();
 	}
 
 	public function getLocationArrayAttribute()
@@ -544,8 +549,7 @@ class Property extends TranslatableModel
 		}
 
 		// Features
-		$services = $this->services()->withTranslations()->get();
-		foreach ($services as $service)
+		foreach ($this->services as $service)
 		{
 			$tmp = [];
 			foreach ($site_locales as $locale) 
@@ -738,9 +742,7 @@ class Property extends TranslatableModel
 				->with('state')
 				->with('city')
 				->with('images')
-				->with([ 'services' => function($query){
-					$query->withTranslations();
-				}])
+				->with('services')
 				;
 	}
 

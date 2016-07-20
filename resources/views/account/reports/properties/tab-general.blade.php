@@ -34,7 +34,7 @@
 			<div class="panel panel-default panel-stats">
 				<div class="panel-heading">{{ Lang::get('account/reports.sale') }}</div>
 				<div class="panel-body">
-					{{ price($stats->current_sale_price) }}
+					{{ price($stats->current_sale_price, array_merge($current_site->infocurrency->toArray(),[ 'decimals'=>2 ])) }}
 				</div>
 			</div>
 		</div>
@@ -42,7 +42,7 @@
 			<div class="panel panel-default panel-stats">
 				<div class="panel-heading">{{ Lang::get('account/reports.rent') }}</div>
 				<div class="panel-body">
-					{{ price($stats->current_rent_price) }}
+					{{ price($stats->current_rent_price, array_merge($current_site->infocurrency->toArray(),[ 'decimals'=>2 ])) }}
 				</div>
 			</div>
 		</div>
@@ -54,7 +54,7 @@
 			<div class="panel panel-default panel-stats">
 				<div class="panel-heading">{{ Lang::get('account/reports.sale') }}</div>
 				<div class="panel-body">
-					{{ price($stats->current_sale_sqm) }}/m²
+					{{ number_format($stats->current_sale_sqm,2,',','.') }} {{ $current_site->infocurrency->symbol }}/m²
 				</div>
 			</div>
 		</div>
@@ -62,7 +62,7 @@
 			<div class="panel panel-default panel-stats">
 				<div class="panel-heading">{{ Lang::get('account/reports.rent') }}</div>
 				<div class="panel-body">
-					{{ price($stats->current_rent_sqm) }}/m²
+					{{ number_format($stats->current_rent_sqm,2,',','.') }} {{ $current_site->infocurrency->symbol }}/m²
 				</div>
 			</div>
 		</div>

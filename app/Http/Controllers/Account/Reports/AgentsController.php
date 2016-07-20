@@ -31,12 +31,12 @@ class AgentsController extends \App\Http\Controllers\AccountController
 
 		$query = \App\Models\User\Stats::selectRaw( implode(', ',$fields) )->where('site_id', $this->site->id);
 
-		if ( $this->request->get('agent') )
+		if ( $this->request->input('agent') )
 		{
-			$query->where('user_id',$this->request->get('agent'));
+			$query->where('user_id',$this->request->input('agent'));
 		}
 
-		switch ( $this->request->get('period', '7-days') )
+		switch ( $this->request->input('period', '7-days') )
 		{
 			case 'year-to-date':
 				$query->whereDate('date', '>=', date('Y').'-01-01') ;

@@ -22,15 +22,15 @@ class LocalesController extends Controller
 		$query = \App\Models\Locale::whereNotNull('id');
 
 		// Filter by name
-		if ( $this->request->get('name') )
+		if ( $this->request->input('name') )
 		{
 			$query->where(function($query) {
-				$query->where('name', 'LIKE', "%{$this->request->get('name')}%")
-					->orWhere('native', 'LIKE', "%{$this->request->get('name')}%");
+				$query->where('name', 'LIKE', "%{$this->request->input('name')}%")
+					->orWhere('native', 'LIKE', "%{$this->request->input('name')}%");
 			});
 		}
 
-		$locales = $query->orderBy('native','asc')->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
+		$locales = $query->orderBy('native','asc')->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$this->set_go_back_link();
 
@@ -68,7 +68,7 @@ class LocalesController extends Controller
 
 		// Check if exists
 		$locale = \App\Models\Locale::where([
-			'locale' => $this->request->get('locale'),
+			'locale' => $this->request->input('locale'),
 		])->first();
 		if ( $locale )
 		{
@@ -85,7 +85,7 @@ class LocalesController extends Controller
 
 			if ( in_array('boolean', $def) )
 			{
-				$locale->$field = $this->request->get($field) ? 1 : 0;
+				$locale->$field = $this->request->input($field) ? 1 : 0;
 			}
 			elseif ( $field == 'flag' )
 			{
@@ -99,7 +99,7 @@ class LocalesController extends Controller
 			}
 			else
 			{
-				$locale->$field = $this->request->get($field);
+				$locale->$field = $this->request->input($field);
 			}
 		}
 		$locale->save();
@@ -150,7 +150,7 @@ class LocalesController extends Controller
 
 			if ( in_array('boolean', $def) )
 			{
-				$locale->$field = $this->request->get($field) ? 1 : 0;
+				$locale->$field = $this->request->input($field) ? 1 : 0;
 			}
 			elseif ( $field == 'flag' )
 			{
@@ -172,7 +172,7 @@ class LocalesController extends Controller
 			}
 			else
 			{
-				$locale->$field = $this->request->get($field);
+				$locale->$field = $this->request->input($field);
 			}
 		}
 

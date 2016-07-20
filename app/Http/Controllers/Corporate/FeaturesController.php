@@ -30,7 +30,6 @@ class FeaturesController extends \App\Http\Controllers\CorporateController
 			return redirect()->action('Corporate\FeaturesController@getIndex', reset($tab_options), 301);
 		}
 
-
 		return view('corporate.features.index', compact('current_tab','tab_options'));
 	}
 

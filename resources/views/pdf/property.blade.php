@@ -91,7 +91,7 @@
 					<td class="mode-price">
 						<div class="text">
 							<div class="mode">{{ Lang::get("pdf.property.mode.{$property->mode}") }}</div>
-							<div class="price">{{ price($property->price, [ 'decimals'=>0 ]) }}</div>
+							<div class="price">{{ price($property->price, $property->infocurrency->toArray()) }}</div>
 						</did>
 					</td>
 				</tr>
@@ -130,7 +130,7 @@
 										</div>
 										<div>
 											{{ number_format(round($property->price/$property->size),0,',','.') }} 
-											{{ price_symbol($property->currency) }}/m²
+											{{ $property->infocurrency->symbol }}/m²
 										</div>
 										<div>{{ Lang::get('account/properties.ref') }}: {{ $property->ref }}</div>
 									</div>

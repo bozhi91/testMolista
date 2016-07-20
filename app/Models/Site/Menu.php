@@ -20,21 +20,12 @@ class Menu extends Model implements SluggableInterface
 	protected $guarded = [];
 
 	public function items() {
-		return $this->hasMany('App\Models\Site\MenuItem');
+		return $this->hasMany('App\Models\Site\MenuItem')->withTranslations()->with('property')->with('page')->orderBy('position');
 	}
 
 	public function scopeWithItems($query)
 	{
-		return $query->with(['items' => function($query){
-			$query->withTranslations()
-					->with([ 'property' => function($query){
-						$query->withTranslations();
-					}])
-					->with([ 'page' => function($query){
-						$query->withTranslations();
-					}])
-					->orderBy('position');
-		}]);
+		return $query;
 	}
 
 }

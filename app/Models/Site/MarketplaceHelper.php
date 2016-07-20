@@ -7,9 +7,12 @@ class MarketplaceHelper
 
 	protected $marketplace;
 	protected $marketplace_adm;
+	protected $marketplace_currency;
 
 	protected $property;
 	protected $property_marketplace;
+
+	protected $currencies_rates = [];
 
 	public function __construct($site)
 	{
@@ -265,7 +268,9 @@ class MarketplaceHelper
 		$config = isset($config['configuration']) ? $config['configuration'] : [];
 
 		$this->marketplace = $marketplace;
+
 		$this->marketplace_adm = new $marketplace->class_path($config);
+		$this->marketplace_currency = $this->marketplace_adm->getCurrency();
 	}
 
 	public function setProperty($property)
@@ -293,6 +298,18 @@ class MarketplaceHelper
 					$tmp['basename'] . $add_extension,
 				]);
 			}
+		}
+
+		// Fix price
+		if ( $this->property_marketplace['currency'] != $this->marketplace_currency )
+		{
+			$currency = $this->property_marketplace['currency'];
+			if ( !array_key_exists($currency, $this->currencies_rates) )
+			{
+				$this->currencies_rates[$currency] = \App\Models\CurrencyConverter::convert(1, $currency, $this->marketplace_currency);
+			}
+
+			$this->property_marketplace['price'] = $this->property_marketplace['price'] * $this->currencies_rates[$currency];
 		}
 	}
 

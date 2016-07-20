@@ -1,5 +1,5 @@
 <?php 
-	$enabled_locales = [ 'es' ]; 
+	$enabled_locales = \App\Models\Locale::getCorporateLocales();
 ?>
 <!DOCTYPE html>
 <html lang="{{ LaravelLocalization::getCurrentLocale() }}">

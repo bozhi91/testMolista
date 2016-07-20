@@ -12,19 +12,19 @@ class ParserController extends Controller
 
     public function getIndex()
 	{
-		if ( !$this->request->get('limit') )
+		if ( !$this->request->input('limit') )
 		{
 			$this->request->merge([ 'limit'=>25 ]);
 		}
 
 		$query = \App\Models\Utils\ParseRequest::orderBy('query');
 
-		if ( $this->request->get('query') )
+		if ( $this->request->input('query') )
 		{
-			$query->where('query', $this->request->get('query'));
+			$query->where('query', $this->request->input('query'));
 		}
 
-		$requests = $query->paginate($this->request->get('limit'));
+		$requests = $query->paginate($this->request->input('limit'));
 
 		return view('admin.utils.parser.index', compact('requests'));
 	}

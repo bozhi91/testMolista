@@ -49,6 +49,11 @@ class Planchange extends \Illuminate\Database\Eloquent\Model
 		return $this->plan->$price_key;
 	}
 
+	public function getPlanCurrencyAttribute()
+	{
+		return $this->plan->currency;
+	}
+
 	public function getStripePlanIdAttribute()
 	{
 		$stripe_id_key = "stripe_{$this->payment_interval}_id";

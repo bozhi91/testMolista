@@ -12,12 +12,12 @@ class ExpirationsController extends Controller
 	{
 		$query = \App\Site::with('plan')->whereNotNull('paid_until');
 
-		if ( $this->request->get('plan_id') )
+		if ( $this->request->input('plan_id') )
 		{
-			$query->where('plan_id', $this->request->get('plan_id'));
+			$query->where('plan_id', $this->request->input('plan_id'));
 		}
 
-		switch ( $this->request->get('order') )
+		switch ( $this->request->input('order') )
 		{
 			case 'desc':
 				$order = 'desc';
@@ -25,7 +25,7 @@ class ExpirationsController extends Controller
 			default:
 				$order = 'asc';
 		}
-		switch ( $this->request->get('orderby') )
+		switch ( $this->request->input('orderby') )
 		{
 			case 'paid_until':
 			default:
@@ -33,7 +33,7 @@ class ExpirationsController extends Controller
 				break;
 		}
 
-		$expirations = $query->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
+		$expirations = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$plans = \App\Models\Plan::enabled()->orderBy('name')->lists('name','id')->all();
 

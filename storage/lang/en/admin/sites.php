@@ -15,6 +15,8 @@ return [
 	'enabled' => 'Enabled',
 	'theme.custom' => 'Custom theme',
 	'transfer' => 'Web transfer',
+	'currency' => 'Currency',
+	'country' => 'Country',
 
 	'create.title' => 'Create site',
 	'edit.title' => 'Edit site',

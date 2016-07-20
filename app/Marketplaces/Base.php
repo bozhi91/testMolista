@@ -9,6 +9,8 @@ abstract class Base implements MarketplaceInterface {
     protected $iso_lang;
     protected $config;
 
+    protected $currency = 'EUR';
+
     public function __construct(array $config = [])
     {
         if (empty($this->iso_lang))
@@ -22,6 +24,11 @@ abstract class Base implements MarketplaceInterface {
     public function getMarketplaceConfiguration()
     {
         return $this->configuration;
+    }
+
+    public function getCurrency()
+    {
+        return $this->currency;
     }
 
 }

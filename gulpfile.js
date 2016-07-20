@@ -82,6 +82,7 @@ elixir(function(mix) {
 		], 'public/compiled/css/corporate.css')
 		.scripts([
 			'compiled/common.js',
+			'jquery.sticky-kit.js',
 			'corporate.js',
 		], 'public/compiled/js/corporate.js');
 

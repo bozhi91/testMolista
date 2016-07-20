@@ -215,6 +215,12 @@
 			/* https://github.com/SimpleSoftwareIO/simple-qrcode */
 			SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
 
+			/* https://github.com/Torann/laravel-geoip */
+			Torann\GeoIP\GeoIPServiceProvider::class,
+
+			/* https://github.com/florianv/laravel-swap */
+			Florianv\LaravelSwap\SwapServiceProvider::class,
+
 		],
 
 		/*
@@ -295,6 +301,12 @@
 
 			/* https://github.com/SimpleSoftwareIO/simple-qrcode */
 			'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+
+			/* https://github.com/Torann/laravel-geoip */
+			'GeoIP' => Torann\GeoIP\GeoIPFacade::class,
+
+			/* https://github.com/florianv/laravel-swap */
+			'Swap' => Florianv\LaravelSwap\Facades\Swap::class,
 		],
 
 	];

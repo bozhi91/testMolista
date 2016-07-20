@@ -129,7 +129,7 @@ class AuthController extends Controller
 			{
 				// Check if required site id
 				$required_site_id = env('loginRequiredSite');
-				if ( !$required_site_id || $user->sites()->where('id', $required_site_id)->count() )
+				if ( !$required_site_id || $user->sites()->where('sites.id', $required_site_id)->count() )
 				{
 					return redirect()->intended( $this->redirectPath() );
 				}

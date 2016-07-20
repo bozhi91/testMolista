@@ -18,7 +18,7 @@ class TicketsController extends \App\Http\Controllers\AccountController
 
 	public function getIndex()
 	{
-		if ( !$this->request->get('limit') )
+		if ( !$this->request->input('limit') )
 		{
 			$this->request->merge([
 				'limit' => \Config::get('app.pagination_perpage', 10),
@@ -26,26 +26,26 @@ class TicketsController extends \App\Http\Controllers\AccountController
 		}
 
 		$params = [
-			'page' => $this->request->get('page',1),
-			'limit' => $this->request->get('limit'),
-			'orderby' => $this->request->get('orderby'),
-			'order' => $this->request->get('order'),
+			'page' => $this->request->input('page',1),
+			'limit' => $this->request->input('limit'),
+			'orderby' => $this->request->input('orderby'),
+			'order' => $this->request->input('order'),
 		];
 
-		if ( $this->request->get('status') )
+		if ( $this->request->input('status') )
 		{
 			$clean_filters = true;
-			$params['status'] = $this->request->get('status');
+			$params['status'] = $this->request->input('status');
 		}
 
-		if ( $this->request->get('user_id') == 'null' )
+		if ( $this->request->input('user_id') == 'null' )
 		{
 			$clean_filters = true;
 			$params['user_id'] = 'null';
 		} 
 		elseif ( \Auth::user()->hasRole('employee') )
 		{
-			if ( $this->request->get('user_id') ) 
+			if ( $this->request->input('user_id') ) 
 			{
 				$clean_filters = true;
 				$params['user_id'] = \Auth::user()->ticket_user_id;
@@ -58,10 +58,10 @@ class TicketsController extends \App\Http\Controllers\AccountController
 				];
 			}
 		}
-		elseif ( $this->request->get('user_id') ) 
+		elseif ( $this->request->input('user_id') ) 
 		{
 			$clean_filters = true;
-			$params['user_id'] = $this->request->get('user_id');
+			$params['user_id'] = $this->request->input('user_id');
 		}
 
 		$tickets = $this->site->ticket_adm->getTickets($params);
@@ -101,24 +101,24 @@ class TicketsController extends \App\Http\Controllers\AccountController
 			return redirect()->back()->withInput()->withErrors($validator);
 		}
 
-		$customer = $this->site->customers()->findOrFail( $this->request->get('customer_id') );
+		$customer = $this->site->customers()->findOrFail( $this->request->input('customer_id') );
 
 		$data = [
 			'contact_id' => $customer->ticket_contact_id,
 			'source' => 'backoffice',
-			'subject' => $this->request->get('subject'),
-			'body' => strip_tags( $this->request->get('body') ),
+			'subject' => $this->request->input('subject'),
+			'body' => strip_tags( $this->request->input('body') ),
 		];
 
-		if ( $this->request->get('property_id') )
+		if ( $this->request->input('property_id') )
 		{
-			$property = $this->site->properties()->findOrFail( $this->request->get('property_id') );
+			$property = $this->site->properties()->findOrFail( $this->request->input('property_id') );
 			$data['item_id'] = $property->ticket_item_id;
 		}
 
-		if ( $this->request->get('user_id') )
+		if ( $this->request->input('user_id') )
 		{
-			$user = $this->site->users()->findOrFail( $this->request->get('user_id') );
+			$user = $this->site->users()->findOrFail( $this->request->input('user_id') );
 			$data['user_id'] = $user->ticket_user_id;
 		}
 
@@ -156,7 +156,7 @@ class TicketsController extends \App\Http\Controllers\AccountController
 			return redirect()->back()->withInput()->withErrors($validator);
 		}
 
-		$user = $this->site->users()->find($this->request->get('user_id'));
+		$user = $this->site->users()->find($this->request->input('user_id'));
 
 		if ( !$user || !$user->ticket_user_id ) 
 		{
@@ -237,7 +237,7 @@ class TicketsController extends \App\Http\Controllers\AccountController
 		}
 
 		$result = $this->site->ticket_adm->updateTicket($ticket_id, [
-			'status' => $this->request->get('status'),
+			'status' => $this->request->input('status'),
 		]);
 
 		if ( $result )

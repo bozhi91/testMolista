@@ -161,7 +161,12 @@
 								</div>
 								<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 									<div class="feature-content-image">
-										<img src="{{ Theme::url('/images/corporate/features/picture-tab-content-5.png') }}" class="img-responsive">
+										@if ( \App\Session\Geolocation::get('config.feature_image') )
+											<?php $config = \App\Session\Geolocation::get('config') ?>
+											<img src="{{ Theme::url("{$config['items_folder']}/{$config['feature_image']}") }}" class="img-responsive">
+										@else
+											<img src="{{ Theme::url('/images/corporate/features/picture-tab-content-5.png') }}" class="img-responsive">
+										@endif
 									</div>
 								</div>
 							</div>
@@ -230,11 +235,11 @@
 			<section class="block-links">
 				<div class="container">
 					<div class="row">
-						<div class="col-lg-6 col-lg-offset-3 clearfix">
-						  <ul>
-					        <li><button class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</button></li>
-					        <li><button class="btn btnBdrYlw text-uppercase" data-toggle="modal" data-target="#contact-modal">{{ Lang::get('corporate/general.contact') }}</button></li>
-					      </ul>
+						<div class="col-xs-12 text-center">
+							<ul>
+								<li><a href="{{ action('Corporate\DemoController@getIndex') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</a></li>
+								<li><button class="btn btnBdrYlw text-uppercase" data-toggle="modal" data-target="#contact-modal">{{ Lang::get('corporate/general.contact') }}</button></li>
+							</ul>
 						</div>
 					</div>
 				</div>

@@ -19,6 +19,7 @@ class Plan extends Model
 		'code' => 'required|unique:plans,code',
 		'name' => 'required',
 		'is_free' => 'boolean',
+		'currency' => 'required|exists:currencies,code',
 		'price_year' => 'required_unless:is_free,1|numeric',
 		'price_month' => 'required_unless:is_free,1|numeric',
 		'max_employees' => 'integer',
@@ -29,7 +30,7 @@ class Plan extends Model
 		'extras' => 'array',
 		'stripe_year_id' => 'required_unless:is_free,1',
 		'stripe_month_id' => 'required_unless:is_free,1',
-		'level' => 'integer',
+		'level' => 'required|integer',
 		'enabled' => 'boolean',
 	];
 
@@ -46,9 +47,14 @@ class Plan extends Model
 		'extras' => 'array',
 		'stripe_year_id' => 'required_unless:is_free,1',
 		'stripe_month_id' => 'required_unless:is_free,1',
-		'level' => 'integer',
+		'level' => 'required|integer',
 		'enabled' => 'boolean',
 	];
+
+	public function infocurrency()
+	{
+		return $this->hasOne('App\Models\Currency', 'code', 'currency')->withTranslations();
+	}
 
 	public static function saveModel($data, $id = null)
 	{
@@ -107,17 +113,43 @@ class Plan extends Model
 		return $query->where("{$this->getTable()}.code", $code);
 	}
 
-	static public function getEnabled()
+	static public function getEnabled($currency=false)
 	{
-		return \App\Models\Plan::enabled()->orderBy('level','asc')->get()->keyBy('code');
+		$query = \App\Models\Plan::enabled();
+
+		if ( $currency )
+		{
+			$query->where(function($query) use ($currency) {
+				$query
+					->whereNull('plans.currency')
+					->orWhere('plans.currency', '=', $currency);
+			});
+		}
+
+		return $query->orderBy('plans.level','asc')->get()->keyBy('code');
 	}
 
-	static public function getPaymentOptions()
+	static public function getPaymentOptions($valid_options=false)
 	{
-		return [
+		$options = [
 			'stripe' => trans('account/payment.method.stripe'),
 			'transfer' => trans('account/payment.method.transfer'),
 		];
+
+		if ( is_array($valid_options) )
+		{
+			foreach ($options as $key => $value)
+			{
+				if ( in_array($key, $valid_options) )
+				{
+					continue;
+				}
+
+				unset($options[$key]);
+			}
+		}
+
+		return $options;
 	}
 
 }

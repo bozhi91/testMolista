@@ -43,17 +43,25 @@
 			</section>
 			<!-- / FIRST BLOCK -->
 
-			<?php $logos = [ 'pisos','trovit','casinuevo','kyero','enalquiler','divendo','genteycasas'];  ?>
+			<?php 
+				$logos = \App\Session\Geolocation::get('config.marketplaces_images');
+				$logos_folder = \App\Session\Geolocation::get('config.items_folder');
+				if ( empty($logos) )
+				{
+					$logos = [ 'pisos.png','trovit.png','casinuevo.png','kyero.png','enalquiler.png','divendo.png','genteycasas.png' ];
+					$logos_folder = 'images/corporate/marketplaces';
+				}
+			?>
 			<section class="block-exports text-center">
 				<div class="container">
 					<ul class="logos hidden-xs list-inline">
 						@foreach ($logos as $logo)
-							<li><img src="{{ asset("images/corporate/marketplaces/{$logo}.png") }}" alt="" /></li>
+							<li><img src="{{ asset("{$logos_folder}/{$logo}") }}" alt="" /></li>
 						@endforeach
 					</ul>
 					<ul class="logos visible-xs list-unstyled">
 						@foreach ($logos as $logo)
-							<li><img src="{{ asset("images/corporate/marketplaces/{$logo}.png") }}" alt="" /></li>
+							<li><img src="{{ asset("{$logos_folder}/{$logo}") }}" alt="" /></li>
 						@endforeach
 					</ul>
 					<div class="and-more">
@@ -71,7 +79,7 @@
 						  <ul>
 					        <li><a href="{{ action('Corporate\DemoController@getIndex') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</a></li>
 					        <li><a href="{{ action('Corporate\FeaturesController@getIndex') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.moreinfo') }}</a></li>
-					        <li><a href="{{ action('Corporate\SignupController@getUser') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/home.try') }}</a></li>
+					        <li><a href="{{ action('Corporate\SignupController@getIndex') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/home.try') }}</a></li>
 					      </ul>
 						</div>
 					</div>

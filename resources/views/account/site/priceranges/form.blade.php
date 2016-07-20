@@ -11,7 +11,7 @@
 
 	<div class="form-group title-area">
 		{!! Form::label(null, Lang::get('account/priceranges.form.title')) !!}
-		<ul class="nav nav-tabs locale-tabs pull-right" role="tablist">
+		<ul class="nav nav-tabs locale-tabs pull-right text-uppercase" role="tablist">
 			<li role="presentation" class="active"><a href="#{{ $form_id }}-lang-{{ fallback_lang() }}" aria-controls="lang-{{ fallback_lang() }}" role="tab" data-toggle="tab">{{ fallback_lang() }}</a></li>
 			@foreach ($site_setup['locales_tabs'] as $lang_iso => $lang_name)
 				@if ( $lang_iso != fallback_lang() )
@@ -35,8 +35,13 @@
 			<div class="form-group error-container">
 				{!! Form::label(null, Lang::get('account/priceranges.form.from')) !!}
 				<div class="input-group">
+					@if ( $current_site->infocurrency->position == 'before' )
+						<div class="input-group-addon">{{ $current_site->infocurrency->symbol }}</div>
+					@endif
 					{!! Form::text('from', null, [ 'class'=>'form-control digits', 'min'=>'0' ]) !!}
-					<div class="input-group-addon">{{ price_symbol('EUR') }}</div>
+					@if ( $current_site->infocurrency->position == 'after' )
+						<div class="input-group-addon">{{ $current_site->infocurrency->symbol }}</div>
+					@endif
 				</div>
 			</div>
 		</div>
@@ -44,8 +49,13 @@
 			<div class="form-group error-container">
 				{!! Form::label(null, Lang::get('account/priceranges.form.till')) !!}
 				<div class="input-group">
+					@if ( $current_site->infocurrency->position == 'before' )
+						<div class="input-group-addon">{{ $current_site->infocurrency->symbol }}</div>
+					@endif
 					{!! Form::text('till', null, [ 'class'=>'form-control digits', 'min'=>'0' ]) !!}
-					<div class="input-group-addon">{{ price_symbol('EUR') }}</div>
+					@if ( $current_site->infocurrency->position == 'after' )
+						<div class="input-group-addon">{{ $current_site->infocurrency->symbol }}</div>
+					@endif
 				</div>
 			</div>
 		</div>
