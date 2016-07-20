@@ -158,4 +158,18 @@ elixir(function(mix) {
 		], 'public/themes/whitey/compiled/css/pdf.css')
 		;
 
+	/* Zoner */
+	mix
+		.less([
+			'zoner/app.less',
+		], 'resources/assets/css/compiled/zoner.css')
+		.styles([
+			'compiled/common.css',
+			'compiled/zoner.css',
+		], 'public/themes/zoner/compiled/css/app.css')
+		.less([
+			'zoner/pdf.less',
+		], 'public/themes/zoner/compiled/css/pdf.css')
+		;
+
 });
