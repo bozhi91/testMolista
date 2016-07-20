@@ -6,112 +6,47 @@
 		margin: 0px auto;
 
 		.item {
-			background: center center no-repeat;
-			background-size: cover;
-			min-height: 720px;
+			background: center center no-repeat; background-size: cover; min-height: 720px;
 
 			.carousel-caption {
 
 				.carousel-caption-block {
-					text-align: left;
-					margin-top: 25%;
+					text-align: left; margin-top: 25%;
 
 					.carousel-caption-text {
-						display: inline-block;
-					    text-decoration: none;
-					    background: #e6e6e6;
-					    opacity: 0.8 !important;
+						display: inline-block; text-decoration: none; background: #e6e6e6; opacity: 0.8 !important;
 
-						.carousel-title {
-							color: @black;
-							font-weight: bold;
-							font-size: 22px;
-							margin: 0px;
-							margin-bottom: 5px;
-						}
-
-						.carousel-price {
-							color: @pink;
-							font-size: 22px;
-							margin: 0px;
-							margin-bottom: 15px;
-						}
-
-						.carousel-button {
-							background: @pink;
-							color: @white;
-							padding: 5px;
-							font-size: 16px;
-						}
-
+						.carousel-title { color: @black; font-weight: bold; font-size: 22px; margin: 0px; margin-bottom: 5px; }
+						.carousel-price { color: @pink; font-size: 22px; margin: 0px; margin-bottom: 15px; }
+						.carousel-button { background: @pink; color: @white; padding: 5px; font-size: 16px; }
 					}
-
 				}
 
 				.slider-quick-search {
 					background: @inmoblue-topfooter;
 
-					.form-control:focus {
-						border-color: @inmoblue-bottomheader;
-					}
-					.form-control.is-placeholder {
-						color: @black;
-					}
-					.form-control::-webkit-input-placeholder {
-						color: @black;
-					}
-					.form-control:-moz-placeholder {
-						color: @black;
-					}
-					.form-control::-moz-placeholder {
-						color: @black;
-					}
-					.form-control:-ms-input-placeholder {
-						color: @black;
-					}
-
-					input, select {
-						color: @black;
-					}
-
-					.text-right a {
-						color: @white;
-					}
-
-					.text-right input {
-						color: @white;
-						background: @pink;
-					}
-
+					.form-control:focus { border-color: @inmoblue-bottomheader; }
+					.form-control.is-placeholder { color: @black; }
+					.form-control::-webkit-input-placeholder { color: @black; }
+					.form-control:-moz-placeholder { color: @black; }
+					.form-control::-moz-placeholder { color: @black; }
+					.form-control:-ms-input-placeholder { color: @black; }
+					input, select { color: @black; }
+					.text-right a { color: @white; }
+					.text-right input { color: @white; background: @pink; }
 				}
-
 			}
-
 		}
 	}
 }
 
 @media (min-width: 1199px) {
-	.carousel-caption {
-		max-width: 1100px;
-		margin: auto;
-	}
+	.carousel-caption { max-width: 1100px; margin: auto; }
 }
 
 @media (min-width: 768px) {
-	.carousel-caption {
-	    left: 10%;
-	    right: 10%;
-	    bottom: 5%;
-	    padding-bottom: 0px;
-	}
-
-	.slider-quick-search {
-	    padding: 20px;
-	}
-
-	#home .main-property .carousel-caption-text {
-	    padding: 10px 20px;
-    	min-width: 200px;
-	}
+	.carousel-caption { left: 10%; right: 10%; bottom: 5%; padding-bottom: 0px; }
+	.slider-quick-search { padding: 20px; padding-bottom: 0px; }
+	#home .main-property .carousel-caption-text { padding: 10px 20px; min-width: 200px; }
+	.slider-quick-search .text-right { background: @inmoblue-topheader; padding: 20px; margin-left: -20px; margin-right: -20px; }
 }

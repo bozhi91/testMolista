@@ -1,142 +1,178 @@
 @import '../app/properties.less';
 
 #properties {
-	background-color: @backgroundGrey;
-
 	.search-area {
-		background-color: @backgroundGrey;
+		background-color: @backgroundSearchArea; margin: 120px 0px 50px 0px;
 		
-		h2 {
-			color: @black;
-		}
+		h2 { color: @black; position: absolute; top: 0; margin-top: -68px; font-size: 18px; }
+
+		.container {width: auto !important;}
 
 		.form-area {
+			.col-xs-12 { width: 100% !important; }
 
-			.form-control:focus {
-				border-color: @inmoblue-bottomheader;
-			}
-			.form-control.is-placeholder {
-				color: #a0a0a0;
-			}
-			.form-control::-webkit-input-placeholder {
-				color: #a0a0a0;
-			}
-			.form-control:-moz-placeholder {
-				color: #a0a0a0;
-			}
-			.form-control::-moz-placeholder {
-				color: #a0a0a0;
-			}
-			.form-control:-ms-input-placeholder {
-				color: #a0a0a0;
-			}
+			/* colors */
+				label { color: #a0a0a0; }
+				.form-control:focus { border-color: @pink;}
+				.form-control.is-placeholder { color: #a0a0a0; }
+				.form-control::-webkit-input-placeholder { color: #a0a0a0; }
+				.form-control:-moz-placeholder { color: #a0a0a0; }
+				.form-control::-moz-placeholder { color: #a0a0a0; }
+				.form-control:-ms-input-placeholder { color: #a0a0a0; }
 
-			.select2-container--default.select2-container--focus .select2-selection--single,
-			.select2-container--default.select2-container--open .select2-selection--single,
-			.select2-container--default.select2-container--focus .select2-selection--multiple,
-			.select2-container--default.select2-container--open .select2-selection--multiple {
-				border: 1px solid @inmoblue-bottomheader;
-			}
+				.select2-container--default.select2-container--focus .select2-selection--single, .select2-container--default.select2-container--open .select2-selection--single, .select2-container--default.select2-container--focus .select2-selection--multiple, .select2-container--default.select2-container--open .select2-selection--multiple { border: 1px solid @pink;}
 
-			.btn.btn-warning {
-			    border-color: @pink;
-			    background: @pink;
-			    color: @white;
-			}
+				.btn.btn-warning { border-color: @pink; background: @pink; color: @white; }
+			/* end colors */
 		}
 	}
 
 	.results-area {
-		background-color: @backgroundGrey;
+		padding: 50px 0px 50px 0px;
 
-		.results-sort-trigger {
+		.container {width: auto !important;}
+		.results-sort-trigger { .btn-group { border: 0px; } }
+	}
 
-			.btn-group { border: 0px; }
+	.pagination-area { padding-top: 0px !important; border-top: 0px !important; display: none; }
+}
 
-			.btn.btn-primary { border-color: @pink; background: @pink; }
+/* #### 2 Columns #### */
 
-		}
+@media (min-width: 768px) {
+	#properties { width: 750px; margin: auto; }
+}
 
+@media (min-width: 992px) {
+	#properties { width: 970px; margin: auto; }
+}
+
+@media (min-width: 1200px) {
+	#properties { width: 1170px; margin: auto; }
+}
+
+@media (min-width: 768px) {
+	#properties {
+		.search-area { float: left; width: 20%; }
+		.results-area { float: left; width: 80%; }
+	}
+}
+
+#properties:after { display: table; clear: both; content: ""; }
+
+/* #### 2 Columns #### */
+
+/* Skew at button */
+#properties {
+	.results-area {
 		.property-list {
-
 			.property-row {
-				border-top: 0px;
-				border: 1px solid @propietiesBorderGrey;
-				background: @white;
-				margin-bottom: 35px;
-				padding:0px;
-				overflow: hidden;
-
-				.image { height: 100%; }
-
-				hr { margin-top: 10px; margin-bottom: 10px; }
-
 				.btn-more-info {
-					transform: skewX(-45deg);
-					right: -60px;
-					padding: 41px 53px 8px 17px;
+					transform: skewX(-45deg); right: -60px; padding: 41px 53px 8px 17px;
 
 					i { transform: skewX(45deg); font-size: 18px; color: @white;}
 				}
-
-				.more-padding-left { padding-left: 30px; }
-
-				.title a { color: @black; }
-				.price a { color: @pink; }
-
-				.description { height: 84px; }
-
 			}
-
 		}
-
 	}
+}
+/* End Skew at button */
 
-	@media (min-width: 768px) {
-		.results-area { padding: 30px 0px 50px 0px; }
+/* Setting for select in search-area */
+	.select2-container--open .select2-dropdown--below { border-color: @pink; }
+/* End Setting for select in search-area */
+
+
+/* properties */
+
+@media (min-width: 768px) {
+	#properties {
+		.property-list {
+			.property-row {
+			    border: 1px solid @borderGray; background: @white; padding: 0px; margin-bottom: 30px; overflow: hidden;
+
+				.col-xs-12.col-sm-3 {
+					.image-column{ .image { height: 100%; } }
+				}
+
+				.col-xs-12.col-sm-9 {
+					.text-column {
+						.col-xs-9 { position: absolute; top: 195px; width: 100%; }
+						.col-xs-3 { width: 0%; }
+						.col-xs-12.col-sm-3 { position: absolute; margin-top: 35px;	width: 100%; }
+						.col-xs-12.col-sm-9 { width: 100%; }
+						.title {
+							margin-top: 10px;
+
+							a { color: @black; }
+						}
+						.location { margin-top: 50px; }
+						.description { margin-bottom: 60px; }
+						.price {
+							text-align: left;
+
+							a { color: @pink; }
+						}
+						.metrics { }
+						.btn-more-info { position: absolute; bottom: 0px; right: -60px; border-radius: 0px; }
+
+						&:after { display: table; clear: both; content: ""; }
+						.row:after { display: table; clear: both; content: ""; }
+					}
+				}
+			}
+		}
+		.search-area {
+			.form-area.closed .input-line { display: block !important; }
+			.form-area { 
+				.col-xs-12.col-sm-6.input-line { .text-right { text-align: center; } }
+				.form-area-minimizer { display: none; }
+			}
+		}
 	}
+}
 
-	.bottom-area {
-		background-color: @backgroundGrey;
+@media (max-width: 767px) {
+	#properties {
+		.property-list {
+			.property-row {
+			    border: 1px solid @borderGray; background: @white; padding: 0px; margin-bottom: 30px;
 
-		.quick-link {
-			margin-bottom: 30px; display: block; position: relative; padding: 0px 70px 0px 110px; border-radius: @borderRadius 20px @borderRadius @borderRadius; text-decoration: none; overflow: hidden;
-			.text { padding: 20px 0px; color: @colorWhite; font-size: 18px; line-height: 1em; }
-			.image { height: 100%; width: 85px; position: absolute; top: 0px; left: 0px; background: center center no-repeat; background-size: cover; }
-			.arrow { 
-				width: 48px; position: absolute; top: 0px;right: 0px; padding-top: 11px;
-				span { display: inline-block; border: 3px solid @colorWhite; color: @colorWhite; border-radius: 30px; width: 36px; height: 36px; line-height: 24px; font-size: 40px; text-align: center; }
+				.col-xs-12.col-sm-9 {
+					.text-column {
+						padding: 15px;
+
+						.title {
+							text-decoration: underline; margin-top: 0px;
+
+							a { color: @pink; }
+						}
+						.location { margin-top: 0px; }
+						.description { margin-top: 0px; }
+						.price {
+							text-align: right;
+
+							a { color: @pink; }
+						}
+						.col-xs-12.col-sm-3 { position: absolute; top: -50px; right: 5px; background-color: @white; width: auto; }
+					}
+				}
+
 			}
-			&.quick-link-new { 
-				background: #337884;
-				.image { background-image: url('/images/home/link-new.jpg'); }
-			}
-			&.quick-link-rent { 
-				background: #30ac4a;
-				.image { background-image: url('/images/home/link-rent.jpg'); }
-			}
-			&.quick-link-used { 
-				background: #993556;
-				.image { background-image: url('/images/home/link-used.jpg'); }
-			}
-			&.quick-link-houses { 
-				background: #b8a528;
-				.image { background-image: url('/images/home/link-houses.jpg'); }
-			}
-			&:hover { opacity: 0.9; }
 		}
+	}
+}
 
-		h1, h2, h3, a { color: @black; }
+/* fonts */
 
-		.property-pill-small {
-
-			a {	color: @black; }
-
-			.location {	}
-
-			.price { color: @pink; }
-
+@media (min-width: 768px) and (max-width: 991px) {
+	#properties {
+		.text-column {
+			.location { font-size: 14px; }
+			.description { font-size: 14px; }
+			.price { a { font-size: 20px; } }
+			.metrics { font-size: 13px; }
+			.services { font-size: 13px; }
 		}
-
 	}
 }
