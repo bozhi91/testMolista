@@ -32,6 +32,7 @@
 								<th>{{ Lang::get('admin/marketplaces.code') }}</th>
 								<th>{{ Lang::get('admin/marketplaces.title') }}</th>
 								<th>{{ Lang::get('admin/marketplaces.created') }}</th>
+								<th class="text-center text-nowrap">{{ Lang::get('admin/marketplaces.contact') }}</th>
 								<th class="text-center">{{ Lang::get('admin/marketplaces.enabled') }}</th>
 								<th></th>
 							</tr>
@@ -43,6 +44,7 @@
 									<td>{{ $marketplace->code }}</td>
 									<td>{{ $marketplace->name }}</td>
 									<td>{{ $marketplace->created_at->format('d/m/Y') }}</td>
+									<td class="text-center"><span class="glyphicon glyphicon-{{ $marketplace->requires_contact ? 'ok' : 'remove' }}" aria-hidden="true"></span></td>
 									<td class="text-center"><span class="glyphicon glyphicon-{{ $marketplace->enabled ? 'ok' : 'remove' }}" aria-hidden="true"></span></td>
 									<td class="text-right">
 										@if ( Auth::user()->can('marketplace-edit') )

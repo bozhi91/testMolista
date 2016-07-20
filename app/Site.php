@@ -18,6 +18,7 @@ class Site extends TranslatableModel
 	protected $casts = [
 		'signature' => 'array',
 		'invoicing' => 'array',
+		'country_ids' => 'array',
 	];
 
 	protected $data;
@@ -38,9 +39,19 @@ class Site extends TranslatableModel
 		return $this->belongsTo('App\Models\Plan');
 	}
 
+	public function country()
+	{
+		return $this->hasOne('App\Models\Geography\Country','code','country_code')->withTranslations();
+	}
+
 	public function planchanges()
 	{
 		return $this->hasMany('App\Models\Site\Planchange');
+	}
+
+	public function priceranges()
+	{
+		return $this->hasMany('App\Models\Site\Pricerange')->withTranslations();
 	}
 
     public function subscriptions()
@@ -99,7 +110,7 @@ class Site extends TranslatableModel
 	}
 
 	public function properties() {
-		return $this->hasMany('App\Property');
+		return $this->hasMany('App\Property')->with('infocurrency')->withTranslations();
 	}
 
 	public function api_keys() {
@@ -111,11 +122,11 @@ class Site extends TranslatableModel
 	}
 
 	public function widgets() {
-		return $this->hasMany('App\Models\Site\Widget');
+		return $this->hasMany('App\Models\Site\Widget')->withTranslations();
 	}
 
 	public function pages() {
-		return $this->hasMany('App\Models\Site\Page');
+		return $this->hasMany('App\Models\Site\Page')->withTranslations();
 	}
 
 	public function social() {
@@ -167,9 +178,23 @@ class Site extends TranslatableModel
 		return $locales;
 	}
 
+	public function infocurrency()
+	{
+		return $this->hasOne('App\Models\Currency', 'code', 'site_currency')->withTranslations();
+	}
+	public function infositecurrency()
+	{
+		return $this->hasOne('App\Models\Currency', 'code', 'site_currency')->withTranslations();
+	}
+	public function infopaymentcurrency()
+	{
+		return $this->hasOne('App\Models\Currency', 'code', 'payment_currency')->withTranslations();
+	}
+
 	public function marketplaces() 
 	{
-		return $this->belongsToMany('App\Models\Marketplace', 'sites_marketplaces', 'site_id', 'marketplace_id')->withPivot('marketplace_configuration','marketplace_enabled');
+		return $this->belongsToMany('App\Models\Marketplace', 'sites_marketplaces', 'site_id', 'marketplace_id')
+					->withPivot('marketplace_configuration','marketplace_enabled','marketplace_maxproperties','marketplace_export_all');
 	}
 	public function getMarketplacesArrayAttribute() 
 	{
@@ -245,7 +270,18 @@ class Site extends TranslatableModel
 	{
 		return storage_path("sites/{$this->id}/xml");
 	}
-
+	public function getXmlPropertiesFeedPath($marketplace)
+	{
+		return $this->getXmlFeedPath($marketplace,'properties');
+	}
+	public function getXmlOwnersFeedPath($marketplace)
+	{
+		return $this->getXmlFeedPath($marketplace,'owners');
+	}
+	public function getXmlFeedPath($marketplace,$type)
+	{
+		return "{$this->xml_path}/{$marketplace}/{$type}.xml";
+	}
 	public function getXmlFeedUrl($marketplace,$type)
 	{
 		if ( !$this->main_url )
@@ -533,7 +569,7 @@ class Site extends TranslatableModel
 		foreach ($setup['locales'] as $locale => $attr)
 		{
 			\App::setLocale($locale);
-			$widgets = $site->widgets()->withTranslations()->withMenu()->orderBy('position')->get();
+			$widgets = $site->widgets()->withMenu()->orderBy('position')->get();
 			foreach ($widgets as $widget)
 			{
 				$w = [
@@ -704,6 +740,7 @@ class Site extends TranslatableModel
 			'account_url' => $this->account_url,
 			'owner_name' => $owner->name,
 			'owner_email' => $owner->email,
+			'owner_phone' => $owner->phone,
 			'pending_request' => $this->planchanges()->with('plan')->pending()->first(),
 		];
 
@@ -784,6 +821,28 @@ class Site extends TranslatableModel
 		\App::setLocale( $locale_backup );
 
 		return true;
+	}
+
+	public function getGroupedPriceranges()
+	{
+		return (object) [
+			'sale' => $this->priceranges->where('type','sale')->sortBy('position'),
+			'rent' => $this->priceranges->where('type','rent')->sortBy('position'),
+		];
+	}
+
+	public function getEnabledCountriesAttribute() 
+	{
+		$query = \App\Models\Geography\Country::withTranslations()->enabled();
+
+		if ( $this->country_ids )
+		{
+			$query->whereIn('countries.id',$this->country_ids);
+		}
+
+		$countries = $query->orderBy('name')->lists('name','id');
+
+		return $countries;
 	}
 
 }

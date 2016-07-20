@@ -9,7 +9,8 @@ class PricingController extends \App\Http\Controllers\CorporateController
 
 	public function getIndex()
 	{
-		return view("corporate.pricing.index");
+		$plans = \App\Models\Plan::getEnabled( \App\Session\Currency::get('code') );
+		return view('corporate.pricing.index', compact('plans'));
 	}
 
 }

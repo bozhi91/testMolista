@@ -1,3 +1,5 @@
+<hr />
+
 <h4>{{ Lang::get('account/marketplaces.configuration.owner.title') }}</h4>
 
 <div class="row">
@@ -22,5 +24,3 @@
 		</div>
 	</div>
 </div>
-
-<hr />

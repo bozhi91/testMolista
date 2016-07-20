@@ -14,7 +14,7 @@ class InvoicesController extends \App\Http\Controllers\AccountController
 			return redirect()->action('AccountController@index');
 		}
 
-		$invoices = $this->site->invoices()->orderBy('uploaded_at','desc')->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
+		$invoices = $this->site->invoices()->orderBy('uploaded_at','desc')->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		return view('account.invoices.index', compact('invoices'));
 	}

@@ -38,8 +38,8 @@
 									], null, [ 'class'=>'payment-interval-select form-control', 'disabled'=>'disabled' ]) !!}
 								@else
 									{!! Form::select("payment_interval[{$plan->code}]", [
-										'year' => Lang::get('web/plans.price.year') . ' ' . price($plan->price_year, [ 'decimals'=>0 ]),
-										'month' => Lang::get('web/plans.price.month') . ' ' . price($plan->price_month, [ 'decimals'=>0 ]),
+										'year' => Lang::get('web/plans.price.year') . ' ' . price($plan->price_year, $plan->infocurrency->toArray()),
+										'month' => Lang::get('web/plans.price.month') . ' ' . price($plan->price_month, $plan->infocurrency->toArray()),
 									], null, [ 'class'=>'payment-interval-select form-control', 'disabled'=>'disabled' ]) !!}
 								@endif
 							</div>
@@ -58,7 +58,7 @@
 				<div class="col-xs-12 col-sm-6">
 					<div class="form-group error-container">
 						{!! Form::label(null, Lang::get('account/payment.method.h1')) !!}
-						{!! Form::select("payment_method", [ ''=>'' ]+\App\Models\Plan::getPaymentOptions(), null, [ 'class'=>'payment-method-select form-control' ]) !!}
+						{!! Form::select("payment_method", [ ''=>'' ]+$payment_options, null, [ 'class'=>'payment-method-select form-control' ]) !!}
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6">

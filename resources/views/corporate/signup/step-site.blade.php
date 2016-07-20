@@ -38,7 +38,7 @@
 								<label>
 									{!! Form::checkbox('site[web_transfer_requested]', 1, null, [ 'class'=>'' ]) !!}
 									{{ Lang::get('corporate/signup.site.transfer', [
-										'cost' => @$data['plan']['extras']['transfer'] ? ' - '.price($data['plan']['extras']['transfer'], [ 'decimals'=>0 ]) : '',
+										'cost' => @$data['plan']['extras']['transfer'] ? ' - '.price($data['plan']['extras']['transfer'], App\Session\Currency::all()) : '',
 									]) }}
 								</label>
 							</div>

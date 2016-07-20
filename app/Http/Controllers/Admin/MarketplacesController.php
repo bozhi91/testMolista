@@ -20,12 +20,12 @@ class MarketplacesController extends \App\Http\Controllers\Controller
 		$query = \App\Models\Marketplace::with('country');
 
 		// Filter by name
-		if ( $this->request->get('name') )
+		if ( $this->request->input('name') )
 		{
-			$query->where('name', 'LIKE', "%{$this->request->get('name')}%");
+			$query->where('name', 'LIKE', "%{$this->request->input('name')}%");
 		}
 
-		$marketplaces = $query->orderBy('name','asc')->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
+		$marketplaces = $query->orderBy('name','asc')->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$this->set_go_back_link();
 
@@ -102,10 +102,10 @@ class MarketplacesController extends \App\Http\Controllers\Controller
 
 		switch ( $type ) {
 			case 'code':
-				$query = \App\Models\Marketplace::where('code',$this->request->get('code'));
-				if ( $this->request->get('exclude') )
+				$query = \App\Models\Marketplace::where('code',$this->request->input('code'));
+				if ( $this->request->input('exclude') )
 				{
-					$query->where('id', '!=', $this->request->get('exclude'));
+					$query->where('id', '!=', $this->request->input('exclude'));
 				}
 				$error = $query->count();
 				break;

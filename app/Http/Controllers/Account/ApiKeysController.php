@@ -52,7 +52,7 @@ class ApiKeysController extends \App\Http\Controllers\AccountController
 			if ($item) 
 			{
 				$item->update([
-					'name' => $this->request->get('name'),
+					'name' => $this->request->input('name'),
 				]);
 				return \Redirect::back()->with('status', \Lang::get('account/apikeys.success.update'));
 			}
@@ -63,7 +63,7 @@ class ApiKeysController extends \App\Http\Controllers\AccountController
 			if ( $total < $this->max_allowed )
 			{
 				$this->auth->user()->api_keys()->create([
-					'name' => $this->request->get('name'),
+					'name' => $this->request->input('name'),
 					'key' => \App\Models\User\ApiKey::generateKey(),
 					'created_by' => $this->auth->user()->id,
 				]);

@@ -28,7 +28,6 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 							->with('customers')
 							->with('state')
 							->with('city')
-							->withTranslations()
 							->leftJoin('cities','properties.city_id','=','cities.id')
 							->addSelect('cities.name AS city_name')
 							->leftJoin('properties_users', function($join){
@@ -43,34 +42,34 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		}
 
 		// Filter by reference
-		if ( $this->request->get('ref') )
+		if ( $this->request->input('ref') )
 		{
 			$clean_filters = true;
-			$query->where('properties.ref', 'LIKE', "%{$this->request->get('ref')}%");
+			$query->where('properties.ref', 'LIKE', "%{$this->request->input('ref')}%");
 		}
 
 		// Filter by title
-		if ( $this->request->get('title') )
+		if ( $this->request->input('title') )
 		{
 			$clean_filters = true;
-			$query->whereTranslationLike('title', "%{$this->request->get('title')}%");
+			$query->whereTranslationLike('title', "%{$this->request->input('title')}%");
 		}
 
 		// Filter by highlighted
-		if ( $this->request->get('highlighted') )
+		if ( $this->request->input('highlighted') )
 		{
 			$clean_filters = true;
-			$query->where('properties.highlighted', intval($this->request->get('highlighted'))-1);
+			$query->where('properties.highlighted', intval($this->request->input('highlighted'))-1);
 		}
 
 		// Filter by highlighted
-		if ( $this->request->get('enabled') )
+		if ( $this->request->input('enabled') )
 		{
 			$clean_filters = true;
-			$query->where('properties.enabled', intval($this->request->get('enabled'))-1);
+			$query->where('properties.enabled', intval($this->request->input('enabled'))-1);
 		}
 
-		switch ( $this->request->get('order') )
+		switch ( $this->request->input('order') )
 		{
 			case 'desc':
 				$order = 'desc';
@@ -79,7 +78,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 				$order = 'asc';
 		}
 
-		switch ( $this->request->get('orderby') )
+		switch ( $this->request->input('orderby') )
 		{
 			case 'reference':
 				$query->orderBy('ref', $order);
@@ -102,12 +101,12 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 				break;
 		}
 
-		if ( $this->request->get('csv') )
+		if ( $this->request->input('csv') )
 		{
 			return $this->exportCsv($query);
 		}
 
-		$properties = $query->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
+		$properties = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$this->set_go_back_link();
 
@@ -173,8 +172,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		$energy_types = \App\Property::getEcOptions();
 		$services = \App\Models\Property\Service::withTranslations()->enabled()->orderBy('title')->get();
 
-		$countries = \App\Models\Geography\Country::withTranslations()->enabled()->orderBy('name')->lists('name','id');
-		if ( $country_id = old('country_id', \App\Models\Geography\Country::where('code','ES')->value('id')) )
+		$countries = $this->site->enabled_countries;
+		if ( $country_id = old('country_id', $this->site->country_id) )
 		{
 			$states = \App\Models\Geography\State::enabled()->where('country_id', $country_id)->lists('name','id');
 		}
@@ -185,7 +184,9 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 		$managers = $this->site->users()->orderBy('name')->lists('name','id')->all();
 
-		return view('account.properties.create', compact('modes','types','energy_types','services','countries','states','cities','country_id','managers'));
+		$current_tab = session('current_tab', 'general');
+
+		return view('account.properties.create', compact('modes','types','energy_types','services','countries','states','cities','country_id','managers','current_tab'));
 	}
 
 	public function store()
@@ -218,7 +219,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		// Create element
 		$property = $this->site->properties()->create([
 			'enabled' => 1,
-			'publisher_id' => $this->request->get('employee_id'),
+			'publisher_id' => $this->request->input('employee_id'),
 			'published_at' => date('Y-m-d'),
 		]);
 
@@ -241,22 +242,22 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 		// create catch
 		$catch = $property->catches()->create([
-			'employee_id' => $this->request->get('employee_id'),
+			'employee_id' => $this->request->input('employee_id'),
 			'catch_date' => $property->created_at,
-			'price_original' => $this->request->get('price'),
+			'price_original' => $this->request->input('price'),
 			'status' => 'active',
 		]);
 
 		$data = [];
 		foreach ($catch_fields as $field => $def) 
 		{
-			$data[$field] = $this->request->get($field);
+			$data[$field] = $this->request->input($field);
 		}
 		$catch->update($data);
 
-		$property = $this->site->properties()->withTranslations()->find($property->id);
+		$property = $this->site->properties()->find($property->id);
 
-		return redirect()->action('Account\PropertiesController@edit', $property->slug)->with('current_tab', $this->request->get('current_tab'))->with('success', trans('account/properties.created'));
+		return redirect()->action('Account\PropertiesController@edit', $property->slug)->with('current_tab', $this->request->input('current_tab'))->with('success', trans('account/properties.created'));
 	}
 
 	public function edit($slug)
@@ -276,15 +277,18 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		$energy_types = \App\Property::getEcOptions();
 		$services = \App\Models\Property\Service::withTranslations()->enabled()->orderBy('title')->get();
 
-		$countries = \App\Models\Geography\Country::withTranslations()->enabled()->orderBy('name')->lists('name','id');
+		$countries = $this->site->enabled_countries;
 		$states = \App\Models\Geography\State::enabled()->where('country_id', $property->country_id)->lists('name','id');
 		$cities = \App\Models\Geography\City::enabled()->where('state_id', $property->state_id)->lists('name','id');
 
 		$marketplaces = $this->site->marketplaces()
 							->wherePivot('marketplace_enabled','=',1)
+							->withSiteProperties($this->site->id)
 							->enabled()->orderBy('name')->get();
 
-		return view('account.properties.edit', compact('property','modes','types','energy_types','services','countries','states','cities','marketplaces'));
+		$current_tab = session('current_tab', 'general');
+
+		return view('account.properties.edit', compact('property','modes','types','energy_types','services','countries','states','cities','marketplaces','current_tab'));
 	}
 
 	public function update(Request $request, $slug)
@@ -310,12 +314,12 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		}
 
 		// Save marketplaces
-		$this->site->marketplace_helper->savePropertyMarketplaces($property->id, $this->request->get('marketplaces_ids'));
+		$this->site->marketplace_helper->savePropertyMarketplaces($property->id, $this->request->input('marketplaces_ids'));
 
 		// Get property, with slug
-		$property = $this->site->properties()->withTranslations()->find($property->id);
+		$property = $this->site->properties()->find($property->id);
 
-		return redirect()->action('Account\PropertiesController@edit', $property->slug)->with('current_tab', $this->request->get('current_tab'))->with('success', trans('account/properties.saved'));
+		return redirect()->action('Account\PropertiesController@edit', $property->slug)->with('current_tab', $this->request->input('current_tab'))->with('success', trans('account/properties.saved'));
 	}
 
 	public function show($slug)
@@ -324,7 +328,6 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		$property = $this->site->properties()
 						->withTrashed()
 						->whereTranslation('slug', $slug)
-						->withTranslations()
 						->with([ 'translations' => function($query){
 							$query->with('logs');
 						}])
@@ -349,7 +352,6 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		$property = $this->site->properties()
 						->withTrashed()
 						->whereTranslation('slug', $slug)
-						->withTranslations()
 						->with('customers')
 						->first();
 		if ( $property )
@@ -413,7 +415,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		$data = [];
 		foreach ($fields as $field => $def) 
 		{
-			$data[$field] = $this->request->get($field);
+			$data[$field] = $this->request->input($field);
 		}
 
 		$item->update($data);
@@ -447,7 +449,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'status' => 'required|in:sold,rent,other',
 			'closer_id' => 'exists:users,id',
 		];
-		switch ( $this->request->get('status') )
+		switch ( $this->request->input('status') )
 		{
 			case 'sold':
 			case 'rent':
@@ -467,13 +469,13 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		$data = [];
 		foreach ($fields as $field => $def) 
 		{
-			$data[$field] = $this->request->get($field);
+			$data[$field] = $this->request->input($field);
 		}
 
 		$item->update($data);
 
 		// Add KPIs
-		switch ( $this->request->get('status') )
+		switch ( $this->request->input('status') )
 		{
 			case 'sold':
 			case 'rent':
@@ -512,13 +514,13 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 	public function getAssociate($slug)
 	{
-		if ( !$this->request->get('id') )
+		if ( !$this->request->input('id') )
 		{
 			return $this->getAssociateUsers($slug);
 		}
 
 		$property = $this->site->properties()->whereIn('properties.id', $this->auth->user()->properties()->lists('id'))->whereTranslation('slug', $slug)->first();
-		$employee = $this->site->users()->find( $this->request->get('id') );
+		$employee = $this->site->users()->find( $this->request->input('id') );
 
 		if ( !$property || !$employee )
 		{
@@ -609,7 +611,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'type' => 'required|in:'.implode(',', array_keys(\App\Property::getTypeOptions())),
 			'mode' => 'required|in:'.implode(',', \App\Property::getModes()),
 			'price' => 'required|numeric|min:0',
-			'currency' => 'required|in:'.implode(',', array_keys(\App\Property::getCurrencyOptions())),
+			'currency' => 'required|exists:currencies,code',
 			'size' => 'required|numeric|min:0',
 			'size_unit' => 'required|in:'.implode(',', array_keys(\App\Property::getSizeUnitOptions())),
 			'rooms' => 'required|integer|min:0',
@@ -642,6 +644,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'label_color' => 'required',
 			'i18n.label' => 'required|array',
 			'construction_year' => 'integer|min:0',
+			'export_to_all' => 'boolean',
 		];
 
 		return $fields;
@@ -662,13 +665,13 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'description' => 'required|array',
 			'label' => 'required|array',
 		];
-		$validator = \Validator::make($this->request->get('i18n'), $fields);
+		$validator = \Validator::make($this->request->input('i18n'), $fields);
 		if ($validator->fails()) 
 		{
 			return $validator;
 		}
 
-		$i18n = $this->request->get('i18n');
+		$i18n = $this->request->input('i18n');
 
 		// Title
 		$fields = [
@@ -698,15 +701,15 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 			if ( in_array('boolean', $def) )
 			{
-				$property->$field = $this->request->get($field) ? 1 : 0;
+				$property->$field = $this->request->input($field) ? 1 : 0;
 			}
 			elseif ( in_array($field, [ 'country_id','territory_id','state_id','city_id','construction_year' ]) )
 			{
-				$property->$field = $this->request->get($field) ? $this->request->get($field) : null;
+				$property->$field = $this->request->input($field) ? $this->request->input($field) : null;
 			}
 			else
 			{
-				$property->$field = sanitize( $this->request->get($field) );
+				$property->$field = sanitize( $this->request->input($field) );
 			}
 		}
 
@@ -724,16 +727,16 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			$property->services()->detach($service->id);
 		}
 
-		if ( $this->request->get('services') )
+		if ( $this->request->input('services') )
 		{  
-			foreach ($this->request->get('services') as $service_id) 
+			foreach ($this->request->input('services') as $service_id) 
 			{
 				$property->services()->attach($service_id);
 			}
 		}
 
 		// Address parts
-		$property->address_parts = $this->request->get('address_parts');
+		$property->address_parts = $this->request->input('address_parts');
 
 		$property->save();
 
@@ -742,8 +745,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		$preserve = [];
 
 		// Update images position
-		if ( $this->request->get('images') ) {
-			foreach ($this->request->get('images') as $image_id) 
+		if ( $this->request->input('images') ) {
+			foreach ($this->request->input('images') as $image_id) 
 			{
 				// New image
 				if ( preg_match('#^new_(.*)$#', $image_id, $matches) )

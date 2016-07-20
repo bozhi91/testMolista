@@ -34,29 +34,7 @@ class FeedsController extends \App\Http\Controllers\WebController
 				break;
 		}
 
-		// Define filepath
-		$folder = "{$this->site->xml_path}/{$code}";
-		$filepath = "{$folder}/{$type}.xml";
-
-		// Get XML content
-		if ( false && file_exists($filepath) )
-		{
-			$content = file_get_contents($filepath);
-		}
-		// Or generate it
-		else
-		{
-			if ( !is_dir($folder) )
-			{
-				\File::makeDirectory($folder, 0775, true, true);
-			}
-			$content = $this->site->marketplace_helper->getMarketplaceXml($this->marketplace,$type);
-			if ( !$content )
-			{
-				abort(404);
-			}
-			\File::put($filepath, $content);
-		}
+		$content = $this->site->marketplace_helper->getMarketplaceXml($this->marketplace,$type);
 
 		// Output XML
 		return response($content, '200')->withHeaders([

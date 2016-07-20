@@ -1,5 +1,9 @@
 @extends('layouts.account')
 
+<?php
+	$currency =	empty($profile->currency) ? $current_site->infocurrency : $profile->infocurrency;
+?>
+
 @section('account_content')
 
 	<div id="account-customers">
@@ -9,15 +13,15 @@
 		<h1 class="page-title">{{ Lang::get('account/customers.show.h1') }}</h1>
 
 		<ul class="nav nav-tabs main-tabs" role="tablist">
-			<li role="presentation" class="active"><a href="#tab-general" aria-controls="tab-general" role="tab" data-toggle="tab">{{ Lang::get('account/customers.show.tab.general') }}</a></li>
-			<li role="presentation"><a href="#tab-profile" aria-controls="tab-profile" role="tab" data-toggle="tab">{{ Lang::get('account/customers.profile') }}</a></li>
-			<li role="presentation"><a href="#tab-properties" aria-controls="tab-properties" role="tab" data-toggle="tab">{{ Lang::get('account/customers.properties') }} (<span id="properties-total">0</span>)</a></li>
-			<li role="presentation"><a href="#tab-matches" aria-controls="tab-matches" role="tab" data-toggle="tab">{{ Lang::get('account/customers.matches') }} (<span id="matches-total">0</span>)</a></li>
+			<li role="presentation" class="{{$current_tab == 'general' ? 'active' : '' }}"><a href="#tab-general" aria-controls="tab-general" role="tab" data-tab="general" data-toggle="tab">{{ Lang::get('account/customers.show.tab.general') }}</a></li>
+			<li role="presentation" class="{{$current_tab == 'profile' ? 'active' : '' }}"><a href="#tab-profile" aria-controls="tab-profile" role="tab" data-tab="profile" data-toggle="tab">{{ Lang::get('account/customers.profile') }}</a></li>
+			<li role="presentation" class="{{$current_tab == 'properties' ? 'active' : '' }}"><a href="#tab-properties" aria-controls="tab-properties" role="tab" data-tab="properties" data-toggle="tab">{{ Lang::get('account/customers.properties') }} (<span id="properties-total">{{ number_format($customer->properties->count(),0,',','.') }}</span>)</a></li>
+			<li role="presentation" class="{{$current_tab == 'matches' ? 'active' : '' }}"><a href="#tab-matches" aria-controls="tab-matches" role="tab" data-tab="matches" data-toggle="tab">{{ Lang::get('account/customers.matches') }} (<span id="matches-total">{{ number_format($customer->possible_matches->count(),0,',','.') }}</span>)</a></li>
 		</ul>
 
 		<div class="tab-content">
 
-			<div role="tabpanel" class="tab-pane tab-main active" id="tab-general">
+			<div role="tabpanel" class="tab-pane tab-main {{$current_tab == 'general' ? 'active' : '' }}" id="tab-general">
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
@@ -62,9 +66,9 @@
 				</div>
 			</div>
 
-			<div role="tabpanel" class="tab-pane tab-main" id="tab-profile">
+			<div role="tabpanel" class="tab-pane tab-main {{$current_tab == 'profile' ? 'active' : '' }}" id="tab-profile">
 				{!! Form::model($profile, [ 'action'=>[ 'Account\CustomersController@postProfile', urlencode($customer->email) ], 'method'=>'POST', 'id'=>'profile-form' ]) !!}
-					{!! Form::hidden('current_tab', session('current_tab', '#tab-general')) !!}
+					{!! Form::hidden('current_tab', $current_tab) !!}
 					<div class="row">
 						<div class="col-xs-12 col-sm-4">
 							<div class="form-group error-container">
@@ -102,7 +106,7 @@
 						</div>
 					</div>
 					<hr />
-					{!! Form::hidden('currency', empty($profile->currency) ? 'EUR' : $profile->currency) !!}
+					{!! Form::hidden('currency', $currency->code) !!}
 					<div class="row">
 						<div class="col-xs-12 col-sm-3">
 							<div class="form-group error-container">
@@ -120,12 +124,17 @@
 							<div class="form-group error-container">
 								{!! Form::label('price_min', Lang::get('account/properties.price.min')) !!}
 								<div class="input-group">
+									@if ( $currency->position == 'before' )
+										<div class="input-group-addon">{{ $currency->symbol }}</div>
+									@endif
 									@if ( empty($profile->price_max) )
 										{!! Form::text('price_min', null, [ 'class'=>'form-control range-rel-input price-min-input number', 'data-rel'=>'.price-max-input', 'data-attr'=>'min', 'min'=>'0' ]) !!}
 									@else
 										{!! Form::text('price_min', null, [ 'class'=>'form-control range-rel-input price-min-input number', 'data-rel'=>'.price-max-input', 'data-attr'=>'min', 'min'=>'0', 'max'=>$profile->price_max ]) !!}
 									@endif
-									<div class="input-group-addon">{{ price_symbol(empty($profile->currency) ? 'EUR' : $profile->currency) }}</div>
+									@if ( $currency->position == 'after' )
+										<div class="input-group-addon">{{ $currency->symbol }}</div>
+									@endif
 								</div>
 							</div>
 						</div>
@@ -133,8 +142,13 @@
 							<div class="form-group error-container">
 								{!! Form::label('price_max', Lang::get('account/properties.price.max')) !!}
 								<div class="input-group">
+									@if ( $currency->position == 'before' )
+										<div class="input-group-addon">{{ $currency->symbol }}</div>
+									@endif
 									{!! Form::text('price_max', null, [ 'class'=>'form-control range-rel-input price-max-input number', 'data-rel'=>'.price-min-input', 'data-attr'=>'max', 'data-remove'=>1, 'min'=>( empty($profile->price_min) ? 0 : $profile->price_min ) ]) !!}
-									<div class="input-group-addon">{{ price_symbol(empty($profile->currency) ? 'EUR' : $profile->currency) }}</div>
+									@if ( $currency->position == 'after' )
+										<div class="input-group-addon">{{ $currency->symbol }}</div>
+									@endif
 								</div>
 							</div>
 						</div>
@@ -223,9 +237,9 @@
 				{!! Form::close() !!}
 			</div>
 
-			<div role="tabpanel" class="tab-pane tab-main property-list-tab" data-total="#properties-total" id="tab-properties">
-				<div class="alert alert-info properties-empty hide">{{ Lang::get('account/properties.empty') }}</div>
-				<div class="properties-list hide">
+			<div role="tabpanel" class="tab-pane tab-main {{$current_tab == 'properties' ? 'active' : '' }} property-list-tab" data-total="#properties-total" id="tab-properties">
+				<div class="alert alert-info properties-empty {{ $customer->properties->count() > 0 ? 'hide' : '' }}">{{ Lang::get('account/properties.empty') }}</div>
+				<div class="properties-list {{ $customer->properties->count() < 1 ? 'hide' : '' }}">
 					<table class="table table-hover">
 						<thead>
 							<tr>
@@ -237,7 +251,14 @@
 							@foreach ($customer->properties as $property)
 								<tr>
 									<td>{{$property->title}}</td>
-									<td class="text-right"><a href="{{ action('Web\PropertiesController@details', $property->slug) }}" class="btn btn-default btn-xs" target="_blank">{{ Lang::get('general.view') }}</a></td>
+									<td class="text-right text-nowrap">
+										{!! Form::open([ 'action'=>[ 'Account\CustomersController@deleteRemovePropertyCustomer', $property->slug ], 'method'=>'DELETE', 'class'=>'delete-property-form' ]) !!}
+											{!! Form::hidden('customer_id', $customer->id) !!}
+											{!! Form::hidden('current_tab', 'properties') !!}
+											{!! Form::button(Lang::get('general.delete'), [ 'type'=>'submit', 'class'=>'btn btn-danger btn-xs' ]) !!}
+											<a href="{{ action('Web\PropertiesController@details', $property->slug) }}" class="btn btn-default btn-xs" target="_blank">{{ Lang::get('general.view') }}</a>
+										{!! Form::close() !!}
+									</td>
 								</tr>
 							@endforeach
 						</tbody>
@@ -245,9 +266,9 @@
 				</div>
 			</div>
 
-			<div role="tabpanel" class="tab-pane tab-main property-list-tab" data-total="#matches-total" id="tab-matches">
-				<div class="alert alert-info properties-empty hide">{{ Lang::get('account/properties.empty') }}</div>
-				<div class="properties-list hide">
+			<div role="tabpanel" class="tab-pane tab-main {{$current_tab == 'matches' ? 'active' : '' }} property-list-tab" data-total="#matches-total" id="tab-matches">
+				<div class="alert alert-info properties-empty {{ $customer->possible_matches->count() > 0 ? 'hide' : '' }}">{{ Lang::get('account/properties.empty') }}</div>
+				<div class="properties-list {{ $customer->possible_matches->count() < 1 ? 'hide' : '' }}">
 					<table class="table table-hover">
 						<thead>
 							<tr>
@@ -259,7 +280,14 @@
 							@foreach ($customer->possible_matches as $property)
 								<tr>
 									<td>{{$property->title}}</td>
-									<td class="text-right"><a href="{{ action('Web\PropertiesController@details', $property->slug) }}" class="btn btn-default btn-xs" target="_blank">{{ Lang::get('general.view') }}</a></td>
+									<td class="text-right text-nowrap">
+										{!! Form::open([ 'action'=>[ 'Account\CustomersController@postAddPropertyCustomer', $property->slug ], 'method'=>'POST', 'class'=>'add-property-form' ]) !!}
+											{!! Form::hidden('customer_id', $customer->id) !!}
+											{!! Form::hidden('current_tab', 'matches') !!}
+											{!! Form::button(Lang::get('general.add'), [ 'type'=>'submit', 'class'=>'btn btn-default btn-xs' ]) !!}
+											<a href="{{ action('Web\PropertiesController@details', $property->slug) }}" class="btn btn-default btn-xs" target="_blank">{{ Lang::get('general.view') }}</a>
+										{!! Form::close() !!}
+									</td>
 								</tr>
 							@endforeach
 						</tbody>
@@ -281,6 +309,12 @@
 		ready_callbacks.push(function(){
 			var cont = $('#account-customers');
 			var profile_form = $('#profile-form');
+
+			var tabs = cont.find('.main-tabs');
+			tabs.find('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+				cont.find('input[name="current_tab"]').val( $(this).data('tab') );
+				cont.find('.has-select-2').select2();
+			});
 
 			profile_form.validate({
 				ignore: '',
@@ -337,28 +371,28 @@
 				});
 			});
 
-			cont.find('.property-list-tab').each(function(){
-				var target = $(this).find('.properties-list');
-				var items = target.find('tbody tr').length;
-
-				$( $(this).data().total ).text( SITECOMMON.number_format(items,0,',','.') );
-
-				if ( items > 0 ) {
-					target.removeClass('hide');
-				} else {
-					$(this).find('.properties-empty').removeClass('hide');
-				}
+			cont.find('form.delete-property-form').each(function(){
+				var form = $(this);
+				form.validate({
+					submitHandler: function(f){
+						SITECOMMON.confirm("{{ print_js_string( Lang::get('account/employees.show.tab.properties.dissociate') ) }}", function (e) {
+							if (e) {
+								LOADING.show();
+								f.submit();
+							}
+						});
+					}
+				});
 			});
 
-			var tabs = cont.find('.main-tabs');
-			var current_tab = cont.find('input[name="current_tab"]').val();
-			tabs.find('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-				cont.find('input[name="current_tab"]').val( $(this).attr('href') );
-				cont.find('.has-select-2').select2();
+			cont.find('form.add-property-form').each(function(){
+				$(this).validate({
+					submitHandler: function(f){
+						LOADING.show();
+						f.submit();
+					}
+				});
 			});
-			if ( current_tab != '#tab-general' ) {
-				tabs.find('a[href="' + current_tab + '"]').tab('show');
-			}
 
 		});
 	</script>

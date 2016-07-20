@@ -19,6 +19,11 @@ class CustomerQueries extends Model
 		return $this->belongsTo('App\Models\Site\Customer');
 	}
 
+	public function infocurrency()
+	{
+		return $this->hasOne('App\Models\Currency', 'code', 'currency')->withTranslations();
+	}
+
 	public function getPriceRangeAttribute()
 	{
 		 return "{$this->price_min}-{$this->price_max}";

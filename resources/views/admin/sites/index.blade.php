@@ -21,9 +21,9 @@
 
 			<div class="col-xs-12 col-sm-9">
 
-				@permission('site-create')
+				@if ( false && Auth::user()->can('site-create') )
 					<a href="{{ action('Admin\SitesController@create') }}" class="btn btn-default pull-right">{{ Lang::get('general.new') }}</a>
-				@endpermission
+				@endif
 
 				<h1 class="list-title">{{ Lang::get('admin/menu.sites') }}</h1>
 
@@ -36,6 +36,7 @@
 								{!! drawSortableHeaders(url()->full(), [
 									'id' => [ 'title' => '#' ],
 									'title' => [ 'title' => Lang::get('admin/sites.title')],
+									'country' => [ 'title' => Lang::get('admin/sites.country'), 'sortable'=>false ],
 									'transfer' => [ 'title' => Lang::get('admin/sites.transfer'), 'class'=>'text-center text-nowrap' ],
 									'created' => [ 'title' => Lang::get('admin/sites.created') ],
 									'action' => [ 'title' => '', 'sortable'=>false ],
@@ -47,6 +48,7 @@
 								<tr>
 									<td>{{ $site->id }}</td>
 									<td>{{ $site->title }}</td>
+									<td>{{ $site->country->name }}</td>
 									<td class="text-center"><span class="glyphicon glyphicon-{{ $site->web_transfer_requested ? 'ok' : 'remove' }}" aria-hidden="true"></span></td>
 									<td>{{ $site->created_at->format('d/m/Y') }}</td>
 									<td class="text-right">

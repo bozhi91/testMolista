@@ -20,6 +20,7 @@
 		'view.popup' => 'Abrir en popup',
 		'view.window' => 'Nueva ventana',
 		'new' => 'Nuevo elemento',
+		'add' => 'Añadir',
 		'options' => 'Opciones',
 
 		'delete' => 'Borrar',

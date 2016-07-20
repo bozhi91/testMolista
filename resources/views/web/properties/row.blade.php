@@ -5,6 +5,7 @@
 				<a href="{{ action('Web\PropertiesController@details', $item->slug) }}" class="image" style="background-image: url('{{ $item->main_image }}');">
 					<img src="{{ $item->main_image }}" alt="{{$item->title}}" class="hide" />
 				</a>
+				@include ('web.properties.row-image-price')
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-9">
@@ -25,9 +26,7 @@
 						<div class="description text-italic">{!! str_limit($item->description, 150, ' <a href="'.(action('Web\PropertiesController@details', $item->slug)).'">[...]</a>') !!}</div>
 					</div>
 					<div class="col-xs-12 col-sm-3">
-						<div class="price text-bold text-right">
-							<a href="{{ action('Web\PropertiesController@details', $item->slug) }}">{{ price($item->price, [ 'decimals'=>0 ]) }}</a>
-						</div>
+						@include ('web.properties.row-price' , ['price_class'=>'text-bold text-right'])
 					</div>
 				</div>
 				<div class="row hidden-xs">
@@ -58,7 +57,7 @@
 							</li>
 							<li class="text-nowrap has-fontello-icon">
 								<i class="fontello-icon fontello-icon-coins"></i>
-								{{ number_format(round($item->price/$item->size),0,',','.') }} {{ price_symbol($property->currency) }}/m²
+								{{ number_format(round($item->price/$item->size),0,',','.') }} {{ $item->infocurrency->symbol }}/m²
 							</li>
 						</ul>
 						<div class="services text-italic">
@@ -67,7 +66,9 @@
 					</div>
 					<div class="col-xs-3">
 					</div>
-					<a href="{{ action('Web\PropertiesController@details', $item->slug) }}" class="hidden-xs btn btn-primary btn-more-info">{{ Lang::get('web/properties.search.results.more') }}</a>
+					<a href="{{ action('Web\PropertiesController@details', $item->slug) }}" class="hidden-xs btn btn-primary btn-more-info">
+						@include ('web.properties.row-moreinfo')
+					</a>
 				</div>
 			</div>
 		</div>

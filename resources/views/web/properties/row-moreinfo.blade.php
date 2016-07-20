@@ -1,0 +1,1 @@
+{{ Lang::get('web/properties.search.results.more') }}

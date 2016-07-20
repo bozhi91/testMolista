@@ -9,14 +9,29 @@
 	// $buy_plans fallback
 	if ( empty($buy_plans) ) 
 	{
-		$buy_plans = \App\Models\Plan::getEnabled();
+		$buy_plans = [];
+	}
+
+	$currency = [];
+	$currency_decimals = 1;
+
+	foreach ($buy_plans as $plan)
+	{
+		if ( !$plan->infocurrency )
+		{
+			continue;
+		}
+
+		$currency = $plan->infocurrency->toArray();
+		$currency_decimals = ($plan->infocurrency->decimals == 0) ? 1 : $plan->infocurrency->decimals;
+		break;
 	}
 ?>
 
 <div class="row">
 	@foreach ($buy_plans as $plan)
 		<div class="col-xs-12 col-sm-4">
-			<div class="plan-block plan-{{ $plan->code }} text-center">
+			<div class="plan-block plan-{{ $plan->level }} text-center">
 				<div class="plan-block-title">{{ $plan->name }}</div>
 				<div class="plan-block-body">
 
@@ -26,7 +41,7 @@
 							@if ( @$plan->is_free ) 
 								{{ Lang::get('web/plans.free') }}
 							@else
-								{{ price($plan->price_year,[ 'decimals'=>0 ]) }}
+								{{ price($plan->price_year, $currency) }}
 							@endif
 						</div>
 					</div>
@@ -36,7 +51,7 @@
 							@if ( @$plan->is_free ) 
 								<strong class="text-uppercase">{{ Lang::get('web/plans.free') }}</strong>
 							@else
-								<strong>{{ price($plan->price_year/12,[ 'decimals'=>1 ]) }}</strong>
+								<strong>{{ price($plan->price_year/12, array_merge($currency, [ 'decimals'=>$currency_decimals ])) }}</strong>
 							@endif
 						</div>
 					</div>
@@ -46,7 +61,7 @@
 							@if ( @$plan->is_free ) 
 								<strong class="text-uppercase">{{ Lang::get('web/plans.free') }}</strong>
 							@else
-								<strong>{{ price($plan->price_month,[ 'decimals'=>1 ]) }}</strong>
+								<strong>{{ price($plan->price_month, array_merge($currency, [ 'decimals'=>$currency_decimals ])) }}</strong>
 							@endif
 						</div>
 					</div>
@@ -180,7 +195,7 @@
 							<div class="plan-block-item plan-block-item-last">
 								{{ Lang::get("web/plans.extras.{$extra_key}") }}:
 								@if ( $extra_cost )
-									<strong>{{ price($extra_cost,[ 'decimals'=>0 ]) }}</strong>
+									<strong>{{ price($extra_cost, $currency) }}</strong>
 								@else
 									<strong class="text-lowercase">{{ Lang::get('web/plans.included') }}</strong>
 								@endif

@@ -18,25 +18,25 @@ class SiteController extends Controller
 		{
 			case 'subdomain':
 				$query = \App\Site::whereNotNull('id');
-				if ( $this->request->get('subdomain') )
+				if ( $this->request->input('subdomain') )
 				{
-					$query->where('subdomain', $this->request->get('subdomain'));
+					$query->where('subdomain', $this->request->input('subdomain'));
 				}
-				if ( $this->request->get('id') )
+				if ( $this->request->input('id') )
 				{
-					$query->where('id', '!=', $this->request->get('id'));
+					$query->where('id', '!=', $this->request->input('id'));
 				}
 				$response = $query->count() ? false : true;
 				break;
 			case 'domain':
 				$query = \App\SiteDomains::whereNotNull('id');
-				if ( $this->request->get('domain') )
+				if ( $this->request->input('domain') )
 				{
-					$query->where('domain', $this->request->get('domain'));
+					$query->where('domain', $this->request->input('domain'));
 				}
-				if ( $this->request->get('id') )
+				if ( $this->request->input('id') )
 				{
-					$query->where('site_id', '!=', $this->request->get('id'));
+					$query->where('site_id', '!=', $this->request->input('id'));
 				}
 				$response = $query->count() ? false : true;
 				break;

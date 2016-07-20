@@ -33,7 +33,7 @@ class Customer extends Model
 	}
 
 	public function queries() {
-		return $this->hasMany('App\Models\Site\CustomerQueries');
+		return $this->hasMany('App\Models\Site\CustomerQueries')->with('infocurrency');
 	}
 
 	public function getFullNameAttribute()
@@ -55,7 +55,7 @@ class Customer extends Model
 	}
 
 	public function getPossibleMatchesAttribute() {
-		$query = \App\Site::findOrFail($this->site_id)->properties();
+		$query = $this->site->properties();
 
 		$params = $this->current_query;
 
@@ -150,7 +150,7 @@ class Customer extends Model
 			$query->withServices($attr['services']);
 		}
 
-		return $query->withTranslations()->get();
+		return $query->get();
 
 	}
 

@@ -66,6 +66,15 @@
 			<div class="row">
 				<div class="col-xs-12 col-sm-6">
 					<div class="form-group error-container">
+						{!! Form::label('requires_contact', Lang::get('admin/marketplaces.contact')) !!}
+						{!! Form::select('requires_contact', [
+							0 => Lang::get('general.no'),
+							1 => Lang::get('general.yes'),
+						], null, [ 'class'=>'form-control' ]) !!}
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6">
+					<div class="form-group error-container">
 						{!! Form::label('enabled', Lang::get('admin/marketplaces.enabled')) !!}
 						{!! Form::select('enabled', [
 							1 => Lang::get('general.yes'),
@@ -91,6 +100,80 @@
 							0 => Lang::get('general.no'),
 							1 => Lang::get('general.yes'),
 						], null, [ 'class'=>'form-control' ]) !!}
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-6">
+					<div class="form-group error-container">
+						{!! Form::label('upload_type', Lang::get('admin/marketplaces.upload_type')) !!}
+						{!! Form::select('upload_type', [
+							'url' => 'URL',
+							'ftp' => 'FTP',
+						], null, [ 'class'=>'form-control' ]) !!}
+					</div>
+				</div>
+			</div>
+			<div class="upload-type upload-type-ftp">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group error-container">
+							{!! Form::label('configuration[ftp][host]', Lang::get('admin/marketplaces.ftp.host')) !!}
+							{!! Form::text('configuration[ftp][host]', null, [ 'class'=>'form-control required' ]) !!}
+						</div>
+					</div>
+					<div class="col-xs-6 col-sm-3">
+						<div class="form-group error-container">
+							{!! Form::label('configuration[ftp][port]', Lang::get('admin/marketplaces.ftp.port')) !!}
+							{!! Form::text('configuration[ftp][port]', null, [ 'class'=>'form-control numeric' ]) !!}
+						</div>
+					</div>
+					<div class="col-xs-6 col-sm-3">
+						<div class="form-group error-container">
+							{!! Form::label('configuration[ftp][timeout]', Lang::get('admin/marketplaces.ftp.timeout')) !!}
+							{!! Form::text('configuration[ftp][timeout]', null, [ 'class'=>'form-control numeric' ]) !!}
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group error-container">
+							{!! Form::label('configuration[ftp][username]', Lang::get('admin/marketplaces.ftp.username')) !!}
+							{!! Form::text('configuration[ftp][username]', null, [ 'class'=>'form-control required' ]) !!}
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group error-container">
+							{!! Form::label('configuration[ftp][password]', Lang::get('admin/marketplaces.ftp.password')) !!}
+							<div class="input-group">
+								{!! Form::text('configuration[ftp][password]', null, [ 'class'=>'form-control' ]) !!}
+								<div class="input-group-addon"><span class="glyphicon glyphicon-eye-open show-hide-password" style="cursor: pointer;" aria-hidden="true"></span></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group error-container">
+							{!! Form::label('configuration[ftp][root]', Lang::get('admin/marketplaces.ftp.root')) !!}
+							{!! Form::text('configuration[ftp][root]', null, [ 'class'=>'form-control' ]) !!}
+						</div>
+					</div>
+					<div class="col-xs-6 col-sm-3">
+						<div class="form-group error-container">
+							{!! Form::label('configuration[ftp][passive]', Lang::get('admin/marketplaces.ftp.mode')) !!}
+							{!! Form::select('configuration[ftp][passive]', [
+								1 => 'Passive',
+								0 => 'Active',
+							], null, [ 'class'=>'form-control' ]) !!}
+						</div>
+					</div>
+					<div class="col-xs-6 col-sm-3">
+						<div class="form-group error-container">
+							{!! Form::label('configuration[ftp][ssl]', Lang::get('admin/marketplaces.ftp.ssl')) !!}
+							{!! Form::select('configuration[ftp][ssl]', [
+								0 => 'No',
+								1 => 'Yes',
+							], null, [ 'class'=>'form-control' ]) !!}
+						</div>
 					</div>
 				</div>
 			</div>
@@ -133,8 +216,12 @@
 	ready_callbacks.push(function(){
 		var form = $('#marketplace-form');
 
+		form.find('[name="upload_type"]').change(function(){
+			form.find('.upload-type').hide();
+			form.find('.upload-type-'+this.value).show();
+		}).change();
+
 		form.validate({
-			ignore: '',
 			errorPlacement: function(error, element) {
 				element.closest('.error-container').append(error);
 			},
@@ -165,5 +252,10 @@
 			}
 		});
 
+		form.on('click', '.show-hide-password', function(e){
+			e.preventDefault();
+			form.find('input[name="configuration[ftp][password]"]').togglePassword();
+		});
+		form.find('input[name="configuration[ftp][password]"]').hidePassword();
 	});
 </script>

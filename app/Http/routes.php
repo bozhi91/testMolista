@@ -19,17 +19,22 @@ Route::group([
 ], function() {
 
 	// Corporate web
-	Route::get('/', 'CorporateController@index');
-	Route::controller('demo', 'Corporate\DemoController');
-	Route::controller('info', 'Corporate\InfoController');
-	Route::controller('features', 'Corporate\FeaturesController');
-	Route::controller('pricing', 'Corporate\PricingController');
-
-	// Signup
-	Route::controller('signup', 'Corporate\SignupController');
-
-	// Customers area
-	Route::controller('customers', 'Corporate\CustomersController');
+	Route::group([
+		'middleware' => [
+			'geolocation',
+			'currency.corporate',
+		],
+	], function() {
+		Route::get('/', 'CorporateController@index');
+		Route::controller('demo', 'Corporate\DemoController');
+		Route::controller('info', 'Corporate\InfoController');
+		Route::controller('pricing', 'Corporate\PricingController');
+		Route::get('features/{slug?}', 'Corporate\FeaturesController@getIndex');
+		// Signup
+		Route::controller('signup', 'Corporate\SignupController');
+		// Customers area
+		Route::controller('customers', 'Corporate\CustomersController');
+	});
 
 	// Admin
 	Route::group([
@@ -77,6 +82,14 @@ Route::group([
 		], function() {
 			Route::controller('expirations', 'Admin\ExpirationsController');
 		});
+		Route::group([
+			'middleware' => [
+				'permission:geography-*',
+			],
+		], function() {
+			Route::get('geography/countries/check/{type}', 'Admin\Geography\CountriesController@getCheck');
+			Route::resource('geography/countries', 'Admin\Geography\CountriesController');
+		});
 		// Error log
 		Route::get('errorlog', [ 
 			'middleware' => ['role:admin'], 
@@ -100,6 +113,7 @@ Route::group([
 		'site.setup',
 		'site.autologin',
 		'site.setup.user',
+		'currency.site',
 	],
 ], function() {
 	// Web
@@ -163,6 +177,7 @@ Route::group([
 		Route::get('employees/disssociate/{user_id}/{property_id}', 'Account\EmployeesController@getDissociate');
 		Route::resource('employees', 'Account\EmployeesController');
 		// Customers
+		Route::delete('customers/properties/{slug}', 'Account\CustomersController@deleteRemovePropertyCustomer');
 		Route::post('customers/properties/{slug}', 'Account\CustomersController@postAddPropertyCustomer');
 		Route::get('customers/properties/{slug}', 'Account\CustomersController@getAddPropertyCustomer');
 		Route::post('customers/profile/{email}', 'Account\CustomersController@postProfile');
@@ -199,6 +214,8 @@ Route::group([
 		], function() {
 			// Configuration
 			Route::controller('configuration', 'Account\Site\ConfigurationController');
+			// Price ranges
+			Route::controller('priceranges', 'Account\Site\PriceRangesController');
 			// Menus
 			Route::post('menus/item/{slug}', 'Account\Site\MenusController@postItem');
 			Route::resource('menus', 'Account\Site\MenusController');

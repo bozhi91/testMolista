@@ -41,11 +41,11 @@ class TranslationsController extends AdminController
 		{
 			// Langs validation
 			$rules = [];
-			foreach ($this->request->get('langs') as $k=>$v)
+			foreach ($this->request->input('langs') as $k=>$v)
 			{
 				$rules[$k] = [ 'required','string','in:'.implode(',',array_keys($enabled_languages)) ];
 			}
-			$validator = \Validator::make($this->request->get('langs'), $rules);
+			$validator = \Validator::make($this->request->input('langs'), $rules);
 			if ( $validator->fails() )
 			{
 				$get_translations = false;
@@ -55,25 +55,25 @@ class TranslationsController extends AdminController
 		// Get translations
 		if ($get_translations)
 		{
-			$base = $this->request->get('base');
-			$langs = $this->request->get('langs');
+			$base = $this->request->input('base');
+			$langs = $this->request->input('langs');
 
 			$query = \App\Models\Translation::with('translations');
 
 			// Filter by file
-			if ( $this->request->get('file') )
+			if ( $this->request->input('file') )
 			{
-				$query->where('file', $this->request->get('file'));
+				$query->where('file', $this->request->input('file'));
 			}
 
 			// Filter by tag
-			if ( $this->request->get('tag') )
+			if ( $this->request->input('tag') )
 			{
-				$query->where('tag', 'LIKE', "%{$this->request->get('tag')}%");
+				$query->where('tag', 'LIKE', "%{$this->request->input('tag')}%");
 			}
 
 			// Filter by status
-			if ( $this->request->get('status') )
+			if ( $this->request->input('status') )
 			{
 				$total_langs = count($langs);
 				// If more than one language to edit,
@@ -88,7 +88,7 @@ class TranslationsController extends AdminController
 									GROUP BY `translation_id`
 									HAVING total < {$total_langs}
 									) as e";
-					switch ( $this->request->get('status') )
+					switch ( $this->request->input('status') )
 					{
 						// Without translation
 						case 'untranslated':
@@ -108,7 +108,7 @@ class TranslationsController extends AdminController
 				// we check rows with no translation in that language
 				else
 				{
-					switch ( $this->request->get('status') )
+					switch ( $this->request->input('status') )
 					{
 						// Without translation
 						case 'untranslated':
@@ -132,12 +132,12 @@ class TranslationsController extends AdminController
 				}
 			}
 
-			if ( !$this->request->get('limit') )
+			if ( !$this->request->input('limit') )
 			{
 				$this->request->merge([ 'limit'=>25 ]);
 			}
 
-			$translations = $query->orderBy('file', 'asc')->orderBy('tag', 'asc')->paginate( $this->request->get('limit', \Config::get('app.custom_per_page')) );
+			$translations = $query->orderBy('file', 'asc')->orderBy('tag', 'asc')->paginate( $this->request->input('limit', \Config::get('app.custom_per_page')) );
 		}
 		// Get global stats
 		else
@@ -192,7 +192,7 @@ class TranslationsController extends AdminController
 		}
 
 		// Validate language
-		if ( !$this->auth->user()->canTranslate($this->request->get('locale')) )
+		if ( !$this->auth->user()->canTranslate($this->request->input('locale')) )
 		{
 			return [ 'error'=>1 ];
 		}
@@ -200,7 +200,7 @@ class TranslationsController extends AdminController
 		// Save translation
 		$item = \App\Models\TranslationTranslation::firstOrCreate([
 			'translation_id' => $id,
-			'locale' => $this->request->get('locale'),
+			'locale' => $this->request->input('locale'),
 		]);
 
 		if (!$item)
@@ -208,11 +208,11 @@ class TranslationsController extends AdminController
 			return [ 'error'=>1 ];
 		}
 
-		$item->value = \App\Models\Translation::cleanValue($this->request->get('value'));
+		$item->value = \App\Models\Translation::cleanValue($this->request->input('value'));
 		$item->save();
 
 		// Update file
-		\App\Models\Translation::compileTranslation($file,$this->request->get('locale'));
+		\App\Models\Translation::compileTranslation($file,$this->request->input('locale'));
 
 		return [ 'success'=>1 ];
 	}
