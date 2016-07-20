@@ -21,7 +21,13 @@ class SitesController extends Controller
 
 	public function index()
 	{
-		$query = \App\Site::withTranslations()->with('country');
+		$query = \App\Site::withTranslations()
+							->with('country')
+							->with('properties')
+							->with([ 'users' => function($query){
+								$query->withRole('employee');
+							}])
+							;
 
 		// Filter by title
 		if ( $this->request->input('title') )
@@ -32,7 +38,6 @@ class SitesController extends Controller
 		// Filter by web_transfer_requested
 		if ( $this->request->input('transfer') )
 		{
-
 			$query->where('web_transfer_requested', intval($this->request->input('transfer'))-1);
 		}
 
