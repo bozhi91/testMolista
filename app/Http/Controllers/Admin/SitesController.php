@@ -27,6 +27,11 @@ class SitesController extends Controller
 							->with([ 'users' => function($query){
 								$query->withRole('employee');
 							}])
+							->leftJoin('properties','properties.site_id','=','sites.id')
+							->addSelect( \DB::raw('COUNT(DISTINCT(properties.id)) AS total_properties') )
+							->leftJoin('sites_users','sites_users.site_id','=','sites.id')
+							->addSelect( \DB::raw('COUNT(DISTINCT(sites_users.user_id)) AS total_users') )
+							->groupBy('sites.id')
 							;
 
 		// Filter by title
@@ -60,6 +65,12 @@ class SitesController extends Controller
 				break;
 			case 'transfer':
 				$query->orderBy('web_transfer_requested', $order);
+				break;
+			case 'properties':
+				$query->orderBy('total_properties', $order);
+				break;
+			case 'users':
+				$query->orderBy('total_users', $order);
 				break;
 			case 'title':
 			default:
