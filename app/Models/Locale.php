@@ -9,7 +9,7 @@ class Locale extends Model
 
 	static public function getCorporateLocales()
 	{
-		return [ 'es','en' ];
+		return [ 'es' ];
 	}
 
 	static public function getConfigFilepath()
