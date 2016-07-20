@@ -8,6 +8,10 @@
 		'configured' => 'Connected',
 		'configure' => 'Connect',
 		'enabled' => 'Enabled',
+		'limit' => 'Limit',
+		'all' => 'Export all',
+		'exported' => 'Exported',
+		'updated' => 'Last updated',
 
 		'forget.button' => 'Disconnect',
 		'forget.warning' => 'Are you sure you want to disconnect your properties from this marketplace?',
@@ -15,6 +19,13 @@
 		'instructions' => 'Instructions',
 		'feed.properties.url' => 'Properties XML link',
 		'feed.owners.url' => 'Owners XML link',
+
+		'export_all' => 'Include all properties',
+		'export_all.warning' => 'This feed includes all properties',
+		'maxproperties.title' => 'Limit properties in this feed',
+		'maxproperties.helper' => '<p>Select the maximun number of properties you wish to allow for this feed.</p>
+									<p>Leave empty to allow unlimited properties.</p>',
+		'maxproperties.error' => 'The property limit for this feed has been reached: :maxproperties.',
 
 		'configuration.none' => 'This marketplace does not require additional configuration',
 		'configuration.owner.title' => 'Publisher information',
@@ -35,6 +46,11 @@
 
 		'configuration.fields.account.title' => 'Account',
 		'configuration.fields.account_id' => 'Account ID',
+
+		'properties' => 'Properties',
+		'properties.published' => 'Enabled in export',
+		'properties.enabled' => 'Enabled in web',
+		'properties.toall' => 'This property in included in all exports',
 
 		'contact.title' => 'Exportation to :marketplace requires custom configuration',
 		'contact.intro' => '<p>If you wish to continue, please confirm your contact information so we can let you know how to proceed.</p>',

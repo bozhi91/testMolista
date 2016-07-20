@@ -195,7 +195,6 @@ class CustomersController extends \App\Http\Controllers\AccountController
 	{
 		$property = $this->site->properties()
 						->whereTranslation('slug', $slug)
-						->withTranslations()
 						->first();
 
 		$customers = $this->site->customers()->orderBy('first_name')->orderBy('last_name')->orderBy('email')->get();

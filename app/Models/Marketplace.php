@@ -49,6 +49,14 @@ class Marketplace extends \App\TranslatableModel
 		return $this->belongsTo('App\Models\Geography\Country')->withTranslations();
 	}
 
+    public function properties()
+    {
+        $instance = new \App\Property;
+        $query = $instance->newQuery();
+
+        return new \App\Relations\BelongsToManyOrToAll($query, $this, 'properties_marketplaces', 'marketplace_id', 'property_id', 'export_to_all', 1);
+    }
+
 	public static function saveModel($data, $id = null)
 	{
 		if ($id)
@@ -145,6 +153,13 @@ class Marketplace extends \App\TranslatableModel
 		return $query->where("{$this->getTable()}.enabled", 1);
 	}
 
+	public function scopeWithSiteProperties($query,$site_id)
+	{
+		$query->with([ 'properties' => function($query) use ($site_id) {
+			$query->ofSite($site_id);
+		}]);
+	}
+
 	public function scopeWithSiteConfiguration($query,$site_id)
 	{
 		$query
@@ -156,6 +171,8 @@ class Marketplace extends \App\TranslatableModel
 			})
 			->addSelect( \DB::raw('sites_marketplaces.`marketplace_enabled`') )
 			->addSelect( \DB::raw('sites_marketplaces.`marketplace_configuration`') )
+			->addSelect( \DB::raw('sites_marketplaces.`marketplace_maxproperties`') )
+			->addSelect( \DB::raw('sites_marketplaces.`marketplace_export_all`') )
 			;
 	}
 
