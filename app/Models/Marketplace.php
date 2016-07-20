@@ -26,6 +26,7 @@ class Marketplace extends \App\TranslatableModel
 		'enabled' => 'boolean',
 		'logo' => 'image',
 		'url' => 'url',
+		'upload_type' => 'string',
 	];
 	protected static $update_validator_fields = [
 		'class_path' => 'required|string',
@@ -36,6 +37,7 @@ class Marketplace extends \App\TranslatableModel
 		'requires_contact' => 'boolean',
 		'logo' => 'image',
 		'url' => 'url',
+        'upload_type' => 'string',
 	];
 
 	protected $guarded = [];
@@ -47,6 +49,19 @@ class Marketplace extends \App\TranslatableModel
 	public function country()
 	{
 		return $this->belongsTo('App\Models\Geography\Country')->withTranslations();
+	}
+
+    public function properties()
+    {
+        $instance = new \App\Property;
+        $query = $instance->newQuery();
+
+        return new \App\Relations\BelongsToManyOrToAll($query, $this, 'properties_marketplaces', 'marketplace_id', 'property_id', 'export_to_all', 1);
+    }
+
+    public function sites()
+	{
+		return $this->belongsToMany('App\Site', 'sites_marketplaces')->withPivot('marketplace_configuration','marketplace_enabled');
 	}
 
 	public static function saveModel($data, $id = null)
@@ -145,6 +160,18 @@ class Marketplace extends \App\TranslatableModel
 		return $query->where("{$this->getTable()}.enabled", 1);
 	}
 
+	public function scopeWithSiteProperties($query,$site_id)
+	{
+		$query->with([ 'properties' => function($query) use ($site_id) {
+			$query->ofSite($site_id);
+		}]);
+	}
+
+    public function scopeFtp($query)
+	{
+		return $query->where("{$this->getTable()}.upload_type", 'ftp');
+	}
+
 	public function scopeWithSiteConfiguration($query,$site_id)
 	{
 		$query
@@ -156,6 +183,8 @@ class Marketplace extends \App\TranslatableModel
 			})
 			->addSelect( \DB::raw('sites_marketplaces.`marketplace_enabled`') )
 			->addSelect( \DB::raw('sites_marketplaces.`marketplace_configuration`') )
+			->addSelect( \DB::raw('sites_marketplaces.`marketplace_maxproperties`') )
+			->addSelect( \DB::raw('sites_marketplaces.`marketplace_export_all`') )
 			;
 	}
 

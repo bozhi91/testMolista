@@ -23,12 +23,12 @@ class BaseController extends Controller
 		$query = \App\Property::with('site')->with('city')->withTranslations();
 
 		// Filter by name
-		if ( $this->request->get('title') )
+		if ( $this->request->input('title') )
 		{
-			$query->whereTranslationLike('title', "%{$this->request->get('title')}%");
+			$query->whereTranslationLike('title', "%{$this->request->input('title')}%");
 		}
 
-		$properties = $query->orderBy('title')->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
+		$properties = $query->orderBy('title')->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$this->set_go_back_link();
 

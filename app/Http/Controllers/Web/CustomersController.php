@@ -52,11 +52,11 @@ class CustomersController extends WebController
 		}
 
 		$customer = $this->site->customers()->create([
-			'first_name' => $this->request->get('first_name'),
-			'last_name' => $this->request->get('last_name'),
-			'email' => $this->request->get('email'),
-			'password' => bcrypt($this->request->get('password')),
-			'phone' => $this->request->get('phone'),
+			'first_name' => $this->request->input('first_name'),
+			'last_name' => $this->request->input('last_name'),
+			'email' => $this->request->input('email'),
+			'password' => bcrypt($this->request->input('password')),
+			'phone' => $this->request->input('phone'),
 			'locale' => \LaravelLocalization::getCurrentLocale(),
 			'validated' => 1,
 		]);
@@ -66,7 +66,7 @@ class CustomersController extends WebController
 			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
 		}
 
-		\SiteCustomer::login($this->request->get('email'), $this->request->get('password'), $this->site->id);
+		\SiteCustomer::login($this->request->input('email'), $this->request->input('password'), $this->site->id);
 
 		return redirect()->action('Web\CustomersController@getIndex')->with('success', trans('web/customers.register.success'));
 	}
@@ -78,7 +78,7 @@ class CustomersController extends WebController
 	public function postLogin()
 	{
 		// Login attempt
-		if ( \SiteCustomer::login($this->request->get('email'), $this->request->get('password'), $this->site->id) )
+		if ( \SiteCustomer::login($this->request->input('email'), $this->request->input('password'), $this->site->id) )
 		{
 			return redirect()->intended( action('Web\CustomersController@getIndex') );
 		}
@@ -99,10 +99,10 @@ class CustomersController extends WebController
 		switch ($type)
 		{
 			case 'email':
-				$query = $this->site->customers()->where('email', $this->request->get('email'));
-				if ( $this->request->get('id') )
+				$query = $this->site->customers()->where('email', $this->request->input('email'));
+				if ( $this->request->input('id') )
 				{
-					$query->where('id','!=',$this->request->get('id'));
+					$query->where('id','!=',$this->request->input('id'));
 				}
 				$result = ( $query->count() == 0 );
 				break;

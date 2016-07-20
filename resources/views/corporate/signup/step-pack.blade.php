@@ -38,8 +38,8 @@
 										], null, [ 'class'=>'payment-interval-select form-control', 'disabled'=>'disabled' ]) !!}
 									@else
 										{!! Form::select("pack[payment_interval][{$plan->code}]", [
-											'year' => Lang::get('web/plans.price.year') . ' ' . price($plan->price_year, [ 'decimals'=>0 ]),
-											'month' => Lang::get('web/plans.price.month') . ' ' . price($plan->price_month, [ 'decimals'=>0 ]),
+											'year' => Lang::get('web/plans.price.year') . ' ' . price($plan->price_year, $plan->infocurrency->toArray()),
+											'month' => Lang::get('web/plans.price.month') . ' ' . price($plan->price_month, $plan->infocurrency->toArray()),
 										], null, [ 'class'=>'payment-interval-select form-control', 'disabled'=>'disabled' ]) !!}
 									@endif
 								</div>
@@ -48,7 +48,7 @@
 					</div>
 
 					<div class="nav-area">
-						<a href="{{ action('Corporate\SignupController@getUser')}}" class="btn btn-nav btn-nav-prev">{{ Lang::get('corporate/signup.previous') }}</a>
+						<a href="{{ action('Corporate\SignupController@getIndex')}}" class="btn btn-nav btn-nav-prev">{{ Lang::get('corporate/signup.previous') }}</a>
 						{!! Form::button(Lang::get('corporate/signup.next'), [ 'type'=>'submit', 'class'=>'btn btn-nav btn-nav-next pull-right' ]) !!}
 					</div>
 

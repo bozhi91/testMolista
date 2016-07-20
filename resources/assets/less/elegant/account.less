@@ -1,74 +1,56 @@
 @import '../app/account.less';
 
-#login-register {
-	
-	h1, h2, h3, h4, h5, h6 { color: @green; }
-
-	.btn-remember {
-		color: @green;
-	}
-
-	.form-control:focus {
-		border-color: @green;
-	}
-
-	.checkbox {
-		background: transparent;
-	}
-
-}
-
 #account-container {
 
-	.account-block h3 { border-color: @green; }
+	.account-block h3 { border-color: @accountTextColor; }
 	
-	.btn.btn-primary { border-color: @green; background: @green; color: @white; }
+	.btn.btn-primary { border-color: @accountTextColor; background: @accountTextColor; color: @white; }
 
-	.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus { background-color: @green; color: @white; }
+	.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus { background-color: @accountTextColor; color: @white; }
 
-	a { color: @green; }
+	a { color: @accountTextColor; }
 
-	.pagination > li.active a, .pagination > li.active span, .pagination > li.active a:hover, .pagination > li.active span:hover, .pagination > li.active a:focus, .pagination > li.active span:focus { background-color: @green; border-color: @green; }
+	.pagination > li.active a, .pagination > li.active span, .pagination > li.active a:hover, .pagination > li.active span:hover, .pagination > li.active a:focus, .pagination > li.active span:focus { background-color: @accountTextColor; border-color: @accountTextColor; }
 
 	.account-menu > li {
-		&.separator { border-top: 1px solid @green; }
+		&.separator { border-top: 1px solid @accountTextColor; }
 		ul > li > a { 
-			&.current { color: @green; }
+			&.current { color: @accountTextColor; }
 		}
 	}
 
-	h1, h2, h3, h4, h5, h6 { color: @green; }
+	h1, h2, h3, h4, h5, h6 { color: @accountTextColor; }
 
-	.form-control:focus { border-color: @green; }
+	.form-control:focus { border-color: @accountTextColor; }
 
-	.tab-content { border-color: @green;}
+	.tab-content { border-color: @accountTextColor;}
 
-	.nav-tabs > li.active > a { border-color: @green; border-bottom-color: @colorWhite; }
+	.nav-tabs > li.active > a { border-color: @accountTextColor; border-bottom-color: @colorWhite; }
 
-	.nav-tabs { border-color: @green; }
+	.nav-tabs { border-color: @accountTextColor; }
 
-	.nav-tabs > li > a { border-bottom-color: @green; }
+	.nav-tabs > li > a { border-bottom-color: @accountTextColor; }
 
-	.btn-group { border: 1px solid @green; }
+	.btn-group { border: 1px solid @accountTextColor; }
 
-	#account-container .site-configuration .mailer-option .mailer-current { color: @green; border-color: @green; }
+	#account-container .site-configuration .mailer-option .mailer-current { color: @accountTextColor; border-color: @accountTextColor; }
 
-	.panel-custom .panel-heading { color: @green; }
+	.panel-custom .panel-heading { color: @accountTextColor; }
 
-	.panel-custom .panel-heading a { color: @green; }
+	.panel-custom .panel-heading a { color: @accountTextColor; }
 
-	.site-menus hr { background-color: @green; }
+	.site-menus hr { background-color: @accountTextColor; }
 
 	.btn-danger { color: @white; }
 
 	.btn-warning { color: @white; }
 
 	.site-configuration .mailer-option .mailer-current {
-	    color: @green;
-	    border-color: @green;
+	    color: @accountTextColor;
+	    border-color: @accountTextColor;
 	}
 
 	.site-configuration .mailer-option .mailer-current:after {
-		border-top-color: @green;
+		border-top-color: @accountTextColor;
 	}
 }

@@ -32,7 +32,7 @@
 									{!! Lang::get('corporate/signup.finish.pay') !!}
 									{!! Lang::get('corporate/signup.finish.plan.details', [
 										'plan' => @$pending_request->summary->plan_name,
-										'price_text' => Lang::get("web/plans.price.{$pending_request->payment_interval}") . ' ' . price($pending_request->plan_price, [ 'decimals'=>0 ]),
+										'price_text' => Lang::get("web/plans.price.{$pending_request->payment_interval}") . ' ' . price($pending_request->plan_price, $pending_request->plan->infocurrency->toArray()),
 									]) !!}
 									<br />
 									<script src="https://checkout.stripe.com/checkout.js"></script>
@@ -40,7 +40,7 @@
 										var stripeHandler = StripeCheckout.configure({
 											key: '{{ env('STRIPE_KEY') }}',
 											amount: '{{ round($pending_request->plan_price*100) }}',
-											currency: 'EUR',
+											currency: '{{ $pending_request->plan_currency }}',
 											name: 'Molista',
 											description: '{{ Lang::get('corporate/signup.confirm.plan') }}: {{ @$pending_request->summary->plan_name }}',
 											locale: '{{ LaravelLocalization::getCurrentLocale() }}',
@@ -78,7 +78,7 @@
 						@elseif ( $pending_request->summary->payment_method == 'transfer' )
 							{!! Lang::get('corporate/signup.finish.transfer.intro', [
 								'plan' => @$pending_request->summary->plan_name,
-								'price_text' => Lang::get("web/plans.price.{$pending_request->payment_interval}") . ' ' . price($pending_request->plan_price, [ 'decimals'=>0 ]),
+								'price_text' => Lang::get("web/plans.price.{$pending_request->payment_interval}") . ' ' . price($pending_request->plan_price, $pending_request->plan->infocurrency->toArray()),
 							]) !!}
 						@endif
 					@endif

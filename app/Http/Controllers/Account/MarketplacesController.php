@@ -14,9 +14,11 @@ class MarketplacesController extends \App\Http\Controllers\AccountController
 
 	public function getIndex()
 	{
-		$query = \App\Models\Marketplace::enabled()->withSiteConfiguration($this->site->id);
+		$query = \App\Models\Marketplace::enabled()
+			->withSiteConfiguration($this->site->id)
+			->withSiteProperties($this->site->id);
 
-		switch ( $this->request->get('order') )
+		switch ( $this->request->input('order') )
 		{
 			case 'desc':
 				$order = 'desc';
@@ -25,18 +27,20 @@ class MarketplacesController extends \App\Http\Controllers\AccountController
 				$order = 'asc';
 		}
 
-		switch ( $this->request->get('orderby') )
+		switch ( $this->request->input('orderby') )
 		{
 			case 'title':
 			default:
 				$query->orderBy('marketplaces.name', $order);
 		}
 
-		$marketplaces = $query->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
+		$marketplaces = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
+
+		$total_properties = $this->site->properties->count();
 
 		$this->set_go_back_link();
 
-		return view('account.marketplaces.index', compact('marketplaces'));
+		return view('account.marketplaces.index', compact('marketplaces','total_properties'));
 	}
 
 	public function getConfigure($code)
@@ -53,8 +57,43 @@ class MarketplacesController extends \App\Http\Controllers\AccountController
 		}
 
 		$configuration = @json_decode( $marketplace->marketplace_configuration );
-		
-		return view('account.marketplaces.configure', compact('marketplace','configuration'));
+
+		// Properties
+		$query = $this->site->properties()->withMarketplaceEnabled($marketplace->id);
+
+		switch ( $this->request->get('order') )
+		{
+			case 'desc':
+				$order = 'desc';
+				break;
+			default:
+				$order = 'asc';
+		}
+
+		switch ( $this->request->get('orderby') )
+		{
+			case 'title':
+				$query->orderBy('title', $order);
+				break;
+			case 'creation':
+				$query->orderBy('created_at', $order);
+				break;
+			case 'exported':
+				$query->orderBy('exported_to_marketplace', $order);
+				break;
+			case 'enabled':
+				$query->orderBy('enabled', $order);
+				break;
+			case 'reference':
+			default:
+				$query->orderBy('ref', $order);
+		}
+
+		$properties = $query->orderBy('ref', 'asc')->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
+
+		$current_tab = session('current_tab', $this->request->input('current_tab','general'));
+
+		return view('account.marketplaces.configure', compact('marketplace','configuration','properties','current_tab'));
 	}
 	public function postConfigure($code)
 	{
@@ -66,10 +105,10 @@ class MarketplacesController extends \App\Http\Controllers\AccountController
 
 		if ( $this->site->marketplace_helper->saveConfiguration($marketplace->id, $this->request->all()) )
 		{
-			return redirect()->back()->with('success', trans('general.messages.success.saved'));
+			return redirect()->back()->with('current_tab', $this->request->input('current_tab'))->with('success', trans('general.messages.success.saved'));
 		}
 
-		return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
+		return redirect()->back()->with('current_tab', $this->request->input('current_tab'))->with('error', trans('general.messages.error'));
 	}
 
 	public function postForget($code)
@@ -141,5 +180,38 @@ class MarketplacesController extends \App\Http\Controllers\AccountController
 		}
 
 		return redirect()->back()->with('success', trans('account/marketplaces.contact.success'));
+	}
+
+	public function getStatus($code)
+	{
+		$marketplace = \App\Models\Marketplace::enabled()->where('code',$code)->first();
+		if ( !$marketplace )
+		{
+			return [ 'error' => 1 ];
+		}
+
+		$property = $this->site->properties()->find( $this->request->input('property_id') );
+		if ( !$property || $property->export_to_all )
+		{
+			return [ 'error' => 1 ];
+		}
+
+		if ( $marketplace->properties->contains( $property->id ) )
+		{
+			$status = 0;
+			$marketplace->properties()->detach( $property->id );
+		}
+		else
+		{
+			$status = 1;
+			$marketplace->properties()->attach( $property->id );
+		}
+
+		\File::deleteDirectory($this->site->xml_path, true);
+
+		return [ 
+			'success' => true,
+			'status' => $status,
+		];
 	}
 }

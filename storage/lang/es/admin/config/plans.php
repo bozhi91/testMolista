@@ -11,6 +11,7 @@ return [
 	'price' => 'Precio',
 	'price.year' => 'Precio (anual)',
 	'price.month' => 'Precio (mensual)',
+	'currency' => 'Moneda',
 	'employees' => 'Agentes',
 	'properties' => 'Propiedades',
 	'space' => 'Espacio',
@@ -19,6 +20,7 @@ return [
 	'free.plan' => 'Plan gratuito',
 	'enabled' => 'Habilitado',
 	'stripe.id' => 'ID Stripe',
+	'level' => 'Nivel',
 
 	'qr' => 'Códigos QR',
 	'printing' => 'Impresión de carteles',

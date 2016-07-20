@@ -1,5 +1,9 @@
 @extends('layouts.account')
 
+<?php
+	$currency =	empty($profile->currency) ? $current_site->infocurrency : $profile->infocurrency;
+?>
+
 @section('account_content')
 
 	<div id="account-customers">
@@ -102,7 +106,7 @@
 						</div>
 					</div>
 					<hr />
-					{!! Form::hidden('currency', empty($profile->currency) ? 'EUR' : $profile->currency) !!}
+					{!! Form::hidden('currency', $currency->code) !!}
 					<div class="row">
 						<div class="col-xs-12 col-sm-3">
 							<div class="form-group error-container">
@@ -120,12 +124,17 @@
 							<div class="form-group error-container">
 								{!! Form::label('price_min', Lang::get('account/properties.price.min')) !!}
 								<div class="input-group">
+									@if ( $currency->position == 'before' )
+										<div class="input-group-addon">{{ $currency->symbol }}</div>
+									@endif
 									@if ( empty($profile->price_max) )
 										{!! Form::text('price_min', null, [ 'class'=>'form-control range-rel-input price-min-input number', 'data-rel'=>'.price-max-input', 'data-attr'=>'min', 'min'=>'0' ]) !!}
 									@else
 										{!! Form::text('price_min', null, [ 'class'=>'form-control range-rel-input price-min-input number', 'data-rel'=>'.price-max-input', 'data-attr'=>'min', 'min'=>'0', 'max'=>$profile->price_max ]) !!}
 									@endif
-									<div class="input-group-addon">{{ price_symbol(empty($profile->currency) ? 'EUR' : $profile->currency) }}</div>
+									@if ( $currency->position == 'after' )
+										<div class="input-group-addon">{{ $currency->symbol }}</div>
+									@endif
 								</div>
 							</div>
 						</div>
@@ -133,8 +142,13 @@
 							<div class="form-group error-container">
 								{!! Form::label('price_max', Lang::get('account/properties.price.max')) !!}
 								<div class="input-group">
+									@if ( $currency->position == 'before' )
+										<div class="input-group-addon">{{ $currency->symbol }}</div>
+									@endif
 									{!! Form::text('price_max', null, [ 'class'=>'form-control range-rel-input price-max-input number', 'data-rel'=>'.price-min-input', 'data-attr'=>'max', 'data-remove'=>1, 'min'=>( empty($profile->price_min) ? 0 : $profile->price_min ) ]) !!}
-									<div class="input-group-addon">{{ price_symbol(empty($profile->currency) ? 'EUR' : $profile->currency) }}</div>
+									@if ( $currency->position == 'after' )
+										<div class="input-group-addon">{{ $currency->symbol }}</div>
+									@endif
 								</div>
 							</div>
 						</div>

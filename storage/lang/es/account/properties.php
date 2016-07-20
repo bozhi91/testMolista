@@ -166,6 +166,7 @@
 		'show.leads.add' => 'Añadir lead',
 
 		'marketplaces.intro' => 'Marque el checkbox de los marketplaces donde desea publicar esta propiedad.',
+		'marketplaces.toall' => 'Incluir esta propriedad en todos los exports',
 		'marketplaces.error' => 'Esta propiedad no puede publicarse en esta marketplace:',
 
 		'tab.appraisal' => 'Tasaciones',

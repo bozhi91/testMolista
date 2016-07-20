@@ -61,9 +61,10 @@ class Property extends TranslatableModel
 
 		// Whenever a property is saved
 		static::saved(function($property){
-			// Delete cached files PDF, QRs
+			// Delete cached files PDF, QRs, site XMLs
 			\File::deleteDirectory(public_path($property->pdf_folder), true);
 			\File::deleteDirectory(public_path($property->qr_folder), true);
+			\File::deleteDirectory($property->site->xml_path, true);
 			// Create / Update on ticket system
 			if ( $property->ref )
 			{
@@ -146,7 +147,7 @@ class Property extends TranslatableModel
 	}
 
 	public function services() {
-		return $this->belongsToMany('App\Models\Property\Service', 'properties_services', 'property_id', 'service_id');
+		return $this->belongsToMany('App\Models\Property\Service', 'properties_services', 'property_id', 'service_id')->withTranslations();
 	}
 
 	public function hasService($id)
@@ -183,6 +184,11 @@ class Property extends TranslatableModel
 		}
 
 		return $marketplaces;
+	}
+
+	public function infocurrency()
+	{
+		return $this->hasOne('App\Models\Currency', 'code', 'currency')->withTranslations();
 	}
 
 	public function getLocationArrayAttribute()
@@ -399,7 +405,8 @@ class Property extends TranslatableModel
 	}
 	public function _related_properties($ids)
 	{
-		return \App\Property::withEverything()
+		return \App\Property::withTranslations()
+			->withEverything()
 			->whereIn('properties.id',$ids)
 			->orderByRaw('RAND()')
 			->get();
@@ -542,8 +549,7 @@ class Property extends TranslatableModel
 		}
 
 		// Features
-		$services = $this->services()->withTranslations()->get();
-		foreach ($services as $service)
+		foreach ($this->services as $service)
 		{
 			$tmp = [];
 			foreach ($site_locales as $locale) 
@@ -577,13 +583,24 @@ class Property extends TranslatableModel
 		return $query->where('properties.site_id', $site_id);
 	}
 
+	public function scopeWithMarketplaceEnabled($query, $marketplace_id)
+	{
+		return $query->leftJoin('properties_marketplaces', function($join) use ($marketplace_id) {
+					$join->on('properties.id', '=', 'properties_marketplaces.property_id');
+					$join->on('properties_marketplaces.marketplace_id', '=', \DB::raw($marketplace_id));
+				})
+				->addSelect( \DB::raw('IF(properties_marketplaces.`marketplace_id` IS NULL, properties.`export_to_all`, 1) as exported_to_marketplace') );
+	}
+
 	public function scopeOfMarketplace($query, $marketplace_id)
 	{
-		return $query->whereIn('properties.id', function($query) use ($marketplace_id) {
-			$query->select('property_id')
-				->from('properties_marketplaces')
-				->where('marketplace_id', $marketplace_id);
-		});
+		return $query->where(function($query) use($marketplace_id) {
+				$query->whereIn('properties.id', function($query) use ($marketplace_id) {
+					$query->select('properties_marketplaces.property_id')
+						->from('properties_marketplaces')
+						->where('marketplace_id', $marketplace_id);
+					})->orWhere('properties.export_to_all',1);
+				})->addSelect( \DB::raw('1 as exported_to_marketplace') );
 	}
 
 	public function scopeInState($query, $state_id)
@@ -719,16 +736,13 @@ class Property extends TranslatableModel
 	public function scopeWithEverything($query)
 	{
 		return $query
-				->withTranslations()
 				->with('images')
 				->with('country')
 				->with('territory')
 				->with('state')
 				->with('city')
 				->with('images')
-				->with([ 'services' => function($query){
-					$query->withTranslations();
-				}])
+				->with('services')
 				;
 	}
 

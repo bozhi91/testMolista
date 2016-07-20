@@ -17,15 +17,15 @@ class PlansController extends \App\Http\Controllers\Controller
 
 	public function index()
 	{
-		$query = \App\Models\Plan::whereNotNull('id');
+		$query = \App\Models\Plan::with('infocurrency');
 
 		// Filter by name
-		if ( $this->request->get('name') )
+		if ( $this->request->input('name') )
 		{
-			$query->where('name', 'LIKE', "%{$this->request->get('name')}%");
+			$query->where('name', 'LIKE', "%{$this->request->input('name')}%");
 		}
 
-		$plans = $query->orderBy('level','asc')->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
+		$plans = $query->orderBy('level','asc')->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$this->set_go_back_link();
 
@@ -34,13 +34,14 @@ class PlansController extends \App\Http\Controllers\Controller
 
 	public function create()
 	{
-		return view('admin.config.plans.create');
+		$currencies = \App\Models\Currency::withTranslations()->orderBy('code')->get();
+		return view('admin.config.plans.create', compact('currencies'));
 	}
 
 	public function store()
 	{
 		$data = $this->request->all();
-
+		
 		$validator = \App\Models\Plan::getValidator($data);
 		if ($validator->fails())
 		{
@@ -90,12 +91,12 @@ class PlansController extends \App\Http\Controllers\Controller
 		switch ($type) 
 		{
 			default:
-				$query->where($type, $this->request->get($type));
+				$query->where($type, $this->request->input($type));
 		}
 
-		if ( $this->request->get('exclude') )
+		if ( $this->request->input('exclude') )
 		{
-			$query->where('id', '!=', $this->request->get('exclude'));
+			$query->where('id', '!=', $this->request->input('exclude'));
 		}
 
 		echo ( $query->count() < 1 ) ? 'true' : 'false';

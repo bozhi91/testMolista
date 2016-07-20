@@ -1,5 +1,5 @@
 <?php
-	$latest = \App\Site::find($site_setup['site_id'])->properties()->enabled()->with('images')->with('state')->with('city')->withTranslations()->orderBy('created_at','desc')->limit(3)->get();
+	$latest = \App\Site::find($site_setup['site_id'])->properties()->enabled()->with('images')->with('state')->with('city')->orderBy('created_at','desc')->limit(3)->get();
 ?>
 
 <div class="container">

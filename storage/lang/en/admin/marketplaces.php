@@ -24,4 +24,14 @@ return [
 
 	'messages.created' => 'The marketplace was successfully created',
 	'messages.updated' => 'The marketplace was successfully updated',
+
+	'upload_type' => 'Upload type',
+	'ftp.host' => 'Host',
+	'ftp.port' => 'Port',
+	'ftp.timeout' => 'Timeout',
+	'ftp.username' => 'Username',
+	'ftp.password' => 'Password',
+	'ftp.root' => 'Root',
+	'ftp.mode' => 'Mode',
+	'ftp.ssl' => 'SSL',
 ];

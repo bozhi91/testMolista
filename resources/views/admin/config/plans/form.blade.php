@@ -12,7 +12,31 @@
 				@endif
 			</div>
 		</div>
-		<div class="col-xs-12 col-sm-6 col-sm-offset-1">
+		<div class="col-xs-12 col-sm-2">
+			<div class="form-group error-container">
+				@if ( @$item->is_free )
+				@else
+					{!! Form::label('currency', Lang::get('admin/config/plans.currency')) !!}
+					@if ( @$item->currency )
+						{!! Form::text(null, @$item->currency, [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
+					@else
+						<select name="currency" class="form-control required">
+							<option value=""></option>
+							@foreach ($currencies as $currency)
+								<option value="{{ $currency->code }}" data-symbol="{{ $currency->symbol }}" data-position="{{ $currency->position }}">{{ $currency->code }} ({{ $currency->title }})</option>
+							@endforeach
+						</select>
+					@endif
+				@endif
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-2">
+			<div class="form-group error-container">
+				{!! Form::label('level', Lang::get('admin/config/plans.level')) !!}
+				{!! Form::text('level', null, [ 'class'=>'form-control required numeric' ]) !!}
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-3">
 			<div class="form-group error-container">
 				{!! Form::label('name', Lang::get('admin/config/plans.name')) !!}
 				{!! Form::text('name',null, [ 'class'=>'form-control required' ]) !!}
@@ -38,8 +62,9 @@
 				<div class="form-group error-container">
 					{!! Form::label('price_year', Lang::get('admin/config/plans.price.year')) !!}
 					<div class="input-group">
+						<div class="input-group-addon currency-rel currency-before {{ @$item->infocurrency->position == 'before' ? '' : 'hide' }}">{{ @$item->infocurrency->symbol }}</div>
 						{!! Form::text('price_year', null, [ 'class'=>'price-input form-control number required', 'min'=>0 ]) !!}
-						<div class="input-group-addon">{{ price_symbol('EUR') }}</div>
+						<div class="input-group-addon currency-rel currency-after {{ @$item->infocurrency->position == 'after' ? '' : 'hide' }}">{{ @$item->infocurrency->symbol }}</div>
 					</div>
 				</div>
 			</div>
@@ -53,8 +78,9 @@
 				<div class="form-group error-container">
 					{!! Form::label('price_month', Lang::get('admin/config/plans.price.month')) !!}
 					<div class="input-group">
+						<div class="input-group-addon currency-rel currency-before {{ @$item->infocurrency->position == 'before' ? '' : 'hide' }}">{{ @$item->infocurrency->symbol }}</div>
 						{!! Form::text('price_month', null, [ 'class'=>'price-input form-control number required', 'min'=>0 ]) !!}
-						<div class="input-group-addon">{{ price_symbol('EUR') }}</div>
+						<div class="input-group-addon currency-rel currency-after {{ @$item->infocurrency->position == 'after' ? '' : 'hide' }}">{{ @$item->infocurrency->symbol }}</div>
 					</div>
 				</div>
 			</div>
@@ -267,8 +293,9 @@
 			<div class="form-group error-container">
 				{!! Form::label('extras[transfer]', Lang::get('admin/config/plans.extras.transfer')) !!}
 				<div class="input-group">
+					<div class="input-group-addon currency-rel currency-before {{ @$item->infocurrency->position == 'before' ? '' : 'hide' }}">{{ @$item->infocurrency->symbol }}</div>
 					{!! Form::text('extras[transfer]', null, [ 'class'=>'form-control number' ]) !!}
-					<div class="input-group-addon">{{ price_symbol('EUR') }}</div>
+						<div class="input-group-addon currency-rel currency-after {{ @$item->infocurrency->position == 'after' ? '' : 'hide' }}">{{ @$item->infocurrency->symbol }}</div>
 				</div>
 			</div>
 		</div>
@@ -319,6 +346,15 @@
 			submitHandler: function(f) {
 				LOADING.show();
 				f.submit();
+			}
+		});
+
+		form.on('change','select[name="currency"]', function(){
+			form.find('.currency-rel').addClass('hide');
+
+			var item = $(this).find('option:selected')
+			if ( item.length && item.val() ) {
+				form.find('.currency-'+item.data().position).removeClass('hide').text(item.data().symbol);
 			}
 		});
 

@@ -8,7 +8,9 @@
 
 		{!! Form::open([ 'action'=>[ 'Account\PropertiesController@postCatch', $property->id, @$item->id ], 'method'=>'POST', 'id'=>'catch-form' ]) !!}
 			@include('account.properties.catch-form', [
-				'price_symbol' => price_symbol($property->currency),
+				'item' => @$item,
+				'price_symbol' => $property->infocurrency->symbol,
+				'price_position' => $property->infocurrency->position,
 			])
 			<div class="row">
 				<div class="col-xs-12">

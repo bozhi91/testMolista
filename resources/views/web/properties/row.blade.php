@@ -57,7 +57,7 @@
 							</li>
 							<li class="text-nowrap has-fontello-icon">
 								<i class="fontello-icon fontello-icon-coins"></i>
-								{{ number_format(round($item->price/$item->size),0,',','.') }} {{ price_symbol($property->currency) }}/m²
+								{{ number_format(round($item->price/$item->size),0,',','.') }} {{ $item->infocurrency->symbol }}/m²
 							</li>
 						</ul>
 						<div class="services text-italic">
@@ -66,7 +66,9 @@
 					</div>
 					<div class="col-xs-3">
 					</div>
-					<a href="{{ action('Web\PropertiesController@details', $item->slug) }}" class="hidden-xs btn btn-primary btn-more-info">{{ Lang::get('web/properties.search.results.more') }}</a>
+					<a href="{{ action('Web\PropertiesController@details', $item->slug) }}" class="hidden-xs btn btn-primary btn-more-info">
+						@include ('web.properties.row-moreinfo')
+					</a>
 				</div>
 			</div>
 		</div>

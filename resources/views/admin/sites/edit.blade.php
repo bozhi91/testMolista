@@ -247,6 +247,12 @@
 							@endif
 						</div>
 					</div>
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group error-container">
+							{!! Form::label(null, Lang::get('admin/sites.currency')) !!}
+							{!! Form::text(null, $site->payment_currency, [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+						</div>
+					</div>
 				</div>
 			</div>
 
@@ -304,7 +310,7 @@
 								<tr>
 									<td>{{ $invoice->uploaded_at->format('d/m/Y') }}</td>
 									<td>{{ $invoice->title }}</td>
-									<td class="text-right">{{ price($invoice->amount) }}</td>
+									<td class="text-right">{{ price($invoice->amount, $site->infopaymentcurrency->toArray()) }}</td>
 									<td class="text-right">
 										{!! Form::open([ 'method'=>'DELETE', 'action'=>[ 'Admin\SitesController@deleteInvoice', $invoice->id ], 'class'=>'delete-form' ]) !!}
 											{!! Form::button(Lang::get('general.delete'), [ 'type'=>'submit', 'class'=>'btn btn-xs btn-default' ]) !!}

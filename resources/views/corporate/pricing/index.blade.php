@@ -9,6 +9,7 @@
 
 			<div class="pricing-plans">
 				@include('corporate.common.plans', [
+					'buy_plans' => $plans,
 					'buy_plan_url' => action('Corporate\SignupController@getIndex'),
 				])
 			</div>

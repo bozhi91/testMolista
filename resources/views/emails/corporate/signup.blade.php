@@ -29,7 +29,7 @@
 						'plan' => @$pending_request->plan_name,
 						'price' => @$pending_request->plan_price,
 						'period' => @$pending_request->payment_interval,
-						'priceperiod' => Lang::get("web/plans.price.{$pending_request->payment_interval}") . ' ' . price($pending_request->plan_price, [ 'decimals'=>0 ]),
+						'priceperiod' => Lang::get("web/plans.price.{$pending_request->payment_interval}") . ' ' . price($pending_request->plan_price, $pending_request->plan->infocurrency->toArray()),
 						'paymethod' => Lang::get('account/payment.method.stripe'),
 					]) !!}
 				</div>
@@ -40,7 +40,7 @@
 						'plan' => @$pending_request->plan_name,
 						'price' => @$pending_request->plan_price,
 						'period' => @$pending_request->payment_interval,
-						'priceperiod' => Lang::get("web/plans.price.{$pending_request->payment_interval}") . ' ' . price($pending_request->plan_price, [ 'decimals'=>0 ]),
+						'priceperiod' => Lang::get("web/plans.price.{$pending_request->payment_interval}") . ' ' . price($pending_request->plan_price, $pending_request->plan->infocurrency->toArray()),
 						'paymethod' => Lang::get('account/payment.method.transfer'),
 						'iban' => @$pending_request->iban_account,
 					]) !!}
@@ -60,6 +60,7 @@
 			{!! Lang::get('corporate/signup.email.url.account', [
 				'account_url' => @$account_url,
 				'email' => @$owner_email,
+				'phone' => @$owner_phone,
 			]) !!}
 
 			@if ( @$pending_request['payment_method'] == 'stripe' )

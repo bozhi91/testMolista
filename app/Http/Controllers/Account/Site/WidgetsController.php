@@ -20,7 +20,7 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 
 	public function getIndex()
 	{
-		$widgets = $this->site->widgets()->withTranslations()->get();
+		$widgets = $this->site->widgets()->get();
 
 		$type_options = \App\Models\Site\Widget::getTypeOptions();
 		$group_options = \App\Models\Site\Widget::getGroupOptions();
@@ -41,12 +41,12 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 			return [ 'error'=>true ];
 		}
 
-		$last_item = $this->site->widgets()->where('group',$this->request->get('group'))->orderBy('position','desc')->first();
+		$last_item = $this->site->widgets()->where('group',$this->request->input('group'))->orderBy('position','desc')->first();
 		$position = $last_item ? $last_item->position + 1 : 0;
 
 		$widget = $this->site->widgets()->create([
-			'type' => $this->request->get('type'),
-			'group' => $this->request->get('group'),
+			'type' => $this->request->input('type'),
+			'group' => $this->request->input('group'),
 			'position' => $position,
 		]);
 
@@ -154,7 +154,7 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 
 	public function postSort($group)
 	{
-		$items = $this->request->get('items');
+		$items = $this->request->input('items');
 		if ( !$items || !is_array($items) )
 		{
 			return [ 'error'=>true ];

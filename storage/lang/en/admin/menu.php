@@ -21,7 +21,9 @@
 		'locales' => 'Languages',
 		'translations' => 'Translations',
 		'plans' => 'Plans',
+
 		'geography' => 'Geography',
+		'geography.countries' => 'Countries',
 
 		'logout' => 'Logout',
 	];
