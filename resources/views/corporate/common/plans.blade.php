@@ -4,6 +4,7 @@
 		- $buy_plan_url
 		- $buy_button_text
 		- $buy_button_hidden
+		- $hide_plan_extras
 	------------------------------------------------------------------ */
 
 	// $buy_plans fallback
@@ -200,7 +201,7 @@
 					</div>
 				@endif
 
-				@if ( $plan->extras )
+				@if ( empty($hide_plan_extras) && $plan->extras )
 					<div class="plan-block-extras">
 						<div class="plan-block-extras-optional">
 							{{ Lang::get('web/plans.optional') }}
@@ -209,12 +210,12 @@
 							<div class="plan-block-extras-item">
 								{{ Lang::get("web/plans.extras.{$extra_key}") }}:
 								@if ( $extra_cost )
-									<strong class="extras-price {{ env('PLANS_PROMOTION',0) ? 'add-footnote' : '' }}">{{ price($extra_cost, $currency) }}</strong>
+									<strong class="extras-price add-footnote">{{ price($extra_cost, $currency) }}</strong>
 									@if ( env('PLANS_PROMOTION',0) )
 										<strong class="text-uppercase add-footnote">{{ Lang::get('web/plans.free') }}</strong>
 									@endif
 								@else
-									<strong class="text-uppercase {{ env('PLANS_PROMOTION',0) ? 'add-footnote' : '' }}">{{ Lang::get('web/plans.included') }}</strong>
+									<strong class="text-uppercase add-footnote">{{ Lang::get('web/plans.included') }}</strong>
 								@endif
 							</div>
 						@endforeach
@@ -227,11 +228,11 @@
 	@endforeach
 </div>
 
-@if ( env('PLANS_PROMOTION',0) )
+@if ( empty($hide_plan_extras) )
 	<div class="plan-block-footnotes">
 		<ul class="list-unstyled text-center">
-			<li>{{ Lang::get("web/plans.footnote.text0")  }} {{ Lang::get('web/plans.footnote.optional') }}</li>
-			<li>{{ Lang::get("web/plans.footnote.text1")  }} {{ Lang::get('web/plans.footnote.optional') }}</li>
+			<li>* {{ Lang::get("web/plans.footnote.text0")  }} {{ Lang::get('web/plans.footnote.optional') }}</li>
+			<li>** {{ Lang::get("web/plans.footnote.text1")  }} {{ Lang::get('web/plans.footnote.optional') }}</li>
 		</ul>
 	</div>
 @endif
