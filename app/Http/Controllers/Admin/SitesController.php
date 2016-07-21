@@ -24,14 +24,7 @@ class SitesController extends Controller
 		$query = \App\Site::withTranslations()
 							->with('country')
 							->with('properties')
-							->with([ 'users' => function($query){
-								$query->withRole('employee');
-							}])
-							->leftJoin('properties','properties.site_id','=','sites.id')
-							->addSelect( \DB::raw('COUNT(DISTINCT(properties.id)) AS total_properties') )
-							->leftJoin('sites_users','sites_users.site_id','=','sites.id')
-							->addSelect( \DB::raw('COUNT(DISTINCT(sites_users.user_id)) AS total_users') )
-							->groupBy('sites.id')
+							->with('users')
 							;
 
 		// Filter by title
@@ -67,10 +60,18 @@ class SitesController extends Controller
 				$query->orderBy('web_transfer_requested', $order);
 				break;
 			case 'properties':
-				$query->orderBy('total_properties', $order);
+				$query
+					->leftJoin('properties','properties.site_id','=','sites.id')
+					->addSelect( \DB::raw('COUNT(properties.`id`) AS total_properties') )
+					->orderBy('total_properties', $order)
+					->groupBy('sites.id');
 				break;
 			case 'users':
-				$query->orderBy('total_users', $order);
+				$query
+					->leftJoin('sites_users','sites_users.site_id','=','sites.id')
+					->addSelect( \DB::raw('COUNT(sites_users.`user_id`) AS total_users') )
+					->orderBy('total_users', $order)
+					->groupBy('sites.id');
 				break;
 			case 'title':
 			default:

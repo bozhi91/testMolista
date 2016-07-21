@@ -51,8 +51,8 @@
 									<td>{{ $site->id }}</td>
 									<td>{{ $site->title }}</td>
 									<td>{{ $site->country->name }}</td>
-									<td class="text-right">{{ number_format($site->total_properties,0,',','.') }}</td>
-									<td class="text-right">{{ number_format($site->total_users,0,',','.') }}</td>
+									<td class="text-right">{{ number_format($site->properties->count(),0,',','.') }}</td>
+									<td class="text-right">{{ number_format($site->users->count(),0,',','.') }}</td>
 									<td class="text-center"><span class="glyphicon glyphicon-{{ $site->web_transfer_requested ? 'ok' : 'remove' }}" aria-hidden="true"></span></td>
 									<td>{{ $site->created_at->format('d/m/Y') }}</td>
 									<td class="text-right">
