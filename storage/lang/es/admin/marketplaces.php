@@ -9,10 +9,12 @@ return [
 	'tab.general' => 'General',
 	'tab.configuration' => 'Configuración',
 	'tab.instructions' => 'Instrucciones',
+	'tab.countries' => 'Países',
 
 	'title' => 'Nombre',
 	'code' => 'Código',
 	'country' => 'País',
+	'country.error' => 'Debe seleccionar al menos un país',
 	'created' => 'Creado',
 	'enabled' => 'Habilitado',
 	'class.path' => 'Class path',

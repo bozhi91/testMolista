@@ -17,7 +17,7 @@ class MarketplacesController extends \App\Http\Controllers\Controller
 
 	public function index()
 	{
-		$query = \App\Models\Marketplace::with('country');
+		$query = \App\Models\Marketplace::with('countries');
 
 		// Filter by name
 		if ( $this->request->input('name') )
@@ -65,7 +65,7 @@ class MarketplacesController extends \App\Http\Controllers\Controller
 
 	public function edit($id)
 	{
-		$marketplace = \App\Models\Marketplace::withTranslations()->findOrFail($id);
+		$marketplace = \App\Models\Marketplace::withTranslations()->with('countries')->findOrFail($id);
 		$locales = \App\Models\Locale::orderBy('native')->lists('native','locale')->all();
 		$countries = \App\Models\Geography\Country::withTranslations()->orderBy('name')->lists('name','id')->all();
 		return view('admin.marketplaces.edit', compact('marketplace','locales','countries'));

@@ -23,6 +23,9 @@
 		'add' => 'Add',
 		'options' => 'Options',
 
+		'select.all' => 'Select all',
+		'select.none' => 'Unselect all',
+
 		'delete' => 'Delete',
 
 		'pages' => 'pages',
