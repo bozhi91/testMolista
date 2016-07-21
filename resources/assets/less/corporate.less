@@ -672,25 +672,18 @@ footer {
 			&.is-last { padding-bottom: 0px; }
 		}
 
-		.form-control { border: 1px solid #000; border-radius: 2px; padding: 10px 12px; height: 42px; }
+		.form-control { border: 1px solid @black; border-radius: 2px; padding: 10px 12px; height: 42px; }
 
 		.plan-block {
-			border: 1px solid #000; border-radius: 2px; text-align: center; margin-bottom: 10px;
-			.plan-block-title { background: #b1b1b1; color: #fff; padding: 15px 10px; font-weight: bold; font-size: 24px; }
-			.plan-block-options { background: #fff; }
-			.form-control { border-color: transparent; background: transparent; height: 46px; color: #000; font-weight: bold; font-size: 18px; box-shadow:none; }
+			border: 1px solid @black; border-radius: 2px; text-align: center; margin-bottom: 10px; background: #fff; 
+			.plan-block-title { border-bottom: 1px solid @black; color: @black; background: #fff; padding: 15px 10px; font-weight: bold; font-size: 24px; }
+			.form-control { border-color: transparent; background: transparent; height: 46px; color: @black; font-weight: bold; font-size: 18px; box-shadow:none; }
 			&.plan-block-level-0 {
-				.plan-block-title { background: #95be54; }
 				.form-control { font-size: 22px; padding-top: 7px; }
 			}
-			&.plan-block-level-1 {
-				.plan-block-title { background: #716aae; }
-			}
-			&.plan-block-level-2 {
-				.plan-block-title { background: #c2a90f; }
-			}
 			&.selected {
-				.plan-block-options { background: @yellow; }
+				background: @yellow;
+				.plan-block-title { background: @yellow; }
 			}
 		}
 
@@ -705,8 +698,10 @@ footer {
 		.transfer-list { 
 			font-weight: bold; font-size: 18px; 
 			label { font-weight: bold; }
-			.optional-text { padding-right: 20px; }
+			.optional-text { padding-right: 20px; vertical-align: top; }
 			.transfer-checkbox { top: 4px; }
+			.plan-footnote { display: block; font-size: 14px; font-weight: normal; padding: 20px 0px 0px 20px; }
+			.linethrough { text-decoration: line-through; }
 		}		
 	}
 
@@ -715,19 +710,20 @@ footer {
 		&.is_stuck { margin-top: 0px; }
 	}
 	.summary { 
-		border: 1px solid #000; border-radius: 2px; background: #fff; 
+		border: 1px solid @black; border-radius: 2px; background: #fff; 
 		h2 { background: #b5b5b5; color: #fff; padding: 10px 20px; font-size: 22px; font-weight: bold; }
 		.summary-block {
-			padding: 25px 20px 50px 20px; background: #fff; color: #000; font-size: 18px; 
+			padding: 25px 20px 50px 20px; background: #fff; color: @black; font-size: 18px; 
 			table { width: 100%; max-width: 100%; }
-			&.items-block { border-bottom: 1px solid #000; }
+			&.items-block { border-bottom: 1px solid @black; }
 		}
 		.button-block { 
 			padding: 0px 20px; 
-			.btn-submit { text-transform: uppercase; background: @yellow; border: 1px solid #000; border-radius: 2px; font-size: 32px; font-weight: bold; }
 		}
 		.accept-block { padding: 20px; font-size: 16px; }
 	}
+
+	.btn-submit { text-transform: uppercase; background: @yellow; border: 1px solid @black; border-radius: 2px; font-size: 32px; font-weight: bold; }
 
 	.help {
 		color: #fff; font-size: 18px;

@@ -66,6 +66,8 @@ Route::group([
 		Route::resource('config/translations', 'Admin\Config\TranslationsController');
 		Route::get('config/plans/check/{type}', 'Admin\Config\PlansController@getCheck');
 		Route::resource('config/plans', 'Admin\Config\PlansController');
+		Route::get('config/currencies/check/{type}', 'Admin\Config\CurrenciesController@getCheck');
+		Route::resource('config/currencies', 'Admin\Config\CurrenciesController');
 		// Utils
 		Route::controller('utils/user', 'Admin\Utils\UserController');
 		Route::controller('utils/locale', 'Admin\Utils\LocaleController');
