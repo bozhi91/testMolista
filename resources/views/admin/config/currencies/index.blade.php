@@ -14,6 +14,10 @@
             </div>
             <div class="col-xs-12 col-sm-9">
 
+                @permission('currency-create')
+                    <a href="{{ action('Admin\Config\CurrenciesController@create') }}" class="btn btn-default pull-right">{{ Lang::get('general.new') }}</a>
+                @endpermission
+
                 <h1 class="list-title">{{ Lang::get('admin/menu.currencies') }}</h1>
 
                 @if ( $currencies->count() < 1)
