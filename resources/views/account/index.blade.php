@@ -148,6 +148,7 @@
 					'buy_plans' => $plans,
 					'buy_plan_url' => action('Account\PaymentController@getUpgrade'),
 					'buy_button_text' => Lang::get('account/payment.plan.upgrade.simple'),
+					'hide_plan_extras' => true,
 				])
 			</div>
 		</div>
