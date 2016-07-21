@@ -10,13 +10,13 @@
 
 	<div class="row">
 		<div class="col-xs-12 col-sm-6">
-			<ul class="nav nav-tabs locale-tabs" role="tablist">
+			<ul class="nav nav-tabs locale-tabs text-uppercase" role="tablist">
 				<li role="presentation" class="active">
-					<a href="#lang-{{fallback_lang()}}" aria-controls="lang-{{fallback_lang()}}" aria-expanded="true" role="tab" data-toggle="tab">{{ empty($locales[fallback_lang()]) ? fallback_lang() : $locales[fallback_lang()] }}</a>
+					<a href="#lang-{{fallback_lang()}}" aria-controls="lang-{{fallback_lang()}}" aria-expanded="true" role="tab" data-toggle="tab">{{ fallback_lang() }}</a>
 				</li>
 				@foreach ($locales as $lang_iso => $lang_name)
 					@if ( $lang_iso != fallback_lang() )
-						<li role="presentation"><a href="#lang-{{$lang_iso}}" aria-controls="lang-{{$lang_iso}}" role="tab" data-toggle="tab">{{$lang_name}}</a></li>
+						<li role="presentation"><a href="#lang-{{$lang_iso}}" aria-controls="lang-{{$lang_iso}}" role="tab" data-toggle="tab">{{$lang_iso}}</a></li>
 					@endif
 				@endforeach
 			</ul>
