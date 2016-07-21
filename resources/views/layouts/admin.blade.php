@@ -82,6 +82,9 @@
 							@if ( Auth::user()->can('geography-*') )
 								<li><a href="{{ action('Admin\Geography\CountriesController@index') }}">{{ Lang::get('admin/menu.geography.countries') }}</a></li>
 							@endif
+							@if ( Auth::user()->can('currency-*') )
+								<li><a href="{{ action('Admin\Config\CurrenciesController@index') }}">{{ Lang::get('admin/menu.currencies') }}</a></li>
+							@endif
 						</ul>
 					</li>
 				@endif
