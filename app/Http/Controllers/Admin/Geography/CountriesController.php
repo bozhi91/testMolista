@@ -35,7 +35,7 @@ class CountriesController extends \App\Http\Controllers\Controller
 	public function create()
 	{
 		$currencies = \App\Models\Currency::withTranslations()->orderBy('title')->lists('title','code')->all();
-		$locales = \App\Models\Locale::whereIn('locale', \App\Models\Locale::getCorporateLocales())->orderBy('native')->lists('native','locale')->all();
+		$locales = \App\Models\Translation::getCachedLocales();
 
 		return view('admin.geography.countries.create', compact('currencies','locales'));
 	}
@@ -65,7 +65,7 @@ class CountriesController extends \App\Http\Controllers\Controller
 	{
 		$country = \App\Models\Geography\Country::findOrFail($id);
 		$currencies = \App\Models\Currency::withTranslations()->orderBy('title')->lists('title','code')->all();
-		$locales = \App\Models\Locale::whereIn('locale', \App\Models\Locale::getCorporateLocales())->orderBy('native')->lists('native','locale')->all();
+		$locales = \App\Models\Translation::getCachedLocales();
 
 		return view('admin.geography.countries.edit', compact('country','currencies','locales'));
 	}
