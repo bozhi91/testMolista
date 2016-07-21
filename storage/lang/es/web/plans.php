@@ -31,4 +31,10 @@
 		'extras.transfer' => 'Traspaso de web',
 
 		'buy' => 'Contratar',
+
+		'optional' => 'Opcional',
+
+		'footnote.text0' => '* Incluye el traspaso de 20 inmuebles.',
+		'footnote.text1' => '** Incluye el traspaso de 100 inmuebles.',
+		'footnote.optional' => 'Este servicio es opcional.',
 	];
