@@ -22,6 +22,7 @@
 		'site' => 'Sitio',
 		'site.configuration' => 'Configuración',
 		'site.priceranges' => 'Rangos de precio',
+		'site.countries' => 'Países',
 		'site.widgets' => 'Widgets',
 		'site.menus' => 'Menúes',
 		'site.pages' => 'Páginas',
