@@ -24,15 +24,17 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 
 		$max_languages = @intval( \App\Session\Site::get('plan.max_languages') );
 
+		$currencies = \App\Models\Currency::withTranslations()->enabled()->orderBy('title')->lists('title','code')->all();
+
 		$current_tab = session('current_tab', old('current_tab', $this->request->input('current_tab','config')));
 
-		return view('account.site.configuration.index', compact('site','max_languages','current_tab'));
+		return view('account.site.configuration.index', compact('site','max_languages','currencies','current_tab'));
 	}
 
 	public function postIndex()
 	{
 		// Replace subdomain and domains
-		$current_domains = $this->site->domains->lists('domain','id')->toArray();
+		$current_domains = $this->site->domains->lists('domain','id')->all();
 		if ( !$current_domains )
 		{
 			$current_domains = [ 'new'=>'' ];
@@ -46,6 +48,7 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 		$fields = [
 			'subdomain' => 'required|alpha_dash',
 			'theme' => 'required|in:'.implode(',', array_keys(\Config::get('themes.themes'))),
+			'site_currency' => 'required|exists:currencies,code',
 			'customer_register' => 'required|boolean',
 			'locales_array' => 'required|array',
 			'i18n' => 'array',
@@ -242,6 +245,17 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 
 			$social_media->update([
 				'url' => sanitize($network_url, 'url'),
+			]);
+		}
+
+		// Currency has changed?
+		if ( $this->request->input('site_currency') && $this->request->input('site_currency') != $this->site->site_currency )
+		{
+			// Update site currency
+			$this->site->site_currency =  $this->request->input('site_currency');
+			// Update properties currency
+			$this->site->properties()->withTrashed()->update([
+				'currency' => $this->request->input('site_currency'),
 			]);
 		}
 

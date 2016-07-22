@@ -30,6 +30,9 @@
 		'configuration.domains' => 'Custom domain',
 		'configuration.domains.error' => 'This domain is already taken',
 
+		'configuration.currency' => 'Website currency',
+		'configuration.currency.warning' => 'If you change the website currency, all your properties and stats will use the new currency. Are you sure you wish to change it?',
+
 		'configuration.mailing.out' => 'Sending emails',
 		'configuration.mailing.in' => 'Retriving emails',
 		'configuration.mailing.protocol' => 'Protocol',
