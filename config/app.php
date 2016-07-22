@@ -66,7 +66,7 @@
 		|
 		*/
 
-		'timezone' => 'UTC',
+		'timezone' => env('TIMEZONE', 'Europe/Madrid'),
 
 		/*
 		|--------------------------------------------------------------------------
@@ -182,7 +182,7 @@
 			/* https://github.com/Zizaco/entrust */
 			Zizaco\Entrust\EntrustServiceProvider::class,
 
-			/* https://github.com/igaster/laravel-theme */ 
+			/* https://github.com/igaster/laravel-theme */
 			igaster\laravelTheme\themeServiceProvider::class,
 
 			/* https://github.com/dimsav/laravel-translatable */
@@ -284,7 +284,7 @@
 			/* https://github.com/Zizaco/entrust */
 			'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
 
-			/* https://github.com/igaster/laravel-theme */ 
+			/* https://github.com/igaster/laravel-theme */
 			'Theme' => igaster\laravelTheme\Facades\Theme::class,
 
 			/* https://github.com/Intervention/image */
