@@ -135,6 +135,7 @@ class SignupController extends \App\Http\Controllers\CorporateController
 			'payment_currency' => $this->currency->code,
 			'site_currency' => $this->currency->code,
 			'country_code' => $this->geolocation['config']['code'],
+			'country_id' => $this->geolocation['config']['id'],
 		]);
 		if ( !$site )
 		{
