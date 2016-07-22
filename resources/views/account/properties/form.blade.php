@@ -2,18 +2,25 @@
 	$infocurrency = empty($property->currency) ? $current_site->infocurrency : $property->infocurrency;
 
 	// Priorizar países
-	$tmp = $countries->toArray();
-	$countries = [
-		68 => $tmp[68], //España
-		157 => $tmp[157], //Mexico
-		49 => $tmp[49], //Colombia
-		10 => $tmp[10], //Argentina
-		46 => $tmp[46], //Chile
-		174 => $tmp[174], //Peru
-		63 => $tmp[63], //Ecuador
-	] + [
-		'' => '----------------------------',
-	] + $tmp;
+	if ( empty($current_site->country_ids) )
+	{
+		$tmp = $countries->toArray();
+		$countries = [
+			68 => $tmp[68], //España
+			157 => $tmp[157], //Mexico
+			49 => $tmp[49], //Colombia
+			10 => $tmp[10], //Argentina
+			46 => $tmp[46], //Chile
+			174 => $tmp[174], //Peru
+			63 => $tmp[63], //Ecuador
+		] + [
+			'' => '----------------------------',
+		] + $tmp;
+	}
+	else
+	{
+		$countries = $countries->toArray();
+	}
 ?>
 
 <style type="text/css">
