@@ -194,7 +194,6 @@ class GeographyLoadCountryCitiesCommand extends Command
 			fclose($handle);
 		}
 
-		echo "\r";
 		$this->info("\tTotal states created: {$total}");
 	}
 
@@ -267,7 +266,6 @@ class GeographyLoadCountryCitiesCommand extends Command
 			fclose($handle);
 		}
 
-		echo "\r";
 		$this->info("\tTotal cities created: {$total}");
 	}
 
