@@ -20,7 +20,11 @@ class State extends Model implements SluggableInterface
     protected $guarded = [];
 
     public function properties() {
-    return $this->hasMany('App\Property');
+        return $this->hasMany('App\Property');
+    }
+
+    public function cities() {
+        return $this->hasMany('App\Models\Geography\City');
     }
 
     public function scopeEnabled($query)
