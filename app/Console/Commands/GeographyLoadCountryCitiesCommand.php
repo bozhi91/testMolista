@@ -158,6 +158,7 @@ class GeographyLoadCountryCitiesCommand extends Command
 			while ( ($buffer = fgets($handle, 4096) ) !== false ) 
 			{
 				$i++;
+				echo "\r   {$i}";
 
 				// Format line
 				$line = @array_combine($this->columns, explode("\t",$buffer));
@@ -193,7 +194,8 @@ class GeographyLoadCountryCitiesCommand extends Command
 			fclose($handle);
 		}
 
-		$this->info("\tTotal created: {$total}");
+		echo "\r";
+		$this->info("\tTotal states created: {$total}");
 	}
 
 	protected function loadCities()
@@ -216,6 +218,7 @@ class GeographyLoadCountryCitiesCommand extends Command
 			while ( ($buffer = fgets($handle, 4096) ) !== false ) 
 			{
 				$i++;
+				echo "\r   {$i}";
 
 				// Format line
 				$line = @array_combine($this->columns, explode("\t",$buffer));
@@ -264,7 +267,8 @@ class GeographyLoadCountryCitiesCommand extends Command
 			fclose($handle);
 		}
 
-		$this->info("\tTotal created: {$total}");
+		echo "\r";
+		$this->info("\tTotal cities created: {$total}");
 	}
 
 }
