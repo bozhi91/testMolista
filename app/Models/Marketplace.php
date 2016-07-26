@@ -98,7 +98,6 @@ class Marketplace extends \App\TranslatableModel
 				case 'logo':
 					break;
 				case 'countries_ids':
-					$item->countries()->sync($data['countries_ids']);
 					break;
 				default:
 					$item->$field = @$data[$field];
@@ -122,6 +121,11 @@ class Marketplace extends \App\TranslatableModel
 
 
 		$item->save();
+
+		if ( !empty($data['countries_ids']) || is_array($data['countries_ids']) )
+		{
+			$item->countries()->sync($data['countries_ids']);
+		}
 
 		return $item;
 	}
