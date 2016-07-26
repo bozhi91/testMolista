@@ -24,10 +24,12 @@
 					{!! Form::label('agent', Lang::get('account/calendar.agent'), [ 'class'=>'sr-only' ]) !!}
 					{!! Form::select('agent', [ ''=>Lang::get('account/calendar.agent.all')]+$employees, Input::get('agent'), [ 'class'=>'filter-value form-control' ]) !!}
 				</div>
-				<div class="form-group">
-					{!! Form::label('status', Lang::get('account/calendar.status'), [ 'class'=>'sr-only' ]) !!}
-					{!! Form::select('status', [ ''=>Lang::get('account/calendar.status.all') ], Input::get('status'), [ 'class'=>'filter-value form-control' ]) !!}
-				</div>
+				@if ( false )
+					<div class="form-group">
+						{!! Form::label('status', Lang::get('account/calendar.status'), [ 'class'=>'sr-only' ]) !!}
+						{!! Form::select('status', [ ''=>Lang::get('account/calendar.status.all') ], Input::get('status'), [ 'class'=>'filter-value form-control' ]) !!}
+					</div>
+				@endif
 				{!! Form::submit(Lang::get('general.filters.apply'), [ 'class'=>'btn btn-default' ]) !!}
 			{!! Form::close() !!}
 		</div>
