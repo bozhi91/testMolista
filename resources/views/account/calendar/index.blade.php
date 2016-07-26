@@ -44,9 +44,9 @@
 					<div class="calendar-reference">
 						<h3>{{ Lang::get('account/calendar.reference.title') }}</h3>
 						<ul class="list-unstyled calendar-reference">
-							<li class="event-type-visit">{{ Lang::get('account/calendar.reference.type.visit') }}</li>
-							<li class="event-type-catch">{{ Lang::get('account/calendar.reference.type.catch') }}</li>
-							<li class="event-type-interview">{{ Lang::get('account/calendar.reference.type.interview') }}</li>
+							@foreach ($types as $type_key => $type_name)
+								<li class="event-type-{{ $type_key }}">{{ $type_name }}</li>
+							@endforeach
 						</ul>
 					</div>
 				</div>

@@ -21,16 +21,25 @@ class BaseController extends \App\Http\Controllers\AccountController
 	{
 		$employees = $this->site->users()->orderBy('name')->lists('name','id')->all();
 
-		return view('account.calendar.index', compact('tickets','employees','clean_filters'));
+		$types = \App\Models\Calendar::getTypeOptions();
+		\View::share('types', $types);
+
+		return view('account.calendar.index', compact('tickets','employees','types','clean_filters'));
 	}
 
 	public function getCreate()
 	{
 		$this->setViewValues();
 
+		$start_time = date("Y-m-d H:00");
+		if ( $this->request->input('calendar_defaultView') == 'agendaDay' && preg_match('#^\d{4}-\d{2}-\d{2}$#', $this->request->input('calendar_defaultDate')) )
+		{
+			$start_time = date("Y-m-d", strtotime($this->request->input('calendar_defaultDate'))) . ' '. date("H:00");
+		}
+
 		$defaults = (object) [
 			'user_id' => $this->site_user->id,
-			'start_time' => date("Y-m-d H:00"),
+			'start_time' => $start_time,
 		];
 
 		return view('account.calendar.create', compact('defaults'));
@@ -84,7 +93,16 @@ class BaseController extends \App\Http\Controllers\AccountController
 
 		return redirect()->to( $this->_getGoBackUrl() )->with('success', trans('general.messages.success.saved'));
 	}
+	public function deleteEvent($id_event)
+	{
+		$event = $this->site->events()->findOrFail($id_event);
 
+		$event->delete();
+
+		\App\Models\Calendar::sendNotification('cancel',$event);
+
+		return redirect()->action('Account\Calendar\BaseController@getIndex')->with('success', trans('account/calendar.delete'));
+	}
 	public function getEvents()
 	{
 		$response = [];
@@ -173,7 +191,7 @@ class BaseController extends \App\Http\Controllers\AccountController
 		$users = $this->site->users()->orderBy('name')->lists('name','id')->all();
 		\View::share('users', $users);
 
-		$properties = $this->site->properties()->orderBy('title')->lists('title','id')->all();
+		$properties = $this->site->properties()->orderBy('title')->get();
 		\View::share('properties', $properties);
 
 		$customers = $this->site->customers_options;

@@ -27,6 +27,7 @@ class Calendar extends Model
 		'status' => '',
 		'title' => 'required|string',
 		'comments' => 'string',
+		'location' => 'string',
 		'data' => 'array',
 		'start_time' => 'required|date_format:"Y-m-d H:i"',
 		'end_time' => 'required|date_format:"Y-m-d H:i"',
@@ -40,6 +41,7 @@ class Calendar extends Model
 		'status' => '',
 		'title' => 'required|string',
 		'comments' => 'string',
+		'location' => 'string',
 		'data' => 'array',
 		'start_time' => 'required|date_format:"Y-m-d H:i"',
 		'end_time' => 'required|date_format:"Y-m-d H:i"',
@@ -49,8 +51,10 @@ class Calendar extends Model
 		'visit',
 		'catch',
 		'interview',
+		'other',
 	];
 
+	protected static $calendar_id = '-//Molista//Molista Calendar//EN';
 
 	public function site()
 	{
@@ -74,9 +78,11 @@ class Calendar extends Model
 
 	public static function saveModel($data, $id = null)
 	{
+		$update_notification = false;
+
 		if ($id)
 		{
-			$item = self::find($id);
+			$item = $old_item = self::find($id);
 			if (!$item)
 			{
 				return false;
@@ -97,24 +103,167 @@ class Calendar extends Model
 				case 'site_id':
 				case 'property_id':
 				case 'customer_id':
-					$item->$field = empty($data[$field]) ? null : @$data[$field];
+					$value = empty($data[$field]) ? null : @$data[$field];
 					break;
 				case 'start_time':
 				case 'end_time':
-					$item->$field = empty($data[$field]) ? '' : $data[$field] . ':00';
+					$value = empty($data[$field]) ? '' : $data[$field] . ':00';
 					break;
 				case 'title':
 				case 'comments':
-					$item->$field = empty($data[$field]) ? '' : sanitize($data[$field]);
+					$value = empty($data[$field]) ? '' : sanitize($data[$field]);
 					break;
 				default:
-					$item->$field = @$data[$field];
+					$value = @$data[$field];
 			}
+
+			if ( $id && @$old_item->$field != $value )
+			{
+				$update_notification = true;
+			}
+
+			$item->$field = $value;
 		}
 
 		$item->save();
 
+		if ( !$id )
+		{
+			self::sendNotification('create',$item);
+		}
+		elseif ( $update_notification )
+		{
+			self::sendNotification('update',$item);
+		}
+
 		return $item;
+	}
+
+	public static function createCalendarEvent($item)
+	{
+		// Create calendar object
+		$vCalendar = new \Eluceo\iCal\Component\Calendar(self::$calendar_id);
+		// Create event object
+		$vEvent = new \Eluceo\iCal\Component\Event();
+		// Add information to the event
+		$vEvent
+			->setUniqueId( "calendar-event-{$item->id}@molista.com" )
+			->setUseTimezone( $item->site->timezone )
+			->setCreated( new \DateTime( $item->created_at->toAtomString()) )
+			->setModified( new \DateTime( $item->updated_at->toAtomString()) )
+			->setDtStart( new \DateTime( $item->start_time->toAtomString()) )
+			->setDtEnd(new \DateTime(  $item->end_time->toAtomString()) )
+			->setSummary( $item->title )
+			->setDescription( $item->comments )
+			;
+
+		if ( $item->user )
+		{
+			$vEvent->setOrganizer(new \Eluceo\iCal\Property\Event\Organizer("mailto:{$item->user->email}", [ 
+				'CN' => $item->user->name,
+			]));
+			$vEvent->addAttendee("mailto:{$item->user->email}", [ 
+				'CN' => $item->user->name,
+			]);
+		}
+
+		if ( $item->customer )
+		{
+			$vEvent->addAttendee("mailto:{$item->customer->email}", [ 
+				'CN' => $item->customer->full_name,
+			]);
+		}
+
+		if ( $item->location )
+		{
+			$vEvent->setLocation( $item->location );
+		}
+
+		if ( $item->deleted_at )
+		{
+			$vEvent->setCancelled( true );
+		}
+
+		// Add event to calendar
+		$vCalendar->addComponent($vEvent);
+
+
+		$tmp_folder = storage_path("app/tmp");
+		if ( !is_dir($tmp_folder) )
+		{
+			\File::makeDirectory($tmp_folder, 0775, true);
+		}
+
+		$tmp_file = "{$tmp_folder}/_event_{$item->id}.ics";
+		if ( \File::put($tmp_file, $vCalendar->render()) )
+		{
+			return $tmp_file;
+		}
+
+		return false;
+	}
+
+	public static function sendNotification($type,$event)
+	{
+		// Site has custom mailer?
+		$site = $event->site;
+		if ( @$site->mailer['service'] != 'custom' )
+		{
+			return false;
+		}
+
+		// Customer exists and has email?
+		$customer = $event->customer;
+		if ( !$customer || !$customer->email )
+		{
+			return false;
+		}
+
+		switch ( $type )
+		{
+			case 'create':
+			case 'update':
+			case 'cancel':
+				break;
+			default:
+				return false;
+		}
+
+		$filepath = self::createCalendarEvent($event);
+
+		$locale_backup = \LaravelLocalization::getCurrentLocale();
+		\LaravelLocalization::setLocale($event->customer->locale);
+
+		$subject = trans("account/calendar.email.title.{$type}", [
+			'title' => $event->title,
+		]);
+
+		$content = view("emails.calendar.notify-{$type}", [
+			'event' => $event,
+		])->render();
+
+		$css_path = base_path('resources/assets/css/emails/calendar.css');
+		if ( file_exists($css_path) )
+		{
+			$emogrifier = new \Pelago\Emogrifier($content, file_get_contents($css_path));
+			$content = $emogrifier->emogrify();
+		}
+
+		$sent = $event->site->sendEmail([
+			'to' => $event->customer->email,
+			'subject' => $subject,
+			'content' => $content,
+			'attachments' => [
+				$filepath => [ 'as'=>"event.ics" ],
+			]
+		]);
+
+		// Delete ics file
+		\File::delete($filepath);
+
+		\LaravelLocalization::setLocale($locale_backup);
+
+		return $sent;
 	}
 
 	public function scopeWithStatus($query, $status)
