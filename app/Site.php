@@ -849,4 +849,15 @@ class Site extends TranslatableModel
 		return $countries;
 	}
 
+	public static function getTimezoneOptions()
+	{
+		$timezones = [];
+
+		foreach (\DateTimeZone::listIdentifiers(\DateTimeZone::ALL) as $timezone)
+		{
+			$timezones[$timezone] = $timezone;
+		}
+
+		return $timezones;
+	}
 }

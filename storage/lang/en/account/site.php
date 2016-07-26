@@ -67,6 +67,7 @@
 		'configuration.signature.address' => 'Business address',
 
 		'configuration.client.register' => 'Allow online customer registration',
+		'configuration.timezone' => 'Timezone',
 
 		'configuration.saved' => 'The site configuration was successfully saved',
 

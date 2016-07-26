@@ -80,6 +80,12 @@
 						<div class="row">
 							<div class="col-xs-12 col-sm-6">
 								<div class="form-group error-container">
+									{!! Form::label('timezone', Lang::get('account/site.configuration.timezone')) !!}
+									{!! Form::select('timezone', [ ''=>'' ]+$timezones, null, [ 'class'=>'form-control required' ]) !!}
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group error-container">
 									{!! Form::label('customer_register', Lang::get('account/site.configuration.client.register')) !!}
 									{!! Form::select('customer_register', [ 
 										'1' => Lang::get('general.yes'),

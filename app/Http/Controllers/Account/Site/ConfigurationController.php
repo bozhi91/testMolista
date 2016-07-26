@@ -26,7 +26,9 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 
 		$current_tab = session('current_tab', old('current_tab', $this->request->input('current_tab','config')));
 
-		return view('account.site.configuration.index', compact('site','max_languages','current_tab'));
+		$timezones = \App\Site::getTimezoneOptions();
+
+		return view('account.site.configuration.index', compact('site','timezones','max_languages','current_tab'));
 	}
 
 	public function postIndex()
@@ -46,6 +48,7 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 		$fields = [
 			'subdomain' => 'required|alpha_dash',
 			'theme' => 'required|in:'.implode(',', array_keys(\Config::get('themes.themes'))),
+			'timezone' => 'required|in:'.implode(',', \App\Site::getTimezoneOptions()),
 			'customer_register' => 'required|boolean',
 			'locales_array' => 'required|array',
 			'i18n' => 'array',
@@ -122,6 +125,7 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 		// Save site
 		$this->site->subdomain = $this->request->input('subdomain');
 		$this->site->theme = $this->request->input('theme');
+		$this->site->timezone = $this->request->input('timezone');
 		$this->site->customer_register = $this->request->input('customer_register') ? 1 : 0;
 		$this->site->mailer = $this->request->input('mailer');
 

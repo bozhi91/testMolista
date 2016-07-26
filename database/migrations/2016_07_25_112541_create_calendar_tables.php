@@ -18,6 +18,7 @@ class CreateCalendarTables extends Migration
 			$table->string('status')->nullable()->index();
 			$table->string('title')->nullable();
 			$table->text('comments')->nullable();
+			$table->text('location')->nullable();
 			$table->text('data')->nullable();
 			$table->timestamp('start_time')->index();
 			$table->timestamp('end_time')->index();
@@ -29,6 +30,24 @@ class CreateCalendarTables extends Migration
 			$table->foreign('property_id')->references('id')->on('properties')->onUpdate('cascade')->onDelete('cascade');
 			$table->foreign('customer_id')->references('id')->on('customers')->onUpdate('cascade')->onDelete('cascade');
 		});
+
+		Schema::table('sites', function(Blueprint $table)
+		{
+			$table->string('timezone')->nullable()->after('theme');
+		});
+
+		$timezones = [
+			'ES' => 'Europe/Madrid',
+			'AR' => 'America/Argentina/Buenos_Aires',
+			'CL' => 'America/Santiago',
+			'US' => 'America/New_York',
+		];
+		foreach (\App\Site::get() as $site)
+		{
+			$site->update([
+				'timezone' => empty($timezones[$site->country_code]) ? $timezones['US'] : $timezones[$site->country_code],
+			]);
+		}
 	}
 
 	/**
@@ -38,6 +57,11 @@ class CreateCalendarTables extends Migration
 	 */
 	public function down()
 	{
+		Schema::table('sites', function(Blueprint $table)
+		{
+			$table->dropColumn('timezone');
+		});
+
 		Schema::drop('calendars');
 	}
 }
