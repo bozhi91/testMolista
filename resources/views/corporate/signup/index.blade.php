@@ -86,10 +86,10 @@
 														<div class="plan-block-options">
 															<select name="payment_interval[{{ $plan->code }}]" class="payment-interval-select form-control">
 																@if ( $plan->is_free )
-																	<option value="year" data-text="{{ $plan->name }}" data-price="0" data-transfer="{{ floatval($plan->extras['transfer']) }}">{{ Lang::get('web/plans.free') }}</option>
+																	<option value="year" data-text="{{ $plan->name }}" data-price="0" data-transfer="{{ floatval($plan->extras['transfer']) }}" data-level="{{ $plan->level }}">{{ Lang::get('web/plans.free') }}</option>
 																@else
-																	<option value="year" data-text="{{ $plan->name }} {{ Lang::get('web/plans.price.year') }}" data-price="{{ $plan->price_year }}" data-transfer="{{ floatval($plan->extras['transfer']) }}">{{ Lang::get('web/plans.price.year') }} {{ price($plan->price_year, $plan->infocurrency->toArray()) }}</option>
-																	<option value="month" data-text="{{ $plan->name }} {{ Lang::get('web/plans.price.month') }}"  data-price="{{ $plan->price_month }}" data-transfer="{{ floatval($plan->extras['transfer']) }}">{{ Lang::get('web/plans.price.month') }} {{ price($plan->price_month, $plan->infocurrency->toArray()) }}</option>
+																	<option value="year" data-text="{{ $plan->name }} {{ Lang::get('web/plans.price.year') }}" data-price="{{ $plan->price_year }}" data-transfer="{{ floatval($plan->extras['transfer']) }}" data-level="{{ $plan->level }}">{{ Lang::get('web/plans.price.year') }} {{ price($plan->price_year, $plan->infocurrency->toArray()) }}</option>
+																	<option value="month" data-text="{{ $plan->name }} {{ Lang::get('web/plans.price.month') }}"  data-price="{{ $plan->price_month }}" data-transfer="{{ floatval($plan->extras['transfer']) }}" data-level="{{ $plan->level }}">{{ Lang::get('web/plans.price.month') }} {{ price($plan->price_month, $plan->infocurrency->toArray()) }}</option>
 																@endif
 															</select>
 														</div>
@@ -129,8 +129,29 @@
 															<label>
 																{!! Form::checkbox('web_transfer_requested', 1, null, [ 'class'=>'transfer-checkbox' ]) !!}
 																{{ Lang::get('corporate/signup.full.site.transfer') }}
-																<span class="transfer-price"></span>
+																	<span class="plan-rel plan-rel-level-0 hide"></span>
+																	<span class="plan-rel plan-rel-level-1 hide"></span>
+																	<span class="plan-rel plan-rel-level-2 hide"></span>
+																	@foreach ($plans as $plan)
+																		<span class="plan-rel plan-rel-level-{{ $plan->level }} hide">
+																			@if ( @floatval($plan->extras['transfer']) > 0 )
+																				@if ( env('PLANS_PROMOTION',0) )
+																					<span class="price linethrough">({{ price($plan->extras['transfer'], App\Session\Currency::all()) }})</span>
+																					<span class="text-uppercase">{{ Lang::get('web/plans.free') }}*</span>
+																				@else
+																					<span class="price">({{ price($plan->extras['transfer'], App\Session\Currency::all()) }}*)</span>
+																				@endif
+																			@else
+																				<span class="price text-uppercase">({{ Lang::get('web/plans.included') }}*)</span>
+																			@endif
+																		</span>
+																	@endforeach
 															</label>
+															<div class="plan-footnote">
+																<span class="plan-rel plan-rel-level-0 hide">* {{ Lang::get("web/plans.footnote.text0")  }}</span>
+																<span class="plan-rel plan-rel-level-1 hide">* {{ Lang::get("web/plans.footnote.text1")  }}</span>
+																<span class="plan-rel plan-rel-level-2 hide">* {{ Lang::get("web/plans.footnote.text1")  }}</span>
+															</div>
 														</div>
 													</div>
 												</div>
@@ -234,6 +255,15 @@
 												{!! Form::text('iban_account', null, [ 'class'=>'form-control iban required' ]) !!}
 											</div>
 										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="hidden-xs">
+								<div class="row">
+									<div class="col-xs-12 col-sm-6 col-sm-offset-6">
+										<br />
+										{!! Form::button(Lang::get('corporate/signup.full.summary.button'), [ 'type'=>'submit', 'class'=>'btn btn-block btn-submit' ]) !!}
 									</div>
 								</div>
 							</div>
@@ -452,6 +482,8 @@
 					// Show
 					form.find('.plan-row').removeClass('hide');
 					form.find('.items-block').removeClass('hide');
+					// Plan level rel
+					form.find('.plan-rel').addClass('hide').filter('.plan-rel-level-'+opt.data().level).removeClass('hide');
 				} else {
 					form.find('.items-block').addClass('hide');
 					form.find('.plan-row').addClass('hide');

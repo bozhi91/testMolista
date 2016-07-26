@@ -21,6 +21,7 @@
 		'locales' => 'Languages',
 		'translations' => 'Translations',
 		'plans' => 'Plans',
+		'currencies' => 'Currencies',
 
 		'geography' => 'Geography',
 		'geography.countries' => 'Countries',
