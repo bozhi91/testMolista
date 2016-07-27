@@ -473,7 +473,7 @@ class Site extends TranslatableModel
 			$setup['plan']['is_valid'] = 1;
 		} elseif ( !$setup['plan']['paid_until'] ) {
 			$setup['plan']['is_valid'] = 1;
-		} elseif ( strtotime($setup['plan']['paid_until']) > time() ) {
+		} elseif ( strtotime($setup['plan']['paid_until']) + (60*60*24) > time() ) {
 			$setup['plan']['is_valid'] = 1;
 		} else {
 			$setup['plan']['is_valid'] = 0;

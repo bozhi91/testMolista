@@ -22,6 +22,7 @@
 		'site' => 'Site',
 		'site.configuration' => 'Configuration',
 		'site.priceranges' => 'Price ranges',
+		'site.countries' => 'Countries',
 		'site.widgets' => 'Widgets',
 		'site.menus' => 'Menus',
 		'site.pages' => 'Pages',

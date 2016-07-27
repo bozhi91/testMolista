@@ -426,7 +426,7 @@
 		var property_map;
 		var property_marker;
 		var property_geocoder;
-		var property_zoom = 14;
+		var property_zoom = {{ $item ? '14' : '6' }};
 
 		// Enable first language tab
 		form.find('.locale-tabs a').eq(0).trigger('click');
@@ -452,6 +452,8 @@
 			}
 		});
 
+		property_geocoder = new google.maps.Geocoder();
+
 		// Enable map when opening tab
 		form.find('.main-tabs a[href="#tab-location"]').on('shown.bs.tab', function (e) {
 			var el = $(e.target);
@@ -460,15 +462,12 @@
 				return;
 			}
 
-			property_geocoder = new google.maps.Geocoder();
-
 			el.addClass('property-map-initialized');
 
 			var lat = form.find('.input-lat').val();
 			var lng = form.find('.input-lng').val();
 
 			if ( !lat || !lng ) {
-				property_zoom = 6;
 				lat = '40.4636670';
 				lng = '-3.7492200';
 			}
@@ -824,12 +823,34 @@
 			}
 		});
 
+		form.find('.has-select-2').select2();
+
 		form.find('.main-tabs > li > a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 			form.find('input[name="current_tab"]').val( $(this).data().tab );
 			form.find('.has-select-2').select2();
 		});
 
-		form.find('.has-select-2').select2();
+		@if ( $item )
+			if ( form.find('input[name="current_tab"]').val() == 'location' ) {
+				form.find('.main-tabs a[href="#tab-location"]').trigger('shown.bs.tab');
+			}
+		@else
+			property_geocoder.geocode({
+				'address': form.find('.country-input option:selected').text()
+			}, function(results, status) {
+				if (status === google.maps.GeocoderStatus.OK) {
+					form.find('.input-lat').val( results[0].geometry.location.lat() );
+					form.find('.input-lng').val( results[0].geometry.location.lng() );
+					if ( form.find('input[name="current_tab"]').val() == 'location' ) {
+						form.find('.main-tabs a[href="#tab-location"]').trigger('shown.bs.tab');
+					}
+				} else {
+					if ( form.find('input[name="current_tab"]').val() == 'location' ) {
+						form.find('.main-tabs a[href="#tab-location"]').trigger('shown.bs.tab');
+					}
+				}
+			});
+		@endif
 
 		function initImageWarnings() {
 			form.find('.images-warning-size, .images-warning-orientation').addClass('hide');
