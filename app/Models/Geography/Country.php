@@ -42,6 +42,14 @@ class Country extends TranslatableModel
 		return $this->hasMany('App\Property');
 	}
 
+	public function states() {
+		return $this->hasMany('App\Models\Geography\State');
+	}
+
+	public function cities() {
+		return $this->hasManyThrough('App\Models\Geography\City','App\Models\Geography\State');
+	}
+
 	public function getItemsFolderAttribute()
 	{
 		return "configured/countries/{$this->id}";
