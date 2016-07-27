@@ -132,6 +132,11 @@ class SitesController extends Controller
 			'subdomain' => $this->request->input('subdomain'),
 			'custom_theme' => $this->request->input('custom_theme'),
 			'theme' => $this->request->input('custom_theme', 'default'),
+			'payment_currency' => 'EUR',
+			'site_currency' => 'EUR',
+			'country_code' => 'ES',
+			'country_id' => 68,
+			'timezone' => 'Europe/Madrid',
 		]);
 
 		if ( !$site )

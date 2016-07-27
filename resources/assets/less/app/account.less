@@ -174,3 +174,43 @@
 
 	.marketplace-name { display: inline-block; padding-left: 25px; background: left center no-repeat; color: @bodyTextColor; }
 }
+
+#calendar-page {
+	.search-filters { margin-bottom: 50px; }
+	.calendar-item {
+		.fc-toolbar {
+			h2 { text-transform: uppercase; font-size: 22px; line-height: 30px; }
+			button { 
+				background: @colorWhite; opacity: 1; text-shadow: none; border-width: @borderWidth; border-radius: @borderRadius; border-color: @borderColor; 
+				&.fc-button { text-transform: capitalize; }
+			}
+		}
+		.fc-view-container { background: @colorWhite; }
+		.fc-today { background: @colorGreySuperLight; }
+		.fc-widget-header .fc-day-header { text-transform: capitalize; }
+		.fc-event {
+			color: @colorBlack; background: #97d0a2; border-color: transparent; padding: 4px; cursor: pointer; border-radius: @borderRadius;
+			&.event-type-visit { background: #fa716a; }
+			&.event-type-catch { background: #00adc0; }
+			&.event-type-interview { background: #b9b3cb; }
+			&.event-type-other { background: #ccc; }
+		}
+	}
+	.calendar-reference {
+		h3 { margin: 0px 0px 5px 0px; font-size: 18px; }
+		li { 
+			color: @colorBlack; background: #97d0a2; border-color: transparent; padding: 4px; border-radius: @borderRadius; margin: 0px 0px 5px 0px;
+			&.event-type-visit { background: #fa716a; }
+			&.event-type-catch { background: #00adc0; }
+			&.event-type-interview { background: #b9b3cb; }
+			&.event-type-other { background: #ccc; }
+		}
+	}
+}
+
+#event-summary {
+	font-size: 12px;
+	.title { font-size: 14px; font-weight: bold; margin-bottom: 20px; }
+	.comments { margin-bottom: 20px; }
+	.details { margin-bottom: 20px; }
+}

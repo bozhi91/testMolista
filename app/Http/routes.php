@@ -194,6 +194,8 @@ Route::group([
 		});
 		// Tickets
 		Route::controller('tickets', 'Account\TicketsController');
+		// Calendar
+		Route::controller('calendar', 'Account\Calendar\BaseController');
 		// Reports
 		Route::group([
 			'prefix' => 'reports',

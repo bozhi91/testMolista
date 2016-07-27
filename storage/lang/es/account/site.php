@@ -70,6 +70,7 @@
 		'configuration.signature.address' => 'Dirección principal',
 
 		'configuration.client.register' => 'Permitir registro de clientes online',
+		'configuration.timezone' => 'Zona horaria',
 
 		'configuration.saved' => 'La configuración se ha guardado correctamente',
 

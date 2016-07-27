@@ -8,8 +8,6 @@ use App\Http\Requests;
 
 class AccountController extends Controller
 {
-	protected $site;
-
 	public function __initialize()
 	{
 		parent::__initialize();

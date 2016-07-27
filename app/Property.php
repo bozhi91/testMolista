@@ -201,6 +201,16 @@ class Property extends TranslatableModel
 		]);
 	}
 
+	public function getFullAddressAttribute()
+	{
+		return implode(', ', array_filter([
+			@$this->address,
+			@$this->district,
+			@$this->city->name,
+			@$this->state->name,
+		]));
+	}
+
 	public function getPdfFolderAttribute()
 	{
 		return "sites/{$this->site_id}/properties/{$this->id}/pdf";

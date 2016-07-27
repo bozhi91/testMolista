@@ -73,6 +73,10 @@ class Site extends TranslatableModel
 		return $this->hasMany('App\Models\Site\Stats');
 	}
 
+	public function events() {
+		return $this->hasMany('App\Models\Calendar');
+	}
+
 	public function users() {
 		return $this->belongsToMany('App\User', 'sites_users', 'site_id', 'user_id')->withPivot('can_create','can_edit','can_delete','can_view_all');
 	}
@@ -845,4 +849,15 @@ class Site extends TranslatableModel
 		return $countries;
 	}
 
+	public static function getTimezoneOptions()
+	{
+		$timezones = [];
+
+		foreach (\DateTimeZone::listIdentifiers(\DateTimeZone::ALL) as $timezone)
+		{
+			$timezones[$timezone] = $timezone;
+		}
+
+		return $timezones;
+	}
 }
