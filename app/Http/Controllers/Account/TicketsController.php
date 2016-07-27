@@ -193,6 +193,10 @@ class TicketsController extends \App\Http\Controllers\AccountController
 		$validator = \Validator::make($data, [
 			'subject' => 'required|string',
 			'body' => 'required|string',
+			'cc' => 'array',
+			'cc.*' => 'email',
+			'bcc' => 'array',
+			'bcc.*' => 'email',
 			'private' => 'numeric|in:0,1',
 		]);
 		if ( $validator->fails() ) 

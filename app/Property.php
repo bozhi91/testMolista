@@ -15,6 +15,7 @@ class Property extends TranslatableModel
 	protected $dontKeepLogOf = [
 		'site_id',
 		'label_color',
+		'currency',
 		'publisher_id', 
 		'published_at', 
 		'created_at', 
@@ -198,6 +199,16 @@ class Property extends TranslatableModel
 			'city' => @$this->city->name,
 			'state' => @$this->state->name,
 		]);
+	}
+
+	public function getFullAddressAttribute()
+	{
+		return implode(', ', array_filter([
+			@$this->address,
+			@$this->district,
+			@$this->city->name,
+			@$this->state->name,
+		]));
 	}
 
 	public function getPdfFolderAttribute()

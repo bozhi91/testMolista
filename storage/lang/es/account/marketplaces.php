@@ -12,6 +12,7 @@
 		'all' => 'Exportar todo',
 		'exported' => 'Exportado',
 		'updated' => 'Fecha actualización',
+		'country' => 'País',
 
 		'forget.button' => 'Desconectar',
 		'forget.warning' => '¿Confirma que desea desconectar sus propiedades de este marketplace?',
@@ -43,7 +44,8 @@
 		'configuration.fields.contact_data.title' => 'Datos de contacto',
 		'configuration.fields.email' => 'E-mail',
 		'configuration.fields.contact_data' => 'Datos de contacto',
-
+		'configuration.fields.name' => 'Nombre',
+		'configuration.fields.phone' => 'Teléfono',
 		'configuration.fields.account.title' => 'Cuenta',
 		'configuration.fields.account_id' => 'Account ID',
 

@@ -73,6 +73,10 @@ class Site extends TranslatableModel
 		return $this->hasMany('App\Models\Site\Stats');
 	}
 
+	public function events() {
+		return $this->hasMany('App\Models\Calendar');
+	}
+
 	public function users() {
 		return $this->belongsToMany('App\User', 'sites_users', 'site_id', 'user_id')->withPivot('can_create','can_edit','can_delete','can_view_all');
 	}
@@ -473,7 +477,7 @@ class Site extends TranslatableModel
 			$setup['plan']['is_valid'] = 1;
 		} elseif ( !$setup['plan']['paid_until'] ) {
 			$setup['plan']['is_valid'] = 1;
-		} elseif ( strtotime($setup['plan']['paid_until']) > time() ) {
+		} elseif ( strtotime($setup['plan']['paid_until']) + (60*60*24) > time() ) {
 			$setup['plan']['is_valid'] = 1;
 		} else {
 			$setup['plan']['is_valid'] = 0;
@@ -704,6 +708,30 @@ class Site extends TranslatableModel
 		return $res;
 	}
 
+	public function getPlanPropertyLimitAttribute()
+	{
+		$setup = include $this->getSiteSetupPath();
+
+		return @intval( $setup['plan']['max_properties'] );
+	}
+
+	public function getPropertyLimitRemainingAttribute()
+	{
+		// Check if max_properties limit
+		$properties_allowed = $this->plan_property_limit;
+		if ( $properties_allowed < 1 )
+		{
+			return 1000;
+		}
+
+		// Count current enabled properties
+		$properties_current = $this->properties()->where('enabled',1)->count();
+		
+		// return difference
+		return $properties_allowed - $properties_current;
+	}
+
+
 	public function getMarketplaceHelperAttribute()
 	{
 		return new \App\Models\Site\MarketplaceHelper($this);
@@ -845,4 +873,15 @@ class Site extends TranslatableModel
 		return $countries;
 	}
 
+	public static function getTimezoneOptions()
+	{
+		$timezones = [];
+
+		foreach (\DateTimeZone::listIdentifiers(\DateTimeZone::ALL) as $timezone)
+		{
+			$timezones[$timezone] = $timezone;
+		}
+
+		return $timezones;
+	}
 }

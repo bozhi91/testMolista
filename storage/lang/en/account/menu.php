@@ -14,6 +14,8 @@
 
 		'tickets' => 'Tickets',
 
+		'calendar' => 'Calendar',
+
 		'reports' => 'Reports',
 		'reports.properties' => 'Properties',
 		'reports.agents' => 'Agents',
@@ -22,6 +24,7 @@
 		'site' => 'Site',
 		'site.configuration' => 'Configuration',
 		'site.priceranges' => 'Price ranges',
+		'site.countries' => 'Countries',
 		'site.widgets' => 'Widgets',
 		'site.menus' => 'Menus',
 		'site.pages' => 'Pages',
