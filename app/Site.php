@@ -71,18 +71,22 @@ class Site extends TranslatableModel
 		return $this->hasMany('App\Models\Site\Invoice');
 	}
 
-	public function stats() {
+	public function stats()
+	{
 		return $this->hasMany('App\Models\Site\Stats');
 	}
 
-	public function events() {
+	public function events()
+	{
 		return $this->hasMany('App\Models\Calendar');
 	}
 
-	public function users() {
+	public function users()
+	{
 		return $this->belongsToMany('App\User', 'sites_users', 'site_id', 'user_id')->withPivot('can_create','can_edit','can_delete','can_view_all');
 	}
-	public function getUsersIdsAttribute() {
+	public function getUsersIdsAttribute()
+	{
 		$users = [];
 
 		foreach ($this->users as $user)
@@ -92,10 +96,12 @@ class Site extends TranslatableModel
 
 		return $users;
 	}
-	public function getOwnersIdsAttribute() {
+	public function getOwnersIdsAttribute()
+	{
 		return \App\User::withRole('company')->whereIn('id', $this->users_ids)->lists('id')->toArray();
 	}
-	public function getEmployeesIdsAttribute() {
+	public function getEmployeesIdsAttribute()
+	{
 		return \App\User::withRole('employee')->whereIn('id', $this->users_ids)->lists('id')->toArray();
 	}
 
@@ -115,30 +121,37 @@ class Site extends TranslatableModel
 		return $options;
 	}
 
-	public function properties() {
+	public function properties()
+	{
 		return $this->hasMany('App\Property')->with('infocurrency')->withTranslations();
 	}
 
-	public function api_keys() {
+	public function api_keys()
+	{
 		return $this->hasMany('App\Models\ApiKey');
 	}
 
-	public function menus() {
+	public function menus()
+	{
 		return $this->hasMany('App\Models\Site\Menu');
 	}
 
-	public function widgets() {
+	public function widgets()
+	{
 		return $this->hasMany('App\Models\Site\Widget')->withTranslations();
 	}
 
-	public function pages() {
+	public function pages()
+	{
 		return $this->hasMany('App\Models\Site\Page')->withTranslations();
 	}
 
-	public function social() {
+	public function social()
+	{
 		return $this->hasMany('App\SiteSocial');
 	}
-	public function getSocialArrayAttribute() {
+	public function getSocialArrayAttribute()
+	{
 		$networks = [];
 
 		foreach ($this->social as $social)
@@ -154,10 +167,12 @@ class Site extends TranslatableModel
 		return $networks;
 	}
 
-	public function domains() {
+	public function domains()
+	{
 		return $this->hasMany('App\SiteDomains');
 	}
-	public function getDomainsArrayAttribute() {
+	public function getDomainsArrayAttribute()
+	{
 		$domains = [];
 
 		foreach ($this->domains as $domain)
