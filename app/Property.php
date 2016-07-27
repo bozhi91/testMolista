@@ -508,6 +508,7 @@ class Property extends TranslatableModel
 			'baths' => $this->baths,
 			'ec' => $this->ec,
 			'ec_pending' => $this->ec_pending,
+			'construction_year' => $this->construction_year,
 			'newly_build' => $this->newly_build,
 			'second_hand' => $this->second_hand,
 			'url' => [],
