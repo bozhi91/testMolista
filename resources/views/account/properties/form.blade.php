@@ -140,7 +140,17 @@
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
 							{!! Form::label('enabled', Lang::get('account/properties.enabled')) !!}
-							{!! Form::select('enabled', [ '1'=>Lang::get('general.yes'), '0'=>Lang::get('general.no') ], null, [ 'class'=>'form-control' ]) !!}
+							@if ( $current_site->property_limit_remaining > 0 || ($item && $current_site->property_limit_remaining >= 0) )
+								{!! Form::select('enabled', [
+									1 => Lang::get('general.yes'),
+									0 => Lang::get('general.no'),
+								 ], null, [ 'class'=>'form-control' ]) !!}
+							@else
+								{!! Form::select('enabled', [
+									0 => Lang::get('general.no'),
+								 ], null, [ 'class'=>'form-control' ]) !!}
+								<div class="help-block">{!! Lang::get('account/warning.properties.helper', [ 'max_properties' => number_format(App\Session\Site::get('plan.max_properties'),0,',','.'), ]) !!}</div>
+							@endif
 						</div>
 					</div>
 				</div>
