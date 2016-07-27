@@ -21,7 +21,11 @@ class SitesController extends Controller
 
 	public function index()
 	{
-		$query = \App\Site::withTranslations()->with('country');
+		$query = \App\Site::withTranslations()
+							->with('country')
+							->with('properties')
+							->with('users')
+							;
 
 		// Filter by title
 		if ( $this->request->input('title') )
@@ -32,7 +36,6 @@ class SitesController extends Controller
 		// Filter by web_transfer_requested
 		if ( $this->request->input('transfer') )
 		{
-
 			$query->where('web_transfer_requested', intval($this->request->input('transfer'))-1);
 		}
 
@@ -55,6 +58,20 @@ class SitesController extends Controller
 				break;
 			case 'transfer':
 				$query->orderBy('web_transfer_requested', $order);
+				break;
+			case 'properties':
+				$query
+					->leftJoin('properties','properties.site_id','=','sites.id')
+					->addSelect( \DB::raw('COUNT(properties.`id`) AS total_properties') )
+					->orderBy('total_properties', $order)
+					->groupBy('sites.id');
+				break;
+			case 'users':
+				$query
+					->leftJoin('sites_users','sites_users.site_id','=','sites.id')
+					->addSelect( \DB::raw('COUNT(sites_users.`user_id`) AS total_users') )
+					->orderBy('total_users', $order)
+					->groupBy('sites.id');
 				break;
 			case 'title':
 			default:
