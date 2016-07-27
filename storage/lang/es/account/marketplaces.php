@@ -12,6 +12,7 @@
 		'all' => 'Exportar todo',
 		'exported' => 'Exportado',
 		'updated' => 'Fecha actualización',
+		'country' => 'País',
 
 		'forget.button' => 'Desconectar',
 		'forget.warning' => '¿Confirma que desea desconectar sus propiedades de este marketplace?',

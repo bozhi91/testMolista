@@ -30,6 +30,9 @@
 		'configuration.domains' => 'Dominio personalizado',
 		'configuration.domains.error' => 'Este dominio ya se encuentra en uso',
 
+		'configuration.currency' => 'Moneda del sitio',
+		'configuration.currency.warning' => 'Si cambias la moneda, todas las propiedades y estadísticas usarán la nueva moneda. ¿Estás seguro de que deseas cambiarla?',
+
 		'configuration.mailing.out' => 'Envío de emails',
 		'configuration.mailing.in' => 'Recepción de emails',
 		'configuration.mailing.protocol' => 'Protocolo',
@@ -67,6 +70,7 @@
 		'configuration.signature.address' => 'Dirección principal',
 
 		'configuration.client.register' => 'Permitir registro de clientes online',
+		'configuration.timezone' => 'Zona horaria',
 
 		'configuration.saved' => 'La configuración se ha guardado correctamente',
 

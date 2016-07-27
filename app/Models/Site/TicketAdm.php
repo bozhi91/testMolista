@@ -722,6 +722,17 @@ class TicketAdm
 			return false;
 		}
 
+		// Clean email fields
+		foreach (['cc','bcc'] as $field)
+		{
+			if ( !isset($data[$field]) )
+			{
+				continue;
+			}
+
+			$data[$field] = array_values(array_unique($data[$field]));
+		}
+
 		$response = $this->guzzle_client->request('POST', "ticket/{$ticket_id}/message/?site_id={$this->site_id}", [
 			'headers'=> [
 				'Authorization' => $this->getAuthorizationHeader(),

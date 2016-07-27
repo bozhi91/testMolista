@@ -31,7 +31,8 @@
 								<th>&nbsp;</th>
 								<th>{{ Lang::get('admin/marketplaces.code') }}</th>
 								<th>{{ Lang::get('admin/marketplaces.title') }}</th>
-								<th>{{ Lang::get('admin/marketplaces.created') }}</th>
+								<th>{{ Lang::get('admin/marketplaces.country') }}</th>
+								<th class="text-center">{{ Lang::get('admin/marketplaces.created') }}</th>
 								<th class="text-center text-nowrap">{{ Lang::get('admin/marketplaces.contact') }}</th>
 								<th class="text-center">{{ Lang::get('admin/marketplaces.enabled') }}</th>
 								<th></th>
@@ -43,6 +44,7 @@
 									<td class="text-center"><img src="{{ asset("marketplaces/{$marketplace->logo}") }}" /></td>
 									<td>{{ $marketplace->code }}</td>
 									<td>{{ $marketplace->name }}</td>
+									<td class="text-center"><img src="{{ asset($marketplace->flag) }}" alt="" /></td>
 									<td>{{ $marketplace->created_at->format('d/m/Y') }}</td>
 									<td class="text-center"><span class="glyphicon glyphicon-{{ $marketplace->requires_contact ? 'ok' : 'remove' }}" aria-hidden="true"></span></td>
 									<td class="text-center"><span class="glyphicon glyphicon-{{ $marketplace->enabled ? 'ok' : 'remove' }}" aria-hidden="true"></span></td>

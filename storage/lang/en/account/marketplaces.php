@@ -12,6 +12,7 @@
 		'all' => 'Export all',
 		'exported' => 'Exported',
 		'updated' => 'Last updated',
+		'country' => 'Country',
 
 		'forget.button' => 'Disconnect',
 		'forget.warning' => 'Are you sure you want to disconnect your properties from this marketplace?',

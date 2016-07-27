@@ -136,6 +136,7 @@ class SignupController extends \App\Http\Controllers\CorporateController
 			'site_currency' => $this->currency->code,
 			'country_code' => $this->geolocation['config']['code'],
 			'country_id' => $this->geolocation['config']['id'],
+			'timezone' => $this->geolocation['timezone'],
 		]);
 		if ( !$site )
 		{
