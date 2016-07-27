@@ -704,6 +704,30 @@ class Site extends TranslatableModel
 		return $res;
 	}
 
+	public function getPlanPropertyLimitAttribute()
+	{
+		$setup = include $this->getSiteSetupPath();
+
+		return @intval( $setup['plan']['max_properties'] );
+	}
+
+	public function getPropertyLimitRemainingAttribute()
+	{
+		// Check if max_properties limit
+		$properties_allowed = $this->plan_property_limit;
+		if ( $properties_allowed < 1 )
+		{
+			return 1000;
+		}
+
+		// Count current enabled properties
+		$properties_current = $this->properties()->where('enabled',1)->count();
+		
+		// return difference
+		return $properties_allowed - $properties_current;
+	}
+
+
 	public function getMarketplaceHelperAttribute()
 	{
 		return new \App\Models\Site\MarketplaceHelper($this);

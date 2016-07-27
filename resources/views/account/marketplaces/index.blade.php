@@ -11,12 +11,22 @@
 		@if ( $marketplaces->count() < 1)
 			<div class="alert alert-info">{{ Lang::get('account/marketplaces.empty') }}</div>
 		@else
+
+			@if ( $current_site->plan_property_limit > 0 )
+				<div class="alert alert-info">
+					{!! Lang::get('account/warning.export.limit', [ 
+						'max_properties' => number_format(App\Session\Site::get('plan.max_properties'),0,',','.'), 
+					]) !!}
+				</div>
+			@endif
+
 			<table class="table table-striped">
 				<thead>
 					<tr>
+						<?php $limit_sortable = ($current_site->plan_property_limit > 0) ? false : true; ?>
 						{!! drawSortableHeaders(url()->full(), [
 							'title' => [ 'title' => Lang::get('account/marketplaces.title') ],
-							'limit' => [ 'title' => Lang::get('account/marketplaces.limit'), 'class'=>'text-center' ],
+							'limit' => [ 'title' => Lang::get('account/marketplaces.limit'), 'sortable'=>$limit_sortable, 'class'=>'text-center' ],
 							'properties' => [ 'title' => Lang::get('account/marketplaces.exported'), 'class'=>'text-center' ],
 							'all' => [ 'title' => Lang::get('account/marketplaces.all'), 'class'=>'text-center' ],
 							'configured' => [ 'title' => Lang::get('account/marketplaces.configured'), 'class'=>'text-center' ],
@@ -36,7 +46,13 @@
 								@endif
 							</td>
 							<td class="text-center">
-								@if ( $marketplace->marketplace_maxproperties )
+								@if ( $current_site->plan_property_limit > 0 )
+									@if ( $marketplace->marketplace_maxproperties && $marketplace->marketplace_maxproperties < $current_site->plan_property_limit )
+										{{ number_format($marketplace->marketplace_maxproperties,0,',','.') }}
+									@else
+										{{ number_format($current_site->plan_property_limit,0,',','.') }}
+									@endif
+								@elseif ( $marketplace->marketplace_maxproperties )
 									{{ number_format($marketplace->marketplace_maxproperties,0,',','.') }}
 								@else
 									-
