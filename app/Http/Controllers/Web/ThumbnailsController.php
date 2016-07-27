@@ -38,6 +38,9 @@ class ThumbnailsController extends \App\Http\Controllers\Controller
 				$this->encode_format = 'jpg';
 				$this->original = substr($this->original, 0, -4);
 				break;
+			case 'tuad':
+				$this->max_weight = 1;
+				break;
 			default:
 				abort(404);
 		}
