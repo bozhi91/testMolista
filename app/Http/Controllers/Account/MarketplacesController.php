@@ -15,8 +15,23 @@ class MarketplacesController extends \App\Http\Controllers\AccountController
 	public function getIndex()
 	{
 		$query = \App\Models\Marketplace::enabled()
+			->with('countries')
 			->withSiteConfiguration($this->site->id)
 			->withSiteProperties($this->site->id);
+
+		// Filter by title
+		if ( $this->request->input('title') )
+		{
+			$clean_filters = true;
+			$query->where('marketplaces.name', 'LIKE', "%{$this->request->input('title')}%");
+		}
+
+		// Filter by country
+		if ( $this->request->input('country') )
+		{
+			$clean_filters = true;
+			$query->ofCountry($this->request->input('country'));
+		}
 
 		switch ( $this->request->input('order') )
 		{
@@ -38,9 +53,11 @@ class MarketplacesController extends \App\Http\Controllers\AccountController
 
 		$total_properties = $this->site->properties->count();
 
+		$countries = \App\Models\Geography\Country::withTranslations()->withMarketplaces()->orderBy('name')->lists('name','code')->all();
+
 		$this->set_go_back_link();
 
-		return view('account.marketplaces.index', compact('marketplaces','total_properties'));
+		return view('account.marketplaces.index', compact('marketplaces','countries','clean_filters','total_properties'));
 	}
 
 	public function getConfigure($code)
