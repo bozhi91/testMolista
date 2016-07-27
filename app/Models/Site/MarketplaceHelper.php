@@ -136,7 +136,7 @@ class MarketplaceHelper
 				@unlink($filepath);
 			}
 		}
-@unlink($filepath);
+
 		// Get XML content
 		if ( file_exists($filepath) )
 		{
