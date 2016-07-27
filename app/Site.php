@@ -23,6 +23,8 @@ class Site extends TranslatableModel
 
 	protected $data;
 
+	protected $ticket_token = false;
+
 	public static function boot()
 	{
 		parent::boot();
@@ -324,10 +326,12 @@ class Site extends TranslatableModel
 		$unserialized = @unserialize($value);
 		return is_array($unserialized) ? $unserialized : [];
 	}
-	public function getMailerServiceAttribute() {
+	public function getMailerServiceAttribute()
+	{
 		return @$this->mailer['service'];
 	}
-	public function getMailerOutAttribute() {
+	public function getMailerOutAttribute()
+	{
 		$protocol = @$this->mailer['out']['protocol'];
 
 		if ( !$protocol || $this->mailer_service != 'custom' )
@@ -343,7 +347,8 @@ class Site extends TranslatableModel
 			'from_email' => $this->mailer['from_email'],
 		]);
 	}
-	public function getMailerInAttribute() {
+	public function getMailerInAttribute()
+	{
 		$protocol = @$this->mailer['in']['protocol'];
 
 		if ( !$protocol || $this->mailer_service != 'custom' )
@@ -354,11 +359,18 @@ class Site extends TranslatableModel
 		return @$this->mailer['in'];
 	}
 
-	public function getTicketAdmAttribute() {
-		return new \App\Models\Site\TicketAdm( $this->id );
+	public function setTicketToken($token)
+	{
+		$this->ticket_token = $token;
 	}
 
-	public function getHasPendingPlanRequestAttribute() {
+	public function getTicketAdmAttribute()
+	{
+		return new \App\Models\Site\TicketAdm( $this->id, $this->ticket_token );
+	}
+
+	public function getHasPendingPlanRequestAttribute()
+	{
 		return $this->planchanges()->pending()->count();
 	}
 
