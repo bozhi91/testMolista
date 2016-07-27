@@ -297,11 +297,15 @@
 				},
 				submitHandler: function(f) {
 					var em = $('#cc-bcc-email-input').val();
-					var li =	'<li class="emails-list-item">' +
-									'<input type="hidden" name="' + add_cont.data().name + '" value="' + em + '" />' +
-									'<div class="label label-default">' + em + '<i class="fa fa-minus-square email-remove-trigger" aria-hidden="true"></i></div>' +
-								'</li>';
-					add_cont.closest('.form-control').find('.emails-list').append(li);
+
+					if ( add_cont.find('.email-input[value="' + em + '"]').length < 1 ) {
+						var li =	'<li class="emails-list-item">' +
+										'<input type="hidden" name="' + add_cont.data().name + '" value="' + em + '" class="email-input" />' +
+										'<div class="label label-default">' + em + '<i class="fa fa-minus-square email-remove-trigger" aria-hidden="true"></i></div>' +
+									'</li>';
+						add_cont.closest('.form-control').find('.emails-list').append(li);
+					}
+
 					$.magnificPopup.close();
 				}
 			});
