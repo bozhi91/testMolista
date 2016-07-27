@@ -23,13 +23,18 @@ class Mapper extends \App\Marketplaces\Mapper {
 		$map['property_type'] = $this->getPropertyType();
 
 		$map['address'] = $item['location']['address'];
-		$map['country'] = '';
-		$map['region'] = '';
+		
+		$country_id = \App\Models\Geography\Country::where('code', $item['location']['country'])->value('id');
+		$countryLabel = \App\Models\Geography\CountryTranslation::where('country_id', $country_id)
+				->where('locale', $this->iso_lang)->value('name');
+		
+		$map['country'] = $countryLabel;
+		$map['region'] = $item['location']['territory'];
 
 		$map['agency']['id'] = $item['site_id'];
-		$map['agency']['name'] = isset($this->config['name']) ? $this->config['name'] : '';
-		$map['agency']['phone'] = isset($this->config['phone']) ? $this->config['phone'] : '';
-		$map['agency']['email'] = isset($this->config['email']) ? $this->config['email'] : '';
+		$map['agency']['name'] = $this->config['name'];
+		$map['agency']['phone'] = $this->config['phone'];
+		$map['agency']['email'] = $this->config['email'];
 		//$map['agency']['address'] = '';
 		//$map['agency']['city_area'] = '';
 		//$map['agency']['city'] = '';
@@ -38,8 +43,11 @@ class Mapper extends \App\Marketplaces\Mapper {
 		//$map['agency']['logo_url'] = '';
 
 		$map['price@currency=' . $item['currency'] . '@period=monthly'] = ceil($item['price']);
-		$map['pictures']['picture'] = $this->getImages();
-
+		
+		if(!empty($item['images'])){
+			$map['pictures']['picture'] = $this->getImages();
+		}
+		
 		$map['city'] = $item['location']['city'];
 		$map['city_area'] = $item['location']['district'];
 		$map['postcode'] = $item['location']['zipcode'];
@@ -96,16 +104,24 @@ class Mapper extends \App\Marketplaces\Mapper {
 	 * @return boolean
 	 */
 	public function valid() {
+		$data = array_merge($this->item, $this->config);
+		
 		$rules = [
 			'id' => 'required',
 			'url' => 'required',
 			'title' => 'required',
 			'type' => 'required',
 			'description.' . $this->iso_lang => 'required|min:30',
+			'location.address' => 'required',
+			'location.country' => 'required',
+			'site_id' => 'required',
+			'name' => 'required',
+			'phone' => 'required',
+			'email' => 'required',
 			'construction_year' => 'regex:#\d{4}#'
 		];
 
-		$validator = \Validator::make($this->item, $rules, []);
+		$validator = \Validator::make($data, $rules, []);
 		if ($validator->fails()) {
 			$this->errors = $validator->errors()->all();
 		}
