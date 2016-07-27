@@ -37,6 +37,8 @@
 									'id' => [ 'title' => '#' ],
 									'title' => [ 'title' => Lang::get('admin/sites.title')],
 									'country' => [ 'title' => Lang::get('admin/sites.country'), 'sortable'=>false ],
+									'properties' => [ 'title' => Lang::get('admin/sites.properties'), 'class'=>'text-right' ],
+									'users' => [ 'title' => Lang::get('admin/sites.employees'), 'class'=>'text-right' ],
 									'transfer' => [ 'title' => Lang::get('admin/sites.transfer'), 'class'=>'text-center text-nowrap' ],
 									'created' => [ 'title' => Lang::get('admin/sites.created') ],
 									'action' => [ 'title' => '', 'sortable'=>false ],
@@ -49,6 +51,8 @@
 									<td>{{ $site->id }}</td>
 									<td>{{ $site->title }}</td>
 									<td>{{ $site->country->name }}</td>
+									<td class="text-right">{{ number_format($site->properties->count(),0,',','.') }}</td>
+									<td class="text-right">{{ number_format($site->users->count(),0,',','.') }}</td>
 									<td class="text-center"><span class="glyphicon glyphicon-{{ $site->web_transfer_requested ? 'ok' : 'remove' }}" aria-hidden="true"></span></td>
 									<td>{{ $site->created_at->format('d/m/Y') }}</td>
 									<td class="text-right">

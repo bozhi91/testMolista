@@ -170,7 +170,18 @@ class MarketplaceHelper
 							->orderBy('updated_at','desc')
 							->get();
 
+			// Site limitation
 			$total_allowed = intval($this->marketplace->pivot->marketplace_maxproperties);
+			// Plan limitation
+			if ( $this->site->plan_property_limit > 0 )
+			{
+				// Only if no site limitation or bigger that site limitation
+				if ( !$total_allowed || $total_allowed > $this->site->plan_property_limit )
+				{
+					$total_allowed = $this->site->plan_property_limit;
+				}
+			}
+
 			$total_properties = $source->count();
 			$check_limit = ( $total_allowed > 0 && $total_allowed < $total_properties );
 

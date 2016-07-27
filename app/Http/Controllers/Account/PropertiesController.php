@@ -218,7 +218,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 		// Create element
 		$property = $this->site->properties()->create([
-			'enabled' => 1,
+			'enabled' => 0,
 			'publisher_id' => $this->request->input('employee_id'),
 			'published_at' => date('Y-m-d'),
 		]);
@@ -229,7 +229,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		}
 
 		// Save
-		if ( !$this->saveRequest($property) )
+		if ( !$this->saveRequest($property,true) )
 		{
 			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
 		}
@@ -308,7 +308,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		}
 
 		// Save
-		if ( !$this->saveRequest($property) )
+		if ( !$this->saveRequest($property,false) )
 		{
 			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
 		}
@@ -686,8 +686,22 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		return true;
 	}
 
-	protected function saveRequest($property) 
+	protected function saveRequest($property,$is_new=false) 
 	{
+		if ( $this->request->input('enabled') )
+		{
+			$fix_enable = false;
+			if ( 
+				$this->site->property_limit_remaining < 0 
+				||
+				( !$property->enabled && $this->site->property_limit_remaining < 1 )
+			)
+			{
+				$this->request->merge([
+					'enabled' => 0,
+				]);
+			}
+		}
 
 		// Main data
 		foreach ($this->getRequestFields() as $field => $def)

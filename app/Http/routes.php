@@ -66,6 +66,8 @@ Route::group([
 		Route::resource('config/translations', 'Admin\Config\TranslationsController');
 		Route::get('config/plans/check/{type}', 'Admin\Config\PlansController@getCheck');
 		Route::resource('config/plans', 'Admin\Config\PlansController');
+		Route::get('config/currencies/check/{type}', 'Admin\Config\CurrenciesController@getCheck');
+		Route::resource('config/currencies', 'Admin\Config\CurrenciesController');
 		// Utils
 		Route::controller('utils/user', 'Admin\Utils\UserController');
 		Route::controller('utils/locale', 'Admin\Utils\LocaleController');
@@ -192,6 +194,8 @@ Route::group([
 		});
 		// Tickets
 		Route::controller('tickets', 'Account\TicketsController');
+		// Calendar
+		Route::controller('calendar', 'Account\Calendar\BaseController');
 		// Reports
 		Route::group([
 			'prefix' => 'reports',
@@ -214,6 +218,8 @@ Route::group([
 			Route::controller('configuration', 'Account\Site\ConfigurationController');
 			// Price ranges
 			Route::controller('priceranges', 'Account\Site\PriceRangesController');
+			// Countries
+			Route::controller('countries', 'Account\Site\CountriesController');
 			// Menus
 			Route::post('menus/item/{slug}', 'Account\Site\MenusController@postItem');
 			Route::resource('menus', 'Account\Site\MenusController');

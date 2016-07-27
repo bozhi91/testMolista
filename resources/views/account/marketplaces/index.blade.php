@@ -8,18 +8,48 @@
 
 		<h1 class="page-title">{{ Lang::get('account/marketplaces.h1') }}</h1>
 
+		<div class="search-filters">
+			@if ( @$clean_filters )
+				<a href="?limit={{ Input::get('limit') }}" class="text-bold pull-right">{{ Lang::get('general.filters.clean') }}</a>
+			@endif
+			<h2>{{ Lang::get('general.filters') }}</h2>
+			{!! Form::open([ 'method'=>'GET', 'class'=>'form-inline', 'id'=>'filters-form' ]) !!}
+				{!! Form::hidden('limit', Input::get('limit')) !!}
+				<div class="form-group">
+					{!! Form::label('title', Lang::get('account/marketplaces.title'), [ 'class'=>'sr-only' ]) !!}
+					{!! Form::text('title', Input::get('title'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('account/marketplaces.title') ]) !!}
+				</div>
+				<div class="form-group">
+					{!! Form::label('country', Lang::get('account/marketplaces.country'), [ 'class'=>'sr-only' ]) !!}
+					{!! Form::select('country', [ '' => Lang::get('account/marketplaces.country') ]+$countries, Input::get('country'), [ 'class'=>'form-control' ]) !!}
+				</div>
+				{!! Form::submit(Lang::get('general.filters.apply'), [ 'class'=>'btn btn-default' ]) !!}
+			{!! Form::close() !!}
+		</div>
+
 		@if ( $marketplaces->count() < 1)
 			<div class="alert alert-info">{{ Lang::get('account/marketplaces.empty') }}</div>
 		@else
+
+			@if ( $current_site->plan_property_limit > 0 )
+				<div class="alert alert-info">
+					{!! Lang::get('account/warning.export.limit', [ 
+						'max_properties' => number_format(App\Session\Site::get('plan.max_properties'),0,',','.'), 
+					]) !!}
+				</div>
+			@endif
+
 			<table class="table table-striped">
 				<thead>
 					<tr>
+						<?php $limit_sortable = ($current_site->plan_property_limit > 0) ? false : true; ?>
 						{!! drawSortableHeaders(url()->full(), [
-							'title' => [ 'title' => Lang::get('account/marketplaces.title') ],
-							'limit' => [ 'title' => Lang::get('account/marketplaces.limit'), 'class'=>'text-center' ],
-							'properties' => [ 'title' => Lang::get('account/marketplaces.exported'), 'class'=>'text-center' ],
-							'all' => [ 'title' => Lang::get('account/marketplaces.all'), 'class'=>'text-center' ],
-							'configured' => [ 'title' => Lang::get('account/marketplaces.configured'), 'class'=>'text-center' ],
+							'title' => [ 'title' => Lang::get('account/marketplaces.title'), 'sortable'=>false ],
+							'country' => [ 'title' => Lang::get('account/marketplaces.country'), 'sortable'=>false, 'class'=>'text-center' ],
+							'limit' => [ 'title' => Lang::get('account/marketplaces.limit'), 'sortable'=>false, 'class'=>'text-center' ],
+							'properties' => [ 'title' => Lang::get('account/marketplaces.exported'), 'sortable'=>false, 'class'=>'text-center' ],
+							'all' => [ 'title' => Lang::get('account/marketplaces.all'), 'sortable'=>false, 'class'=>'text-center' ],
+							'configured' => [ 'title' => Lang::get('account/marketplaces.configured'), 'sortable'=>false, 'class'=>'text-center' ],
 							'updated' => [ 'title' => Lang::get('account/marketplaces.updated'), 'sortable'=>false, 'class'=>'text-center text-nowrap' ],
 							'action' => [ 'title' => '', 'sortable'=>false ],
 						]) !!}
@@ -35,8 +65,15 @@
 									<span class="marketplace-name" style="background-image: url({{ asset("marketplaces/{$marketplace->logo}") }});">{{ $marketplace->name }}</span>
 								@endif
 							</td>
+							<td class="text-center"><img src="{{ asset($marketplace->flag) }}" alt="{{ $marketplace->country }}" title="{{ $marketplace->country }}" /></td>
 							<td class="text-center">
-								@if ( $marketplace->marketplace_maxproperties )
+								@if ( $current_site->plan_property_limit > 0 )
+									@if ( $marketplace->marketplace_maxproperties && $marketplace->marketplace_maxproperties < $current_site->plan_property_limit )
+										{{ number_format($marketplace->marketplace_maxproperties,0,',','.') }}
+									@else
+										{{ number_format($current_site->plan_property_limit,0,',','.') }}
+									@endif
+								@elseif ( $marketplace->marketplace_maxproperties )
 									{{ number_format($marketplace->marketplace_maxproperties,0,',','.') }}
 								@else
 									-
