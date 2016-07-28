@@ -117,10 +117,26 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 	public function store()
 	{
 		$fields = \App\User::getFields();
+
+		// Allow email repeated
+		$fields['email'] = 'required|email';
+
 		$validator = \Validator::make($this->request->all(), $fields);
 		if ( $validator->fails() )
 		{
 			return redirect()->back()->withInput()->withErrors($validator);
+		}
+
+		// Check if email exists
+		if ( $exists = \App\User::where('email', $this->request->get('email'))->first() )
+		{
+			// Check if has employee role
+			if ( $exists->hasRole('employee') )
+			{
+				return redirect()->action('Account\EmployeesController@getAssociate', urlencode($exists->email))->withInput();
+			}
+			// Return custom error
+			return redirect()->back()->withInput()->with('error', trans('account.employees.email.used'));
 		}
 
 		$employee = \App\User::saveModel($this->request->all());

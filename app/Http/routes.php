@@ -150,10 +150,16 @@ Route::group([
 	], function() {
 		Route::get('/', 'AccountController@index');
 		Route::post('/', 'AccountController@updateProfile');
-		// invoices
-		Route::controller('payment', 'Account\PaymentController');
-		// Plans & payment
-		Route::controller('invoices', 'Account\InvoicesController');
+		Route::group([
+			'middleware' => [
+				'role:company',
+			],
+		], function() {
+			// Plans & payment
+			Route::controller('payment', 'Account\PaymentController');
+			// Invoices
+			Route::controller('invoices', 'Account\InvoicesController');
+		});
 		// Properties
 		Route::group([
 			'middleware' => [
