@@ -42,4 +42,7 @@
 		'send' => 'Send message',
 
 		'new' => 'New ticket',
+
+		'signature' => 'Signature',
+		'signature.none' => 'Without signature',
 	];

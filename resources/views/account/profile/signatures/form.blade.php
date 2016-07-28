@@ -18,7 +18,7 @@
 		<div class="col-xs-12 col-lg-8">
 			<div class="form-group error-container">
 				{!! Form::label('signature', Lang::get('account/profile.signatures.field.signature')) !!}
-				{!! Form::textarea('signature', null, [ 'id'=>'signature-input', 'class'=>'is-wysiwyg form-control' ]) !!}
+				{!! Form::textarea('signature', null, [ 'id'=>'signature-input', 'class'=>'is-wysiwyg form-control', 'style'=>'opacity:0;' ]) !!}
 			</div>
 		</div>
 	</div>
@@ -79,8 +79,10 @@
 				disableDragAndDrop: true,
 				toolbar: [
 					['style', ['bold', 'italic', 'underline', 'clear']],
-					['font', ['strikethrough', 'superscript', 'subscript']],
-					['insert', ['link','picture']]
+					['actons', ['undo','redo']],
+					//['font', ['strikethrough', 'superscript', 'subscript']],
+					['insert', ['link','picture']],
+					['misc', ['codeview']]
 				],
 				callbacks: {
 					onChange: function(content) {

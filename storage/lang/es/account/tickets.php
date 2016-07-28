@@ -42,4 +42,7 @@
 		'send' => 'Enviar mensaje',
 
 		'new' => 'Nuevo ticket',
+
+		'signature' => 'Firmar',
+		'signature.none' => 'No incluir firma',
 	];

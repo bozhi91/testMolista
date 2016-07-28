@@ -43,7 +43,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="row">
+							<div class="row non-private-info">
 								<div class="col-xs-12">
 									<div class="form-horizontal">
 										<div class="form-group error-container">
@@ -62,6 +62,17 @@
 													<i class="fa fa-plus-square" aria-hidden="true"></i>
 													<ul class="list-inline emails-list"></ul>
 												</div>
+											</div>
+										</div>
+										<div class="form-group error-container">
+											{!! Form::label('signature_id', Lang::get('account/tickets.signature'), [ 'class'=>'col-sm-2 control-label' ]) !!}
+											<div class="col-sm-10">
+												<select name="signature_id" class="form-control">
+													<option value="">{{ Lang::get('account/tickets.signature.none') }}</option>
+													@foreach ($signatures as $signature)
+														<option value="{{ $signature->id }}" {{ $signature->default ? 'selected="selected"' : '' }}>{{ $signature->title }}</option>
+													@endforeach
+												</select>
 											</div>
 										</div>
 									</div>
@@ -338,6 +349,14 @@
 			});
 			cont.on('click', '.emails-list-item', function(e){
 				e.stopPropagation();
+			});
+
+			reply_form.on('change','select[name="private"]', function(){
+				if ( $(this).val() == 1 ) {
+					reply_form.find('.non-private-info').addClass('hide');
+				} else {
+					reply_form.find('.non-private-info').removeClass('hide');
+				}
 			});
 
 		});

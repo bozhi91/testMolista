@@ -143,7 +143,9 @@ class TicketsController extends \App\Http\Controllers\AccountController
 			$property = $this->site->properties()->where('ticket_item_id',$ticket->item->id)->first();
 		}
 
-		return view('account.tickets.show', compact('ticket','property','employees','status'));
+		$signatures = $this->site_user->sites_signatures()->ofSite($this->site->id)->orderBy('title')->get();
+
+		return view('account.tickets.show', compact('ticket','property','employees','status','signatures'));
 	}
 
 	public function postAssign($ticket_id)
@@ -197,6 +199,7 @@ class TicketsController extends \App\Http\Controllers\AccountController
 			'cc.*' => 'email',
 			'bcc' => 'array',
 			'bcc.*' => 'email',
+			'signature_id' => "exists:sites_users_signatures,id,user_id,{$this->site_user->id},site_id,{$this->site->id}",
 			'private' => 'numeric|in:0,1',
 		]);
 		if ( $validator->fails() ) 
@@ -212,8 +215,17 @@ class TicketsController extends \App\Http\Controllers\AccountController
 
 		$data['user_id'] = \Auth::user()->ticket_user_id;
 		$data['source'] = 'backoffice';
-		$data['signature'] = $this->site->ticket_adm->prepareSignature(\Auth::user()->signature_parts, $this->site->signature_parts);
-//[TODO] signature
+
+		// Default site signature
+		$data['signature'] = false; //$this->site->ticket_adm->prepareSiteSignature($this->site_user->signature_parts, $this->site->signature_parts);
+
+		// User signature
+		if ( @$data['signature_id'] )
+		{
+			$signature = \App\Models\Site\UserSignature::find($data['signature_id']);
+			$data['signature'] = $signature->signature;
+		}
+
 		$result = $this->site->ticket_adm->postMessage($ticket_id, $data);
 
 		if ( $result )
