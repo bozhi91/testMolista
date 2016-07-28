@@ -173,16 +173,6 @@
 				errorPlacement: function(error, element) {
 					element.closest('.error-container').append(error);
 				},
-				rules: {
-					image: {
-						required: function() {
-							if ( form.find('.user-image-link').length > 0 ) {
-								return false;
-							}
-							return form.find('select[name="signature"]').val() == 1;
-						}
-					}
-				},
 				submitHandler: function(f) {
 					LOADING.show();
 					f.submit();

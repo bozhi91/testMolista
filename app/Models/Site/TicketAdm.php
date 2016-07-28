@@ -887,6 +887,7 @@ class TicketAdm
 
 	public function prepareSignature($user,$site) 
 	{
+//[TODO] signature
 		if ( !$user || empty($user['name']) )
 		{
 			return false;

@@ -3,6 +3,7 @@
 	return [
 
 		'data' => 'Your information',
+		'data.signatures' => 'My signatures',
 
 		'properties' => 'Properties',
 		
