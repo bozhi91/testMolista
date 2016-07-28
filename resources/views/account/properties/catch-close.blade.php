@@ -45,8 +45,13 @@
 					<div class="form-group error-container">
 						{!! Form::label('price_sold', Lang::get('account/properties.show.transactions.price') ) !!}
 						<div class="input-group">
+							@if ( @$item->property->infocurrency->position == 'before' )
+								<div class="input-group-addon">{{ @$item->property->infocurrency->symbol }}</div>
+							@endif
 							{!! Form::text('price_sold', null, [ 'class'=>'form-control required number', 'min'=>1 ]) !!}
-							<div class="input-group-addon">{{ price_symbol($item->property->currency) }}</div>
+							@if ( @$item->property->infocurrency->position == 'after' )
+								<div class="input-group-addon">{{ @$item->property->infocurrency->symbol }}</div>
+							@endif
 						</div>
 					</div>
 				</div>

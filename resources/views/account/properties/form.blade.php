@@ -1,31 +1,56 @@
+<?php
+	$infocurrency = empty($property->currency) ? $current_site->infocurrency : $property->infocurrency;
+
+	// Priorizar países
+	if ( empty($current_site->country_ids) )
+	{
+		$tmp = $countries->toArray();
+		$countries = [
+			68 => $tmp[68], //España
+			157 => $tmp[157], //Mexico
+			49 => $tmp[49], //Colombia
+			10 => $tmp[10], //Argentina
+			46 => $tmp[46], //Chile
+			174 => $tmp[174], //Peru
+			63 => $tmp[63], //Ecuador
+		] + [
+			'' => '----------------------------',
+		] + $tmp;
+	}
+	else
+	{
+		$countries = $countries->toArray();
+	}
+?>
+
 <style type="text/css">
 	#tab-marketplaces .marketplace-name { display: inline-block; padding-left: 25px; background: left center no-repeat; }
 </style>
 
 {!! Form::model($item, [ 'method'=>$method, 'action'=>$action, 'files'=>true, 'id'=>'edit-form' ]) !!}
-	{!! Form::hidden('current_tab', session('current_tab', '#tab-general')) !!}
+	{!! Form::hidden('current_tab', $current_tab) !!}
 	{!! Form::hidden('label_color', null) !!}
 
 	<div class="custom-tabs">
 
 		<ul class="nav nav-tabs main-tabs" role="tablist">
-			<li role="presentation" class="active"><a href="#tab-general" aria-controls="tab-general" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.general') }}</a></li>
-			<li role="presentation"><a href="#tab-location" aria-controls="tab-location" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.location') }}</a></li>
-			<li role="presentation"><a href="#tab-text" aria-controls="tab-text" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.text') }}</a></li>
-			<li role="presentation"><a href="#tab-images" aria-controls="tab-images" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.images') }}</a></li>
+			<li role="presentation" class="{{ $current_tab == 'general' ? 'active' : '' }}"><a href="#tab-general" aria-controls="tab-general" role="tab" data-toggle="tab" data-tab="general">{{ Lang::get('account/properties.tab.general') }}</a></li>
+			<li role="presentation" class="{{ $current_tab == 'location' ? 'active' : '' }}"><a href="#tab-location" aria-controls="tab-location" role="tab" data-toggle="tab" data-tab="location">{{ Lang::get('account/properties.tab.location') }}</a></li>
+			<li role="presentation" class="{{ $current_tab == 'text' ? 'active' : '' }}"><a href="#tab-text" aria-controls="tab-text" role="tab" data-toggle="tab" data-tab="text">{{ Lang::get('account/properties.tab.text') }}</a></li>
+			<li role="presentation" class="{{ $current_tab == 'images' ? 'active' : '' }}"><a href="#tab-images" aria-controls="tab-images" role="tab" data-toggle="tab" data-tab="images">{{ Lang::get('account/properties.tab.images') }}</a></li>
 			@if ( $item )
-				<li role="presentation"><a href="#tab-employees" aria-controls="tab-employees" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.employees') }}</a></li>
+				<li role="presentation" class="{{ $current_tab == 'employees' ? 'active' : '' }}"><a href="#tab-employees" aria-controls="tab-employees" role="tab" data-toggle="tab" data-tab="employees">{{ Lang::get('account/properties.tab.employees') }}</a></li>
 				@if ( $marketplaces->count() > 0 )
-					<li role="presentation"><a href="#tab-marketplaces" aria-controls="tab-marketplaces" role="tab" data-toggle="tab">{{ Lang::get('account/menu.marketplaces') }}</a></li>
+					<li role="presentation" class="{{ $current_tab == 'marketplaces' ? 'active' : '' }}"><a href="#tab-marketplaces" aria-controls="tab-marketplaces" role="tab" data-toggle="tab" data-tab="marketplaces">{{ Lang::get('account/menu.marketplaces') }}</a></li>
 				@endif
 			@else
-				<li role="presentation"><a href="#tab-seller" aria-controls="tab-seller" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.seller') }}</a></li>
+				<li role="presentation" class="{{ $current_tab == 'seller' ? 'active' : '' }}"><a href="#tab-seller" aria-controls="tab-seller" role="tab" data-toggle="tab" data-tab="general">{{ Lang::get('account/properties.tab.seller') }}</a></li>
 			@endif
 		</ul>
 
 		<div class="tab-content">
 
-			<div role="tabpanel" class="tab-pane tab-main active" id="tab-general">
+			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'general' ? 'active' : '' }}" id="tab-general">
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
@@ -51,11 +76,16 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
-							{!! Form::hidden('currency', empty($property->currency) ? 'EUR' : $property->currency) !!}
+							{!! Form::hidden('currency', $infocurrency->code) !!}
 							{!! Form::label('price', Lang::get('account/properties.price')) !!}
 							<div class="input-group">
+								@if ( $infocurrency->position == 'before' )
+									<div class="input-group-addon">{{ $infocurrency->symbol }}</div>
+								@endif
 								{!! Form::text('price', null, [ 'class'=>'form-control required number', 'min'=>'0' ]) !!}
-								<div class="input-group-addon">{{ price_symbol(empty($property->currency) ? 'EUR' : $property->currency) }}</div>
+								@if ( $infocurrency->position == 'after' )
+									<div class="input-group-addon">{{ $infocurrency->symbol }}</div>
+								@endif
 							</div>
 						</div>
 					</div>
@@ -110,7 +140,17 @@
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
 							{!! Form::label('enabled', Lang::get('account/properties.enabled')) !!}
-							{!! Form::select('enabled', [ '1'=>Lang::get('general.yes'), '0'=>Lang::get('general.no') ], null, [ 'class'=>'form-control' ]) !!}
+							@if ( $current_site->property_limit_remaining > 0 || ($item && $current_site->property_limit_remaining >= 0) )
+								{!! Form::select('enabled', [
+									1 => Lang::get('general.yes'),
+									0 => Lang::get('general.no'),
+								 ], null, [ 'class'=>'form-control' ]) !!}
+							@else
+								{!! Form::select('enabled', [
+									0 => Lang::get('general.no'),
+								 ], null, [ 'class'=>'form-control' ]) !!}
+								<div class="help-block">{!! Lang::get('account/warning.properties.helper', [ 'max_properties' => number_format(App\Session\Site::get('plan.max_properties'),0,',','.'), ]) !!}</div>
+							@endif
 						</div>
 					</div>
 				</div>
@@ -188,12 +228,12 @@
 				</div>
 			</div>
 
-			<div role="tabpanel" class="tab-pane tab-main" id="tab-location">
+			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'location' ? 'active' : '' }}" id="tab-location">
 				<div class="row">
 					<div class="col-xs-12 col-sm-4">
 						<div class="form-group error-container">
 							{!! Form::label('country_id', Lang::get('account/properties.country')) !!}
-							{!! Form::select('country_id', $countries->toArray(), @$country_id, [ 'class'=>'form-control required country-input', 'data-rel'=>'.state-input, .city-input', 'data-target'=>'.state-input', 'data-action'=>action('Ajax\GeographyController@getSuggest', 'state') ]) !!}
+							{!! Form::select('country_id', $countries, @$country_id, [ 'class'=>'form-control required country-input', 'data-rel'=>'.state-input, .city-input', 'data-target'=>'.state-input', 'data-action'=>action('Ajax\GeographyController@getSuggest', 'state') ]) !!}
 						</div>
 						<div class="form-group error-container">
 							<?php $tmp = empty($states) ? [ ''=>'' ] : [ ''=>'' ] + $states->toArray(); ?>
@@ -237,7 +277,7 @@
 				</div>
 			</div>
 
-			<div role="tabpanel" class="tab-pane tab-main" id="tab-text">
+			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'text' ? 'active' : '' }}" id="tab-text">
 				<ul class="nav nav-tabs locale-tabs" role="tablist">
 					@foreach ($site_setup['locales_tabs'] as $lang_iso => $lang_name)
 						<li role="presentation" class="autotranslate-flag-area">
@@ -293,7 +333,7 @@
 				</div>
 			</div>
 
-			<div role="tabpanel" class="tab-pane tab-main" id="tab-images">
+			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'images' ? 'active' : '' }}" id="tab-images">
 				<div class="row">
 					<div class="col-xs-12 col-sm-7">
 						<h4>{{ Lang::get('account/properties.images.gallery') }}</h4>
@@ -309,6 +349,7 @@
 							<strong>{{ Lang::get('web/properties.images.label.default') }}</strong><br />
 							{{ Lang::get('web/properties.images.warning.orientation') }}
 						</div>
+
 						<ul class="image-gallery sortable-image-gallery property-image-gallery">
 							@if ( !empty($property) && count($property->images) > 0 )
 								@foreach ($property->images->sortBy('position') as $image)
@@ -335,7 +376,7 @@
 			</div>
 
 			@if ( $item )
-				<div role="tabpanel" class="tab-pane tab-main" id="tab-employees">
+				<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'employees' ? 'active' : '' }}" id="tab-employees">
 					@include('account.properties.tab-managers', [
 						'item' => $item,
 						'employees' => $item->users()->withRole('employee')->get(),
@@ -343,45 +384,12 @@
 				</div>
 
 				@if ( $marketplaces->count() > 0 )
-					<div role="tabpanel" class="tab-pane tab-main" id="tab-marketplaces">
-						<p>{{ Lang::get('account/properties.marketplaces.intro') }}</p>
-						<br />
-						<div class="table-responsive">
-							<table class="table table-striped">
-								<tbody>
-									@foreach ($marketplaces as $marketplace)
-										<?php
-											$publishable = $current_site->marketplace_helper->checkReadyProperty($marketplace,$item);
-										?>
-										<tr>
-											<td class="text-center" style="width: 60px;">
-												@if ( $publishable === true )
-													{!! Form::checkbox("marketplaces_ids[{$marketplace->id}]", $marketplace->id) !!}
-												@endif
-											</td>
-											<td>
-												<span class="marketplace-name text-nowrap;" style="background-image: url({{ asset("marketplaces/{$marketplace->logo}") }});">{{ $marketplace->name }}</span>
-											</td>
-											<td>
-												@if ( $publishable === true )
-												@else
-													{{ Lang::get('account/properties.marketplaces.error') }}<br />
-													<ul>
-														@foreach ($publishable as $key => $message)
-															<li>{{ $message }}</li>
-														@endforeach
-													</ul>
-												@endif
-											</td>
-										</tr>
-									@endforeach
-								</tbody>
-							</table>
-						</div>
+					<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'marketplaces' ? 'active' : '' }}" id="tab-marketplaces">
+						@include('account/properties/form-marketplaces')
 					</div>
 				@endif
 			@else
-				<div role="tabpanel" class="tab-pane tab-main" id="tab-seller">
+				<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'seller' ? 'active' : '' }}" id="tab-seller">
 					<div class="row">
 						<div class="col-xs-12 col-sm-6">
 							<div class="form-group error-container">
@@ -393,7 +401,8 @@
 					<hr />
 					@include('account.properties.catch-form', [ 
 						'item' => null,
-						'price_symbol' => '€',
+						'price_symbol' => $current_site->infocurrency->symbol,
+						'price_position' => $current_site->infocurrency->position,
 					])
 				</div>
 			@endif
@@ -427,7 +436,7 @@
 		var property_map;
 		var property_marker;
 		var property_geocoder;
-		var property_zoom = 14;
+		var property_zoom = {{ $item ? '14' : '6' }};
 
 		// Enable first language tab
 		form.find('.locale-tabs a').eq(0).trigger('click');
@@ -453,6 +462,8 @@
 			}
 		});
 
+		property_geocoder = new google.maps.Geocoder();
+
 		// Enable map when opening tab
 		form.find('.main-tabs a[href="#tab-location"]').on('shown.bs.tab', function (e) {
 			var el = $(e.target);
@@ -461,15 +472,12 @@
 				return;
 			}
 
-			property_geocoder = new google.maps.Geocoder();
-
 			el.addClass('property-map-initialized');
 
 			var lat = form.find('.input-lat').val();
 			var lng = form.find('.input-lng').val();
 
 			if ( !lat || !lng ) {
-				property_zoom = 6;
 				lat = '40.4636670';
 				lng = '-3.7492200';
 			}
@@ -813,15 +821,46 @@
 			}
 		});
 
-		var tabs = form.find('.main-tabs');
-		var current_tab = form.find('input[name="current_tab"]').val();
-		tabs.find('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-			form.find('input[name="current_tab"]').val( $(this).attr('href') );
-			form.find('.has-select-2').select2();
+		form.on('change', 'select[name="export_to_all"]', function(){
+			if ( $(this).val() == '1' ) {
+				form.find('.marketplace-input').prop('checked',true);
+				form.find('.not-published-rel').addClass('hide');
+				form.find('.marketplaces-overlay').removeClass('hide');
+			} else {
+				form.find('.marketplace-input-unpublished').prop('checked',false);
+				form.find('.not-published-rel').removeClass('hide');
+				form.find('.marketplaces-overlay').addClass('hide');
+			}
 		});
-		tabs.find('a[href="' + current_tab + '"]').tab('show');
 
 		form.find('.has-select-2').select2();
+
+		form.find('.main-tabs > li > a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+			form.find('input[name="current_tab"]').val( $(this).data().tab );
+			form.find('.has-select-2').select2();
+		});
+
+		@if ( $item )
+			if ( form.find('input[name="current_tab"]').val() == 'location' ) {
+				form.find('.main-tabs a[href="#tab-location"]').trigger('shown.bs.tab');
+			}
+		@else
+			property_geocoder.geocode({
+				'address': form.find('.country-input option:selected').text()
+			}, function(results, status) {
+				if (status === google.maps.GeocoderStatus.OK) {
+					form.find('.input-lat').val( results[0].geometry.location.lat() );
+					form.find('.input-lng').val( results[0].geometry.location.lng() );
+					if ( form.find('input[name="current_tab"]').val() == 'location' ) {
+						form.find('.main-tabs a[href="#tab-location"]').trigger('shown.bs.tab');
+					}
+				} else {
+					if ( form.find('input[name="current_tab"]').val() == 'location' ) {
+						form.find('.main-tabs a[href="#tab-location"]').trigger('shown.bs.tab');
+					}
+				}
+			});
+		@endif
 
 		function initImageWarnings() {
 			form.find('.images-warning-size, .images-warning-orientation').addClass('hide');

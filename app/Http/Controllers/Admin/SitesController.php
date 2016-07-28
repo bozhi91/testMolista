@@ -21,22 +21,25 @@ class SitesController extends Controller
 
 	public function index()
 	{
-		$query = \App\Site::withTranslations();
+		$query = \App\Site::withTranslations()
+							->with('country')
+							->with('properties')
+							->with('users')
+							;
 
 		// Filter by title
-		if ( $this->request->get('title') )
+		if ( $this->request->input('title') )
 		{
-			$query->whereTranslationLike('title', "%{$this->request->get('title')}%");
+			$query->whereTranslationLike('title', "%{$this->request->input('title')}%");
 		}
 
 		// Filter by web_transfer_requested
 		if ( $this->request->input('transfer') )
 		{
-
 			$query->where('web_transfer_requested', intval($this->request->input('transfer'))-1);
 		}
 
-		switch ( $this->request->get('order') )
+		switch ( $this->request->input('order') )
 		{
 			case 'desc':
 				$order = 'desc';
@@ -45,7 +48,7 @@ class SitesController extends Controller
 				$order = 'asc';
 		}
 
-		switch ( $this->request->get('orderby') )
+		switch ( $this->request->input('orderby') )
 		{
 			case 'id':
 				$query->orderBy('id', $order);
@@ -56,13 +59,27 @@ class SitesController extends Controller
 			case 'transfer':
 				$query->orderBy('web_transfer_requested', $order);
 				break;
+			case 'properties':
+				$query
+					->leftJoin('properties','properties.site_id','=','sites.id')
+					->addSelect( \DB::raw('COUNT(properties.`id`) AS total_properties') )
+					->orderBy('total_properties', $order)
+					->groupBy('sites.id');
+				break;
+			case 'users':
+				$query
+					->leftJoin('sites_users','sites_users.site_id','=','sites.id')
+					->addSelect( \DB::raw('COUNT(sites_users.`user_id`) AS total_users') )
+					->orderBy('total_users', $order)
+					->groupBy('sites.id');
+				break;
 			case 'title':
 			default:
 				$query->orderBy('title', $order);
 				break;
 		}
 
-		$sites = $query->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
+		$sites = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$this->set_go_back_link();
 
@@ -98,23 +115,28 @@ class SitesController extends Controller
 		}
 
 		// Validate subdomain
-		if ( \App\Site::where('subdomain', $this->request->get('subdomain'))->count() )
+		if ( \App\Site::where('subdomain', $this->request->input('subdomain'))->count() )
 		{
 			return redirect()->back()->withInput()->with('error', trans('admin/sites.subdomain.error.taken'));
 		}
 
 		// Validate owners
-		$company_owners_total = \App\User::whereIn('id', $this->request->get('owners'))->withRole('company')->count();
-		if ( $company_owners_total < count($this->request->get('owners')) )
+		$company_owners_total = \App\User::whereIn('id', $this->request->input('owners'))->withRole('company')->count();
+		if ( $company_owners_total < count($this->request->input('owners')) )
 		{
 			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
 		}
 
 		// Create site
 		$site = \App\Site::create([
-			'subdomain' => $this->request->get('subdomain'),
-			'custom_theme' => $this->request->get('custom_theme'),
-			'theme' => $this->request->get('custom_theme', 'default'),
+			'subdomain' => $this->request->input('subdomain'),
+			'custom_theme' => $this->request->input('custom_theme'),
+			'theme' => $this->request->input('custom_theme', 'default'),
+			'payment_currency' => 'EUR',
+			'site_currency' => 'EUR',
+			'country_code' => 'ES',
+			'country_id' => 68,
+			'timezone' => 'Europe/Madrid',
 		]);
 
 		if ( !$site )
@@ -123,7 +145,7 @@ class SitesController extends Controller
 		}
 
 		// Save owners
-		foreach ($this->request->get('owners') as $owner_id)
+		foreach ($this->request->input('owners') as $owner_id)
 		{
 			$site->users()->attach($owner_id);
 		}
@@ -131,14 +153,14 @@ class SitesController extends Controller
 		// Save locales && title
 		foreach ($locales as $locale => $locale_id) 
 		{
-			if ( !in_array($locale, $this->request->get('locales')) && $locale != fallback_lang() )
+			if ( !in_array($locale, $this->request->input('locales')) && $locale != fallback_lang() )
 			{
 				continue;
 			}
 			// Save locale
 			$site->locales()->attach($locale_id);
 			// Prepare title
-			$site->translateOrNew($locale)->title = $this->request->get('title');
+			$site->translateOrNew($locale)->title = $this->request->input('title');
 		}
 
 		// Save titles
@@ -161,7 +183,7 @@ class SitesController extends Controller
 		$owners = $site->users()->whereIn('id', $site->owners_ids)->orderBy('name')->lists('name','id')->all();
 		$companies = \App\User::withRole('company')->whereNotIn('id', $site->owners_ids)->orderBy('name')->lists('name','id')->all();
 
-		$invoices = $site->invoices()->orderBy('uploaded_at','desc')->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
+		$invoices = $site->invoices()->orderBy('uploaded_at','desc')->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$current_tab = session('current_tab', $this->request->input('current_tab','site'));
 
@@ -189,13 +211,13 @@ class SitesController extends Controller
 		}
 
 		// Validate subdomain
-		if ( \App\Site::where('subdomain', $this->request->get('subdomain'))->where('id','!=',$id)->count() )
+		if ( \App\Site::where('subdomain', $this->request->input('subdomain'))->where('id','!=',$id)->count() )
 		{
 			return redirect()->back()->withInput()->with('error', trans('admin/sites.subdomain.error.taken'));
 		}
 
 		// Clean domains
-		$domains_array = $this->request->get('domains_array');
+		$domains_array = $this->request->input('domains_array');
 		foreach ($domains_array as $key => $value) 
 		{
 			$domains_array[$key] = rtrim($value,'/');
@@ -203,7 +225,7 @@ class SitesController extends Controller
 		$this->request->merge([ 'domains_array'=>$domains_array ]);
 
 		// Validate domains
-		if ( \App\SiteDomains::whereIn('domain', $this->request->get('domains_array'))->where('site_id','!=',$id)->count() )
+		if ( \App\SiteDomains::whereIn('domain', $this->request->input('domains_array'))->where('site_id','!=',$id)->count() )
 		{
 			return redirect()->back()->withInput()->with('error', trans('admin/sites.domain.error.taken'));
 		}
@@ -213,25 +235,25 @@ class SitesController extends Controller
 
 		// Clean owners
 		$this->request->merge([ 
-			'owners_ids' => array_unique(array_merge($this->request->get('owners_ids'), $site->owners_ids) )
+			'owners_ids' => array_unique(array_merge($this->request->input('owners_ids'), $site->owners_ids) )
 		]);
 
 		// Validate owners
-		$company_owners_total = \App\User::whereIn('id', $this->request->get('owners_ids'))->withRole('company')->count();
-		if ( $company_owners_total < count($this->request->get('owners_ids')) )
+		$company_owners_total = \App\User::whereIn('id', $this->request->input('owners_ids'))->withRole('company')->count();
+		if ( $company_owners_total < count($this->request->input('owners_ids')) )
 		{
 			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
 		}
 
 		// Update data
-		$site->subdomain = $this->request->get('subdomain');
-		$site->custom_theme = $this->request->get('custom_theme');
-		$site->enabled = $this->request->get('enabled') ? 1 : 0;
+		$site->subdomain = $this->request->input('subdomain');
+		$site->custom_theme = $this->request->input('custom_theme');
+		$site->enabled = $this->request->input('enabled') ? 1 : 0;
 		$site->save();
 
 		// Update domains
 		$preserve = [ 0 ];
-		foreach ($this->request->get('domains_array') as $domain_id => $domain) 
+		foreach ($this->request->input('domains_array') as $domain_id => $domain) 
 		{
 			if ( !$domain )
 			{
@@ -259,7 +281,7 @@ class SitesController extends Controller
 
 		// Save owners
 		$site->users()->detach( $site->owners_ids );
-		foreach ($this->request->get('owners_ids') as $owner_id)
+		foreach ($this->request->input('owners_ids') as $owner_id)
 		{
 			$site->users()->attach($owner_id);
 		}
@@ -268,7 +290,7 @@ class SitesController extends Controller
 		$site->locales()->detach();
 		foreach ($locales as $locale => $locale_id) 
 		{
-			if ( in_array($locale, $this->request->get('locales_array')) || $locale == fallback_lang() )
+			if ( in_array($locale, $this->request->input('locales_array')) || $locale == fallback_lang() )
 			{
 				$site->locales()->attach($locale_id);
 			}

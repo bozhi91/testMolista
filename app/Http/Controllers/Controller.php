@@ -18,6 +18,11 @@ class Controller extends BaseController
 	protected $request;
 
 	protected $site;
+	protected $site_user;
+
+	protected $geolocation;
+
+	protected $currency;
 
 	public function __construct(Guard $auth, Request $request)
 	{
@@ -25,6 +30,11 @@ class Controller extends BaseController
 		$this->request = $request;
 
 		$this->site = $this->request->get('site');
+		$this->site_user = $this->request->get('site_user');
+
+		$this->geolocation = $this->request->get('geolocation');
+		
+		$this->currency = $this->request->get('currency');
 
 		$this->__initialize();
 	}

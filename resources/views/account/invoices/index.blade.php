@@ -15,7 +15,7 @@
 				<tr>
 					<td>{{ $invoice->uploaded_at->format('d/m/Y') }}</td>
 					<td>{{ $invoice->title }}</td>
-					<td class="text-right">{{ price($invoice->amount) }}</td>
+					<td class="text-right">{{ price($invoice->amount, $current_site->infopaymentcurrency->toArray()) }}</td>
 					<td class="text-right">
 						<a href="{{ action('Account\InvoicesController@getInvoice', [ $invoice->id, $invoice->invoice_filename ]) }}" class="btn btn-xs btn-primary" target="_blank">{{ Lang::get('general.view') }}</a>
 					</td>

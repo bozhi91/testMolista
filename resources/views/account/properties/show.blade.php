@@ -87,8 +87,13 @@
 							<div class="form-group error-placement">
 								{!! Form::label(null, Lang::get('account/properties.show.property.price.min') ) !!}
 								<div class="input-group">
+									@if ( @$property->infocurrency->position == 'before' )
+										<div class="input-group-addon">{{ $property->infocurrency->symbol }}</div>
+									@endif
 									{!! Form::text(null, $property->catch_current->price_min, [ 'class'=>'form-control', 'readonly'=>'readonly', ]) !!}
-									<div class="input-group-addon">{{ price_symbol($property->currency) }}</div>
+									@if ( @$property->infocurrency->position == 'after' )
+										<div class="input-group-addon">{{ $property->infocurrency->symbol }}</div>
+									@endif
 								</div>
 							</div>
 						</div>
@@ -227,13 +232,13 @@
 									</td>
 									<td class="text-right">
 										@if ( $catch->status == 'sold' || $catch->status == 'rent' )
-											{{ price($catch->commission_earned,$property->currency) }}
+											{{ price($catch->commission_earned, $property->infocurrency->toArray()) }}
 											({{ number_format($catch->commission, 2, ',', '.') }}%)
 										@endif
 									</td>
 									<td class="text-right">
 										@if ( $catch->status == 'sold' || $catch->status == 'rent' )
-											{{ price($catch->price_sold,$property->currency) }}
+											{{ price($catch->price_sold, $property->infocurrency->toArray()) }}
 										@endif
 									</td>
 								</tr>

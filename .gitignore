@@ -2,6 +2,7 @@
 
 /public/_temp
 /public/compiled
+/public/configured
 /public/flags
 /public/marketplaces
 /public/services
@@ -25,3 +26,4 @@ deploy.sh
 /backups
 
 .env
+/nbproject/private/

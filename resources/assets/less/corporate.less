@@ -625,6 +625,116 @@ footer {
 
 }
 
+#customers-login {
+	background: url('/images/signup/background.jpg') top center no-repeat; padding-bottom: 100px; 
+
+	h1 { text-transform: uppercase; margin: 50px 0px 50px 0px; color: @white; font-weight: bold; font-size: 48px; }
+	
+	form { border: 2px solid #bfbfbf; border-radius: 12px; background: #f2f2f2; }
+
+	.intro { padding: 20px 50px; font-weight: bold; font-size: 24px; background: @white; border-radius: 12px 12px 0px 0px; text-align: center; }
+	.content { padding: 50px; font-size: 16px; }
+	.buttons-area { 
+		padding-top: 20px;
+		.btn-next { 
+			padding-left: 25px; padding-right: 35px; color: #414141; border: 2px solid #414141; border-radius: 4px; text-transform: uppercase; font-weight: bold; background: url('/images/signup/btn-nav-next.png') right center no-repeat #f2f2f2; 
+
+			&:hover { background-color: #dddddd; }
+		}
+		.btn-link { padding-left: 0px; padding-right: 0px; }
+	}
+
+	label.error { color: @red; font-size: 0.8em; font-weight: bold; }
+}
+
+#signup-new {
+	background: @lightBlue; padding: 50px 0px 100px 25px;
+
+	h1 { margin: 0px 0px 5px 0px; padding: 0px; font-weight: bold; font-size: 32px; }
+	h2 { margin: 0px; padding: 0px; }
+
+	.intro { color: @black; }
+	.intro, .alert { font-size: 20px; margin-bottom: 50px; border-radius: 2px; }
+
+	label.error { color: @red; font-size: 12px; font-weight: bold; }
+
+
+	.signup-block { 
+		font-size: 18px; color: @black; 
+		.signup-block-title { 
+			position: relative; 
+			h2 { background: @darkBlue; padding: 15px 50px; line-height: 26px; color: #fff; font-size: 24px; }
+			span { position: absolute; display: block; width: 40px; height: 40px; line-height: 40px; text-align: center; background: @lightBluethree; color: @yellow; font-size: 20px; border-radius: 20px; left: -20px; top: 50%; margin-top: -20px; font-weight: bold; }
+		}
+		.signup-block-content { 
+			padding: 30px 0px 50px 0px; 
+			a { color: @black; }
+			&.is-last { padding-bottom: 0px; }
+		}
+
+		.form-control { border: 1px solid @black; border-radius: 2px; padding: 10px 12px; height: 42px; }
+
+		.plan-block {
+			border: 1px solid @black; border-radius: 2px; text-align: center; margin-bottom: 10px; background: #fff; 
+			.plan-block-title { border-bottom: 1px solid @black; color: @black; background: #fff; padding: 15px 10px; font-weight: bold; font-size: 24px; }
+			.form-control { border-color: transparent; background: transparent; height: 46px; color: @black; font-weight: bold; font-size: 18px; box-shadow:none; }
+			&.plan-block-level-0 {
+				.form-control { font-size: 22px; padding-top: 7px; }
+			}
+			&.selected {
+				background: @yellow;
+				.plan-block-title { background: @yellow; }
+			}
+		}
+
+		.domain-input-group-addon { 
+			border: none; background: none; font-weight: bold; font-size: 18px; color: @black;
+			&:first-child { padding-left: 0px; }
+			&:last-child { padding-right: 0px; }
+		}
+
+		.custom-domain-warning { margin: 25px 0px 25px 0px; padding: 10px 20px; font-weight: bold; background: #81b8d6; font-size: 16px; }
+
+		.transfer-list { 
+			font-weight: bold; font-size: 18px; 
+			label { font-weight: bold; }
+			.optional-text { padding-right: 20px; vertical-align: top; }
+			.transfer-checkbox { top: 4px; }
+			.plan-footnote { display: block; font-size: 14px; font-weight: normal; padding: 20px 0px 0px 20px; }
+			.linethrough { text-decoration: line-through; }
+		}		
+	}
+
+	.summary-sticky {
+		padding-top: 20px; margin-top: -20px;
+		&.is_stuck { margin-top: 0px; }
+	}
+	.summary { 
+		border: 1px solid @black; border-radius: 2px; background: #fff; 
+		h2 { background: #b5b5b5; color: #fff; padding: 10px 20px; font-size: 22px; font-weight: bold; }
+		.summary-block {
+			padding: 25px 20px 50px 20px; background: #fff; color: @black; font-size: 18px; 
+			table { width: 100%; max-width: 100%; }
+			&.items-block { border-bottom: 1px solid @black; }
+		}
+		.button-block { 
+			padding: 0px 20px; 
+		}
+		.accept-block { padding: 20px; font-size: 16px; }
+	}
+
+	.btn-submit { text-transform: uppercase; background: @yellow; border: 1px solid @black; border-radius: 2px; font-size: 32px; font-weight: bold; }
+
+	.help {
+		color: #fff; font-size: 18px;
+		a { color: #fff; }
+		.title { padding: 30px 0px 15px 0px; font-size: 24px; font-weight: bold; }
+		.phone-email { padding-left: 25px; background: left center no-repeat; font-weight: bold; }
+		.phone { background-image: url('/images/corporate/signup/phone.png'); }
+		.email { background-image: url('/images/corporate/signup/email.png'); }
+	}
+}
+
 #signup {
 	background: url('/images/signup/background.jpg') top center no-repeat; padding-bottom: 100px; 
 

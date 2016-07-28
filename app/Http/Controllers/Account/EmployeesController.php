@@ -27,23 +27,23 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 					->with('properties');
 
 		// Filter by name
-		if ( $this->request->get('name') )
+		if ( $this->request->input('name') )
 		{
-			$query->where('name', 'like', "%{$this->request->get('name')}%");
+			$query->where('name', 'like', "%{$this->request->input('name')}%");
 		}
 
 		// Filter by email
-		if ( $this->request->get('email') )
+		if ( $this->request->input('email') )
 		{
-			$query->where('email', 'like', "%{$this->request->get('email')}%");
+			$query->where('email', 'like', "%{$this->request->input('email')}%");
 		}
 
-		if ( $this->request->get('csv') )
+		if ( $this->request->input('csv') )
 		{
 			return $this->exportCsv($query);
 		}
 
-		$employees = $query->orderBy('name')->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
+		$employees = $query->orderBy('name')->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		if ( $employees->count() > 0 )
 		{
@@ -117,10 +117,26 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 	public function store()
 	{
 		$fields = \App\User::getFields();
+
+		// Allow email repeated
+		$fields['email'] = 'required|email';
+
 		$validator = \Validator::make($this->request->all(), $fields);
 		if ( $validator->fails() )
 		{
 			return redirect()->back()->withInput()->withErrors($validator);
+		}
+
+		// Check if email exists
+		if ( $exists = \App\User::where('email', $this->request->get('email'))->first() )
+		{
+			// Check if has employee role
+			if ( $exists->hasRole('employee') )
+			{
+				return redirect()->action('Account\EmployeesController@getAssociate', urlencode($exists->email))->withInput();
+			}
+			// Return custom error
+			return redirect()->back()->withInput()->with('error', trans('account.employees.email.used'));
 		}
 
 		$employee = \App\User::saveModel($this->request->all());
@@ -143,27 +159,27 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 
 	public function edit($email)
 	{
-		$employee = $this->site->users()->withRole('employee')->where('email', $email)->withPivot('can_create','can_edit','can_delete')->first();
+		$employee = $this->site->users()->withRole('employee')->where('email', $email)->withPivot('can_create','can_edit','can_delete','can_view_all')->first();
 		if ( !$employee )
 		{
 			abort(404);
 		}
 
-		$properties = $employee->properties()->ofSite( $this->site->id )->withTranslations()->get();
+		$properties = $employee->properties()->ofSite( $this->site->id )->get();
 
 		return view('account.employees.edit', compact('employee','properties'));
 	}
 
 	public function update($email)
 	{
-		$employee = $this->site->users()->withRole('employee')->where('email', $email)->withPivot('can_create','can_edit','can_delete')->first();
+		$employee = $this->site->users()->withRole('employee')->where('email', $email)->withPivot('can_create','can_edit','can_delete','can_view_all')->first();
 		if ( !$employee )
 		{
 			return redirect()->action('Account\EmployeesController@edit', urlencode($email))->with('error', trans('general.messages.error'));
 		}
 
 		// Change pivot values
-		foreach (['create','edit','delete'] as $permission)
+		foreach (['create','edit','delete','view_all'] as $permission)
 		{	
 			$key = "can_{$permission}";
 			$employee->pivot->$key = $this->request->input("permissions.{$key}") ? 1 : 0;
@@ -204,10 +220,10 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 			$tickets = $this->site->ticket_adm->getTickets([
 				'user_id' => $employee->ticket_user_id,
 				'status' => [ 'open', 'waiting' ],
-				'page' => $this->request->get('page',1),
-				'limit' => $this->request->get('limit', \Config::get('app.pagination_perpage', 10)),
-				'orderby' => $this->request->get('orderby'),
-				'order' => $this->request->get('order'),
+				'page' => $this->request->input('page',1),
+				'limit' => $this->request->input('limit', \Config::get('app.pagination_perpage', 10)),
+				'orderby' => $this->request->input('orderby'),
+				'order' => $this->request->input('order'),
 			]);
 		}
 

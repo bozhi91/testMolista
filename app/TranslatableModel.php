@@ -10,6 +10,8 @@ class TranslatableModel extends Model
 
 	public $translatedAttributes = [];
 
+	public $_i18n = [];
+
 	public function scopeWithId($query, $id)
 	{
 		return $query->where("{$this->getTable()}.id", $id);
@@ -25,16 +27,16 @@ class TranslatableModel extends Model
 		$locale = $this->locale();
 		$locale_default = \Config::get('translatable.fallback_locale');
 
-		$select = [ "{$table}.*" ];
+		$query->addSelect("{$table}.*");
 		if ( !empty($this->translatedAttributes) )
 		{
 			foreach ($this->translatedAttributes as $attr) 
 			{
-				$select[] = "IF (i18n.`{$attr}` IS NULL OR i18n.`{$attr}` = '', i18n_default.`{$attr}`, i18n.`{$attr}`) as {$attr}";
+				$query->addSelect( \DB::raw("IF (i18n.`{$attr}` IS NULL OR i18n.`{$attr}` = '', i18n_default.`{$attr}`, i18n.`{$attr}`) as {$attr}") );
 			}
 		}
 
-		return $query->selectRaw( implode(', ', $select) )
+		return $query
 			->leftjoin("{$translations_table} AS i18n", function($join) use ($translations_table, $table, $relation_key, $key_name, $locale_key, $locale) {
 				$join->on("i18n.{$relation_key}", '=', $table.'.'.$key_name);
 				$join->on("i18n.{$locale_key}", '=', \DB::raw("'".$locale."'"));
@@ -48,11 +50,14 @@ class TranslatableModel extends Model
 
 	public function getI18nAttribute()
 	{
-		$i18n = [];
-
 		if ( !$this->id || empty($this->translatedAttributes) ) 
 		{
-			return $i18n;
+			return $this->_i18n;
+		}
+
+		if ( !empty($this->_i18n) )
+		{
+			return $this->_i18n;
 		}
 
 		$model_name = '\\' . $this->getTranslationModelName();
@@ -62,11 +67,11 @@ class TranslatableModel extends Model
 		{
 			foreach ($this->translatedAttributes as $key)
 			{
-				$i18n[$key][$translation->locale] = $translation->$key;
+				$this->_i18n[$key][$translation->locale] = $translation->$key;
 			}
 		}
 
-		return $i18n;
+		return $this->_i18n;
 	}
 
 	public function getAttribute($key)

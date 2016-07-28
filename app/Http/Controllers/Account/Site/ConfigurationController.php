@@ -20,25 +20,29 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 
 	public function getIndex()
 	{
-		$site = $this->auth->user()->sites()->withTranslations()->with('social')->findOrFail( $this->site->id );
+		$site = $this->site;
 
 		$max_languages = @intval( \App\Session\Site::get('plan.max_languages') );
 
-		return view('account.site.configuration.index', compact('site','max_languages'));
+		$currencies = \App\Models\Currency::withTranslations()->enabled()->orderBy('title')->lists('title','code')->all();
+
+		$current_tab = session('current_tab', old('current_tab', $this->request->input('current_tab','config')));
+
+		$timezones = \App\Site::getTimezoneOptions();
+
+		return view('account.site.configuration.index', compact('site','max_languages','timezones','currencies','current_tab'));
 	}
 
 	public function postIndex()
 	{
-		$site = $this->auth->user()->sites()->withTranslations()->findOrFail( $this->site->id );
-
 		// Replace subdomain and domains
-		$current_domains = $site->domains->lists('domain','id')->toArray();
+		$current_domains = $this->site->domains->lists('domain','id')->all();
 		if ( !$current_domains )
 		{
 			$current_domains = [ 'new'=>'' ];
 		}
 		$this->request->merge([
-			'subdomain' => $site->subdomain,
+			'subdomain' => $this->site->subdomain,
 			'domains_array' => $current_domains,
 		]);
 
@@ -46,6 +50,8 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 		$fields = [
 			'subdomain' => 'required|alpha_dash',
 			'theme' => 'required|in:'.implode(',', array_keys(\Config::get('themes.themes'))),
+			'site_currency' => 'required|exists:currencies,code',
+			'timezone' => 'required|in:'.implode(',', \App\Site::getTimezoneOptions()),
 			'customer_register' => 'required|boolean',
 			'locales_array' => 'required|array',
 			'i18n' => 'array',
@@ -88,49 +94,50 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 		$validator = \Validator::make($this->request->all(), $fields);
 		if ($validator->fails()) 
 		{
-			return \Redirect::back()->withInput()->withErrors($validator);
+			return redirect()->back()->withInput()->withErrors($validator);
 		}
 
 		// Fallback locale is always required
-		$locales_array = $this->request->get('locales_array');
+		$locales_array = $this->request->input('locales_array');
 		if ( !in_array(fallback_lang(), $locales_array) ) 
 		{
 			$locales_array[] = fallback_lang();
 		}
 
-		$i18n = $this->request->get('i18n');
+		$i18n = $this->request->input('i18n');
 		$valid_locales = \LaravelLocalization::getSupportedLocales();
 
 		// Validate subdomain
-		if ( \App\Site::where('subdomain', $this->request->get('subdomain'))->where('id','!=',@intval($site->id))->count() )
+		if ( \App\Site::where('subdomain', $this->request->input('subdomain'))->where('id','!=',$this->site->id)->count() )
 		{
-			return \Redirect::back()->withInput()->with('error', trans('account/site.configuration.subdomain.error'));
+			return redirect()->back()->withInput()->with('error', trans('account/site.configuration.subdomain.error'));
 		}
 
 		// Validate domains
-		foreach ( $this->request->get('domains_array') as $id => $domain )
+		foreach ( $this->request->input('domains_array') as $id => $domain )
 		{
 
 			$domain = rtrim($domain, '/');
 			// If domain is same as molista domain, false
 			if ( preg_match('#\.'.\Config::get('app.application_domain').'(\/)?$#', $domain) || \App\SiteDomains::where('domain', $domain)->where('id','!=',@intval($id))->count() )
 			{
-				return \Redirect::back()->withInput()->with('error', trans('account/site.configuration.domains.error'));
+				return redirect()->back()->withInput()->with('error', trans('account/site.configuration.domains.error'));
 			}
 		}
 
 		// Save site
-		$site->subdomain = $this->request->input('subdomain');
-		$site->theme = $this->request->input('theme');
-		$site->customer_register = $this->request->input('customer_register') ? 1 : 0;
-		$site->mailer = $this->request->input('mailer');
+		$this->site->subdomain = $this->request->input('subdomain');
+		$this->site->theme = $this->request->input('theme');
+		$this->site->timezone = $this->request->input('timezone');
+		$this->site->customer_register = $this->request->input('customer_register') ? 1 : 0;
+		$this->site->mailer = $this->request->input('mailer');
 
 		$signature = $this->request->input('signature');
 		foreach ($signature as $key => $value)
 		{
 			$signature[$key] = sanitize($value);
 		}
-		$site->signature = $signature;
+		$this->site->signature = $signature;
 
 		// Save logo && favicon
 		foreach ( [ 'logo','favicon' ] as $img_key )
@@ -159,7 +166,7 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 				continue;
 			}
 
-			$img_folder = public_path("sites/{$site->id}");
+			$img_folder = public_path("sites/{$this->site->id}");
 
 			$img_name = $this->request->file($img_key)->getClientOriginalName();
 			while ( file_exists("{$img_folder}/{$img_name}") )
@@ -169,51 +176,51 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 
 			$this->request->file($img_key)->move($img_folder, $img_name);
 
-			if ( !empty($site->$img_key) )
+			if ( @$this->site->$img_key )
 			{
-				@unlink("{$img_folder}/{$site->$img_key}");
+				@unlink("{$img_folder}/{$this->site->$img_key}");
 			}
 
-			$site->$img_key = $img_name;
+			$this->site->$img_key = $img_name;
 		}
 
 		// Save locales
-		\DB::table('sites_locales')->where('site_id',$site->id)->delete();
+		$this->site->locales()->detach();
 		$locales = \App\Models\Locale::whereIn('locale', $locales_array)->lists('id', 'locale')->toArray();
 		foreach ($locales_array as $locale) 
 		{
 			if ( array_key_exists($locale, $locales) )
 			{
-				$site->locales()->attach($locales[$locale]);
+				$this->site->locales()->attach($locales[$locale]);
 			}
 		}
 
 		// Save i18n
 		foreach ($i18n as $key=>$translations)
 		{
-			if ( !in_array($key, $site->translatedAttributes) )
+			if ( !in_array($key, $this->site->translatedAttributes) )
 			{
 				continue;
 			}
 			foreach ($translations as $iso=>$def)
 			{
-				$site->translateOrNew($iso)->$key = sanitize($def);
+				$this->site->translateOrNew($iso)->$key = sanitize($def);
 			}
 		}
 
 		// Save domains
-		foreach ($this->request->get('domains_array') as $domain_id => $domain_url)
+		foreach ($this->request->input('domains_array') as $domain_id => $domain_url)
 		{
 			// Remove empty spaces and triling slash
 			$domain_url = rtrim(trim($domain_url), '/');
 
 			if ( $domain_url && $domain_id == 'new' )
 			{
-				$site->domains()->create([
+				$this->site->domains()->create([
 					'domain' => sanitize($domain_url, 'url'),
 				]);
 			}
-			elseif ( $site_domain = $site->domains()->find($domain_id) )
+			elseif ( $site_domain = $this->site->domains()->find($domain_id) )
 			{
 				if ( $domain_url )
 				{
@@ -229,9 +236,9 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 		}
 
 		// Save social media
-		foreach ($this->request->get('social_array') as $network => $network_url)
+		foreach ($this->request->input('social_array') as $network => $network_url)
 		{
-			$social_media = $site->social()->firstOrCreate([
+			$social_media = $this->site->social()->firstOrCreate([
 				'network' => $network,
 			]);
 
@@ -245,10 +252,21 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 			]);
 		}
 
-		// Save configuration
-		$site->save();
+		// Currency has changed?
+		if ( $this->request->input('site_currency') && $this->request->input('site_currency') != $this->site->site_currency )
+		{
+			// Update site currency
+			$this->site->site_currency =  $this->request->input('site_currency');
+			// Update properties currency
+			$this->site->properties()->withTrashed()->update([
+				'currency' => $this->request->input('site_currency'),
+			]);
+		}
 
-		return \Redirect::back()->with('current_tab', $this->request->get('current_tab'))->with('success', trans('account/site.configuration.saved'));
+		// Save configuration
+		$this->site->save();
+
+		return redirect()->back()->with('current_tab', $this->request->input('current_tab'))->with('success', trans('account/site.configuration.saved'));
 	}
 
 	public function getCheck($type)
@@ -257,24 +275,24 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 
 		switch ( $type ) {
 			case 'domain':
-				$domain = rtrim($this->request->get('domain'), '/');
+				$domain = rtrim($this->request->input('domain'), '/');
 				// If domain is same as molista domain, false
 				if ( preg_match('#\.'.\Config::get('app.application_domain').'(\/)?$#', $domain) )
 				{
 					break;
 				}
 				$query = \App\SiteDomains::where('domain', $domain);
-				if ( $this->request->get('id') )
+				if ( $this->request->input('id') )
 				{
-					$query->where('id', '!=', $this->request->get('id'));
+					$query->where('id', '!=', $this->request->input('id'));
 				}
 				$error = $query->count();
 				break;
 			case 'subdomain':
-				$query = \App\Site::where('subdomain', $this->request->get('subdomain'));
-				if ( $this->request->get('id') )
+				$query = \App\Site::where('subdomain', $this->request->input('subdomain'));
+				if ( $this->request->input('id') )
 				{
-					$query->where('id', '!=', $this->request->get('id'));
+					$query->where('id', '!=', $this->request->input('id'));
 				}
 				$error = $query->count();
 				break;

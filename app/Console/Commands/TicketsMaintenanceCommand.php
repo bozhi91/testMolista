@@ -57,7 +57,7 @@ class TicketsMaintenanceCommand extends Command
 
 				// Create items
 				$this->info("\tAssociate properties");
-				foreach ($site->properties()->withTrashed()->withTranslations()->where('ticket_item_id','')->get() as $property)
+				foreach ($site->properties()->withTrashed()->where('ticket_item_id','')->get() as $property)
 				{
 					$ticket_adm->associateItem($property);
 				}

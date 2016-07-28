@@ -19,7 +19,7 @@ class Catches extends Model
 
 	public function property()
 	{
-		return $this->belongsTo('App\Property');
+		return $this->belongsTo('App\Property')->with('infocurrency');
 	}
 
 	public function employee()

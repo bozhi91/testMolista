@@ -15,6 +15,10 @@ return [
 	'enabled' => 'Enabled',
 	'theme.custom' => 'Custom theme',
 	'transfer' => 'Traspaso de web',
+	'currency' => 'Moneda',
+	'country' => 'País',
+	'properties' => 'Propiedades',
+	'employees' => 'Agentes',
 
 	'create.title' => 'Create site',
 	'edit.title' => 'Edit site',

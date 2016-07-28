@@ -20,7 +20,11 @@
 		'view.popup' => 'Abrir en popup',
 		'view.window' => 'Nueva ventana',
 		'new' => 'Nuevo elemento',
+		'add' => 'Añadir',
 		'options' => 'Opciones',
+
+		'select.all' => 'Seleccionar todos',
+		'select.none' => 'Deseleccionar todos',
 
 		'delete' => 'Borrar',
 

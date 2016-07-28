@@ -23,6 +23,7 @@
 		'type.villa' => 'Villa',
 		'type.lot' => 'Lot',
 		'type.store' => 'Store',
+		'type.ranch' => 'Ranch',
 
 		'more.show' => 'Show more options',
 		'more.any' => 'Show all',

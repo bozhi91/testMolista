@@ -14,7 +14,7 @@ class User extends Authenticatable
 	protected static $thumb_height = 75;
 
 	protected $fillable = [
-		'name', 'email', 'password', 'locale',
+		'name', 'email', 'phone','password', 'locale',
 	];
 
 	protected $hidden = [
@@ -26,11 +26,11 @@ class User extends Authenticatable
 	}
 
 	public function sites() {
-		return $this->belongsToMany('App\Site', 'sites_users', 'user_id', 'site_id');
+		return $this->belongsToMany('App\Site', 'sites_users', 'user_id', 'site_id')->withTranslations();
 	}
 
 	public function properties() {
-		return $this->belongsToMany('App\Property', 'properties_users', 'user_id', 'property_id');
+		return $this->belongsToMany('App\Property', 'properties_users', 'user_id', 'property_id')->withTranslations();
 	}
 
 	public function translation_locales() {
@@ -172,6 +172,19 @@ class User extends Authenticatable
 					->from('sites_users')
 					->where('site_id', '!=', $site_id);
 			});
+	}
+
+	public function getUpdatedAutologinToken()
+	{
+		$this->autologin_token = sha1( $this->id . uniqid() );
+		while ( \App\User::where('autologin_token', $this->autologin_token)->count() > 0 )
+		{
+			$this->autologin_token = sha1( $this->id . uniqid() . rand(1000, 9999) );
+		}
+
+		$this->save();
+
+		return $this->autologin_token;
 	}
 
 	public function updateUserPropertiesRelations()

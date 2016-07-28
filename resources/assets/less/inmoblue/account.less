@@ -1,19 +1,5 @@
 @import '../app/account.less';
 
-#login-register {
-	
-	h1, h2, h3, h4, h5, h6 { color: @inmoblue-bottomheader; }
-
-	.btn-remember {
-		color: @inmoblue-bottomheader;
-	}
-
-	.form-control:focus {
-		border-color: @inmoblue-bottomheader;
-	}
-
-}
-
 #account-container {
 	
 	.btn.btn-primary { border-color: @inmoblue-bottomheader; background: @inmoblue-bottomheader; color: @white; }
@@ -24,15 +10,20 @@
 
 	.pagination > li.active a, .pagination > li.active span, .pagination > li.active a:hover, .pagination > li.active span:hover, .pagination > li.active a:focus, .pagination > li.active span:focus { background-color: @inmoblue-bottomheader; border-color: @inmoblue-bottomheader; }
 
-	.account-menu > li.separator { border-top: 1px solid @inmoblue-bottomheader; }
+	.account-menu > li {
+		&.separator { border-top: 1px solid @inmoblue-bottomheader; }
+		ul > li > a { 
+			&.current { color: @inmoblue-bottomheader; }
+		}
+	}
 
 	h1, h2, h3, h4, h5, h6 { color: @inmoblue-bottomheader; }
 
 	.form-control:focus { border-color: @inmoblue-bottomheader; }
 
-	.tab-content { border: 1px solid @inmoblue-bottomheader;}
+	.tab-content { border-color: @inmoblue-bottomheader;}
 
-	.nav-tabs > li.active > a { border-color: @inmoblue-bottomheader; }
+	.nav-tabs > li.active > a { border-color: @inmoblue-bottomheader; border-bottom-color: @colorWhite; }
 
 	.nav-tabs { border-color: @inmoblue-bottomheader; }
 

@@ -20,20 +20,24 @@ class Marketplace extends \App\TranslatableModel
 		'code' => 'required|unique:marketplaces,code',
 		'class_path' => 'required|string',
 		'name' => 'required|string',
-		'country_id' => 'integer|exists:countries,id',
+		'countries_ids' => 'required|array',
 		'configuration' => 'array',
+		'requires_contact' => 'boolean',
 		'enabled' => 'boolean',
 		'logo' => 'image',
 		'url' => 'url',
+		'upload_type' => 'string',
 	];
 	protected static $update_validator_fields = [
 		'class_path' => 'required|string',
 		'name' => 'required|string',
-		'country_id' => 'integer|exists:countries,id',
+		'countries_ids' => 'required|array',
 		'configuration' => 'array',
 		'enabled' => 'boolean',
+		'requires_contact' => 'boolean',
 		'logo' => 'image',
 		'url' => 'url',
+        'upload_type' => 'string',
 	];
 
 	protected $guarded = [];
@@ -42,9 +46,32 @@ class Marketplace extends \App\TranslatableModel
 		'configuration' => 'array',
 	];
 
-	public function country()
+	public function countries()
 	{
-		return $this->belongsTo('App\Models\Geography\Country')->withTranslations();
+		return $this->belongsToMany('App\Models\Geography\Country', 'marketplaces_countries', 'marketplace_id', 'country_id')->withTranslations();
+	}
+	public function getCountriesIdsAttribute() {
+		$countries = [];
+
+		foreach ($this->countries as $country)
+		{
+			$countries[] = $country->id;
+		}
+
+		return $countries;
+	}
+
+    public function properties()
+    {
+        $instance = new \App\Property;
+        $query = $instance->newQuery();
+
+        return new \App\Relations\BelongsToManyOrToAll($query, $this, 'properties_marketplaces', 'marketplace_id', 'property_id', 'export_to_all', 1);
+    }
+
+    public function sites()
+	{
+		return $this->belongsToMany('App\Site', 'sites_marketplaces')->withPivot('marketplace_configuration','marketplace_enabled');
 	}
 
 	public static function saveModel($data, $id = null)
@@ -70,8 +97,7 @@ class Marketplace extends \App\TranslatableModel
 			{
 				case 'logo':
 					break;
-				case 'country_id':
-					$item->$field = empty($data[$field]) ? null : $data[$field];
+				case 'countries_ids':
 					break;
 				default:
 					$item->$field = @$data[$field];
@@ -96,6 +122,11 @@ class Marketplace extends \App\TranslatableModel
 
 		$item->save();
 
+		if ( !empty($data['countries_ids']) || is_array($data['countries_ids']) )
+		{
+			$item->countries()->sync($data['countries_ids']);
+		}
+
 		return $item;
 	}
 	public static function saveLogo($item,$request)
@@ -116,6 +147,37 @@ class Marketplace extends \App\TranslatableModel
 		$request->file('logo')->move( public_path('marketplaces'), $item->logo );
 
 		return $item->save();
+	}
+
+	public function getFlagFolderAttribute()
+	{
+		return "images/flags";
+	}
+
+	public function getFlagAttribute()
+	{
+		if ( $this->countries->count() == 1 )
+		{
+			foreach ($this->countries as $country)
+			{
+				return "{$this->flag_folder}/{$country->code}.png";
+			}
+		}
+
+		return "{$this->flag_folder}/_all.png";
+	}
+
+	public function getCountryAttribute()
+	{
+		if ( $this->countries->count() == 1 )
+		{
+			foreach ($this->countries as $country)
+			{
+				return $country->name;
+			}
+		}
+
+		return false;
 	}
 
 	public function getAdditionalConfigurationAttribute()
@@ -143,6 +205,36 @@ class Marketplace extends \App\TranslatableModel
 		return $query->where("{$this->getTable()}.enabled", 1);
 	}
 
+	public function scopeOfCountry($query,$country_id)
+	{
+		if ( !is_integer($country_id) ) 
+		{
+			$country_code = $country_id;
+			$country_id = \App\Models\Geography\Country::where('code',$country_code)->first()->id;
+		}
+
+		return $query->whereIn("{$this->getTable()}.id", function($query) use ($country_id) {
+			$query
+				->distinct()
+				->select('marketplace_id')
+				->from('marketplaces_countries')
+				->where('country_id',$country_id)
+				;
+		});
+	}
+
+	public function scopeWithSiteProperties($query,$site_id)
+	{
+		$query->with([ 'properties' => function($query) use ($site_id) {
+			$query->ofSite($site_id);
+		}]);
+	}
+
+    public function scopeFtp($query)
+	{
+		return $query->where("{$this->getTable()}.upload_type", 'ftp');
+	}
+
 	public function scopeWithSiteConfiguration($query,$site_id)
 	{
 		$query
@@ -154,6 +246,8 @@ class Marketplace extends \App\TranslatableModel
 			})
 			->addSelect( \DB::raw('sites_marketplaces.`marketplace_enabled`') )
 			->addSelect( \DB::raw('sites_marketplaces.`marketplace_configuration`') )
+			->addSelect( \DB::raw('sites_marketplaces.`marketplace_maxproperties`') )
+			->addSelect( \DB::raw('sites_marketplaces.`marketplace_export_all`') )
 			;
 	}
 

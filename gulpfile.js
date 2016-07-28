@@ -63,7 +63,11 @@ elixir(function(mix) {
 		.scripts([
 			'compiled/common.js',
 			'app.js',
-		], 'public/compiled/js/app.js');
+		], 'public/compiled/js/app.js')
+		.less([
+			'app/pdf.less',
+		], 'public/compiled/css/pdf.css')
+		;
 
 
 
@@ -78,6 +82,7 @@ elixir(function(mix) {
 		], 'public/compiled/css/corporate.css')
 		.scripts([
 			'compiled/common.js',
+			'jquery.sticky-kit.js',
 			'corporate.js',
 		], 'public/compiled/js/corporate.js');
 
@@ -106,7 +111,11 @@ elixir(function(mix) {
 		.styles([
 			'compiled/common.css',
 			'compiled/bellamar.css',
-		], 'public/themes/bellamar/compiled/css/app.css');
+		], 'public/themes/bellamar/compiled/css/app.css')
+		.less([
+			'bellamar/pdf.less',
+		], 'public/themes/bellamar/compiled/css/pdf.css')
+		;
 
 	/* Elegant */
 	mix
@@ -116,7 +125,11 @@ elixir(function(mix) {
 		.styles([
 			'compiled/common.css',
 			'compiled/elegant.css',
-		], 'public/themes/elegant/compiled/css/app.css');
+		], 'public/themes/elegant/compiled/css/app.css')
+		.less([
+			'elegant/pdf.less',
+		], 'public/themes/elegant/compiled/css/pdf.css')
+		;
 
 	/* Inmoblue */
 	mix
@@ -126,6 +139,38 @@ elixir(function(mix) {
 		.styles([
 			'compiled/common.css',
 			'compiled/inmoblue.css',
-		], 'public/themes/inmoblue/compiled/css/app.css');
+		], 'public/themes/inmoblue/compiled/css/app.css')
+		.less([
+			'inmoblue/pdf.less',
+		], 'public/themes/inmoblue/compiled/css/pdf.css')
+		;
+
+	/* Whitey */
+	mix
+		.less([
+			'whitey/app.less',
+		], 'resources/assets/css/compiled/whitey.css')
+		.styles([
+			'compiled/common.css',
+			'compiled/whitey.css',
+		], 'public/themes/whitey/compiled/css/app.css')
+		.less([
+			'whitey/pdf.less',
+		], 'public/themes/whitey/compiled/css/pdf.css')
+		;
+
+	/* Zoner */
+	mix
+		.less([
+			'zoner/app.less',
+		], 'resources/assets/css/compiled/zoner.css')
+		.styles([
+			'compiled/common.css',
+			'compiled/zoner.css',
+		], 'public/themes/zoner/compiled/css/app.css')
+		.less([
+			'zoner/pdf.less',
+		], 'public/themes/zoner/compiled/css/pdf.css')
+		;
 
 });

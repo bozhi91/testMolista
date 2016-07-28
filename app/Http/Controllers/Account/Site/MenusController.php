@@ -53,7 +53,7 @@ class MenusController extends \App\Http\Controllers\AccountController
 		}
 
 		$menu = $this->site->menus()->create([
-			'title' => sanitize( $this->request->get('title') ),
+			'title' => sanitize( $this->request->input('title') ),
 		]);
 
 		if ( !$menu )
@@ -71,8 +71,8 @@ class MenusController extends \App\Http\Controllers\AccountController
 	{
 		$menu = $this->site->menus()->whereSlug($slug)->withItems()->firstOrFail();
 
-		$pages = $this->site->pages()->withTranslations()->orderBy('title')->lists('title','id')->all();
-		$properties = $this->site->properties()->withTranslations()->orderBy('title')->lists('title','id')->all();
+		$pages = $this->site->pages()->orderBy('title')->lists('title','id')->all();
+		$properties = $this->site->properties()->orderBy('title')->lists('title','id')->all();
 
 		return view('account.site.menus.edit', compact('menu','pages','properties'));
 	}
@@ -92,14 +92,14 @@ class MenusController extends \App\Http\Controllers\AccountController
 
 		// Save menu
 		$menu->update([
-			'title' => sanitize( $this->request->get('title') ),
+			'title' => sanitize( $this->request->input('title') ),
 		]);
 
 		// Get old items
 		$current_items = $menu->items->keyBy('id')->all();
 
 		// Save items
-		$saved_items = $this->request->get('items');
+		$saved_items = $this->request->input('items');
 		if ( !is_array($saved_items) )
 		{
 			$saved_items = [];

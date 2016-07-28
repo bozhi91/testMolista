@@ -11,6 +11,7 @@ return [
 	'price' => 'Price',
 	'price.year' => 'Price (yearly)',
 	'price.month' => 'Price (monthly)',
+	'currency' => 'Currency',
 	'employees' => 'Agents',
 	'properties' => 'Properties',
 	'space' => 'Space',
@@ -19,6 +20,7 @@ return [
 	'free.plan' => 'Free plan',
 	'enabled' => 'Enabled',
 	'stripe.id' => 'Stripe ID',
+	'level' => 'Level',
 
 	'qr' => 'QR codes',
 	'printing' => 'Poster printing',

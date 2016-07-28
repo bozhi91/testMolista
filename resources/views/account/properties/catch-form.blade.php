@@ -45,8 +45,13 @@
 		<div class="form-group error-container">
 			{!! Form::label('price_min', Lang::get('account/properties.show.property.price.min') ) !!}
 			<div class="input-group">
+				@if ( @$price_position == 'before' )
+					<div class="input-group-addon">{{ @$price_symbol }}</div>
+				@endif
 				{!! Form::text('price_min', @$item->price_min, [ 'class'=>'form-control required number', 'min'=>1 ]) !!}
-				<div class="input-group-addon">{{ $price_symbol }}</div>
+				@if ( @$price_position == 'after' )
+					<div class="input-group-addon">{{ @$price_symbol }}</div>
+				@endif
 			</div>
 		</div>
 	</div>

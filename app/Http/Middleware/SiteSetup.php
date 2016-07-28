@@ -9,7 +9,10 @@ class SiteSetup
 	public function handle($request, Closure $next)
 	{
 		// Get current site
-		$site = \App\Site::with('locales')->enabled()->current()->first();
+		$site = \App\Site::enabled()
+			->with('locales')
+			->with('infocurrency')
+			->current()->first();
 		if ( !$site ) 
 		{
 			abort(404);

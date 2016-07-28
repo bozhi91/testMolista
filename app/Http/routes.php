@@ -19,14 +19,22 @@ Route::group([
 ], function() {
 
 	// Corporate web
-	Route::get('/', 'CorporateController@index');
-	Route::controller('demo', 'Corporate\DemoController');
-	Route::controller('info', 'Corporate\InfoController');
-	Route::controller('features', 'Corporate\FeaturesController');
-	Route::controller('pricing', 'Corporate\PricingController');
-
-	// Signup
-	Route::controller('signup', 'Corporate\SignupController');
+	Route::group([
+		'middleware' => [
+			'geolocation',
+			'currency.corporate',
+		],
+	], function() {
+		Route::get('/', 'CorporateController@index');
+		Route::controller('demo', 'Corporate\DemoController');
+		Route::controller('info', 'Corporate\InfoController');
+		Route::controller('pricing', 'Corporate\PricingController');
+		Route::get('features/{slug?}', 'Corporate\FeaturesController@getIndex');
+		// Signup
+		Route::controller('signup', 'Corporate\SignupController');
+		// Customers area
+		Route::controller('customers', 'Corporate\CustomersController');
+	});
 
 	// Admin
 	Route::group([
@@ -58,6 +66,8 @@ Route::group([
 		Route::resource('config/translations', 'Admin\Config\TranslationsController');
 		Route::get('config/plans/check/{type}', 'Admin\Config\PlansController@getCheck');
 		Route::resource('config/plans', 'Admin\Config\PlansController');
+		Route::get('config/currencies/check/{type}', 'Admin\Config\CurrenciesController@getCheck');
+		Route::resource('config/currencies', 'Admin\Config\CurrenciesController');
 		// Utils
 		Route::controller('utils/user', 'Admin\Utils\UserController');
 		Route::controller('utils/locale', 'Admin\Utils\LocaleController');
@@ -73,6 +83,14 @@ Route::group([
 			'middleware' => [ 'permission:expirations-*' ]
 		], function() {
 			Route::controller('expirations', 'Admin\ExpirationsController');
+		});
+		Route::group([
+			'middleware' => [
+				'permission:geography-*',
+			],
+		], function() {
+			Route::get('geography/countries/check/{type}', 'Admin\Geography\CountriesController@getCheck');
+			Route::resource('geography/countries', 'Admin\Geography\CountriesController');
 		});
 		// Error log
 		Route::get('errorlog', [ 
@@ -95,7 +113,9 @@ Route::group([
 		'web',
 		'site.login.roles:company|employee',
 		'site.setup',
+		'site.autologin',
 		'site.setup.user',
+		'currency.site',
 	],
 ], function() {
 	// Web
@@ -115,9 +135,6 @@ Route::group([
 	// Auth
 	Route::auth();
 
-	// Autologin
-	Route::get('account/autologin/{id}/{hash}', 'Auth\AuthController@autologin');
-
 	// User
 	Route::controller('customers', 'Web\CustomersController');
 
@@ -133,10 +150,16 @@ Route::group([
 	], function() {
 		Route::get('/', 'AccountController@index');
 		Route::post('/', 'AccountController@updateProfile');
-		// invoices
-		Route::controller('payment', 'Account\PaymentController');
-		// Plans & payment
-		Route::controller('invoices', 'Account\InvoicesController');
+		Route::group([
+			'middleware' => [
+				'role:company',
+			],
+		], function() {
+			// Plans & payment
+			Route::controller('payment', 'Account\PaymentController');
+			// Invoices
+			Route::controller('invoices', 'Account\InvoicesController');
+		});
 		// Properties
 		Route::group([
 			'middleware' => [
@@ -162,6 +185,7 @@ Route::group([
 		Route::get('employees/disssociate/{user_id}/{property_id}', 'Account\EmployeesController@getDissociate');
 		Route::resource('employees', 'Account\EmployeesController');
 		// Customers
+		Route::delete('customers/properties/{slug}', 'Account\CustomersController@deleteRemovePropertyCustomer');
 		Route::post('customers/properties/{slug}', 'Account\CustomersController@postAddPropertyCustomer');
 		Route::get('customers/properties/{slug}', 'Account\CustomersController@getAddPropertyCustomer');
 		Route::post('customers/profile/{email}', 'Account\CustomersController@postProfile');
@@ -176,6 +200,8 @@ Route::group([
 		});
 		// Tickets
 		Route::controller('tickets', 'Account\TicketsController');
+		// Calendar
+		Route::controller('calendar', 'Account\Calendar\BaseController');
 		// Reports
 		Route::group([
 			'prefix' => 'reports',
@@ -196,6 +222,10 @@ Route::group([
 		], function() {
 			// Configuration
 			Route::controller('configuration', 'Account\Site\ConfigurationController');
+			// Price ranges
+			Route::controller('priceranges', 'Account\Site\PriceRangesController');
+			// Countries
+			Route::controller('countries', 'Account\Site\CountriesController');
 			// Menus
 			Route::post('menus/item/{slug}', 'Account\Site\MenusController@postItem');
 			Route::resource('menus', 'Account\Site\MenusController');

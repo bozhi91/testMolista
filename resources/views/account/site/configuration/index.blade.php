@@ -9,21 +9,21 @@
 		<h1 class="page-title">{{ Lang::get('account/site.configuration.h1') }}</h1>
 
 		{!! Form::model(@$site, [ 'method'=>'POST', 'action'=>'Account\Site\ConfigurationController@postIndex', 'files'=>true, 'id'=>'admin-site-configuration-form' ]) !!}
-			{!! Form::hidden('current_tab', session('current_tab', '#tab-site-config')) !!}
+			{!! Form::hidden('current_tab', $current_tab) !!}
 
 			<div class="custom-tabs">
 
 				<ul class="nav nav-tabs main-tabs" role="tablist">
-					<li role="presentation" class="active"><a href="#tab-site-config" aria-controls="tab-site-config" role="tab" data-toggle="tab">{{ Lang::get('account/site.configuration.tab.config') }}</a></li>
-					<li role="presentation"><a href="#tab-site-signature" aria-controls="tab-site-signature" role="tab" data-toggle="tab">{{ Lang::get('account/site.configuration.tab.signature') }}</a></li>
-					<li role="presentation"><a href="#tab-site-mail" aria-controls="tab-site-mail" role="tab" data-toggle="tab">{{ Lang::get('account/site.configuration.tab.mail') }}</a></li>
-					<li role="presentation"><a href="#tab-site-texts" aria-controls="tab-site-texts" role="tab" data-toggle="tab">{{ Lang::get('account/site.configuration.tab.texts') }}</a></li>
-					<li role="presentation"><a href="#tab-site-social" aria-controls="tab-site-social" role="tab" data-toggle="tab">{{ Lang::get('account/site.configuration.tab.social') }}</a></li>
+					<li role="presentation" class="{{ $current_tab == 'config' ? 'active' : '' }}"><a href="#tab-site-config" aria-controls="tab-site-config" role="tab" data-toggle="tab" data-tab="config">{{ Lang::get('account/site.configuration.tab.config') }}</a></li>
+					<li role="presentation" class="{{ $current_tab == 'signature' ? 'active' : '' }}"><a href="#tab-site-signature" aria-controls="tab-site-signature" role="tab" data-toggle="tab" data-tab="signature">{{ Lang::get('account/site.configuration.tab.signature') }}</a></li>
+					<li role="presentation" class="{{ $current_tab == 'mail' ? 'active' : '' }}"><a href="#tab-site-mail" aria-controls="tab-site-mail" role="tab" data-toggle="tab" data-tab="mail">{{ Lang::get('account/site.configuration.tab.mail') }}</a></li>
+					<li role="presentation" class="{{ $current_tab == 'texts' ? 'active' : '' }}"><a href="#tab-site-texts" aria-controls="tab-site-texts" role="tab" data-toggle="tab" data-tab="texts">{{ Lang::get('account/site.configuration.tab.texts') }}</a></li>
+					<li role="presentation" class="{{ $current_tab == 'social' ? 'active' : '' }}"><a href="#tab-site-social" aria-controls="tab-site-social" role="tab" data-toggle="tab" data-tab="social">{{ Lang::get('account/site.configuration.tab.social') }}</a></li>
 				</ul>
 
 				<div class="tab-content">
 
-					<div role="tabpanel" class="tab-pane tab-main active" id="tab-site-config">
+					<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'config' ? 'active' : '' }}" id="tab-site-config">
 						<div class="row">
 							<div class="col-xs-12 col-sm-6">
 								<div class="form-group error-container">
@@ -45,6 +45,10 @@
 								</div>
 							</div>
 							<div class="col-xs-12 col-sm-6">
+								<div class="form-group error-container">
+									{!! Form::label('site_currency', Lang::get('account/site.configuration.currency')) !!}
+									{!! Form::select('site_currency', $currencies, null, [ 'class'=>'currency-select form-control required' ]) !!}
+								</div>
 							</div>
 						</div>
 						<div class="row">
@@ -78,6 +82,12 @@
 							</div>
 						</div>
 						<div class="row">
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group error-container">
+									{!! Form::label('timezone', Lang::get('account/site.configuration.timezone')) !!}
+									{!! Form::select('timezone', [ ''=>'' ]+$timezones, null, [ 'class'=>'form-control required' ]) !!}
+								</div>
+							</div>
 							<div class="col-xs-12 col-sm-6">
 								<div class="form-group error-container">
 									{!! Form::label('customer_register', Lang::get('account/site.configuration.client.register')) !!}
@@ -154,15 +164,15 @@
 
 					</div>
 
-					<div role="tabpanel" class="tab-pane tab-main" id="tab-site-signature">
+					<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'signature' ? 'active' : '' }}" id="tab-site-signature">
 						@include('account/site/configuration.tab-signature')
 					</div>
 
-					<div role="tabpanel" class="tab-pane tab-main" id="tab-site-mail">
+					<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'mail' ? 'active' : '' }}" id="tab-site-mail">
 						@include('account/site/configuration.tab-emails')
 					</div>
 
-					<div role="tabpanel" class="tab-pane tab-main" id="tab-site-texts">
+					<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'texts' ? 'active' : '' }}" id="tab-site-texts">
 						<ul class="nav nav-tabs locale-tabs" role="tablist">
 							@foreach ($site_setup['locales_tabs'] as $lang_iso => $lang_name)
 								<li role="presentation"><a href="#tab-site-texts-{{$lang_iso}}" aria-controls="tab-site-texts-{{$lang_iso}}" role="tab" data-toggle="tab">{{$lang_name}}</a></li>
@@ -212,7 +222,7 @@
 						</div>
 					</div>
 
-					<div role="tabpanel" class="tab-pane tab-main" id="tab-site-social">
+					<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'social' ? 'active' : '' }}" id="tab-site-social">
 						<div class="form-horizontal">
 							<div class="form-group">
 								{!! Form::label('social_array[facebook]', 'Facebook', [ 'class'=>'col-sm-2' ]) !!}
@@ -518,13 +528,24 @@
 				});
 			});
 
-			var tabs = form.find('.main-tabs');
-			var current_tab = form.find('input[name="current_tab"]').val();
-			tabs.find('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-				form.find('input[name="current_tab"]').val( $(this).attr('href') );
-			});
-			tabs.find('a[href="' + current_tab + '"]').tab('show');
+			var currency_select = form.find('.currency-select');
+			form.on('change', '.currency-select', function() {
+				var el = $(this);
 
+				SITECOMMON.confirm("{{ print_js_string( Lang::get('account/site.configuration.currency.warning') ) }}", function (e) {
+					if (e) {
+						currency_select.data('current', currency_select.val());
+					} else {
+						currency_select.val( currency_select.data().current );
+					}
+				});
+			});
+			currency_select.data('current', currency_select.val());
+
+
+			form.find('.main-tabs').find('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+				form.find('input[name="current_tab"]').val( $(this).data().tab );
+			});
 		});
 	</script>
 

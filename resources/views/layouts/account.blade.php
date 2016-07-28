@@ -1,4 +1,6 @@
-@extends('layouts.web')
+@extends('layouts.web', [
+	'body_id' => 'body-account',
+])
 
 @section('content')
 
@@ -41,9 +43,7 @@
 		};
 	</script>
 
-	@if ( @$current_site->has_pending_plan_request )
-		@include('account.warning.pending-request')
-	@endif
+	@include('account.warning.pending-request')
 
     <div id="account-container" class="container">
 		<div class="row">
@@ -78,6 +78,12 @@
 							{{ Lang::get('account/menu.tickets') }}
 						</a>
 					</li>
+					<li role="presentation" class="{{ (@$submenu_section == 'calendar') ? 'active' : '' }}">
+						<a href="{{ action('Account\Calendar\BaseController@getIndex') }}">
+							<i class="account-icon account-icon-calendar"></i>
+							{{ Lang::get('account/menu.calendar') }}
+						</a>
+					</li>
 					<li class="separator"></li>
 
 					@role('company')
@@ -104,6 +110,8 @@
 								</a>
 								<ul id="account-submenu-site" class="nav {{ (@$submenu_section == 'site') ? '' : 'collapse' }}" role="menu" aria-labelledby="account-menu-btn-site">
 									<li><a href="{{ action('Account\Site\ConfigurationController@getIndex') }}" class="{{ (@$submenu_subsection == 'site-configuration') ? 'current' : '' }}">{{ Lang::get('account/menu.site.configuration') }}</a></li>
+									<li><a href="{{ action('Account\Site\PriceRangesController@getIndex') }}" class="{{ (@$submenu_subsection == 'site-priceranges') ? 'current' : '' }}">{{ Lang::get('account/menu.site.priceranges') }}</a></li>
+									<li><a href="{{ action('Account\Site\CountriesController@getIndex') }}" class="{{ (@$submenu_subsection == 'site-countries') ? 'current' : '' }}">{{ Lang::get('account/menu.site.countries') }}</a></li>
 									<li><a href="{{ action('Account\Site\WidgetsController@getIndex') }}" class="{{ (@$submenu_subsection == 'site-widgets') ? 'current' : '' }}">{{ Lang::get('account/menu.site.widgets') }}</a></li>
 									<li><a href="{{ action('Account\Site\MenusController@index') }}" class="{{ (@$submenu_subsection == 'site-menus') ? 'current' : '' }}">{{ Lang::get('account/menu.site.menus') }}</a></li>
 									<li><a href="{{ action('Account\Site\PagesController@index') }}" class="{{ (@$submenu_subsection == 'site-pages') ? 'current' : '' }}">{{ Lang::get('account/menu.site.pages') }}</a></li>

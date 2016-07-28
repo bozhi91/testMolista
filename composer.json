@@ -26,7 +26,10 @@
         "laravel/cashier": "~6.0",
         "yangqi/htmldom": "dev-master",
         "league/csv": "^8.1",
-        "simplesoftwareio/simple-qrcode": "^1.4"
+        "simplesoftwareio/simple-qrcode": "^1.4",
+        "torann/geoip": "0.2.*@dev",
+        "florianv/laravel-swap": "^0.4.0",
+        "eluceo/ical": "^0.10.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

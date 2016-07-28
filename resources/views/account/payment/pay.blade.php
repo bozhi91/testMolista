@@ -1,4 +1,6 @@
-@extends('layouts.account')
+@extends('layouts.account', [
+	'hide_pending_request_warning' => 1,
+])
 
 @section('account_content')
 
@@ -14,7 +16,7 @@
 					{!! Lang::get('corporate/signup.finish.pay') !!}
 					{!! Lang::get('corporate/signup.finish.plan.details', [
 						'plan' => @$pending_request->summary->plan_name,
-						'price_text' => Lang::get("web/plans.price.{$pending_request->payment_interval}") . ' ' . price($pending_request->plan_price, [ 'decimals'=>0 ]),
+						'price_text' => Lang::get("web/plans.price.{$pending_request->payment_interval}") . ' ' . price($pending_request->plan_price, $pending_request->plan->infocurrency->toArray()),
 					]) !!}
 					<br />
 
@@ -23,7 +25,7 @@
 						var stripeHandler = StripeCheckout.configure({
 							key: '{{ env('STRIPE_KEY') }}',
 							amount: '{{ round($pending_request->plan_price*100) }}',
-							currency: 'EUR',
+							currency: '{{ $pending_request->plan_currency }}',
 							name: 'Molista',
 							description: '{{ Lang::get('corporate/signup.confirm.plan') }}: {{ @$pending_request->summary->plan_name }}',
 							locale: '{{ LaravelLocalization::getCurrentLocale() }}',
@@ -60,7 +62,7 @@
 				<div class="col-xs-12 col-sm-6">
 					{!! Lang::get('account/payment.invoicing.transfer.intro', [
 						'plan' => @$pending_request->summary->plan_name,
-						'price_text' => Lang::get("web/plans.price.{$pending_request->payment_interval}") . ' ' . price($pending_request->plan_price, [ 'decimals'=>0 ]),
+						'price_text' => Lang::get("web/plans.price.{$pending_request->payment_interval}") . ' ' . price($pending_request->plan_price, $pending_request->plan->infocurrency->toArray()),
 					]) !!}
 				</div>
 				<div class="col-xs-12 col-sm-4 col-sm-offset-2">

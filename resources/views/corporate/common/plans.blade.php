@@ -1,22 +1,38 @@
 <?php
 	/* Accepted variables -----------------------------------------------
-		- $buy_plans
+		- $buy_plans (required)
 		- $buy_plan_url
 		- $buy_button_text
 		- $buy_button_hidden
+		- $hide_plan_extras
 	------------------------------------------------------------------ */
 
 	// $buy_plans fallback
 	if ( empty($buy_plans) ) 
 	{
-		$buy_plans = \App\Models\Plan::getEnabled();
+		$buy_plans = [];
+	}
+
+	$currency = [];
+	$currency_decimals = 1;
+
+	foreach ($buy_plans as $plan)
+	{
+		if ( !$plan->infocurrency )
+		{
+			continue;
+		}
+
+		$currency = $plan->infocurrency->toArray();
+		$currency_decimals = ($plan->infocurrency->decimals == 0) ? 1 : $plan->infocurrency->decimals;
+		break;
 	}
 ?>
 
 <div class="row">
 	@foreach ($buy_plans as $plan)
 		<div class="col-xs-12 col-sm-4">
-			<div class="plan-block plan-{{ $plan->code }} text-center">
+			<div class="plan-block plan-{{ $plan->level }} text-center {{ env('PLANS_PROMOTION',0) ? 'with-promotion' : '' }}">
 				<div class="plan-block-title">{{ $plan->name }}</div>
 				<div class="plan-block-body">
 
@@ -26,7 +42,7 @@
 							@if ( @$plan->is_free ) 
 								{{ Lang::get('web/plans.free') }}
 							@else
-								{{ price($plan->price_year,[ 'decimals'=>0 ]) }}
+								{{ price($plan->price_year, $currency) }}
 							@endif
 						</div>
 					</div>
@@ -36,7 +52,7 @@
 							@if ( @$plan->is_free ) 
 								<strong class="text-uppercase">{{ Lang::get('web/plans.free') }}</strong>
 							@else
-								<strong>{{ price($plan->price_year/12,[ 'decimals'=>1 ]) }}</strong>
+								<strong>{{ price($plan->price_year/12, array_merge($currency, [ 'decimals'=>$currency_decimals ])) }}</strong>
 							@endif
 						</div>
 					</div>
@@ -46,7 +62,7 @@
 							@if ( @$plan->is_free ) 
 								<strong class="text-uppercase">{{ Lang::get('web/plans.free') }}</strong>
 							@else
-								<strong>{{ price($plan->price_month,[ 'decimals'=>1 ]) }}</strong>
+								<strong>{{ price($plan->price_month, array_merge($currency, [ 'decimals'=>$currency_decimals ])) }}</strong>
 							@endif
 						</div>
 					</div>
@@ -175,19 +191,6 @@
 						@endif
 					</div>
 
-					@if ( $plan->extras )
-						@foreach ($plan->extras as $extra_key => $extra_cost)
-							<div class="plan-block-item plan-block-item-last">
-								{{ Lang::get("web/plans.extras.{$extra_key}") }}:
-								@if ( $extra_cost )
-									<strong>{{ price($extra_cost,[ 'decimals'=>0 ]) }}</strong>
-								@else
-									<strong class="text-lowercase">{{ Lang::get('web/plans.included') }}</strong>
-								@endif
-							</div>
-						@endforeach
-					@endif
-
 				</div>
 
 				@if ( empty($buy_button_hidden) )
@@ -197,8 +200,39 @@
 						</a>
 					</div>
 				@endif
+
+				@if ( empty($hide_plan_extras) && $plan->extras )
+					<div class="plan-block-extras">
+						<div class="plan-block-extras-optional">
+							{{ Lang::get('web/plans.optional') }}
+						</div>
+						@foreach ($plan->extras as $extra_key => $extra_cost)
+							<div class="plan-block-extras-item">
+								{{ Lang::get("web/plans.extras.{$extra_key}") }}:
+								@if ( $extra_cost )
+									<strong class="extras-price add-footnote">{{ price($extra_cost, $currency) }}</strong>
+									@if ( env('PLANS_PROMOTION',0) )
+										<strong class="text-uppercase add-footnote">{{ Lang::get('web/plans.free') }}</strong>
+									@endif
+								@else
+									<strong class="text-uppercase add-footnote">{{ Lang::get('web/plans.included') }}</strong>
+								@endif
+							</div>
+						@endforeach
+					</div>
+				@endif
+
 			</div>
 			<div class="visible-xs" style="height: 50px;"></div>
 		</div>
 	@endforeach
 </div>
+
+@if ( empty($hide_plan_extras) )
+	<div class="plan-block-footnotes">
+		<ul class="list-unstyled text-center">
+			<li>* {{ Lang::get("web/plans.footnote.text0")  }} {{ Lang::get('web/plans.footnote.optional') }}</li>
+			<li>** {{ Lang::get("web/plans.footnote.text1")  }} {{ Lang::get('web/plans.footnote.optional') }}</li>
+		</ul>
+	</div>
+@endif

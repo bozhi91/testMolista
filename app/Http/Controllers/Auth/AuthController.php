@@ -32,7 +32,7 @@ class AuthController extends Controller
 
 	public function __construct()
 	{
-		$this->middleware('guest', ['except' => [ 'logout', 'autologin' ] ]);
+		$this->middleware('guest', ['except' => [ 'logout' ] ]);
 
 		$this->redirectTo = action('AccountController@index');
 		$this->redirectAfterLogout = action('Auth\AuthController@login');
@@ -100,37 +100,6 @@ class AuthController extends Controller
 		return action('AdminController@index');
 	}
 
-	public function autologin($user_id, $autologin_token) 
-	{
-		// Logout current user
-		if ( \Auth::check() ) 
-		{
-			\Auth::logout();
-		}
-
-		// Get user
-		$user = \App\User::findOrFail($user_id);
-
-		// Validate autologin token
-		if ( $user->autologin_token != $autologin_token )
-		{
-			abort(404);
-		}
-
-		// Delete autologin token
-		$user->autologin_token = null;
-		$user->save();
-
-		// Check if user allowed admin of this site
-		$user->sites()->findOrFail( \App\Session\Site::get('site_id', false) );
-
-		// Login as user
-		\Auth::loginUsingId($user_id);
-
-		// Redirect
-		return redirect( $this->redirectPath() );
-	}
-
 	/* Disable registration */
 	public function register() 
 	{
@@ -160,7 +129,7 @@ class AuthController extends Controller
 			{
 				// Check if required site id
 				$required_site_id = env('loginRequiredSite');
-				if ( !$required_site_id || $user->sites()->where('id', $required_site_id)->count() )
+				if ( !$required_site_id || $user->sites()->where('sites.id', $required_site_id)->count() )
 				{
 					return redirect()->intended( $this->redirectPath() );
 				}

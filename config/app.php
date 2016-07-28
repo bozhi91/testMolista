@@ -66,7 +66,7 @@
 		|
 		*/
 
-		'timezone' => 'UTC',
+		'timezone' => env('TIMEZONE', 'Europe/Madrid'),
 
 		/*
 		|--------------------------------------------------------------------------
@@ -182,7 +182,7 @@
 			/* https://github.com/Zizaco/entrust */
 			Zizaco\Entrust\EntrustServiceProvider::class,
 
-			/* https://github.com/igaster/laravel-theme */ 
+			/* https://github.com/igaster/laravel-theme */
 			igaster\laravelTheme\themeServiceProvider::class,
 
 			/* https://github.com/dimsav/laravel-translatable */
@@ -214,6 +214,12 @@
 
 			/* https://github.com/SimpleSoftwareIO/simple-qrcode */
 			SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+
+			/* https://github.com/Torann/laravel-geoip */
+			Torann\GeoIP\GeoIPServiceProvider::class,
+
+			/* https://github.com/florianv/laravel-swap */
+			Florianv\LaravelSwap\SwapServiceProvider::class,
 
 		],
 
@@ -278,7 +284,7 @@
 			/* https://github.com/Zizaco/entrust */
 			'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
 
-			/* https://github.com/igaster/laravel-theme */ 
+			/* https://github.com/igaster/laravel-theme */
 			'Theme' => igaster\laravelTheme\Facades\Theme::class,
 
 			/* https://github.com/Intervention/image */
@@ -295,6 +301,12 @@
 
 			/* https://github.com/SimpleSoftwareIO/simple-qrcode */
 			'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+
+			/* https://github.com/Torann/laravel-geoip */
+			'GeoIP' => Torann\GeoIP\GeoIPFacade::class,
+
+			/* https://github.com/florianv/laravel-swap */
+			'Swap' => Florianv\LaravelSwap\Facades\Swap::class,
 		],
 
 	];

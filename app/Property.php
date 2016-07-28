@@ -15,6 +15,7 @@ class Property extends TranslatableModel
 	protected $dontKeepLogOf = [
 		'site_id',
 		'label_color',
+		'currency',
 		'publisher_id', 
 		'published_at', 
 		'created_at', 
@@ -61,9 +62,10 @@ class Property extends TranslatableModel
 
 		// Whenever a property is saved
 		static::saved(function($property){
-			// Delete cached files PDF, QRs
+			// Delete cached files PDF, QRs, site XMLs
 			\File::deleteDirectory(public_path($property->pdf_folder), true);
 			\File::deleteDirectory(public_path($property->qr_folder), true);
+			\File::deleteDirectory($property->site->xml_path, true);
 			// Create / Update on ticket system
 			if ( $property->ref )
 			{
@@ -146,7 +148,7 @@ class Property extends TranslatableModel
 	}
 
 	public function services() {
-		return $this->belongsToMany('App\Models\Property\Service', 'properties_services', 'property_id', 'service_id');
+		return $this->belongsToMany('App\Models\Property\Service', 'properties_services', 'property_id', 'service_id')->withTranslations();
 	}
 
 	public function hasService($id)
@@ -185,6 +187,11 @@ class Property extends TranslatableModel
 		return $marketplaces;
 	}
 
+	public function infocurrency()
+	{
+		return $this->hasOne('App\Models\Currency', 'code', 'currency')->withTranslations();
+	}
+
 	public function getLocationArrayAttribute()
 	{
 		return array_filter([
@@ -192,6 +199,16 @@ class Property extends TranslatableModel
 			'city' => @$this->city->name,
 			'state' => @$this->state->name,
 		]);
+	}
+
+	public function getFullAddressAttribute()
+	{
+		return implode(', ', array_filter([
+			@$this->address,
+			@$this->district,
+			@$this->city->name,
+			@$this->state->name,
+		]));
 	}
 
 	public function getPdfFolderAttribute()
@@ -209,7 +226,14 @@ class Property extends TranslatableModel
 
 		// Check PDF
 		$filepath = "{$dir}/property-{$locale}.pdf";
-		if ( !file_exists($filepath) || filemtime($filepath) < strtotime("2016-07-06") )
+
+		$last_time = strtotime("2016-07-11");
+		if ( strtotime($this->site->updated_at) > $last_time )
+		{
+			$last_time = strtotime($this->site->updated_at);
+		}
+
+		if ( !file_exists($filepath) || filemtime($filepath) < $last_time )
 		{
 			$locale_backup = \LaravelLocalization::getCurrentLocale();
 			\LaravelLocalization::setLocale($locale);
@@ -236,7 +260,22 @@ class Property extends TranslatableModel
 				}
 			}
 
+			// Get css
+			if ( $this->site->theme && file_exists( public_path("themes/{$this->site->theme}/compiled/css/pdf.css") ) )
+			{
+				$css = \File::get( public_path("themes/{$this->site->theme}/compiled/css/pdf.css") );
+			}
+			elseif ( file_exists( public_path("compiled/css/pdf.css") ) )
+			{
+				$css = \File::get( public_path("compiled/css/pdf.css") );
+			}
+			else
+			{
+				$css = false;
+			}
+
 			\PDF::loadView('pdf.property', [
+				'css' => $css,
 				'property' => $this,
 				'main_image' => $main_image,
 				'other_images' => $other_images,
@@ -377,7 +416,8 @@ class Property extends TranslatableModel
 	}
 	public function _related_properties($ids)
 	{
-		return \App\Property::withEverything()
+		return \App\Property::withTranslations()
+			->withEverything()
 			->whereIn('properties.id',$ids)
 			->orderByRaw('RAND()')
 			->get();
@@ -468,6 +508,7 @@ class Property extends TranslatableModel
 			'baths' => $this->baths,
 			'ec' => $this->ec,
 			'ec_pending' => $this->ec_pending,
+			'construction_year' => $this->construction_year,
 			'newly_build' => $this->newly_build,
 			'second_hand' => $this->second_hand,
 			'url' => [],
@@ -520,8 +561,7 @@ class Property extends TranslatableModel
 		}
 
 		// Features
-		$services = $this->services()->withTranslations()->get();
-		foreach ($services as $service)
+		foreach ($this->services as $service)
 		{
 			$tmp = [];
 			foreach ($site_locales as $locale) 
@@ -555,13 +595,24 @@ class Property extends TranslatableModel
 		return $query->where('properties.site_id', $site_id);
 	}
 
+	public function scopeWithMarketplaceEnabled($query, $marketplace_id)
+	{
+		return $query->leftJoin('properties_marketplaces', function($join) use ($marketplace_id) {
+					$join->on('properties.id', '=', 'properties_marketplaces.property_id');
+					$join->on('properties_marketplaces.marketplace_id', '=', \DB::raw($marketplace_id));
+				})
+				->addSelect( \DB::raw('IF(properties_marketplaces.`marketplace_id` IS NULL, properties.`export_to_all`, 1) as exported_to_marketplace') );
+	}
+
 	public function scopeOfMarketplace($query, $marketplace_id)
 	{
-		return $query->whereIn('properties.id', function($query) use ($marketplace_id) {
-			$query->select('property_id')
-				->from('properties_marketplaces')
-				->where('marketplace_id', $marketplace_id);
-		});
+		return $query->where(function($query) use($marketplace_id) {
+				$query->whereIn('properties.id', function($query) use ($marketplace_id) {
+					$query->select('properties_marketplaces.property_id')
+						->from('properties_marketplaces')
+						->where('marketplace_id', $marketplace_id);
+					})->orWhere('properties.export_to_all',1);
+				})->addSelect( \DB::raw('1 as exported_to_marketplace') );
 	}
 
 	public function scopeInState($query, $state_id)
@@ -697,16 +748,13 @@ class Property extends TranslatableModel
 	public function scopeWithEverything($query)
 	{
 		return $query
-				->withTranslations()
 				->with('images')
 				->with('country')
 				->with('territory')
 				->with('state')
 				->with('city')
 				->with('images')
-				->with([ 'services' => function($query){
-					$query->withTranslations();
-				}])
+				->with('services')
 				;
 	}
 
@@ -750,6 +798,7 @@ class Property extends TranslatableModel
 			'villa' => trans('web/properties.type.villa'), 
 			'store' => trans('web/properties.type.store'), 
 			'lot' => trans('web/properties.type.lot'), 
+			'ranch' => trans('web/properties.type.ranch'), 
 		];
 
 		if ( $site_id ) 
@@ -769,84 +818,49 @@ class Property extends TranslatableModel
 
 	static public function getPriceOptions($site_id = false) 
 	{
-		$steps = 5;
-
-		$defaults = [
+		$ranges = [
 			'rent' => [
-				'less-750' => '< 750€',
+				'less-500' => '<500€',
+				'500-750' => '501€ - 750€',
 				'750-1000' => '751€ - 1.000€',
-				'1000-1250' => '1.001€ - 1.250€',
-				'1250-1500' => '1.251€ - 1.500€',
-				'1500-more' => '> 1.500€',
+				'1000-1500' => '1.001€ - 1.500€',
+				'1500-2000' => '1.501€ - 2.000€',
+				'2000-more' => '> 2.000€',
 			],
 			'sale' => [
 				'less-100000' => '< 100.000€',
-				'100000-250000' => '100.001€ - 250.000€',
-				'250000-500000' => '250.001€ - 500.000€',
-				'500000-1000000' => '500.001€ - 1.000.000€',
+				'100000-150000' => '100.001€ - 150.000€',
+				'150000-200000' => '150.001€ - 200.000€',
+				'200000-300000' => '200.001€ - 300.000€',
+				'300000-400000' => '300.001€ - 400.000€',
+				'400000-500000' => '400.001€ - 500.000€',
+				'500000-750000' => '500.001€ - 750.000€',
+				'750000-1000000' => '750.000€ - 1.000.000€',
 				'1000000-more' => '> 1.000.000€',
 			],
 		];
 
-		$limits = self::selectRaw("properties.`mode` as mode, MIN(properties.`price`) as min, MAX(properties.`price`) as max")
-							->whereIn('properties.mode', array_keys($defaults))
-							->ofSite($site_id)
-							->enabled()
-							->groupBy('properties.mode')
-							->get();
-
-		if ( $limits->count() < 1 )
+		// Get custom ranges
+		$priceranges = \App\Site::find($site_id)->getGroupedPriceranges();
+		foreach ($ranges as $type => $data )
 		{
-			return $defaults;
-		}
-
-		foreach ($limits as $limit)
-		{
-			switch ( $limit->mode )
+			if ( $priceranges->$type->count() > 0 )
 			{
-				case 'rent':
-					$diff_min = 100;
-					break;
-				case 'sale':
-					$diff_min = 10000;
-					break;
-			}
-
-			$min = floor($limit->min / $diff_min) * $diff_min;
-			$max = ceil($limit->max / $diff_min) * $diff_min;
-			$diff = ($max - $min) / ($steps + 1);
-
-			if ( $diff < $diff_min )
-			{
-				continue;
-			}
-
-			$defaults[$limit->mode] = [];
-
-			$diff = ceil($diff / $diff_min) * $diff_min;
-
-			for ($i=1; $i<=$steps; $i++)
-			{
-				$current = $min + ( $diff * $i );
-
-				if ( $i == 1 )
+				$ranges[$type] = [];
+				foreach ($priceranges->$type as $pricerange)
 				{
-					$defaults[$limit->mode]["less-{$current}"] = "< ".number_format($current,0,',','.')."€";
+					$key = implode('-', [
+						$pricerange->from ? $pricerange->from : 'less',
+						$pricerange->till ? $pricerange->till : 'more',
+					]);
+					$ranges[$type][$key] = $pricerange->title;
 				}
-				elseif ($i == $steps )
-				{
-					$defaults[$limit->mode]["{$current}-more"] = "> ".number_format($current,0,',','.')."€";
-				}
-				else
-				{
-					$defaults[$limit->mode]["{$last}-{$current}"] = number_format($last+1,0,',','.')."€ - ".number_format($current,0,',','.')."€";
-				}
-
-				$last = $current;
 			}
 		}
 
-		return $defaults;
+		// [TODO] Remove ranges without enabled properties
+
+		return $ranges;
 	}
 
 	static public function getSizeOptions() 

@@ -76,14 +76,14 @@
 							@if ( Auth::user()->can('locale-*') )
 								<li><a href="{{ action('Admin\Config\LocalesController@index') }}">{{ Lang::get('admin/menu.locales') }}</a></li>
 							@endif
-							@if ( false && Auth::user()->can('pack-*') )
+							@if ( Auth::user()->can('pack-*') )
 								<li><a href="{{ action('Admin\Config\PlansController@index') }}">{{ Lang::get('admin/menu.plans') }}</a></li>
 							@endif
 							@if ( Auth::user()->can('geography-*') )
-								@if ( Auth::user()->can('locale-*') || Auth::user()->can('translation-*') )
-									<li role="separator" class="divider"></li>
-								@endif
-								<li><a href="#" onclick="alert('[TODO]'); return false;">{{ Lang::get('admin/menu.geography') }}</a></li>
+								<li><a href="{{ action('Admin\Geography\CountriesController@index') }}">{{ Lang::get('admin/menu.geography.countries') }}</a></li>
+							@endif
+							@if ( Auth::user()->can('currency-*') )
+								<li><a href="{{ action('Admin\Config\CurrenciesController@index') }}">{{ Lang::get('admin/menu.currencies') }}</a></li>
 							@endif
 						</ul>
 					</li>

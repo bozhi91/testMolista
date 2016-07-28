@@ -18,6 +18,7 @@ class Site extends TranslatableModel
 	protected $casts = [
 		'signature' => 'array',
 		'invoicing' => 'array',
+		'country_ids' => 'array',
 	];
 
 	protected $data;
@@ -38,9 +39,19 @@ class Site extends TranslatableModel
 		return $this->belongsTo('App\Models\Plan');
 	}
 
+	public function country()
+	{
+		return $this->hasOne('App\Models\Geography\Country','code','country_code')->withTranslations();
+	}
+
 	public function planchanges()
 	{
 		return $this->hasMany('App\Models\Site\Planchange');
+	}
+
+	public function priceranges()
+	{
+		return $this->hasMany('App\Models\Site\Pricerange')->withTranslations();
 	}
 
     public function subscriptions()
@@ -62,8 +73,12 @@ class Site extends TranslatableModel
 		return $this->hasMany('App\Models\Site\Stats');
 	}
 
+	public function events() {
+		return $this->hasMany('App\Models\Calendar');
+	}
+
 	public function users() {
-		return $this->belongsToMany('App\User', 'sites_users', 'site_id', 'user_id')->withPivot('can_create','can_edit','can_delete');
+		return $this->belongsToMany('App\User', 'sites_users', 'site_id', 'user_id')->withPivot('can_create','can_edit','can_delete','can_view_all');
 	}
 	public function getUsersIdsAttribute() {
 		$users = [];
@@ -99,7 +114,7 @@ class Site extends TranslatableModel
 	}
 
 	public function properties() {
-		return $this->hasMany('App\Property');
+		return $this->hasMany('App\Property')->with('infocurrency')->withTranslations();
 	}
 
 	public function api_keys() {
@@ -111,11 +126,11 @@ class Site extends TranslatableModel
 	}
 
 	public function widgets() {
-		return $this->hasMany('App\Models\Site\Widget');
+		return $this->hasMany('App\Models\Site\Widget')->withTranslations();
 	}
 
 	public function pages() {
-		return $this->hasMany('App\Models\Site\Page');
+		return $this->hasMany('App\Models\Site\Page')->withTranslations();
 	}
 
 	public function social() {
@@ -167,9 +182,23 @@ class Site extends TranslatableModel
 		return $locales;
 	}
 
+	public function infocurrency()
+	{
+		return $this->hasOne('App\Models\Currency', 'code', 'site_currency')->withTranslations();
+	}
+	public function infositecurrency()
+	{
+		return $this->hasOne('App\Models\Currency', 'code', 'site_currency')->withTranslations();
+	}
+	public function infopaymentcurrency()
+	{
+		return $this->hasOne('App\Models\Currency', 'code', 'payment_currency')->withTranslations();
+	}
+
 	public function marketplaces() 
 	{
-		return $this->belongsToMany('App\Models\Marketplace', 'sites_marketplaces', 'site_id', 'marketplace_id')->withPivot('marketplace_configuration','marketplace_enabled');
+		return $this->belongsToMany('App\Models\Marketplace', 'sites_marketplaces', 'site_id', 'marketplace_id')
+					->withPivot('marketplace_configuration','marketplace_enabled','marketplace_maxproperties','marketplace_export_all');
 	}
 	public function getMarketplacesArrayAttribute() 
 	{
@@ -218,26 +247,45 @@ class Site extends TranslatableModel
 		}
 
 		// Set owner autologin_token
-		$owner->autologin_token = sha1( $this->id . uniqid() );
-		while ( \App\User::where('autologin_token', $owner->autologin_token)->count() > 0 )
-		{
-			$owner->autologin_token = sha1( $this->id . uniqid() . rand(1000, 9999) );
-		}
-		$owner->save();
+		$autologin_token = $owner->getUpdatedAutologinToken();
 
 		// Return autologin url
+		$url = action('AccountController@index', [ 'autologin_token' =>$autologin_token ]);
+
+		return $this->getSiteFullUrl( $url );
+	}
+
+	public function getRememberPasswordUrlAttribute()
+	{
+		$url = action('Auth\PasswordController@reset');
+		return $this->getSiteFullUrl( $url );
+	}
+
+	public function getSiteFullUrl($url)
+	{
 		return str_replace(
-							rtrim(\Config::get('app.application_url'),'/'), //replaces current url
-							rtrim($this->main_url,'/'), // with website url
-							action('Auth\AuthController@autologin', [ $owner->id, $owner->autologin_token ])
-						);
+					rtrim(\Config::get('app.application_url'),'/'), //replaces current url
+					rtrim($this->main_url,'/'), // with website url
+					$url
+				);
 	}
 
 	public function getXmlPathAttribute()
 	{
 		return storage_path("sites/{$this->id}/xml");
 	}
-
+	public function getXmlPropertiesFeedPath($marketplace)
+	{
+		return $this->getXmlFeedPath($marketplace,'properties');
+	}
+	public function getXmlOwnersFeedPath($marketplace)
+	{
+		return $this->getXmlFeedPath($marketplace,'owners');
+	}
+	public function getXmlFeedPath($marketplace,$type)
+	{
+		return "{$this->xml_path}/{$marketplace}/{$type}.xml";
+	}
 	public function getXmlFeedUrl($marketplace,$type)
 	{
 		if ( !$this->main_url )
@@ -406,13 +454,20 @@ class Site extends TranslatableModel
 	{
 		$path = $this->getSiteSetupPath();
 
-		if ( true || !file_exists($path) )
+		if ( !file_exists($path) )
 		{
 			$this->updateSiteSetup();
 		}
 
 		// Get setup
 		$setup = include $path;
+
+		// Check if update is required (every 24 hours)
+		if ( !isset($setup['last_updated']) || strtotime($setup['last_updated']) < time()-(60*60*24) )
+		{
+			$this->updateSiteSetup();
+			$setup = include $path;
+		}
 
 		// Set current locale
 		$setup['locale'] = \App::getLocale();
@@ -422,7 +477,7 @@ class Site extends TranslatableModel
 			$setup['plan']['is_valid'] = 1;
 		} elseif ( !$setup['plan']['paid_until'] ) {
 			$setup['plan']['is_valid'] = 1;
-		} elseif ( strtotime($setup['plan']['paid_until']) > time() ) {
+		} elseif ( strtotime($setup['plan']['paid_until']) + (60*60*24) > time() ) {
 			$setup['plan']['is_valid'] = 1;
 		} else {
 			$setup['plan']['is_valid'] = 0;
@@ -471,6 +526,7 @@ class Site extends TranslatableModel
 		// Site information
 		$setup = [
 			'site_id' => $site->id,
+			'last_updated' => date("Y-m-d H:i:s"),
 			'theme' => $site->theme,
 			'logo' => $site->logo ? asset("sites/{$site->id}/{$site->logo}") : false,
 			'favicon' => $site->favicon ? asset("sites/{$site->id}/{$site->favicon}") : false,
@@ -490,6 +546,10 @@ class Site extends TranslatableModel
 				'card_last_four' => $site->card_last_four,
 			]
 		);
+
+		// Pending planc hange request
+		$pending_request = $this->planchanges()->pending()->with('plan')->first();
+		$setup['pending_request'] = $pending_request ? $pending_request->toArray() : false;
 
 		// Locales
 		$setup['locales'] = [];
@@ -513,7 +573,7 @@ class Site extends TranslatableModel
 		foreach ($setup['locales'] as $locale => $attr)
 		{
 			\App::setLocale($locale);
-			$widgets = $site->widgets()->withTranslations()->withMenu()->orderBy('position')->get();
+			$widgets = $site->widgets()->withMenu()->orderBy('position')->get();
 			foreach ($widgets as $widget)
 			{
 				$w = [
@@ -648,6 +708,30 @@ class Site extends TranslatableModel
 		return $res;
 	}
 
+	public function getPlanPropertyLimitAttribute()
+	{
+		$setup = include $this->getSiteSetupPath();
+
+		return @intval( $setup['plan']['max_properties'] );
+	}
+
+	public function getPropertyLimitRemainingAttribute()
+	{
+		// Check if max_properties limit
+		$properties_allowed = $this->plan_property_limit;
+		if ( $properties_allowed < 1 )
+		{
+			return 1000;
+		}
+
+		// Count current enabled properties
+		$properties_current = $this->properties()->where('enabled',1)->count();
+		
+		// return difference
+		return $properties_allowed - $properties_current;
+	}
+
+
 	public function getMarketplaceHelperAttribute()
 	{
 		return new \App\Models\Site\MarketplaceHelper($this);
@@ -684,6 +768,7 @@ class Site extends TranslatableModel
 			'account_url' => $this->account_url,
 			'owner_name' => $owner->name,
 			'owner_email' => $owner->email,
+			'owner_phone' => $owner->phone,
 			'pending_request' => $this->planchanges()->with('plan')->pending()->first(),
 		];
 
@@ -747,8 +832,6 @@ class Site extends TranslatableModel
 			}
 		}
 		
-		$this->updateSiteSetup();
-
 		// Send mail to owners
 		$locale_backup = \App::getLocale();
 		$email_data = $planchange->site->getSignupInfo( $planchange->locale );
@@ -768,4 +851,37 @@ class Site extends TranslatableModel
 		return true;
 	}
 
+	public function getGroupedPriceranges()
+	{
+		return (object) [
+			'sale' => $this->priceranges->where('type','sale')->sortBy('position'),
+			'rent' => $this->priceranges->where('type','rent')->sortBy('position'),
+		];
+	}
+
+	public function getEnabledCountriesAttribute() 
+	{
+		$query = \App\Models\Geography\Country::withTranslations()->enabled();
+
+		if ( $this->country_ids )
+		{
+			$query->whereIn('countries.id',$this->country_ids);
+		}
+
+		$countries = $query->orderBy('name')->lists('name','id');
+
+		return $countries;
+	}
+
+	public static function getTimezoneOptions()
+	{
+		$timezones = [];
+
+		foreach (\DateTimeZone::listIdentifiers(\DateTimeZone::ALL) as $timezone)
+		{
+			$timezones[$timezone] = $timezone;
+		}
+
+		return $timezones;
+	}
 }

@@ -18,6 +18,16 @@ class Planchange extends \Illuminate\Database\Eloquent\Model
 		'invoicing' => 'array',
 	];
 
+	public static function boot()
+	{
+		parent::boot();
+
+		// Whenever a site is updated
+		static::saved (function($planchange){
+			$planchange->site->updateSiteSetup();
+		});
+	}
+
 	public function site()
 	{
 		return $this->belongsTo('App\Site')->withTranslations();
@@ -37,6 +47,11 @@ class Planchange extends \Illuminate\Database\Eloquent\Model
 	{
 		$price_key = "price_{$this->payment_interval}";
 		return $this->plan->$price_key;
+	}
+
+	public function getPlanCurrencyAttribute()
+	{
+		return $this->plan->currency;
 	}
 
 	public function getStripePlanIdAttribute()

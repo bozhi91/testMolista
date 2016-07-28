@@ -1,44 +1,64 @@
 @import '../app/property.less';
 
-#property {
+@media (min-width: 768px) {
+	#property {
+		.container { position: relative; }
+		.container:after { display: table; content: ""; clear: both; }
+		.header {
+			margin-bottom: 55px;
 
-	.header {
-		margin-bottom: 0px;
-
-		h1 {
-			color: @black;
+			h1 { position: absolute; color: @black; }
+			.price { float: left !important; margin-top: 35px; color: @pink; font-size: 20px; }
+			.location { position: absolute; left: 58%; top: 130px; }
 		}
+		.header:after { display: table; content: ""; clear: both; }
+		.images-gallery { width: 58.33333333%; float: left; padding-right: 30px; }
+		.details {
+			width: 41.66666667%; float: left; position: static; border: 0px;
 
-		.price {
-			color: @pink;
-			font-size: 26px;
+			.cols-xs-12.col-sm-10 { margin-top: 25px; }
+			.cols-xs-12.col-sm-9 { width: 100%; position: static; }
+			.description { margin-top: 0px; }
+			.metrics { position: absolute; top: 75px; left: 15px; }
+			.call-to-action { position: absolute; top: 0px; left: auto; right: 15px; bottom: auto; }
 		}
-
-		.metrics {
-			margin-top: 10px;
-		}
-
+		.details:after { display: table; content: ""; clear: both; }
+		.map-area { width: 100%; float: right; border: 1px solid @borderGray; }
+		.map-area:after { display: table; content: ""; clear: both; }
 	}
-
-	.details {
-		border: 0px;
-	}
-
-	.energy-certification {
-	    padding-top: 15px;
-	    padding-bottom: 15px;
-	}
-
-	.map-area {
-	    border: 1px solid @black;
-	}
-
-	.bottom-links {
-
-		h2 {
-			color: @black;
-		}
-
-	}
-	
 }
+
+@media (min-width: 768px) and (max-width: 991px) {
+	#property {
+		.header .location { left: 15px; top: 105px; }
+		.images-gallery { width: 100%; margin-top: 20px; }
+		.details {
+			width: 100%;
+
+			.cols-xs-12.col-sm-10 { margin-top: 30px; width: 100%; }
+		}
+	}
+}
+
+@media (max-width: 767px) {
+	#property {
+		padding: 20px;
+
+		.container { position: relative; }
+		.header { h1 { color: @black; } }
+		.price { color: @pink; }
+		.map-area { border: 1px solid @borderGray; }
+	}
+}
+
+
+/* Settings on bottom links */
+#property {
+	.bottom-links {
+		.cols-xs-12.col-sm-9 { width: 100%; }
+		.cols-xs-12.col-sm-3 { display: none; width: 0%; }
+		h2 { color: @black; }
+		&:before  { display: table; content: ""; clear: both; }
+	}
+}
+/* End Settings on bottom links */

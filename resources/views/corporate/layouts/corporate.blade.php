@@ -1,5 +1,5 @@
 <?php 
-	$enabled_locales = [ 'es' ]; 
+	$enabled_locales = \App\Models\Locale::getCorporateLocales();
 ?>
 <!DOCTYPE html>
 <html lang="{{ LaravelLocalization::getCurrentLocale() }}">
@@ -99,10 +99,8 @@
 						<li class="text-nowrap"><a href="{{ action('Corporate\InfoController@getLegal') }}#privacy-policy">{{ Lang::get('corporate/home.footer.privacy') }}</a></li>
 						<li class="hidden-xs">I</li>
 						<li class="text-nowrap"><a href="{{ action('Corporate\InfoController@getLegal') }}#cookies-policy">{{ Lang::get('corporate/home.footer.cookies') }}</a></li>
-						@if ( false )
-							<li class="hidden-xs">I</li>
-							<li class="text-nowrap"><a href="{{ action('AdminController@index') }}">{{ Lang::get('corporate/home.footer.admin.access') }}</a></li>
-						@endif
+						<li class="hidden-xs">I</li>
+						<li class="text-nowrap"><a href="{{ action('Corporate\CustomersController@getIndex') }}">{{ Lang::get('corporate/home.footer.admin.access') }}</a></li>
 					</ul>
 					<div class="footer-text">
 						<strong>molista.com</strong> {{ Lang::get('corporate/home.footer.operated') }} <strong><a href="http://www.incubout.com/" target="_blank">Incubout SL</a></strong>: 
@@ -125,6 +123,11 @@
 
 	@include('corporate.common.zopim')
 	@include('corporate.common.leadin')
+
+	@if ( @$show_signup_adwords_tracker )
+		@include('corporate.common.signup_adwords_tracker')
+	@endif
+
 
 </body>
 </html>
