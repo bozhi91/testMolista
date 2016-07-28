@@ -45,4 +45,7 @@
 
 		'signature' => 'Firmar',
 		'signature.none' => 'No incluir firma',
+
+		'attachment' => 'Adjunto',
+		'attachment.helper' => '<p>No se adjuntarán ficheros con peso superior a :maxsize kilobytes.</p>',
 	];

@@ -45,4 +45,7 @@
 
 		'signature' => 'Signature',
 		'signature.none' => 'Without signature',
+
+		'attachment' => 'Attachment',
+		'attachment.helper' => '<p>Files bigger than :maxsize kilobytes will not be attached to the message.</p>',
 	];

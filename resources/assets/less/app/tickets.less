@@ -6,6 +6,16 @@
 		margin-left: 60px; padding: 10px; border: @borderWidth solid @colorGrey; border-radius: @borderRadius; font-size: 0.9em; 
 		p:last-child { margin-bottom: 0px; }
 	}
+	.message-attachments {
+		margin: 10px 0px 0px 60px; font-size: 12px;
+		li { 
+			padding: 0px; 
+			&::after { content: ", "; }
+			&:last-child {
+				&::after { content: ""; }
+			}
+		}
+	}
 	.privacy-label { margin-top: 5px; }
 	.reply-form { display: none; }
 	.status-form {
