@@ -67,6 +67,10 @@ elixir(function(mix) {
 		.less([
 			'app/pdf.less',
 		], 'public/compiled/css/pdf.css')
+		.scripts([
+			'compiled/common.js',
+			'app.js',
+		], 'resources/assets/js/compiled/app.js')
 		;
 
 
@@ -171,6 +175,10 @@ elixir(function(mix) {
 		.less([
 			'zoner/pdf.less',
 		], 'public/themes/zoner/compiled/css/pdf.css')
+		.scripts([
+			'compiled/app.js',
+			'themes/zoner/app.js',
+		], 'public/themes/zoner/compiled/js/app.js')
 		;
 
 });
