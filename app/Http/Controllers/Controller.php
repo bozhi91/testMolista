@@ -30,7 +30,12 @@ class Controller extends BaseController
 		$this->request = $request;
 
 		$this->site = $this->request->get('site');
+
 		$this->site_user = $this->request->get('site_user');
+		if ( $this->site_user && $this->site_user->ticket_user_token )
+		{
+			$this->site->setTicketToken($this->site_user->ticket_user_token);
+		}
 
 		$this->geolocation = $this->request->get('geolocation');
 		
