@@ -151,6 +151,30 @@
 				</div>
 			</div>
 
+			<div class="steps-block">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
+						<h2 style="background-image: url('{{ asset('images/corporate/demo/calendar-h2.png') }}')">{{ Lang::get('corporate/demo.calendar.title') }}</h2>
+						<div class="intro-text">{{ Lang::get('corporate/demo.calendar.text') }}</div>
+						<div class="visible-xs image-block">
+							<img src="{{ asset('images/corporate/demo/calendar-01.jpg') }}" alt="" />
+						</div>
+						<div class="xs-spacer"></div>
+					</div>
+					<div class="col-xs-12 col-sm-6">
+					</div>
+				</div>
+				<div class="row hidden-xs">
+					<div class="col-xs-12 col-sm-6">
+						<div class="image-block">
+							<img src="{{ asset('images/corporate/demo/calendar-01.jpg') }}" alt="" />
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6">
+					</div>
+				</div>
+			</div>
+
 		</div>
 
 		<div id="home">
