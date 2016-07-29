@@ -121,10 +121,12 @@
 									<div>
 										<strong>{{ $message->subject }}</strong>
 									</div>
-									@if ( $message->private )
-										<span class="privacy-label pull-right label label-info">{{ Lang::get('account/tickets.internal') }}</span>
-									@else
-										<span class="privacy-label pull-right label label-warning">{{ Lang::get('account/tickets.public') }}</span>
+									@if ( $message->user )
+										@if ( $message->private )
+											<span class="privacy-label pull-right label label-info">{{ Lang::get('account/tickets.internal') }}</span>
+										@else
+											<span class="privacy-label pull-right label label-warning">{{ Lang::get('account/tickets.public') }}</span>
+										@endif
 									@endif
 									<div class="help-block">
 										@if ( $message->user )
