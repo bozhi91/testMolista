@@ -16,4 +16,15 @@
 		'signature' => 'Incluir firma en los mensajes del sistema de tickets?',
 
 		'message.saved' => 'Sus datos se guardaron correctamente',
+
+		'signatures.h1' => 'Mis firmas',
+		'signatures.h1.create' => 'Crear firma',
+		'signatures.h1.edit' => 'Editar firma',
+		'signatures.empty' => 'No se encontraron firmas',
+		'signatures.button.new' => 'Crear firma',
+		'signatures.deleted' => 'La firma se eliminó correctamente.',
+		'signatures.delete.warning' => '¿Estas seguro de que desea eliminar permanentemente esta firma?',
+		'signatures.field.title' => 'Título',
+		'signatures.field.default' => 'Usar por defecto',
+		'signatures.field.signature' => 'Firma',
 	];

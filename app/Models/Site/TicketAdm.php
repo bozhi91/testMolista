@@ -679,6 +679,20 @@ class TicketAdm
 					$ticket->messages[$key]->user->image = $images['default'];
 				}
 			}
+
+			if ( empty($message->files) || !is_array($message->files) )
+			{
+				$message->files = [];
+			}
+			foreach ($message->files as $file_key => $file_value)
+			{
+				if ( empty($file_value->title) )
+				{
+					$tmp = parse_url($file_value->url);
+					$file_value->title = basename($tmp['path']);
+					$message->files[$file_key] = $file_value;
+				}
+			}
 		}
 
 		return $ticket;
@@ -722,7 +736,19 @@ class TicketAdm
 			return false;
 		}
 
-		// Clean email fields
+		// Clean subject && body
+		foreach (['subject','body'] as $field)
+		{
+			if ( !isset($data[$field]) )
+			{
+				continue;
+			}
+
+			$data[$field] = strip_tags($data[$field]);
+		}
+
+
+		// Clean email arrays
 		foreach (['cc','bcc'] as $field)
 		{
 			if ( !isset($data[$field]) )
@@ -885,7 +911,7 @@ class TicketAdm
 		return true;
 	}
 
-	public function prepareSignature($user,$site) 
+	public function prepareSiteSignature($user,$site) 
 	{
 		if ( !$user || empty($user['name']) )
 		{

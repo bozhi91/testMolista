@@ -29,6 +29,10 @@ class User extends Authenticatable
 		return $this->belongsToMany('App\Site', 'sites_users', 'user_id', 'site_id')->withTranslations();
 	}
 
+	public function sites_signatures() {
+		return $this->hasMany('\App\Models\Site\UserSignature');
+	}
+
 	public function properties() {
 		return $this->belongsToMany('App\Property', 'properties_users', 'user_id', 'property_id')->withTranslations();
 	}
@@ -114,11 +118,6 @@ class User extends Authenticatable
 
 	public function getSignaturePartsAttribute()
 	{
-		if ( !$this->signature )
-		{
-			return false;
-		}
-
 		return [
 			'name' => $this->name,
 			'email' => $this->email,
@@ -229,8 +228,7 @@ class User extends Authenticatable
 			'password' => $id ? 'min:6' : 'required|min:6',
 			'phone' => '',
 			'linkedin' => 'url',
-			'image' => 'image|required_if:signature,1|max:' . \Config::get('app.property_image_maxsize', 2048),
-			'signature' => 'boolean',
+			'image' => 'image|max:' . \Config::get('app.property_image_maxsize', 2048),
 		];
 
 		if ( $id )
