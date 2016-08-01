@@ -29,5 +29,11 @@
 	<script src="{{ Theme::url('/js/summernote/summernote-' . summetime_lang() . '.js') }}"></script>
 	<script src="{{ Theme::url('/js/bootstrap-table/bootstrap-table-' . summetime_lang() . '.js') }}"></script>
 
+	<script type="text/javascript">
+		for (var t=0; t<ready_callbacks.length; t++) {
+			ready_callbacks[t]();
+		}
+	</script>
+
 </body>
 </html>
