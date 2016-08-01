@@ -86,7 +86,7 @@ class PasswordController extends Controller
 		// Check if required site id
 		if ( $valid_user && $required_site_id = env('loginRequiredSite') )
 		{
-			if ( $user->sites()->where('id', $required_site_id)->count() < 1 )
+			if ( $user->sites()->where('sites.id', $required_site_id)->count() < 1 )
 			{
 				$valid_user = false;
 			}
