@@ -136,6 +136,7 @@
 						</a>
 						@if ( $submenu_section == 'profile' )
 							<ul class="nav" role="menu">
+								<li><a href="{{ action('Account\Profile\AccountsController@getIndex') }}" class="{{ (@$submenu_subsection == 'profile-accounts') ? 'current' : '' }}">{{ Lang::get('account/menu.data.accounts') }}</a></li>
 								<li><a href="{{ action('Account\Profile\SignaturesController@getIndex') }}" class="{{ (@$submenu_subsection == 'profile-signatures') ? 'current' : '' }}">{{ Lang::get('account/menu.data.signatures') }}</a></li>
 							</ul>
 						@endif

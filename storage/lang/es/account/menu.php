@@ -3,6 +3,7 @@
 	return [
 
 		'data' => 'Datos personales',
+		'data.accounts' => 'Mis cuentas de correo',
 		'data.signatures' => 'Mis firmas',
 
 		'properties' => 'Propiedades',

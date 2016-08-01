@@ -798,6 +798,195 @@ class TicketAdm
 		return true;
 	}
 
+	public function getEmailAccounts($user_id, $user_token=false)
+	{
+		$default = [];
+
+		if ($user_token)
+		{
+			$this->setSiteToken($user_token);
+		}
+			
+		if ( !$this->site_ready )
+		{
+			return $default;
+		}
+
+		$data = [
+			'site_id' => $this->site_id,
+		];
+
+		$response = $this->guzzle_client->request('GET', "user/{$user_id}/email_account/?".http_build_query($data), [
+			'headers'=> [
+				'Authorization' => $this->getAuthorizationHeader(),
+			],
+		]);
+
+		// Error
+		$body = @json_decode( $response->getBody() );
+
+		if ( $response->getStatusCode() != 200 )
+		{
+			$error_message = "TICKETING -> could not retrieve user email accounts list";
+			if ( @$body->message )
+			{
+				$error_message .= ": {$body->message}";
+			}
+			\Log::error($error_message);
+			return $default;
+		}
+
+		return $body;
+	}
+
+	public function saveEmailAccount($data, $account_id=false) 
+	{
+		// Set user id
+		$user_id = @$data['user_id'];
+		if ( !$user_id )
+		{
+			return false;
+		}
+
+		// Update user token ?
+		if ( @$data['user_token'] )
+		{
+			$this->setSiteToken($data['user_token']);
+		}
+
+		// Check site ready
+		if ( !$this->site_ready )
+		{
+			return false;
+		}
+
+		// Prepare request data
+		$request_data = [
+			'headers'=> [
+				'Authorization' => $this->getAuthorizationHeader(),
+			],
+			'json' => [
+				'protocol' => @$data['protocol'],
+				'from_name' => @$data['from_name'],
+				'from_email' => @$data['from_email'],
+				'host' => @$data['host'],
+				'password' => @$data['password'],
+				'username' => @$data['username'],
+				'port' => @$data['port'],
+				'layer' => @$data['layer'],
+			],
+		];
+
+		// Empty password?
+		if ( !$request_data['json']['password'] )
+		{
+			unset($request_data['json']['password'])	;
+		}
+
+		// Send request
+		if ( $account_id )
+		{
+			$request_type = 'update';
+			$expected_status = 204;
+			$response = $this->guzzle_client->request('PUT', "user/{$user_id}/email_account/{$account_id}?site_id={$this->site_id}", $request_data);
+		}
+		else
+		{
+			$request_type = 'create';
+			$expected_status = 201;
+			$response = $this->guzzle_client->request('POST', "user/{$user_id}/email_account?site_id={$this->site_id}", $request_data);
+		}
+
+		// Get body
+		$body = @json_decode( $response->getBody() );
+
+		// Error?
+		if ( $response->getStatusCode() != $expected_status )
+		{
+			$error_message = "TICKETING -> could not {$request_type} user email account {$account_id}";
+			if ( @$body->message )
+			{
+				$error_message .= ": {$body->message}";
+			}
+			\Log::error($error_message);
+			return false;
+		}
+
+		if ( $request_type == 'create' )
+		{
+			$account_id = $body->id;
+		}
+
+		return $account_id;
+	}
+
+	public function testEmailAccount($account_id,$user_id, $user_token=false) 
+	{
+		if ($user_token)
+		{
+			$this->setSiteToken($user_token);
+		}
+			
+		if ( !$this->site_ready )
+		{
+			return false;
+		}
+
+		$data = [
+			'headers'=> [
+				'Authorization' => $this->getAuthorizationHeader(),
+			],
+		];
+		$response = $this->guzzle_client->request('GET', "user/{$user_id}/email_account/{$account_id}/test?site_id={$this->site_id}", $data);
+
+		// Success
+		if ( $response->getStatusCode() == 200 )
+		{
+			return true;
+		}
+
+		return false;
+	}
+	
+	public function deleteEmailAccount($account_id,$user_id, $user_token=false) 
+	{
+		if ($user_token)
+		{
+			$this->setSiteToken($user_token);
+		}
+			
+		if ( !$this->site_ready )
+		{
+			return false;
+		}
+
+		$data = [
+			'headers'=> [
+				'Authorization' => $this->getAuthorizationHeader(),
+			],
+		];
+		$response = $this->guzzle_client->request('DELETE', "user/{$user_id}/email_account/{$account_id}?site_id={$this->site_id}", $data);
+
+		// Success
+		if ( $response->getStatusCode() == 204 )
+		{
+			return true;
+		}
+
+		// Get body
+		$body = @json_decode( $response->getBody() );
+
+		// Log error
+		$error_message = "TICKETING -> could not delete user email account {$account_id}";
+		if ( @$body->message )
+		{
+			$error_message .= ": {$body->message}";
+		}
+		\Log::error($error_message);
+
+		return false;
+	}
+
 	public function getUsersStats($user_ids)
 	{
 		if ( !$this->site_ready || empty($user_ids) )
