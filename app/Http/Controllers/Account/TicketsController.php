@@ -84,8 +84,12 @@ class TicketsController extends \App\Http\Controllers\AccountController
 		$properties = $this->site->properties()
 							->whereIn('properties.id', $this->auth->user()->properties()->lists('id'))
 							->orderBy('title')->lists('title','id')->all();
+
 		$signatures = $this->site_user->sites_signatures()->ofSite($this->site->id)->orderBy('title')->get();
-		return view('account.tickets.create', compact('employees','customers','properties','signatures'));
+
+		$accounts = $this->site->ticket_adm->getEmailAccounts($this->site_user->ticket_user_id, $this->site_user->ticket_user_token);
+
+		return view('account.tickets.create', compact('employees','customers','properties','signatures','accounts'));
 	}
 
 	public function postCreate()
@@ -104,6 +108,7 @@ class TicketsController extends \App\Http\Controllers\AccountController
 			'bcc.*' => 'email',
 			'signature_id' => "exists:sites_users_signatures,id,user_id,{$this->site_user->id},site_id,{$this->site->id}",
 			'attachment' => 'max:' . \Config::get('app.property_image_maxsize', 2048),
+			'email_account_id' => 'numeric',
 		]);
 		if ( $validator->fails() ) 
 		{
@@ -151,7 +156,9 @@ class TicketsController extends \App\Http\Controllers\AccountController
 
 		$signatures = $this->site_user->sites_signatures()->ofSite($this->site->id)->orderBy('title')->get();
 
-		return view('account.tickets.show', compact('ticket','property','employees','status','signatures'));
+		$accounts = $this->site->ticket_adm->getEmailAccounts($this->site_user->ticket_user_id, $this->site_user->ticket_user_token);
+
+		return view('account.tickets.show', compact('ticket','property','employees','status','signatures','accounts'));
 	}
 
 	public function postAssign($ticket_id)
@@ -208,6 +215,7 @@ class TicketsController extends \App\Http\Controllers\AccountController
 			'private' => 'numeric|in:0,1',
 			'signature_id' => "exists:sites_users_signatures,id,user_id,{$this->site_user->id},site_id,{$this->site->id}",
 			'attachment' => 'max:' . \Config::get('app.property_image_maxsize', 2048),
+			'email_account_id' => 'integer',
 		]);
 		if ( $validator->fails() ) 
 		{
@@ -376,7 +384,7 @@ class TicketsController extends \App\Http\Controllers\AccountController
 		$data['attachments'] = $attachments;
 
 		// Clean null values
-		foreach (['contact_id','item_id','user_id'] as $field)
+		foreach (['contact_id','item_id','user_id','email_account_id'] as $field)
 		{
 			if ( isset($data[$field]) && $data[$field] )
 			{
@@ -385,6 +393,7 @@ class TicketsController extends \App\Http\Controllers\AccountController
 
 			unset($data[$field]);
 		}
+
 		return $data;
 	}
 

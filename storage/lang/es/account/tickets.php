@@ -48,4 +48,7 @@
 
 		'attachment' => 'Adjunto',
 		'attachment.helper' => '<p>No se adjuntarán ficheros con peso superior a :maxsize kilobytes.</p>',
+
+		'account' => 'Cuenta',
+		'account.site' => 'Email del sitio',
 	];

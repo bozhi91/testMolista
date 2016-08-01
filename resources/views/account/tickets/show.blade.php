@@ -22,7 +22,7 @@
 
 				<div class="col-xs-8">
 
-					@if ( Auth::user()->hasRole('company') || ( $ticket->user && $ticket->user->id == Auth::user()->ticket_user_id ) )
+					@if ( $current_site_user->hasRole('company') || ( $ticket->user && $ticket->user->id == $current_site_user->ticket_user_id ) )
 						<div class="text-right reply-form-trigger-area">
 							<a href="#" class="btn btn-sm btn-primary btn-reply-form-trigger">{{ Lang::get('account/tickets.send') }}</a>
 						</div>
@@ -76,6 +76,19 @@
 													</select>
 												</div>
 											</div>
+											@if ( @count($accounts) > 0 )
+												<div class="form-group error-container">
+													{!! Form::label('email_account_id', Lang::get('account/tickets.account'), [ 'class'=>'col-sm-2 control-label' ]) !!}
+													<div class="col-sm-10">
+														<select name="email_account_id" class="form-control">
+															<option value=""></option>
+															@foreach ($accounts as $account)
+																<option value="{{ $account->id }}">{{ $account->title }}</option>
+															@endforeach
+														</select>
+													</div>
+												</div>
+											@endif
 										</div>
 										<div class="form-group">
 											{!! Form::label('attachment', Lang::get('account/tickets.attachment'), [ 'class'=>'col-sm-2 control-label' ]) !!}

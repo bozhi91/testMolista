@@ -533,15 +533,7 @@ class TicketAdm
 			'headers'=> [
 				'Authorization' => $this->getAuthorizationHeader(),
 			],
-			'json' => [
-				'contact_id' => isset($data['contact_id']) ? $data['contact_id'] : null,
-				'user_id' => isset($data['user_id']) ? $data['user_id'] : null,
-				'item_id' => isset($data['item_id']) ? $data['item_id'] : null,
-				'source' => isset($data['source']) ? $data['source'] : null,
-				'subject' => isset($data['subject']) ? $data['subject'] : null,
-				'body' => isset($data['body']) ? $data['body'] : null,
-				'referer' => isset($data['referer']) ? $data['referer'] : null,
-			],
+			'json' => $data,
 		]);
 
 		// Success
@@ -748,29 +740,6 @@ class TicketAdm
 		if ( !$this->site_ready )
 		{
 			return false;
-		}
-
-		// Clean subject && body
-		foreach (['subject','body'] as $field)
-		{
-			if ( !isset($data[$field]) )
-			{
-				continue;
-			}
-
-			$data[$field] = strip_tags($data[$field]);
-		}
-
-
-		// Clean email arrays
-		foreach (['cc','bcc'] as $field)
-		{
-			if ( !isset($data[$field]) )
-			{
-				continue;
-			}
-
-			$data[$field] = array_values(array_unique($data[$field]));
 		}
 
 		$response = $this->guzzle_client->request('POST', "ticket/{$ticket_id}/message/?site_id={$this->site_id}", [
