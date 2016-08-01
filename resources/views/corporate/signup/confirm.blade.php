@@ -68,7 +68,7 @@
 												@if ( @$data['plan']['is_free'] )
 												@else
 													<br />
-													@if ( @$data['pack']['payment_interval'][$data['pack']['selected']] == 'month' )
+													@if ( @$data['payment_interval'][$data['pack']] == 'month' )
 														{{ Lang::get('web/plans.price.month') . ' ' . price($data['plan']['price_month'], App\Session\Currency::all()) }}
 													@else
 														{{ Lang::get('web/plans.price.year') . ' ' . price($data['plan']['price_year'], App\Session\Currency::all()) }}
