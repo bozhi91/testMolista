@@ -836,6 +836,17 @@ class TicketAdm
 			return $default;
 		}
 
+		// Add title
+		foreach ($body as $key => $value)
+		{
+			$body[$key]->title = $value->from_name ? "{$value->from_name} ($value->from_email)" : $value->from_email;
+		}
+
+		// Sort accounts by name/email
+		uasort($body, function($a, $b) {
+			return ($a->title < $b->title) ? -1 : ($a->title == $b->title ? 0 : 1);
+		});
+
 		return $body;
 	}
 

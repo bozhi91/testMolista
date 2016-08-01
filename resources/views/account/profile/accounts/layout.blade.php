@@ -26,8 +26,8 @@
 					<ul class="list-unstyled current-email-accounts">
 						@foreach ($accounts as $item)
 							<li>
-								<a href="{{ action('Account\Profile\AccountsController@getEdit', $item->id) }}" class="btn btn-sm btn-block {{ @$account->id == $item->id ? 'btn-primary' : 'btn-default' }}">
-									{{ $item->from_email }}
+								<a href="{{ action('Account\Profile\AccountsController@getEdit', $item->id) }}" class="btn btn-sm btn-block {{ @$account->id == $item->id ? 'btn-primary' : 'btn-default' }} text-ellipsis">
+									{{ $item->title }}
 								</a>
 							</li>
 						@endforeach

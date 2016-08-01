@@ -60,7 +60,7 @@
 		<div class="col-xs-12 col-sm-3">
 			<div class="form-group error-container">
 				{!! Form::label('port', Lang::get('account/profile.accounts.field.port')) !!}
-				{!! Form::text('port', null, [ 'class'=>'form-control' ]) !!}
+				{!! Form::text('port', null, [ 'class'=>'form-control required' ]) !!}
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-3">

@@ -148,7 +148,7 @@ class AccountsController extends \App\Http\Controllers\AccountController
 			'host' => 'required',
 			'username' => 'required',
 			'password' => $id ? '' : 'required',
-			'port' => '',
+			'port' => 'required',
 			'layer' => '',
 		];
 	}
