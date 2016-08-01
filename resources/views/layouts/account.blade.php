@@ -4,45 +4,6 @@
 
 @section('content')
 
-	<script type="text/javascript">
-		var TICKETS = {
-			cont: null,
-
-			options: {},
-
-			init: function(sel, ops) {
-				TICKETS.cont = $(sel);
-
-				if ( ops ) {
-					TICKETS.options = $.extend(TICKETS.options, ops);
-				}
-
-				TICKETS.cont.on('click', '.edit-ticket-trigger', function(e){
-					e.preventDefault();
-
-					if ( url = $(this).data().href ) {
-						$.magnificPopup.open({
-							items: {
-								src: url + '?ajax=1'
-							},
-							type: 'iframe'
-						});
-					}
-				});
-			},
-
-			reload: function() {
-				if ( !TICKETS.cont ) return;
-
-				if ( TICKETS.cont.find('.pagination li.active').length ) {
-					TICKETS.cont.load( TICKETS.cont.find('.pagination li.active').data().url );
-				} else if ( TICKETS.cont.data().url ) {
-					TICKETS.cont.load( TICKETS.cont.data().url );
-				}
-			}
-		};
-	</script>
-
 	@include('account.warning.pending-request')
 
     <div id="account-container" class="container">
@@ -148,5 +109,90 @@
 			</div>
 		</div>
     </div>
+
+	<script type="text/javascript">
+		var TICKETS = {
+			cont: null,
+
+			options: {},
+
+			init: function(sel, ops) {
+				TICKETS.cont = $(sel);
+
+				if ( ops ) {
+					TICKETS.options = $.extend(TICKETS.options, ops);
+				}
+
+				TICKETS.cont.on('click', '.edit-ticket-trigger', function(e){
+					e.preventDefault();
+
+					if ( url = $(this).data().href ) {
+						$.magnificPopup.open({
+							items: {
+								src: url + '?ajax=1'
+							},
+							type: 'iframe'
+						});
+					}
+				});
+			},
+
+			reload: function() {
+				if ( !TICKETS.cont ) return;
+
+				if ( TICKETS.cont.find('.pagination li.active').length ) {
+					TICKETS.cont.load( TICKETS.cont.find('.pagination li.active').data().url );
+				} else if ( TICKETS.cont.data().url ) {
+					TICKETS.cont.load( TICKETS.cont.data().url );
+				}
+			}
+		};
+
+		ready_callbacks.push(function() {
+			var account_menu = $('#account-container .account-menu');
+			var header_menu = $('#header .header-menu');
+			var locale_menu = $('#header .header-locale-social');
+
+			// Hide header menu
+			header_menu.find('>li').addClass('hidden-xs');
+
+			// Create account menu items
+			account_menu.find('>li').each(function(){
+				var el = $(this);
+
+				// Is separator?
+				if ( el.hasClass('separator') ) {
+					return true;
+				}
+
+				var lnk = el.find('>a').eq(0);
+
+				var item = $('<li class="visible-xs"></li>');
+
+				// Has submenu
+				if ( el.find('ul').length > 0 ) {
+					item.addClass('dropdown');
+
+					var html = '<a href="#" class="main-item dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">' + lnk.text() + ' <span class="caret"></span></a>';
+						html += '<ul class="dropdown-menu">';
+						el.find('ul').each(function(){
+							html += $(this).html();
+						});
+						html += '</ul>';
+
+					item.html(html);
+
+				} else {
+					item.html('<a href="' + lnk.attr('href') + '" class="main-item">' + lnk.text() + '</a>');
+				}
+
+				header_menu.append(item);
+			});
+
+			// Hide social media
+			locale_menu.find('.social-media').addClass('hidden-xs');
+		});
+
+	</script>
 
 @endsection
