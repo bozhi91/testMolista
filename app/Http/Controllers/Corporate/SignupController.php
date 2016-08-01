@@ -41,7 +41,7 @@ class SignupController extends \App\Http\Controllers\CorporateController
 
 		$paymethods = \App\Models\Plan::getPaymentOptions( $this->geolocation['config']['pay_methods'] );
 
-		return view('corporate.signup.index', compact('plans','languages','countries','paymethods'));
+		return view('corporate.signup.index', compact('plans','languages','countries','paymethods','data'));
 	}
 	public function postIndex()
 	{
