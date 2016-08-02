@@ -36,10 +36,12 @@ class BaseController extends \App\Http\Controllers\AccountController
 		{
 			$start_time = date("Y-m-d", strtotime($this->request->input('calendar_defaultDate'))) . ' '. date("H:00", time()+3600);
 		}
+		$end_time = date("Y-m-d H:00", strtotime($start_time)+3600);
 
 		$defaults = (object) [
 			'user_id' => $this->site_user->id,
 			'start_time' => $start_time,
+			'end_time' =>  $end_time,
 		];
 
 		return view('account.calendar.create', compact('defaults'));

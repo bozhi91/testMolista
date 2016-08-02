@@ -100,10 +100,32 @@
 	ready_callbacks.push(function(){
 		var form = $('#calendar-form');
 
+		$.validator.addMethod('endmindate',function(v,el){
+			var startTime = form.find('.datetimepicker-start').data("DateTimePicker").date();
+			//var endDate = form.find('.datetimepicker-end').data("DateTimePicker").date();
+			var endTime = $(el).data("DateTimePicker").date();
+
+			if ( !startTime || !endTime ) {
+				return true;
+			}
+
+			return startTime < endTime;
+		}, "{{ print_js_string( Lang::get('account/calendar.end.error') ) }}");
+
 		form.validate({
 			ignore: '',
 			errorPlacement: function(error, element) {
 				element.closest('.error-container').append(error);
+			},
+			rules: {
+				end_time: {
+					endmindate: true
+				}
+			},
+			messages: {
+				end_time: {
+					endmindate: "{{ print_js_string( Lang::get('account/calendar.end.error') ) }}"
+				}
 			},
 			submitHandler: function(f) {
 				LOADING.show();
@@ -124,6 +146,10 @@
         form.find('.datetimepicker-end').on("dp.change", function (e) {
             form.find('.datetimepicker-start').data("DateTimePicker").maxDate(e.date);
         });
+
+        if ( form.find('.datetimepicker-start').val() ) {
+        	form.find('.datetimepicker-start').trigger('dp.change');
+        }
 
 		form.find('.has-select-2').select2();
 
