@@ -1,7 +1,7 @@
 <?php
 	$stats_blocks = [
 		'captured' => true,
-		'visited' => false,
+		'visited' => true,
 		'closed' => true,
 	];
 ?>
