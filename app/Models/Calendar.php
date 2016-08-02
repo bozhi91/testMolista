@@ -232,9 +232,6 @@ class Calendar extends Model
 
 		$filepath = self::createCalendarEvent($event);
 
-		$locale_backup = \LaravelLocalization::getCurrentLocale();
-		\LaravelLocalization::setLocale($event->customer->locale);
-
 		$subject = trans("account/calendar.email.title.{$type}", [
 			'title' => $event->title,
 		]);
@@ -267,8 +264,6 @@ class Calendar extends Model
 
 		// Delete ics file
 		\File::delete($filepath);
-
-		\LaravelLocalization::setLocale($locale_backup);
 
 		return $sent;
 	}
