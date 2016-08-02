@@ -43,6 +43,7 @@
 				@if ( $marketplaces->count() > 0 )
 					<li role="presentation" class="{{ $current_tab == 'marketplaces' ? 'active' : '' }}"><a href="#tab-marketplaces" aria-controls="tab-marketplaces" role="tab" data-toggle="tab" data-tab="marketplaces">{{ Lang::get('account/menu.marketplaces') }}</a></li>
 				@endif
+				<li role="presentation" class="{{$current_tab == 'visits' ? 'active' : '' }}"><a href="#tab-visits" aria-controls="tab-visits" role="tab" data-toggle="tab" data-tab="visits">{{ Lang::get('account/visits.title') }}</a></li>
 			@else
 				<li role="presentation" class="{{ $current_tab == 'seller' ? 'active' : '' }}"><a href="#tab-seller" aria-controls="tab-seller" role="tab" data-toggle="tab" data-tab="general">{{ Lang::get('account/properties.tab.seller') }}</a></li>
 			@endif
@@ -388,6 +389,13 @@
 						@include('account/properties/form-marketplaces')
 					</div>
 				@endif
+
+				<div role="tabpanel" class="tab-pane tab-main {{$current_tab == 'visits' ? 'active' : '' }}" id="tab-visits">
+					@include('account.visits.ajax-tab', [
+						'visits_init' => true,
+					])
+				</div>
+
 			@else
 				<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'seller' ? 'active' : '' }}" id="tab-seller">
 					<div class="row">
@@ -766,7 +774,7 @@
 		});
 
 		// Drop zone
-        Dropzone.autoDiscover = false;
+		Dropzone.autoDiscover = false;
 		$("#dropzone-previews").addClass('dropzone').dropzone({ 
 			url: '{{ action('Account\PropertiesController@postUpload') }}',
 			params: {
@@ -844,6 +852,24 @@
 			if ( form.find('input[name="current_tab"]').val() == 'location' ) {
 				form.find('.main-tabs a[href="#tab-location"]').trigger('shown.bs.tab');
 			}
+			$.ajax({
+				type: 'GET',
+				dataType: 'json',
+				url: '{{ action('Account\Visits\AjaxController@getTab') }}',
+				data: {
+					property_id: {{ $item->id }}
+				},
+				success: function(data) {
+					if ( data.success ) {
+						$('#account-visits-ajax-tab').html( data.html );
+					} else {
+						$('#account-visits-ajax-tab').html('<div class="alert alert-danger">{{ print_js_string( Lang::get('general.messages.error') ) }}</div>')
+					}
+				},
+				error: function() {
+						$('#account-visits-ajax-tab').html('<div class="alert alert-danger">{{ print_js_string( Lang::get('general.messages.error') ) }}</div>')
+				}
+			});
 		@else
 			property_geocoder.geocode({
 				'address': form.find('.country-input option:selected').text()
