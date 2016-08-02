@@ -173,4 +173,18 @@ elixir(function(mix) {
 		], 'public/themes/zoner/compiled/css/pdf.css')
 		;
 
+	/* Sky */
+	mix
+		.less([
+			'sky/app.less',
+		], 'resources/assets/css/compiled/sky.css')
+		.styles([
+			'compiled/common.css',
+			'compiled/sky.css',
+		], 'public/themes/sky/compiled/css/app.css')
+		.less([
+			'sky/pdf.less',
+		], 'public/themes/sky/compiled/css/pdf.css')
+		;
+
 });
