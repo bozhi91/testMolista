@@ -138,14 +138,8 @@ class PagesController extends \App\Http\Controllers\AccountController
 			abort(404);
 		}
 
-		// Remove images
-		foreach( glob( public_path("{$page->image_folder}/*") ) as $file ) 
-		{
-			@unlink($file);
-		}
-
-		// Remove image folder
-		rmdir( public_path($page->image_folder) );
+		// Remove images & image folder
+		\File::deleteDirectory( public_path($page->image_folder) );
 
 		// Delete  page
 		$page->delete();
