@@ -10,6 +10,7 @@
 		'reference' => 'Reference',
 		'date' => 'Date',
 		'contact.name' => 'Customer',
+		'contact.name.new' => 'Create new lead',
 		'contact.email' => 'Email',
 		'referer' => 'Referer',
 		'source' => 'Source',

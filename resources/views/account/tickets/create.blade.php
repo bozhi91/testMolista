@@ -13,7 +13,7 @@
 			<div class="row">
 				<div class="col-xs-12 col-sm-6">
 					<div class="error-container form-group">
-						<a href="#" class="pull-right btn-new-lead">
+						<a href="#" title="{{ Lang::get('account/tickets.contact.name.new') }}" class="pull-right btn-new-lead">
 							<i class="fa fa-plus-square" aria-hidden="true"></i>
 						</a>
 						{!! Form::label('customer_id', Lang::get('account/tickets.contact.name')) !!}
@@ -60,7 +60,6 @@
 			var html = '<option value="">&nbsp;</option>';
 			$.each(options, function(k,v){
 				html += v;
-console.log(v);
 			});
 			sel.html(html);
 			
@@ -92,7 +91,6 @@ console.log(v);
 						src: '{{ action("Account\CustomersController@create", [ 'ajax' => 1 ]) }}'
 					},
 					type: 'iframe',
-					//modal: true,
 					callbacks: {
 						open: function() {
 							$('body').find('.mfp-content').addClass('app-popup-block-white');
