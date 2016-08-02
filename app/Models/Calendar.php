@@ -213,8 +213,9 @@ class Calendar extends Model
 		}
 
 		// Customer exists and has email?
+		$user = $event->user;
 		$customer = $event->customer;
-		if ( !$customer || !$customer->email )
+		if ( !$user && !$customer )
 		{
 			return false;
 		}
@@ -249,14 +250,20 @@ class Calendar extends Model
 			$content = $emogrifier->emogrify();
 		}
 
-		$sent = $event->site->sendEmail([
-			'to' => $event->customer->email,
-			'subject' => $subject,
-			'content' => $content,
-			'attachments' => [
-				$filepath => [ 'as'=>"event.ics" ],
-			]
-		]);
+		foreach ([$user, $customer] as $to)
+		{
+			if ( @$to->email )
+			{
+				$sent = $event->site->sendEmail([
+					'to' => $to->email,
+					'subject' => $subject,
+					'content' => $content,
+					'attachments' => [
+						$filepath => [ 'as'=>"event.ics" ],
+					]
+				]);
+			}
+		}
 
 		// Delete ics file
 		\File::delete($filepath);
