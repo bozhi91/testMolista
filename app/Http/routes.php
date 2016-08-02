@@ -222,6 +222,8 @@ Route::group([
 		], function() {
 			// Configuration
 			Route::controller('configuration', 'Account\Site\ConfigurationController');
+			// Domain name
+			Route::controller('domain', 'Account\Site\DomainNameController');
 			// Price ranges
 			Route::controller('priceranges', 'Account\Site\PriceRangesController');
 			// Countries

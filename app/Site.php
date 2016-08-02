@@ -165,6 +165,9 @@ class Site extends TranslatableModel
 
 		return $domains;
 	}
+	public function getDomainDefaultAttribute() {
+		return ( count($this->domains) < 1 ) ? false : $this->domains->sortByDesc('default')->first()->domain;
+	}
 
 	public function locales() 
 	{
