@@ -1,4 +1,5 @@
 {!! Form::model($item, [ 'action'=>$action, 'method'=>$method, 'id'=>'customer-form' ]) !!}
+	<input type="hidden" name="ajax" value="{{ Input::get('ajax') }}" />
 
 	<div class="row">
 		<div class="col-xs-12 col-sm-6">

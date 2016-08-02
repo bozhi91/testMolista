@@ -13,8 +13,11 @@
 			<div class="row">
 				<div class="col-xs-12 col-sm-6">
 					<div class="error-container form-group">
+						<a href="#" class="pull-right btn-new-lead">
+							<i class="fa fa-plus-square" aria-hidden="true"></i>
+						</a>
 						{!! Form::label('customer_id', Lang::get('account/tickets.contact.name')) !!}
-						{!! form::select('customer_id', [ ''=>'&nbsp;' ]+$customers, null, [ 'class'=>'form-control required has-select-2']) !!}
+						{!! form::select('customer_id', [ ''=>'&nbsp;' ]+$customers, null, [ 'class'=>'customer-select form-control required has-select-2']) !!}
 					</div>
 					<div class="error-container form-group">
 						{!! Form::label('user_id', Lang::get('account/tickets.assigned.to')) !!}
@@ -50,6 +53,21 @@
 	</div>
 
 	<script type="text/javascript">
+		function updateCustomerSelect(options) {
+			var sel = $('#ticket-form .customer-select');
+			sel.select2("destroy");
+
+			var html = '<option value="">&nbsp;</option>';
+			$.each(options, function(k,v){
+				html += v;
+console.log(v);
+			});
+			sel.html(html);
+			
+			sel.select2();
+			$.magnificPopup.close()
+		}
+
 		ready_callbacks.push(function() {
 			var form = $('#ticket-form');
 
@@ -65,6 +83,25 @@
 			});
 
 			form.find('.has-select-2').select2();
+
+			form.on('click', '.btn-new-lead', function(e){
+				e.preventDefault();
+
+				$.magnificPopup.open({
+					items: {
+						src: '{{ action("Account\CustomersController@create", [ 'ajax' => 1 ]) }}'
+					},
+					type: 'iframe',
+					//modal: true,
+					callbacks: {
+						open: function() {
+							$('body').find('.mfp-content').addClass('app-popup-block-white');
+						}
+					}
+
+				});
+
+			});
 
 		});
 	</script>

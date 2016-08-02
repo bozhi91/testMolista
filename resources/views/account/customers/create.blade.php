@@ -1,8 +1,12 @@
-@extends('layouts.account')
+@extends( Input::get('ajax') ? 'layouts.popup' : 'layouts.account' )
 
-@section('account_content')
+@section( Input::get('ajax') ? 'content' : 'account_content' )
 
-	<div id="admin-customers">
+	<div id="admin-customers" class="popup-container-like">
+
+		@if ( Input::get('ajax') )
+			<br />
+		@endif
 
 		@include('common.messages', [ 'dismissible'=>true ])
 
