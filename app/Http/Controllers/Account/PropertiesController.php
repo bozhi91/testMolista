@@ -437,10 +437,6 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		{
 			$customers[$customer->id] = $customer->fullname;
 		}
-echo "<pre>";
-print_r($managers);
-echo "</pre>";
-die;
 
 		return view('account.properties.catch-close', compact('item','managers','customers'));
 	}
