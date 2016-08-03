@@ -64,6 +64,16 @@ class CustomersController extends \App\Http\Controllers\AccountController
 			return redirect()->back()->withInput()->with('error',trans('general.messages.error'));
 		}
 
+		if ( $this->request->input('ajax') )
+		{
+			$options = [];
+			foreach ($this->site->customers_options as $key => $value)
+			{
+				$options[] = '<option value="' . $key . '"' . ($key==$customer->id ? 'selected="selected"' : '') . '>' . $value .'</option>';
+			}
+			return view('account.customers.store', compact('options'));
+		}
+
 		return redirect()->action('Account\CustomersController@show', urlencode($customer->email))->with('success', trans('account/customers.message.saved'));
 	}
 
@@ -292,7 +302,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		$fields = [
 			'first_name' => 'required',
 			'last_name' => 'required',
-			'email' => "required|email|unique:customers,email".($id ? ",{$id}" : ''),
+			'email' => "required|email|unique:customers,email,".($id ? $id : 'NULL').",id,site_id,".$this->site->id,
 			'phone' => 'required',
 			'locale' => 'required|in:'.implode(',',$locales),
 		];
