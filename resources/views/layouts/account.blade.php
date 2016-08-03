@@ -1,5 +1,6 @@
 @extends('layouts.web', [
 	'body_id' => 'body-account',
+	'google_analitics_account' => env('GA_ACCOUNT_BACKOFFICE','UA-79943513-2'),
 ])
 
 @section('content')

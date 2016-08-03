@@ -52,7 +52,10 @@
 
 <body id="{{ @$body_id }}">
 
-	@include('common.analytics')
+	<?php $ga_account = isset($google_analitics_account) ? $google_analitics_account : @$current_site->ga_account; ?>
+	@if ( $ga_account )
+		@include('common.analytics', [ 'ga_account' => $ga_account ])
+	@endif
 
 	<div id="sticky-wrapper" class="if-overlay-then-blurred">
 

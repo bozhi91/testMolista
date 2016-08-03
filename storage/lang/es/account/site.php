@@ -74,6 +74,10 @@
 
 		'configuration.saved' => 'La configuración se ha guardado correctamente',
 
+		'configuration.ga.account' => 'ID de seguimiento de Google Analytics',
+		'configuration.ga.account.helper' => 'Por ejemplo: UA-123456-1',
+		'configuration.ga.account.error' => 'El formato del código de seguimiento no es válido',
+
 
 
 		'menus.h1' => 'Menúes',
