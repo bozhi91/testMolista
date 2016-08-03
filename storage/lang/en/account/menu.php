@@ -25,6 +25,7 @@
 
 		'site' => 'Site',
 		'site.configuration' => 'Configuration',
+		'site.domainname' => 'Domain name',
 		'site.priceranges' => 'Price ranges',
 		'site.countries' => 'Countries',
 		'site.widgets' => 'Widgets',

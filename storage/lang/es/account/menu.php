@@ -25,6 +25,7 @@
 
 		'site' => 'Sitio',
 		'site.configuration' => 'Configuración',
+		'site.domainname' => 'Nombre de dominio',
 		'site.priceranges' => 'Rangos de precio',
 		'site.countries' => 'Países',
 		'site.widgets' => 'Widgets',
