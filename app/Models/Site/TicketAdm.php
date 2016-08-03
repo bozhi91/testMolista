@@ -29,7 +29,7 @@ class TicketAdm
 
 	protected $guzzle_client;
 
-	public function __construct($site_id)
+	public function __construct($site_id, $user_token=false)
 	{
 		$base_uri = \Config::get('app.ticketing_system_url', false);
 		if ( $base_uri )
@@ -49,14 +49,26 @@ class TicketAdm
 		}
 
 		$this->setSite($site_id);
+
+		if ( $user_token )
+		{
+			$this->setSiteToken($user_token);
+		}
+		else
+		{
+			$this->setSiteToken($this->site->ticket_owner_token);
+		}
 	}
 
 	public function setSite($site_id)
 	{
 		$this->site = \App\Site::withTranslations()->findOrFail($site_id);
-
 		$this->site_id = $this->site->ticket_site_id;
-		$this->site_token = $this->site->ticket_owner_token;
+	}
+
+	public function setSiteToken($token)
+	{
+		$this->site_token = $token;
 		$this->site_ready = ( $this->site_id && $this->site_token && $this->guzzle_client );
 	}
 
@@ -127,7 +139,9 @@ class TicketAdm
 		$this->site->ticket_site_id = $body->id;
 		$this->site->ticket_owner_token = $owner->ticket_user_token ? $owner->ticket_user_token : $body->token;
 		$this->site->save();
+
 		$this->setSite( $this->site->id );
+		$this->setSiteToken($this->site->ticket_owner_token);
 
 		// Update owner
 		if ( !$owner->ticket_user_token )
