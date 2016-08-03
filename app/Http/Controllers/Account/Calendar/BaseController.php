@@ -31,15 +31,17 @@ class BaseController extends \App\Http\Controllers\AccountController
 	{
 		$this->setViewValues();
 
-		$start_time = date("Y-m-d H:00");
+		$start_time = date("Y-m-d H:00", time()+3600);
 		if ( $this->request->input('calendar_defaultView') == 'agendaDay' && preg_match('#^\d{4}-\d{2}-\d{2}$#', $this->request->input('calendar_defaultDate')) )
 		{
-			$start_time = date("Y-m-d", strtotime($this->request->input('calendar_defaultDate'))) . ' '. date("H:00");
+			$start_time = date("Y-m-d", strtotime($this->request->input('calendar_defaultDate'))) . ' '. date("H:00", time()+3600);
 		}
+		$end_time = date("Y-m-d H:00", strtotime($start_time)+3600);
 
 		$defaults = (object) [
 			'user_id' => $this->site_user->id,
 			'start_time' => $start_time,
+			'end_time' =>  $end_time,
 		];
 
 		return view('account.calendar.create', compact('defaults'));

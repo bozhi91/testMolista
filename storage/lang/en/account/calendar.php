@@ -20,6 +20,7 @@ return [
 	'comments' => 'Comments',
 	'start' => 'Start',
 	'end' => 'Finish',
+	'end.error' => 'The event ends before its beginning',
 	'type' => 'Type',
 	'agent' => 'Agent',
 	'property' => 'Property',

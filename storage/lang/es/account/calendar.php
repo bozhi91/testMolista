@@ -20,6 +20,7 @@ return [
 	'comments' => 'Comentarios',
 	'start' => 'Inicio',
 	'end' => 'Fin',
+	'end.error' => 'El evento finaliza antes de la hora de inicio',
 	'type' => 'Tipo',
 	'agent' => 'Agente',
 	'property' => 'Propiedad',
