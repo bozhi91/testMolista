@@ -1,6 +1,6 @@
 <?php namespace App\Marketplaces\Molista;
 
-class Molista extends Molista {
+class MolistaEnEUR extends Molista {
 
     protected $iso_lang = 'en';
     protected $currency = 'EUR';
