@@ -238,6 +238,7 @@ Route::group([
 			// Pages
 			Route::resource('pages', 'Account\Site\PagesController');
 		});
+		Route::controller('visits', 'Account\Visits\AjaxController');
 	});
 });
 
