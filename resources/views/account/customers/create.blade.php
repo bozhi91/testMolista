@@ -2,11 +2,11 @@
 
 @section( Input::get('ajax') ? 'content' : 'account_content' )
 
-	<div id="admin-customers" class="popup-container-like">
+	@if ( Input::get('ajax') )
+		<div id="account-container">
+	@endif
 
-		@if ( Input::get('ajax') )
-			<br />
-		@endif
+	<div id="admin-customers" class="popup-container-like">
 
 		@include('common.messages', [ 'dismissible'=>true ])
 
@@ -21,5 +21,9 @@
 		])
 
 	</div>
+
+	@if ( Input::get('ajax') )
+		</div>
+	@endif
 
 @endsection
