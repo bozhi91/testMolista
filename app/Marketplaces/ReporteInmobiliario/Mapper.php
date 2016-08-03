@@ -30,11 +30,17 @@ class Mapper extends \App\Marketplaces\Mapper {
 		$map['street_number'] = $item['location']['address_parts']['number'];
 
 		//Optional
-		//$map['commercial_enabled'] = '';
-		//$map['professional_enabled'] = '';
 		//$map['barter_enabled'] = '';
 		//$map['video'] = '';
 
+		if(!empty($item['commercial_enabled'])){
+			$map['commercial_enabled'] = $item['commercial_enabled'] ? 'yes' : 'no';
+		}
+		
+		if(!empty($item['professional_enabled'])){
+			$map['professional_enabled'] = $item['professional_enabled'] ? 'yes' : 'no';
+		}
+		
 		if (!empty($item['location']['address_parts']['floor'])) {
 			$map['floor'] = $item['location']['address_parts']['floor'];
 		}
@@ -72,7 +78,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 		}
 
 		$map['parking'] = !empty($item['features']['parking']) ? 1 : 0;
-
+	
 		if (!empty($item['size'])) {
 			$map['total_area'] = $this->convertSize($item['size']);
 		}
@@ -147,7 +153,10 @@ class Mapper extends \App\Marketplaces\Mapper {
 		//$map['extras']['has_pavement'] = '';
 		//$map['extras']['has_landphone'] = '';
 		//$map['extras']['has_cabletv'] = '';
-		$map['extras']['has_pool'] = !empty($item['features']['pool']) ? 'yes' : 'no';
+		
+		if(!empty($item['features']['pool'])){
+			$map['extras']['has_pool'] = 'yes';
+		}
 
 		return $map;
 	}
@@ -207,6 +216,8 @@ class Mapper extends \App\Marketplaces\Mapper {
 	protected function validCasa() {
 		$rules = [
 			'construction_year' => 'required|regex:#\d{4}#',
+			'professional_enabled' => 'required',
+			'commercial_enabled' => 'required',
 			'rooms' => 'required',
 			'bedrooms' => 'required',
 			'baths' => 'required',
@@ -280,6 +291,8 @@ class Mapper extends \App\Marketplaces\Mapper {
 	protected function validApartments() {
 		$rules = [
 			'construction_year' => 'required|regex:#\d{4}#',
+			'professional_enabled' => 'required',
+			'commercial_enabled' => 'required',
 			'property_disposal' => 'required',
 			'rooms' => 'required',
 			'bedrooms' => 'required',
