@@ -150,6 +150,8 @@ Route::group([
 	], function() {
 		Route::get('/', 'AccountController@index');
 		Route::post('/', 'AccountController@updateProfile');
+		Route::controller('profile/signatures', 'Account\Profile\SignaturesController');
+		Route::controller('profile/email-accounts', 'Account\Profile\AccountsController');
 		Route::group([
 			'middleware' => [
 				'role:company',
@@ -222,6 +224,8 @@ Route::group([
 		], function() {
 			// Configuration
 			Route::controller('configuration', 'Account\Site\ConfigurationController');
+			// Domain name
+			Route::controller('domain', 'Account\Site\DomainNameController');
 			// Price ranges
 			Route::controller('priceranges', 'Account\Site\PriceRangesController');
 			// Countries
@@ -234,6 +238,7 @@ Route::group([
 			// Pages
 			Route::resource('pages', 'Account\Site\PagesController');
 		});
+		Route::controller('visits', 'Account\Visits\AjaxController');
 	});
 });
 

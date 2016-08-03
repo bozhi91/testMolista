@@ -56,6 +56,15 @@
 			&.in { 
 				.navbar-nav:first-child { display: block; }
 			}
+			.navbar-nav {
+				.dropdown-menu { 
+					background: @inmoblue-topheader; 
+					a:hover { background: transparent; color: @white; }
+				}
+				.main-item { padding-top: 5px; padding-bottom: 5px; }
+				.open .main-item { background: @inmoblue-topheader; }
+			}
+
 		}
 		.social-media {
 			ul { padding-top: 8px; }

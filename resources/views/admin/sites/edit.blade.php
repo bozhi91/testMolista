@@ -213,8 +213,6 @@
 							@endif
 						</div>
 					</div>
-				</div>
-				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
 							{!! Form::label(null, Lang::get('admin/expirations.payment.interval')) !!}
@@ -225,6 +223,16 @@
 							@endif
 						</div>
 					</div>
+					@if ( $site->payment_method == 'transfer' )
+						<div class="row">
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group error-container">
+									{!! Form::label(null, Lang::get('corporate/signup.payment.iban')) !!}
+									{!! Form::text(null, $site->iban_account, [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								</div>
+							</div>
+						</div>
+					@endif
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
 							{!! Form::label(null, Lang::get('admin/expirations.paid.until')) !!}
@@ -235,8 +243,6 @@
 							@endif
 						</div>
 					</div>
-				</div>
-				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
 							{!! Form::label(null, Lang::get('admin/sites.transfer')) !!}

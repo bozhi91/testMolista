@@ -3,6 +3,8 @@
 	return [
 
 		'data' => 'Your information',
+		'data.accounts' => 'My email accounts',
+		'data.signatures' => 'My signatures',
 
 		'properties' => 'Properties',
 		
@@ -23,6 +25,7 @@
 
 		'site' => 'Site',
 		'site.configuration' => 'Configuration',
+		'site.domainname' => 'Domain name',
 		'site.priceranges' => 'Price ranges',
 		'site.countries' => 'Countries',
 		'site.widgets' => 'Widgets',

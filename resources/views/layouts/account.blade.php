@@ -1,47 +1,9 @@
 @extends('layouts.web', [
 	'body_id' => 'body-account',
+	'google_analitics_account' => env('GA_ACCOUNT_BACKOFFICE','UA-79943513-2'),
 ])
 
 @section('content')
-
-	<script type="text/javascript">
-		var TICKETS = {
-			cont: null,
-
-			options: {},
-
-			init: function(sel, ops) {
-				TICKETS.cont = $(sel);
-
-				if ( ops ) {
-					TICKETS.options = $.extend(TICKETS.options, ops);
-				}
-
-				TICKETS.cont.on('click', '.edit-ticket-trigger', function(e){
-					e.preventDefault();
-
-					if ( url = $(this).data().href ) {
-						$.magnificPopup.open({
-							items: {
-								src: url + '?ajax=1'
-							},
-							type: 'iframe'
-						});
-					}
-				});
-			},
-
-			reload: function() {
-				if ( !TICKETS.cont ) return;
-
-				if ( TICKETS.cont.find('.pagination li.active').length ) {
-					TICKETS.cont.load( TICKETS.cont.find('.pagination li.active').data().url );
-				} else if ( TICKETS.cont.data().url ) {
-					TICKETS.cont.load( TICKETS.cont.data().url );
-				}
-			}
-		};
-	</script>
 
 	@include('account.warning.pending-request')
 
@@ -110,6 +72,7 @@
 								</a>
 								<ul id="account-submenu-site" class="nav {{ (@$submenu_section == 'site') ? '' : 'collapse' }}" role="menu" aria-labelledby="account-menu-btn-site">
 									<li><a href="{{ action('Account\Site\ConfigurationController@getIndex') }}" class="{{ (@$submenu_subsection == 'site-configuration') ? 'current' : '' }}">{{ Lang::get('account/menu.site.configuration') }}</a></li>
+									<li><a href="{{ action('Account\Site\DomainNameController@getIndex') }}" class="{{ (@$submenu_subsection == 'site-domainname') ? 'current' : '' }}">{{ Lang::get('account/menu.site.domainname') }}</a></li>
 									<li><a href="{{ action('Account\Site\PriceRangesController@getIndex') }}" class="{{ (@$submenu_subsection == 'site-priceranges') ? 'current' : '' }}">{{ Lang::get('account/menu.site.priceranges') }}</a></li>
 									<li><a href="{{ action('Account\Site\CountriesController@getIndex') }}" class="{{ (@$submenu_subsection == 'site-countries') ? 'current' : '' }}">{{ Lang::get('account/menu.site.countries') }}</a></li>
 									<li><a href="{{ action('Account\Site\WidgetsController@getIndex') }}" class="{{ (@$submenu_subsection == 'site-widgets') ? 'current' : '' }}">{{ Lang::get('account/menu.site.widgets') }}</a></li>
@@ -129,12 +92,26 @@
 						<li class="separator"></li>
 					@endif
 
-					<li role="presentation" class="{{ (@$submenu_section == 'home') ? 'active' : '' }}">
-						<a href="{{ action('AccountController@index') }}">
-							<i class="account-icon account-icon-info"></i>
-							{{ Lang::get('account/menu.data') }}
-						</a>
-					</li>
+					@if ( $submenu_section == 'profile' )
+						<li role="presentation" class="active">
+							<a href="javascript:;" id="account-menu-btn-profile" data-toggle="collapse" data-target="#account-submenu-profile" aria-expanded="false" class="">
+								<i class="account-icon account-icon-info"></i>
+								{{ Lang::get('account/menu.data') }}
+							</a>
+							<ul id="account-submenu-profile" class="nav" role="menu" aria-labelledby="account-menu-btn-profile">
+								<li><a href="{{ action('Account\Profile\AccountsController@getIndex') }}" class="{{ (@$submenu_subsection == 'profile-accounts') ? 'current' : '' }}">{{ Lang::get('account/menu.data.accounts') }}</a></li>
+								<li><a href="{{ action('Account\Profile\SignaturesController@getIndex') }}" class="{{ (@$submenu_subsection == 'profile-signatures') ? 'current' : '' }}">{{ Lang::get('account/menu.data.signatures') }}</a></li>
+							</ul>
+						</li>
+					@else
+						<li role="presentation">
+							<a href="{{ action('AccountController@index') }}">
+								<i class="account-icon account-icon-info"></i>
+								{{ Lang::get('account/menu.data') }}
+							</a>
+						</li>
+					@endif
+
 					<li role="presentation">
 						<a href="{{ action('Auth\AuthController@logout') }}">
 							<i class="account-icon account-icon-logout_2"></i>
@@ -148,5 +125,90 @@
 			</div>
 		</div>
     </div>
+
+	<script type="text/javascript">
+		var TICKETS = {
+			cont: null,
+
+			options: {},
+
+			init: function(sel, ops) {
+				TICKETS.cont = $(sel);
+
+				if ( ops ) {
+					TICKETS.options = $.extend(TICKETS.options, ops);
+				}
+
+				TICKETS.cont.on('click', '.edit-ticket-trigger', function(e){
+					e.preventDefault();
+
+					if ( url = $(this).data().href ) {
+						$.magnificPopup.open({
+							items: {
+								src: url + '?ajax=1'
+							},
+							type: 'iframe'
+						});
+					}
+				});
+			},
+
+			reload: function() {
+				if ( !TICKETS.cont ) return;
+
+				if ( TICKETS.cont.find('.pagination li.active').length ) {
+					TICKETS.cont.load( TICKETS.cont.find('.pagination li.active').data().url );
+				} else if ( TICKETS.cont.data().url ) {
+					TICKETS.cont.load( TICKETS.cont.data().url );
+				}
+			}
+		};
+
+		ready_callbacks.push(function() {
+			var account_menu = $('#account-container .account-menu');
+			var header_menu = $('#header .header-menu');
+			var locale_menu = $('#header .header-locale-social');
+
+			// Hide header menu
+			header_menu.find('>li').addClass('hidden-xs');
+
+			// Create account menu items
+			account_menu.find('>li').each(function(){
+				var el = $(this);
+
+				// Is separator?
+				if ( el.hasClass('separator') ) {
+					return true;
+				}
+
+				var lnk = el.find('>a').eq(0);
+
+				var item = $('<li class="visible-xs"></li>');
+
+				// Has submenu
+				if ( el.find('ul').length > 0 ) {
+					item.addClass('dropdown');
+
+					var html = '<a href="#" class="main-item dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">' + lnk.text() + ' <span class="caret"></span></a>';
+						html += '<ul class="dropdown-menu">';
+						el.find('ul').each(function(){
+							html += $(this).html();
+						});
+						html += '</ul>';
+
+					item.html(html);
+
+				} else {
+					item.html('<a href="' + lnk.attr('href') + '" class="main-item">' + lnk.text() + '</a>');
+				}
+
+				header_menu.append(item);
+			});
+
+			// Hide social media
+			locale_menu.find('.social-media').addClass('hidden-xs');
+		});
+
+	</script>
 
 @endsection

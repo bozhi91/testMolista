@@ -213,8 +213,9 @@ class Calendar extends Model
 		}
 
 		// Customer exists and has email?
+		$user = $event->user;
 		$customer = $event->customer;
-		if ( !$customer || !$customer->email )
+		if ( !$user && !$customer )
 		{
 			return false;
 		}
@@ -231,9 +232,6 @@ class Calendar extends Model
 
 		$filepath = self::createCalendarEvent($event);
 
-		$locale_backup = \LaravelLocalization::getCurrentLocale();
-		\LaravelLocalization::setLocale($event->customer->locale);
-
 		$subject = trans("account/calendar.email.title.{$type}", [
 			'title' => $event->title,
 		]);
@@ -249,19 +247,23 @@ class Calendar extends Model
 			$content = $emogrifier->emogrify();
 		}
 
-		$sent = $event->site->sendEmail([
-			'to' => $event->customer->email,
-			'subject' => $subject,
-			'content' => $content,
-			'attachments' => [
-				$filepath => [ 'as'=>"event.ics" ],
-			]
-		]);
+		foreach ([$user, $customer] as $to)
+		{
+			if ( @$to->email )
+			{
+				$sent = $event->site->sendEmail([
+					'to' => $to->email,
+					'subject' => $subject,
+					'content' => $content,
+					'attachments' => [
+						$filepath => [ 'as'=>"event.ics" ],
+					]
+				]);
+			}
+		}
 
 		// Delete ics file
 		\File::delete($filepath);
-
-		\LaravelLocalization::setLocale($locale_backup);
 
 		return $sent;
 	}

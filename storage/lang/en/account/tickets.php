@@ -10,6 +10,7 @@
 		'reference' => 'Reference',
 		'date' => 'Date',
 		'contact.name' => 'Customer',
+		'contact.name.new' => 'Create new lead',
 		'contact.email' => 'Email',
 		'referer' => 'Referer',
 		'source' => 'Source',
@@ -42,4 +43,13 @@
 		'send' => 'Send message',
 
 		'new' => 'New ticket',
+
+		'signature' => 'Signature',
+		'signature.none' => 'Without signature',
+
+		'attachment' => 'Attachment',
+		'attachment.helper' => '<p>Files bigger than :maxsize kilobytes will not be attached to the message.</p>',
+
+		'account' => 'Account',
+		'account.site' => 'Website account',
 	];

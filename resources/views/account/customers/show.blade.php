@@ -6,6 +6,10 @@
 
 @section('account_content')
 
+	<style type="text/css">
+		#account-visits-ajax-tab .column-customer { display: none; }
+	</style>
+
 	<div id="account-customers">
 
 		@include('common.messages', [ 'dismissible'=>true ])
@@ -17,6 +21,7 @@
 			<li role="presentation" class="{{$current_tab == 'profile' ? 'active' : '' }}"><a href="#tab-profile" aria-controls="tab-profile" role="tab" data-tab="profile" data-toggle="tab">{{ Lang::get('account/customers.profile') }}</a></li>
 			<li role="presentation" class="{{$current_tab == 'properties' ? 'active' : '' }}"><a href="#tab-properties" aria-controls="tab-properties" role="tab" data-tab="properties" data-toggle="tab">{{ Lang::get('account/customers.properties') }} (<span id="properties-total">{{ number_format($customer->properties->count(),0,',','.') }}</span>)</a></li>
 			<li role="presentation" class="{{$current_tab == 'matches' ? 'active' : '' }}"><a href="#tab-matches" aria-controls="tab-matches" role="tab" data-tab="matches" data-toggle="tab">{{ Lang::get('account/customers.matches') }} (<span id="matches-total">{{ number_format($customer->possible_matches->count(),0,',','.') }}</span>)</a></li>
+			<li role="presentation" class="{{$current_tab == 'visits' ? 'active' : '' }}"><a href="#tab-visits" aria-controls="tab-visits" role="tab" data-tab="visits" data-toggle="tab">{{ Lang::get('account/visits.title') }}</a></li>
 		</ul>
 
 		<div class="tab-content">
@@ -295,6 +300,12 @@
 				</div>
 			</div>
 
+			<div role="tabpanel" class="tab-pane tab-main {{$current_tab == 'visits' ? 'active' : '' }}" id="tab-visits">
+				@include('account.visits.ajax-tab', [
+					'visits_init' => true,
+				])
+			</div>
+
 		</div>
 
 		<br />
@@ -392,6 +403,25 @@
 						f.submit();
 					}
 				});
+			});
+
+			$.ajax({
+				type: 'GET',
+				dataType: 'json',
+				url: '{{ action('Account\Visits\AjaxController@getTab') }}',
+				data: {
+					customer_id: {{ $customer->id }}
+				},
+				success: function(data) {
+					if ( data.success ) {
+						$('#account-visits-ajax-tab').html( data.html );
+					} else {
+						$('#account-visits-ajax-tab').html('<div class="alert alert-danger">{{ print_js_string( Lang::get('general.messages.error') ) }}</div>')
+					}
+				},
+				error: function() {
+						$('#account-visits-ajax-tab').html('<div class="alert alert-danger">{{ print_js_string( Lang::get('general.messages.error') ) }}</div>')
+				}
 			});
 
 		});

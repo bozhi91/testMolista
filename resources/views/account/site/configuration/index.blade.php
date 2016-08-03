@@ -98,6 +98,19 @@
 								</div>
 							</div>
 						</div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									<div class="error-container">
+										{!! Form::label('ga_account', Lang::get('account/site.configuration.ga.account')) !!}
+										{!! Form::text('ga_account', null, [ 'class'=>'form-control' ]) !!}
+									</div>
+									<div class="help-block">{{ Lang::get('account/site.configuration.ga.account.helper') }}</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+							</div>
+						</div>
 
 						<div class="hide">
 							<hr />
@@ -269,6 +282,11 @@
 		ready_callbacks.push(function(){
 			var form = $('#admin-site-configuration-form');
 
+			$.validator.addMethod("ga_account_validation", function(value, element) {
+				return this.optional(element) || /(UA|YT|MO)-\d+-\d+/i.test(value);
+			}, "{{ print_js_string( Lang::get('account/site.configuration.ga.account.error') ) }}");
+
+
 			// Form validation
 			form.validate({
 				ignore: '',
@@ -288,6 +306,9 @@
 					}
 				},
 				rules: {
+					'ga_account': {
+						ga_account_validation: true
+					},
 					"subdomain" : {
 						remote: {
 							url: '{{ action('Account\Site\ConfigurationController@getCheck', 'subdomain') }}',
@@ -357,6 +378,9 @@
 					}
 				},
 				messages: {
+					'ga_account': {
+						ga_account_validation: "{{ print_js_string( Lang::get('account/site.configuration.ga.account.error') ) }}"
+					},
 					"subdomain" : {
 						alphanumericHypen: "{{ print_js_string( Lang::get('account/site.configuration.subdomain.alpha') ) }}",
 						remote: "{{ print_js_string( Lang::get('account/site.configuration.subdomain.error') ) }}"

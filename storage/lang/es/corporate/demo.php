@@ -28,4 +28,7 @@
 
 		'exports.title' => 'Exportaciones',
 		'exports.text' => 'Exporta tu catálogo a las principales plataformas del sector inmobiliario.',
+
+		'calendar.title' => 'Agenda',
+		'calendar.text' => 'Crea eventos, planifica tus citas y las de tus agentes y muértralos en el calendario.',
 	];

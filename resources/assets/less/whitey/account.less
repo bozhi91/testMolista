@@ -1,10 +1,5 @@
 @import '../app/account.less';
 
-#body-account {
-	#header {
-		.header-menu { display: none; }
-	}
-}
 
 #account-container {
 
@@ -57,5 +52,13 @@
 
 	.site-configuration .mailer-option .mailer-current:after {
 		border-top-color: @accountTextColor;
+	}
+}
+
+@media (min-width: 768px) {
+	#body-account {
+		#header {
+			.header-menu { display: none; }
+		}
 	}
 }

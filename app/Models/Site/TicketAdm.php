@@ -29,7 +29,7 @@ class TicketAdm
 
 	protected $guzzle_client;
 
-	public function __construct($site_id)
+	public function __construct($site_id, $user_token=false)
 	{
 		$base_uri = \Config::get('app.ticketing_system_url', false);
 		if ( $base_uri )
@@ -49,14 +49,26 @@ class TicketAdm
 		}
 
 		$this->setSite($site_id);
+
+		if ( $user_token )
+		{
+			$this->setSiteToken($user_token);
+		}
+		else
+		{
+			$this->setSiteToken($this->site->ticket_owner_token);
+		}
 	}
 
 	public function setSite($site_id)
 	{
 		$this->site = \App\Site::withTranslations()->findOrFail($site_id);
-
 		$this->site_id = $this->site->ticket_site_id;
-		$this->site_token = $this->site->ticket_owner_token;
+	}
+
+	public function setSiteToken($token)
+	{
+		$this->site_token = $token;
 		$this->site_ready = ( $this->site_id && $this->site_token && $this->guzzle_client );
 	}
 
@@ -127,7 +139,9 @@ class TicketAdm
 		$this->site->ticket_site_id = $body->id;
 		$this->site->ticket_owner_token = $owner->ticket_user_token ? $owner->ticket_user_token : $body->token;
 		$this->site->save();
+
 		$this->setSite( $this->site->id );
+		$this->setSiteToken($this->site->ticket_owner_token);
 
 		// Update owner
 		if ( !$owner->ticket_user_token )
@@ -519,15 +533,7 @@ class TicketAdm
 			'headers'=> [
 				'Authorization' => $this->getAuthorizationHeader(),
 			],
-			'json' => [
-				'contact_id' => isset($data['contact_id']) ? $data['contact_id'] : null,
-				'user_id' => isset($data['user_id']) ? $data['user_id'] : null,
-				'item_id' => isset($data['item_id']) ? $data['item_id'] : null,
-				'source' => isset($data['source']) ? $data['source'] : null,
-				'subject' => isset($data['subject']) ? $data['subject'] : null,
-				'body' => isset($data['body']) ? $data['body'] : null,
-				'referer' => isset($data['referer']) ? $data['referer'] : null,
-			],
+			'json' => $data,
 		]);
 
 		// Success
@@ -679,6 +685,20 @@ class TicketAdm
 					$ticket->messages[$key]->user->image = $images['default'];
 				}
 			}
+
+			if ( empty($message->files) || !is_array($message->files) )
+			{
+				$message->files = [];
+			}
+			foreach ($message->files as $file_key => $file_value)
+			{
+				if ( empty($file_value->title) )
+				{
+					$tmp = parse_url($file_value->url);
+					$file_value->title = basename($tmp['path']);
+					$message->files[$file_key] = $file_value;
+				}
+			}
 		}
 
 		return $ticket;
@@ -722,17 +742,6 @@ class TicketAdm
 			return false;
 		}
 
-		// Clean email fields
-		foreach (['cc','bcc'] as $field)
-		{
-			if ( !isset($data[$field]) )
-			{
-				continue;
-			}
-
-			$data[$field] = array_values(array_unique($data[$field]));
-		}
-
 		$response = $this->guzzle_client->request('POST', "ticket/{$ticket_id}/message/?site_id={$this->site_id}", [
 			'headers'=> [
 				'Authorization' => $this->getAuthorizationHeader(),
@@ -756,6 +765,206 @@ class TicketAdm
 		}
 
 		return true;
+	}
+
+	public function getEmailAccounts($user_id, $user_token=false)
+	{
+		$default = [];
+
+		if ($user_token)
+		{
+			$this->setSiteToken($user_token);
+		}
+			
+		if ( !$this->site_ready )
+		{
+			return $default;
+		}
+
+		$data = [
+			'site_id' => $this->site_id,
+		];
+
+		$response = $this->guzzle_client->request('GET', "user/{$user_id}/email_account/?".http_build_query($data), [
+			'headers'=> [
+				'Authorization' => $this->getAuthorizationHeader(),
+			],
+		]);
+
+		// Error
+		$body = @json_decode( $response->getBody() );
+
+		if ( $response->getStatusCode() != 200 )
+		{
+			$error_message = "TICKETING -> could not retrieve user email accounts list";
+			if ( @$body->message )
+			{
+				$error_message .= ": {$body->message}";
+			}
+			\Log::error($error_message);
+			return $default;
+		}
+
+		// Add title
+		foreach ($body as $key => $value)
+		{
+			$body[$key]->title = $value->from_name ? "{$value->from_name} ($value->from_email)" : $value->from_email;
+		}
+
+		// Sort accounts by name/email
+		uasort($body, function($a, $b) {
+			return ($a->title < $b->title) ? -1 : ($a->title == $b->title ? 0 : 1);
+		});
+
+		return $body;
+	}
+
+	public function saveEmailAccount($data, $account_id=false) 
+	{
+		// Set user id
+		$user_id = @$data['user_id'];
+		if ( !$user_id )
+		{
+			return false;
+		}
+
+		// Update user token ?
+		if ( @$data['user_token'] )
+		{
+			$this->setSiteToken($data['user_token']);
+		}
+
+		// Check site ready
+		if ( !$this->site_ready )
+		{
+			return false;
+		}
+
+		// Prepare request data
+		$request_data = [
+			'headers'=> [
+				'Authorization' => $this->getAuthorizationHeader(),
+			],
+			'json' => [
+				'protocol' => @$data['protocol'],
+				'from_name' => @$data['from_name'],
+				'from_email' => @$data['from_email'],
+				'host' => @$data['host'],
+				'password' => @$data['password'],
+				'username' => @$data['username'],
+				'port' => @$data['port'],
+				'layer' => @$data['layer'],
+			],
+		];
+
+		// Empty password?
+		if ( !$request_data['json']['password'] )
+		{
+			unset($request_data['json']['password'])	;
+		}
+
+		// Send request
+		if ( $account_id )
+		{
+			$request_type = 'update';
+			$expected_status = 204;
+			$response = $this->guzzle_client->request('PUT', "user/{$user_id}/email_account/{$account_id}?site_id={$this->site_id}", $request_data);
+		}
+		else
+		{
+			$request_type = 'create';
+			$expected_status = 201;
+			$response = $this->guzzle_client->request('POST', "user/{$user_id}/email_account?site_id={$this->site_id}", $request_data);
+		}
+
+		// Get body
+		$body = @json_decode( $response->getBody() );
+
+		// Error?
+		if ( $response->getStatusCode() != $expected_status )
+		{
+			$error_message = "TICKETING -> could not {$request_type} user email account {$account_id}";
+			if ( @$body->message )
+			{
+				$error_message .= ": {$body->message}";
+			}
+			\Log::error($error_message);
+			return false;
+		}
+
+		if ( $request_type == 'create' )
+		{
+			$account_id = $body->id;
+		}
+
+		return $account_id;
+	}
+
+	public function testEmailAccount($account_id,$user_id, $user_token=false) 
+	{
+		if ($user_token)
+		{
+			$this->setSiteToken($user_token);
+		}
+			
+		if ( !$this->site_ready )
+		{
+			return false;
+		}
+
+		$data = [
+			'headers'=> [
+				'Authorization' => $this->getAuthorizationHeader(),
+			],
+		];
+		$response = $this->guzzle_client->request('GET', "user/{$user_id}/email_account/{$account_id}/test?site_id={$this->site_id}", $data);
+
+		// Success
+		if ( $response->getStatusCode() == 200 )
+		{
+			return true;
+		}
+
+		return false;
+	}
+	
+	public function deleteEmailAccount($account_id,$user_id, $user_token=false) 
+	{
+		if ($user_token)
+		{
+			$this->setSiteToken($user_token);
+		}
+			
+		if ( !$this->site_ready )
+		{
+			return false;
+		}
+
+		$data = [
+			'headers'=> [
+				'Authorization' => $this->getAuthorizationHeader(),
+			],
+		];
+		$response = $this->guzzle_client->request('DELETE', "user/{$user_id}/email_account/{$account_id}?site_id={$this->site_id}", $data);
+
+		// Success
+		if ( $response->getStatusCode() == 204 )
+		{
+			return true;
+		}
+
+		// Get body
+		$body = @json_decode( $response->getBody() );
+
+		// Log error
+		$error_message = "TICKETING -> could not delete user email account {$account_id}";
+		if ( @$body->message )
+		{
+			$error_message .= ": {$body->message}";
+		}
+		\Log::error($error_message);
+
+		return false;
 	}
 
 	public function getUsersStats($user_ids)
@@ -885,7 +1094,7 @@ class TicketAdm
 		return true;
 	}
 
-	public function prepareSignature($user,$site) 
+	public function prepareSiteSignature($user,$site) 
 	{
 		if ( !$user || empty($user['name']) )
 		{
