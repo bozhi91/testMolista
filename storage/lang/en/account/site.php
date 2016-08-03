@@ -74,6 +74,10 @@
 
 		'configuration.saved' => 'The site configuration was successfully saved',
 
+		'configuration.ga.account' => 'Google Analytics tracking ID',
+		'configuration.ga.account.helper' => 'Example: UA-123456-1',
+		'configuration.ga.account.error' => 'The Google Analytics tracking ID format is invalid',
+
 
 
 		'menus.h1' => 'Menus',
