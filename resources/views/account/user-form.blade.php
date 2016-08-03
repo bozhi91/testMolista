@@ -64,12 +64,5 @@
 		</div>
 	</div>
 	<div class="col-xs-12 col-sm-6">
-		<div class="form-group error-container">
-			{!! Form::label('signature', Lang::get('account/profile.signature')) !!}
-			{!! Form::select('signature', [ 
-				0 =>Lang::get('general.no'),
-				1 => Lang::get('general.yes'), 
-			], null, [ 'class'=>'form-control' ]) !!}
-		</div>
 	</div>
 </div>

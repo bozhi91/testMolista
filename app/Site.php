@@ -105,6 +105,10 @@ class Site extends TranslatableModel
 		return \App\User::withRole('employee')->whereIn('id', $this->users_ids)->lists('id')->toArray();
 	}
 
+	public function users_signatures() {
+		return $this->hasMany('\App\Models\Site\UserSignature');
+	}
+
 	public function customers() {
 		return $this->hasMany('App\Models\Site\Customer');
 	}

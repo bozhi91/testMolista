@@ -16,4 +16,15 @@
 		'signature' => 'Embed signature on tickets responses?',
 
 		'message.saved' => 'Your information was successfully saved',
+
+		'signatures.h1' => 'My signatures',
+		'signatures.h1.create' => 'Create signature',
+		'signatures.h1.edit' => 'Edit signature',
+		'signatures.empty' => 'No signatures found',
+		'signatures.button.new' => 'Create signature',
+		'signatures.deleted' => 'The signature was successfully deleted.',
+		'signatures.delete.warning' => 'Are you sure you want to delete this signature?',
+		'signatures.field.title' => 'Title',
+		'signatures.field.default' => 'Use as default',
+		'signatures.field.signature' => 'Signature',
 	];

@@ -46,14 +46,6 @@
 								exclude: {{ empty($user) ? 0 : $user->id }}
 							}
 						}
-					},
-					image: {
-						required: function() {
-							if ( form.find('.user-image-link').length > 0 ) {
-								return false;
-							}
-							return form.find('select[name="signature"]').val() == 1;
-						}
 					}
 				},
 				messages: {

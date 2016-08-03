@@ -26,7 +26,7 @@
 						<div class="text-right reply-form-trigger-area">
 							<a href="#" class="btn btn-sm btn-primary btn-reply-form-trigger">{{ Lang::get('account/tickets.send') }}</a>
 						</div>
-						{!! Form::open([ 'id'=>'reply-form', 'action'=>[ 'Account\TicketsController@postReply', $ticket->id ], 'class'=>'reply-form ticket-message' ]) !!}
+						{!! Form::open([ 'id'=>'reply-form', 'action'=>[ 'Account\TicketsController@postReply', $ticket->id ], 'files'=>true, 'class'=>'reply-form ticket-message' ]) !!}
 							<div class="row hide">
 								<div class="col-xs-12">
 									<div class="form-group error-container">
@@ -46,22 +46,46 @@
 							<div class="row">
 								<div class="col-xs-12">
 									<div class="form-horizontal">
-										<div class="form-group error-container">
-											{!! Form::label(null, 'CC', [ 'class'=>'col-sm-2 control-label' ]) !!}
-											<div class="col-sm-10">
-												<div class="form-control labels-email-input" data-name="cc[]">
-													<i class="fa fa-plus-square" aria-hidden="true"></i>
-													<ul class="list-inline emails-list"></ul>
+										<div class="non-private-info">
+											<div class="form-group error-container">
+												{!! Form::label(null, 'CC', [ 'class'=>'col-sm-2 control-label' ]) !!}
+												<div class="col-sm-10">
+													<div class="form-control labels-email-input" data-name="cc[]">
+														<i class="fa fa-plus-square" aria-hidden="true"></i>
+														<ul class="list-inline emails-list"></ul>
+													</div>
+												</div>
+											</div>
+											<div class="form-group error-container">
+												{!! Form::label(null, 'BCC', [ 'class'=>'col-sm-2 control-label' ]) !!}
+												<div class="col-sm-10">
+													<div class="form-control labels-email-input" data-name="bcc[]">
+														<i class="fa fa-plus-square" aria-hidden="true"></i>
+														<ul class="list-inline emails-list"></ul>
+													</div>
+												</div>
+											</div>
+											<div class="form-group error-container">
+												{!! Form::label('signature_id', Lang::get('account/tickets.signature'), [ 'class'=>'col-sm-2 control-label' ]) !!}
+												<div class="col-sm-10">
+													<select name="signature_id" class="form-control">
+														<option value="">{{ Lang::get('account/tickets.signature.none') }}</option>
+														@foreach ($signatures as $signature)
+															<option value="{{ $signature->id }}" {{ $signature->default ? 'selected="selected"' : '' }}>{{ $signature->title }}</option>
+														@endforeach
+													</select>
 												</div>
 											</div>
 										</div>
-										<div class="form-group error-container">
-											{!! Form::label(null, 'BCC', [ 'class'=>'col-sm-2 control-label' ]) !!}
+										<div class="form-group">
+											{!! Form::label('attachment', Lang::get('account/tickets.attachment'), [ 'class'=>'col-sm-2 control-label' ]) !!}
 											<div class="col-sm-10">
-												<div class="form-control labels-email-input" data-name="bcc[]">
-													<i class="fa fa-plus-square" aria-hidden="true"></i>
-													<ul class="list-inline emails-list"></ul>
+												<div class="error-container">
+													{!! form::file('attachment', [ 'class'=>'form-control' ]) !!}
 												</div>
+												<div class="help-block">{!! Lang::get('account/tickets.attachment.helper', [ 
+													'maxsize'=>Config::get('app.property_image_maxsize', 2048) 
+												]) !!}</div>
 											</div>
 										</div>
 									</div>
@@ -97,10 +121,12 @@
 									<div>
 										<strong>{{ $message->subject }}</strong>
 									</div>
-									@if ( $message->private )
-										<span class="privacy-label pull-right label label-info">{{ Lang::get('account/tickets.internal') }}</span>
-									@else
-										<span class="privacy-label pull-right label label-warning">{{ Lang::get('account/tickets.public') }}</span>
+									@if ( $message->user )
+										@if ( $message->private )
+											<span class="privacy-label pull-right label label-info">{{ Lang::get('account/tickets.internal') }}</span>
+										@else
+											<span class="privacy-label pull-right label label-warning">{{ Lang::get('account/tickets.public') }}</span>
+										@endif
 									@endif
 									<div class="help-block">
 										@if ( $message->user )
@@ -120,6 +146,19 @@
 									</div>
 								</div>
 							</div>
+							@if ( !empty($message->files) )
+								<div class="row">
+									<div class="col-xs-12">
+										<ul class="message-attachments list-inline">
+											@foreach ($message->files as $file)
+												<li>
+													<a href="{{ $file->url }}" target="_blank">{{ empty($file->title) ? pathinfo($file->url, PATHINFO_EXTENSION) : $file->title }}</a>
+												</li>
+											@endforeach
+										</ul>
+									</div>
+								</div>
+							@endif
 						</div>
 					@endforeach
 				</div>
@@ -338,6 +377,14 @@
 			});
 			cont.on('click', '.emails-list-item', function(e){
 				e.stopPropagation();
+			});
+
+			reply_form.on('change','select[name="private"]', function(){
+				if ( $(this).val() == 1 ) {
+					reply_form.find('.non-private-info').addClass('hide');
+				} else {
+					reply_form.find('.non-private-info').removeClass('hide');
+				}
 			});
 
 		});

@@ -3,6 +3,7 @@
 	return [
 
 		'data' => 'Datos personales',
+		'data.signatures' => 'Mis firmas',
 
 		'properties' => 'Propiedades',
 		
