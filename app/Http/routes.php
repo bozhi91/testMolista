@@ -150,7 +150,8 @@ Route::group([
 	], function() {
 		Route::get('/', 'AccountController@index');
 		Route::post('/', 'AccountController@updateProfile');
-		Route::controller('account/profile/signatures', 'Account\Profile\SignaturesController');
+		Route::controller('profile/signatures', 'Account\Profile\SignaturesController');
+		Route::controller('profile/email-accounts', 'Account\Profile\AccountsController');
 		Route::group([
 			'middleware' => [
 				'role:company',

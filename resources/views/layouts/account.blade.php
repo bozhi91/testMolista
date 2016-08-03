@@ -129,17 +129,25 @@
 						<li class="separator"></li>
 					@endif
 
-					<li role="presentation" class="{{ (@$submenu_section == 'profile') ? 'active' : '' }}">
-						<a href="{{ action('AccountController@index') }}">
-							<i class="account-icon account-icon-info"></i>
-							{{ Lang::get('account/menu.data') }}
-						</a>
-						@if ( $submenu_section == 'profile' )
-							<ul class="nav" role="menu">
+					@if ( $submenu_section == 'profile' )
+						<li role="presentation" class="active">
+							<a href="javascript:;" id="account-menu-btn-profile" data-toggle="collapse" data-target="#account-submenu-profile" aria-expanded="false" class="">
+								<i class="account-icon account-icon-info"></i>
+								{{ Lang::get('account/menu.data') }}
+							</a>
+							<ul id="account-submenu-profile" class="nav" role="menu" aria-labelledby="account-menu-btn-profile">
+								<li><a href="{{ action('Account\Profile\AccountsController@getIndex') }}" class="{{ (@$submenu_subsection == 'profile-accounts') ? 'current' : '' }}">{{ Lang::get('account/menu.data.accounts') }}</a></li>
 								<li><a href="{{ action('Account\Profile\SignaturesController@getIndex') }}" class="{{ (@$submenu_subsection == 'profile-signatures') ? 'current' : '' }}">{{ Lang::get('account/menu.data.signatures') }}</a></li>
 							</ul>
-						@endif
-					</li>
+						</li>
+					@else
+						<li role="presentation">
+							<a href="{{ action('AccountController@index') }}">
+								<i class="account-icon account-icon-info"></i>
+								{{ Lang::get('account/menu.data') }}
+							</a>
+						</li>
+					@endif
 
 					<li role="presentation">
 						<a href="{{ action('Auth\AuthController@logout') }}">

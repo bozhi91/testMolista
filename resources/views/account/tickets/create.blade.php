@@ -37,6 +37,17 @@
 							@endforeach
 						</select>
 					</div>
+					@if ( @count($accounts) > 0 )
+						<div class="form-group error-container">
+							{!! Form::label('email_account_id', Lang::get('account/tickets.account')) !!}
+							<select name="email_account_id" class="form-control">
+								<option value=""></option>
+								@foreach ($accounts as $account)
+									<option value="{{ $account->id }}">{{ $account->title }}</option>
+								@endforeach
+							</select>
+						</div>
+					@endif
 					<div class="form-group">
 						{!! Form::label('attachment', Lang::get('account/tickets.attachment')) !!}
 						<div class="error-container">

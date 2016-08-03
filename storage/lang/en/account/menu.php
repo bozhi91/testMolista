@@ -3,6 +3,7 @@
 	return [
 
 		'data' => 'Your information',
+		'data.accounts' => 'My email accounts',
 		'data.signatures' => 'My signatures',
 
 		'properties' => 'Properties',
