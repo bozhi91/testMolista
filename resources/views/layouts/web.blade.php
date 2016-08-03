@@ -96,5 +96,11 @@
 		<script src="{{ Theme::url('/js/fullcalendar/' . LaravelLocalization::getCurrentLocale() . '.js') }}"></script>
 	@endif
 
+	<script type="text/javascript">
+		for (var t=0; t<ready_callbacks.length; t++) {
+			ready_callbacks[t]();
+		}
+	</script>
+
 </body>
 </html>
