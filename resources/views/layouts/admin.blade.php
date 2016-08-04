@@ -96,12 +96,24 @@
 
 <footer class="footer">
 	<div class="container">
-		<ul class="list-unstyled pull-left footer-list">
+		<ul class="list-unstyled pull-left footer-list nav-pills">
 			@role('admin')
 				<li>
 					<a href="{{ action('\Rap2hpoutre\LaravelLogViewer\LogViewerController@index') }}" class="btn btn-danger" target="_blank">
 						<span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
 						Error log
+					</a>
+				</li>
+				<li>
+					<a href="/admin/queue-monitor" class="btn" target="_blank">
+						<span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
+						Queues
+					</a>
+				</li>
+				<li>
+					<a href="/beanstalkd" class="btn" target="_blank">
+						<span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
+						Beanstalkd
 					</a>
 				</li>
 			@endrole

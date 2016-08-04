@@ -103,21 +103,18 @@ Route::group([
 		    return Response::view('queue-monitor::status-page');
 		});
 
-		Route::get('queue-monitor.json', function () {
-		    $response = Response::view('queue-monitor::status-json', [
-		        'options' => \JSON_PRETTY_PRINT,
-		    ]);
-		    $response->header('Content-Type', 'application/json');
-		    return $response;
-		});
-
 	});
 
 	// Auth
 	Route::auth();
 });
 
-
+// Queue monitor service
+Route::get('queue-monitor.json', function () {
+	$response = Response::view('queue-monitor::status-json');
+	$response->header('Content-Type', 'application/json');
+	return $response;
+});
 
 // Other domains -------------------------------------------------------------------
 Route::group([
