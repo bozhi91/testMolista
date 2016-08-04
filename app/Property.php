@@ -793,6 +793,7 @@ class Property extends TranslatableModel
 		$options = [
 			'house' => trans('web/properties.type.house'), 
 			'apartment' => trans('web/properties.type.apartment'), 
+			'flat' => trans('web/properties.type.flat'), 
 			'duplex' => trans('web/properties.type.duplex'), 
 			'penthouse' => trans('web/properties.type.penthouse'), 
 			'villa' => trans('web/properties.type.villa'), 

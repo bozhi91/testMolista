@@ -18,6 +18,7 @@
 		'type.any' => 'Todos los tipos',
 		'type.house' => 'Casa',
 		'type.apartment' => 'Apartmento',
+		'type.flat' => 'Piso',
 		'type.duplex' => 'Duplex',
 		'type.penthouse' => 'Penthouse',
 		'type.villa' => 'Villa',
