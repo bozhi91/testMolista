@@ -86,6 +86,8 @@ class Property extends TranslatableModel
 			'newly_build'  => trans('account/properties.newly_build'),
 			'second_hand'  => trans('account/properties.second_hand'),
 			'highlighted'  => trans('account/properties.highlighted'),
+			'bank_owned'  => trans('account/properties.bank_owned'),
+			'private_owned'  => trans('account/properties.private_owned'),
 			'enabled'  => trans('account/properties.enabled'),
 			'ec'  => trans('account/properties.energy.certificate'),
 			'ec_pending'  => trans('account/properties.energy.certificate.pending.full'),
@@ -511,6 +513,8 @@ class Property extends TranslatableModel
 			'construction_year' => $this->construction_year,
 			'newly_build' => $this->newly_build,
 			'second_hand' => $this->second_hand,
+			'bank_owned' => $this->bank_owned,
+			'private_owned' => $this->private_owned,
 			'url' => [],
 			'location' => [
 				'country' => @$this->country->code,
