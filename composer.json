@@ -29,7 +29,8 @@
         "simplesoftwareio/simple-qrcode": "^1.4",
         "torann/geoip": "0.2.*@dev",
         "florianv/laravel-swap": "^0.4.0",
-        "eluceo/ical": "^0.10.1"
+        "eluceo/ical": "^0.10.1",
+        "tremby/laravel-queue-monitor": "^2.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

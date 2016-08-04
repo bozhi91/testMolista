@@ -12,7 +12,7 @@ Route::group([
 	'domain' => $domain['host'],
 	'prefix' => LaravelLocalization::setLocale(),
 	'middleware' => [
-		'web', 
+		'web',
 		'site.login.roles:admin|translator',
 		'setTheme:corporate',
 	],
@@ -93,10 +93,23 @@ Route::group([
 			Route::resource('geography/countries', 'Admin\Geography\CountriesController');
 		});
 		// Error log
-		Route::get('errorlog', [ 
-			'middleware' => ['role:admin'], 
-			'uses' => '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index' 
+		Route::get('errorlog', [
+			'middleware' => ['role:admin'],
+			'uses' => '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index'
 		]);
+
+		// Queue monitor
+		Route::get('queue-monitor', function () {
+		    return Response::view('queue-monitor::status-page');
+		});
+
+		Route::get('queue-monitor.json', function () {
+		    $response = Response::view('queue-monitor::status-json', [
+		        'options' => \JSON_PRETTY_PRINT,
+		    ]);
+		    $response->header('Content-Type', 'application/json');
+		    return $response;
+		});
 
 	});
 
@@ -109,7 +122,7 @@ Route::group([
 // Other domains -------------------------------------------------------------------
 Route::group([
 	'prefix' => LaravelLocalization::setLocale(),
-	'middleware' => [ 
+	'middleware' => [
 		'web',
 		'site.login.roles:company|employee',
 		'site.setup',

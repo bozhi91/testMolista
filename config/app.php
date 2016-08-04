@@ -221,6 +221,8 @@
 			/* https://github.com/florianv/laravel-swap */
 			Florianv\LaravelSwap\SwapServiceProvider::class,
 
+			/* https://github.com/tremby/laravel-queue-monitor */
+			Tremby\QueueMonitor\ServiceProvider::class,
 		],
 
 		/*
