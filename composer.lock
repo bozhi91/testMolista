@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "eec81adb8a5100bfa1b9145956c04963",
-    "content-hash": "146eaf3c2d5f14cdc9e571699d8ca5f4",
+    "hash": "b8f0120abea16b90d4c1d9b668ec6b4b",
+    "content-hash": "5a33bb6a5be82d274e2b21ac426ed76e",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -2305,7 +2305,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jjriv/emogrifier/zipball/cb0f68300b118e44e59822e0a8bb9059e37a0459",
+                "url": "https://api.github.com/repos/jjriv/emogrifier/zipball/27c6f4dc1e4039d5609950efab0c03a5428e965b",
                 "reference": "27c6f4dc1e4039d5609950efab0c03a5428e965b",
                 "shasum": ""
             },
@@ -3639,6 +3639,42 @@
                 "location"
             ],
             "time": "2015-06-30 16:13:35"
+        },
+        {
+            "name": "tremby/laravel-queue-monitor",
+            "version": "2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tremby/laravel-queue-monitor.git",
+                "reference": "7bf898b3c13270df22d455fb4229358102e2416c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tremby/laravel-queue-monitor/zipball/7bf898b3c13270df22d455fb4229358102e2416c",
+                "reference": "7bf898b3c13270df22d455fb4229358102e2416c",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "~5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Tremby\\QueueMonitor\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bart Nagel",
+                    "email": "bart@tremby.net"
+                }
+            ],
+            "description": "Laravel queue monitoring tools",
+            "time": "2015-08-19 00:43:11"
         },
         {
             "name": "vlucas/phpdotenv",
