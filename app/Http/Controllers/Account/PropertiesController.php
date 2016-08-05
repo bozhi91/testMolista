@@ -625,6 +625,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'second_hand' => 'boolean',
 			'new_item' => 'boolean',
 			'opportunity' => 'boolean',
+			'private_owned' => 'boolean',
+			'bank_owned' => 'boolean',
 			'country_id' => 'required|exists:countries,id',
 			'territory_id' => 'exists:territories,id',
 			'state_id' => 'required|exists:states,id',

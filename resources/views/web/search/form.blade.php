@@ -60,7 +60,7 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-12 col-sm-4 col-md-3 input-line">
+		<div class="col-xs-12 col-sm-3 input-line">
 			<div class="form-group">
 				<div class="checkbox">
 					<label>
@@ -70,12 +70,32 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-xs-12 col-sm-4 col-md-3 input-line">
+		<div class="col-xs-12 col-sm-3 input-line">
 			<div class="form-group">
 				<div class="checkbox">
 					<label>
 						<input type="checkbox" name="opportunity" value="1" {{ Input::get('opportunity') ? 'checked="checked"' : '' }} />
 						{{ Lang::get('account/properties.opportunity') }}
+					</label>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-3 input-line">
+			<div class="form-group">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" name="bank_owned" value="1" {{ Input::get('bank_owned') ? 'checked="checked"' : '' }} />
+						{{ Lang::get('account/properties.bank_owned') }}
+					</label>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-3 input-line">
+			<div class="form-group">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" name="private_owned" value="1" {{ Input::get('private_owned') ? 'checked="checked"' : '' }} />
+						{{ Lang::get('account/properties.private_owned') }}
 					</label>
 				</div>
 			</div>
