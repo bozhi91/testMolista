@@ -128,8 +128,8 @@ class AccountsController extends \App\Http\Controllers\AccountController
 	protected function _prepareAccountData($data, $id=false)
 	{
 		$data = array_merge($this->request->all(), [
-			'site_id' => $this->site->id,
-			'user_id' => $this->site_user->id,
+			'site_id' => $this->site->ticket_site_id,
+			'user_id' => $this->site_user->ticket_user_id,
 		]);
 
 		if ( empty($data['password']) )
