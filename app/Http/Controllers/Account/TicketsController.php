@@ -61,7 +61,8 @@ class TicketsController extends \App\Http\Controllers\AccountController
 		elseif ( $this->request->input('user_id') ) 
 		{
 			$clean_filters = true;
-			$params['user_id'] = $this->request->input('user_id');
+			$tmp = $this->site->users()->find($this->request->input('user_id'));
+			$params['user_id'] = @intval($tmp->ticket_user_id);
 		}
 
 		$tickets = $this->site->ticket_adm->getTickets($params);
@@ -301,7 +302,8 @@ class TicketsController extends \App\Http\Controllers\AccountController
 			$users_query->where('id', \Auth::user()->id);
 		}
 
-		return $users_query->lists('name','ticket_user_id')->all();
+		return $users_query->lists('name','id')->all();
+		//return $users_query->lists('name','ticket_user_id')->all();
 
 	}
 
