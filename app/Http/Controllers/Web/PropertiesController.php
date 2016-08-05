@@ -84,6 +84,18 @@ class PropertiesController extends WebController
 			$query->where('opportunity', 1);
 		}
 
+		// Bank owned
+		if ( $this->request->input('bank_owned') )
+		{
+			$query->where('bank_owned', 1);
+		}
+
+		// Private owned
+		if ( $this->request->input('private_owned') )
+		{
+			$query->where('private_owned', 1);
+		}
+
 		// Size
 		if ( $this->request->input('size') )
 		{

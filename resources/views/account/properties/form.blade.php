@@ -210,6 +210,26 @@
 							</div>
 						</div>
 					</div>
+					<div class="col-xs-12 col-sm-3">
+						<div class="form-group">
+							<div class="checkbox error-container">
+								<label>
+									{!! Form::checkbox('bank_owned', 1, null) !!}
+									{{ Lang::get('account/properties.bank_owned') }}
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-3">
+						<div class="form-group">
+							<div class="checkbox error-container">
+								<label>
+									{!! Form::checkbox('private_owned', 1, null) !!}
+									{{ Lang::get('account/properties.private_owned') }}
+								</label>
+							</div>
+						</div>
+					</div>
 				</div>
 				<hr />
 				{!! Form::label(null, Lang::get('account/properties.services')) !!}

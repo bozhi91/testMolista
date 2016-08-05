@@ -25,6 +25,8 @@
 		case 'highlighted':
 		case 'enabled':
 		case 'ec_pending':
+		case 'bank_owned':
+		case 'private_owned':
 			if ( isset($values[$field]) && strlen($values[$field]) )
 			{
 				echo $values[$field] ? trans('general.yes') : trans('general.no');
