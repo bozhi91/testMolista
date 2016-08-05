@@ -15,9 +15,9 @@ class Property extends TranslatableModel
 	protected $dontKeepLogOf = [
 		'site_id',
 		'label_color',
-		'publisher_id', 
-		'published_at', 
-		'created_at', 
+		'publisher_id',
+		'published_at',
+		'created_at',
 		'updated_at',
 	];
 	protected $auditableTypes = [ 'created', 'saved', 'deleted' ];
@@ -33,6 +33,7 @@ class Property extends TranslatableModel
 
 	protected $casts = [
 		'address_parts' => 'array',
+		'details' => 'array',
 	];
 
 	protected $marketplace_info;
@@ -171,7 +172,7 @@ class Property extends TranslatableModel
 		return false;
 	}
 
-	public function marketplaces() 
+	public function marketplaces()
 	{
 		return $this->belongsToMany('App\Models\Marketplace', 'properties_marketplaces', 'property_id', 'marketplace_id');
 	}
@@ -204,7 +205,7 @@ class Property extends TranslatableModel
 	{
 		return "sites/{$this->site_id}/properties/{$this->id}/pdf";
 	}
-	public function getPdfFile($locale) 
+	public function getPdfFile($locale)
 	{
 		// Check directory
 		$dir = public_path($this->pdf_folder);
@@ -280,7 +281,7 @@ class Property extends TranslatableModel
 	{
 		return "sites/{$this->site_id}/properties/{$this->id}/qr";
 	}
-	public function getQrFile($locale) 
+	public function getQrFile($locale)
 	{
 		// Check directory
 		$dir = public_path($this->qr_folder);
@@ -352,7 +353,7 @@ class Property extends TranslatableModel
 		$limit = 3;
 
 		$ids = \App\Property::withBasicRelationship($this)
-					->where('properties.city_id', $this->city_id) 
+					->where('properties.city_id', $this->city_id)
 					->where('properties.type', $this->type)
 					->orderBy('properties.price','desc')
 					->orderByRaw('RAND()')
@@ -426,8 +427,8 @@ class Property extends TranslatableModel
 
 		// Fix wrong domain
 		$property_url = str_replace(
-							\Config::get('app.application_url'), 
-							'', 
+							\Config::get('app.application_url'),
+							'',
 							action('Web\PropertiesController@details', $this->slug)
 						);
 
@@ -523,7 +524,7 @@ class Property extends TranslatableModel
 		$i18n = $this->i18n;
 		foreach ([ 'title', 'description' ] as $field)
 		{
-			foreach ($site_locales as $locale) 
+			foreach ($site_locales as $locale)
 			{
 				$value = @$i18n[$field][$locale];
 				if ( !$value )
@@ -535,7 +536,7 @@ class Property extends TranslatableModel
 		}
 
 		// Property urls
-		foreach ($site_locales as $locale) 
+		foreach ($site_locales as $locale)
 		{
 			\App::setLocale($locale);
 			$slug = empty($i18n['slug'][$locale]) ? $i18n['slug'][$fallback_locale] : $i18n['slug'][$locale];
@@ -552,7 +553,7 @@ class Property extends TranslatableModel
 		foreach ($this->services as $service)
 		{
 			$tmp = [];
-			foreach ($site_locales as $locale) 
+			foreach ($site_locales as $locale)
 			{
 				$tmp[$locale] = @$service->i18n['title'][$locale];
 				if ( !$tmp[$locale] )
@@ -647,7 +648,7 @@ class Property extends TranslatableModel
 	public function scopeWithPriceBetween($query, $range, $currency)
 	{
 		$limits = explode('-', $range);
-		if ( count($limits) != 2 ) 
+		if ( count($limits) != 2 )
 		{
 			return $query->whereRaw('1=2');
 		}
@@ -672,7 +673,7 @@ class Property extends TranslatableModel
 	public function scopeWithSizeBetween($query, $range, $size_unit)
 	{
 		$limits = explode('-', $range);
-		if ( count($limits) != 2 ) 
+		if ( count($limits) != 2 )
 		{
 			return $query->whereRaw('1=2');
 		}
@@ -700,7 +701,7 @@ class Property extends TranslatableModel
 			return $query;
 		}
 
-		if ( !is_array($services) ) 
+		if ( !is_array($services) )
 		{
 			$services = [ $services ];
 		}
@@ -712,7 +713,7 @@ class Property extends TranslatableModel
 			return $query->whereRaw('1=2');
 		}
 
-		foreach ($service_ids as $service_id) 
+		foreach ($service_ids as $service_id)
 		{
 			$query->whereHas('services', function ($query) use ($service_id) {
 				$query->where('services.id', $service_id);
@@ -746,14 +747,14 @@ class Property extends TranslatableModel
 				;
 	}
 
-	static public function getModes() 
+	static public function getModes()
 	{
 		return [
-			'sale', 
-			'rent', 
+			'sale',
+			'rent',
 		];
 	}
-	static public function getModeOptions() 
+	static public function getModeOptions()
 	{
 		$options = [];
 
@@ -764,7 +765,7 @@ class Property extends TranslatableModel
 
 		return $options;
 	}
-	static public function getModeOptionsAdmin() 
+	static public function getModeOptionsAdmin()
 	{
 		$options = [];
 
@@ -776,20 +777,20 @@ class Property extends TranslatableModel
 		return $options;
 	}
 
-	static public function getTypeOptions($site_id=false) 
+	static public function getTypeOptions($site_id=false)
 	{
 		$options = [
-			'house' => trans('web/properties.type.house'), 
-			'apartment' => trans('web/properties.type.apartment'), 
-			'duplex' => trans('web/properties.type.duplex'), 
-			'penthouse' => trans('web/properties.type.penthouse'), 
-			'villa' => trans('web/properties.type.villa'), 
-			'store' => trans('web/properties.type.store'), 
-			'lot' => trans('web/properties.type.lot'), 
-			'ranch' => trans('web/properties.type.ranch'), 
+			'house' => trans('web/properties.type.house'),
+			'apartment' => trans('web/properties.type.apartment'),
+			'duplex' => trans('web/properties.type.duplex'),
+			'penthouse' => trans('web/properties.type.penthouse'),
+			'villa' => trans('web/properties.type.villa'),
+			'store' => trans('web/properties.type.store'),
+			'lot' => trans('web/properties.type.lot'),
+			'ranch' => trans('web/properties.type.ranch'),
 		];
 
-		if ( $site_id ) 
+		if ( $site_id )
 		{
 			$assigned = \App\Property::distinct()->select('type')->where('site_id',$site_id)->lists('type')->all();
 			foreach ($options as $key => $value)
@@ -804,7 +805,7 @@ class Property extends TranslatableModel
 		return $options;
 	}
 
-	static public function getPriceOptions($site_id = false) 
+	static public function getPriceOptions($site_id = false)
 	{
 		$ranges = [
 			'rent' => [
@@ -851,7 +852,7 @@ class Property extends TranslatableModel
 		return $ranges;
 	}
 
-	static public function getSizeOptions() 
+	static public function getSizeOptions()
 	{
 		return [
 			'less-100' => '< 100 m²',
@@ -862,7 +863,7 @@ class Property extends TranslatableModel
 		];
 	}
 
-	static public function getRoomOptions() 
+	static public function getRoomOptions()
 	{
 		return [
 			'0-2' => '1 - 2',
@@ -872,7 +873,7 @@ class Property extends TranslatableModel
 		];
 	}
 
-	static public function getBathOptions() 
+	static public function getBathOptions()
 	{
 		return [
 			'0-2' => '1 - 2',
@@ -881,7 +882,7 @@ class Property extends TranslatableModel
 		];
 	}
 
-	static public function getCurrencyOptions() 
+	static public function getCurrencyOptions()
 	{
 		return [
 			'EUR' => [
@@ -892,13 +893,13 @@ class Property extends TranslatableModel
 			],
 		];
 	}
-	static public function getCurrencyOption($iso) 
+	static public function getCurrencyOption($iso)
 	{
 		$options = static::getCurrencyOptions();
 		return ( $iso && array_key_exists($iso, $options) ) ? $options[$iso] : false;
 	}
 
-	static public function getSizeUnitOptions() 
+	static public function getSizeUnitOptions()
 	{
 		return [
 			'sqm' => [
@@ -907,13 +908,13 @@ class Property extends TranslatableModel
 			],
 		];
 	}
-	static public function getSizeUnitOption($iso) 
+	static public function getSizeUnitOption($iso)
 	{
 		$options = static::getSizeUnitOptions();
 		return ( $iso && array_key_exists($iso, $options) ) ? $options[$iso] : false;
 	}
 
-	static public function getEcOptions() 
+	static public function getEcOptions()
 	{
 		return [
 			'A' => 'A',
@@ -926,7 +927,7 @@ class Property extends TranslatableModel
 		];
 	}
 
-	static public function getSortOptions() 
+	static public function getSortOptions()
 	{
 		return [
 			// field-sense => title

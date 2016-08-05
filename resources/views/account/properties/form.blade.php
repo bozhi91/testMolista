@@ -16,6 +16,7 @@
 			<li role="presentation" class="{{ $current_tab == 'general' ? 'active' : '' }}"><a href="#tab-general" aria-controls="tab-general" role="tab" data-toggle="tab" data-tab="general">{{ Lang::get('account/properties.tab.general') }}</a></li>
 			<li role="presentation" class="{{ $current_tab == 'location' ? 'active' : '' }}"><a href="#tab-location" aria-controls="tab-location" role="tab" data-toggle="tab" data-tab="location">{{ Lang::get('account/properties.tab.location') }}</a></li>
 			<li role="presentation" class="{{ $current_tab == 'text' ? 'active' : '' }}"><a href="#tab-text" aria-controls="tab-text" role="tab" data-toggle="tab" data-tab="text">{{ Lang::get('account/properties.tab.text') }}</a></li>
+			<li role="presentation" class="{{ $current_tab == 'details' ? 'active' : '' }}"><a href="#tab-details" aria-controls="tab-details" role="tab" data-toggle="tab" data-tab="details">{{ Lang::get('account/properties.tab.details') }}</a></li>
 			<li role="presentation" class="{{ $current_tab == 'images' ? 'active' : '' }}"><a href="#tab-images" aria-controls="tab-images" role="tab" data-toggle="tab" data-tab="images">{{ Lang::get('account/properties.tab.images') }}</a></li>
 			@if ( $item )
 				<li role="presentation" class="{{ $current_tab == 'employees' ? 'active' : '' }}"><a href="#tab-employees" aria-controls="tab-employees" role="tab" data-toggle="tab" data-tab="employees">{{ Lang::get('account/properties.tab.employees') }}</a></li>
@@ -302,6 +303,12 @@
 				</div>
 			</div>
 
+			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'details' ? 'active' : '' }}" id="tab-details">
+				@include('account.properties.tab-details', [
+					'item' => $item
+				])
+			</div>
+
 			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'images' ? 'active' : '' }}" id="tab-images">
 				<div class="row">
 					<div class="col-xs-12 col-sm-7">
@@ -368,7 +375,7 @@
 						</div>
 					</div>
 					<hr />
-					@include('account.properties.catch-form', [ 
+					@include('account.properties.catch-form', [
 						'item' => null,
 						'price_symbol' => $current_site->infocurrency->symbol,
 						'price_position' => $current_site->infocurrency->position,
@@ -498,7 +505,7 @@
 			});
 
 			if ( error ) {
-				alertify.error("{{ print_js_string( Lang::get('account/properties.geolocate.missing') ) }}"); 
+				alertify.error("{{ print_js_string( Lang::get('account/properties.geolocate.missing') ) }}");
 				return false;
 			}
 
@@ -622,7 +629,7 @@
 
 			// No text to translate from
 			if (!text) {
-				alertify.error("{{ print_js_string( Lang::get('general.autotranslate.error.text') ) }}"); 
+				alertify.error("{{ print_js_string( Lang::get('general.autotranslate.error.text') ) }}");
 				return false;
 			}
 
@@ -688,7 +695,7 @@
 			$i = 0;
 			$label_default = false;
 			$label_palette = "[ [";
-			foreach (Theme::config('label-palette') as $color) 
+			foreach (Theme::config('label-palette') as $color)
 			{
 				if ( !$label_default )
 				{
@@ -737,7 +744,7 @@
 
 		// Drop zone
         Dropzone.autoDiscover = false;
-		$("#dropzone-previews").addClass('dropzone').dropzone({ 
+		$("#dropzone-previews").addClass('dropzone').dropzone({
 			url: '{{ action('Account\PropertiesController@postUpload') }}',
 			params: {
 				_token: '{{ Session::getToken() }}'
@@ -759,13 +766,13 @@
 					alertify.error("{{ print_js_string( Lang::get('general.messages.error') ) }}");
 				}
 
-				$(file.previewElement).fadeOut(function(){ 
-					$(this).remove() 
+				$(file.previewElement).fadeOut(function(){
+					$(this).remove()
 				});
 			},
 			canceled: function(file) {
-				$(file.previewElement).fadeOut(function(){ 
-					$(this).remove() 
+				$(file.previewElement).fadeOut(function(){
+					$(this).remove()
 				});
 			},
 			success: function(file,response) {
@@ -782,8 +789,8 @@
 
 				form.find('.image-gallery').append(item);
 
-				$(file.previewElement).fadeOut(function(){ 
-					$(this).remove() 
+				$(file.previewElement).fadeOut(function(){
+					$(this).remove()
 				});
 
 				initImageTooltips();
