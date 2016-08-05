@@ -148,7 +148,7 @@ class Mapper extends \App\Marketplaces\Mapper {
             'apartment' => 'Vivienda',
         ];
 
-        return isset($types[$this->item['type']]) ? $types[$this->item['type']] : 'Piso';
+        return isset($types[$this->item['type']]) ? $types[$this->item['type']] : 'Vivienda';
     }
 
     protected function subtype()
