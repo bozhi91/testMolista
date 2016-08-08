@@ -40,6 +40,7 @@
 												$themes[$theme] = empty($def['title']) ? ucfirst($theme) : $def['title'];
 											}
 										}
+										asort($themes);
 									?>
 									{!! Form::select('theme', [ ''=>'' ]+$themes, null, [ 'class'=>'form-control required' ]) !!}
 								</div>
