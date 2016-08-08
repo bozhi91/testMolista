@@ -1,1 +1,11 @@
 @import '../app/pagination.less';
+
+.pagination {
+	font-size: 20px;
+	> li {
+		a, span { color: @buttonBlue; }
+		&.active {
+			a, span, a:hover, span:hover, a:focus, span:focus { background-color: @buttonBlue; border-color: @buttonBlue; }
+		}
+	}
+}
