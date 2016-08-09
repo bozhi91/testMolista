@@ -140,7 +140,6 @@ class MarketplaceHelper
 		// Get XML content
 		if ( file_exists($filepath) && env('APP_DEBUG', false) === false )
 		{
-			dd('production');
 			$content = file_get_contents($filepath);
 		}
 		// Or generate it
