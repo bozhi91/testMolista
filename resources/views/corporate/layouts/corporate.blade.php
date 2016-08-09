@@ -18,7 +18,7 @@
 		<meta name="description" content="{{ $seo_description }}" />
 	@endif
 
-	@if ( @$deferred_css_styles )
+	@if ( @$deferred_css_js )
 		<style type="text/css">
 			body { opacity: 0; }			
 		</style>
@@ -142,9 +142,35 @@
 	@include('common.contact-modal')
 	@include('common.cookies-warning')
 
-	<script src="{{ Theme::url('/compiled/js/corporate.js') }}"></script>
-	<script src="{{ Theme::url('/js/jquery.validate/messages_' . LaravelLocalization::getCurrentLocale() . '.min.js') }}"></script>
-	<script src="{{ Theme::url('/js/alertify/messages_' . LaravelLocalization::getCurrentLocale() . '.js') }}"></script>
+	@if ( @$deferred_css_js )
+		<style type="text/css">
+			body { opacity: 0; }			
+		</style>
+		<noscript id="deferred-js">
+			<script src="{{ Theme::url('/compiled/js/corporate.js') }}"></script>
+			<script src="{{ Theme::url('/js/jquery.validate/messages_' . LaravelLocalization::getCurrentLocale() . '.min.js') }}"></script>
+			<script src="{{ Theme::url('/js/alertify/messages_' . LaravelLocalization::getCurrentLocale() . '.js') }}"></script>
+		</noscript>
+		<script type="text/javascript">
+			var loadDeferredJs = function() {
+				var addJsNode = document.getElementById("deferred-js");
+				var replacement = document.createElement("div");
+					replacement.innerHTML = addJsNode.textContent;
+				document.body.appendChild(replacement)
+				addJsNode.parentElement.removeChild(addJsNode);
+			};
+			var raf = requestAnimationFrame || mozRequestAnimationFrame || webkitRequestAnimationFrame || msRequestAnimationFrame;
+			if (raf) {
+				raf(function() { window.setTimeout(loadDeferredJs, 0); });
+			} else {
+				window.addEventListener('load', loadDeferredJs);
+			}
+		</script>
+	@else
+		<script src="{{ Theme::url('/compiled/js/corporate.js') }}"></script>
+		<script src="{{ Theme::url('/js/jquery.validate/messages_' . LaravelLocalization::getCurrentLocale() . '.min.js') }}"></script>
+		<script src="{{ Theme::url('/js/alertify/messages_' . LaravelLocalization::getCurrentLocale() . '.js') }}"></script>
+	@endif
 
 	@include('corporate.common.zopim')
 	@include('corporate.common.leadin')
