@@ -104,8 +104,11 @@
 					</ul>
 					<div class="footer-text">
 						<strong>molista.com</strong> {{ Lang::get('corporate/home.footer.operated') }} <strong><a href="http://www.incubout.com/" target="_blank">Incubout SL</a></strong>: 
+						<div class="visible-xs"></div>
 						<span class="text-nowrap">Salvador Espriu 93 08005 Barcelona</span>
+						<div class="visible-xs"></div>
 						<span class="text-nowrap">T: <strong>{{ Config::get('app.phone_support') }}</strong></span>
+						<div class="visible-xs"></div>
 						<span class="text-nowrap">E: <strong><a href="mailto:info@molista.com" target="_blank">info@molista.com</a></strong></span>
 					</div>
 				</div>
