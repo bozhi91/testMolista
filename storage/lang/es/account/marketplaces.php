@@ -51,6 +51,7 @@
 		'configuration.fields.phone' => 'Teléfono',
 		'configuration.fields.account.title' => 'Cuenta',
 		'configuration.fields.account_id' => 'Account ID',
+		'configuration.fields.code' => 'Identificador de cliente',
 
 		'properties' => 'Propiedades',
 		'properties.published' => 'Activa en export',

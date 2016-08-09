@@ -49,9 +49,9 @@
 		'configuration.fields.contact_data' => 'Contact data',
 		'configuration.fields.name' => 'Name',
 		'configuration.fields.phone' => 'Phone',
-
 		'configuration.fields.account.title' => 'Account',
 		'configuration.fields.account_id' => 'Account ID',
+		'configuration.fields.code' => 'Customer code',
 
 		'properties' => 'Properties',
 		'properties.published' => 'Enabled in export',
