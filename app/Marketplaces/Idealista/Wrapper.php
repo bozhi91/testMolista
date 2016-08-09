@@ -17,7 +17,7 @@ class Wrapper extends Idealista {
 
     public function __construct(array $config = [])
     {
-        $config['aggregator'] = env('IDEALISTA_CODE');
+        $config['aggregator'] = env('IDEALISTA_AGGREGATOR');
         if (!isset($config['reference'])) {
             $config['reference'] = null;
         }
