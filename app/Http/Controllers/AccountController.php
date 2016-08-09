@@ -8,8 +8,6 @@ use App\Http\Requests;
 
 class AccountController extends Controller
 {
-	protected $site;
-
 	public function __initialize()
 	{
 		parent::__initialize();
@@ -19,7 +17,7 @@ class AccountController extends Controller
 
 	public function index()
 	{
-		\View::share('submenu_section', 'home');
+		\View::share('submenu_section', 'profile');
 
 		// Pending request
 		$pending_request = $this->site->planchanges()->pending()->first();

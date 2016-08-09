@@ -130,6 +130,15 @@ return [
 			'asset-path' 	=> 'themes/zoner',
 		],
 
+		'sky' => [
+			'title'			=> 'Sky',
+			'public'		=> true,
+			'custom'		=> false,
+			'extends'	 	=> 'default',
+			'views-path' 	=> 'themes/sky',
+			'asset-path' 	=> 'themes/sky',
+		],
+
 		// Add your themes here...
 
 		/*--------------[ Example Structre ]-------------

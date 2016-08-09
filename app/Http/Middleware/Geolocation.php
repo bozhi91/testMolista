@@ -11,7 +11,8 @@ class Geolocation
 		if ( !$geolocation )
 		{
 			$geolocation = \GeoIP::getLocation();
-			// $geolocation = \GeoIP::getLocation('146.83.255.255'); Chile
+			// $geolocation = \GeoIP::getLocation('146.83.255.255'); // Chile
+			// $geolocation = \GeoIP::getLocation('131.161.236.0'); // Argentina
 		}
 
 		// Get country information

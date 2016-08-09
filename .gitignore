@@ -1,6 +1,7 @@
 /node_modules
 
 /public/_temp
+/public/attachments
 /public/compiled
 /public/configured
 /public/flags
@@ -26,3 +27,4 @@ deploy.sh
 /backups
 
 .env
+/nbproject/private/

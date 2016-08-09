@@ -12,7 +12,7 @@ Route::group([
 	'domain' => $domain['host'],
 	'prefix' => LaravelLocalization::setLocale(),
 	'middleware' => [
-		'web', 
+		'web',
 		'site.login.roles:admin|translator',
 		'setTheme:corporate',
 	],
@@ -66,6 +66,8 @@ Route::group([
 		Route::resource('config/translations', 'Admin\Config\TranslationsController');
 		Route::get('config/plans/check/{type}', 'Admin\Config\PlansController@getCheck');
 		Route::resource('config/plans', 'Admin\Config\PlansController');
+		Route::get('config/currencies/check/{type}', 'Admin\Config\CurrenciesController@getCheck');
+		Route::resource('config/currencies', 'Admin\Config\CurrenciesController');
 		// Utils
 		Route::controller('utils/user', 'Admin\Utils\UserController');
 		Route::controller('utils/locale', 'Admin\Utils\LocaleController');
@@ -91,10 +93,15 @@ Route::group([
 			Route::resource('geography/countries', 'Admin\Geography\CountriesController');
 		});
 		// Error log
-		Route::get('errorlog', [ 
-			'middleware' => ['role:admin'], 
-			'uses' => '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index' 
+		Route::get('errorlog', [
+			'middleware' => ['role:admin'],
+			'uses' => '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index'
 		]);
+
+		// Queue monitor
+		Route::get('queue-monitor', function () {
+		    return Response::view('queue-monitor::status-page');
+		});
 
 	});
 
@@ -102,12 +109,17 @@ Route::group([
 	Route::auth();
 });
 
-
+// Queue monitor service
+Route::get('queue-monitor.json', function () {
+	$response = Response::view('queue-monitor::status-json');
+	$response->header('Content-Type', 'application/json');
+	return $response;
+});
 
 // Other domains -------------------------------------------------------------------
 Route::group([
 	'prefix' => LaravelLocalization::setLocale(),
-	'middleware' => [ 
+	'middleware' => [
 		'web',
 		'site.login.roles:company|employee',
 		'site.setup',
@@ -148,10 +160,18 @@ Route::group([
 	], function() {
 		Route::get('/', 'AccountController@index');
 		Route::post('/', 'AccountController@updateProfile');
-		// invoices
-		Route::controller('payment', 'Account\PaymentController');
-		// Plans & payment
-		Route::controller('invoices', 'Account\InvoicesController');
+		Route::controller('profile/signatures', 'Account\Profile\SignaturesController');
+		Route::controller('profile/email-accounts', 'Account\Profile\AccountsController');
+		Route::group([
+			'middleware' => [
+				'role:company',
+			],
+		], function() {
+			// Plans & payment
+			Route::controller('payment', 'Account\PaymentController');
+			// Invoices
+			Route::controller('invoices', 'Account\InvoicesController');
+		});
 		// Properties
 		Route::group([
 			'middleware' => [
@@ -192,6 +212,8 @@ Route::group([
 		});
 		// Tickets
 		Route::controller('tickets', 'Account\TicketsController');
+		// Calendar
+		Route::controller('calendar', 'Account\Calendar\BaseController');
 		// Reports
 		Route::group([
 			'prefix' => 'reports',
@@ -212,8 +234,12 @@ Route::group([
 		], function() {
 			// Configuration
 			Route::controller('configuration', 'Account\Site\ConfigurationController');
+			// Domain name
+			Route::controller('domain', 'Account\Site\DomainNameController');
 			// Price ranges
 			Route::controller('priceranges', 'Account\Site\PriceRangesController');
+			// Countries
+			Route::controller('countries', 'Account\Site\CountriesController');
 			// Menus
 			Route::post('menus/item/{slug}', 'Account\Site\MenusController@postItem');
 			Route::resource('menus', 'Account\Site\MenusController');
@@ -222,6 +248,7 @@ Route::group([
 			// Pages
 			Route::resource('pages', 'Account\Site\PagesController');
 		});
+		Route::controller('visits', 'Account\Visits\AjaxController');
 	});
 });
 

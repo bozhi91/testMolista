@@ -22,11 +22,11 @@
 
 				<div class="col-xs-8">
 
-					@if ( Auth::user()->hasRole('company') || ( $ticket->user && $ticket->user->id == Auth::user()->ticket_user_id ) )
+					@if ( $current_site_user->hasRole('company') || ( $ticket->user && $ticket->user->id == $current_site_user->ticket_user_id ) )
 						<div class="text-right reply-form-trigger-area">
 							<a href="#" class="btn btn-sm btn-primary btn-reply-form-trigger">{{ Lang::get('account/tickets.send') }}</a>
 						</div>
-						{!! Form::open([ 'id'=>'reply-form', 'action'=>[ 'Account\TicketsController@postReply', $ticket->id ], 'class'=>'reply-form ticket-message' ]) !!}
+						{!! Form::open([ 'id'=>'reply-form', 'action'=>[ 'Account\TicketsController@postReply', $ticket->id ], 'files'=>true, 'class'=>'reply-form ticket-message' ]) !!}
 							<div class="row hide">
 								<div class="col-xs-12">
 									<div class="form-group error-container">
@@ -40,6 +40,67 @@
 									<div class="form-group error-container">
 										{!! Form::label('body', Lang::get('account/tickets.body')) !!}
 										{!! Form::textarea('body', null, [ 'class'=>'form-control required', 'rows'=>3 ]) !!}
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="form-horizontal">
+										<div class="non-private-info">
+											<div class="form-group error-container">
+												{!! Form::label(null, 'CC', [ 'class'=>'col-sm-2 control-label' ]) !!}
+												<div class="col-sm-10">
+													<div class="form-control labels-email-input" data-name="cc[]">
+														<i class="fa fa-plus-square" aria-hidden="true"></i>
+														<ul class="list-inline emails-list"></ul>
+													</div>
+												</div>
+											</div>
+											<div class="form-group error-container">
+												{!! Form::label(null, 'BCC', [ 'class'=>'col-sm-2 control-label' ]) !!}
+												<div class="col-sm-10">
+													<div class="form-control labels-email-input" data-name="bcc[]">
+														<i class="fa fa-plus-square" aria-hidden="true"></i>
+														<ul class="list-inline emails-list"></ul>
+													</div>
+												</div>
+											</div>
+											<div class="form-group error-container">
+												{!! Form::label('signature_id', Lang::get('account/tickets.signature'), [ 'class'=>'col-sm-2 control-label' ]) !!}
+												<div class="col-sm-10">
+													<select name="signature_id" class="form-control">
+														<option value="">{{ Lang::get('account/tickets.signature.none') }}</option>
+														@foreach ($signatures as $signature)
+															<option value="{{ $signature->id }}" {{ $signature->default ? 'selected="selected"' : '' }}>{{ $signature->title }}</option>
+														@endforeach
+													</select>
+												</div>
+											</div>
+											@if ( @count($accounts) > 0 )
+												<div class="form-group error-container">
+													{!! Form::label('email_account_id', Lang::get('account/tickets.account'), [ 'class'=>'col-sm-2 control-label' ]) !!}
+													<div class="col-sm-10">
+														<select name="email_account_id" class="form-control">
+															<option value=""></option>
+															@foreach ($accounts as $account)
+																<option value="{{ $account->id }}">{{ $account->title }}</option>
+															@endforeach
+														</select>
+													</div>
+												</div>
+											@endif
+										</div>
+										<div class="form-group">
+											{!! Form::label('attachment', Lang::get('account/tickets.attachment'), [ 'class'=>'col-sm-2 control-label' ]) !!}
+											<div class="col-sm-10">
+												<div class="error-container">
+													{!! form::file('attachment', [ 'class'=>'form-control' ]) !!}
+												</div>
+												<div class="help-block">{!! Lang::get('account/tickets.attachment.helper', [ 
+													'maxsize'=>Config::get('app.property_image_maxsize', 2048) 
+												]) !!}</div>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -73,10 +134,12 @@
 									<div>
 										<strong>{{ $message->subject }}</strong>
 									</div>
-									@if ( $message->private )
-										<span class="privacy-label pull-right label label-info">{{ Lang::get('account/tickets.internal') }}</span>
-									@else
-										<span class="privacy-label pull-right label label-warning">{{ Lang::get('account/tickets.public') }}</span>
+									@if ( $message->user )
+										@if ( $message->private )
+											<span class="privacy-label pull-right label label-info">{{ Lang::get('account/tickets.internal') }}</span>
+										@else
+											<span class="privacy-label pull-right label label-warning">{{ Lang::get('account/tickets.public') }}</span>
+										@endif
 									@endif
 									<div class="help-block">
 										@if ( $message->user )
@@ -96,6 +159,19 @@
 									</div>
 								</div>
 							</div>
+							@if ( !empty($message->files) )
+								<div class="row">
+									<div class="col-xs-12">
+										<ul class="message-attachments list-inline">
+											@foreach ($message->files as $file)
+												<li>
+													<a href="{{ $file->url }}" target="_blank">{{ empty($file->title) ? pathinfo($file->url, PATHINFO_EXTENSION) : $file->title }}</a>
+												</li>
+											@endforeach
+										</ul>
+									</div>
+								</div>
+							@endif
 						</div>
 					@endforeach
 				</div>
@@ -185,6 +261,18 @@
 			</div>
 
 		@endif
+
+		{!! Form::open([ 'id'=>'cc-bcc-form', 'class'=>'mfp-hide app-popup-block-white' ]) !!}
+			<div class="form-group error-container">
+				{!! Form::label('cc-bcc-email-input', 'Email') !!}
+				{!! Form::email('email', null, [ 'id'=>'cc-bcc-email-input', 'class'=>'form-control required email' ]) !!}
+			</div>
+			<div class="text-right">
+				<a href="#" class="btn btn-default btn-cancel-trigger">{{ Lang::get('general.cancel') }}</a>
+				{!! Form::button(Lang::get('general.continue'), [ 'type'=>'submit', 'class'=>'btn btn-primary' ]) !!}
+			</div>
+		{!! Form::close() !!}
+
 	</div>
 
 	<script type="text/javascript">
@@ -253,6 +341,64 @@
 				}
 				window.parent.TICKETS.reload();
 			}
+
+			var add_cont;
+			$('#cc-bcc-form').validate({
+				errorPlacement: function(error, element) {
+					element.closest('.error-container').append(error);
+				},
+				submitHandler: function(f) {
+					var em = $('#cc-bcc-email-input').val();
+
+					if ( add_cont.find('.email-input[value="' + em + '"]').length < 1 ) {
+						var li =	'<li class="emails-list-item">' +
+										'<input type="hidden" name="' + add_cont.data().name + '" value="' + em + '" class="email-input" />' +
+										'<div class="label label-default">' + em + '<i class="fa fa-minus-square email-remove-trigger" aria-hidden="true"></i></div>' +
+									'</li>';
+						add_cont.closest('.form-control').find('.emails-list').append(li);
+					}
+
+					$.magnificPopup.close();
+				}
+			});
+
+			cont.on('click', '.labels-email-input', function(e){
+				e.preventDefault();
+
+				add_cont = $(this);
+
+				$.magnificPopup.open({
+					items: { 
+						src: '#cc-bcc-form' 
+					},
+					modal: true,
+					type: 'inline',
+					callbacks: {
+						beforeOpen: function() {
+							$('#cc-bcc-email-input').val('').closest('form').find('label.error').remove();
+						},
+					}
+				});
+			});
+			$('body').on('click', '.btn-cancel-trigger', function(e){
+				e.preventDefault();
+				$.magnificPopup.close();
+			});
+			cont.on('click', '.email-remove-trigger', function(e){
+				e.preventDefault();
+				$(this).closest('.emails-list-item').remove();
+			});
+			cont.on('click', '.emails-list-item', function(e){
+				e.stopPropagation();
+			});
+
+			reply_form.on('change','select[name="private"]', function(){
+				if ( $(this).val() == 1 ) {
+					reply_form.find('.non-private-info').addClass('hide');
+				} else {
+					reply_form.find('.non-private-info').removeClass('hide');
+				}
+			});
 
 		});
 	</script>

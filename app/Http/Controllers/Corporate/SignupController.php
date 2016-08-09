@@ -41,7 +41,7 @@ class SignupController extends \App\Http\Controllers\CorporateController
 
 		$paymethods = \App\Models\Plan::getPaymentOptions( $this->geolocation['config']['pay_methods'] );
 
-		return view('corporate.signup.index', compact('plans','languages','countries','paymethods'));
+		return view('corporate.signup.index', compact('plans','languages','countries','paymethods','data'));
 	}
 	public function postIndex()
 	{
@@ -135,6 +135,8 @@ class SignupController extends \App\Http\Controllers\CorporateController
 			'payment_currency' => $this->currency->code,
 			'site_currency' => $this->currency->code,
 			'country_code' => $this->geolocation['config']['code'],
+			'country_id' => $this->geolocation['config']['id'],
+			'timezone' => $this->geolocation['timezone'],
 		]);
 		if ( !$site )
 		{
@@ -214,11 +216,25 @@ class SignupController extends \App\Http\Controllers\CorporateController
 		$this->dispatch( $job );
 
 		// Redirect to finish
-		return redirect()->action('Corporate\SignupController@getFinish', [ $site->id, $site->subdomain ]);
+		return redirect()
+					->action('Corporate\SignupController@getFinish')
+					->with('site_id', $site->id)
+					->with('site_subdomain', $site->subdomain)
+					->with('show_signup_adwords_tracker',1);
 	}
 
-	public function getFinish($site_id,$site_subdomain)
+	public function getFinish($site_id=false,$site_subdomain=false)
 	{
+		if ( !$site_id )
+		{
+			$site_id = session()->get('site_id');
+		}
+
+		if ( !$site_subdomain )
+		{
+			$site_subdomain = session()->get('site_subdomain');
+		}
+
 		$site = \App\Site::findOrFail($site_id);
 		if ( $site->subdomain != $site_subdomain )
 		{
@@ -227,6 +243,7 @@ class SignupController extends \App\Http\Controllers\CorporateController
 
 		$data = $site->getSignupInfo();
 		$data['site'] = $site;
+		$data['show_signup_adwords_tracker'] = session()->get('show_signup_adwords_tracker');
 
 		return view('corporate.signup.finish', $data);
 	}

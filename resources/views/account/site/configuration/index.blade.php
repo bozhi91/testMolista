@@ -40,11 +40,16 @@
 												$themes[$theme] = empty($def['title']) ? ucfirst($theme) : $def['title'];
 											}
 										}
+										asort($themes);
 									?>
 									{!! Form::select('theme', [ ''=>'' ]+$themes, null, [ 'class'=>'form-control required' ]) !!}
 								</div>
 							</div>
 							<div class="col-xs-12 col-sm-6">
+								<div class="form-group error-container">
+									{!! Form::label('site_currency', Lang::get('account/site.configuration.currency')) !!}
+									{!! Form::select('site_currency', $currencies, null, [ 'class'=>'currency-select form-control required' ]) !!}
+								</div>
 							</div>
 						</div>
 						<div class="row">
@@ -80,12 +85,31 @@
 						<div class="row">
 							<div class="col-xs-12 col-sm-6">
 								<div class="form-group error-container">
+									{!! Form::label('timezone', Lang::get('account/site.configuration.timezone')) !!}
+									{!! Form::select('timezone', [ ''=>'' ]+$timezones, null, [ 'class'=>'form-control required' ]) !!}
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group error-container">
 									{!! Form::label('customer_register', Lang::get('account/site.configuration.client.register')) !!}
 									{!! Form::select('customer_register', [ 
 										'1' => Lang::get('general.yes'),
 										'0' => Lang::get('general.no'),
 									], null, [ 'class'=>'form-control' ]) !!}
 								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									<div class="error-container">
+										{!! Form::label('ga_account', Lang::get('account/site.configuration.ga.account')) !!}
+										{!! Form::text('ga_account', null, [ 'class'=>'form-control' ]) !!}
+									</div>
+									<div class="help-block">{{ Lang::get('account/site.configuration.ga.account.helper') }}</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6">
 							</div>
 						</div>
 
@@ -259,6 +283,11 @@
 		ready_callbacks.push(function(){
 			var form = $('#admin-site-configuration-form');
 
+			$.validator.addMethod("ga_account_validation", function(value, element) {
+				return this.optional(element) || /(UA|YT|MO)-\d+-\d+/i.test(value);
+			}, "{{ print_js_string( Lang::get('account/site.configuration.ga.account.error') ) }}");
+
+
 			// Form validation
 			form.validate({
 				ignore: '',
@@ -278,6 +307,9 @@
 					}
 				},
 				rules: {
+					'ga_account': {
+						ga_account_validation: true
+					},
 					"subdomain" : {
 						remote: {
 							url: '{{ action('Account\Site\ConfigurationController@getCheck', 'subdomain') }}',
@@ -347,6 +379,9 @@
 					}
 				},
 				messages: {
+					'ga_account': {
+						ga_account_validation: "{{ print_js_string( Lang::get('account/site.configuration.ga.account.error') ) }}"
+					},
 					"subdomain" : {
 						alphanumericHypen: "{{ print_js_string( Lang::get('account/site.configuration.subdomain.alpha') ) }}",
 						remote: "{{ print_js_string( Lang::get('account/site.configuration.subdomain.error') ) }}"
@@ -518,14 +553,21 @@
 				});
 			});
 
-			/*
-			var tabs = form.find('.main-tabs');
-			var current_tab = form.find('input[name="current_tab"]').val();
-			tabs.find('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-				form.find('input[name="current_tab"]').val( $(this).attr('href') );
+			var currency_select = form.find('.currency-select');
+			form.on('change', '.currency-select', function() {
+				var el = $(this);
+
+				SITECOMMON.confirm("{{ print_js_string( Lang::get('account/site.configuration.currency.warning') ) }}", function (e) {
+					if (e) {
+						currency_select.data('current', currency_select.val());
+					} else {
+						currency_select.val( currency_select.data().current );
+					}
+				});
 			});
-			tabs.find('a[href="' + current_tab + '"]').tab('show');
-			*/
+			currency_select.data('current', currency_select.val());
+
+
 			form.find('.main-tabs').find('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 				form.find('input[name="current_tab"]').val( $(this).data().tab );
 			});

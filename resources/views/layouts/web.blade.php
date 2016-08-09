@@ -26,6 +26,11 @@
 		<meta name="keywords" content="{{ $seo_keywords }}" />
 	@endif
 
+	@if ( !empty($fullcalendar_enabled) )
+		<link href="{{ Theme::url('/css/fullcalendar.min.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ Theme::url('/css/fullcalendar.print.css') }}" rel="stylesheet" media="print" type="text/css" />
+	@endif
+
 	<link href="https://fonts.googleapis.com/css?family=Lato:400,300,700,900,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
 	<link href="{{ Theme::url('/compiled/css/app.css') }}" rel="stylesheet" type='text/css' />
 
@@ -47,7 +52,10 @@
 
 <body id="{{ @$body_id }}">
 
-	@include('common.analytics')
+	<?php $ga_account = isset($google_analitics_account) ? $google_analitics_account : @$current_site->ga_account; ?>
+	@if ( $ga_account )
+		@include('common.analytics', [ 'ga_account' => $ga_account ])
+	@endif
 
 	<div id="sticky-wrapper" class="if-overlay-then-blurred">
 
@@ -85,6 +93,17 @@
 	<script src="{{ Theme::url('/js/alertify/messages_' . LaravelLocalization::getCurrentLocale() . '.js') }}"></script>
 	<script src="{{ Theme::url('/js/summernote/summernote-' . summetime_lang() . '.js') }}"></script>
 	<script src="{{ Theme::url('/js/bootstrap-table/bootstrap-table-' . summetime_lang() . '.js') }}"></script>
+
+	@if ( !empty($fullcalendar_enabled) )
+		<script src="{{ Theme::url('/js/fullcalendar.min.js') }}"></script>
+		<script src="{{ Theme::url('/js/fullcalendar/' . LaravelLocalization::getCurrentLocale() . '.js') }}"></script>
+	@endif
+
+	<script type="text/javascript">
+		for (var t=0; t<ready_callbacks.length; t++) {
+			ready_callbacks[t]();
+		}
+	</script>
 
 </body>
 </html>

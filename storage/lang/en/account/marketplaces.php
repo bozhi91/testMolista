@@ -12,6 +12,7 @@
 		'all' => 'Export all',
 		'exported' => 'Exported',
 		'updated' => 'Last updated',
+		'country' => 'Country',
 
 		'forget.button' => 'Disconnect',
 		'forget.warning' => 'Are you sure you want to disconnect your properties from this marketplace?',
@@ -34,6 +35,9 @@
 		'configuration.owner.cif' => 'CIF',
 		'configuration.owner.cif.error' => 'Please enter a valid CIF',
 
+		'configuration.fields.agency_data.title' => 'Agency data',
+		'configuration.fields.agent_name' => 'Agency name',
+
 		'configuration.fields.agency_name' => 'Agency name',
 		'configuration.fields.contact_email' => 'Contact e-mail',
 		'configuration.fields.contact_phone' => 'Contact phone',
@@ -43,6 +47,8 @@
 		'configuration.fields.contact_data.title' => 'Contact data',
 		'configuration.fields.email' => 'E-mail',
 		'configuration.fields.contact_data' => 'Contact data',
+		'configuration.fields.name' => 'Name',
+		'configuration.fields.phone' => 'Phone',
 
 		'configuration.fields.account.title' => 'Account',
 		'configuration.fields.account_id' => 'Account ID',

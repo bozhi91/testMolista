@@ -15,6 +15,7 @@ class Property extends TranslatableModel
 	protected $dontKeepLogOf = [
 		'site_id',
 		'label_color',
+		'currency',
 		'publisher_id',
 		'published_at',
 		'created_at',
@@ -86,6 +87,8 @@ class Property extends TranslatableModel
 			'newly_build'  => trans('account/properties.newly_build'),
 			'second_hand'  => trans('account/properties.second_hand'),
 			'highlighted'  => trans('account/properties.highlighted'),
+			'bank_owned'  => trans('account/properties.bank_owned'),
+			'private_owned'  => trans('account/properties.private_owned'),
 			'enabled'  => trans('account/properties.enabled'),
 			'ec'  => trans('account/properties.energy.certificate'),
 			'ec_pending'  => trans('account/properties.energy.certificate.pending.full'),
@@ -199,6 +202,16 @@ class Property extends TranslatableModel
 			'city' => @$this->city->name,
 			'state' => @$this->state->name,
 		]);
+	}
+
+	public function getFullAddressAttribute()
+	{
+		return implode(', ', array_filter([
+			@$this->address,
+			@$this->district,
+			@$this->city->name,
+			@$this->state->name,
+		]));
 	}
 
 	public function getPdfFolderAttribute()
@@ -498,8 +511,11 @@ class Property extends TranslatableModel
 			'baths' => $this->baths,
 			'ec' => $this->ec,
 			'ec_pending' => $this->ec_pending,
+			'construction_year' => $this->construction_year,
 			'newly_build' => $this->newly_build,
 			'second_hand' => $this->second_hand,
+			'bank_owned' => $this->bank_owned,
+			'private_owned' => $this->private_owned,
 			'url' => [],
 			'location' => [
 				'country' => @$this->country->code,
@@ -782,6 +798,7 @@ class Property extends TranslatableModel
 		$options = [
 			'house' => trans('web/properties.type.house'),
 			'apartment' => trans('web/properties.type.apartment'),
+			'flat' => trans('web/properties.type.flat'),
 			'duplex' => trans('web/properties.type.duplex'),
 			'penthouse' => trans('web/properties.type.penthouse'),
 			'villa' => trans('web/properties.type.villa'),

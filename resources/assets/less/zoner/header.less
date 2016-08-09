@@ -4,21 +4,21 @@
 	background-color: @white;
 
 	.header-container {
-		border-top: 45px solid @white;
+		border-top: 30px solid @white;
 		position: relative;
 
 		#app-navbar-collapse { border-top: 1px solid @gray; border-color: @gray; margin-bottom: 10px; }
 
 		.header-locale-social {
 			position: absolute;
-		    top: -45px;
+		    top: -37px;
 		    right: 0;
 
 		    .locale-select {
 		    	.main-item {
 		    		padding: 0;
 		    		margin: 0px;
-					margin-top: 12px;
+					margin-top: 13px;
 
 		    		&:hover { background: transparent; opacity: 1; }
 
@@ -29,8 +29,6 @@
 
 		    			&:hover {
 		    			    color: @black;
-		    				border: 1px solid @black;
-		    				border-radius: 20px;
 		    			}
 		    		}
 
@@ -62,7 +60,7 @@
 		    	padding: 0px;
 
 		    	.list-inline {
-		    	  	padding: 6px 10px;
+		    	  	padding: 8px 10px 0px 10px;
 		    	  	margin-right: 35px;
 
 		    	  	li {
@@ -73,7 +71,8 @@
 			    	  		&:hover {
 			    	  			color: @black;
 			    	  			opacity: 1;
-			    	  			border-color: @black;
+			    	  			border: 0px;
+			    	  			border-color: transparent;
 			    	  		}
 		    	  		}
 		    	  	}
@@ -88,8 +87,9 @@
 			li { text-align: center; display: inline-block; float: none; }
 
 			.main-item {
-				padding: 20px;
+				padding: 15px;
 				color: @black;
+				font-size: 12px;
 
 				&:hover, &.current {
 					background-color: transparent;
@@ -122,9 +122,14 @@
 
 @media (min-width: 768px) {
 	#header {
-		.navbar-brand {	margin: 0px auto; margin-top: 10px; }
-		.header-container { .navbar-right { margin-right: 0px; } }
-	}
+		.navbar-brand {	margin: 0px auto; margin-top: 5px; }
+		.header-container { 
+			.navbar-right { margin-right: 0px; }
+			#app-navbar-collapse { margin-bottom: 0px; }
+		}
+		.social-media > ul > li > a { line-height: 26px; font-size: 12px; }
+		.locale-select .main-item { font-size: 12px; }
+	}	
 }
 
 @media (max-width: 767px) {
@@ -165,6 +170,15 @@
     	.navbar-toggle { border-color: #ddd !important; }
     	.navbar-toggle .icon-bar { background-color: #888 !important; }
 		/* settings on button responsive */
+
+		.navbar-nav {
+			.dropdown-menu { 
+				background: transparent; 
+				a { color: @black; text-transform: uppercase; font-size: 12px; }
+				a:hover { background: transparent; color: @black; opacity: 0.8; }
+			}
+			.open .main-item { background: transparent; }
+		}
 
 	}
 }

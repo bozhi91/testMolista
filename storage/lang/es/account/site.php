@@ -30,6 +30,9 @@
 		'configuration.domains' => 'Dominio personalizado',
 		'configuration.domains.error' => 'Este dominio ya se encuentra en uso',
 
+		'configuration.currency' => 'Moneda del sitio',
+		'configuration.currency.warning' => 'Si cambias la moneda, todas las propiedades y estadísticas usarán la nueva moneda. ¿Estás seguro de que deseas cambiarla?',
+
 		'configuration.mailing.out' => 'Envío de emails',
 		'configuration.mailing.in' => 'Recepción de emails',
 		'configuration.mailing.protocol' => 'Protocolo',
@@ -67,8 +70,13 @@
 		'configuration.signature.address' => 'Dirección principal',
 
 		'configuration.client.register' => 'Permitir registro de clientes online',
+		'configuration.timezone' => 'Zona horaria',
 
 		'configuration.saved' => 'La configuración se ha guardado correctamente',
+
+		'configuration.ga.account' => 'ID de seguimiento de Google Analytics',
+		'configuration.ga.account.helper' => 'Por ejemplo: UA-123456-1',
+		'configuration.ga.account.error' => 'El formato del código de seguimiento no es válido',
 
 
 
@@ -167,4 +175,11 @@
 		'pages.update.success' => 'La página se ha guardado correctamente',
 		'pages.deleted.success' => 'La página se ha eliminado correctamente',
 
+		'domainname.h1' => 'Nombre de dominio',
+		'domainname.domain' => 'Dominio',
+		'domainname.domain.helper' => '<p>El nombre de dominio no lo da Molista. Debes comprarlo previamente en cualquiera de las empresas dedicadas a vender nombres de dominio.</p>
+										<p>Indica el nombre de dominio de tu página (por ejemplo, tutienda.com) y apúntalo a la IP: 46.101.105.169 (debes ajustar esta redirección con tu proveedor de dominios).</p>
+										<p>El ajuste de redirección puede tardar hasta 48 horas.</p>
+										<p>Si tienes dudas, pregunta a tu proveedor de dominio cómo gestionar el dominio y redireccionarlo.</p>',
+		'domainname.domain.error' => 'El nombre de dominio ya está en uso',
 	];

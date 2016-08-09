@@ -31,6 +31,8 @@
 		'opportunity' => 'Oportunidad',
 		'newly_build' => 'Nueva construcción',
 		'second_hand' => 'Segunda mano',
+		'bank_owned' => 'De banco',
+		'private_owned' => 'De particular',
 		'services' => 'Servicios',
 		'label' => 'Etiqueta',
 		'show_address' => 'Mostrar dirección',

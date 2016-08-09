@@ -35,9 +35,15 @@ trait ValidatorTrait {
 		return $fields;
 	}
 
-	public static function getUpdateValidator($data, $current_id, $exclude = [])
+	public static function getUpdateValidator($data, $current_id, $exclude = [], $rules = [])
 	{
 		$fields = self::excludeFields(self::getUpdateValidatorFields($current_id), $exclude);
+
+		if (!empty($rules))
+		{
+			$fields = array_merge($fields, $rules);
+		}
+
 		return \Validator::make($data, $fields);
 	}
 

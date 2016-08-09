@@ -23,7 +23,10 @@ class PropertyPermission
 			abort(404);
 		}
 
+		return $next($request);
+
 		// Check max allowed
+		/*
 		$properties_allowed = @intval( \App\Session\Site::get('plan.max_properties') );
 		$properties_current = \App\Site::findOrFail($site_id)->properties()->withTrashed()->count();
 		if ( $properties_allowed < 1 || $properties_allowed > $properties_current )
@@ -33,5 +36,6 @@ class PropertyPermission
 
 		echo view('account.warning.properties', compact('properties_allowed','properties_current'))->render();
 		exit;
+		*/
 	}
 }

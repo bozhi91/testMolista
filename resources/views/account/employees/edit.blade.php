@@ -2,6 +2,10 @@
 
 @section('account_content')
 
+	<style type="text/css">
+		#account-visits-ajax-tab .column-agent { display: none; }
+	</style>
+
 	<div id="admin-employees">
 
 		@include('common.messages', [ 'dismissible'=>true ])
@@ -19,6 +23,7 @@
 					<li role="presentation" class="active"><a href="#tab-properties" aria-controls="tab-properties" role="tab" data-toggle="tab">{{ Lang::get('account/employees.show.tab.properties') }}</a></li>
 					<li role="presentation"><a href="#tab-permissions" aria-controls="tab-permissions" role="tab" data-toggle="tab">{{ Lang::get('account/employees.show.tab.permissions') }}</a></li>
 					<li role="presentation"><a href="#tab-tickets" aria-controls="tab-tickets" role="tab" data-toggle="tab">{{ Lang::get('account/employees.tickets') }}</a></li>
+					<li role="presentation"><a href="#tab-visits" aria-controls="tab-visits" role="tab" data-toggle="tab">{{ Lang::get('account/visits.title') }}</a></li>
 				</ul>
 
 				<div class="tab-content">
@@ -101,6 +106,12 @@
 					</div>
 
 					<div role="tabpanel" class="tab-pane tab-main" id="tab-tickets" data-url="{{ action('Account\EmployeesController@getTickets', urlencode($employee->email)) }}"></div>
+
+					<div role="tabpanel" class="tab-pane tab-main" id="tab-visits">
+						@include('account.visits.ajax-tab', [
+							'visits_init' => true,
+						])
+					</div>
 
 				</div>
 
@@ -192,6 +203,26 @@
 			});
 
 			TICKETS.reload();
+
+			$.ajax({
+				type: 'GET',
+				dataType: 'json',
+				url: '{{ action('Account\Visits\AjaxController@getTab') }}',
+				data: {
+					user_id: {{ $employee->id }}
+				},
+				success: function(data) {
+					if ( data.success ) {
+						$('#account-visits-ajax-tab').html( data.html );
+					} else {
+						$('#account-visits-ajax-tab').html('<div class="alert alert-danger">{{ print_js_string( Lang::get('general.messages.error') ) }}</div>')
+					}
+				},
+				error: function() {
+						$('#account-visits-ajax-tab').html('<div class="alert alert-danger">{{ print_js_string( Lang::get('general.messages.error') ) }}</div>')
+				}
+			});
+
 		});
 	</script>
 

@@ -302,13 +302,66 @@ class ProcessStatsCommand extends Command
 		}
 	}
 
-	// [TODO]
 	protected function processVisits($date)
 	{
-		/*
-		Para site y por user
-		'sale_visits' // Visitas realizadas para venta
-		'rent_visits' //Visitas realizadas para alquiler
-		*/
+		// Reset visit stats
+		\App\Models\Site\Stats::whereDate('date','=',$date)->update([
+			'sale_visits' => 0,
+			'rent_visits' => 0,
+		]);
+		\App\Models\User\Stats::whereDate('date','=',$date)->update([
+			'sale_visits' => 0,
+			'rent_visits' => 0,
+		]);
+
+		// Get date visits
+		$visits = \App\Models\Calendar::whereNotNull('site_id')->whereNotNull('property_id')
+							->whereDate('start_time','=',$date)
+							->where('type','visit')
+							->with('property')
+							->get();
+
+		// Process stats
+		foreach ($visits as $visit)
+		{
+			switch ( @$visit->property->mode )
+			{
+				case 'sale':
+				case 'rent':
+					$field = "{$visit->property->mode}_visits";
+					break;
+				default:
+					$field = false;
+			}
+
+			if ( !$field )
+			{
+				continue;
+			}
+
+			// Update site stats
+			$site_line = \App\Models\Site\Stats::firstOrCreate([
+				'date' => $date,
+				'site_id' => $visit->site_id,
+			]);
+			$site_line->update([
+				$field => $site_line->$field + 1,
+			]);
+
+			// Update user stats
+			if ( $visit->user_id )
+			{
+				$user_line = \App\Models\User\Stats::firstOrCreate([
+					'date' => $date,
+					'site_id' => $visit->site_id,
+					'user_id' => $visit->user_id,
+				]);
+				$user_line->update([
+					$field => $user_line->$field + 1,
+				]);
+			}
+		}
 	}
+
 }
+	

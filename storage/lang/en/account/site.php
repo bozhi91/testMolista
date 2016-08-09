@@ -30,6 +30,9 @@
 		'configuration.domains' => 'Custom domain',
 		'configuration.domains.error' => 'This domain is already taken',
 
+		'configuration.currency' => 'Website currency',
+		'configuration.currency.warning' => 'If you change the website currency, all your properties and stats will use the new currency. Are you sure you wish to change it?',
+
 		'configuration.mailing.out' => 'Sending emails',
 		'configuration.mailing.in' => 'Retriving emails',
 		'configuration.mailing.protocol' => 'Protocol',
@@ -67,8 +70,13 @@
 		'configuration.signature.address' => 'Business address',
 
 		'configuration.client.register' => 'Allow online customer registration',
+		'configuration.timezone' => 'Timezone',
 
 		'configuration.saved' => 'The site configuration was successfully saved',
+
+		'configuration.ga.account' => 'Google Analytics tracking ID',
+		'configuration.ga.account.helper' => 'Example: UA-123456-1',
+		'configuration.ga.account.error' => 'The Google Analytics tracking ID format is invalid',
 
 
 
@@ -168,4 +176,11 @@
 		'pages.update.success' => 'The page was successfully updated',
 		'pages.deleted.success' => 'The page was successfully removed',
 
+		'domainname.h1' => 'Domain name',
+		'domainname.domain' => 'Domain',
+		'domainname.domain.helper' => '<p>The domain name is not provided by Molista. You should by your own domain name with the domain name providers of your choice.</p>
+										<p>Before setting your domain name of your website, please point your domain name to the following IP address: 46.101.105.169 (you shoud,be able to change this on your domain name provider admin panel).</p>
+										<p>The IP change propagation may take up to 48 hours.</p>
+										<p>If you have questions, please contact your domain name provider and ask how can you manage yopur domain redirection.</p>',
+		'domainname.domain.error' => 'This domain name is already in use',
 	];

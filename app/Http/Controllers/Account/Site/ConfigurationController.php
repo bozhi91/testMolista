@@ -24,15 +24,19 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 
 		$max_languages = @intval( \App\Session\Site::get('plan.max_languages') );
 
+		$currencies = \App\Models\Currency::withTranslations()->enabled()->orderBy('title')->lists('title','code')->all();
+
 		$current_tab = session('current_tab', old('current_tab', $this->request->input('current_tab','config')));
 
-		return view('account.site.configuration.index', compact('site','max_languages','current_tab'));
+		$timezones = \App\Site::getTimezoneOptions();
+
+		return view('account.site.configuration.index', compact('site','max_languages','timezones','currencies','current_tab'));
 	}
 
 	public function postIndex()
 	{
 		// Replace subdomain and domains
-		$current_domains = $this->site->domains->lists('domain','id')->toArray();
+		$current_domains = $this->site->domains->lists('domain','id')->all();
 		if ( !$current_domains )
 		{
 			$current_domains = [ 'new'=>'' ];
@@ -46,6 +50,8 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 		$fields = [
 			'subdomain' => 'required|alpha_dash',
 			'theme' => 'required|in:'.implode(',', array_keys(\Config::get('themes.themes'))),
+			'site_currency' => 'required|exists:currencies,code',
+			'timezone' => 'required|in:'.implode(',', \App\Site::getTimezoneOptions()),
 			'customer_register' => 'required|boolean',
 			'locales_array' => 'required|array',
 			'i18n' => 'array',
@@ -122,6 +128,8 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 		// Save site
 		$this->site->subdomain = $this->request->input('subdomain');
 		$this->site->theme = $this->request->input('theme');
+		$this->site->timezone = $this->request->input('timezone');
+		$this->site->ga_account = $this->request->input('ga_account');
 		$this->site->customer_register = $this->request->input('customer_register') ? 1 : 0;
 		$this->site->mailer = $this->request->input('mailer');
 
@@ -242,6 +250,17 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 
 			$social_media->update([
 				'url' => sanitize($network_url, 'url'),
+			]);
+		}
+
+		// Currency has changed?
+		if ( $this->request->input('site_currency') && $this->request->input('site_currency') != $this->site->site_currency )
+		{
+			// Update site currency
+			$this->site->site_currency =  $this->request->input('site_currency');
+			// Update properties currency
+			$this->site->properties()->withTrashed()->update([
+				'currency' => $this->request->input('site_currency'),
 			]);
 		}
 

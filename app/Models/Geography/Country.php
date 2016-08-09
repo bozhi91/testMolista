@@ -42,6 +42,18 @@ class Country extends TranslatableModel
 		return $this->hasMany('App\Property');
 	}
 
+	public function states() {
+		return $this->hasMany('App\Models\Geography\State');
+	}
+
+	public function cities() {
+		return $this->hasManyThrough('App\Models\Geography\City','App\Models\Geography\State');
+	}
+
+	public function marketplaces() {
+		return $this->belongsToMany('App\Models\Marketplace', 'marketplaces_countries', 'country_id', 'marketplace_id');
+	}
+
 	public function getItemsFolderAttribute()
 	{
 		return "configured/countries/{$this->id}";
@@ -164,7 +176,18 @@ class Country extends TranslatableModel
 
 	public function scopeEnabled($query)
 	{
-		return $query->where('enabled', 1);
+		return $query->where('countries.enabled', 1);
+	}
+
+	public function scopeWithMarketplaces($query)
+	{
+		return $query->whereIn('countries.id', function($query){
+			$query
+				->distinct()
+				->select('country_id')
+				->from('marketplaces_countries')
+				;
+		});
 	}
 
 }
