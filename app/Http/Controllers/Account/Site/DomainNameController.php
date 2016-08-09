@@ -44,7 +44,7 @@ class DomainNameController extends \App\Http\Controllers\AccountController
 		// Get /create domain
 		if ( $domain )
 		{
-			$item = $this->site->domains()->first();
+			$item = $this->site->domains()->where('default',1)->first();
 			if ( $item )
 			{
 				$item->update([
