@@ -11,7 +11,10 @@ class CorporateController extends Controller
 
 	public function index()
 	{
-		return view('corporate.index');
+		$response = view('corporate.index')->render();
+
+		require_once app_path('Http/minifier.php');
+		return minify_html($response);
 	}
 
 }
