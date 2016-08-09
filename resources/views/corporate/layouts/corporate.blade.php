@@ -18,33 +18,8 @@
 		<meta name="description" content="{{ $seo_description }}" />
 	@endif
 
-	@if ( @$deferred_css_js )
-		<style type="text/css">
-			body { opacity: 0; }			
-		</style>
-		<noscript id="deferred-styles">
-			<link href="https://fonts.googleapis.com/css?family=Lato:400,300,700,900,300italic,400italic,700italic|Dosis:400,700,600,500" rel="stylesheet" type="text/css" />
-			<link href="{{ Theme::url('/compiled/css/corporate.css') }}" rel="stylesheet" type='text/css' />
-		</noscript>
-		<script type="text/javascript">
-			var loadDeferredStyles = function() {
-				var addStylesNode = document.getElementById("deferred-styles");
-				var replacement = document.createElement("div");
-					replacement.innerHTML = addStylesNode.textContent;
-				document.body.appendChild(replacement)
-				addStylesNode.parentElement.removeChild(addStylesNode);
-			};
-			var raf = requestAnimationFrame || mozRequestAnimationFrame || webkitRequestAnimationFrame || msRequestAnimationFrame;
-			if (raf) {
-				raf(function() { window.setTimeout(loadDeferredStyles, 0); });
-			} else {
-				window.addEventListener('load', loadDeferredStyles);
-			}
-		</script>
-	@else
-		<link href="https://fonts.googleapis.com/css?family=Lato:400,300,700,900,300italic,400italic,700italic|Dosis:400,700,600,500" rel="stylesheet" type="text/css" />
-		<link href="{{ Theme::url('/compiled/css/corporate.css') }}" rel="stylesheet" type='text/css' />
-	@endif
+	<link href="https://fonts.googleapis.com/css?family=Lato:400,300,700,900,300italic,400italic,700italic|Dosis:400,700,600,500" rel="stylesheet" type="text/css" />
+	<link href="{{ Theme::url('/compiled/css/corporate.css') }}" rel="stylesheet" type='text/css' />
 
 	<link id="page_favicon" href="{{ asset('favicon.ico') }}" rel="icon" type="image/x-icon" />
 
@@ -142,35 +117,9 @@
 	@include('common.contact-modal')
 	@include('common.cookies-warning')
 
-	@if ( @$deferred_css_js )
-		<style type="text/css">
-			body { opacity: 0; }			
-		</style>
-		<noscript id="deferred-js">
-			<script src="{{ Theme::url('/compiled/js/corporate.js') }}"></script>
-			<script src="{{ Theme::url('/js/jquery.validate/messages_' . LaravelLocalization::getCurrentLocale() . '.min.js') }}"></script>
-			<script src="{{ Theme::url('/js/alertify/messages_' . LaravelLocalization::getCurrentLocale() . '.js') }}"></script>
-		</noscript>
-		<script type="text/javascript">
-			var loadDeferredJs = function() {
-				var addJsNode = document.getElementById("deferred-js");
-				var replacement = document.createElement("div");
-					replacement.innerHTML = addJsNode.textContent;
-				document.body.appendChild(replacement)
-				addJsNode.parentElement.removeChild(addJsNode);
-			};
-			var raf = requestAnimationFrame || mozRequestAnimationFrame || webkitRequestAnimationFrame || msRequestAnimationFrame;
-			if (raf) {
-				raf(function() { window.setTimeout(loadDeferredJs, 0); });
-			} else {
-				window.addEventListener('load', loadDeferredJs);
-			}
-		</script>
-	@else
-		<script src="{{ Theme::url('/compiled/js/corporate.js') }}"></script>
-		<script src="{{ Theme::url('/js/jquery.validate/messages_' . LaravelLocalization::getCurrentLocale() . '.min.js') }}"></script>
-		<script src="{{ Theme::url('/js/alertify/messages_' . LaravelLocalization::getCurrentLocale() . '.js') }}"></script>
-	@endif
+	<script src="{{ Theme::url('/compiled/js/corporate.js') }}"></script>
+	<script src="{{ Theme::url('/js/jquery.validate/messages_' . LaravelLocalization::getCurrentLocale() . '.min.js') }}"></script>
+	<script src="{{ Theme::url('/js/alertify/messages_' . LaravelLocalization::getCurrentLocale() . '.js') }}"></script>
 
 	@include('corporate.common.zopim')
 	@include('corporate.common.leadin')
