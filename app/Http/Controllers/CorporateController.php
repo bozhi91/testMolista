@@ -11,6 +11,7 @@ class CorporateController extends Controller
 
 	public function index()
 	{
+        view()->share('deferred_css_styles', 1);
 		return view('corporate.index');
 	}
 

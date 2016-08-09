@@ -18,8 +18,33 @@
 		<meta name="description" content="{{ $seo_description }}" />
 	@endif
 
-	<link href="https://fonts.googleapis.com/css?family=Lato:400,300,700,900,300italic,400italic,700italic|Dosis:400,700,600,500" rel="stylesheet" type="text/css" />
-	<link href="{{ Theme::url('/compiled/css/corporate.css') }}" rel="stylesheet" type='text/css' />
+	@if ( @$deferred_css_styles )
+		<style type="text/css">
+			body { opacity: 0; }			
+		</style>
+		<noscript id="deferred-styles">
+			<link href="https://fonts.googleapis.com/css?family=Lato:400,300,700,900,300italic,400italic,700italic|Dosis:400,700,600,500" rel="stylesheet" type="text/css" />
+			<link href="{{ Theme::url('/compiled/css/corporate.css') }}" rel="stylesheet" type='text/css' />
+		</noscript>
+		<script type="text/javascript">
+			var loadDeferredStyles = function() {
+				var addStylesNode = document.getElementById("deferred-styles");
+				var replacement = document.createElement("div");
+					replacement.innerHTML = addStylesNode.textContent;
+				document.body.appendChild(replacement)
+				addStylesNode.parentElement.removeChild(addStylesNode);
+			};
+			var raf = requestAnimationFrame || mozRequestAnimationFrame || webkitRequestAnimationFrame || msRequestAnimationFrame;
+			if (raf) {
+				raf(function() { window.setTimeout(loadDeferredStyles, 0); });
+			} else {
+				window.addEventListener('load', loadDeferredStyles);
+			}
+		</script>
+	@else
+		<link href="https://fonts.googleapis.com/css?family=Lato:400,300,700,900,300italic,400italic,700italic|Dosis:400,700,600,500" rel="stylesheet" type="text/css" />
+		<link href="{{ Theme::url('/compiled/css/corporate.css') }}" rel="stylesheet" type='text/css' />
+	@endif
 
 	<link id="page_favicon" href="{{ asset('favicon.ico') }}" rel="icon" type="image/x-icon" />
 
@@ -127,7 +152,6 @@
 	@if ( @$show_signup_adwords_tracker )
 		@include('corporate.common.signup_adwords_tracker')
 	@endif
-
 
 </body>
 </html>
