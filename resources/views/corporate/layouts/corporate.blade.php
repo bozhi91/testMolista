@@ -44,16 +44,16 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="/">
-						<img alt="Logo" src="{{ Theme::url('/images/corporate/logo.png') }}">
+					<a class="navbar-brand" href="/" title="{{ Lang::get('corporate/seo.header.link.home') }}">
+						<img src="{{ Theme::url('/images/corporate/logo.png') }}" alt="{{ Lang::get('corporate/seo.header.image.logo') }}">
 					</a>
 				</div>
 
 				<div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
-						<li><a href="{{ action('Corporate\DemoController@getIndex') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</a></li>
-						<li><a href="{{ action('Corporate\FeaturesController@getIndex') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.moreinfo') }}</a></li> 
-						<li><a href="{{ action('Corporate\PricingController@getIndex') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.pricing') }}</a></li> 
+						<li><a href="{{ action('Corporate\DemoController@getIndex') }}" title="{{ Lang::get('corporate/seo.header.link.demo') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</a></li>
+						<li><a href="{{ action('Corporate\FeaturesController@getIndex') }}" title="{{ Lang::get('corporate/seo.header.link.features') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.moreinfo') }}</a></li> 
+						<li><a href="{{ action('Corporate\PricingController@getIndex') }}" title="{{ Lang::get('corporate/seo.header.link.pricing') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.pricing') }}</a></li> 
 						@if ( @$enabled_locales && count($enabled_locales) > 1 )
 							<li class="language-container dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ (1==2) ? Lang::get('corporate/general.languages') : LaravelLocalization::getCurrentLocaleNative() }} <span class="caret"></span></a>
@@ -90,22 +90,25 @@
 			<div class="row">
 				<div class="col-md-12 text-center">
 					<ul class="footer-menu list-inline">
-						<li class="text-nowrap"><a href="#contact-modal" data-toggle="modal">{{ Lang::get('corporate/general.support') }}</a></li>
+						<li class="text-nowrap"><a href="#contact-modal" data-toggle="modal" rel="nofollow" title="{{ Lang::get('corporate/seo.footer.link.support') }}">{{ Lang::get('corporate/general.support') }}</a></li>
 						<li class="hidden-xs">I</li>
-						<li class="text-nowrap"><a href="#contact-modal" data-toggle="modal">{{ Lang::get('corporate/general.contact') }}</a></li>
+						<li class="text-nowrap"><a href="#contact-modal" rel="nofollow" title="{{ Lang::get('corporate/seo.footer.link.contact') }}" data-toggle="modal">{{ Lang::get('corporate/general.contact') }}</a></li>
 						<li class="hidden-xs">I</li>
-						<li class="text-nowrap"><a href="{{ action('Corporate\InfoController@getLegal') }}">{{ Lang::get('corporate/home.footer.legal') }}</a></li>
+						<li class="text-nowrap"><a href="{{ action('Corporate\InfoController@getLegal') }}" title="{{ Lang::get('corporate/seo.footer.link.legal') }}">{{ Lang::get('corporate/home.footer.legal') }}</a></li>
 						<li class="hidden-xs">I</li>
-						<li class="text-nowrap"><a href="{{ action('Corporate\InfoController@getLegal') }}#privacy-policy">{{ Lang::get('corporate/home.footer.privacy') }}</a></li>
+						<li class="text-nowrap"><a href="{{ action('Corporate\InfoController@getLegal') }}#privacy-policy" title="{{ Lang::get('corporate/seo.footer.link.privacy') }}">{{ Lang::get('corporate/home.footer.privacy') }}</a></li>
 						<li class="hidden-xs">I</li>
-						<li class="text-nowrap"><a href="{{ action('Corporate\InfoController@getLegal') }}#cookies-policy">{{ Lang::get('corporate/home.footer.cookies') }}</a></li>
+						<li class="text-nowrap"><a href="{{ action('Corporate\InfoController@getLegal') }}#cookies-policy" title="{{ Lang::get('corporate/seo.footer.link.cookies') }}">{{ Lang::get('corporate/home.footer.cookies') }}</a></li>
 						<li class="hidden-xs">I</li>
-						<li class="text-nowrap"><a href="{{ action('Corporate\CustomersController@getIndex') }}">{{ Lang::get('corporate/home.footer.admin.access') }}</a></li>
+						<li class="text-nowrap"><a href="{{ action('Corporate\CustomersController@getIndex') }}" title="{{ Lang::get('corporate/seo.footer.link.customer') }}">{{ Lang::get('corporate/home.footer.admin.access') }}</a></li>
 					</ul>
 					<div class="footer-text">
-						<strong>molista.com</strong> {{ Lang::get('corporate/home.footer.operated') }} <strong><a href="http://www.incubout.com/" target="_blank">Incubout SL</a></strong>: 
+						<strong>molista.com</strong> {{ Lang::get('corporate/home.footer.operated') }} <strong><a href="http://www.incubout.com/" target="_blank" title="molista.com {{ Lang::get('corporate/home.footer.operated') }} Incubout SL">Incubout SL</a></strong>: 
+						<div class="visible-xs"></div>
 						<span class="text-nowrap">Salvador Espriu 93 08005 Barcelona</span>
+						<div class="visible-xs"></div>
 						<span class="text-nowrap">T: <strong>{{ Config::get('app.phone_support') }}</strong></span>
+						<div class="visible-xs"></div>
 						<span class="text-nowrap">E: <strong><a href="mailto:info@molista.com" target="_blank">info@molista.com</a></strong></span>
 					</div>
 				</div>
@@ -127,7 +130,6 @@
 	@if ( @$show_signup_adwords_tracker )
 		@include('corporate.common.signup_adwords_tracker')
 	@endif
-
 
 </body>
 </html>

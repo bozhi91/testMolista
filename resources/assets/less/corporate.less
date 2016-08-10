@@ -72,7 +72,7 @@ a.btnBdrYlw {
 }
 
 body { 
-	font-family: 'Dosis', sans-serif;
+	font-family: 'Dosis', sans-serif; opacity: 1 !important;
 }
 
 header { min-height: 84px; background-color: @black; 
@@ -165,21 +165,21 @@ header { min-height: 84px; background-color: @black;
 		ul { 
 			list-style: none; padding: 10px 0 0 10px; list-style-type: none;
 			li { 	
-				font-size: 18px; padding: 7px 0px 7px 45px; margin: 0px; background: 0px 0px no-repeat;
+				font-size: 18px; padding: 7px 0px 7px 45px; margin: 0px; background: url(/images/corporate/home-icons.png) 0px 0px no-repeat;
 				img { margin-right: 10px; }
 			}
 
-			li[data-type="web"]{ background-image:url(/images/corporate/web-icon.png); }
-			li[data-type="fixa"] { background-image:url(/images/corporate/fixa-icon.png); }
-			li[data-type="searcher"]{ background-image:url(/images/corporate/searcher-icon.png); }
-			li[data-type="relation"]{ background-image:url(/images/corporate/relation-icon.png); }
-			li[data-type="easy"]{ background-image:url(/images/corporate/easy-icon.png); }
-			li[data-type="exports"]{ background-image:url(/images/corporate/exports-icon.png); }
-			li[data-type="responsive"]{ background-image:url(/images/corporate/responsive-icon.png); }
-			li[data-type="agents"]{ background-image:url(/images/corporate/agents-icon.png); }
-			li[data-type="docs"]{ background-image:url(/images/corporate/docs-icon.png); }
-			li[data-type="leads"]{ background-image:url(/images/corporate/leads-icon.png); }
-			li[data-type="settings"]{ background-image:url(/images/corporate/settings-icon.png); }
+			li[data-type="web"]{ background-position: -80px -2030px; }
+			li[data-type="fixa"] { background-position: -80px -860px; }
+			li[data-type="searcher"]{ background-position: -80px -1640px; }
+			li[data-type="relation"]{ background-position: -80px -1250px; }
+			li[data-type="easy"]{ background-position: -80px -470px; }
+			li[data-type="exports"]{ background-position: -80px -665px; }
+			li[data-type="responsive"]{ background-position: -80px -1445px; }
+			li[data-type="agents"]{ background-position: -80px -80px; }
+			li[data-type="docs"]{ background-position: -80px -275px; }
+			li[data-type="leads"]{ background-position: -80px -1055px; }
+			li[data-type="settings"]{ background-position: -80px -1835px; }
 		}
 	}
 
@@ -343,6 +343,14 @@ footer {
  		a { color: #a7a7a7; }
  	}
  }
+
+@media (max-width: 767px) {
+	footer {
+		.footer-menu {
+			.text-nowrap { display: block; padding-top: 10px; padding-bottom: 10px; }
+		}
+	}
+}
 
 /* ---------------------------------------
                  Elements 

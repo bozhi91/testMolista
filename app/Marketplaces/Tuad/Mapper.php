@@ -39,7 +39,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 		if(!empty($this->item['images'])){
 			$map['pictures']['picture'] = $this->getImages();
 		}
-		
+
 		return $map;
 	}
 
@@ -85,7 +85,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 	 * 	Inmobiliaria > Terrenos y solares
 	 * 	Inmobiliaria > Trámites
 	 * 	Inmobiliaria > Trasteros y garajes
-	 * 
+	 *
 	 * @return string
 	 */
 	protected function getCategory() {
@@ -95,12 +95,12 @@ class Mapper extends \App\Marketplaces\Mapper {
 			case 'villa':
 			case 'duplex':
 				return $this->isRent() ? 'Casas en alquiler' : 'Casas en venta';
-			case 'apartment':
-				return $this->isRent() ? 'Pisos en alquiler' : 'Pisos en venta';
 			case 'lot':
 				return 'Terrenos y solares';
 			case 'store':
 				return 'Trasteros y garajes';
+			default:
+				return $this->isRent() ? 'Pisos en alquiler' : 'Pisos en venta';
 		}
 	}
 

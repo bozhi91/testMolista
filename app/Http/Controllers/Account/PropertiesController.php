@@ -36,7 +36,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 							})
 							->addSelect( \DB::raw('IF(properties_users.`property_id` IS NULL, 0, 1) AS is_manager') );
 
-		if ( !$this->site_user->pivot->can_view_all ) 
+		if ( !$this->site_user->pivot->can_view_all )
 		{
 			$query->whereIn('properties.id', $this->auth->user()->properties()->lists('id'));
 		}
@@ -136,9 +136,9 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		{
 			$data = [];
 
-			foreach ($columns as $key => $value) 
+			foreach ($columns as $key => $value)
 			{
-				switch ($key) 
+				switch ($key)
 				{
 					case 'creation':
 						$data[] = $property->created_at->format('d/m/Y');
@@ -193,7 +193,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 	{
 		// Validate request
 		$valid = $this->validateRequest();
-		if ( $valid !== true ) 
+		if ( $valid !== true )
 		{
 			return redirect()->back()->withInput()->withErrors($valid);
 		}
@@ -211,7 +211,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'commission' => 'integer|between:0,100',
 		];
 		$validator = \Validator::make($this->request->all(), $catch_fields);
-		if ($validator->fails()) 
+		if ($validator->fails())
 		{
 			return redirect()->back()->withInput()->withErrors($valid);
 		}
@@ -249,7 +249,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		]);
 
 		$data = [];
-		foreach ($catch_fields as $field => $def) 
+		foreach ($catch_fields as $field => $def)
 		{
 			$data[$field] = $this->request->input($field);
 		}
@@ -302,7 +302,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 		// Validate request
 		$valid = $this->validateRequest($property->id);
-		if ( $valid !== true ) 
+		if ( $valid !== true )
 		{
 			return redirect()->back()->withInput()->withErrors($valid);
 		}
@@ -369,8 +369,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		if ( $id )
 		{
 			$item = \App\Models\Property\Catches::ofSite($this->site->id)->findOrFail($id);
-		} 
-		
+		}
+
 		return view('account.properties.catch', compact('property','item'));
 	}
 	public function postCatch($property_id, $id=false)
@@ -393,7 +393,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'commission' => 'integer|between:0,100',
 		];
 		$validator = \Validator::make($this->request->all(), $fields);
-		if ($validator->fails()) 
+		if ($validator->fails())
 		{
 			return [ 'error'=>true ];
 		}
@@ -413,7 +413,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		}
 
 		$data = [];
-		foreach ($fields as $field => $def) 
+		foreach ($fields as $field => $def)
 		{
 			$data[$field] = $this->request->input($field);
 		}
@@ -461,13 +461,13 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 				break;
 		}
 		$validator = \Validator::make($this->request->all(), $fields);
-		if ($validator->fails()) 
+		if ($validator->fails())
 		{
 			return [ 'error'=>true ];
 		}
 
 		$data = [];
-		foreach ($fields as $field => $def) 
+		foreach ($fields as $field => $def)
 		{
 			$data[$field] = $this->request->input($field);
 		}
@@ -532,7 +532,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			$property->users()->attach( $employee->id );
 		}
 
-		return [ 
+		return [
 			'success' => 1,
 			'html' => view('account.properties.form-employees', [ 'employees'=>$property->users()->withRole('employee')->get(), 'property_id'=>$property->id ])->render(),
 		];
@@ -604,7 +604,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 	/* HELPER FUNCTIONS --------------------------------------------------------------------------- */
 
-	protected function getRequestFields($id=false) 
+	protected function getRequestFields($id=false)
 	{
 		$fields = [
 			'ref' => 'required',
@@ -647,16 +647,17 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'i18n.label' => 'required|array',
 			'construction_year' => 'integer|min:0',
 			'export_to_all' => 'boolean',
+			'details' => ''
 		];
 
 		return $fields;
 	}
 
-	protected function validateRequest($id=false) 
+	protected function validateRequest($id=false)
 	{
 		// General
 		$validator = \Validator::make($this->request->all(), $this->getRequestFields($id));
-		if ($validator->fails()) 
+		if ($validator->fails())
 		{
 			return $validator;
 		}
@@ -668,7 +669,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'label' => 'required|array',
 		];
 		$validator = \Validator::make($this->request->input('i18n'), $fields);
-		if ($validator->fails()) 
+		if ($validator->fails())
 		{
 			return $validator;
 		}
@@ -680,7 +681,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			fallback_lang() => 'required|string'
 		];
 		$validator = \Validator::make($i18n['title'], $fields);
-		if ($validator->fails()) 
+		if ($validator->fails())
 		{
 			return $validator;
 		}
@@ -693,8 +694,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		if ( $this->request->input('enabled') )
 		{
 			$fix_enable = false;
-			if ( 
-				$this->site->property_limit_remaining < 0 
+			if (
+				$this->site->property_limit_remaining < 0
 				||
 				( !$property->enabled && $this->site->property_limit_remaining < 1 )
 			)
@@ -719,7 +720,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			{
 				$property->$field = $this->request->input($field) ? 1 : 0;
 			}
-			elseif ( in_array($field, [ 'country_id','territory_id','state_id','city_id','construction_year' ]) )
+			elseif ( in_array($field, [ 'country_id','territory_id','state_id','city_id','construction_year','details' ]) )
 			{
 				$property->$field = $this->request->input($field) ? $this->request->input($field) : null;
 			}
@@ -738,14 +739,14 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		}
 
 		// Services
-		foreach ($property->services as $service) 
+		foreach ($property->services as $service)
 		{
 			$property->services()->detach($service->id);
 		}
 
 		if ( $this->request->input('services') )
-		{  
-			foreach ($this->request->input('services') as $service_id) 
+		{
+			foreach ($this->request->input('services') as $service_id)
 			{
 				$property->services()->attach($service_id);
 			}
@@ -762,7 +763,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 		// Update images position
 		if ( $this->request->input('images') ) {
-			foreach ($this->request->input('images') as $image_id) 
+			foreach ($this->request->input('images') as $image_id)
 			{
 				// New image
 				if ( preg_match('#^new_(.*)$#', $image_id, $matches) )
@@ -809,9 +810,9 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 				else
 				{
 					// Update position
-					$property->images()->find($image_id)->update([ 
-						'default' => 0, 
-						'position' => $position 
+					$property->images()->find($image_id)->update([
+						'default' => 0,
+						'position' => $position
 					]);
 					// Preserve
 					$preserve[] = $image_id;
@@ -824,7 +825,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		}
 
 		// Deleted images
-		foreach ($property->images as $image) 
+		foreach ($property->images as $image)
 		{
 			if ( !in_array($image->id, $preserve) )
 			{
@@ -844,7 +845,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 				$validator = \Validator::make($this->request->all(), [
 					$img_key => 'required|image|max:' . \Config::get('app.property_image_maxsize', 2048),
 				]);
-				if ($validator->fails()) 
+				if ($validator->fails())
 				{
 					continue;
 				}
@@ -888,7 +889,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'file' => ucfirst( trans('account/properties.images.dropzone.nicename') ),
 		]);
 
-		if ($validator->fails()) 
+		if ($validator->fails())
 		{
 			$errors = $validator->errors();
 			return response()->json([
@@ -900,7 +901,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		$dir = 'sites/uploads/'.date('Ymd');
 		$dirpath = public_path($dir);
 
-		// If the uploads fail due to file system, you can try doing public_path().'/uploads' 
+		// If the uploads fail due to file system, you can try doing public_path().'/uploads'
 		$filename = $ofilename = preg_replace('#[^a-z0-9\.]#', '', strtolower($file->getClientOriginalName()));
 		while ( file_exists("{$dirpath}/{$filename}") )
 		{
@@ -909,7 +910,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 		$upload_success = $file->move($dirpath, $filename);
 
-		if( $upload_success ) 
+		if( $upload_success )
 		{
 			@list($w, $h) = @getimagesize( public_path("{$dir}/{$filename}") );
 			$is_vertical = ( $w && $h && $w < $h ) ? true : false;

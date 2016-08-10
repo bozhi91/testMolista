@@ -138,7 +138,7 @@ class MarketplaceHelper
 		}
 
 		// Get XML content
-		if ( file_exists($filepath) )
+		if ( file_exists($filepath) && false )
 		{
 			$content = file_get_contents($filepath);
 		}

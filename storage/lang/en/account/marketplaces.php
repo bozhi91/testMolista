@@ -49,6 +49,7 @@
 		'configuration.fields.contact_data' => 'Contact data',
 		'configuration.fields.name' => 'Name',
 		'configuration.fields.phone' => 'Phone',
+		'configuration.fields.lastname' => 'Last name',
 
 		'configuration.fields.account.title' => 'Account',
 		'configuration.fields.account_id' => 'Account ID',

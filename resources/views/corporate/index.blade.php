@@ -11,7 +11,7 @@
 				    <h1>{{ Lang::get('corporate/home.h1') }}</h1>
 				    {!! Lang::get('corporate/home.intro') !!}
 				    <div class="btn-area">
-				    	<a href="{{ action('Corporate\PricingController@getIndex') }}" class="btn btn-try">{{ Lang::get('corporate/home.try') }}</a>
+				    	<a href="{{ action('Corporate\PricingController@getIndex') }}" title="{{ Lang::get('corporate/seo.home.link.try') }}" class="btn btn-try">{{ Lang::get('corporate/home.try') }}</a>
 				    </div>
 			    </div>
 			  </div>
@@ -35,7 +35,7 @@
 							</div>
 						</div>
 						<div class="col-md-5">
-							<img class="img-responsive" src="{{ Theme::url('/images/corporate/responsive.png') }}">
+							<img class="img-responsive" src="{{ Theme::url('/images/corporate/responsive.png') }}" alt="{{ Lang::get('corporate/seo.home.image.responsive') }}" />
 						</div>
 
 					</div>
@@ -49,19 +49,20 @@
 				if ( empty($logos) )
 				{
 					$logos = [ 'pisos.png','trovit.png','casinuevo.png','kyero.png','enalquiler.png','divendo.png','genteycasas.png' ];
+					$logos_alt = [ 'pisos.com','trovit.es','casinuevo.es','kyero.com','enalquiler.com','divendo.es','genteycasas.com' ];
 					$logos_folder = 'images/corporate/marketplaces';
 				}
 			?>
 			<section class="block-exports text-center">
 				<div class="container">
 					<ul class="logos hidden-xs list-inline">
-						@foreach ($logos as $logo)
-							<li><img src="{{ asset("{$logos_folder}/{$logo}") }}" alt="" /></li>
+						@foreach ($logos as $key => $logo)
+							<li><img src="{{ asset("{$logos_folder}/{$logo}") }}" alt="{{ @$logos_alt[$key] }}" /></li>
 						@endforeach
 					</ul>
 					<ul class="logos visible-xs list-unstyled">
 						@foreach ($logos as $logo)
-							<li><img src="{{ asset("{$logos_folder}/{$logo}") }}" alt="" /></li>
+							<li><img src="{{ asset("{$logos_folder}/{$logo}") }}" alt="{{ @$logos_alt[$key] }}" /></li>
 						@endforeach
 					</ul>
 					<div class="and-more">
@@ -77,9 +78,9 @@
 					<div class="row">
 						<div class="col-xs-12 text-center">
 						  <ul>
-					        <li><a href="{{ action('Corporate\DemoController@getIndex') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</a></li>
-					        <li><a href="{{ action('Corporate\FeaturesController@getIndex') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.moreinfo') }}</a></li>
-					        <li><a href="{{ action('Corporate\SignupController@getIndex') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/home.try') }}</a></li>
+					        <li><a href="{{ action('Corporate\DemoController@getIndex') }}" title="{{ Lang::get('corporate/seo.header.link.demo') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</a></li>
+					        <li><a href="{{ action('Corporate\FeaturesController@getIndex') }}" title="{{ Lang::get('corporate/seo.header.link.features') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.moreinfo') }}</a></li>
+					        <li><a href="{{ action('Corporate\SignupController@getIndex') }}" title="{{ Lang::get('corporate/seo.header.link.pricing') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/home.try') }}</a></li>
 					      </ul>
 						</div>
 					</div>
