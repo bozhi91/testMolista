@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
 		// Commands\Inspire::class,
 		Commands\RoleMaintenanceCommand::class,
 		Commands\TranslationsUpdateCommand::class,
+		Commands\TranslationsBulkCommand::class,
 		Commands\GeographyImportCommand::class,
 		Commands\UploadMaintenanceCommand::class,
 		Commands\CatchesImportCommand::class,
