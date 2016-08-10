@@ -55,7 +55,7 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
-							{!! Form::label('ref', Lang::get('account/properties.ref')) !!}
+							{!! Form::label('ref', Lang::get('account/properties.ref').' *') !!}
 							{!! Form::text('ref', null, [ 'class'=>'form-control required' ]) !!}
 						</div>
 					</div>
@@ -63,13 +63,13 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
-							{!! Form::label('type', Lang::get('account/properties.type')) !!}
+							{!! Form::label('type', Lang::get('account/properties.type').' *') !!}
 							{!! Form::select('type', [ ''=>'' ] + $types, null, [ 'class'=>'form-control required' ]) !!}
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
-							{!! Form::label('mode', Lang::get('account/properties.mode')) !!}
+							{!! Form::label('mode', Lang::get('account/properties.mode').' *') !!}
 							{!! Form::select('mode', [ ''=>'' ] + $modes, null, [ 'class'=>'form-control required' ]) !!}
 						</div>
 					</div>
@@ -78,7 +78,7 @@
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
 							{!! Form::hidden('currency', $infocurrency->code) !!}
-							{!! Form::label('price', Lang::get('account/properties.price')) !!}
+							{!! Form::label('price', Lang::get('account/properties.price').' *') !!}
 							<div class="input-group">
 								@if ( $infocurrency->position == 'before' )
 									<div class="input-group-addon">{{ $infocurrency->symbol }}</div>
@@ -91,29 +91,47 @@
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6">
-						<div class="form-group error-container">
-							{!! Form::hidden('size_unit', 'sqm') !!}
-							{!! Form::label('size', Lang::get('account/properties.size')) !!}
-							<div class="input-group">
-								{!! Form::text('size', null, [ 'class'=>'form-control required number', 'min'=>'0' ]) !!}
-								<div class="input-group-addon">m²</div>
-							</div>
-						</div>
-					</div>
+				        <div class="form-group error-container">
+				            {!! Form::label('details[expenses]', Lang::get('account/properties.expenses')) !!}
+				            <div class="input-group">
+				                @if ( $infocurrency->position == 'before' )
+				                    <div class="input-group-addon">{{ $infocurrency->symbol }}</div>
+				                @endif
+				                {!! Form::text('details[expenses]', null, [ 'class'=>'form-control number', 'min'=>'0' ]) !!}
+				                @if ( $infocurrency->position == 'after' )
+				                    <div class="input-group-addon">{{ $infocurrency->symbol }}</div>
+				                @endif
+				            </div>
+				        </div>
+				    </div>
 				</div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
-							{!! Form::label('rooms', Lang::get('account/properties.rooms')) !!}
+							{!! Form::label('rooms', Lang::get('account/properties.rooms').' *') !!}
 							{!! Form::text('rooms', null, [ 'class'=>'form-control required digits', 'min'=>'0' ]) !!}
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
-							{!! Form::label('baths', Lang::get('account/properties.baths')) !!}
+							{!! Form::label('baths', Lang::get('account/properties.baths').' *') !!}
 							{!! Form::text('baths', null, [ 'class'=>'form-control required digits', 'min'=>'0' ]) !!}
 						</div>
 					</div>
+				</div>
+				<div class="row">
+				    <div class="col-xs-12 col-sm-6">
+				        <div class="form-group error-container">
+				            {!! Form::label('details[bedrooms]', Lang::get('account/properties.bedrooms')) !!}
+				            {!! Form::text('details[bedrooms]', null, [ 'class'=>'form-control digits', 'min'=>'0' ]) !!}
+				        </div>
+				    </div>
+				    <div class="col-xs-12 col-sm-6">
+				        <div class="form-group error-container">
+				            {!! Form::label('details[toilettes]', Lang::get('account/properties.toilettes')) !!}
+				            {!! Form::text('details[toilettes]', null, [ 'class'=>'form-control digits', 'min'=>'0' ]) !!}
+				        </div>
+				    </div>
 				</div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
@@ -132,12 +150,58 @@
 					</div>
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
-							{!! Form::label('construction_year', Lang::get('account/properties.year')) !!}
+							{!! Form::label('construction_year', Lang::get('account/properties.construction_year')) !!}
 							{!! Form::text('construction_year', null, [ 'class'=>'form-control digits'  ]) !!}
 						</div>
 					</div>
 				</div>
 				<div class="row">
+				    <div class="col-xs-12 col-sm-6">
+				        <div class="form-group error-container">
+				            {!! Form::label('details[property_condition]', Lang::get('account/properties.property_condition')) !!}
+				            {!! Form::select('details[property_condition]', [ '' => '',
+				                'excelent'=>Lang::get('account/properties.condition.excelent'),
+				                'very_good'=>Lang::get('account/properties.condition.very_good'),
+				                'good'=>Lang::get('account/properties.condition.good'),
+				                'modderate'=>Lang::get('account/properties.condition.modderate'),
+				                'poor'=>Lang::get('account/properties.condition.poor'),
+				            ], null, [ 'class'=>'form-control' ]) !!}
+				        </div>
+				    </div>
+				    <div class="col-xs-12 col-sm-6">
+				        <div class="form-group error-container">
+				            {!! Form::label('details[building_condition]', Lang::get('account/properties.building_condition')) !!}
+				            {!! Form::select('details[building_condition]', [ '' => '',
+				                'excelent'=>Lang::get('account/properties.condition.excelent'),
+				                'very_good'=>Lang::get('account/properties.condition.very_good'),
+				                'good'=>Lang::get('account/properties.condition.good'),
+				                'modderate'=>Lang::get('account/properties.condition.modderate'),
+				                'poor'=>Lang::get('account/properties.condition.poor'),
+				            ], null, [ 'class'=>'form-control' ]) !!}
+				        </div>
+				    </div>
+				</div>
+				<div class="row">
+				    <div class="col-xs-12 col-sm-6">
+				        <div class="form-group error-container">
+				            {!! Form::label('details[professional_enabled]', Lang::get('account/properties.professional_enabled')) !!}
+				            {!! Form::select('details[professional_enabled]', [ '' => '','0'=>Lang::get('general.no'), '1'=>Lang::get('general.yes') ], null, [ 'class'=>'form-control' ]) !!}
+				        </div>
+				    </div>
+				    <div class="col-xs-12 col-sm-6">
+				        <div class="form-group error-container">
+				            {!! Form::label('details[commercial_enabled]', Lang::get('account/properties.commercial_enabled')) !!}
+				            {!! Form::select('details[commercial_enabled]', [ '' => '','0'=>Lang::get('general.no'), '1'=>Lang::get('general.yes') ], null, [ 'class'=>'form-control' ]) !!}
+				        </div>
+				    </div>
+				</div>
+				<div class="row">
+				    <div class="col-xs-12 col-sm-6">
+				        <div class="form-group error-container">
+				            {!! Form::label('details[property_disposal]', Lang::get('account/properties.property_disposal')) !!}
+				            {!! Form::select('details[property_disposal]', [ '' => '', 'front'=>Lang::get('account/properties.property_disposal.front'), 'back'=>Lang::get('account/properties.property_disposal.back'), 'internal' => Lang::get('account/properties.property_disposal.internal') ], null, [ 'class'=>'form-control' ]) !!}
+				        </div>
+				    </div>
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
 							{!! Form::label('enabled', Lang::get('account/properties.enabled')) !!}
@@ -155,6 +219,111 @@
 						</div>
 					</div>
 				</div>
+
+				<hr />
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group error-container">
+							{!! Form::hidden('size_unit', 'sqm') !!}
+							{!! Form::label('size', Lang::get('account/properties.size').' *') !!}
+							<div class="input-group">
+								{!! Form::text('size', null, [ 'class'=>'form-control required number', 'min'=>'0' ]) !!}
+								<div class="input-group-addon">m²</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6">
+				        <div class="form-group error-container">
+				            {!! Form::label('details[balcony_area]', Lang::get('account/properties.balcony_area')) !!}
+				            <div class="input-group">
+				                {!! Form::text('details[balcony_area]', null, [ 'class'=>'form-control number', 'min'=>'0' ]) !!}
+				                <div class="input-group-addon">m²</div>
+				            </div>
+				        </div>
+				    </div>
+				</div>
+				<div class="row">
+				    <div class="col-xs-12 col-sm-6">
+				        <div class="form-group error-container">
+				            {!! Form::label('details[covered_area]', Lang::get('account/properties.covered_area')) !!}
+				            <div class="input-group">
+				                {!! Form::text('details[covered_area]', null, [ 'class'=>'form-control number', 'min'=>'0' ]) !!}
+				                <div class="input-group-addon">m²</div>
+				            </div>
+				        </div>
+				    </div>
+				    <div class="col-xs-12 col-sm-6">
+				        <div class="form-group error-container">
+				            {!! Form::label('details[semi_covered_area]', Lang::get('account/properties.semi_covered_area')) !!}
+				            <div class="input-group">
+				                {!! Form::text('details[semi_covered_area]', null, [ 'class'=>'form-control number', 'min'=>'0' ]) !!}
+				                <div class="input-group-addon">m²</div>
+				            </div>
+				        </div>
+				    </div>
+				</div>
+
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
+				        <div class="form-group error-container">
+				            {!! Form::label('details[uncovered_area]', Lang::get('account/properties.uncovered_area')) !!}
+				            <div class="input-group">
+				                {!! Form::text('details[uncovered_area]', null, [ 'class'=>'form-control number', 'min'=>'0' ]) !!}
+				                <div class="input-group-addon">m²</div>
+				            </div>
+				        </div>
+				    </div>
+				    <div class="col-xs-12 col-sm-6">
+				        <div class="form-group error-container">
+				            {!! Form::label('details[lot_area]', Lang::get('account/properties.lot_area')) !!}
+				            <div class="input-group">
+				                {!! Form::text('details[lot_area]', null, [ 'class'=>'form-control number', 'min'=>'0' ]) !!}
+				                <div class="input-group-addon">m²</div>
+				            </div>
+				        </div>
+				    </div>
+				</div>
+				<div class="row">
+				    <div class="col-xs-12 col-sm-6">
+				        <div class="form-group error-container">
+				            {!! Form::label('details[buildable_area]', Lang::get('account/properties.buildable_area')) !!}
+				            <div class="input-group">
+				                {!! Form::text('details[buildable_area]', null, [ 'class'=>'form-control number', 'min'=>'0' ]) !!}
+				                <div class="input-group-addon">m²</div>
+				            </div>
+				        </div>
+				    </div>
+				    <div class="col-xs-12 col-sm-6">
+				        <div class="form-group error-container">
+				            {!! Form::label('details[basement_area]', Lang::get('account/properties.basement_area')) !!}
+				            <div class="input-group">
+				                {!! Form::text('details[basement_area]', null, [ 'class'=>'form-control number', 'min'=>'0' ]) !!}
+				                <div class="input-group-addon">m²</div>
+				            </div>
+				        </div>
+				    </div>
+				</div>
+				<div class="row">
+				    <div class="col-xs-12 col-sm-6">
+				        <div class="form-group error-container">
+				            {!! Form::label('details[mezzanine_area]', Lang::get('account/properties.mezzanine_area')) !!}
+				            <div class="input-group">
+				                {!! Form::text('details[mezzanine_area]', null, [ 'class'=>'form-control number', 'min'=>'0' ]) !!}
+				                <div class="input-group-addon">m²</div>
+				            </div>
+				        </div>
+				    </div>
+				    <div class="col-xs-12 col-sm-6">
+				        <div class="form-group error-container">
+				            {!! Form::label('details[basement_area]', Lang::get('account/properties.basement_area')) !!}
+				            <div class="input-group">
+				                {!! Form::text('details[basement_area]', null, [ 'class'=>'form-control number', 'min'=>'0' ]) !!}
+				                <div class="input-group-addon">m²</div>
+				            </div>
+				        </div>
+				    </div>
+				</div>
+
 				<hr />
 				{!! Form::label(null, Lang::get('account/properties.characteristics')) !!}
 				<div class="row">
@@ -253,17 +422,17 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-4">
 						<div class="form-group error-container">
-							{!! Form::label('country_id', Lang::get('account/properties.country')) !!}
+							{!! Form::label('country_id', Lang::get('account/properties.country').' *') !!}
 							{!! Form::select('country_id', $countries, @$country_id, [ 'class'=>'form-control required country-input', 'data-rel'=>'.state-input, .city-input', 'data-target'=>'.state-input', 'data-action'=>action('Ajax\GeographyController@getSuggest', 'state') ]) !!}
 						</div>
 						<div class="form-group error-container">
 							<?php $tmp = empty($states) ? [ ''=>'' ] : [ ''=>'' ] + $states->toArray(); ?>
-							{!! Form::label('state_id', Lang::get('account/properties.state')) !!}
+							{!! Form::label('state_id', Lang::get('account/properties.state').' *') !!}
 							{!! Form::select('state_id', $tmp, null, [ 'class'=>'form-control required state-input', 'data-rel'=>'.city-input', 'data-target'=>'.city-input', 'data-action'=>action('Ajax\GeographyController@getSuggest', 'city') ]) !!}
 						</div>
 						<div class="form-group error-container">
 							<?php $tmp = empty($cities) ? [ ''=>'' ] : [ ''=>'' ] + $cities->toArray(); ?>
-							{!! Form::label('city_id', Lang::get('account/properties.city')) !!}
+							{!! Form::label('city_id', Lang::get('account/properties.city').' *') !!}
 							{!! Form::select('city_id', $tmp, null, [ 'class'=>'form-control required city-input' ]) !!}
 						</div>
 						<div class="form-group error-container">
@@ -277,13 +446,13 @@
 						<div class="row">
 							<div class="col-xs-12 col-sm-4">
 								<div class="form-group error-container">
-									{!! Form::label('lat', Lang::get('account/properties.lat'), [ 'class'=>'normal' ]) !!}
+									{!! Form::label('lat', Lang::get('account/properties.lat').' *', [ 'class'=>'normal' ]) !!}
 									{!! Form::text('lat', null, [ 'class'=>'form-control required number input-lat', 'readonly'=>'readonly' ]) !!}
 								</div>
 							</div>
 							<div class="col-xs-12 col-sm-4">
 								<div class="form-group error-container">
-									{!! Form::label('lng', Lang::get('account/properties.lng'), [ 'class'=>'normal' ]) !!}
+									{!! Form::label('lng', Lang::get('account/properties.lng').' *', [ 'class'=>'normal' ]) !!}
 									{!! Form::text('lng', null, [ 'class'=>'form-control required number input-lng', 'readonly'=>'readonly' ]) !!}
 								</div>
 							</div>
@@ -313,7 +482,7 @@
 							<div class="row">
 								<div class="col-xs-12 col-sm-6">
 									<div class="form-group">
-										{!! Form::label("i18n[title][{$lang_iso}]", Lang::get('account/properties.title')) !!}
+										{!! Form::label("i18n[title][{$lang_iso}]", Lang::get('account/properties.title').(($lang_iso == fallback_lang()) ? ' *' : '')) !!}
 										<div class="error-container">
 											{!! Form::text("i18n[title][{$lang_iso}]", null, [ 'class'=>'form-control title-input '.(($lang_iso == fallback_lang()) ? 'required' : ''), 'lang'=>$lang_iso ]) !!}
 										</div>
@@ -427,7 +596,7 @@
 						</div>
 					</div>
 					<hr />
-					@include('account.properties.catch-form', [ 
+					@include('account.properties.catch-form', [
 						'item' => null,
 						'price_symbol' => $current_site->infocurrency->symbol,
 						'price_position' => $current_site->infocurrency->position,
@@ -556,7 +725,7 @@
 			});
 
 			if ( error ) {
-				alertify.error("{{ print_js_string( Lang::get('account/properties.geolocate.missing') ) }}"); 
+				alertify.error("{{ print_js_string( Lang::get('account/properties.geolocate.missing') ) }}");
 				return false;
 			}
 
@@ -680,7 +849,7 @@
 
 			// No text to translate from
 			if (!text) {
-				alertify.error("{{ print_js_string( Lang::get('general.autotranslate.error.text') ) }}"); 
+				alertify.error("{{ print_js_string( Lang::get('general.autotranslate.error.text') ) }}");
 				return false;
 			}
 
@@ -746,7 +915,7 @@
 			$i = 0;
 			$label_default = false;
 			$label_palette = "[ [";
-			foreach (Theme::config('label-palette') as $color) 
+			foreach (Theme::config('label-palette') as $color)
 			{
 				if ( !$label_default )
 				{
@@ -795,7 +964,7 @@
 
 		// Drop zone
 		Dropzone.autoDiscover = false;
-		$("#dropzone-previews").addClass('dropzone').dropzone({ 
+		$("#dropzone-previews").addClass('dropzone').dropzone({
 			url: '{{ action('Account\PropertiesController@postUpload') }}',
 			params: {
 				_token: '{{ Session::getToken() }}'
@@ -817,13 +986,13 @@
 					alertify.error("{{ print_js_string( Lang::get('general.messages.error') ) }}");
 				}
 
-				$(file.previewElement).fadeOut(function(){ 
-					$(this).remove() 
+				$(file.previewElement).fadeOut(function(){
+					$(this).remove()
 				});
 			},
 			canceled: function(file) {
-				$(file.previewElement).fadeOut(function(){ 
-					$(this).remove() 
+				$(file.previewElement).fadeOut(function(){
+					$(this).remove()
 				});
 			},
 			success: function(file,response) {
@@ -840,8 +1009,8 @@
 
 				form.find('.image-gallery').append(item);
 
-				$(file.previewElement).fadeOut(function(){ 
-					$(this).remove() 
+				$(file.previewElement).fadeOut(function(){
+					$(this).remove()
 				});
 
 				initImageTooltips();
