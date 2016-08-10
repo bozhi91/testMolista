@@ -7,7 +7,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 	/**
 	 * Maps a Molista item to ReporteInmobiliario format according to:
 	 * Contacto andres.avila@reporteinmobiliario.com
-	 * 
+	 *
 	 * @return array
 	 */
 	public function map() {
@@ -36,11 +36,11 @@ class Mapper extends \App\Marketplaces\Mapper {
 		if(!empty($item['commercial_enabled'])){
 			$map['commercial_enabled'] = $item['commercial_enabled'] ? 'yes' : 'no';
 		}
-		
+
 		if(!empty($item['professional_enabled'])){
 			$map['professional_enabled'] = $item['professional_enabled'] ? 'yes' : 'no';
 		}
-		
+
 		if (!empty($item['location']['address_parts']['floor'])) {
 			$map['floor'] = $item['location']['address_parts']['floor'];
 		}
@@ -78,7 +78,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 		}
 
 		$map['parking'] = !empty($item['features']['parking']) ? 1 : 0;
-	
+
 		if (!empty($item['size'])) {
 			$map['total_area'] = $this->convertSize($item['size']);
 		}
@@ -153,7 +153,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 		//$map['extras']['has_pavement'] = '';
 		//$map['extras']['has_landphone'] = '';
 		//$map['extras']['has_cabletv'] = '';
-		
+
 		if(!empty($item['features']['pool'])){
 			$map['extras']['has_pool'] = 'yes';
 		}
@@ -166,6 +166,8 @@ class Mapper extends \App\Marketplaces\Mapper {
 	 */
 	public function valid() {
 		$data = array_merge($this->item, $this->config);
+
+		//dd($data);
 
 		$rules = [
 			'id' => 'required',
@@ -319,7 +321,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 	 * 1 Venta
 	 * 2 Alquiler
 	 * 3 Alquiler Temporario
-	 * 
+	 *
 	 * @return integer
 	 */
 	protected function getType() {
@@ -342,7 +344,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 	 * 13 Cochera
 	 * 13 Otros
 	 * 14 Camas Nauticas
-	 * 
+	 *
 	 * @return integer
 	 */
 	protected function getPropertyType() {

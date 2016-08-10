@@ -580,6 +580,11 @@ class Property extends TranslatableModel
 			$this->marketplace_info['features'][$service->code] = $tmp;
 		}
 
+		// Details
+		if (is_array($this->details)) {
+			$this->marketplace_info = array_merge($this->details, $this->marketplace_info);
+		}
+
 		\App::setLocale($current_locale);
 
 		return $this->marketplace_info;

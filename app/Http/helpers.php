@@ -59,7 +59,7 @@
     		}
 
     		$input = [ 'href="' . $prev . '"' ];
-    		foreach ($attr as $key => $value) 
+    		foreach ($attr as $key => $value)
     		{
     			$input[] = "{$key}=\"{$value}\"";
     		}
@@ -143,7 +143,7 @@
 		$perpage_current = empty($appends['limit']) ? $perpage_default : $appends['limit'];
 
 		$select = '<select class="form-control pagination-limit-select" onchange="document.location.href=this.value;">';
-		foreach ($perpage_options as $limit) 
+		foreach ($perpage_options as $limit)
 		{
 			$sel = ($perpage_current == $limit) ? "selected='selected'" : '';
 			$select .= "<option value='{$select_url}{$limit}' {$sel}>{$limit} {$perpage_text}</option>";
@@ -217,13 +217,13 @@
 		$range = 3;
 
 		$first_page = $page - $range;
-		if ( $first_page < 1 ) 
+		if ( $first_page < 1 )
 		{
 			$first_page = 1;
 		}
 
 		$last_page = $page + $range;
-		if ( $last_page > $total ) 
+		if ( $last_page > $total )
 		{
 			$last_page = $total;
 		}
@@ -279,7 +279,7 @@
 		{
 			$pags .= "<li><a href='{$href}{$total}'>{$total}</a></li>";
 		}
-	
+
 		if ( $page < $total )
 		{
 			$tmp = $page + 1;
@@ -330,11 +330,11 @@
 
 		$str = '';
 
-		foreach ($columns as $key => $def) 
+		foreach ($columns as $key => $def)
 		{
 			$str .= '<th class="' . @$def['class'] . '">';
 
-			if ( isset($def['sortable']) && !$def['sortable']) 
+			if ( isset($def['sortable']) && !$def['sortable'])
 			{
 				$str .= @$def['title'];
 			}
@@ -364,32 +364,32 @@
 		return $str;
 	}
 
-	function sort_link($field) 
+	function sort_link($field)
 	{
 		return url()->current() . '?' . http_build_query(Input::except('sort')) . '&sort=' . $field;
 	}
 
-	function fallback_lang() 
+	function fallback_lang()
 	{
 		return Config::get('app.fallback_locale');
 	}
-	function fallback_lang_text() 
+	function fallback_lang_text()
 	{
 		$locales = LaravelLocalization::getSupportedLocales();
 		return @$locales[fallback_lang()]['native'];
 	}
-	function lang_text($locale) 
+	function lang_text($locale)
 	{
 		$locales = LaravelLocalization::getSupportedLocales();
 		return @$locales[$locale]['native'];
 	}
 
-	function summetime_lang() 
+	function summetime_lang()
 	{
 		return str_replace('_','-', LaravelLocalization::getCurrentLocaleRegional() );
 	}
 
-	function sanitize($string, $type = false) 
+	function sanitize($string, $type = false)
 	{
 		switch ( $type )
 		{
@@ -403,7 +403,7 @@
 		}
 	}
 
-	function percent_array() 
+	function percent_array()
 	{
 		$select = [];
 
@@ -413,4 +413,22 @@
 		}
 
 		return $select;
+	}
+
+	function translate_marketplace_error($message)
+	{
+		// EN
+		if (preg_match('#^The ([\w\s]+) field#', $message, $match)) {}
+		// ES
+		elseif (preg_match('#^El campo ([\w\s]+) es#', $message, $match)) {}
+
+		if (!empty($match[1])) {
+			$field = preg_replace('#\s#', '_', $match[1]);
+			$translation_field = 'account/properties.'.$field;
+			if (\Lang::has($translation_field)) {
+				$message = preg_replace('#'.$match[1].'#', '"'.\Lang::get($translation_field).'"', $message);
+			}
+		}
+
+		return $message;
 	}

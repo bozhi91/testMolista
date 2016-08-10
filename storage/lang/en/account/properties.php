@@ -37,7 +37,7 @@
 		'label' => 'Label',
 		'show_address' => 'Show address',
 		'zipcode' => 'Zipcode',
-		'year' => 'Construction year',
+		'construction_year' => 'Construction year',
 
 		'energy.certificate' => 'Energy certificate',
 		'energy.certificate.pending' => 'In process',
@@ -209,4 +209,5 @@
 		'mezzanine_area' => 'Mezzanine area',
 		'showcase_front' => 'Showcase front',
 		'expenses' => 'Expenses (monthly)',
+		'balcony_area' => 'Balcony area',
 	];

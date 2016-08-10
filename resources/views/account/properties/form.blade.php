@@ -150,7 +150,7 @@
 					</div>
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
-							{!! Form::label('construction_year', Lang::get('account/properties.year')) !!}
+							{!! Form::label('construction_year', Lang::get('account/properties.construction_year')) !!}
 							{!! Form::text('construction_year', null, [ 'class'=>'form-control digits'  ]) !!}
 						</div>
 					</div>
@@ -232,6 +232,15 @@
 							</div>
 						</div>
 					</div>
+					<div class="col-xs-12 col-sm-6">
+				        <div class="form-group error-container">
+				            {!! Form::label('details[balcony_area]', Lang::get('account/properties.balcony_area')) !!}
+				            <div class="input-group">
+				                {!! Form::text('details[balcony_area]', null, [ 'class'=>'form-control number', 'min'=>'0' ]) !!}
+				                <div class="input-group-addon">m²</div>
+				            </div>
+				        </div>
+				    </div>
 				</div>
 				<div class="row">
 				    <div class="col-xs-12 col-sm-6">

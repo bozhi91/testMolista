@@ -31,7 +31,7 @@
 							$marketplace_checkbox_attr = [ 'class' => 'marketplace-input' ];
 							if ( !$marketplace_published && $marketplace_items_max > 0 && $marketplace_items_max <= $marketplace_items_current )
 							{
-								$publishable = [ 
+								$publishable = [
 									Lang::get('account/marketplaces.maxproperties.error', [
 										'maxproperties' => number_format($marketplace_items_max,0,',','.'),
 									]),
@@ -78,7 +78,7 @@
 										{{ Lang::get('account/properties.marketplaces.error') }}<br />
 										<ul>
 											@foreach ($publishable as $key => $message)
-												<li>{{ $message }}</li>
+												<li>{{ translate_marketplace_error($message) }}</li>
 											@endforeach
 										</ul>
 									</div>

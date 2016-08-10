@@ -37,7 +37,7 @@
 		'label' => 'Etiqueta',
 		'show_address' => 'Mostrar dirección',
 		'zipcode' => 'Código postal',
-		'year' => 'Año de construcción',
+		'construction_year' => 'Año de construcción',
 
 		'energy.certificate' => 'Certificado energético',
 		'energy.certificate.pending' => 'En trámite',
@@ -209,4 +209,5 @@
 		'mezzanine_area' => 'Superficie Entrepiso',
 		'showcase_front' => 'Medida de Frente de vidriera',
 		'expenses' => 'Gastos mensuales',
+		'balcony_area' => 'Superficie de Balcón',
 	];
