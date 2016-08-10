@@ -107,7 +107,7 @@ class Mapper extends \App\Marketplaces\Mapper {
             'apartment' => 'appartement',
         ];
 
-        return isset($types[$this->item['type']]) ? $types[$this->item['type']] : 'old';
+        return isset($types[$this->item['type']]) ? $types[$this->item['type']] : 'new';
     }
 
     protected function pics()
