@@ -7,6 +7,7 @@
 		'mode' => 'Modalidad',
 		'mode.sale' => 'Propiedades en venta',
 		'mode.rent' => 'Propiedades en alquiler',
+		'mode.transfer' => 'Propiedades en traspaso',
 
 		'state' => 'Provincia',
 		'state.any' => 'Todas las provincias',
@@ -25,6 +26,8 @@
 		'type.lot' => 'Solar',
 		'type.store' => 'Local',
 		'type.ranch' => 'Finca',
+		'type.hotel' => 'Hotel',
+		'type.aparthotel' => 'Aparthotel',
 
 		'more.show' => 'Más opciones',
 		'more.any' => 'Mostrar todas',

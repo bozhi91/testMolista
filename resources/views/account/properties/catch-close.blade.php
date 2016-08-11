@@ -15,6 +15,7 @@
 							'' => '&nbsp;',
 							'sold' => Lang::get('account/properties.show.property.catch.status.sold'),
 							'rent' => Lang::get('account/properties.show.property.catch.status.rent'),
+							'transfer' => Lang::get('account/properties.show.property.catch.status.transfer'),
 							'other' => Lang::get('account/properties.show.property.catch.status.other'),
 						], null, [ 'class'=>'form-control required', ]) !!}
 					</div>
@@ -34,7 +35,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row hide status-rel status-rel-sold status-rel-rent">
+			<div class="row hide status-rel status-rel-sold status-rel-rent status-rel-transfer">
 				<div class="col-xs-12 col-sm-6">
 					<div class="form-group error-container">
 						{!! Form::label('buyer_id', Lang::get('account/properties.show.transactions.buyer') ) !!}

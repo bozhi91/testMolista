@@ -446,13 +446,14 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 		$fields = [
 			'transaction_date' => 'required:date',
-			'status' => 'required|in:sold,rent,other',
+			'status' => 'required|in:sold,rent,transfer,other',
 			'closer_id' => 'exists:users,id',
 		];
 		switch ( $this->request->input('status') )
 		{
 			case 'sold':
 			case 'rent':
+			case 'transfer':
 				$fields['buyer_id'] = 'exists:customers,id,site_id,'.$this->site->id;
 				$fields['price_sold'] = 'numeric|min:1';
 				break;
@@ -479,6 +480,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		{
 			case 'sold':
 			case 'rent':
+			case 'transfer':
 				// Save current KPIs
 				$data['leads_to_close'] = $item->leads_total;
 				$data['discount_to_close'] = ( ($item->price_original - $data['price_sold']) / $item->price_original ) * 100;

@@ -232,13 +232,13 @@
 										@endif
 									</td>
 									<td class="text-right">
-										@if ( $catch->status == 'sold' || $catch->status == 'rent' )
+										@if ( $catch->status == 'sold' || $catch->status == 'rent' || $catch->status == 'transfer' )
 											{{ price($catch->commission_earned, $property->infocurrency->toArray()) }}
 											({{ number_format($catch->commission, 2, ',', '.') }}%)
 										@endif
 									</td>
 									<td class="text-right">
-										@if ( $catch->status == 'sold' || $catch->status == 'rent' )
+										@if ( $catch->status == 'sold' || $catch->status == 'rent' || $catch->status == 'transfer' )
 											{{ price($catch->price_sold, $property->infocurrency->toArray()) }}
 										@endif
 									</td>
