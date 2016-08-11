@@ -23,11 +23,11 @@
 						<div role="tabpanel" class="tab-pane tab-locale {{ ($lang_iso == fallback_lang()) ? 'active' : '' }}" id="lang-{{$lang_iso}}">
 							<div class="form-group error-container">
 								{!! Form::label("i18n[title][{$lang_iso}]", Lang::get('admin/properties/services.name')) !!}
-								{!! Form::text("i18n[title][{$lang_iso}]", null, [ 'class'=>'form-control'.(($lang_iso == fallback_lang()) ? ' required' : '') ]) !!}
+								{!! Form::text("i18n[title][{$lang_iso}]", null, [ 'class'=>'form-control'.(($lang_iso == fallback_lang()) ? ' required' : ''), 'dir'=>lang_dir($lang_iso) ]) !!}
 							</div>
 							<div class="form-group error-container">
 								{!! Form::label("i18n[description][{$lang_iso}]", Lang::get('admin/properties/services.description')) !!}
-								{!! Form::textarea("i18n[description][{$lang_iso}]", null, [ 'class'=>'form-control', 'rows'=>'4' ]) !!}
+								{!! Form::textarea("i18n[description][{$lang_iso}]", null, [ 'class'=>'form-control', 'rows'=>'4', 'dir'=>lang_dir($lang_iso) ]) !!}
 							</div>
 						</div>
 					@endforeach

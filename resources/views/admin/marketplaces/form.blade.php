@@ -226,7 +226,7 @@
 						<div class="row">
 							<div class="col-xs-12">
 								<div class="form-group error-container">
-									{!! Form::textarea("i18n[instructions][{$locale_key}]", null, [ 'class'=>'form-control', 'rows'=>10 ]) !!}
+									{!! Form::textarea("i18n[instructions][{$locale_key}]", null, [ 'class'=>'form-control', 'rows'=>10, 'dir'=>lang_dir($locale_key) ]) !!}
 								</div>
 							</div>
 						</div>

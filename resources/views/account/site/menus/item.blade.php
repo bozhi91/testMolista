@@ -17,7 +17,7 @@
 			<div role="tabpanel" class="tab-pane tab-locale {{ ($locale == fallback_lang()) ? 'active' : '' }}" id="menu-item-locale-tab-{{$type}}-{{$locale}}-{{$item_id}}">
 				<div class="form-group error-container">
 					{!! Form::label("{$item_key}[title][{$locale}]", Lang::get('account/site.menus.update.field.title')) !!}
-					{!! Form::text("{$item_key}[title][{$locale}]", @$item->i18n['title'][$locale], [ 'class'=>'input-sm form-control '.(($type == 'custom' && $locale == fallback_lang()) ? 'required' : '') ]) !!}
+					{!! Form::text("{$item_key}[title][{$locale}]", @$item->i18n['title'][$locale], [ 'class'=>'input-sm form-control '.(($type == 'custom' && $locale == fallback_lang()) ? 'required' : ''), 'dir'=>lang_dir($locale) ]) !!}
 				</div>
 				@if ($type == 'custom')
 					<div class="form-group error-container">

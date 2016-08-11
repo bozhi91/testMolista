@@ -35,12 +35,12 @@
 							<div role="tabpanel" class="tab-pane tab-locale {{ ($locale == fallback_lang()) ? 'active' : '' }}" id="menu-item-locale-tab-{{$type}}-{{$locale}}-{{$item_id}}">
 								<div class="form-group error-container">
 									{!! Form::label("{$item_key}[title][{$locale}]", Lang::get('account/site.menus.update.field.title')) !!}
-									{!! Form::text("{$item_key}[title][{$locale}]", @$item->i18n['title'][$locale], [ 'class'=>'title-input input-sm form-control '.(($type == 'custom' && $locale == fallback_lang()) ? 'required' : ''), 'lang'=>$locale ]) !!}
+									{!! Form::text("{$item_key}[title][{$locale}]", @$item->i18n['title'][$locale], [ 'class'=>'title-input input-sm form-control '.(($type == 'custom' && $locale == fallback_lang()) ? 'required' : ''), 'lang'=>$locale, 'dir'=>lang_dir($locale) ]) !!}
 								</div>
 								@if ($type == 'text')
 									<div class="form-group error-container">
 										{!! Form::label("{$item_key}[content][{$locale}]", Lang::get("account/site.widgets.type.text.content")) !!}
-										{!! Form::textarea("{$item_key}[content][{$locale}]", @$item->i18n['content'][$locale], [ 'class'=>'form-control', 'rows'=>4 ]) !!}
+										{!! Form::textarea("{$item_key}[content][{$locale}]", @$item->i18n['content'][$locale], [ 'class'=>'form-control', 'rows'=>4, 'dir'=>lang_dir($locale) ]) !!}
 									</div>
 								@endif
 							</div>

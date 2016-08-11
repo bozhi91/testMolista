@@ -8,6 +8,10 @@
 
 	<link href="{{ Theme::url('/compiled/css/admin.css') }}" rel="stylesheet" type='text/css' />
 
+	@if ( LaravelLocalization::getCurrentLocaleDirection() == 'rtl' )
+		<link href="{{ Theme::url('/compiled/css/rtl.css') }}" rel="stylesheet" type='text/css' />
+	@endif
+
 	<link id="page_favicon" href="{{ Theme::url('/favicon.ico') }}" rel="icon" type="image/x-icon" />
 
 	<script type="text/javascript">
