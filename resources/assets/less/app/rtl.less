@@ -1,0 +1,58 @@
+body.dir-rtl {
+	.text-right { text-align: left; }
+	.text-left { text-align: right; }
+	.pull-right { float: left !important; }
+	.pull-left { float: right !important; }
+
+	#header { 
+		.navbar-brand { background-position: right center; }
+
+		@media (min-width: 768px) {
+			.navbar-brand { margin: 15px 0px 0px 50px; }
+		}
+		@media (max-width: 767px) {
+			.navbar-brand { margin-left: 0px; margin-right: 15px; }
+		}
+	}
+
+	#home {
+		.search-area { 
+			.quick-link {
+				.arrow { width: 38px; right: 10px; }
+			}
+		}
+	}
+
+	#account-container {
+		.account-menu {
+			> li {
+				> a {
+					padding-left: 15px; padding-right: 35px;
+					.account-icon { left: auto; right: 5px; }
+				}
+				ul > li > a { 
+					padding-left: 15px; padding-right: 35px;
+				}
+			}
+		}
+	}	
+
+	#properties {
+		.property-row {
+			.btn-more-info { right: auto; left: 0px;}
+			.location {
+				padding-left: 0px; padding-right: 25px;
+				.fontello-icon { left: auto; right: -8px; }
+			}
+		}
+	}
+
+	.metrics {
+		> li { padding: 0px 0px 0px 30px ; }
+		.fontello-icon { left: auto; right: -25px; }
+	}
+
+	#advanced-search-modal {
+		h2 { text-align: right; }
+	}
+}
