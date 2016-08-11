@@ -1,0 +1,42 @@
+#contact-modal {
+	
+	.modal-dialog {
+
+		.modal-content {
+
+			.modal-header {
+
+			}
+
+			.modal-body {
+				background: @backgroundGrayModal;
+				text-align: left;
+
+				.form-control {
+					border: 0px;
+				}
+
+				label {font-weight: normal;}
+
+				.moreinfo-button {
+					background: transparent;
+					color: @black;
+					border-color: @black;
+					min-width: 140px;
+
+					&:hover { 
+						background: @yellow;
+						border-color: transparent;
+					}
+				}
+			}
+		}
+	}
+
+	@media (min-width: 768px) {
+		.modal-dialog {
+		    width: 500px;
+		}
+	}
+
+}

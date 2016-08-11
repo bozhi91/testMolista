@@ -1,0 +1,206 @@
+#signup-new {
+	background: @lightBlue; padding: 50px 0px 100px 25px;
+
+	h1 { margin: 0px 0px 5px 0px; padding: 0px; font-weight: bold; font-size: 32px; }
+	h2 { margin: 0px; padding: 0px; }
+
+	.intro { color: @black; }
+	.intro, .alert { font-size: 20px; margin-bottom: 50px; border-radius: 2px; }
+
+	label.error { color: @red; font-size: 12px; font-weight: bold; }
+
+
+	.signup-block { 
+		font-size: 18px; color: @black; 
+		.signup-block-title { 
+			position: relative; 
+			h2 { background: @darkBlue; padding: 15px 50px; line-height: 26px; color: #fff; font-size: 24px; }
+			span { position: absolute; display: block; width: 40px; height: 40px; line-height: 40px; text-align: center; background: @lightBluethree; color: @yellow; font-size: 20px; border-radius: 20px; left: -20px; top: 50%; margin-top: -20px; font-weight: bold; }
+		}
+		.signup-block-content { 
+			padding: 30px 0px 50px 0px; 
+			a { color: @black; }
+			&.is-last { padding-bottom: 0px; }
+		}
+
+		.form-control { border: 1px solid @black; border-radius: 2px; padding: 10px 12px; height: 42px; }
+
+		.plan-block {
+			border: 1px solid @black; border-radius: 2px; text-align: center; margin-bottom: 10px; background: #fff; 
+			.plan-block-title { border-bottom: 1px solid @black; color: @black; background: #fff; padding: 15px 10px; font-weight: bold; font-size: 24px; }
+			.form-control { border-color: transparent; background: transparent; height: 46px; color: @black; font-weight: bold; font-size: 18px; box-shadow:none; }
+			&.plan-block-level-0 {
+				.form-control { font-size: 22px; padding-top: 7px; }
+			}
+			&.selected {
+				background: @yellow;
+				.plan-block-title { background: @yellow; }
+			}
+		}
+
+		.domain-input-group-addon { 
+			border: none; background: none; font-weight: bold; font-size: 18px; color: @black;
+			&:first-child { padding-left: 0px; }
+			&:last-child { padding-right: 0px; }
+		}
+
+		.custom-domain-warning { margin: 25px 0px 25px 0px; padding: 10px 20px; font-weight: bold; background: #81b8d6; font-size: 16px; }
+
+		.transfer-list { 
+			font-weight: bold; font-size: 18px; 
+			label { font-weight: bold; }
+			.optional-text { padding-right: 20px; vertical-align: top; }
+			.transfer-checkbox { top: 4px; }
+			.plan-footnote { display: block; font-size: 14px; font-weight: normal; padding: 20px 0px 0px 20px; }
+			.linethrough { text-decoration: line-through; }
+		}		
+	}
+
+	.summary-sticky {
+		padding-top: 20px; margin-top: -20px;
+		&.is_stuck { margin-top: 0px; }
+	}
+	.summary { 
+		border: 1px solid @black; border-radius: 2px; background: #fff; 
+		h2 { background: #b5b5b5; color: #fff; padding: 10px 20px; font-size: 22px; font-weight: bold; }
+		.summary-block {
+			padding: 25px 20px 50px 20px; background: #fff; color: @black; font-size: 18px; 
+			table { width: 100%; max-width: 100%; }
+			&.items-block { border-bottom: 1px solid @black; }
+		}
+		.button-block { 
+			padding: 0px 20px; 
+		}
+		.accept-block { padding: 20px; font-size: 16px; }
+	}
+
+	.btn-submit { text-transform: uppercase; background: @yellow; border: 1px solid @black; border-radius: 2px; font-size: 32px; font-weight: bold; }
+
+	.help {
+		color: #fff; font-size: 18px;
+		a { color: #fff; }
+		.title { padding: 30px 0px 15px 0px; font-size: 24px; font-weight: bold; }
+		.phone-email { padding-left: 25px; background: left center no-repeat; font-weight: bold; }
+		.phone { background-image: url('/images/corporate/signup/phone.png'); }
+		.email { background-image: url('/images/corporate/signup/email.png'); }
+	}
+}
+
+#signup {
+	background: url('/images/signup/background.jpg') top center no-repeat; padding-bottom: 100px; 
+
+	h1 { text-transform: uppercase; margin: 50px 0px 50px 0px; color: @white; font-weight: bold; font-size: 48px; }
+	h2 { margin: 0px; padding: 20px 0px; color: @black; font-weight: bold; font-size: 24px; background: @white; border-radius: 12px 12px 0px 0px; }
+
+	label { 
+		&.input-label { 
+			font-weight: normal; display: block; padding-left: 10px; 
+			&.text-center { padding-left: 0px; }
+		}
+		&.error { color: @red; font-size: 12px; font-weight: bold; line-height: 14px; padding-top: 5px; }
+	}
+
+	.alert { font-size: 16px; }
+	.form-control { border-color: @white; border-radius: 2px; box-shadow: none; }
+
+	.step-form {border: 2px solid #bfbfbf; border-radius: 12px; background: #f2f2f2; }
+	.step-content { padding: 100px 50px 50px 50px; font-size: 16px; }
+
+	.nav-area { padding-top: 100px; }
+
+	.btn-nav {
+		opacity: 0; position: relative; padding-left: 35px; padding-right: 35px; color: #414141; border: 2px solid #414141; border-radius: 4px; text-transform: uppercase; font-weight: bold;
+		&.btn-nav-prev { padding-right: 25px; background: url('/images/signup/btn-nav-prev.png') left center no-repeat #f2f2f2; }
+		&.btn-nav-next { padding-left: 25px; background: url('/images/signup/btn-nav-next.png') right center no-repeat #f2f2f2; }
+		&:hover { background-color: #dddddd; }
+	}
+
+	&.step-user {
+		.step-content { padding: 100px 120px 50px 120px; }
+		.switch-area { 
+			color: @lightBlue; padding-top: 20px;
+			a { 
+				color: @lightBlue; 
+				&:hover { color: @lightBluethree; }
+			}
+		}
+	}
+
+	&.step-pack {
+		.plan-row { 
+			opacity: 0; padding-top: 40px;
+			&:first-child { padding-top: 0px; }
+		}
+		.pack-label { 
+			padding-right: 40px; 
+			input { margin-right: 10px; }
+		}
+		.payment-interval-select { min-width: 250px; }
+	}
+
+	&.step-site {
+		padding-top: 50px;
+		.step-padder { padding: 0px 100px; }
+		.address-area { opacity: 0; padding-bottom: 30px; }
+	}
+
+	&.step-payment {
+		padding-top: 50px;
+		.step-padder { padding: 0px 100px; }
+	}
+
+	&.step-invoicing {
+		.step-content { padding-top: 50px; }
+		.inline-checkboxes {
+			margin-bottom: 20px;
+			.checkbox { 
+				margin-left: 20px;
+				&:first-child { margin-left: 0px; }
+			}
+		}
+		.address-title { padding: 30px 0px 20px 10px; font-weight: bold; }
+		.coupon-question {
+			color: @lightBlue; padding-top: 20px;
+			a { 
+				color: @lightBlue; 
+				&:hover { color: @lightBluethree; }
+			}
+		}
+	}
+
+	&.step-confirm {
+		.step-content { padding-top: 30px; font-size: 16px; }
+		.confirm-block { margin-bottom: 30px; }
+		.confirm-value { font-weight: bold; }
+		.confirm-change { 
+			font-weight: bold; 
+			a {
+				color: @lightBlue; 
+				&:hover { color: @lightBluethree; }
+			}
+		}
+	}
+
+	&.step-finish {
+		.step-content { padding-top: 30px; font-size: 16px; }
+		.links { padding-top: 50px; }
+		.links-warning { 
+			margin-top: 30px; padding-top: 10px; border-top: 1px solid #bfbfbf; font-size: 12px; 
+			p { margin: 0px; }
+		}
+		.payment-warning {
+			margin-top: 30px;
+			p { margin-bottom: 10px; }
+		}
+	}
+
+	&.pricing {
+		padding-bottom: 0px; 
+		.pricing-plans { padding-top: 50px; padding-bottom: 100px; }
+		.plan-block {
+			.plan-block-title { font-size: 32px; }
+			.plan-block-body { font-size: 18px; }
+			.plan-block-price { font-size: 28px; }
+		}
+	}
+}

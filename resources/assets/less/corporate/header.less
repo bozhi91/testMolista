@@ -1,0 +1,45 @@
+header { 
+	min-height: 84px; background-color: @black; 
+
+	.navbar-default {
+		background-color: transparent;
+		border-color: transparent;
+		margin: 0px;
+		padding: 10px 0 0 0;
+
+		.navbar-nav {
+			li {
+				.btnBdrYlw {
+					.btnBdrYlw; margin: 15px 10px 0 10px; font-size: 14px; font-weight:bold; min-width: 160px;
+					&:hover { background: @yellow; color:@black; font-size: 14px; }
+				}
+				a {
+					color: @lightYellow; font-size: 16px;
+					&:hover { color: @black; font-size: 16px; }
+				}
+				&.language-container {
+					border-color: transparent; background: transparent;
+					a {
+						font-size: 14px;
+						&.dropdown-toggle, 
+						&.dropdown-toggle:hover { color: #848484; border: 1px solid transparent; border-radius: 4px; margin: 15px 0px 0px 10px; padding: 5px; }
+					}
+					.dropdown-menu { 
+						background-color: @black; min-width: 90px; 
+						a { color: #848484; }
+					}
+				}
+				&.open {
+					a.dropdown-toggle{ background: transparent; }
+					a.focus{ background-color: @black; padding: 0; }
+				}
+				.phone-info { 
+					margin: 22px 0px 0px 10px; color: #848484; position: relative; padding-left: 15px; 
+					.fa-phone { color: @white; position: absolute; left: 0px; top: 4px; }
+				}
+			}
+		}
+	}
+
+	
+}
