@@ -484,19 +484,19 @@
 									<div class="form-group">
 										{!! Form::label("i18n[title][{$lang_iso}]", Lang::get('account/properties.title').(($lang_iso == fallback_lang()) ? ' *' : '')) !!}
 										<div class="error-container">
-											{!! Form::text("i18n[title][{$lang_iso}]", null, [ 'class'=>'form-control title-input '.(($lang_iso == fallback_lang()) ? 'required' : ''), 'lang'=>$lang_iso ]) !!}
+											{!! Form::text("i18n[title][{$lang_iso}]", null, [ 'class'=>'form-control title-input '.(($lang_iso == fallback_lang()) ? 'required' : ''), 'lang'=>$lang_iso, 'dir'=>lang_dir($lang_iso) ]) !!}
 										</div>
 										<div class="help-block text-right">
 											<a href="#" class="translate-trigger" data-input=".title-input" data-lang="{{$lang_iso}}">{{ Lang::get('general.autotranslate.trigger') }}</a>
 										</div>
 									</div>
 									<div class="form-group">
-										<div class="pull-right">
+										<div class="pull-right color-select-area">
 											{!! Form::text(null, null, [ 'class'=>'label-color-input' ]) !!}
 										</div>
 										{!! Form::label("i18n[label][{$lang_iso}]", Lang::get('account/properties.label')) !!}
 										<div class="error-container">
-											{!! Form::text("i18n[label][{$lang_iso}]", null, [ 'class'=>'form-control label-input', 'lang'=>$lang_iso ]) !!}
+											{!! Form::text("i18n[label][{$lang_iso}]", null, [ 'class'=>'form-control label-input', 'lang'=>$lang_iso, 'dir'=>lang_dir($lang_iso) ]) !!}
 										</div>
 										<div class="help-block text-right">
 											<a href="#" class="translate-trigger" data-input=".label-input" data-lang="{{$lang_iso}}">{{ Lang::get('general.autotranslate.trigger') }}</a>
@@ -510,7 +510,7 @@
 									<div class="form-group">
 										{!! Form::label("i18n[description][{$lang_iso}]", Lang::get('account/properties.description')) !!}
 										<div class="error-container">
-											{!! Form::textarea("i18n[description][{$lang_iso}]", null, [ 'class'=>'form-control resize-vertical description-input', 'lang'=>$lang_iso, 'rows'=>'4' ]) !!}
+											{!! Form::textarea("i18n[description][{$lang_iso}]", null, [ 'class'=>'form-control resize-vertical description-input', 'lang'=>$lang_iso, 'rows'=>'4', 'dir'=>lang_dir($lang_iso) ]) !!}
 										</div>
 										<div class="help-block text-right">
 											<a href="#" class="translate-trigger" data-input=".description-input" data-lang="{{$lang_iso}}">{{ Lang::get('general.autotranslate.trigger') }}</a>

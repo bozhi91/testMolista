@@ -2,7 +2,7 @@
 	$enabled_locales = \App\Models\Locale::getCorporateLocales();
 ?>
 <!DOCTYPE html>
-<html lang="{{ LaravelLocalization::getCurrentLocale() }}">
+<html lang="{{ LaravelLocalization::getCurrentLocale() }}" dir="{{ LaravelLocalization::getCurrentLocaleDirection() }}">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,6 +21,10 @@
 	<link href="https://fonts.googleapis.com/css?family=Lato:400,300,700,900,300italic,400italic,700italic|Dosis:400,700,600,500" rel="stylesheet" type="text/css" />
 	<link href="{{ Theme::url('/compiled/css/corporate.css') }}" rel="stylesheet" type='text/css' />
 
+	@if ( LaravelLocalization::getCurrentLocaleDirection() == 'rtl' )
+		<link href="{{ Theme::url('/compiled/css/rtl.css') }}" rel="stylesheet" type='text/css' />
+	@endif
+
 	<link id="page_favicon" href="{{ asset('favicon.ico') }}" rel="icon" type="image/x-icon" />
 
 	<script type="text/javascript">
@@ -29,7 +33,7 @@
 
 </head>
 
-<body>
+<body class="dir-{{ LaravelLocalization::getCurrentLocaleDirection() }}">
 
 	@include('corporate.common.analytics')
 

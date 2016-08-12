@@ -1,13 +1,3 @@
-<style type="text/css">
-/*
-	#edit-form h4 { margin-top: 0px; margin-bottom: 20px; }
-	#edit-form .marketplaces-img-item { position: relative; padding: 20px !important; margin: 0px 5px 10px 5px; border: 1px solid #999; background: #fff; cursor: move; }
-	#edit-form .marketplaces-img-image { height: 40px; }
-	#edit-form .marketplaces-img-delete { position: absolute; top: 3px; right: 3px; color: #999; }
-	#edit-form .marketplaces-img-delete:hover { color: #333; }
-*/
-</style>
-
 {!! Form::model($item, [ 'method'=>$method, 'action'=>$action, 'id'=>'edit-form' ]) !!}
 
 	<div class="row">
@@ -27,7 +17,7 @@
 					<div role="tabpanel" class="tab-pane tab-locale {{ ($lang_iso == fallback_lang()) ? 'active' : '' }}" id="lang-{{$lang_iso}}">
 						<div class="form-group error-container">
 							{!! Form::label("i18n[title][{$lang_iso}]", Lang::get('admin/config/currencies.title')) !!}
-							{!! Form::text("i18n[title][{$lang_iso}]", null, [ 'class'=>'form-control'.(($lang_iso == fallback_lang()) ? ' required' : '') ]) !!}
+							{!! Form::text("i18n[title][{$lang_iso}]", null, [ 'class'=>'form-control'.(($lang_iso == fallback_lang()) ? ' required' : ''), 'dir'=>lang_dir($lang_iso) ]) !!}
 						</div>
 					</div>
 				@endforeach

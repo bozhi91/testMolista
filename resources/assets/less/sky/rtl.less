@@ -1,0 +1,61 @@
+@import '../app/rtl.less';
+
+body.dir-rtl {
+
+	@media (min-width: 768px) {
+		#header {
+			.navbar-brand { margin: -20px auto 0px auto; }
+			.header-container {
+				.header-menu { float: left; }
+				.header-locale-social { 
+					right: auto; left: 30px; 
+					> li { float: left !important; }
+				}
+			}
+		}
+		#property {
+			.header {
+				.price { float: right !important; }
+				.location { left: auto; right: 58%; }
+			}
+			.images-gallery { float: right; padding-right: 0px; padding-left: 30px; }
+			.details {
+				.call-to-action { left: 15px; right: auto; }
+			}
+		}
+		.property-pill {
+			.padder {
+				.text {
+					.button { right: auto; left: 15px; }
+				}
+			}
+		}
+		#properties {
+			.search-area {
+				float: right;
+				h2 { right: 0px; }
+			}
+			.property-list {
+				.property-row {
+					.col-xs-12.col-sm-9 {
+						.text-column {
+							.btn-more-info { left: auto; right: 0px; }
+							.metrics { margin-right: 0px; }
+						}
+					}
+				}
+			}
+		}
+		#home {
+			.main-property {
+				.carousel-caption {
+					.col-xs-12.col-md-6 { right: auto; left: 0px; text-align: left; }
+					.col-xs-12.col-md-3.hidden-xs.hidden-sm {
+						.slider-quick-search {margin-left: auto; margin-right: 0px; }
+					}
+				}
+			}
+		}
+	}
+
+}

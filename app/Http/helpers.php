@@ -383,10 +383,40 @@
 		$locales = LaravelLocalization::getSupportedLocales();
 		return @$locales[$locale]['native'];
 	}
-
-	function summetime_lang()
+	function lang_dir($locale=false)
 	{
-		return str_replace('_','-', LaravelLocalization::getCurrentLocaleRegional() );
+		if ( !$locale )
+		{
+			$locale = LaravelLocalization::getCurrentLocaleName();
+		}
+
+		$locales = LaravelLocalization::getSupportedLocales();
+
+		$info = @$locales[$locale];
+
+		return @$info['dir'] ? $info['dir'] : 'ltr';
+	}
+
+	function summetime_lang($locale=false)
+	{
+		if ( !$locale )
+		{
+			$locale = LaravelLocalization::getCurrentLocale();
+		}
+
+		switch ( $locale )
+		{
+			case 'ar':
+				return 'ar-AR';
+		}
+
+		$locales = LaravelLocalization::getSupportedLocales();
+
+		$info = @$locales[$locale];
+
+		$regional = @$info['regional'] ? $info['regional'] : LaravelLocalization::getCurrentLocaleRegional();
+
+		return str_replace('_','-', $regional);
 	}
 
 	function sanitize($string, $type = false)

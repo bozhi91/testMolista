@@ -70,7 +70,7 @@
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group error-container">
 												{!! Form::label("i18n[title][{$lang_iso}]", Lang::get('account/site.pages.title')) !!}
-												{!! Form::text("i18n[title][{$lang_iso}]", null, [ 'class'=>'form-control '.(($lang_iso == fallback_lang()) ? 'required' : '') ]) !!}
+												{!! Form::text("i18n[title][{$lang_iso}]", null, [ 'class'=>'form-control '.(($lang_iso == fallback_lang()) ? 'required' : ''), 'dir'=>lang_dir($lang_iso) ]) !!}
 											</div>
 										</div>
 										@if ( $page->enabled )
@@ -91,7 +91,7 @@
 										<div class="col-xs-12">
 											<div class="form-group error-container">
 												{!! Form::label("i18n[body][{$lang_iso}]", Lang::get('account/site.pages.body')) !!}
-												{!! Form::textarea("i18n[body][{$lang_iso}]", null, [ 'class'=>'is-wysiwyg form-control' ]) !!}
+												{!! Form::textarea("i18n[body][{$lang_iso}]", null, [ 'class'=>'is-wysiwyg form-control', 'dir'=>lang_dir($lang_iso) ]) !!}
 											</div>
 										</div>
 									</div>
@@ -114,13 +114,13 @@
 											<div class="form-group">
 												{!! Form::label("i18n[seo_title][{$lang_iso}]", Lang::get('account/site.pages.seo_title')) !!}
 												<div class="error-container">
-													{!! Form::text("i18n[seo_title][{$lang_iso}]", null, [ 'class'=>'form-control' ]) !!}
+													{!! Form::text("i18n[seo_title][{$lang_iso}]", null, [ 'class'=>'form-control', 'dir'=>lang_dir($lang_iso) ]) !!}
 												</div>
 											</div>
 											<div class="form-group">
 												{!! Form::label("i18n[seo_keywords][{$lang_iso}]", Lang::get('account/site.pages.seo_keywords')) !!}
 												<div class="error-container">
-													{!! Form::text("i18n[seo_keywords][{$lang_iso}]", null, [ 'class'=>'form-control' ]) !!}
+													{!! Form::text("i18n[seo_keywords][{$lang_iso}]", null, [ 'class'=>'form-control', 'dir'=>lang_dir($lang_iso) ]) !!}
 												</div>
 											</div>
 										</div>
@@ -128,7 +128,7 @@
 											<div class="form-group">
 												{!! Form::label("i18n[seo_description][{$lang_iso}]", Lang::get('account/site.pages.seo_description')) !!}
 												<div class="error-container">
-													{!! Form::textarea("i18n[seo_description][{$lang_iso}]", null, [ 'class'=>'form-control', 'rows'=>'5' ]) !!}
+													{!! Form::textarea("i18n[seo_description][{$lang_iso}]", null, [ 'class'=>'form-control', 'rows'=>'5', 'dir'=>lang_dir($lang_iso) ]) !!}
 												</div>
 											</div>
 										</div>

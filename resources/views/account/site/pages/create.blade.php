@@ -29,7 +29,7 @@
 							<div class="col-xs-12 col-sm-6">
 								<div class="form-group error-container">
 									{!! Form::label('i18n[title]['.fallback_lang().']', Lang::get('account/site.pages.title')) !!}
-									{!! Form::text('i18n[title]['.fallback_lang().']', null, [ 'class'=>'form-control required' ]) !!}
+									{!! Form::text('i18n[title]['.fallback_lang().']', null, [ 'class'=>'form-control required', 'dir'=>lang_dir(fallback_lang()) ]) !!}
 								</div>
 							</div>
 						</div>

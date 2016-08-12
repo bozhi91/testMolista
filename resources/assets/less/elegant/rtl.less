@@ -1,0 +1,56 @@
+@import '../app/rtl.less';
+
+body.dir-rtl {
+
+	@media (min-width: 768px) {
+		#header {
+			.header-container {
+				.header-menu { float: left; }
+				.navbar-right { right: auto; left: 0px; }
+				.header-locale-social {
+					.social-media {
+						.list-inline { margin-right: 0px; margin-left: 35px; }
+					}
+				}
+				.navbar-brand { margin: 0px; margin-top: -17%; }
+			}
+		}
+	}
+
+	.property-pill {
+		.padder {
+			.text {
+				.labels { float: left; }
+			}
+		}
+	}
+
+	@media (min-width: 768px) {
+		#property {
+			.details {
+				.call-to-action { right: auto; left: 0px; }
+			}
+			.images-gallery {
+				.image-main { float: right; }
+				.images-carousel { float: left; right: auto; left: 0px; }
+			}
+		}
+		#properties {
+			.search-area {
+				float: right;
+				h2 { right: 0px; }
+			}
+			.property-list {
+				.property-row {
+					.col-xs-12.col-sm-9 {
+						.text-column {
+							.price { text-align: right; }
+							.btn-more-info { right: auto; }
+						}
+					}
+				}
+			}
+		}
+	}
+
+}

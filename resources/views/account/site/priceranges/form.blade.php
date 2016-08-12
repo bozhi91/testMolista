@@ -23,7 +23,7 @@
 			@foreach ($site_setup['locales_tabs'] as $lang_iso => $lang_name)
 				<div role="tabpanel" class="tab-pane tab-locale {{ $lang_iso == fallback_lang() ? 'active' : '' }}" id="{{ $form_id }}-lang-{{ $lang_iso }}">
 					<div class="error-container">
-						{!! Form::text("i18n[title][{$lang_iso}]", null, [ 'class'=>'form-control'.(($lang_iso == fallback_lang()) ? ' required' : '') ]) !!}
+						{!! Form::text("i18n[title][{$lang_iso}]", null, [ 'class'=>'form-control'.(($lang_iso == fallback_lang()) ? ' required' : ''), 'dir'=>lang_dir($lang_iso) ]) !!}
 					</div>
 				</div>
 			@endforeach
