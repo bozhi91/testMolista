@@ -47,8 +47,16 @@ elixir(function(mix) {
 			'spectrum.js',
 			'dropzone.js',
 			'common.js'
-		], 'resources/assets/js/compiled/common.js');
+		], 'resources/assets/js/compiled/common.js')
+		;
 
+
+	/* RTL */
+	mix
+		.less([
+			'../bootstrap-rtl/bootstrap-rtl.less',
+		], 'public/compiled/css/rtl.css')
+		;
 
 
 	/* App */

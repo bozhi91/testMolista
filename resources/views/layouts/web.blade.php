@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ LaravelLocalization::getCurrentLocale() }}">
+<html lang="{{ LaravelLocalization::getCurrentLocale() }}" dir="{{ LaravelLocalization::getCurrentLocaleDirection() }}">
 
 <head>
 	<meta charset="utf-8">
@@ -34,6 +34,10 @@
 	<link href="https://fonts.googleapis.com/css?family=Lato:400,300,700,900,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
 	<link href="{{ Theme::url('/compiled/css/app.css') }}" rel="stylesheet" type='text/css' />
 
+	@if ( LaravelLocalization::getCurrentLocaleDirection() == 'rtl' )
+		<link href="{{ Theme::url('/compiled/css/rtl.css') }}" rel="stylesheet" type='text/css' />
+	@endif
+
 	@if ( !empty($site_setup['favicon']) )
 		<link id="page_favicon" href="{{ $site_setup['favicon'] }}" rel="icon" type="image/x-icon" />
 	@else
@@ -50,7 +54,7 @@
 
 </head>
 
-<body id="{{ @$body_id }}">
+<body id="{{ @$body_id }}" class="dir-{{ LaravelLocalization::getCurrentLocaleDirection() }}">
 
 	<?php $ga_account = isset($google_analitics_account) ? $google_analitics_account : @$current_site->ga_account; ?>
 	@if ( $ga_account )

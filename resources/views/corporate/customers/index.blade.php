@@ -80,7 +80,6 @@
 				e.preventDefault();
 
 				var action = $(this).data().action;
-console.log(action);
 				form.find('.action-input').val(action);
 				form.find('.switch-rel').addClass('hide').filter('.switch-rel-'+action).removeClass('hide');
 			});

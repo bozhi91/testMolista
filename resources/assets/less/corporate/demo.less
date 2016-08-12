@@ -1,0 +1,34 @@
+#demo-page {
+	background: @darkBlue; color: @white; font-size: 20px;
+	h2 { margin: 0px; padding: 0px; font-size: 30px; font-weight: 700; text-transform: uppercase; }
+	.demo-intro { 
+		background: @lightBlue; padding: 100px 0px;
+		h2 { padding-bottom: 34px; }
+		li { margin-bottom: 10px; }
+	}
+	.btn-demo-site { 
+		font-weight: bold; text-transform: uppercase; .btnBdrYlw; background: @darkBlue; font-size: 18px; min-width: 240px; padding: 10px; margin-top: 25px; 
+		&:hover { background: @black; }
+	}
+	.steps-intro {
+		padding-top: 85px;
+	}
+	.steps-block {
+		padding: 40px 0px; text-align: center;
+		h2 { font-size: 24px; padding-top: 80px; margin-bottom: 20px; background: center top no-repeat; }
+		.intro-text { padding-bottom: 25px; }
+		.image-block { 
+			padding-top: 25px; 
+			img { width: 100%; }
+		}
+	}
+
+	@media (max-width: 767px) {
+		.demo-intro { padding-top: 40px; }
+		.xs-spacer { height: 40px; }
+		.steps-block {
+			.xs-spacer { height: 80px; }
+		}
+	}
+
+}

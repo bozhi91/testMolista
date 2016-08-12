@@ -1,0 +1,56 @@
+body.dir-rtl {
+
+	header { 
+		.navbar-default {
+			.navbar-nav {
+				li {
+					.phone-info { 
+						margin: 22px 10px 0px 0px; padding: 0px 15px 0px 0px;
+						.fa-phone { left: auto; right: 0px; }
+					}
+					&.language-container a {
+						&.dropdown-toggle, &.dropdown-toggle:hover { margin: 15px 10px 0px 0px; }
+					}
+				}
+			}
+		}
+	}
+
+	#home {
+		.first-block {
+			ul {
+				li { padding-left: 0px; padding-right: 45px; }
+				li[data-type="web"]{ background-position: right -2030px; }
+				li[data-type="fixa"] { background-position: right -860px; }
+				li[data-type="searcher"]{ background-position: right -1640px; }
+				li[data-type="relation"]{ background-position: right -1250px; }
+				li[data-type="easy"]{ background-position: right -470px; }
+				li[data-type="exports"]{ background-position: right -665px; }
+				li[data-type="responsive"]{ background-position: right -1445px; }
+				li[data-type="agents"]{ background-position: right -80px; }
+				li[data-type="docs"]{ background-position: right -275px; }
+				li[data-type="leads"]{ background-position: right -1055px; }
+				li[data-type="settings"]{ background-position: right -1835px; }
+			}
+		}
+	}
+
+	#features {
+		@media (min-width: 992px) {
+			 #features-content {
+			 	.tab-content {
+			 		.features-content-text { padding-right: 0px; padding-left: 25%; }
+			 	}
+			}
+		}
+	}
+
+	#contact-modal {
+		.modal-dialog {
+			.modal-content {
+				.modal-body { text-align: inherit; }
+			}
+		}
+	}
+
+}
