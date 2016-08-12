@@ -19,7 +19,8 @@ class Calendar extends Model
 	protected $dates = ['deleted_at','start_time','end_time'];
 
 	protected static $create_validator_fields = [
-		'user_id' => 'required|exists:users,id',
+		'user_ids' => 'required|array',
+		'user_ids.*' => 'exists:users,id',
 		'site_id' => 'required|exists:sites,id',
 		'property_id' => 'exists:properties,id',
 		'customer_id' => 'exists:customers,id',
@@ -34,7 +35,8 @@ class Calendar extends Model
 	];
 
 	protected static $update_validator_fields = [
-		'user_id' => 'required|exists:users,id',
+		'user_ids' => 'required|array',
+		'user_ids.*' => 'exists:users,id',
 		'property_id' => 'exists:properties,id',
 		'customer_id' => 'exists:customers,id',
 		'type' => 'required',
@@ -51,6 +53,7 @@ class Calendar extends Model
 		'visit',
 		'catch',
 		'interview',
+		'meeting',
 		'other',
 	];
 
@@ -61,9 +64,27 @@ class Calendar extends Model
 		return $this->belongsTo('App\Site');
 	}
 
+	/*
 	public function user()
 	{
 		return $this->belongsTo('App\User');
+	}
+	*/
+
+	public function users()
+	{
+		return $this->belongsToMany('App\User', 'calendars_users', 'calendar_id', 'user_id');
+	}
+	public function getUserIdsAttribute()
+	{
+		$user_ids = [];
+
+		foreach ($this->users as $user)
+		{
+			$user_ids[] = $user->id;
+		}
+
+		return $user_ids;
 	}
 
 	public function property()
@@ -79,6 +100,12 @@ class Calendar extends Model
 	public static function saveModel($data, $id = null)
 	{
 		$update_notification = false;
+
+		$notify_fields = [
+			'site_id', 'property_id', 'customer_id',
+			'title', 'location',
+			'start_time', 'end_time',
+		];
 
 		if ($id)
 		{
@@ -97,9 +124,13 @@ class Calendar extends Model
 
 		foreach ($fields as $field)
 		{
+			if ( preg_match('#^user_ids#', $field) )
+			{
+				continue;
+			}
+
 			switch ($field) 
 			{
-				case 'user_id':
 				case 'site_id':
 				case 'property_id':
 				case 'customer_id':
@@ -117,7 +148,7 @@ class Calendar extends Model
 					$value = @$data[$field];
 			}
 
-			if ( $id && @$old_item->$field != $value )
+			if ( $id && in_array($field, $notify_fields) && @$old_item->$field != $value )
 			{
 				$update_notification = true;
 			}
@@ -126,6 +157,13 @@ class Calendar extends Model
 		}
 
 		$item->save();
+
+		if ( $id && $item->user_ids != $data['user_ids'] ) 
+		{
+			$update_notification = true;
+		}
+
+		$item->users()->sync($data['user_ids']);
 
 		if ( !$id )
 		{
@@ -157,14 +195,24 @@ class Calendar extends Model
 			->setDescription( $item->comments )
 			;
 
-		if ( $item->user )
+		if ( $item->users )
 		{
-			$vEvent->setOrganizer(new \Eluceo\iCal\Property\Event\Organizer("mailto:{$item->user->email}", [ 
-				'CN' => $item->user->name,
-			]));
-			$vEvent->addAttendee("mailto:{$item->user->email}", [ 
-				'CN' => $item->user->name,
-			]);
+			$i = 0;
+			foreach ($item->users as $user) 
+			{
+				if ( $i < 1 )
+				{
+					$vEvent->setOrganizer(new \Eluceo\iCal\Property\Event\Organizer("mailto:{$user->email}", [ 
+						'CN' => $user->name,
+					]));
+				}
+
+				$vEvent->addAttendee("mailto:{$user->email}", [ 
+					'CN' => $user->name,
+				]);
+
+				$i++;
+			}
 		}
 
 		if ( $item->customer )
@@ -213,9 +261,9 @@ class Calendar extends Model
 		}
 
 		// Customer exists and has email?
-		$user = $event->user;
+		$users = $event->users;
 		$customer = $event->customer;
-		if ( !$user && !$customer )
+		if ( !$users && !$customer )
 		{
 			return false;
 		}
@@ -247,18 +295,22 @@ class Calendar extends Model
 			$content = $emogrifier->emogrify();
 		}
 
-		foreach ([$user, $customer] as $to)
+		$customers = [ $customer ];
+		foreach ([$users, $customers] as $recipients)
 		{
-			if ( @$to->email )
+			foreach ($recipients as $to)
 			{
-				$sent = $event->site->sendEmail([
-					'to' => $to->email,
-					'subject' => $subject,
-					'content' => $content,
-					'attachments' => [
-						$filepath => [ 'as'=>"event.ics" ],
-					]
-				]);
+				if ( @$to->email )
+				{
+					$sent = $event->site->sendEmail([
+						'to' => $to->email,
+						'subject' => $subject,
+						'content' => $content,
+						'attachments' => [
+							$filepath => [ 'as'=>"event.ics" ],
+						]
+					]);
+				}
 			}
 		}
 
@@ -266,6 +318,15 @@ class Calendar extends Model
 		\File::delete($filepath);
 
 		return $sent;
+	}
+
+	public function scopeOfUserId($query, $user_id)
+	{
+		return $query->whereIn("{$this->getTable()}.id", function($query) use ($user_id) {
+			$query->select('calendar_id')
+					->from('calendars_users')
+					->where('user_id', $user_id);
+		});
 	}
 
 	public function scopeWithStatus($query, $status)

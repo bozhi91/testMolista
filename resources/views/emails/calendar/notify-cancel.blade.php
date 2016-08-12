@@ -21,7 +21,11 @@
 		@endif
 		<tr>
 			<td class="label">{{ Lang::get('account/calendar.email.who') }}</td>
-			<td>{{ $event->user->name }} ({{ $event->user->email }})</td>
+			<td>
+				@foreach ($event->users as $user)
+					{{ $user->name }} ({{ $user->email }})<br />
+				@endforeach
+			</td>
 		</tr>
 	</table>
 

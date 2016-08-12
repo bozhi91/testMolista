@@ -319,6 +319,7 @@ class ProcessStatsCommand extends Command
 							->whereDate('start_time','=',$date)
 							->where('type','visit')
 							->with('property')
+							->with('users')
 							->get();
 
 		// Process stats
@@ -349,12 +350,12 @@ class ProcessStatsCommand extends Command
 			]);
 
 			// Update user stats
-			if ( $visit->user_id )
+			foreach ($visit->users as $user)
 			{
 				$user_line = \App\Models\User\Stats::firstOrCreate([
 					'date' => $date,
 					'site_id' => $visit->site_id,
-					'user_id' => $visit->user_id,
+					'user_id' => $user->id,
 				]);
 				$user_line->update([
 					$field => $user_line->$field + 1,
