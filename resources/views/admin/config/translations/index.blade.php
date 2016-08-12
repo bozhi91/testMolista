@@ -25,7 +25,7 @@
                     <h4>{{ Lang::get('admin/config/translations.language.chosen') }}</h4>
                     <div class="error-container">
                         <ul class="list-unstyled" style="margin: 0px;">
-                            @foreach ($enabled_languages as $iso=>$name)
+                            @foreach ($editable_languages as $iso=>$name)
                                 <li>
                                     <label class="normal">
                                         <input type="checkbox" name="langs[]" value="{{ $iso }}" {{ @in_array($iso, Input::get('langs')) ? 'checked="checked"' : '' }} class="required" /> {{ $name }}
