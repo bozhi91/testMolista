@@ -170,7 +170,7 @@ class TranslationsController extends AdminController
 
 		$keys = \App\Models\Translation::distinct()->select('file')->orderBy('file')->lists('file', 'file')->toArray();
 
-		return view('admin.config.translations.index', compact('translations','enabled_languages','keys','language_stats'));
+		return view('admin.config.translations.index', compact('translations','enabled_languages','editable_languages','keys','language_stats'));
 	}
 
 	public function update(Request $request, $id)
