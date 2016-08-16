@@ -49,6 +49,11 @@ class Mapper extends \App\Marketplaces\Mapper {
 	public function valid() {
 		$data = array_merge($this->item, $this->config);
 
+		if ($this->isTransfer()) {
+			$this->errors []= \Lang::get('validation.transfer');
+            return false;
+		}
+
 		$rules = [
 			'id' => 'required',
 			'title' => 'required',
@@ -99,6 +104,9 @@ class Mapper extends \App\Marketplaces\Mapper {
 				return 'Terrenos y solares';
 			case 'store':
 				return 'Trasteros y garajes';
+			case 'hotel':
+			case 'aparthotel':
+				return 'Alquiler vacacional';
 			default:
 				return $this->isRent() ? 'Pisos en alquiler' : 'Pisos en venta';
 		}

@@ -98,4 +98,6 @@
 
 		'sale' => 'La propiedad no está en venta',
 		'rent' => 'La propiedad no está en alquiler',
+		'type' => 'Este tipo de propiedad no se puede publicar',
+		'transfer' => 'No se permiten propiedades de traspaso',
 	];

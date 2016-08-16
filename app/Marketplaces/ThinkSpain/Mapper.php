@@ -16,8 +16,8 @@ class Mapper extends \App\Marketplaces\Mapper {
         $map['#last_amended_date'] = $item['updated_at'];
         $map['#unique_id'] = $item['id'];
         $map['#agent_ref'] = $item['reference'];
-        $map['#euro_price'] = intval($item['price']);
-        $map['#sale_type'] = $this->isRent() ? 'longterm' : 'sale';
+        $map['#euro_price'] = intval($item['price'] * ($this->saleType() == 'holiday' ? 4 : 1));
+        $map['#sale_type'] = $this->saleType();
         $map['#property_type'] = $this->property_type();
         $map['town'] = $item['location']['city'];
         $map['location_detail'] = $item['location']['district'];
@@ -36,6 +36,11 @@ class Mapper extends \App\Marketplaces\Mapper {
 
     public function valid()
     {
+        if ($this->isTransfer()) {
+			$this->errors []= \Lang::get('validation.transfer');
+            return false;
+		}
+
         $rules = [
             'updated_at' => 'required',
             'mode' => 'required',
@@ -93,6 +98,8 @@ class Mapper extends \App\Marketplaces\Mapper {
             'penthouse' => 'Penthouse',
             'villa' => 'Villa',
             'apartment' => 'Apartment',
+            'aparthotel' => 'Apartment',
+            'hotel' => 'Hotel',
         ];
 
         return isset($types[$this->item['type']]) ? $types[$this->item['type']] : 'Flat';
@@ -123,6 +130,15 @@ class Mapper extends \App\Marketplaces\Mapper {
         }
 
         return $response;
+    }
+
+    protected function saleType()
+    {
+        if ($this->isRent()) {
+            return in_array($this->item['type'], ['hotel','aparthotel']) ? 'holiday' : 'longterm';
+        }
+
+        return 'sale';
     }
 
 }

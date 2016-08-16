@@ -167,7 +167,10 @@ class Mapper extends \App\Marketplaces\Mapper {
 	public function valid() {
 		$data = array_merge($this->item, $this->config);
 
-		//dd($data);
+		if ($this->isTransfer()) {
+			$this->errors []= \Lang::get('validation.transfer');
+            return false;
+		}
 
 		$rules = [
 			'id' => 'required',

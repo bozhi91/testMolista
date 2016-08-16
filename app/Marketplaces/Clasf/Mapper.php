@@ -97,7 +97,7 @@ class Mapper extends \App\Marketplaces\Mapper {
         switch ($this->item['type'])
         {
             case 'store':
-                $type = $this->isRent() ? 'alquiler de locales' : 'venta de locales';
+                $type = $this->isRent() ? 'alquiler de locales' : ($this->isTransfer() ? 'traspaso' : 'venta de locales');
                 break;
             case 'lot':
                 $type = $this->isSale() ? 'venta solares' : '';
