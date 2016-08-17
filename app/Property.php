@@ -290,6 +290,26 @@ class Property extends TranslatableModel
 		return $filepath;
 	}
 
+	public function getLatPublicAttribute() 
+	{
+		if ( $this->show_address )
+		{
+			return $this->lat;
+		}
+
+		return $this->lat + (((rand(0,99)/100) - 0.5) * 0.001);
+	}
+
+	public function getLngPublicAttribute() 
+	{
+		if ( $this->show_address )
+		{
+			return $this->lng;
+		}
+		
+		return $this->lng + (((rand(0,99)/100) - 0.5) * 0.001);
+	}
+
 	public function getQrFolderAttribute()
 	{
 		return "sites/{$this->site_id}/properties/{$this->id}/qr";
