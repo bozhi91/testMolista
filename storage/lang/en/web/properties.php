@@ -7,6 +7,7 @@
 		'mode' => 'Modality',
 		'mode.sale' => 'Properties for sale',
 		'mode.rent' => 'Properties for rent',
+		'mode.transfer' => 'Properties for ownership transfer',
 
 		'state' => 'State',
 		'state.any' => 'All states',
@@ -25,6 +26,8 @@
 		'type.lot' => 'Lot',
 		'type.store' => 'Store',
 		'type.ranch' => 'Ranch',
+		'type.hotel' => 'Hotel',
+		'type.aparthotel' => 'Aparthotel',
 
 		'more.show' => 'Show more options',
 		'more.any' => 'Show all',

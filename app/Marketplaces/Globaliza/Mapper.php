@@ -15,7 +15,7 @@ class Mapper extends \App\Marketplaces\Mapper {
         $map['REFERENCIA'] = $item['reference'];
         $map['TIPOINMUEBLE'] = $this->type();
         $map['SUBTIPOINMUEBLE'] = $this->subtype();
-        $map['#FINALIDAD'] = $this->isRent() ? 'Alquiler' : 'Venta';
+        $map['#FINALIDAD'] = $this->isSale() ? 'Venta' : 'Alquiler';
         $map['#PRECIO'] = $this->decimal($item['price'], 0);
         $map['PROVINCIA'] = $item['location']['state'];
         $map['POBLACION'] = $item['location']['city'];
@@ -161,6 +161,7 @@ class Mapper extends \App\Marketplaces\Mapper {
             'penthouse' => 'Atico',
             'villa' => 'Casa Rural',
             'apartment' => 'Apartamento / Estudio',
+            'aparthotel' => 'Apartamento / Estudio',
         ];
 
         return isset($types[$this->item['type']]) ? $types[$this->item['type']] : 'Piso';

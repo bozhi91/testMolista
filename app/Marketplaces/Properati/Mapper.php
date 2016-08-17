@@ -104,6 +104,12 @@ class Mapper extends \App\Marketplaces\Mapper {
 	 * @return boolean
 	 */
 	public function valid() {
+
+		if ($this->isTransfer()) {
+			$this->errors []= \Lang::get('validation.transfer');
+            return false;
+		}
+
 		$data = array_merge($this->item, $this->config);
 
 		$rules = [
@@ -211,8 +217,11 @@ class Mapper extends \App\Marketplaces\Mapper {
 			case 'penthouse':
 			case 'villa':
 				return 'house';
+			case 'hotel':
+				return 'hotel';
 			case 'flat':
 			case 'apartment':
+			case 'aparthotel':
 				return 'apartment';
 			default: return 'other';
 		}

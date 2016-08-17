@@ -23,10 +23,13 @@ class AgentsController extends \App\Http\Controllers\AccountController
 		$fields = [
 			'SUM(`sale`) as published_sale',
 			'SUM(`rent`) as published_rent',
+			'SUM(`transfer`) as published_transfer',
 			'SUM(`sale_closed`) as total_sold',
 			'SUM(`rent_closed`) as total_rented',
+			'SUM(`transfer_closed`) as total_transfered',
 			'SUM(`sale_visits`) as visits_sale',
 			'SUM(`rent_visits`) as visits_rent',
+			'SUM(`transfer_visits`) as visits_transfer',
 		];
 
 		$query = \App\Models\User\Stats::selectRaw( implode(', ',$fields) )->where('site_id', $this->site->id);

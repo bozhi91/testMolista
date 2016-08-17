@@ -117,6 +117,7 @@
 		'show.property.catch.status.cancel' => 'Cancelada',
 		'show.property.catch.status.sold' => 'Vendida',
 		'show.property.catch.status.rent' => 'Alquilada',
+		'show.property.catch.status.transfer' => 'Traspasada',
 		'show.property.catch.status.other' => 'Otro',
 
 		'show.property.catch.actions' => 'Opciones',

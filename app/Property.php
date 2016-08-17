@@ -773,6 +773,7 @@ class Property extends TranslatableModel
 		return [
 			'sale',
 			'rent',
+			'transfer',
 		];
 	}
 	static public function getModeOptions()
@@ -810,6 +811,8 @@ class Property extends TranslatableModel
 			'store' => trans('web/properties.type.store'),
 			'lot' => trans('web/properties.type.lot'),
 			'ranch' => trans('web/properties.type.ranch'),
+			'hotel' => trans('web/properties.type.hotel'),
+			'aparthotel' => trans('web/properties.type.aparthotel'),
 		];
 
 		if ( $site_id )

@@ -12,6 +12,7 @@
 		'total' => 'Total',
 		'sale' => 'Venta',
 		'rent' => 'Alquiler',
+		'transfer' => 'Traspaso',
 
 		'published' => 'Propiedades publicadas',
 		'transactions' => 'Transacciones',

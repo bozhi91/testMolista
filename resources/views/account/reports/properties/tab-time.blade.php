@@ -12,7 +12,7 @@
 
 	<h3>{{ Lang::get('account/reports.published') }}</h3>
 	<div class="row">
-		<div class="col-xs-12 col-sm-4">
+		<div class="col-xs-12 col-sm-3">
 			<div class="panel panel-default panel-stats">
 				<div class="panel-heading">{{ Lang::get('account/reports.sale') }}</div>
 				<div class="panel-body">
@@ -20,7 +20,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-xs-12 col-sm-4">
+		<div class="col-xs-12 col-sm-3">
 			<div class="panel panel-default panel-stats">
 				<div class="panel-heading">{{ Lang::get('account/reports.rent') }}</div>
 				<div class="panel-body">
@@ -28,7 +28,15 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-xs-12 col-sm-4">
+		<div class="col-xs-12 col-sm-3">
+			<div class="panel panel-default panel-stats">
+				<div class="panel-heading">{{ Lang::get('account/reports.transfer') }}</div>
+				<div class="panel-body">
+					{{ number_format($stats->published_transfer, 0, ',', '.') }}
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-3">
 			<div class="panel panel-default panel-stats">
 				<div class="panel-heading">{{ Lang::get('account/reports.total') }}</div>
 				<div class="panel-body">
@@ -40,7 +48,7 @@
 
 	<h3>{{ Lang::get('account/reports.transactions') }}</h3>
 	<div class="row">
-		<div class="col-xs-12 col-sm-4">
+		<div class="col-xs-12 col-sm-3">
 			<div class="panel panel-default panel-stats">
 				<div class="panel-heading">{{ Lang::get('account/reports.sale') }}</div>
 				<div class="panel-body">
@@ -48,7 +56,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-xs-12 col-sm-4">
+		<div class="col-xs-12 col-sm-3">
 			<div class="panel panel-default panel-stats">
 				<div class="panel-heading">{{ Lang::get('account/reports.rent') }}</div>
 				<div class="panel-body">
@@ -56,7 +64,15 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-xs-12 col-sm-4">
+		<div class="col-xs-12 col-sm-3">
+			<div class="panel panel-default panel-stats">
+				<div class="panel-heading">{{ Lang::get('account/reports.transfer') }}</div>
+				<div class="panel-body">
+					{{ number_format($stats->total_transfered, 0, ',', '.') }}
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-3">
 			<div class="panel panel-default panel-stats">
 				<div class="panel-heading">{{ Lang::get('account/reports.total') }}</div>
 				<div class="panel-body">

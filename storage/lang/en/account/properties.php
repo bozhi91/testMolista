@@ -117,6 +117,7 @@
 		'show.property.catch.status.cancel' => 'Cancelled',
 		'show.property.catch.status.sold' => 'Sold',
 		'show.property.catch.status.rent' => 'Rented',
+		'show.property.catch.status.transfer' => 'Transfered',
 		'show.property.catch.status.other' => 'Other',
 
 		'show.property.catch.actions' => 'Options',
