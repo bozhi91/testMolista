@@ -10,7 +10,7 @@
 		<li>{{ Lang::get('account/calendar.start') }}: {{ $event->start_time->format("d/m/Y H:i") }}</li>
 		<li>{{ Lang::get('account/calendar.end') }}: {{ $event->end_time->format("d/m/Y H:i") }}</li>
 		<li>{{ Lang::get('account/calendar.type') }}: {{ Lang::get("account/calendar.reference.type.{$event->type}") }}</li>
-		<li>{{ Lang::get('account/calendar.agent') }}: {{ @$event->user->name }}</li>
+		<li>{{ Lang::get('account/calendar.agent') }}: {{ @$event->users->implode('name',', ') }}</li>
 		@if ( @$event->property->title )
 			<li>{{ Lang::get('account/calendar.property') }}: {{ @$event->property->title }}</li>
 		@endif

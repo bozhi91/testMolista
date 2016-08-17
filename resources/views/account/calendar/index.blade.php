@@ -22,7 +22,7 @@
 				{!! Form::hidden('calendar_defaultDate', Input::get('calendar_defaultDate', date('Y-m-d')), [ 'id'=>'calendar-defaultDate', 'class'=>'filter-value' ]) !!}
 				<div class="form-group">
 					{!! Form::label('agent', Lang::get('account/calendar.agent'), [ 'class'=>'sr-only' ]) !!}
-					{!! Form::select('agent', [ ''=>Lang::get('account/calendar.agent.all')]+$employees, Input::get('agent'), [ 'class'=>'filter-value form-control' ]) !!}
+					{!! Form::select('agent', [ ''=>Lang::get('account/calendar.agent.all')]+$users, Input::get('agent'), [ 'class'=>'filter-value form-control' ]) !!}
 				</div>
 				@if ( false )
 					<div class="form-group">

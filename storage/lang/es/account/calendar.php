@@ -14,6 +14,7 @@ return [
 	'reference.type.visit' => 'Visita',
 	'reference.type.catch' => 'Captación',
 	'reference.type.interview' => 'Entrevista',
+	'reference.type.meeting' => 'Reunión',
 	'reference.type.other' => 'Otro',
 
 	'title' => 'Título',
