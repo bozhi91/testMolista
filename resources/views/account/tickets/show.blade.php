@@ -110,7 +110,7 @@
 										{!! Form::select('private', [
 											'0' => Lang::get('account/tickets.public'),
 											'1' => Lang::get('account/tickets.internal'),
-										], null, [ 'class'=>'form-control input-sm required' ]) !!}
+										], null, [ 'class'=>'form-control input-sm alert-danger required' ]) !!}
 									</div>
 								</div>
 								<div class="col-xs-6">

@@ -67,11 +67,21 @@ class WebhookController extends BaseController
 		if ( $site )
 		{
 			$line = @reset( $payload['data']['object']['lines']['data'] );
+
 			if ( $line['period']['end'] )
 			{
 				$site->update([
 					'paid_until' => date('Y-m-d', $line['period']['end']),
 				]);
+				// Send warning email
+				$subject = trans('corporate/signup.email.stripe.subject');
+				$html = view('emails.admin.inform-stripe-payment', $site)->render();
+				$to = env('EMAIL_PAYMENT_WARNINGS_TO', 'admin@molista.com');
+				\Mail::send('dummy', [ 'content' => $html ], function($message) use ($subject, $to) {
+					$message->from( env('MAIL_FROM_EMAIL'), env('MAIL_FROM_NAME') );
+					$message->subject($subject);
+					$message->to( $to );
+				});
 			}
 		}
 

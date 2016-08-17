@@ -135,6 +135,11 @@ class ProcessStatsCommand extends Command
 					$data['rent_price'] = ( ( $site_line->rent_price * $site_line->rent ) + $property->price ) / $data['rent'];
 					$data['rent_sqm'] = ( ( $site_line->rent_sqm * $site_line->rent ) + $property->size ) / $data['rent'];
 					break;
+				case 'transfer':
+					$data['transfer'] = $site_line->transfer + 1;
+					$data['transfer_price'] = ( ( $site_line->transfer_price * $site_line->transfer ) + $property->price ) / $data['transfer'];
+					$data['transfer_sqm'] = ( ( $site_line->transfer_sqm * $site_line->transfer ) + $property->size ) / $data['transfer'];
+					break;
 			}
 			$site_line->update($data);
 
@@ -158,6 +163,9 @@ class ProcessStatsCommand extends Command
 					break;
 				case 'rent':
 					$data['rent'] = $user_line->rent + 1;
+					break;
+				case 'transfer':
+					$data['transfer'] = $user_line->transfer + 1;
 					break;
 			}
 			$user_line->update($data);
@@ -184,19 +192,25 @@ class ProcessStatsCommand extends Command
 				$stats[$property->site_id] = [
 					'current_sale' => 0,
 					'current_rent' => 0,
+					'current_transfer' => 0,
 					'current_sale_price' => 0,
 					'current_rent_price' => 0,
+					'current_transfer_price' => 0,
 					'current_sale_sqm' => 0,
 					'current_rent_sqm' => 0,
+					'current_transfer_sqm' => 0,
 				];
 			}
 
 			$sale = $stats[$property->site_id]['current_sale'];
 			$rent = $stats[$property->site_id]['current_rent'];
+			$transfer = $stats[$property->site_id]['current_transfer'];
 			$sale_price_total = $stats[$property->site_id]['current_sale_price'] * $sale;
 			$rent_price_total = $stats[$property->site_id]['current_rent_price'] * $rent;
+			$transfer_price_total = $stats[$property->site_id]['current_transfer_price'] * $transfer;
 			$sale_sqm_total = $stats[$property->site_id]['current_sale_sqm'] * $sale;
 			$rent_sqm_total = $stats[$property->site_id]['current_rent_sqm'] * $rent;
+			$transfer_sqm_total = $stats[$property->site_id]['current_transfer_sqm'] * $transfer;
 
 			switch ( $property->mode )
 			{
@@ -209,6 +223,11 @@ class ProcessStatsCommand extends Command
 					$stats[$property->site_id]['current_rent']++;
 					$stats[$property->site_id]['current_rent_price'] =  ( $rent_price_total + $property->price ) / $stats[$property->site_id]['current_rent'];
 					$stats[$property->site_id]['current_rent_sqm'] = ( $rent_sqm_total + ($property->price / $property->size) ) / $stats[$property->site_id]['current_rent'];
+					break;
+				case 'transfer':
+					$stats[$property->site_id]['current_transfer']++;
+					$stats[$property->site_id]['current_transfer_price'] =  ( $transfer_price_total + $property->price ) / $stats[$property->site_id]['current_transfer'];
+					$stats[$property->site_id]['current_transfer_sqm'] = ( $transfer_sqm_total + ($property->price / $property->size) ) / $stats[$property->site_id]['current_transfer'];
 					break;
 			}
 		}
@@ -228,7 +247,7 @@ class ProcessStatsCommand extends Command
 	{
 		$closures = \App\Models\Property\Catches::with('property')
 						->where('transaction_date',$date)
-						->whereIn('status',['sold','rent'])
+						->whereIn('status',['sold','rent','transfer'])
 						->get();
 
 		foreach ($closures as $closure)
@@ -251,6 +270,9 @@ class ProcessStatsCommand extends Command
 					break;
 				case 'rent':
 					$data['rent_closed'] = $site_line->rent_closed + 1;
+					break;
+				case 'transfer':
+					$data['transfer_closed'] = $site_line->transfer_closed + 1;
 					break;
 			}
 			$site_line->update($data);
@@ -275,6 +297,9 @@ class ProcessStatsCommand extends Command
 					break;
 				case 'rent':
 					$data['rent_closed'] = $user_line->rent_closed + 1;
+					break;
+				case 'rent':
+					$data['transfer_closed'] = $user_line->transfer_closed + 1;
 					break;
 			}
 			$user_line->update($data);
@@ -308,10 +333,12 @@ class ProcessStatsCommand extends Command
 		\App\Models\Site\Stats::whereDate('date','=',$date)->update([
 			'sale_visits' => 0,
 			'rent_visits' => 0,
+			'transfer_visits' => 0,
 		]);
 		\App\Models\User\Stats::whereDate('date','=',$date)->update([
 			'sale_visits' => 0,
 			'rent_visits' => 0,
+			'transfer_visits' => 0,
 		]);
 
 		// Get date visits
@@ -319,6 +346,7 @@ class ProcessStatsCommand extends Command
 							->whereDate('start_time','=',$date)
 							->where('type','visit')
 							->with('property')
+							->with('users')
 							->get();
 
 		// Process stats
@@ -328,6 +356,7 @@ class ProcessStatsCommand extends Command
 			{
 				case 'sale':
 				case 'rent':
+				case 'transfer':
 					$field = "{$visit->property->mode}_visits";
 					break;
 				default:
@@ -349,12 +378,12 @@ class ProcessStatsCommand extends Command
 			]);
 
 			// Update user stats
-			if ( $visit->user_id )
+			foreach ($visit->users as $user)
 			{
 				$user_line = \App\Models\User\Stats::firstOrCreate([
 					'date' => $date,
 					'site_id' => $visit->site_id,
-					'user_id' => $visit->user_id,
+					'user_id' => $user->id,
 				]);
 				$user_line->update([
 					$field => $user_line->$field + 1,

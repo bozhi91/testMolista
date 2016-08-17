@@ -41,8 +41,8 @@
 	<div class="row">
 		<div class="col-xs-12 col-sm-6">
 			<div class="form-group error-container">
-				{!! Form::label('user_id', Lang::get('account/calendar.agent')) !!}
-				{!! Form::select('user_id', [ ''=>'&nbsp;' ]+$users, null, [ 'class'=>'has-select-2 form-control required' ]) !!}
+				{!! Form::label('user_ids[]', Lang::get('account/calendar.agent')) !!}
+				{!! Form::select('user_ids[]', $users, null, [ 'class'=>'has-select-2 form-control required', 'multiple'=>'multiple', 'size'=>1 ]) !!}
 			</div>
 			<div class="form-group error-container">
 				{!! Form::label('customer_id', Lang::get('account/calendar.customer')) !!}
@@ -63,7 +63,7 @@
 					<select name="property_id" class="property-select has-select-2 form-control">
 						<option value="">&nbsp;</option>
 						@foreach ($properties as $property)
-							<option value="{{ $property->id }}" data-location="{{ $property->address ? $property->full_address : '' }}" {{ @$item->property_id == $property->id ? 'selected="selected"' : '' }}>{{ $property->title }}</option>
+							<option value="{{ $property->id }}" data-location="{{ $property->address ? $property->full_address : '' }}" {{ @$item->property_id == $property->id ? 'selected="selected"' : '' }}>{{ $property->ref }}: {{ $property->title }}</option>
 						@endforeach
 					</select>
 				</div>

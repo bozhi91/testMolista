@@ -61,6 +61,11 @@ abstract class Mapper {
         return $this->item['mode'] == 'rent';
     }
 
+    protected function isTransfer()
+    {
+        return $this->item['mode'] == 'transfer';
+    }
+
     protected function isNew()
     {
         return !empty($this->item['newly_build']);

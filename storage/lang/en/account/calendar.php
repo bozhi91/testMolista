@@ -14,6 +14,7 @@ return [
 	'reference.type.visit' => 'Visit',
 	'reference.type.catch' => 'Catch',
 	'reference.type.interview' => 'Interview',
+	'reference.type.meeting' => 'Meeting',
 	'reference.type.other' => 'Other',
 
 	'title' => 'Title',

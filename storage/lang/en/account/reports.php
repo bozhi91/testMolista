@@ -12,6 +12,7 @@
 		'total' => 'Total',
 		'sale' => 'Sale',
 		'rent' => 'Rent',
+		'transfer' => 'Transfer',
 
 		'published' => 'Published properties',
 		'transactions' => 'Transactions',

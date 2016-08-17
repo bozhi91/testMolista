@@ -128,6 +128,10 @@ class Mapper extends \App\Marketplaces\Mapper {
             case 'lot':
                 $type = $this->isSale() ? 'Land For Sale' : '';
                 break;
+            case 'hotel':
+            case 'aparthotel':
+                $type = 'Short Term Rentals';
+                break;
             case 'duplex':
             case 'house':
             case 'penthouse':
@@ -151,6 +155,8 @@ class Mapper extends \App\Marketplaces\Mapper {
             'penthouse' => 'Ático',
             'villa' => 'Villa',
             'apartment' => 'Apartamento',
+            'hotel' => '',
+            'aparthotel' => ''
         ];
 
         return isset($types[$this->item['type']]) ? $types[$this->item['type']] : 'Piso';

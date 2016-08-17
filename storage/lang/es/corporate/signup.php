@@ -133,6 +133,14 @@
 									<li>Creación: :created</li>
 								</ul>',
 
+		'email.stripe.subject' => 'Molista: recepción de pago vía stripe',
+		'email.stripe.body' => '<p>Se ha recibido correctamente el pago vía stripe para el siguiente site de Molista:</p>
+								<ul>
+									<li>ID: :site_id</li>
+									<li>Subdomain: :subdomain</li>
+									<li>Válido hasta: :created</li>
+								</ul>',
+
 		'full.h1' => 'Contratación',
 		'full.intro' => '<p>Por favor, rellena el siguiente formulario para contratar tu plan con <strong>molista</strong>.</p>',
 		'full.data.title' => 'Datos de registro',

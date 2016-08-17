@@ -29,6 +29,10 @@ class User extends Authenticatable
 		return $this->belongsToMany('App\Site', 'sites_users', 'user_id', 'site_id')->withTranslations();
 	}
 
+	public function calendars() {
+		return $this->belongsToMany('App\Models\Calendar', 'calendars_users', 'user_id', 'calendar_id');
+	}
+
 	public function sites_signatures() {
 		return $this->hasMany('\App\Models\Site\UserSignature');
 	}

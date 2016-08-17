@@ -200,11 +200,24 @@
 				styles: {!! Theme::config('gmaps-style') !!}
 			});
 
-			property_marker = new google.maps.Marker({
-				position: mapLatLng,
-				map: property_map,
-				icon: '{{ asset('images/properties/marker.png') }}'
-			});
+			@if ( @$property->show_address )
+				var property_marker = new google.maps.Marker({
+					position: mapLatLng,
+					map: property_map,
+					icon: '{{ asset( Theme::config('gmaps-marker') ) }}'
+				});
+			@else
+				var property_marker = new google.maps.Circle({
+					strokeColor: '{{ Theme::config('gmaps-circle') }}',
+					strokeOpacity: 0.8,
+					strokeWeight: 0,
+					fillColor: '{{ Theme::config('gmaps-circle') }}',
+					fillOpacity: 0.25,
+					map: property_map,
+					center: mapLatLng,
+					radius: 500
+				});
+			@endif
 		});
 
 		ready_callbacks.push(function(){
