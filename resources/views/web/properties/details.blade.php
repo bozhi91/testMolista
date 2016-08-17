@@ -192,7 +192,7 @@
 
 	<script type="text/javascript">
 		google.maps.event.addDomListener(window, 'load', function(){
-			var mapLatLng = { lat: {{$property->lat}}, lng: {{$property->lng}} };
+			var mapLatLng = { lat: {{$property->lat_public}}, lng: {{$property->lng_public}} };
 
 			var property_map = new google.maps.Map(document.getElementById('property-map'), {
 				zoom: 14,
