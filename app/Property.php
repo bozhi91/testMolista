@@ -290,24 +290,24 @@ class Property extends TranslatableModel
 		return $filepath;
 	}
 
-	public function getLatPublicAttribute() 
+	public function getLatPublicAttribute()
 	{
 		if ( $this->show_address )
 		{
 			return $this->lat;
 		}
 
-		return $this->lat + (((rand(0,99)/100) - 0.5) * 0.001);
+		return $this->lat + (((rand(0,99)/100) - 0.5) * 0.005);
 	}
 
-	public function getLngPublicAttribute() 
+	public function getLngPublicAttribute()
 	{
 		if ( $this->show_address )
 		{
 			return $this->lng;
 		}
-		
-		return $this->lng + (((rand(0,99)/100) - 0.5) * 0.001);
+
+		return $this->lng + (((rand(0,99)/100) - 0.5) * 0.005);
 	}
 
 	public function getQrFolderAttribute()
