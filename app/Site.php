@@ -83,7 +83,7 @@ class Site extends TranslatableModel
 
 	public function users()
 	{
-		return $this->belongsToMany('App\User', 'sites_users', 'site_id', 'user_id')->withPivot('can_create','can_edit','can_delete','can_view_all');
+		return $this->belongsToMany('App\User', 'sites_users', 'site_id', 'user_id')->withPivot('can_create','can_edit','can_delete','can_view_all','can_edit_all','can_delete_all');
 	}
 	public function getUsersIdsAttribute()
 	{
@@ -121,7 +121,7 @@ class Site extends TranslatableModel
 		{
 			$options[$customer->id] = "{$customer->full_name} ({$customer->email})";
 		}
-		
+
 		return $options;
 	}
 
@@ -190,11 +190,11 @@ class Site extends TranslatableModel
 		return ( count($this->domains) < 1 ) ? false : $this->domains->sortByDesc('default')->first()->domain;
 	}
 
-	public function locales() 
+	public function locales()
 	{
 		return $this->belongsToMany('App\Models\Locale', 'sites_locales', 'site_id', 'locale_id');
 	}
-	public function getLocalesArrayAttribute() 
+	public function getLocalesArrayAttribute()
 	{
 		$locales = [];
 
@@ -219,12 +219,12 @@ class Site extends TranslatableModel
 		return $this->hasOne('App\Models\Currency', 'code', 'payment_currency')->withTranslations();
 	}
 
-	public function marketplaces() 
+	public function marketplaces()
 	{
 		return $this->belongsToMany('App\Models\Marketplace', 'sites_marketplaces', 'site_id', 'marketplace_id')
 					->withPivot('marketplace_configuration','marketplace_enabled','marketplace_maxproperties','marketplace_export_all');
 	}
-	public function getMarketplacesArrayAttribute() 
+	public function getMarketplacesArrayAttribute()
 	{
 		$marketplaces = [];
 
@@ -328,7 +328,7 @@ class Site extends TranslatableModel
 	public function getSignaturePartsAttribute()
 	{
 		$signature = $this->signature;
-		
+
 		if ( !is_array($signature) )
 		{
 			$signature = [];
@@ -529,13 +529,13 @@ class Site extends TranslatableModel
 		{
 			$setup['locales_tabs'][fallback_lang()] = $setup['locales_select'][fallback_lang()];
 		}
-		foreach ($setup['locales_select'] as $locale => $locale_name) 
+		foreach ($setup['locales_select'] as $locale => $locale_name)
 		{
 			$setup['locales_tabs'][$locale] = $locale_name;
 		}
 
 		// Widgets
-		if ( empty($setup['widgets'][$setup['locale']]) ) 
+		if ( empty($setup['widgets'][$setup['locale']]) )
 		{
 			$setup['widgets'] = [
 				'header' => [],
@@ -617,7 +617,7 @@ class Site extends TranslatableModel
 					'content' => $widget->content,
 				];
 
-				switch ( $widget->type ) 
+				switch ( $widget->type )
 				{
 					case 'menu':
 						$w['items'] = [];
@@ -760,7 +760,7 @@ class Site extends TranslatableModel
 
 		// Count current enabled properties
 		$properties_current = $this->properties()->where('enabled',1)->count();
-		
+
 		// return difference
 		return $properties_allowed - $properties_current;
 	}
@@ -855,7 +855,7 @@ class Site extends TranslatableModel
 		if ( $planchange->plan && !$planchange->plan->is_free )
 		{
 			// Enable all languages
-			foreach (\App\Models\Locale::where('web',1)->lists('id','locale') as $locale => $locale_id) 
+			foreach (\App\Models\Locale::where('web',1)->lists('id','locale') as $locale => $locale_id)
 			{
 				if ( $this->locales->contains( $locale_id ) )
 				{
@@ -865,7 +865,7 @@ class Site extends TranslatableModel
 				$this->locales()->attach( $locale_id );
 			}
 		}
-		
+
 		// Send mail to owners
 		$locale_backup = \App::getLocale();
 		$email_data = $planchange->site->getSignupInfo( $planchange->locale );
@@ -893,7 +893,7 @@ class Site extends TranslatableModel
 		];
 	}
 
-	public function getEnabledCountriesAttribute() 
+	public function getEnabledCountriesAttribute()
 	{
 		$query = \App\Models\Geography\Country::withTranslations()->enabled();
 

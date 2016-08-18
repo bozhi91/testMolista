@@ -262,11 +262,19 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 	public function edit($slug)
 	{
-		$property = $this->site->properties()
-						->whereIn('properties.id', $this->auth->user()->properties()->lists('id'))
+		$query = $this->site->properties()
 						->whereTranslation('slug', $slug)
-						->withEverything()
-						->first();
+						->withEverything();
+
+		if (!$this->auth->user()->canProperty('edit_all')) {
+			if ($this->auth->user()->canProperty('edit')) {
+				$query = $query->whereIn('properties.id', $this->auth->user()->properties()->lists('id'));
+			} else {
+				$query = $query->where('properties.id', 0);
+			}
+		}
+
+		$property = $query->first();
 		if ( !$property )
 		{
 			abort(404);
@@ -294,7 +302,19 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 	public function update(Request $request, $slug)
 	{
 		// Get property
-		$property = $this->site->properties()->whereIn('properties.id', $this->auth->user()->properties()->lists('id'))->whereTranslation('slug', $slug)->first();
+		$query = $this->site->properties()
+						->whereTranslation('slug', $slug)
+						->withEverything();
+
+		if (!$this->auth->user()->canProperty('edit_all')) {
+			if ($this->auth->user()->canProperty('edit')) {
+				$query = $query->whereIn('properties.id', $this->auth->user()->properties()->lists('id'));
+			} else {
+				$query = $query->where('properties.id', 0);
+			}
+		}
+
+		$property = $query->first();
 		if ( !$property )
 		{
 			abort(404);
@@ -499,7 +519,19 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 	public function destroy($slug)
 	{
-		$property = $this->site->properties()->whereIn('properties.id', $this->auth->user()->properties()->lists('id'))->whereTranslation('slug', $slug)->first();
+		$query = $this->site->properties()
+						->whereTranslation('slug', $slug)
+						->withEverything();
+
+		if (!$this->auth->user()->canProperty('edit_all')) {
+			if ($this->auth->user()->canProperty('edit')) {
+				$query = $query->whereIn('properties.id', $this->auth->user()->properties()->lists('id'));
+			} else {
+				$query = $query->where('properties.id', 0);
+			}
+		}
+
+		$property = $query->first();
 		if ( !$property )
 		{
 			abort(404);
@@ -691,7 +723,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		return true;
 	}
 
-	protected function saveRequest($property,$is_new=false) 
+	protected function saveRequest($property,$is_new=false)
 	{
 		if ( $this->request->input('enabled') )
 		{
