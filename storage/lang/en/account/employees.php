@@ -34,7 +34,11 @@
 		'show.tab.permissions.edit' => 'Can edit properties',
 		'show.tab.permissions.delete' => 'Can delete properties',
 		'show.tab.permissions.view_all' => 'Can view all properties',
+		'show.tab.permissions.edit_all' => 'Can edit all properties',
+		'show.tab.permissions.delete_all' => 'Can delete all properties',
 		'show.tab.permissions.view_all.warning' => 'This agent can view all properties',
+		'show.tab.permissions.edit_all.warning' => 'This agent can edit all properties',
+		'show.tab.permissions.delete_all.warning' => 'This agent can delete all properties',
 
 		'show.tab.properties' => 'Properties',
 		'show.tab.properties.empty' => 'No properties asociated',
