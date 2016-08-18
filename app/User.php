@@ -86,7 +86,7 @@ class User extends Authenticatable
 
 		$property_permission_key = "property-permission.{$site_id}.{$permission_field}";
 
-		if ( ! \App\Session\User::has($property_permission_key) )
+		if ( true || ! \App\Session\User::has($property_permission_key) )
 		{
 			$granted = false;
 
@@ -96,11 +96,12 @@ class User extends Authenticatable
 				$granted = true;
 			// Employees might or might not
 			} elseif ( $this->hasRole('employee') ) {
+
 				$relation = $this->sites()->withPivot($permission_field)->find($site_id);
 				$granted = empty($relation->pivot->$permission_field) ? false : true;
 			}
 
-			\App\Session\User::push($property_permission_key, $granted);
+			\App\Session\User::put($property_permission_key, $granted);
 		}
 
 		return \App\Session\User::get($property_permission_key);

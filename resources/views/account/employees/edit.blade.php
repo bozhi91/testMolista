@@ -10,7 +10,7 @@
 
 		@include('common.messages', [ 'dismissible'=>true ])
 
-		<h1 class="page-title">{{ Lang::get('account/employees.show.title', [ 
+		<h1 class="page-title">{{ Lang::get('account/employees.show.title', [
 			'name' => $employee->name,
 			'email' => $employee->email,
 		]) }}</h1>
@@ -31,6 +31,14 @@
 					<div role="tabpanel" class="tab-pane tab-main active" id="tab-properties">
 						@if ( $employee->pivot->can_view_all )
 							<div style="font-weight: bold; padding-top: 10px;">{{ Lang::get('account/employees.show.tab.permissions.view_all.warning') }}</div>
+							<hr />
+						@endif
+						@if ( $employee->pivot->can_edit_all )
+							<div style="font-weight: bold; padding-top: 10px;">{{ Lang::get('account/employees.show.tab.permissions.edit_all.warning') }}</div>
+							<hr />
+						@endif
+						@if ( $employee->pivot->can_delete_all )
+							<div style="font-weight: bold; padding-top: 10px;">{{ Lang::get('account/employees.show.tab.permissions.delete_all.warning') }}</div>
 							<hr />
 						@endif
 						<div class="alert alert-info properties-empty {{ ( count($properties) > 0 ) ? 'hide' : '' }}">{{ Lang::get('account/employees.show.tab.properties.empty') }}</div>
@@ -68,6 +76,26 @@
 										<label>
 											{!! Form::checkbox('permissions[can_view_all]', 1, $employee->pivot->can_view_all) !!}
 											{{ Lang::get('account/employees.show.tab.permissions.view_all') }}
+										</label>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="form-group">
+									<div class="checkbox">
+										<label>
+											{!! Form::checkbox('permissions[can_edit_all]', 1, $employee->pivot->can_edit_all) !!}
+											{{ Lang::get('account/employees.show.tab.permissions.edit_all') }}
+										</label>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="form-group">
+									<div class="checkbox">
+										<label>
+											{!! Form::checkbox('permissions[can_delete_all]', 1, $employee->pivot->can_delete_all) !!}
+											{{ Lang::get('account/employees.show.tab.permissions.delete_all') }}
 										</label>
 									</div>
 								</div>
@@ -118,7 +146,7 @@
 			</div>
 
 			<br />
-			
+
 			<div class="text-right">
 				{!! print_goback_button( Lang::get('general.back'), [ 'class'=>'btn btn-default' ]) !!}
 				{!! Form::submit( Lang::get('general.save.changes'), [ 'class'=>'btn btn-primary']) !!}
