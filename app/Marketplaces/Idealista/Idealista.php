@@ -26,8 +26,8 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
 
         //Set config params
         $this->setAggregator($config['aggregator']);
-        $this->setCode($config['code']);
-        $this->setReference($config['reference']);
+        $this->setCode(@$config['code']);
+        $this->setReference(@$config['reference']);
 
         //Generate client node
         $this->setClient([
@@ -86,7 +86,6 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
         }
         $writer->endElement();
 
-
         //Write newbuildListing
         $writer->startElement('newbuildListing');
         foreach($this->getNewbuildListing() as $k => $data){
@@ -95,7 +94,7 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
 
             //Code
             $writer->startElement('code');
-            $writer->write($this->getCode() . $data['code']);
+            $writer->write($data['promo_code']);
             $writer->endElement();
 
             //Address
@@ -179,6 +178,7 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
 
         $propertyIdealista = [
             'code' => $property['id'],
+            'reference' => $property['reference'],
             'scope' => 1, //Idealista & Microsite
             'address' => $this->processAddress($property),
             'features' => $this->processFeatures($property),
@@ -194,6 +194,7 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
         if(empty($property['newly_build'])){
             $this->secondhandListing[] = $propertyIdealista;
         } else {
+            $propertyIdealista['promo_code'] = $property['site_id'].'_'.$property['id'];
             $this->newbuildListing[] = $propertyIdealista;
         }
     }
