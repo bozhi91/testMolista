@@ -44,6 +44,7 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
 
     //Process all data and generate XML
     public function getPropertiesXML(array $properties){
+
         $this->load($properties);
         return $this->generateXML();
     }
@@ -94,7 +95,7 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
 
             //Code
             $writer->startElement('code');
-            $writer->write($this->getCode());
+            $writer->write($this->getCode() . $data['code']);
             $writer->endElement();
 
             //Address
@@ -138,11 +139,13 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
         $operation = $data['operation_type'];
         $operation_type = $data['mode'];
         unset($data['operation_type']);
+        unset($data['mode']);
 
         //Separate features
         $features = $data['features'];
         $features_type = $data['type'];
         unset($data['features']);
+        unset($data['type']);
 
         $writer->write($data);
 
