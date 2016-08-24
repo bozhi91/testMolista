@@ -31,7 +31,7 @@
 							$marketplace_checkbox_attr = [ 'class' => 'marketplace-input' ];
 							if ( !$marketplace_published && $marketplace_items_max > 0 && $marketplace_items_max <= $marketplace_items_current )
 							{
-								$publishable = [ 
+								$publishable = [
 									Lang::get('account/marketplaces.maxproperties.error', [
 										'maxproperties' => number_format($marketplace_items_max,0,',','.'),
 									]),
@@ -70,9 +70,10 @@
 								<span class="marketplace-name text-nowrap;" style="background-image: url({{ asset("marketplaces/{$marketplace->logo}") }});">{{ $marketplace->name }}</span>
 							</td>
 							<td>
-								@if ( $marketplace->pivot->marketplace_export_all )
-									{{ Lang::get('account/marketplaces.export_all.warning') }}
-								@elseif ( $publishable === true )
+								@if ( $publishable === true )
+									@if ( $marketplace->pivot->marketplace_export_all )
+										{{ Lang::get('account/marketplaces.export_all.warning') }}
+									@endif
 								@else
 									<div class="not-published-rel {{ @$item->export_to_all ? 'hide' : '' }}">
 										{{ Lang::get('account/properties.marketplaces.error') }}<br />

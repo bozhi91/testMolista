@@ -350,10 +350,10 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
         $location = $property['location'];
 
         $address = [
-            'visibility' => ($location['show_address']),
+            'visibility' => empty($location['show_address']) ? 3 : 1,
             'country' => $location['country'],
-            'streetName' => $location['address'],
-            'streetNumber' => '',
+            'streetName' => empty($location['address_parts']['street']) ? $location['address'] : $location['address_parts']['street'],
+            'streetNumber' => empty($location['address_parts']['number']) ? '' : $location['address_parts']['number'],
             'cityName' => $location['city'],
             'postalcode' => $location['zipcode'],
             'floor' => '',

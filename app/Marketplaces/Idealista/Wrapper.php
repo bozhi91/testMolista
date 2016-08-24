@@ -25,4 +25,27 @@ class Wrapper extends Idealista {
         parent::__construct($config);
     }
 
+    public function validateProperty(array $property)
+    {
+        $data = array_merge($property, $this->config);
+
+        $rules = [
+            'id' => 'required',
+            'title' => 'required',
+            'code' => 'required',
+            'location.lat' => 'required',
+            'location.lng' => 'required',
+        ];
+
+        $messages = [];
+
+        $validator = \Validator::make($data, $rules, $messages);
+        if ($validator->fails())
+        {
+            return $validator->errors()->all();
+        }
+
+        return true;
+    }
+
 }
