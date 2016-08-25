@@ -113,7 +113,7 @@ class BaseController extends \App\Http\Controllers\AccountController
 	{
 		$response = [];
 
-		$query = $this->site->events()->with('users')->with('property')->with('customer');
+		$query = $this->site->events()->with('users')->with('properties')->with('customer');
 
 		if ( $this->request->input('start') )
 		{
@@ -154,9 +154,9 @@ class BaseController extends \App\Http\Controllers\AccountController
 		$rules = [];
 
 		// Property belongs to site
-		if ( @$data['property_id'] )
+		if ( @$data['property_ids'] )
 		{
-			$rules['property_id'] = 'required|exists:properties,id,site_id,'.$this->site->id;
+			$rules['property_ids.*'] = 'required|exists:properties,id,site_id,'.$this->site->id;
 		}
 
 		// Customer belongs to site
@@ -207,9 +207,9 @@ class BaseController extends \App\Http\Controllers\AccountController
 		if ( !$this->site_user->pivot->can_view_all )
 		{
 			$property_ids = $this->site_user->properties()->lists('id')->all();
-			if ( @$event->property_id )
+			if ( $event )
 			{
-				$property_ids[] = $event->property_id;
+				$property_ids = array_merge($property_ids,$event->property_ids);
 			}
 			$query->whereIn('properties.id', $property_ids);
 		}

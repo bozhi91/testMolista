@@ -59,12 +59,12 @@
 			</div>
 			<div class="form-group">
 				<div class="error-container">
-					{!! Form::label('property_id', Lang::get('account/calendar.property')) !!}
-					<select name="property_id" class="property-select has-select-2 form-control">
-						<option value="">&nbsp;</option>
-						@foreach ($properties as $property)
-							<option value="{{ $property->id }}" data-location="{{ $property->address ? $property->full_address : '' }}" {{ @$item->property_id == $property->id ? 'selected="selected"' : '' }}>{{ $property->ref }}: {{ $property->title }}</option>
-						@endforeach
+					{!! Form::label('property_ids[]', Lang::get('account/calendar.property')) !!}
+					<select name="property_ids[]" class="property-select has-select-2 form-control" multiple="multiple" size="1">
+						@include('account.calendar.form-properties-options', [ 
+							'properties' => $properties,
+							'selected_ids' => old('property_ids', Input::get('property_ids', @$item->property_ids)),
+						])
 					</select>
 				</div>
 				<div class="help-block location-property-area hide">
@@ -155,7 +155,7 @@
 
 		form.find('.property-select').on('change', function(){
 			var opt = $(this).find('option:selected');
-			if ( opt.length && opt.data().location ) {
+			if ( opt.length == 1 && opt.data().location ) {
 				form.find('.location-property-area').removeClass('hide');
 			} else {
 				form.find('.location-property-area').addClass('hide').find('.property-location-input').prop('checked', false);

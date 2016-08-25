@@ -23,12 +23,12 @@ class AjaxController extends \App\Http\Controllers\AccountController
 
 		if ( $this->request->input('user_id') )
 		{
-			$query->where('user_id', $this->request->input('user_id'));
+			$query->ofUserId($this->request->input('user_id'));
 		}
 
 		if ( $this->request->input('property_id') )
 		{
-			$query->where('property_id', $this->request->input('property_id'));
+			$query->ofPropertyId($this->request->input('property_id'));
 		}
 
 		$visits = $query->orderBy('start_time','desc')->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );

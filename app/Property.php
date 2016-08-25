@@ -114,6 +114,10 @@ class Property extends TranslatableModel
 		return $this->belongsToMany('App\User', 'properties_users', 'property_id', 'user_id')->withPivot('is_owner');
 	}
 
+	public function calendars() {
+		return $this->belongsToMany('App\Models\Calendar', 'calendars_properties', 'property_id', 'calendar_id');
+	}
+
 	public function customers() {
 		return $this->belongsToMany('App\Models\Site\Customer', 'properties_customers', 'property_id', 'customer_id');
 	}
