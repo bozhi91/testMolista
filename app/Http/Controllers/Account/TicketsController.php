@@ -84,6 +84,8 @@ class TicketsController extends \App\Http\Controllers\AccountController
 
 		$customers = $this->site->customers_options;
 
+		$this->set_go_back_link();
+
 		return view('account.tickets.index', compact('tickets','employees','customers','clean_filters'));
 	}
 
