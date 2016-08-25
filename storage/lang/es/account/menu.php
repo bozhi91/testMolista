@@ -31,4 +31,6 @@
 		'site.widgets' => 'Widgets',
 		'site.menus' => 'Menúes',
 		'site.pages' => 'Páginas',
+
+		'web' => 'Ver website',
 	];
