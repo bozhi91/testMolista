@@ -47,8 +47,16 @@ elixir(function(mix) {
 			'spectrum.js',
 			'dropzone.js',
 			'common.js'
-		], 'resources/assets/js/compiled/common.js');
+		], 'resources/assets/js/compiled/common.js')
+		;
 
+
+	/* RTL */
+	mix
+		.less([
+			'../bootstrap-rtl/bootstrap-rtl.less',
+		], 'public/compiled/css/rtl.css')
+		;
 
 
 	/* App */
@@ -67,6 +75,10 @@ elixir(function(mix) {
 		.less([
 			'app/pdf.less',
 		], 'public/compiled/css/pdf.css')
+		.scripts([
+			'compiled/common.js',
+			'app.js',
+		], 'resources/assets/js/compiled/app.js')
 		;
 
 
@@ -171,6 +183,24 @@ elixir(function(mix) {
 		.less([
 			'zoner/pdf.less',
 		], 'public/themes/zoner/compiled/css/pdf.css')
+		.scripts([
+			'compiled/app.js',
+			'themes/zoner/app.js',
+		], 'public/themes/zoner/compiled/js/app.js')
+		;
+
+	/* Sky */
+	mix
+		.less([
+			'sky/app.less',
+		], 'resources/assets/css/compiled/sky.css')
+		.styles([
+			'compiled/common.css',
+			'compiled/sky.css',
+		], 'public/themes/sky/compiled/css/app.css')
+		.less([
+			'sky/pdf.less',
+		], 'public/themes/sky/compiled/css/pdf.css')
 		;
 
 });

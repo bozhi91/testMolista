@@ -213,8 +213,6 @@
 							@endif
 						</div>
 					</div>
-				</div>
-				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
 							{!! Form::label(null, Lang::get('admin/expirations.payment.interval')) !!}
@@ -225,6 +223,16 @@
 							@endif
 						</div>
 					</div>
+					@if ( $site->payment_method == 'transfer' )
+						<div class="row">
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group error-container">
+									{!! Form::label(null, Lang::get('corporate/signup.payment.iban')) !!}
+									{!! Form::text(null, $site->iban_account, [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								</div>
+							</div>
+						</div>
+					@endif
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
 							{!! Form::label(null, Lang::get('admin/expirations.paid.until')) !!}
@@ -235,8 +243,6 @@
 							@endif
 						</div>
 					</div>
-				</div>
-				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
 							{!! Form::label(null, Lang::get('admin/sites.transfer')) !!}
@@ -254,6 +260,35 @@
 						</div>
 					</div>
 				</div>
+
+				@if ( $site->webhooks->count() > 0 )
+					<hr />
+					<h3>Stripe webhooks</h3>
+					<table class="table table-striped">
+						<thead>
+							<th>Date</th>
+							<th>Source</th>
+							<th>Event</th>
+							<th></th>
+						</thead>
+						<tbody>
+							@foreach ($site->webhooks->sortByDesc('created_at') as $webhook)
+								<tr>
+									<td>{{ $webhook->created_at->format('d/m/Y') }}</td>
+									<td style="text-transform: capitalize;">{{ $webhook->source }}</td>
+									<td>{{ $webhook->event }}</td>
+									<td class="text-right">
+										<a class="btn btn-default btn-xs webhook-detail-trigger" href="#webhook-detail-popup-{{ $webhook->id }}">Details</a>
+										<div id="webhook-detail-popup-{{ $webhook->id }}" class="mfp-hide mfp-white-popup">
+											<pre><?php print_r($webhook->data); ?></pre>
+										</div>
+									</td>
+								</tr>
+							@endforeach
+						</tbody>
+					</table>
+				@endif
+
 			</div>
 
 			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'invoices' ? 'active' : '' }}" id="tab-site-invoices">
@@ -417,6 +452,13 @@
 					}
 				});
 			});
+
+			$('#tab-site-plan .webhook-detail-trigger').each(function(){
+				$(this).magnificPopup({
+					type: 'inline',
+				});
+			});
+
 		});
 	</script>
 

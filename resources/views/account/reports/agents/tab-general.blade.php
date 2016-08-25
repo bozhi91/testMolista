@@ -1,7 +1,7 @@
 <?php
 	$stats_blocks = [
 		'captured' => true,
-		'visited' => false,
+		'visited' => true,
 		'closed' => true,
 	];
 ?>
@@ -23,7 +23,7 @@
 	@if ( !empty($stats_blocks['captured']) )
 		<h3>{{ Lang::get('account/reports.catched') }}</h3>
 		<div class="row">
-			<div class="col-xs-12 col-sm-4">
+			<div class="col-xs-12 col-sm-3">
 				<div class="panel panel-default panel-stats">
 					<div class="panel-heading">{{ Lang::get('account/reports.sale') }}</div>
 					<div class="panel-body">
@@ -31,7 +31,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-xs-12 col-sm-4">
+			<div class="col-xs-12 col-sm-3">
 				<div class="panel panel-default panel-stats">
 					<div class="panel-heading">{{ Lang::get('account/reports.rent') }}</div>
 					<div class="panel-body">
@@ -39,7 +39,15 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-xs-12 col-sm-4">
+			<div class="col-xs-12 col-sm-3">
+				<div class="panel panel-default panel-stats">
+					<div class="panel-heading">{{ Lang::get('account/reports.transfer') }}</div>
+					<div class="panel-body">
+						{{ number_format($stats->published_transfer, 0, ',', '.') }}
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-3">
 				<div class="panel panel-default panel-stats">
 					<div class="panel-heading">{{ Lang::get('account/reports.total') }}</div>
 					<div class="panel-body">
@@ -53,7 +61,7 @@
 	@if ( !empty($stats_blocks['visited']) )
 		<h3>{{ Lang::get('account/reports.visits') }}</h3>
 		<div class="row">
-			<div class="col-xs-12 col-sm-4">
+			<div class="col-xs-12 col-sm-3">
 				<div class="panel panel-default panel-stats">
 					<div class="panel-heading">{{ Lang::get('account/reports.sale') }}</div>
 					<div class="panel-body">
@@ -61,7 +69,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-xs-12 col-sm-4">
+			<div class="col-xs-12 col-sm-3">
 				<div class="panel panel-default panel-stats">
 					<div class="panel-heading">{{ Lang::get('account/reports.rent') }}</div>
 					<div class="panel-body">
@@ -69,7 +77,15 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-xs-12 col-sm-4">
+			<div class="col-xs-12 col-sm-3">
+				<div class="panel panel-default panel-stats">
+					<div class="panel-heading">{{ Lang::get('account/reports.transfer') }}</div>
+					<div class="panel-body">
+						{{ number_format($stats->visits_transfer, 0, ',', '.') }}
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-3">
 				<div class="panel panel-default panel-stats">
 					<div class="panel-heading">{{ Lang::get('account/reports.total') }}</div>
 					<div class="panel-body">
@@ -83,7 +99,7 @@
 	@if ( !empty($stats_blocks['closed']) )
 		<h3>{{ Lang::get('account/reports.transactions') }}</h3>
 		<div class="row">
-			<div class="col-xs-12 col-sm-4">
+			<div class="col-xs-12 col-sm-3">
 				<div class="panel panel-default panel-stats">
 					<div class="panel-heading">{{ Lang::get('account/reports.sale') }}</div>
 					<div class="panel-body">
@@ -91,7 +107,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-xs-12 col-sm-4">
+			<div class="col-xs-12 col-sm-3">
 				<div class="panel panel-default panel-stats">
 					<div class="panel-heading">{{ Lang::get('account/reports.rent') }}</div>
 					<div class="panel-body">
@@ -99,7 +115,15 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-xs-12 col-sm-4">
+			<div class="col-xs-12 col-sm-3">
+				<div class="panel panel-default panel-stats">
+					<div class="panel-heading">{{ Lang::get('account/reports.transfer') }}</div>
+					<div class="panel-body">
+						{{ number_format($stats->total_transfered, 0, ',', '.') }}
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-3">
 				<div class="panel panel-default panel-stats">
 					<div class="panel-heading">{{ Lang::get('account/reports.total') }}</div>
 					<div class="panel-body">

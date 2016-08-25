@@ -10,6 +10,7 @@
 		'reference' => 'Referencia',
 		'date' => 'Fecha',
 		'contact.name' => 'Cliente',
+		'contact.name.new' => 'Crear lead nuevo',
 		'contact.email' => 'Email',
 		'referer' => 'Referer',
 		'source' => 'Source',
@@ -42,4 +43,13 @@
 		'send' => 'Enviar mensaje',
 
 		'new' => 'Nuevo ticket',
+
+		'signature' => 'Firmar',
+		'signature.none' => 'No incluir firma',
+
+		'attachment' => 'Adjunto',
+		'attachment.helper' => '<p>No se adjuntarán ficheros con peso superior a :maxsize kilobytes.</p>',
+
+		'account' => 'Cuenta',
+		'account.site' => 'Email del sitio',
 	];

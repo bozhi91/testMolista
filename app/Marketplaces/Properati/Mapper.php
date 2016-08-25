@@ -23,11 +23,11 @@ class Mapper extends \App\Marketplaces\Mapper {
 		$map['property_type'] = $this->getPropertyType();
 
 		$map['address'] = $item['location']['address'];
-		
+
 		$country_id = \App\Models\Geography\Country::where('code', $item['location']['country'])->value('id');
 		$countryLabel = \App\Models\Geography\CountryTranslation::where('country_id', $country_id)
 				->where('locale', $this->iso_lang)->value('name');
-		
+
 		$map['country'] = $countryLabel;
 		$map['region'] = $item['location']['territory'];
 
@@ -43,11 +43,11 @@ class Mapper extends \App\Marketplaces\Mapper {
 		//$map['agency']['logo_url'] = '';
 
 		$map['price@currency=' . $item['currency'] . '@period=monthly'] = ceil($item['price']);
-		
+
 		if(!empty($item['images'])){
 			$map['pictures']['picture'] = $this->getImages();
 		}
-		
+
 		$map['city'] = $item['location']['city'];
 		$map['city_area'] = $item['location']['district'];
 		$map['postcode'] = $item['location']['zipcode'];
@@ -104,8 +104,14 @@ class Mapper extends \App\Marketplaces\Mapper {
 	 * @return boolean
 	 */
 	public function valid() {
+
+		if ($this->isTransfer()) {
+			$this->errors []= \Lang::get('validation.transfer');
+            return false;
+		}
+
 		$data = array_merge($this->item, $this->config);
-		
+
 		$rules = [
 			'id' => 'required',
 			'url' => 'required',
@@ -175,7 +181,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 	 * 	unlisted foreclosure
 	 * 	warehouse for rent
 	 * 	warehouse for sale
-	 * 
+	 *
 	 *  @return string
 	 */
 	protected function getType() {
@@ -199,7 +205,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 	 * 	share apartment
 	 * 	store
 	 * 	timeshare
-	 * 
+	 *
 	 * @return string
 	 */
 	protected function getPropertyType() {
@@ -211,7 +217,12 @@ class Mapper extends \App\Marketplaces\Mapper {
 			case 'penthouse':
 			case 'villa':
 				return 'house';
-			case 'apartment': return 'apartment';
+			case 'hotel':
+				return 'hotel';
+			case 'flat':
+			case 'apartment':
+			case 'aparthotel':
+				return 'apartment';
 			default: return 'other';
 		}
 	}

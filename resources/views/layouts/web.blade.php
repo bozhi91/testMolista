@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ LaravelLocalization::getCurrentLocale() }}">
+<html lang="{{ LaravelLocalization::getCurrentLocale() }}" dir="{{ LaravelLocalization::getCurrentLocaleDirection() }}">
 
 <head>
 	<meta charset="utf-8">
@@ -34,6 +34,10 @@
 	<link href="https://fonts.googleapis.com/css?family=Lato:400,300,700,900,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
 	<link href="{{ Theme::url('/compiled/css/app.css') }}" rel="stylesheet" type='text/css' />
 
+	@if ( LaravelLocalization::getCurrentLocaleDirection() == 'rtl' )
+		<link href="{{ Theme::url('/compiled/css/rtl.css') }}" rel="stylesheet" type='text/css' />
+	@endif
+
 	@if ( !empty($site_setup['favicon']) )
 		<link id="page_favicon" href="{{ $site_setup['favicon'] }}" rel="icon" type="image/x-icon" />
 	@else
@@ -50,9 +54,12 @@
 
 </head>
 
-<body id="{{ @$body_id }}">
+<body id="{{ @$body_id }}" class="dir-{{ LaravelLocalization::getCurrentLocaleDirection() }} theme-{{ Theme::get() }}">
 
-	@include('common.analytics')
+	<?php $ga_account = isset($google_analitics_account) ? $google_analitics_account : @$current_site->ga_account; ?>
+	@if ( $ga_account )
+		@include('common.analytics', [ 'ga_account' => $ga_account ])
+	@endif
 
 	<div id="sticky-wrapper" class="if-overlay-then-blurred">
 
@@ -95,6 +102,12 @@
 		<script src="{{ Theme::url('/js/fullcalendar.min.js') }}"></script>
 		<script src="{{ Theme::url('/js/fullcalendar/' . LaravelLocalization::getCurrentLocale() . '.js') }}"></script>
 	@endif
+
+	<script type="text/javascript">
+		for (var t=0; t<ready_callbacks.length; t++) {
+			ready_callbacks[t]();
+		}
+	</script>
 
 </body>
 </html>

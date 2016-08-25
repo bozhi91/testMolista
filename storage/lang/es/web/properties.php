@@ -7,6 +7,7 @@
 		'mode' => 'Modalidad',
 		'mode.sale' => 'Propiedades en venta',
 		'mode.rent' => 'Propiedades en alquiler',
+		'mode.transfer' => 'Propiedades en traspaso',
 
 		'state' => 'Provincia',
 		'state.any' => 'Todas las provincias',
@@ -18,12 +19,15 @@
 		'type.any' => 'Todos los tipos',
 		'type.house' => 'Casa',
 		'type.apartment' => 'Apartmento',
+		'type.flat' => 'Piso',
 		'type.duplex' => 'Duplex',
 		'type.penthouse' => 'Penthouse',
 		'type.villa' => 'Villa',
 		'type.lot' => 'Solar',
 		'type.store' => 'Local',
 		'type.ranch' => 'Finca',
+		'type.hotel' => 'Hotel',
+		'type.aparthotel' => 'Aparthotel',
 
 		'more.show' => 'Más opciones',
 		'more.any' => 'Mostrar todas',

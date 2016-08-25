@@ -1,13 +1,13 @@
 <div class="row">
 	<div class="col-xs-12 col-sm-6">
 		<div class="form-group error-container">
-			{!! Form::label('seller_first_name', Lang::get('account/properties.show.property.seller.name.first') ) !!}
+			{!! Form::label('seller_first_name', Lang::get('account/properties.show.property.seller.name.first').' *' ) !!}
 			{!! Form::text('seller_first_name', @$item->seller_first_name, [ 'class'=>'form-control required', ]) !!}
 		</div>
 	</div>
 	<div class="col-xs-12 col-sm-6">
 		<div class="form-group error-container">
-			{!! Form::label('seller_last_name', Lang::get('account/properties.show.property.seller.name.last') ) !!}
+			{!! Form::label('seller_last_name', Lang::get('account/properties.show.property.seller.name.last').' *' ) !!}
 			{!! Form::text('seller_last_name', @$item->seller_last_name, [ 'class'=>'form-control required', ]) !!}
 		</div>
 	</div>
@@ -15,7 +15,7 @@
 <div class="row">
 	<div class="col-xs-12 col-sm-6">
 		<div class="form-group error-container">
-			{!! Form::label('seller_email', Lang::get('account/properties.show.property.seller.email') ) !!}
+			{!! Form::label('seller_email', Lang::get('account/properties.show.property.seller.email').' *' ) !!}
 			{!! Form::text('seller_email', @$item->seller_email, [ 'class'=>'form-control email required', ]) !!}
 		</div>
 	</div>
@@ -43,7 +43,7 @@
 <div class="row">
 	<div class="col-xs-12 col-sm-3">
 		<div class="form-group error-container">
-			{!! Form::label('price_min', Lang::get('account/properties.show.property.price.min') ) !!}
+			{!! Form::label('price_min', Lang::get('account/properties.show.property.price.min').' *' ) !!}
 			<div class="input-group">
 				@if ( @$price_position == 'before' )
 					<div class="input-group-addon">{{ @$price_symbol }}</div>

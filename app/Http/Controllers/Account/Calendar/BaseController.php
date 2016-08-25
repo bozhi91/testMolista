@@ -19,28 +19,26 @@ class BaseController extends \App\Http\Controllers\AccountController
 
 	public function getIndex()
 	{
-		$employees = $this->site->users()->orderBy('name')->lists('name','id')->all();
-
-		$types = \App\Models\Calendar::getTypeOptions();
-		\View::share('types', $types);
-
-		return view('account.calendar.index', compact('tickets','employees','types','clean_filters'));
+		$this->setViewValues();
+		return view('account.calendar.index');
 	}
 
 	public function getCreate()
 	{
-		$this->setViewValues();
-
-		$start_time = date("Y-m-d H:00");
+		$start_time = date("Y-m-d H:00", time()+3600);
 		if ( $this->request->input('calendar_defaultView') == 'agendaDay' && preg_match('#^\d{4}-\d{2}-\d{2}$#', $this->request->input('calendar_defaultDate')) )
 		{
-			$start_time = date("Y-m-d", strtotime($this->request->input('calendar_defaultDate'))) . ' '. date("H:00");
+			$start_time = date("Y-m-d", strtotime($this->request->input('calendar_defaultDate'))) . ' '. date("H:00", time()+3600);
 		}
+		$end_time = date("Y-m-d H:00", strtotime($start_time)+3600);
 
 		$defaults = (object) [
-			'user_id' => $this->site_user->id,
+			'user_ids' => [ $this->site_user->id ],
 			'start_time' => $start_time,
+			'end_time' =>  $end_time,
 		];
+
+		$this->setViewValues();
 
 		return view('account.calendar.create', compact('defaults'));
 	}
@@ -67,15 +65,23 @@ class BaseController extends \App\Http\Controllers\AccountController
 
 	public function getEvent($id_event)
 	{
-		$this->setViewValues();
-
 		$event = $this->site->events()->findOrFail($id_event);
+		if ( !$this->site_user->hasRole('company') && $event->user_ids && !in_array($this->site_user->id, $event->user_ids) )
+		{
+			abort(404);
+		}
+
+		$this->setViewValues($event);
 
 		return view('account.calendar.edit', compact('event'));
 	}
 	public function postEvent($id_event)
 	{
 		$event = $this->site->events()->findOrFail($id_event);
+		if ( !$this->site_user->hasRole('company') && $event->user_ids && !in_array($this->site_user->id, $event->user_ids) )
+		{
+			abort(404);
+		}
 
 		$data = $this->request->all();
 
@@ -107,7 +113,7 @@ class BaseController extends \App\Http\Controllers\AccountController
 	{
 		$response = [];
 
-		$query = $this->site->events()->with('user')->with('property')->with('customer');
+		$query = $this->site->events()->with('users')->with('property')->with('customer');
 
 		if ( $this->request->input('start') )
 		{
@@ -121,7 +127,7 @@ class BaseController extends \App\Http\Controllers\AccountController
 
 		if ( $this->request->input('agent') )
 		{
-			$query->where('user_id', $this->request->input('agent'));
+			$query->ofUserId($this->request->input('agent'));
 		}
 
 		$events = $query->get();
@@ -146,9 +152,6 @@ class BaseController extends \App\Http\Controllers\AccountController
 	protected function _getCustomRules($data,$id=false)
 	{
 		$rules = [];
-
-		// User belongs to site
-		$rules['user_id'] = 'required|exists:sites_users,user_id,site_id,'.$this->site->id;
 
 		// Property belongs to site
 		if ( @$data['property_id'] )
@@ -184,15 +187,33 @@ class BaseController extends \App\Http\Controllers\AccountController
 
 		return action('Account\Calendar\BaseController@getIndex', $params);
 	}
-	protected function setViewValues()
+	protected function setViewValues($event=false)
 	{
 		\View::share('goback', $this->_getGoBackUrl());
 
-		$users = $this->site->users()->orderBy('name')->lists('name','id')->all();
-		\View::share('users', $users);
+		$query = $this->site->users();
+		if ( $this->site_user->hasRole('employee') )
+		{
+			$user_ids = [ $this->site_user->id ];
+			if ( $event )
+			{
+				$user_ids = array_merge($user_ids, $event->user_ids);
+			}
+			$query->whereIn('id', $user_ids);
+		}
+		\View::share('users', $query->orderBy('name')->lists('name','id')->all());
 
-		$properties = $this->site->properties()->orderBy('title')->get();
-		\View::share('properties', $properties);
+		$query = $this->site->properties()->withEverything();
+		if ( !$this->site_user->pivot->can_view_all )
+		{
+			$property_ids = $this->site_user->properties()->lists('id')->all();
+			if ( @$event->property_id )
+			{
+				$property_ids[] = $event->property_id;
+			}
+			$query->whereIn('properties.id', $property_ids);
+		}
+		\View::share('properties', $query->orderBy('ref')->orderBy('title')->get());
 
 		$customers = $this->site->customers_options;
 		\View::share('customers', $customers);

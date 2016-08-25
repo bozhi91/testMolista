@@ -4,6 +4,7 @@
 
     <style type="text/css">
         .translations-table { font-size: 12px; }
+        .translations-table th[dir="rtl"] { text-align: right; }
         .edit-form { position: relative; min-width: 150px; }
         .view-i18n { min-height: 50px; position: relative; z-index: 1; }
         .edit-i18n { height: 100%; width: 100%; position: absolute; top: -3px; left: -3px; z-index: 2; opacity: 0; }
@@ -24,7 +25,7 @@
                     <h4>{{ Lang::get('admin/config/translations.language.chosen') }}</h4>
                     <div class="error-container">
                         <ul class="list-unstyled" style="margin: 0px;">
-                            @foreach ($enabled_languages as $iso=>$name)
+                            @foreach ($editable_languages as $iso=>$name)
                                 <li>
                                     <label class="normal">
                                         <input type="checkbox" name="langs[]" value="{{ $iso }}" {{ @in_array($iso, Input::get('langs')) ? 'checked="checked"' : '' }} class="required" /> {{ $name }}
@@ -136,9 +137,9 @@
                                 <tr>
                                     <th>{{ Lang::get('admin/config/translations.key') }}</th>
                                     <th>{{ Lang::get('admin/config/translations.tag') }}</th>
-                                    <th>{{ $enabled_languages[Input::get('base')] }}</th>
+                                    <th dir="{{ lang_dir(Input::get('base')) }}">{{ $enabled_languages[Input::get('base')] }}</th>
                                     @foreach (Input::get('langs') as $l)
-                                        <th>{{ $enabled_languages[$l] }}</th>
+                                        <th dir="{{ lang_dir($l) }}">{{ $enabled_languages[$l] }}</th>
                                     @endforeach
                                 </tr>
                             </thead>
@@ -147,7 +148,7 @@
                                     <tr>
                                         <td>{{ $item->file }}</td>
                                         <td>{{ $item->tag }}</td>
-                                        <td class="edit-td base-td">
+                                        <td class="edit-td base-td" dir="{{ lang_dir(Input::get('base')) }}">
                                             {!! Form::open([ 'action'=>null, 'class'=>'edit-form' ]) !!}
                                                 <div class="view-i18n">{!! @$item->i18n[Input::get('base')] !!}</div>
                                                 @if ( $user_can_translate )
@@ -156,7 +157,7 @@
                                             {!! Form::close() !!}
                                         </td>
                                         @foreach (Input::get('langs') as $l)
-                                            <td class="edit-td">
+                                            <td class="edit-td" dir="{{ lang_dir($l) }}">
                                                 {!! Form::open([ 'method'=>'PUT', 'action'=>['Admin\Config\TranslationsController@update', $item->id], 'class'=>'edit-form' ]) !!}
                                                     <input type="hidden" name="locale" value="{{ $l }}">
                                                     <div class="view-i18n">{!! @$item->i18n[$l] !!}</div>

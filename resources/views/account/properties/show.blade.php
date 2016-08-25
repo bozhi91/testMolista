@@ -18,6 +18,7 @@
 			<li role="presentation" class="{{ (old('current_tab') == 'tab-reports') ? 'active' : '' }}"><a href="#tab-reports" aria-controls="tab-reports" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.reports') }}</a></li>
 			<li role="presentation" class="{{ (old('current_tab') == 'tab-logs') ? 'active' : '' }}"><a href="#tab-logs" aria-controls="tab-logs" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.logs') }}</a></li>
 			<li role="presentation" class="{{ (old('current_tab') == 'tab-employees') ? 'active' : '' }}"><a href="#tab-employees" aria-controls="tab-employees" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.employees') }}</a></li>
+			<li role="presentation" class="{{ (old('current_tab') == 'tab-visits') ? 'active' : '' }}"><a href="#tab-visits" aria-controls="tab-visits" role="tab" data-toggle="tab">{{ Lang::get('account/visits.title') }}</a></li>
 		</ul>
 
 		<div class="tab-content">
@@ -231,13 +232,13 @@
 										@endif
 									</td>
 									<td class="text-right">
-										@if ( $catch->status == 'sold' || $catch->status == 'rent' )
+										@if ( $catch->status == 'sold' || $catch->status == 'rent' || $catch->status == 'transfer' )
 											{{ price($catch->commission_earned, $property->infocurrency->toArray()) }}
 											({{ number_format($catch->commission, 2, ',', '.') }}%)
 										@endif
 									</td>
 									<td class="text-right">
-										@if ( $catch->status == 'sold' || $catch->status == 'rent' )
+										@if ( $catch->status == 'sold' || $catch->status == 'rent' || $catch->status == 'transfer' )
 											{{ price($catch->price_sold, $property->infocurrency->toArray()) }}
 										@endif
 									</td>
@@ -343,6 +344,12 @@
 				])
 			</div>
 
+			<div role="tabpanel" class="tab-pane tab-main {{old('current_tab') == 'tab-visits' ? 'active' : '' }}" id="tab-visits">
+				@include('account.visits.ajax-tab', [
+					'visits_init' => true,
+				])
+			</div>
+
 		</div>
 
 	</div>
@@ -424,6 +431,25 @@
 			cont.find('.document-modal-close').on('click', function(e){
 				e.preventDefault();
 				$.magnificPopup.close();
+			});
+
+			$.ajax({
+				type: 'GET',
+				dataType: 'json',
+				url: '{{ action('Account\Visits\AjaxController@getTab') }}',
+				data: {
+					property_id: {{ $property->id }}
+				},
+				success: function(data) {
+					if ( data.success ) {
+						$('#account-visits-ajax-tab').html( data.html );
+					} else {
+						$('#account-visits-ajax-tab').html('<div class="alert alert-danger">{{ print_js_string( Lang::get('general.messages.error') ) }}</div>')
+					}
+				},
+				error: function() {
+						$('#account-visits-ajax-tab').html('<div class="alert alert-danger">{{ print_js_string( Lang::get('general.messages.error') ) }}</div>')
+				}
 			});
 
 		});

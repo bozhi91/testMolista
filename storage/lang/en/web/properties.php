@@ -7,6 +7,7 @@
 		'mode' => 'Modality',
 		'mode.sale' => 'Properties for sale',
 		'mode.rent' => 'Properties for rent',
+		'mode.transfer' => 'Properties for ownership transfer',
 
 		'state' => 'State',
 		'state.any' => 'All states',
@@ -18,12 +19,15 @@
 		'type.any' => 'All property types',
 		'type.house' => 'House',
 		'type.apartment' => 'Apartment',
+		'type.flat' => 'Flat',
 		'type.duplex' => 'Duplex',
 		'type.penthouse' => 'Penthouse',
 		'type.villa' => 'Villa',
 		'type.lot' => 'Lot',
 		'type.store' => 'Store',
 		'type.ranch' => 'Ranch',
+		'type.hotel' => 'Hotel',
+		'type.aparthotel' => 'Aparthotel',
 
 		'more.show' => 'Show more options',
 		'more.any' => 'Show all',

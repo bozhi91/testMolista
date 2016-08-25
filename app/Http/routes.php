@@ -12,7 +12,7 @@ Route::group([
 	'domain' => $domain['host'],
 	'prefix' => LaravelLocalization::setLocale(),
 	'middleware' => [
-		'web', 
+		'web',
 		'site.login.roles:admin|translator',
 		'setTheme:corporate',
 	],
@@ -93,10 +93,15 @@ Route::group([
 			Route::resource('geography/countries', 'Admin\Geography\CountriesController');
 		});
 		// Error log
-		Route::get('errorlog', [ 
-			'middleware' => ['role:admin'], 
-			'uses' => '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index' 
+		Route::get('errorlog', [
+			'middleware' => ['role:admin'],
+			'uses' => '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index'
 		]);
+
+		// Queue monitor
+		Route::get('queue-monitor', function () {
+		    return Response::view('queue-monitor::status-page');
+		});
 
 	});
 
@@ -104,12 +109,17 @@ Route::group([
 	Route::auth();
 });
 
-
+// Queue monitor service
+Route::get('queue-monitor.json', function () {
+	$response = Response::view('queue-monitor::status-json');
+	$response->header('Content-Type', 'application/json');
+	return $response;
+});
 
 // Other domains -------------------------------------------------------------------
 Route::group([
 	'prefix' => LaravelLocalization::setLocale(),
-	'middleware' => [ 
+	'middleware' => [
 		'web',
 		'site.login.roles:company|employee',
 		'site.setup',
@@ -153,6 +163,8 @@ Route::group([
 	], function() {
 		Route::get('/', 'AccountController@index');
 		Route::post('/', 'AccountController@updateProfile');
+		Route::controller('profile/signatures', 'Account\Profile\SignaturesController');
+		Route::controller('profile/email-accounts', 'Account\Profile\AccountsController');
 		Route::group([
 			'middleware' => [
 				'role:company',
@@ -225,6 +237,8 @@ Route::group([
 		], function() {
 			// Configuration
 			Route::controller('configuration', 'Account\Site\ConfigurationController');
+			// Domain name
+			Route::controller('domain', 'Account\Site\DomainNameController');
 			// Price ranges
 			Route::controller('priceranges', 'Account\Site\PriceRangesController');
 			// Countries
@@ -237,6 +251,7 @@ Route::group([
 			// Pages
 			Route::resource('pages', 'Account\Site\PagesController');
 		});
+		Route::controller('visits', 'Account\Visits\AjaxController');
 	});
 });
 

@@ -129,6 +129,7 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 		$this->site->subdomain = $this->request->input('subdomain');
 		$this->site->theme = $this->request->input('theme');
 		$this->site->timezone = $this->request->input('timezone');
+		$this->site->ga_account = $this->request->input('ga_account');
 		$this->site->customer_register = $this->request->input('customer_register') ? 1 : 0;
 		$this->site->mailer = $this->request->input('mailer');
 

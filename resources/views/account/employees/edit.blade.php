@@ -2,11 +2,15 @@
 
 @section('account_content')
 
+	<style type="text/css">
+		#account-visits-ajax-tab .column-agent { display: none; }
+	</style>
+
 	<div id="admin-employees">
 
 		@include('common.messages', [ 'dismissible'=>true ])
 
-		<h1 class="page-title">{{ Lang::get('account/employees.show.title', [ 
+		<h1 class="page-title">{{ Lang::get('account/employees.show.title', [
 			'name' => $employee->name,
 			'email' => $employee->email,
 		]) }}</h1>
@@ -19,6 +23,7 @@
 					<li role="presentation" class="active"><a href="#tab-properties" aria-controls="tab-properties" role="tab" data-toggle="tab">{{ Lang::get('account/employees.show.tab.properties') }}</a></li>
 					<li role="presentation"><a href="#tab-permissions" aria-controls="tab-permissions" role="tab" data-toggle="tab">{{ Lang::get('account/employees.show.tab.permissions') }}</a></li>
 					<li role="presentation"><a href="#tab-tickets" aria-controls="tab-tickets" role="tab" data-toggle="tab">{{ Lang::get('account/employees.tickets') }}</a></li>
+					<li role="presentation"><a href="#tab-visits" aria-controls="tab-visits" role="tab" data-toggle="tab">{{ Lang::get('account/visits.title') }}</a></li>
 				</ul>
 
 				<div class="tab-content">
@@ -26,6 +31,14 @@
 					<div role="tabpanel" class="tab-pane tab-main active" id="tab-properties">
 						@if ( $employee->pivot->can_view_all )
 							<div style="font-weight: bold; padding-top: 10px;">{{ Lang::get('account/employees.show.tab.permissions.view_all.warning') }}</div>
+							<hr />
+						@endif
+						@if ( $employee->pivot->can_edit_all )
+							<div style="font-weight: bold; padding-top: 10px;">{{ Lang::get('account/employees.show.tab.permissions.edit_all.warning') }}</div>
+							<hr />
+						@endif
+						@if ( $employee->pivot->can_delete_all )
+							<div style="font-weight: bold; padding-top: 10px;">{{ Lang::get('account/employees.show.tab.permissions.delete_all.warning') }}</div>
 							<hr />
 						@endif
 						<div class="alert alert-info properties-empty {{ ( count($properties) > 0 ) ? 'hide' : '' }}">{{ Lang::get('account/employees.show.tab.properties.empty') }}</div>
@@ -71,6 +84,26 @@
 								<div class="form-group">
 									<div class="checkbox">
 										<label>
+											{!! Form::checkbox('permissions[can_edit_all]', 1, $employee->pivot->can_edit_all) !!}
+											{{ Lang::get('account/employees.show.tab.permissions.edit_all') }}
+										</label>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="form-group">
+									<div class="checkbox">
+										<label>
+											{!! Form::checkbox('permissions[can_delete_all]', 1, $employee->pivot->can_delete_all) !!}
+											{{ Lang::get('account/employees.show.tab.permissions.delete_all') }}
+										</label>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="form-group">
+									<div class="checkbox">
+										<label>
 											{!! Form::checkbox('permissions[can_create]', 1, $employee->pivot->can_create) !!}
 											{{ Lang::get('account/employees.show.tab.permissions.create') }}
 										</label>
@@ -102,12 +135,18 @@
 
 					<div role="tabpanel" class="tab-pane tab-main" id="tab-tickets" data-url="{{ action('Account\EmployeesController@getTickets', urlencode($employee->email)) }}"></div>
 
+					<div role="tabpanel" class="tab-pane tab-main" id="tab-visits">
+						@include('account.visits.ajax-tab', [
+							'visits_init' => true,
+						])
+					</div>
+
 				</div>
 
 			</div>
 
 			<br />
-			
+
 			<div class="text-right">
 				{!! print_goback_button( Lang::get('general.back'), [ 'class'=>'btn btn-default' ]) !!}
 				{!! Form::submit( Lang::get('general.save.changes'), [ 'class'=>'btn btn-primary']) !!}
@@ -192,6 +231,26 @@
 			});
 
 			TICKETS.reload();
+
+			$.ajax({
+				type: 'GET',
+				dataType: 'json',
+				url: '{{ action('Account\Visits\AjaxController@getTab') }}',
+				data: {
+					user_id: {{ $employee->id }}
+				},
+				success: function(data) {
+					if ( data.success ) {
+						$('#account-visits-ajax-tab').html( data.html );
+					} else {
+						$('#account-visits-ajax-tab').html('<div class="alert alert-danger">{{ print_js_string( Lang::get('general.messages.error') ) }}</div>')
+					}
+				},
+				error: function() {
+						$('#account-visits-ajax-tab').html('<div class="alert alert-danger">{{ print_js_string( Lang::get('general.messages.error') ) }}</div>')
+				}
+			});
+
 		});
 	</script>
 

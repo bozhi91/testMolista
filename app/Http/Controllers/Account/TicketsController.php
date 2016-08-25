@@ -61,7 +61,8 @@ class TicketsController extends \App\Http\Controllers\AccountController
 		elseif ( $this->request->input('user_id') ) 
 		{
 			$clean_filters = true;
-			$params['user_id'] = $this->request->input('user_id');
+			$tmp = $this->site->users()->find($this->request->input('user_id'));
+			$params['user_id'] = @intval($tmp->ticket_user_id);
 		}
 
 		$tickets = $this->site->ticket_adm->getTickets($params);
@@ -84,17 +85,31 @@ class TicketsController extends \App\Http\Controllers\AccountController
 		$properties = $this->site->properties()
 							->whereIn('properties.id', $this->auth->user()->properties()->lists('id'))
 							->orderBy('title')->lists('title','id')->all();
-		return view('account.tickets.create', compact('employees','customers','properties'));
+
+		$signatures = $this->site_user->sites_signatures()->ofSite($this->site->id)->orderBy('title')->get();
+
+		$accounts = $this->site->ticket_adm->getEmailAccounts($this->site_user->ticket_user_id, $this->site_user->ticket_user_token);
+
+		return view('account.tickets.create', compact('employees','customers','properties','signatures','accounts'));
 	}
 
 	public function postCreate()
 	{
-		$validator = \Validator::make($this->request->all(), [
+		$data = $this->request->except(['_token']);
+
+		$validator = \Validator::make($data, [
 			'customer_id' => 'required|exists:customers,id,site_id,'.$this->site->id,
 			'user_id' => 'exists:sites_users,user_id,site_id,'.$this->site->id,
 			'property_id' => 'exists:properties,id,site_id,'.$this->site->id,
 			'subject' => 'required|string',
 			'body' => 'required|string',
+			'cc' => 'array',
+			'cc.*' => 'email',
+			'bcc' => 'array',
+			'bcc.*' => 'email',
+			'signature_id' => "exists:sites_users_signatures,id,user_id,{$this->site_user->id},site_id,{$this->site->id}",
+			'attachment' => 'max:' . \Config::get('app.property_image_maxsize', 2048),
+			'email_account_id' => 'numeric',
 		]);
 		if ( $validator->fails() ) 
 		{
@@ -103,12 +118,7 @@ class TicketsController extends \App\Http\Controllers\AccountController
 
 		$customer = $this->site->customers()->findOrFail( $this->request->input('customer_id') );
 
-		$data = [
-			'contact_id' => $customer->ticket_contact_id,
-			'source' => 'backoffice',
-			'subject' => $this->request->input('subject'),
-			'body' => strip_tags( $this->request->input('body') ),
-		];
+		$data['contact_id'] = $customer->ticket_contact_id;
 
 		if ( $this->request->input('property_id') )
 		{
@@ -121,6 +131,8 @@ class TicketsController extends \App\Http\Controllers\AccountController
 			$user = $this->site->users()->findOrFail( $this->request->input('user_id') );
 			$data['user_id'] = $user->ticket_user_id;
 		}
+
+		$data = $this->_prepareMessageData($data);
 
 		if ( $this->site->ticket_adm->createTicket($data) )
 		{
@@ -143,7 +155,11 @@ class TicketsController extends \App\Http\Controllers\AccountController
 			$property = $this->site->properties()->where('ticket_item_id',$ticket->item->id)->first();
 		}
 
-		return view('account.tickets.show', compact('ticket','property','employees','status'));
+		$signatures = $this->site_user->sites_signatures()->ofSite($this->site->id)->orderBy('title')->get();
+
+		$accounts = $this->site->ticket_adm->getEmailAccounts($this->site_user->ticket_user_id, $this->site_user->ticket_user_token);
+
+		return view('account.tickets.show', compact('ticket','property','employees','status','signatures','accounts'));
 	}
 
 	public function postAssign($ticket_id)
@@ -198,6 +214,9 @@ class TicketsController extends \App\Http\Controllers\AccountController
 			'bcc' => 'array',
 			'bcc.*' => 'email',
 			'private' => 'numeric|in:0,1',
+			'signature_id' => "exists:sites_users_signatures,id,user_id,{$this->site_user->id},site_id,{$this->site->id}",
+			'attachment' => 'max:' . \Config::get('app.property_image_maxsize', 2048),
+			'email_account_id' => 'integer',
 		]);
 		if ( $validator->fails() ) 
 		{
@@ -210,9 +229,9 @@ class TicketsController extends \App\Http\Controllers\AccountController
 			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
 		}
 
-		$data['user_id'] = \Auth::user()->ticket_user_id;
-		$data['source'] = 'backoffice';
-		$data['signature'] = $this->site->ticket_adm->prepareSignature(\Auth::user()->signature_parts, $this->site->signature_parts);
+		$data['user_id'] = $this->site_user->ticket_user_id;
+
+		$data = $this->_prepareMessageData($data);
 
 		$result = $this->site->ticket_adm->postMessage($ticket_id, $data);
 
@@ -283,8 +302,101 @@ class TicketsController extends \App\Http\Controllers\AccountController
 			$users_query->where('id', \Auth::user()->id);
 		}
 
-		return $users_query->lists('name','ticket_user_id')->all();
+		return $users_query->lists('name','id')->all();
+		//return $users_query->lists('name','ticket_user_id')->all();
 
+	}
+
+	protected function _prepareMessageData($data)
+	{
+		// Set backoffice as source
+		$data['source'] = 'backoffice';
+
+		// Clean subject && body
+		foreach (['subject','body'] as $field)
+		{
+			if ( !isset($data[$field]) )
+			{
+				continue;
+			}
+
+			$data[$field] = strip_tags($data[$field]);
+		}
+
+
+		// Clean email arrays
+		foreach (['cc','bcc'] as $field)
+		{
+			if ( !isset($data[$field]) )
+			{
+				continue;
+			}
+
+			$data[$field] = array_values(array_unique($data[$field]));
+		}
+
+		// Default site signature
+		$data['signature'] = false; //$this->site->ticket_adm->prepareSiteSignature($this->site_user->signature_parts, $this->site->signature_parts);
+
+		// User signature
+		if ( @$data['signature_id'] && $signature = \App\Models\Site\UserSignature::find($data['signature_id']) )
+		{
+			$data['signature'] = $signature->signature;
+		}
+
+		// Attachment
+		$attachments = [];
+		if ( $this->request->file('attachment') )
+		{
+			// Validate image
+			$validator = \Validator::make($data, [
+				'attachment' => 'required|max:' . \Config::get('app.property_image_maxsize', 2048),
+			]);
+			if ( !$validator->fails() ) 
+			{
+				$attach = [
+					'site_id' => $this->site->id,
+					'user_id' => $this->site_user->id,
+					'title' => snake_case($this->request->file('attachment')->getClientOriginalName()),
+					'filename' => str_random(40),
+					'extension' => $this->request->file('attachment')->getClientOriginalExtension(),
+					'folder' => "attachments/".date('Y/m/d'),
+				];
+
+				$i = 0;
+				$attach_folder = public_path($attach['folder']);
+				while ( file_exists("{$attach_folder}/{$attach['filename']}.{$attach['extension']}") )
+				{
+					$attach['filename'] = str_random(40);
+					if ( $i > 100 )
+					{
+						\Log::error("Error creating ticket attachment: too many loops creating filename");
+					}
+				}
+				$this->request->file('attachment')->move($attach_folder, "{$attach['filename']}.{$attach['extension']}");
+
+				\App\Models\Attachment::create($attach);
+
+				$attachments[] = [
+					'url' => asset("{$attach['folder']}/{$attach['filename']}.{$attach['extension']}"),
+					'title' => $attach['title'],
+				];
+			}
+		}
+		$data['attachments'] = $attachments;
+
+		// Clean null values
+		foreach (['contact_id','item_id','user_id','email_account_id'] as $field)
+		{
+			if ( isset($data[$field]) && $data[$field] )
+			{
+				continue;
+			}
+
+			unset($data[$field]);
+		}
+
+		return $data;
 	}
 
 }

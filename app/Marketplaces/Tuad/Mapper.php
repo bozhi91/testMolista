@@ -39,7 +39,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 		if(!empty($this->item['images'])){
 			$map['pictures']['picture'] = $this->getImages();
 		}
-		
+
 		return $map;
 	}
 
@@ -48,6 +48,11 @@ class Mapper extends \App\Marketplaces\Mapper {
 	 */
 	public function valid() {
 		$data = array_merge($this->item, $this->config);
+
+		if ($this->isTransfer()) {
+			$this->errors []= \Lang::get('validation.transfer');
+            return false;
+		}
 
 		$rules = [
 			'id' => 'required',
@@ -85,7 +90,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 	 * 	Inmobiliaria > Terrenos y solares
 	 * 	Inmobiliaria > Trámites
 	 * 	Inmobiliaria > Trasteros y garajes
-	 * 
+	 *
 	 * @return string
 	 */
 	protected function getCategory() {
@@ -95,12 +100,15 @@ class Mapper extends \App\Marketplaces\Mapper {
 			case 'villa':
 			case 'duplex':
 				return $this->isRent() ? 'Casas en alquiler' : 'Casas en venta';
-			case 'apartment':
-				return $this->isRent() ? 'Pisos en alquiler' : 'Pisos en venta';
 			case 'lot':
 				return 'Terrenos y solares';
 			case 'store':
 				return 'Trasteros y garajes';
+			case 'hotel':
+			case 'aparthotel':
+				return 'Alquiler vacacional';
+			default:
+				return $this->isRent() ? 'Pisos en alquiler' : 'Pisos en venta';
 		}
 	}
 

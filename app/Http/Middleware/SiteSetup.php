@@ -1,6 +1,4 @@
-<?php
-
-namespace App\Http\Middleware;
+<?php namespace App\Http\Middleware;
 
 use Closure;
 
@@ -15,7 +13,7 @@ class SiteSetup
 			->current()->first();
 		if ( !$site ) 
 		{
-			abort(404);
+			return $this->checkRedirection();
 		}
 
 		// Get site setup
@@ -84,4 +82,28 @@ class SiteSetup
 
 		return $next($request);
 	}
+
+	public function checkRedirection()
+	{
+		$parts = parse_url( url()->current() );
+
+		if ( preg_match('#^www.#', $parts['host']) )
+		{
+			$host = substr($parts['host'], 4);
+		}
+		else
+		{
+			$host = "www.{$parts['host']}";
+		}
+
+		$site = \App\SiteDomains::where('domain', "{$parts['scheme']}://{$host}")->first();
+		if ( $site )
+		{
+			$redirect_url = "{$parts['scheme']}://{$host}" . @$parts['path'] . (empty($parts['query']) ? '' : "?{$parts['query']}");
+			return redirect()->away($redirect_url);
+		}
+
+		abort(404);
+	}
+
 }

@@ -35,6 +35,9 @@
 		'configuration.owner.cif' => 'CIF',
 		'configuration.owner.cif.error' => 'Please enter a valid CIF',
 
+		'configuration.fields.agency_data.title' => 'Agency data',
+		'configuration.fields.agent_name' => 'Agency name',
+
 		'configuration.fields.agency_name' => 'Agency name',
 		'configuration.fields.contact_email' => 'Contact e-mail',
 		'configuration.fields.contact_phone' => 'Contact phone',
@@ -46,6 +49,7 @@
 		'configuration.fields.contact_data' => 'Contact data',
 		'configuration.fields.name' => 'Name',
 		'configuration.fields.phone' => 'Phone',
+		'configuration.fields.lastname' => 'Last name',
 
 		'configuration.fields.account.title' => 'Account',
 		'configuration.fields.account_id' => 'Account ID',

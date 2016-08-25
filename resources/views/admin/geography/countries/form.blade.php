@@ -25,7 +25,7 @@
 					<div role="tabpanel" class="tab-pane tab-locale {{ ($lang_iso == fallback_lang()) ? 'active' : '' }}" id="lang-{{$lang_iso}}">
 						<div class="form-group error-container">
 							{!! Form::label("i18n[name][{$lang_iso}]", Lang::get('admin/geography/countries.name')) !!}
-							{!! Form::text("i18n[name][{$lang_iso}]", null, [ 'class'=>'form-control'.(($lang_iso == fallback_lang()) ? ' required' : '') ]) !!}
+							{!! Form::text("i18n[name][{$lang_iso}]", null, [ 'class'=>'form-control'.(($lang_iso == fallback_lang()) ? ' required' : ''), 'dir'=>lang_dir($lang_iso) ]) !!}
 						</div>
 					</div>
 				@endforeach

@@ -63,6 +63,16 @@ class Mapper extends \App\Marketplaces\Mapper {
 
     public function valid()
     {
+        if ($this->isTransfer()) {
+			$this->errors []= \Lang::get('validation.transfer');
+            return false;
+		}
+
+        if (@$this->item['type'] == 'hotel') {
+			$this->errors []= \Lang::get('validation.type');
+            return false;
+		}
+
         $rules = [
             'reference' => 'required',
             'price' => 'required',
@@ -137,6 +147,7 @@ class Mapper extends \App\Marketplaces\Mapper {
                 $type = 128;
                 break;
             case 'apartment':
+            case 'aparthotel':
                 $type = 2;
                 break;
             default:

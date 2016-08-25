@@ -81,5 +81,13 @@
 		}
 		.navbar-collapse { border-color: @green; }
     	.navbar-brand { margin-top: 5px; }
+
+		.navbar-nav {
+			.dropdown-menu { 
+				background: @green; 
+				a:hover { background: transparent; color: @black; }
+			}
+			.open .main-item { background: @green; }
+		}
 	}
 }

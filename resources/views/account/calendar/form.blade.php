@@ -41,8 +41,8 @@
 	<div class="row">
 		<div class="col-xs-12 col-sm-6">
 			<div class="form-group error-container">
-				{!! Form::label('user_id', Lang::get('account/calendar.agent')) !!}
-				{!! Form::select('user_id', [ ''=>'&nbsp;' ]+$users, null, [ 'class'=>'has-select-2 form-control required' ]) !!}
+				{!! Form::label('user_ids[]', Lang::get('account/calendar.agent')) !!}
+				{!! Form::select('user_ids[]', $users, null, [ 'class'=>'has-select-2 form-control required', 'multiple'=>'multiple', 'size'=>1 ]) !!}
 			</div>
 			<div class="form-group error-container">
 				{!! Form::label('customer_id', Lang::get('account/calendar.customer')) !!}
@@ -63,7 +63,7 @@
 					<select name="property_id" class="property-select has-select-2 form-control">
 						<option value="">&nbsp;</option>
 						@foreach ($properties as $property)
-							<option value="{{ $property->id }}" data-location="{{ $property->address ? $property->full_address : '' }}" {{ @$item->property_id == $property->id ? 'selected="selected"' : '' }}>{{ $property->title }}</option>
+							<option value="{{ $property->id }}" data-location="{{ $property->address ? $property->full_address : '' }}" {{ @$item->property_id == $property->id ? 'selected="selected"' : '' }}>{{ $property->ref }}: {{ $property->title }}</option>
 						@endforeach
 					</select>
 				</div>
@@ -100,10 +100,32 @@
 	ready_callbacks.push(function(){
 		var form = $('#calendar-form');
 
+		$.validator.addMethod('endmindate',function(v,el){
+			var startTime = form.find('.datetimepicker-start').data("DateTimePicker").date();
+			//var endDate = form.find('.datetimepicker-end').data("DateTimePicker").date();
+			var endTime = $(el).data("DateTimePicker").date();
+
+			if ( !startTime || !endTime ) {
+				return true;
+			}
+
+			return startTime < endTime;
+		}, "{{ print_js_string( Lang::get('account/calendar.end.error') ) }}");
+
 		form.validate({
 			ignore: '',
 			errorPlacement: function(error, element) {
 				element.closest('.error-container').append(error);
+			},
+			rules: {
+				end_time: {
+					endmindate: true
+				}
+			},
+			messages: {
+				end_time: {
+					endmindate: "{{ print_js_string( Lang::get('account/calendar.end.error') ) }}"
+				}
 			},
 			submitHandler: function(f) {
 				LOADING.show();
@@ -124,6 +146,10 @@
         form.find('.datetimepicker-end').on("dp.change", function (e) {
             form.find('.datetimepicker-start').data("DateTimePicker").maxDate(e.date);
         });
+
+        if ( form.find('.datetimepicker-start').val() ) {
+        	form.find('.datetimepicker-start').trigger('dp.change');
+        }
 
 		form.find('.has-select-2').select2();
 

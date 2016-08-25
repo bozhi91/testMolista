@@ -144,6 +144,18 @@ class Customer extends Model
 			$query->where('second_hand', 1);
 		}
 
+		// Bank owned
+		if ( @$attr['bank_owned'] )
+		{
+			$query->where('bank_owned', 1);
+		}
+
+		// Private owned
+		if ( @$attr['private_owned'] )
+		{
+			$query->where('private_owned', 1);
+		}
+
 		// Services
 		if ( @$attr['services'] )
 		{
