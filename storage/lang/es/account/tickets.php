@@ -9,6 +9,7 @@
 		'details' => 'Detalles',
 		'reference' => 'Referencia',
 		'date' => 'Fecha',
+		'contact.all' => 'Todos los leads',
 		'contact.name' => 'Cliente',
 		'contact.name.new' => 'Crear lead nuevo',
 		'contact.email' => 'Email',

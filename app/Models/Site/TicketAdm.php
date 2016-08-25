@@ -573,6 +573,16 @@ class TicketAdm
 			$data['user_id'] = $params['user_id'];
 		}
 
+		if ( isset($params['contact_email']) )
+		{
+			$data['contact_email'] = $params['contact_email'];
+		}
+
+		if ( isset($params['contact_id']) )
+		{
+			$data['contact_id'] = $params['contact_id'];
+		}
+
 		if ( @$params['status'] )
 		{
 			$data['status'] = is_array($params['status']) ? implode(',',$params['status']) : $params['status'];
