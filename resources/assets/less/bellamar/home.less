@@ -52,10 +52,20 @@
 	#home {
 		.main-property { 
 			.item { min-height: 540px; }
-			.carousel-caption { padding-bottom: 30px; left: 0px; right: 0px; }
+			.carousel-caption { padding-bottom: 30px; left: 0px; right: 0px; position: absolute; top: 0; 
+				.container {
+					.row {
+						.col-xs-12.col-md-6 {
+							position: absolute;
+							bottom: 0px;
+							left: 25%;
+						}
+					}
+				}
+			}
 			.carousel-caption-text { padding: 10px  30px; }
 			.slider-quick-search { 
-				opacity: 0; position: absolute; bottom: 0px; left: 0px; right: 0px; background: @colorPurple; padding: 30px 20px; 
+				opacity: 1; top: 0px !important; position: absolute; left: 0px; right: 0px; background: @colorPurple; padding: 30px 20px; 
 				.form-control { border-color: @colorGreyLight; color: @colorGreyLight; background: @colorPurple; }
 				.form-control::-webkit-input-placeholder { color: @colorGreyLight; }
 				.form-control:-moz-placeholder { color: @colorGreyLight; }
