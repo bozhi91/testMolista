@@ -104,6 +104,13 @@ class CustomersController extends \App\Http\Controllers\AccountController
 
 	public function show($email)
 	{
+		// If $email is integer,  redirect
+		if ( preg_match('#^[0-9]+$#', $email) )
+		{
+			$customer = $this->site->customers()->findOrFail($email);
+			return redirect()->action('Account\CustomersController@show', urlencode($customer->email));
+		}
+
 		$customer = $this->site->customers()->with('queries')->where('email', $email)->first();
 		if ( !$customer )
 		{
