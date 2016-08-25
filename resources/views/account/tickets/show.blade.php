@@ -110,7 +110,7 @@
 										{!! Form::select('private', [
 											'0' => Lang::get('account/tickets.public'),
 											'1' => Lang::get('account/tickets.internal'),
-										], null, [ 'class'=>'form-control input-sm alert-danger required' ]) !!}
+										], null, [ 'class'=>'form-control input-sm required' ]) !!}
 									</div>
 								</div>
 								<div class="col-xs-6">
@@ -319,6 +319,15 @@
 					f.submit();
 				}
 			});
+
+			reply_form.on('change', 'select[name="private"]', function(){
+				if ( $(this).val() == 1 ) {
+					$(this).addClass('alert-danger');
+				} else {
+					$(this).removeClass('alert-danger');
+				}
+			});
+
 			cont.on('click', '.btn-reply-form-trigger', function(e){
 				e.preventDefault();
 				cont.find('.reply-form-trigger-area').hide();
