@@ -54,7 +54,7 @@
 
 </head>
 
-<body id="{{ @$body_id }}" class="dir-{{ LaravelLocalization::getCurrentLocaleDirection() }}">
+<body id="{{ @$body_id }}" class="dir-{{ LaravelLocalization::getCurrentLocaleDirection() }} theme-{{ Theme::get() }}">
 
 	<?php $ga_account = isset($google_analitics_account) ? $google_analitics_account : @$current_site->ga_account; ?>
 	@if ( $ga_account )
