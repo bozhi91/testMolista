@@ -4,6 +4,7 @@ return [
 	'h1' => 'Calendar',
 
 	'button.new' => 'New event',
+	'button.schedule' => 'Schedule visit',
 	'title.create' => 'Create event',
 	'title.edit' => 'Edit event',
 

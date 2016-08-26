@@ -4,6 +4,7 @@ return [
 	'h1' => 'Agenda',
 
 	'button.new' => 'Crear evento',
+	'button.schedule' => 'Agendar visita',
 	'title.create' => 'Crear evento',
 	'title.edit' => 'Editar evento',
 

@@ -156,6 +156,10 @@ class TicketsController extends \App\Http\Controllers\AccountController
 	public function getShow($ticket_id)
 	{
 		$ticket = $this->_getTicket($ticket_id);
+		if ( !$ticket )
+		{
+			abort(404);
+		}
 
 		$employees = $this->_getEmployeesOptions();
 
@@ -288,7 +292,7 @@ class TicketsController extends \App\Http\Controllers\AccountController
 
 		if ( !$ticket )
 		{
-			return false; false;
+			return false;
 		}
 
 		// Check ownership

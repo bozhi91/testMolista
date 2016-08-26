@@ -654,11 +654,25 @@ class TicketAdm
 		$first_message = @array_pop(array_values($ticket->messages));
 		$ticket->subject = @$first_message->subject;
 
+		//  Ticket contact
+		if ( @$ticket->contact->id )
+		{
+			$customer = \App\Models\Site\Customer::where('ticket_contact_id', $ticket->contact->id)->first();
+			$ticket->contact->id_molista = @$customer->id;
+		}
+
+		//  Ticket property
+		if ( @$ticket->item->id )
+		{
+			$property = \App\Property::withTrashed()->where('ticket_item_id', $ticket->item->id)->first();
+			$ticket->item->id_molista = @$property->id;
+		}
 
 		// Add user images
+		$user_ids_rel = [];
 		$images = [ 'default' => asset('images/users/default.png') ];
 
-		//  To user
+		//  Ticket user
 		if ( @$ticket->user )
 		{
 			if ( @$ticket->user->id )
@@ -666,9 +680,11 @@ class TicketAdm
 				if ( empty($images[$ticket->user->id]) )
 				{
 					$user = \App\User::where('ticket_user_id', $ticket->user->id)->first();
+					$user_ids_rel[$ticket->user->id] = @$user->id;
 					$images[$ticket->user->id] = ( $user && $user->image ) ? $user->image_url : $images['default'];
 				}
 				$ticket->user->image = $images[$ticket->user->id];
+				$ticket->user->id_molista = @$user_ids_rel[$ticket->user->id];
 			}
 			else
 			{
@@ -676,7 +692,7 @@ class TicketAdm
 			}
 		}
 
-		//  To messages
+		//  Ticket messages
 		foreach ($ticket->messages as $key => $message)
 		{
 			if ( $message->user )
