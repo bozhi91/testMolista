@@ -19,6 +19,7 @@ return [
 	'reference.type.other' => 'Otro',
 
 	'title' => 'Título',
+	'title.customer' => 'Usar como título',
 	'comments' => 'Comentarios',
 	'start' => 'Inicio',
 	'end' => 'Fin',
