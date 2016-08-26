@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<states>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <state id="100">
+        <name><![CDATA[Andorra la Vella]]></name>
+    </state>
+    
+    <state id="101">
+        <name><![CDATA[Canillo]]></name>
+    </state>
+    
+    <state id="102">
+        <name><![CDATA[Encamp]]></name>
+    </state>
+    
+    <state id="103">
+        <name><![CDATA[Escaldes-Engordany]]></name>
+    </state>
+    
+    <state id="104">
+        <name><![CDATA[La Massana]]></name>
+    </state>
+    
+    <state id="105">
+        <name><![CDATA[Ordino]]></name>
+    </state>
+    
+    <state id="106">
+        <name><![CDATA[Sant Julià de Lòria]]></name>
+    </state>
+    
+</states>

@@ -14,9 +14,13 @@ class PromocionMapper extends BaseMapper {
 
 		list($operationId, $operationName) = $this->getOperations();
 		$map['operacion@id=' . $operationId] = $operationName;
-
+		
 		$map['url'] = '';
-		$map['nombre'] = 'HELLO'; //required name of promo
+		
+		//required name of promo
+		$titles = $item['title'];
+		$firstTitle = reset($titles);
+		$map['nombre'] = $firstTitle;
 
 		$map['ubicacion'] = $this->getUbicacion();
 		$map['direcciones'] = $this->getDirecciones();
@@ -52,7 +56,7 @@ class PromocionMapper extends BaseMapper {
 	}
 
 	public function valid() {
-		$data = $this->item;
+		$data = array_merge($this->item, $this->config);
 
 		if ($this->isTransfer()) {
 			$this->errors [] = \Lang::get('validation.transfer');
@@ -61,6 +65,15 @@ class PromocionMapper extends BaseMapper {
 
 		$rules = [
 			'id' => 'required',
+			'type' => 'required',
+			'attributes.yaencontre-city' => 'required',
+			'price' => 'required',
+			'size' => 'required',
+			'rooms' => 'required',
+			'baths' => 'required',
+			'title.0' => 'required',
+			'description.0' => 'required',
+			'oficina' => 'required'
 		];
 
 		$validator = \Validator::make($data, $rules, []);
@@ -119,8 +132,12 @@ class PromocionMapper extends BaseMapper {
 
 		//Required
 		$ubicacion['pais'] = 'ES';
-		$ubicacion['provincia@id=1'] = '';
-		$ubicacion['poblacion@id=1'] = '';
+
+		list($provinciaId, $provinciaLabel) = $this->getProvinciaData();
+		$ubicacion['provincia@id=' . $provinciaId] = $provinciaLabel;
+
+		list($poblacionId, $poblacionLabel) = $this->getPoblacionData();
+		$ubicacion['poblacion@id=' . $poblacionId] = $poblacionLabel;
 
 		//Opcionales
 		$ubicacion['zona'] = ''; //$ubicacion['zona@id=1'] = ''; API ATLAS

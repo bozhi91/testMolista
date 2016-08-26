@@ -10,8 +10,6 @@ class ReferenciaMapper extends BaseMapper {
 	public function map() {
 		$item = $this->item;
 
-		$item['size_util'] = 123.33;
-
 		$map = [];
 
 		list($operationId, $operationName) = $this->getOperations();
@@ -32,7 +30,7 @@ class ReferenciaMapper extends BaseMapper {
 		$map['num_reg_alquiler_turistico'] = '';
 
 		$map['m2_construidos'] = $this->convertSize($item['size']);
-		$map['m2_utiles'] = $this->convertSize($item['size_util']);
+		$map['m2_utiles'] = $this->convertSize($item['size_real']);
 
 		$map['habitaciones'] = $item['rooms'];
 		$map['banyos'] = $item['baths'];
@@ -58,7 +56,7 @@ class ReferenciaMapper extends BaseMapper {
 	 * @return boolean
 	 */
 	public function valid() {
-		$data = $this->item;
+		$data = array_merge($this->item, $this->config);
 
 		if ($this->isTransfer()) {
 			$this->errors [] = \Lang::get('validation.transfer');
@@ -67,6 +65,13 @@ class ReferenciaMapper extends BaseMapper {
 
 		$rules = [
 			'id' => 'required',
+			'type' => 'required',
+			'attributes.yaencontre-city' => 'required',
+			'price' => 'required',
+			'size' => 'required',
+			'size_real' => 'required',
+			'description.0' => 'required',
+			'oficina' => 'required'
 		];
 
 		$validator = \Validator::make($data, $rules, []);
@@ -135,7 +140,6 @@ class ReferenciaMapper extends BaseMapper {
 		}
 	}
 
-
 	/**
 	 * @return array
 	 */
@@ -168,39 +172,39 @@ class ReferenciaMapper extends BaseMapper {
 			$caracteristicas['extra@id=ascensor'] = 1;
 		}
 
-		if(!empty($item['baths'])){//toilets or bathrooms?
+		if (!empty($item['baths'])) {//toilets or bathrooms?
 			//$caracteristicas['extra@id=aseos_num'] = $item['baths'];
 		}
-		
+
 		if (!empty($item['features']['balcony'])) {
 			$caracteristicas['extra@id=balcon'] = 1;
 		}
 
-		if(!empty($item['features']['heating'])){
+		if (!empty($item['features']['heating'])) {
 			$caracteristicas['extra@id=calefaccion'] = 1;
 		}
-		
-		if(!empty($item['features']['garage'])){
+
+		if (!empty($item['features']['garage'])) {
 			$caracteristicas['extra@id=garaje'] = 1;
 		}
-		
-		if(!empty($item['features']['garden'])){
+
+		if (!empty($item['features']['garden'])) {
 			$caracteristicas['extra@id=jardin'] = 1;
 		}
-		
-		if(!empty($item['features']['pool'])){
+
+		if (!empty($item['features']['pool'])) {
 			$caracteristicas['extra@id=piscina'] = 1;
 		}
-		
-		if(!empty($item['features']['terrace'])){
+
+		if (!empty($item['features']['terrace'])) {
 			$caracteristicas['extra@id=terraza'] = 1;
 		}
-		
-		if(!empty($item['features']['parking'])){
+
+		if (!empty($item['features']['parking'])) {
 			//parking_plazas 0 = “1”, 1 = “2”, 2 = “3+”
 			//$caracteristicas['extra@id=parking_plazas'] = 0;
 		}
-		
+
 		return $caracteristicas;
 	}
 
@@ -215,11 +219,15 @@ class ReferenciaMapper extends BaseMapper {
 
 		//Required
 		$ubicacion['pais'] = 'ES';
-		$ubicacion['provincia@id=1'] = '';
-		$ubicacion['poblacion@id=1'] = '';
+
+		list($provinciaId, $provinciaLabel) = $this->getProvinciaData();
+		$ubicacion['provincia@id=' . $provinciaId] = $provinciaLabel;
+
+		list($poblacionId, $poblacionLabel) = $this->getPoblacionData();
+		$ubicacion['poblacion@id=' . $poblacionId] = $poblacionLabel;
 
 		//Opcionales
-		$ubicacion['zona'] = ''; //$ubicacion['zona@id=1'] = ''; API ATLAS
+		$ubicacion['zona'] = '';
 		$ubicacion['zona_libre'] = '';
 		$ubicacion['cod_postal'] = !empty($l['zipcode']) ? $l['zipcode'] : '';
 		$ubicacion['tipo_via'] = ''; //$ubicacion['tipo_via@id=0'] = 'avenida'; getTipoDeVia()
@@ -232,6 +240,5 @@ class ReferenciaMapper extends BaseMapper {
 
 		return $ubicacion;
 	}
-
 
 }

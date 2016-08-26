@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8" ?><cities>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <city id="20000" stateId="100">
+        <name><![CDATA[Andorra la Vella]]></name>
+    </city>
+    
+    <city id="20001" stateId="100">
+        <name><![CDATA[Santa Coloma]]></name>
+    </city>
+    
+    <city id="143858" stateId="100">
+        <name><![CDATA[La Massana]]></name>
+    </city>
+    
+    <city id="143859" stateId="100">
+        <name><![CDATA[Massana, La]]></name>
+    </city>
+    
+    <city id="20002" stateId="101">
+        <name><![CDATA[Aldosa de Canillo, l´]]></name>
+    </city>
+    
+    <city id="20003" stateId="101">
+        <name><![CDATA[Canillo]]></name>
+    </city>
+    
+    <city id="20004" stateId="101">
+        <name><![CDATA[Forn, el]]></name>
+    </city>
+    
+    <city id="20005" stateId="101">
+        <name><![CDATA[Meritxell]]></name>
+    </city>
+    
+    <city id="20006" stateId="101">
+        <name><![CDATA[Molleres]]></name>
+    </city>
+    
+    <city id="20007" stateId="101">
+        <name><![CDATA[Plans, els]]></name>
+    </city>
+    
+    <city id="20008" stateId="101">
+        <name><![CDATA[Prats]]></name>
+    </city>
+    
+    <city id="20009" stateId="101">
+        <name><![CDATA[Ransol]]></name>
+    </city>
+    
+    <city id="20010" stateId="101">
+        <name><![CDATA[Snt Pere]]></name>
+    </city>
+    
+    <city id="20011" stateId="101">
+        <name><![CDATA[Soldeu]]></name>
+    </city>
+    
+    <city id="20012" stateId="101">
+        <name><![CDATA[Tarter, el]]></name>
+    </city>
+    
+    <city id="20013" stateId="101">
+        <name><![CDATA[Vilar de Canillo, el]]></name>
+    </city>
+    
+    <city id="143667" stateId="101">
+        <name><![CDATA[Incles]]></name>
+    </city>
+    
+    <city id="20014" stateId="102">
+        <name><![CDATA[Encamp]]></name>
+    </city>
+    
+    <city id="20015" stateId="102">
+        <name><![CDATA[Pas de la Casa, el]]></name>
+    </city>
+    
+    <city id="20016" stateId="102">
+        <name><![CDATA[Vila]]></name>
+    </city>
+    
+    <city id="20045" stateId="102">
+        <name><![CDATA[Grau Roig]]></name>
+    </city>
+    
+    <city id="20046" stateId="102">
+        <name><![CDATA[Les Bons]]></name>
+    </city>
+    
+    <city id="143668" stateId="102">
+        <name><![CDATA[Cortals]]></name>
+    </city>
+    
+    <city id="20017" stateId="103">
+        <name><![CDATA[Escaldes, les]]></name>
+    </city>
+    
+    <city id="20018" stateId="104">
+        <name><![CDATA[Aldosa de la Massana, l´]]></name>
+    </city>
+    
+    <city id="20019" stateId="104">
+        <name><![CDATA[Anyós]]></name>
+    </city>
+    
+    <city id="20020" stateId="104">
+        <name><![CDATA[Arinsal]]></name>
+    </city>
+    
+    <city id="20021" stateId="104">
+        <name><![CDATA[Erts]]></name>
+    </city>
+    
+    <city id="20022" stateId="104">
+        <name><![CDATA[Escàs]]></name>
+    </city>
+    
+    <city id="20023" stateId="104">
+        <name><![CDATA[Massana, la]]></name>
+    </city>
+    
+    <city id="20024" stateId="104">
+        <name><![CDATA[Pal]]></name>
+    </city>
+    
+    <city id="20025" stateId="104">
+        <name><![CDATA[Sispony]]></name>
+    </city>
+    
+    <city id="143669" stateId="104">
+        <name><![CDATA[Xixerella]]></name>
+    </city>
+    
+    <city id="20026" stateId="105">
+        <name><![CDATA[Ansalonga]]></name>
+    </city>
+    
+    <city id="20027" stateId="105">
+        <name><![CDATA[Arans]]></name>
+    </city>
+    
+    <city id="20028" stateId="105">
+        <name><![CDATA[Cortinada, la]]></name>
+    </city>
+    
+    <city id="20029" stateId="105">
+        <name><![CDATA[Llorts]]></name>
+    </city>
+    
+    <city id="20030" stateId="105">
+        <name><![CDATA[Ordino]]></name>
+    </city>
+    
+    <city id="20031" stateId="105">
+        <name><![CDATA[Segudet]]></name>
+    </city>
+    
+    <city id="20032" stateId="105">
+        <name><![CDATA[Serrat, el]]></name>
+    </city>
+    
+    <city id="20033" stateId="105">
+        <name><![CDATA[Sornàs]]></name>
+    </city>
+    
+    <city id="20034" stateId="106">
+        <name><![CDATA[Aixàs]]></name>
+    </city>
+    
+    <city id="20035" stateId="106">
+        <name><![CDATA[Aixirivall]]></name>
+    </city>
+    
+    <city id="20036" stateId="106">
+        <name><![CDATA[Aixovall]]></name>
+    </city>
+    
+    <city id="20037" stateId="106">
+        <name><![CDATA[Aubinyà]]></name>
+    </city>
+    
+    <city id="20038" stateId="106">
+        <name><![CDATA[Bixessarri]]></name>
+    </city>
+    
+    <city id="20039" stateId="106">
+        <name><![CDATA[Certers]]></name>
+    </city>
+    
+    <city id="20040" stateId="106">
+        <name><![CDATA[Fontaneda]]></name>
+    </city>
+    
+    <city id="20041" stateId="106">
+        <name><![CDATA[Juverri]]></name>
+    </city>
+    
+    <city id="20042" stateId="106">
+        <name><![CDATA[Llumeneres]]></name>
+    </city>
+    
+    <city id="20043" stateId="106">
+        <name><![CDATA[Nagol]]></name>
+    </city>
+    
+    <city id="20044" stateId="106">
+        <name><![CDATA[Sant Julià de Lòria]]></name>
+    </city>
+    
+</cities>

@@ -30,5 +30,9 @@ abstract class Base implements MarketplaceInterface {
     {
         return $this->currency;
     }
+	
+	public function getAttributes(){
+		return [];
+	}
 
 }

@@ -5,6 +5,18 @@ namespace App\Marketplaces\Yaencontre;
 class Yaencontre extends \App\Marketplaces\XML {
 
 	protected $iso_lang = 'es';
+	protected $configuration = [
+		[
+			'block' => 'contact_data',
+			'fields' => [
+				[
+					'name' => 'oficina',
+					'type' => 'text',
+					'required' => true
+				],
+			]
+		]
+	];
 
 	public function getPropertiesXML(array $properties) {
 		$this->writer = static::getWriter($this->config);
@@ -44,10 +56,10 @@ class Yaencontre extends \App\Marketplaces\XML {
 			$timezone = new \DateTimeZone(\Config::get('app.timezone'));
 			$datetime = new \DateTime($p['updated_at'], $timezone);
 			$timestamp = $datetime->format("U");
-			
+
 			$tagName = $mapper->isPropertyReferencia() ? 'referencia' : 'promocion';
 			$tagName .= '@id=' . $p['id'] . '@timestamp=' . $timestamp;
-			
+
 			$this->writer->addItem([$tagName => $mapper->map()]);
 		}
 	}
@@ -74,6 +86,13 @@ class Yaencontre extends \App\Marketplaces\XML {
 			}
 		}
 		return $sortedProperties;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getAttributes() {
+		return (new AttributesHandler())->getAttributes();
 	}
 
 }

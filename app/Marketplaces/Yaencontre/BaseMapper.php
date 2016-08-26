@@ -92,4 +92,22 @@ abstract class BaseMapper extends \App\Marketplaces\Mapper {
 		return $pictures;
 	}
 
+	/**
+	 * @return array
+	 */
+	protected function getProvinciaData() {
+		$valor = $this->item['attributes']['yaencontre-city'];
+		$explodedValor = explode('-', $valor);
+		return [$explodedValor[3], $explodedValor[2]];
+	}
+
+	/**
+	 * @return array
+	 */
+	protected function getPoblacionData() {
+		$valor = $this->item['attributes']['yaencontre-city'];
+		$explodedValor = explode('-', $valor);
+		return [$explodedValor[1], $explodedValor[0]];
+	}
+
 }
