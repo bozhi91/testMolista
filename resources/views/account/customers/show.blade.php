@@ -280,6 +280,7 @@
 										{!! Form::open([ 'action'=>[ 'Account\CustomersController@deleteRemovePropertyCustomer', $property->slug ], 'method'=>'DELETE', 'class'=>'delete-property-form' ]) !!}
 											{!! Form::hidden('customer_id', $customer->id) !!}
 											{!! Form::hidden('current_tab', 'properties') !!}
+											<a href="{{ action('Account\Calendar\BaseController@getCreate') }}?property_ids[]={{$property->id}}&customer_id={{@$customer->id}}" class="btn btn-info btn-xs">{{ Lang::get('account/calendar.button.schedule') }}</a>
 											{!! Form::button(Lang::get('general.delete'), [ 'type'=>'submit', 'class'=>'btn btn-danger btn-xs' ]) !!}
 											<a href="{{ action('Web\PropertiesController@details', $property->slug) }}" class="btn btn-default btn-xs" target="_blank">{{ Lang::get('general.view') }}</a>
 										{!! Form::close() !!}
