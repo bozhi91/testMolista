@@ -32,6 +32,10 @@ class Customer extends Model
 		return $this->belongsToMany('App\Property', 'properties_customers', 'customer_id', 'property_id')->withTranslations();
 	}
 
+	public function properties_discards() {
+		return $this->belongsToMany('App\Property', 'properties_customers_discards', 'customer_id', 'property_id')->withTranslations();
+	}
+
 	public function queries() {
 		return $this->hasMany('App\Models\Site\CustomerQueries')->with('infocurrency');
 	}
@@ -67,6 +71,11 @@ class Customer extends Model
 		// Not current properties
 		$query->whereNotIn('properties.id', function($query){
 			$query->select('property_id')->from('properties_customers')->where('customer_id', $this->id);
+		});
+
+		// Not discarded
+		$query->whereNotIn('properties.id', function($query){
+			$query->select('property_id')->from('properties_customers_discards')->where('customer_id', $this->id);
 		});
 
 		// Mode

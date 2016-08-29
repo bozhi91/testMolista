@@ -276,7 +276,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		return redirect()->back()->with('success',trans('general.messages.success.saved'));
 	}
 
-	protected function deleteRemovePropertyCustomer($slug)
+	public function deleteRemovePropertyCustomer($slug)
 	{
 		$property = $this->site->properties()
 						->whereTranslation('slug', $slug)
@@ -299,9 +299,40 @@ class CustomersController extends \App\Http\Controllers\AccountController
 			$property->customers()->detach( $customer->id );
 		}
 
+		// Discard
+		if ( !$customer->properties_discards->contains( $property->id ) )
+		{
+			$customer->properties_discards()->attach( $property->id );
+		}
+
 		return redirect()->back()->with('current_tab', $this->request->input('current_tab'))->with('success',trans('general.messages.success.saved'));
 	}
 
+	public function putUndiscardPropertyCustomer($slug)
+	{
+		$property = $this->site->properties()
+						->whereTranslation('slug', $slug)
+						->first();
+		if ( !$property )
+		{
+			return redirect()->back()->with('current_tab', $this->request->input('current_tab'))->with('error',trans('general.messages.error'));
+		}
+
+		$customer = $this->site->customers()->find( $this->request->input('customer_id') );
+
+		if ( !$this->request->input('customer_id') || !$customer )
+		{
+			return redirect()->back()->with('current_tab', $this->request->input('current_tab'))->with('error',trans('general.messages.error'));
+		}
+
+		// Undiscard
+		if ( $customer->properties_discards->contains( $property->id ) )
+		{
+			$customer->properties_discards()->detach( $property->id );
+		}
+
+		return redirect()->back()->with('current_tab', $this->request->input('current_tab'))->with('success',trans('general.messages.success.saved'));
+	}
 	protected function getRequiredFields($id=false)
 	{
 		$locales = array_keys( \App\Session\Site::get('locales_tabs') );
