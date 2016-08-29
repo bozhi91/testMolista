@@ -11,3 +11,410 @@ body.theme-bellamar {
 	}	
 
 }
+
+/* Service page */
+
+body.theme-bellamar {
+	#servicios {
+		.servicios-title {
+			h1 { margin: 0px; margin-top: 20px; font-size: 24px; }
+		}
+		.servicios-subtitle {
+			margin-top: 20px;
+
+			p { margin: 0px; font-size: 18px; }
+		}
+		.servicios-content {
+			margin-top: 65px; margin-bottom: 105px; text-align: center;
+
+			.servicios-bottom-content { margin-top: 20px; }
+
+			.servicios-picture-circle {
+				&:hover { opacity: 0.8; }
+			}
+
+			@media (max-width: 767px) {
+				.servicios-bottom-content { margin-top: 0px; }
+				.col-xs-12.col-sm-4 { margin-bottom: 35px; }
+			}
+		}
+	}
+}
+
+/* modals */
+
+.modal-no-borders {
+	.modal-content {
+		.modal-header { padding: 0px; border-bottom: 0px; }
+		.modal-footer { padding: 0px; border-top: 0px; }
+	}
+}
+
+/* modal compraventa */
+#ModalCompraVenta {
+	background-color: rgba(0,0,0,0.6);
+	.modal-no-borders;
+
+	.modal-dialog {
+	    position: absolute;
+	    top: 5%;
+	    left: 5%;
+	    right: 5%;
+	    
+	    .modal-content {
+	    	box-shadow: none;
+		    background-color: transparent;
+		    border: 0px;
+
+		    .modal-header {
+		    	.close {
+		    		opacity: 1;
+		    		filter: none;
+		    		color: #000000;
+	    		    background-color: #ffffff;
+					border-radius: 25px;
+					padding: 5px 8px;
+					text-shadow: none;
+
+		    		&:hover {
+		    			opacity: 0.8;
+					}
+		    	}
+		    }
+
+	    	.modal-body {
+	    		.Modal-inner-block-top {
+	    			background-color: #e5e5e5;
+	    			padding: 30px 15px;
+	    			border-radius: 4px;
+	    			text-align: center;
+
+	    			.underline {
+	    				text-decoration: underline;
+	    				text-transform: uppercase;
+	    			}
+
+	    			h4 {
+	    				margin: 0px;
+	    				color: #7e1f31;
+	    				font-weight: bold;
+	    			}
+
+	    			.block-link {
+    				    width: 55%;
+					    margin: auto;
+					    margin-top: 40px;
+					    margin-bottom: 25px;
+    				    padding-top: 15px;
+					    padding-bottom: 15px;
+    				    background-color: #7e1f31;
+					    border-radius: 4px;
+
+		    			a {
+		    				color: #ffffff;
+		    			}
+		    		}
+	    		}
+	    		#modal-form-compraventa {
+	    			.modal-form-compraventa-inner {
+		    			color: #ffffff;
+		    			background-color: #7e1f31;
+		    			border-radius: 4px;
+		    			padding: 15px;
+
+		    			h4 {
+		    				margin-top: 5px;
+		    				margin-bottom: 15px;
+		    			}
+
+		    			.form-compraventa {
+		    				.form-group {
+		    					.form-control {
+		    						background-color: transparent;
+		    						border: 1px solid #ffffff;
+		    						border-radius: 8px;
+		    						color: white;
+
+		    						&::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+									    color:    #ffffff;
+									}
+									&:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+									   color:    #ffffff;
+									   opacity:  1;
+									}
+									&::-moz-placeholder { /* Mozilla Firefox 19+ */
+									   color:    #ffffff;
+									   opacity:  1;
+									}
+									&:-ms-input-placeholder { /* Internet Explorer 10-11 */
+									   color:    #ffffff;
+									}
+									option {
+										color: #000;
+									}
+		    					}
+
+		    					&.submit-button {
+		    						text-align: right;
+
+		    						.btn.btn-default {
+		    							background-color: #ffffff;
+    									color: #7e1f31;
+    									border-radius: 4px;
+    									padding: 6px 12px;
+    									text-transform: uppercase;
+    									font-weight: bold;
+		    						}
+		    					}
+		    				}
+		    			}
+
+		    		}
+		    	}
+	    	}
+	    }
+	}
+	@media (max-width: 767px) {
+		.modal-dialog {
+			.modal-content {
+				.modal-body {
+					.modal-block-left {
+						.Modal-inner-block-top {
+							h4 { font-size: 20px; }
+							.block-link {
+								a { font-size: 16px; text-transform: uppercase; }
+							}
+						}
+					}
+					.modal-block-right {
+						margin-top: 35px;
+					}
+				}
+			}
+		}
+	}
+	@media (min-width: 768px) {
+		.modal-dialog {
+			width: 700px;
+
+			.modal-content {
+				.modal-body {
+					.Modal-inner-block-top {
+						h4 { font-size: 20px; }
+						.block-link {
+							a { font-size: 16px; text-transform: uppercase; }
+						}
+					}
+				}
+			}
+		}
+	}
+}
+/* end modal compraventa */
+
+/* modal alquiler */
+#ModalAlquiler {
+	background-color: rgba(0,0,0,0.6);
+	.modal-no-borders;
+
+	.modal-dialog {
+	    position: absolute;
+	    top: 5%;
+	    left: 5%;
+	    right: 5%;
+	    
+	    .modal-content {
+	    	box-shadow: none;
+		    background-color: transparent;
+		    border: 0px;
+
+		    .modal-header {
+		    	.close {
+		    		opacity: 1;
+		    		filter: none;
+		    		color: #000000;
+	    		    background-color: #ffffff;
+					border-radius: 25px;
+					padding: 5px 8px;
+					text-shadow: none;
+
+		    		&:hover {
+		    			opacity: 0.8;
+					}
+		    	}
+		    }
+
+	    	.modal-body {
+	    		.Modal-inner-block-top {
+	    			background-color: #e5e5e5;
+	    			padding: 30px 15px;
+	    			border-radius: 4px;
+	    			text-align: center;
+
+	    			.underline {
+	    				text-decoration: underline;
+	    				text-transform: uppercase;
+	    			}
+
+	    			h4 {
+	    				margin: 0px;
+	    				color: #7e1f31;
+	    				font-weight: bold;
+	    			}
+
+	    			.block-link {
+    				    width: 55%;
+					    margin: auto;
+					    margin-top: 40px;
+					    margin-bottom: 25px;
+    				    padding-top: 15px;
+					    padding-bottom: 15px;
+    				    background-color: #7e1f31;
+					    border-radius: 4px;
+
+		    			a {
+		    				color: #ffffff;
+		    			}
+		    		}
+	    		}
+	    		#modal-form-alquiler {
+	    			.modal-form-alquiler-inner {
+		    			color: #ffffff;
+		    			background-color: #7e1f31;
+		    			border-radius: 4px;
+		    			padding: 15px;
+
+		    			h4 {
+		    				margin-top: 5px;
+		    				margin-bottom: 15px;
+		    			}
+
+		    			.form-alquiler {
+		    				.form-group {
+		    					.form-control {
+		    						background-color: transparent;
+		    						border: 1px solid #ffffff;
+		    						border-radius: 8px;
+		    						color: white;
+
+		    						&::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+									    color:    #ffffff;
+									}
+									&:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+									   color:    #ffffff;
+									   opacity:  1;
+									}
+									&::-moz-placeholder { /* Mozilla Firefox 19+ */
+									   color:    #ffffff;
+									   opacity:  1;
+									}
+									&:-ms-input-placeholder { /* Internet Explorer 10-11 */
+									   color:    #ffffff;
+									}
+									option {
+										color: #000;
+									}
+		    					}
+
+		    					&.submit-button {
+		    						text-align: right;
+
+		    						.btn.btn-default {
+		    							background-color: #ffffff;
+    									color: #7e1f31;
+    									border-radius: 4px;
+    									padding: 6px 12px;
+    									text-transform: uppercase;
+    									font-weight: bold;
+		    						}
+		    					}
+		    				}
+		    			}
+
+		    		}
+		    	}
+	    	}
+	    }
+	}
+	@media (max-width: 767px) {
+		.modal-dialog {
+			.modal-content {
+				.modal-body {
+					.modal-block-left {
+						.Modal-inner-block-top {
+							h4 { font-size: 20px; }
+							.block-link {
+								a { font-size: 16px; text-transform: uppercase; }
+							}
+						}
+					}
+					.modal-block-right {
+						margin-top: 35px;
+					}
+				}
+			}
+		}
+	}
+	@media (min-width: 768px) {
+		.modal-dialog {
+			width: 700px;
+
+			.modal-content {
+				.modal-body {
+					.Modal-inner-block-top {
+						h4 { font-size: 20px; }
+						.block-link {
+							a { font-size: 16px; text-transform: uppercase; }
+						}
+					}
+				}
+			}
+		}
+	}
+}
+/* end modal alquiler */
+
+/* modal static text */
+
+.ModalStaticText {
+	background-color: rgba(0,0,0,0.6);
+	
+	/* fix */
+	.modal-content {
+		.modal-footer { padding: 0px; border-top: 0px; }
+	}
+	/* fix */
+
+	.modal-dialog {
+	    position: absolute;
+	    top: 5%;
+	    left: 5%;
+	    right: 5%;
+
+	}
+
+	@media (min-width: 768px) {
+		.modal-dialog {
+			width: 650px;
+		}
+	}
+
+	@media (min-width: 991px) {
+		.modal-dialog {
+			width: 800px;
+		}
+	}
+
+	@media (min-width: 1199px) {
+		.modal-dialog {
+			width: 1000px;
+		}
+	}
+
+}
+
+/* modal static text */
+
+/* modals */
+
+/* Service page */
