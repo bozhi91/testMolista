@@ -348,7 +348,7 @@ class TicketAdm
 		return false;
 	}
 
-	public function dissociateUsers($users) 
+	public function dissociateUsers($users, $reassignee=false) 
 	{
 		if ( !$this->site_ready )
 		{
@@ -364,7 +364,11 @@ class TicketAdm
 				continue;
 			}
 
+			// Add to delete queue
 			$deletes[] = $user->ticket_user_id;
+
+			// Reassign tickets
+			$this->reassignUserTickets($user, $reassignee); 
 		}
 
 		if ( count($deletes) < 1 )
@@ -393,6 +397,48 @@ class TicketAdm
 
 		// Log error
 		$error_message = "TICKETING -> could not dissociate users to site {$this->site->id}";
+		if ( @$body->message )
+		{
+			$error_message .= ": {$body->message}";
+		}
+		\Log::error($error_message);
+
+		return false;
+	}
+
+	public function reassignUserTickets($user, $reassignee) 
+	{
+		if ( !$user || !$user->ticket_user_id )
+		{
+			return false;
+		}
+
+		if ( !$reassignee || !$reassignee->ticket_user_id )
+		{
+			return false;
+		}
+
+		$data = [
+			'headers'=> [
+				'Authorization' => $this->getAuthorizationHeader(),
+			],
+			'json' => [
+				'user_id' => $reassignee->ticket_user_id,
+			],
+		];
+		$response = $this->guzzle_client->request('POST', "user/{$user->ticket_user_id}/reasign?site_id={$this->site_id}", $data);
+
+		// Success
+		if ( $response->getStatusCode() == 204 )
+		{
+			return true;
+		}
+
+		// Get body
+		$body = @json_decode( $response->getBody() );
+
+		// Log error
+		$error_message = "TICKETING -> could not reassign user tickets of site {$this->site->id}: {$user->id} => {$reassignee->id}";
 		if ( @$body->message )
 		{
 			$error_message .= ": {$body->message}";

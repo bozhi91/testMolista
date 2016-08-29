@@ -89,9 +89,9 @@ class BaseController extends \App\Http\Controllers\AccountController
 	{
 		$event = $this->site->events()->findOrFail($id_event);
 
-		$event->delete();
-
 		\App\Models\Calendar::sendNotification('cancel',$event);
+
+		$event->delete();
 
 		return redirect()->action('Account\Calendar\BaseController@getIndex')->with('success', trans('account/calendar.delete'));
 	}

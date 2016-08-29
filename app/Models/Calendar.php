@@ -385,6 +385,11 @@ class Calendar extends Model
 		});
 	}
 
+	public function scopeOfSite($query, $site_id)
+	{
+		return $query->where("{$this->getTable()}.site_id", $site_id);
+	}
+
 	public function scopeWithStatus($query, $status)
 	{
 		return $query->where("{$this->getTable()}.status", $status);
