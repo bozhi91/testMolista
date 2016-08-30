@@ -65,9 +65,11 @@ class ServiciosController extends WebController
 
 		";
 
+		$asunto = "Solicitud de ". $tipo;
+
 		$sent = $this->site->sendEmail([
-			'to' => "dp@incubout.com",
-			'subject' => "Test Bellamar",
+			'to' => "victor.saura@fincasbellamar.com",
+			'subject' => $asunto,
 			'content' => $content
 		]);
 
