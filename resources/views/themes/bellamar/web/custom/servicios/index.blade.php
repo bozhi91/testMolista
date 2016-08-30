@@ -134,14 +134,14 @@
         <div class="row">
         	<div class="col-xs-12 col-sm-6 modal-block-left">
         		<div class="Modal-inner-block-top">
-        			<h4>¿Quiere <span class="underline">vender</span> un piso?</h4>
+        			<h4>¿Quiere <span class="underline">vender</span> su vivienda?</h4>
         			<div class="block-link">
-        				<a role="button" data-toggle="collapse" href="#modal-form-compraventa" aria-expanded="true" aria-controls="modal-form-compraventa" >Haz click aquí</a>
+        				<a role="button" data-toggle="collapse" href="#modal-form-compraventa" aria-expanded="true" aria-controls="modal-form-compraventa" >Clic aquí</a>
         			</div>
         		</div>
         		<div id="modal-form-compraventa" class="panel-collapse collapse" role="tabpanel" aria-labelledby="ModalFormCompraventa">
         			<div class="modal-form-compraventa-inner">
-        				<h4 class="title">Por favor, rellena el formulario</h4>
+        				<h4 class="title">Por favor, rellene y envíe este formulario:</h4>
 	        			<div class="form-compraventa">
 	        			<!-- codigo laravel forms. -->
 	        				<form>
@@ -154,6 +154,9 @@
 							  </div>
 							  <div class="form-group">
 							    <input type="email" class="form-control" id="email" placeholder="Email">
+							  </div>
+							  <div class="form-group">
+							    <input type="telefono" class="form-control" id="email" placeholder="Teléfono">
 							  </div>
 							  <div class="form-group">
 							    {!! Form::select('type', [''=>"Tipo de vivienda"]+$search_data['types'], Input::get('type'), [ 'class'=>'form-control' ]) !!}
@@ -175,7 +178,7 @@
         	</div>
         	<div class="col-xs-12 col-sm-6 modal-block-right">
         		<div class="Modal-inner-block-top">
-        			<h4>¿Quiere <span class="underline">comprar</span> un piso?</h4>
+        			<h4>¿Quiere <span class="underline">comprar</span> una vivienda?</h4>
         			<div class="block-link">
         				<a href="http://fincasbellamar.molista.com/properties?search=1&mode=sale">Clic aquí</a>
         			</div>
@@ -200,14 +203,14 @@
         <div class="row">
         	<div class="col-xs-12 col-sm-6 modal-block-left">
         		<div class="Modal-inner-block-top">
-        			<h4>¿Quiere <span class="underline">vender</span> un piso?</h4>
+        			<h4>¿Quiere <span class="underline">alquilar</span> su vivienda?</h4>
         			<div class="block-link">
-        				<a role="button" data-toggle="collapse" href="#modal-form-alquiler" aria-expanded="true" aria-controls="modal-form-alquiler" >Haz click aquí</a>
+        				<a role="button" data-toggle="collapse" href="#modal-form-alquiler" aria-expanded="true" aria-controls="modal-form-alquiler" >Clic aquí</a>
         			</div>
         		</div>
         		<div id="modal-form-alquiler" class="panel-collapse collapse" role="tabpanel" aria-labelledby="ModalFormAlquiler">
         			<div class="modal-form-alquiler-inner">
-        				<h4 class="title">Por favor, rellena el formulario</h4>
+        				<h4 class="title">Por favor, rellene y envíe este formulario:</h4>
 	        			<div class="form-alquiler">
 	        			<!-- codigo laravel forms. -->
 	        				<form>
@@ -220,6 +223,9 @@
 							  </div>
 							  <div class="form-group">
 							    <input type="email" class="form-control" id="email" placeholder="Email">
+							  </div>
+							  <div class="form-group">
+							    <input type="telefono" class="form-control" id="email" placeholder="Teléfono">
 							  </div>
 							  <div class="form-group">
 							    {!! Form::select('type', [''=>"Tipo de vivienda"]+$search_data['types'], Input::get('type'), [ 'class'=>'form-control' ]) !!}
@@ -241,7 +247,7 @@
         	</div>
         	<div class="col-xs-12 col-sm-6 modal-block-right">
         		<div class="Modal-inner-block-top">
-        			<h4>¿Quiere <span class="underline">comprar</span> un piso?</h4>
+        			<h4>¿Quiere <span class="underline">alquilar</span> una vivienda?</h4>
         			<div class="block-link">
         				<a href="http://fincasbellamar.molista.com/properties?search=1&mode=rent">Clic aquí</a>
         			</div>

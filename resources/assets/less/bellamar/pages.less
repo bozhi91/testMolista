@@ -57,7 +57,7 @@ body.theme-bellamar {
 
 	.modal-dialog {
 	    position: absolute;
-	    top: 5%;
+	    top: 2%;
 	    left: 5%;
 	    right: 5%;
 	    
@@ -112,6 +112,8 @@ body.theme-bellamar {
 
 		    			a {
 		    				color: #ffffff;
+		    				font-size: 16px;
+		    				text-transform: uppercase;
 		    			}
 		    		}
 	    		}
@@ -125,6 +127,7 @@ body.theme-bellamar {
 		    			h4 {
 		    				margin-top: 5px;
 		    				margin-bottom: 15px;
+		    				font-size: 14px;
 		    			}
 
 		    			.form-compraventa {
@@ -181,9 +184,6 @@ body.theme-bellamar {
 					.modal-block-left {
 						.Modal-inner-block-top {
 							h4 { font-size: 20px; }
-							.block-link {
-								a { font-size: 16px; text-transform: uppercase; }
-							}
 						}
 					}
 					.modal-block-right {
@@ -196,14 +196,22 @@ body.theme-bellamar {
 	@media (min-width: 768px) {
 		.modal-dialog {
 			width: 700px;
-
+			.modal-content {
+				.modal-body {
+					.Modal-inner-block-top {
+						h4 { font-size: 18px; }
+					}
+				}
+			}
+		}
+	}
+	@media (min-width: 991px) {
+		.modal-dialog {
+			width: 800px;
 			.modal-content {
 				.modal-body {
 					.Modal-inner-block-top {
 						h4 { font-size: 20px; }
-						.block-link {
-							a { font-size: 16px; text-transform: uppercase; }
-						}
 					}
 				}
 			}
@@ -219,7 +227,7 @@ body.theme-bellamar {
 
 	.modal-dialog {
 	    position: absolute;
-	    top: 5%;
+	    top: 2%;
 	    left: 5%;
 	    right: 5%;
 	    
@@ -287,6 +295,8 @@ body.theme-bellamar {
 		    			h4 {
 		    				margin-top: 5px;
 		    				margin-bottom: 15px;
+		    				font-size: 14px;
+
 		    			}
 
 		    			.form-alquiler {
@@ -343,9 +353,6 @@ body.theme-bellamar {
 					.modal-block-left {
 						.Modal-inner-block-top {
 							h4 { font-size: 20px; }
-							.block-link {
-								a { font-size: 16px; text-transform: uppercase; }
-							}
 						}
 					}
 					.modal-block-right {
@@ -358,14 +365,22 @@ body.theme-bellamar {
 	@media (min-width: 768px) {
 		.modal-dialog {
 			width: 700px;
-
+			.modal-content {
+				.modal-body {
+					.Modal-inner-block-top {
+						h4 { font-size: 18px; }
+					}
+				}
+			}
+		}
+	}
+	@media (min-width: 991px) {
+		.modal-dialog {
+			width: 800px;
 			.modal-content {
 				.modal-body {
 					.Modal-inner-block-top {
 						h4 { font-size: 20px; }
-						.block-link {
-							a { font-size: 16px; text-transform: uppercase; }
-						}
 					}
 				}
 			}
@@ -378,7 +393,7 @@ body.theme-bellamar {
 
 .ModalStaticText {
 	background-color: rgba(0,0,0,0.6);
-	
+
 	/* fix */
 	.modal-content {
 		.modal-footer { padding: 0px; border-top: 0px; }
