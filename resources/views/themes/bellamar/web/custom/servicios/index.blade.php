@@ -13,6 +13,8 @@
 			</div>
 		</div>
 
+		@include('common.messages', [ 'dismissible'=>true ])
+
 		<div class="row">
 			<div class="col-xs-12 col-sm-12">
 				<div class="servicios-subtitle">
@@ -144,33 +146,40 @@
         				<h4 class="title">Por favor, rellene y envíe este formulario:</h4>
 	        			<div class="form-compraventa">
 	        			<!-- codigo laravel forms. -->
-	        				<form>
+	        				{!! Form::open(['action'=>'Web\Custom\ServiciosController@postForm', 'method'=>'post']) !!}
 	        					<input type="hidden" name="tipo" value="venta">
 							  <div class="form-group">
-							    <input type="nombre" class="form-control" id="nombre" placeholder="Nombre">
+							    <input type="nombre" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
 							  </div>
 							  <div class="form-group">
-							    <input type="apellidos" class="form-control" id="apellidos" placeholder="Apellidos">
+							    <input type="apellidos" class="form-control" id="apellidos" name="apellidos" placeholder="Apellidos">
 							  </div>
 							  <div class="form-group">
-							    <input type="email" class="form-control" id="email" placeholder="Email">
+							    <input type="email" class="form-control" id="email" name="email" placeholder="Email">
 							  </div>
 							  <div class="form-group">
-							    <input type="telefono" class="form-control" id="email" placeholder="Teléfono">
+							    <input type="telefono" class="form-control" id="telefono" name="telefono" placeholder="Teléfono">
 							  </div>
 							  <div class="form-group">
-							    {!! Form::select('type', [''=>"Tipo de vivienda"]+$search_data['types'], Input::get('type'), [ 'class'=>'form-control' ]) !!}
+							  	<?php
+								    $tipovivienda = [];
+								    foreach ($search_data['types'] as $v)
+								    {
+								        $tipovivienda[$v] = $v;
+								    }
+								?>
+							    {!! Form::select('tipovivienda', [''=>"Tipo de vivienda"]+$tipovivienda, Input::get('type'), [ 'class'=>'form-control' ]) !!}
 							  </div>
 							  <div class="form-group">
-							    <input type="direccion" class="form-control" id="direccion" placeholder="Dirección">
+							    <input type="direccion" class="form-control" id="direccion" name="direccion" placeholder="Dirección">
 							  </div>
 							  <div class="form-group">
-							    <textarea class="form-control" rows="4" id="comentario" placeholder="Comentario..."></textarea>
+							    <textarea class="form-control" rows="4" id="comentario" name="comentario" placeholder="Comentario..."></textarea>
 							  </div>
 							  <div class="form-group submit-button">
 							  	<button type="submit" class="btn btn-default">Enviar</button>
 							  </div>
-							</form>
+							{!! Form::close() !!}
 						<!-- codigo laravel forms. -->
 						</div>
         			</div>
@@ -213,33 +222,33 @@
         				<h4 class="title">Por favor, rellene y envíe este formulario:</h4>
 	        			<div class="form-alquiler">
 	        			<!-- codigo laravel forms. -->
-	        				<form>
+	        				{!! Form::open(['action'=>'Web\Custom\ServiciosController@postForm', 'method'=>'post']) !!}
 	        					<input type="hidden" name="tipo" value="alquiler">
 							  <div class="form-group">
-							    <input type="nombre" class="form-control" id="nombre" placeholder="Nombre">
+							    <input type="nombre" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
 							  </div>
 							  <div class="form-group">
-							    <input type="apellidos" class="form-control" id="apellidos" placeholder="Apellidos">
+							    <input type="apellidos" class="form-control" id="apellidos" name="apellidos" placeholder="Apellidos">
 							  </div>
 							  <div class="form-group">
-							    <input type="email" class="form-control" id="email" placeholder="Email">
+							    <input type="email" class="form-control" id="email" name="email" placeholder="Email">
 							  </div>
 							  <div class="form-group">
-							    <input type="telefono" class="form-control" id="email" placeholder="Teléfono">
+							    <input type="telefono" class="form-control" id="telefono" name="telefono" placeholder="Teléfono">
 							  </div>
 							  <div class="form-group">
-							    {!! Form::select('type', [''=>"Tipo de vivienda"]+$search_data['types'], Input::get('type'), [ 'class'=>'form-control' ]) !!}
+							    {!! Form::select('tipovivienda', [''=>"Tipo de vivienda"]+$search_data['types'], Input::get('type'), [ 'class'=>'form-control' ]) !!}
 							  </div>
 							  <div class="form-group">
-							    <input type="direccion" class="form-control" id="direccion" placeholder="Dirección">
+							    <input type="direccion" class="form-control" id="direccion" name="direccion" placeholder="Dirección">
 							  </div>
 							  <div class="form-group">
-							    <textarea class="form-control" rows="4" id="comentario" placeholder="Comentario..."></textarea>
+							    <textarea class="form-control" rows="4" id="comentario" name="comentario" placeholder="Comentario..."></textarea>
 							  </div>
 							  <div class="form-group submit-button">
 							  	<button type="submit" class="btn btn-default">Enviar</button>
 							  </div>
-							</form>
+							{!! Form::close() !!}
 						<!-- codigo laravel forms. -->
 						</div>
         			</div>
