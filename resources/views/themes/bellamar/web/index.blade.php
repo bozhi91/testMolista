@@ -139,10 +139,13 @@
 				});
 			});
 
-			cont.find('.main-property .slider-quick-search').css({
-				bottom : ( -1 * cont.find('.main-property .carousel-caption-text').innerHeight() ) + 'px',
-				opacity: 1
-			});
+			if ( !$('body').hasClass('theme-bellamar') ) {
+				cont.find('.main-property .slider-quick-search').css({
+					bottom : ( -1 * cont.find('.main-property .carousel-caption-text').innerHeight() ) + 'px',
+					opacity: 1
+				});
+			}
+
 
 			cont.on('click', '.main-property .slider-quick-search', function(e){
 				e.stopPropagation();
