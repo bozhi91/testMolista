@@ -28,6 +28,12 @@
 		'type.ranch' => 'Ranch',
 		'type.hotel' => 'Hotel',
 		'type.aparthotel' => 'Aparthotel',
+		'type.chalet' => 'Chalet',
+		'type.bungalow' => 'Bungalow',
+		'type.building' => 'Building',
+		'type.industrial' => 'Industrial building',
+		'type.state' => 'State',
+		'type.farmhouse' => 'Farmhouse',
 
 		'more.show' => 'Show more options',
 		'more.any' => 'Show all',

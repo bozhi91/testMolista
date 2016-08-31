@@ -28,6 +28,12 @@
 		'type.ranch' => 'Finca',
 		'type.hotel' => 'Hotel',
 		'type.aparthotel' => 'Aparthotel',
+		'type.chalet' => 'Chalet',
+		'type.bungalow' => 'Bungalow',
+		'type.building' => 'Edificio',
+		'type.industrial' => 'Nave Industrial',
+		'type.state' => 'Finca Rustica',
+		'type.farmhouse' => 'Masía',
 
 		'more.show' => 'Más opciones',
 		'more.any' => 'Mostrar todas',

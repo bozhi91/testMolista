@@ -833,7 +833,17 @@ class Property extends TranslatableModel
 			'ranch' => trans('web/properties.type.ranch'),
 			'hotel' => trans('web/properties.type.hotel'),
 			'aparthotel' => trans('web/properties.type.aparthotel'),
+			'chalet' => trans('web/properties.type.chalet'),
+			'bungalow' => trans('web/properties.type.bungalow'),
+			'building' => trans('web/properties.type.building'),
+			'industrial' => trans('web/properties.type.industrial'),
+			'state' => trans('web/properties.type.state'),
+			'farmhouse' => trans('web/properties.type.farmhouse'),
 		];
+
+
+
+
 
 		if ( $site_id )
 		{
@@ -846,6 +856,8 @@ class Property extends TranslatableModel
 				}
 			}
 		}
+
+		asort($options);
 
 		return $options;
 	}
