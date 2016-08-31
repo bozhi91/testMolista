@@ -36,7 +36,10 @@
 							@if ( Auth::guest() )
 								<a href="{{ action('Auth\AuthController@login') }}">{{ Lang::get('web/footer.login') }}</a>
 							@else
-								<a href="{{ action('Auth\AuthController@logout') }}">{{ Lang::get('web/footer.logout') }}</a>
+								Admin:
+								<a href="{{ action('AccountController@index') }}">home</a>
+								|
+								<a href="{{ action('Auth\AuthController@logout') }}">logout</a>
 							@endif
 						</li>
 					</ul>

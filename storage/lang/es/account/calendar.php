@@ -4,6 +4,7 @@ return [
 	'h1' => 'Agenda',
 
 	'button.new' => 'Crear evento',
+	'button.schedule' => 'Agendar visita',
 	'title.create' => 'Crear evento',
 	'title.edit' => 'Editar evento',
 
@@ -18,6 +19,7 @@ return [
 	'reference.type.other' => 'Otro',
 
 	'title' => 'Título',
+	'title.customer' => 'Usar como título',
 	'comments' => 'Comentarios',
 	'start' => 'Inicio',
 	'end' => 'Fin',

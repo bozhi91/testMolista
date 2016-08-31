@@ -10,6 +10,8 @@
 		'empty' => 'No se encontraron empleados',
 
 		'delete' => '¿Confirma que desea eliminar este empleado?',
+		'delete.intro' => 'Recuerde que esta acción no se puede deshacer.',
+		'delete.reassign' => 'Puede reasignar toda la actividad a otro agente:',
 		'deleted' => 'El empleado fue eliminado correctamente',
 
 		'name' => 'Nombre',

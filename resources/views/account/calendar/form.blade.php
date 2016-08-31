@@ -10,7 +10,7 @@
 		<div class="col-xs-12">
 			<div class="form-group error-container">
 				{!! Form::label('title', Lang::get('account/calendar.title')) !!}
-				{!! Form::text('title', null, [ 'class'=>'form-control required' ]) !!}
+				{!! Form::text('title', null, [ 'class'=>'title-input form-control required' ]) !!}
 			</div>
 		</div>
 	</div>
@@ -44,13 +44,20 @@
 				{!! Form::label('user_ids[]', Lang::get('account/calendar.agent')) !!}
 				{!! Form::select('user_ids[]', $users, null, [ 'class'=>'has-select-2 form-control required', 'multiple'=>'multiple', 'size'=>1 ]) !!}
 			</div>
-			<div class="form-group error-container">
-				{!! Form::label('customer_id', Lang::get('account/calendar.customer')) !!}
-				{!! Form::select('customer_id', [ ''=>'&nbsp;' ]+$customers, null, [ 'class'=>'has-select-2 form-control' ]) !!}
+			<div class="form-group">
+				<div class="error-container">
+					{!! Form::label('customer_id', Lang::get('account/calendar.customer')) !!}
+					{!! Form::select('customer_id', [ ''=>'&nbsp;' ]+$customers, null, [ 'class'=>'customer-select has-select-2 form-control' ]) !!}
+				</div>
+				<div class="help-block customer-title-area hide">
+					<div class="checkbox">
+						<label>
+							{!! Form::checkbox('customer_title', 1, null, [ 'class'=>'customer-title-input' ]) !!}
+							{{ Lang::get('account/calendar.title.customer') }}
+						</label>
+					</div>
+				</div>
 			</div>
-			@if ( @$current_site->mailer['service'] != 'custom' )
-				<div class="alert alert-warning">{!! Lang::get('account/calendar.notify.warning') !!}</div>
-			@endif
 		</div>
 		<div class="col-xs-12 col-sm-6">
 			<div class="form-group error-container">
@@ -59,12 +66,12 @@
 			</div>
 			<div class="form-group">
 				<div class="error-container">
-					{!! Form::label('property_id', Lang::get('account/calendar.property')) !!}
-					<select name="property_id" class="property-select has-select-2 form-control">
-						<option value="">&nbsp;</option>
-						@foreach ($properties as $property)
-							<option value="{{ $property->id }}" data-location="{{ $property->address ? $property->full_address : '' }}" {{ @$item->property_id == $property->id ? 'selected="selected"' : '' }}>{{ $property->ref }}: {{ $property->title }}</option>
-						@endforeach
+					{!! Form::label('property_ids[]', Lang::get('account/calendar.property')) !!}
+					<select name="property_ids[]" class="property-select has-select-2 form-control" multiple="multiple" size="1">
+						@include('account.calendar.form-properties-options', [ 
+							'properties' => $properties,
+							'selected_ids' => old('property_ids', Input::get('property_ids', @$item->property_ids)),
+						])
 					</select>
 				</div>
 				<div class="help-block location-property-area hide">
@@ -79,14 +86,23 @@
 		</div>
 	</div>
 
-	<div class="text-right">
-		@if ( @$goback )
-			<a href="{{ $goback }}" class="btn btn-default">{{ Lang::get('general.back') }}</a>
-		@endif
-		@if ( @$item->id )
-			<a href="#" class="btn btn-danger delete-event-trigger">{{ Lang::get('general.delete') }}</a>
-		@endif
-		{!! Form::button( Lang::get('general.continue'), [ 'type'=>'submit', 'class'=>'btn btn-primary']) !!}
+	<div class="row">
+		<div class="col-xs-12 col-sm-6">
+			@if ( @$current_site->mailer['service'] != 'custom' )
+				<div class="alert alert-warning">{!! Lang::get('account/calendar.notify.warning') !!}</div>
+			@endif
+		</div>
+		<div class="col-xs-12 col-sm-6">
+			<div class="text-right">
+				@if ( @$goback )
+					<a href="{{ $goback }}" class="btn btn-default">{{ Lang::get('general.back') }}</a>
+				@endif
+				@if ( @$item->id )
+					<a href="#" class="btn btn-danger delete-event-trigger">{{ Lang::get('general.delete') }}</a>
+				@endif
+				{!! Form::button( Lang::get('general.continue'), [ 'type'=>'submit', 'class'=>'btn btn-primary']) !!}
+			</div>
+		</div>
 	</div>
 
 {!! Form::close() !!}
@@ -155,7 +171,7 @@
 
 		form.find('.property-select').on('change', function(){
 			var opt = $(this).find('option:selected');
-			if ( opt.length && opt.data().location ) {
+			if ( opt.length == 1 && opt.data().location ) {
 				form.find('.location-property-area').removeClass('hide');
 			} else {
 				form.find('.location-property-area').addClass('hide').find('.property-location-input').prop('checked', false);
@@ -165,6 +181,20 @@
 		form.on('change', '.property-location-input', function(){
 			if ( $(this).is(':checked') ) {
 				form.find('.location-input').val( form.find('.property-select option:selected').data().location );
+			}
+		});
+
+		form.find('.customer-select').on('change', function(){
+			if ( $(this).val() ) {
+				form.find('.customer-title-area').removeClass('hide');
+			} else {
+				form.find('.customer-title-area').addClass('hide').find('.customer-title-input').prop('checked', false);
+			}
+		}).trigger('change');
+
+		form.on('change', '.customer-title-input', function(){
+			if ( $(this).is(':checked') ) {
+				form.find('.title-input').val( form.find('.customer-select option:selected').text() );
 			}
 		});
 

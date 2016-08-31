@@ -198,6 +198,7 @@ Route::group([
 		Route::resource('employees', 'Account\EmployeesController');
 		// Customers
 		Route::delete('customers/properties/{slug}', 'Account\CustomersController@deleteRemovePropertyCustomer');
+		Route::put('customers/properties/{slug}', 'Account\CustomersController@putUndiscardPropertyCustomer');
 		Route::post('customers/properties/{slug}', 'Account\CustomersController@postAddPropertyCustomer');
 		Route::get('customers/properties/{slug}', 'Account\CustomersController@getAddPropertyCustomer');
 		Route::post('customers/profile/{email}', 'Account\CustomersController@postProfile');

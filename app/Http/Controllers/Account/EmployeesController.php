@@ -197,17 +197,54 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 			abort(404);
 		}
 
-		// Dissociate properties
+		if ( !$this->request->input('confirm') )
+		{
+			$employees = $this->site->users()->where('id', '!=', $employee->id)->orderby('name')->lists('name','id')->all();
+			return view('account.employees.destroy', compact('employee','employees'));
+		}
+
+		// Confirm ID to reasign
+		$reassignee = false;
+		if ( $reassign_to = $this->request->input('reassign_to') )
+		{
+			$reassignee = $this->site->users()->findOrFail( $reassign_to );
+		}
+
+		// Properties
 		foreach ($employee->properties()->ofSite( $this->site->id )->get() as $property)
 		{
+			// Reasign?
+			if ( $reassign_to && !$property->users->contains( $reassign_to ) )
+			{
+				$property->users()->attach( $reassign_to );
+			}
+			// Dissociate
 			$property->users()->detach( $employee->id );
 		}
 
-		// Dissociate from site
-		$employee->sites()->detach( $this->site->id );
+		// Events
+		foreach ($employee->calendars()->ofSite( $this->site->id )->get() as $event)
+		{
+			// Reasign?
+			if ( $reassign_to && !$event->users->contains( $reassign_to ) )
+			{
+				$event->users()->attach( $reassign_to );
+			}
+			// Dissociate
+			$event->users()->detach( $employee->id );
+			// If no users, cancel event
+			if ( $event->users()->count() < 1 )
+			{
+				\App\Models\Calendar::sendNotification('cancel',$event);
+				$event->delete();
+			}
+		}
 
 		// Dissociate in ticketing system
-		$this->site->ticket_adm->dissociateUsers([ $employee ]);
+		$this->site->ticket_adm->dissociateUsers([ $employee ], $reassignee);
+
+		// Dissociate from site
+		$this->site->users()->detach( $employee->id );
 
 		return redirect()->action('Account\EmployeesController@index')->with('success', trans('account/employees.deleted'));
 	}

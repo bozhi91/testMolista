@@ -2,6 +2,10 @@
 
 @section('account_content')
 
+	<style type="text/css">
+		#tab-visits .column-property { display: none; }
+	</style>
+
 	<div id="admin-properties">
 
 		@include('common.messages', [ 'dismissible'=>true ])

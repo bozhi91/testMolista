@@ -25,6 +25,10 @@
 		'profile.update' => 'Update profile',
 		'properties' => 'Properties',
 		'matches' => 'Possible matches',
+		'matches.action' => 'Add to properties',
+		'discards' => 'Discards',
+		'discards.action' => 'Discard',
+		'discards.undelete' => 'Remove from this list',
 
 		'associate.h1' => 'Use existing lead',
 	];
