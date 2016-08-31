@@ -25,6 +25,7 @@
 
 <style type="text/css">
 	#tab-marketplaces .marketplace-name { display: inline-block; padding-left: 25px; background: left center no-repeat; }
+	#tab-visits .column-property { display: none; }
 </style>
 
 {!! Form::model($item, [ 'method'=>$method, 'action'=>$action, 'files'=>true, 'id'=>'edit-form' ]) !!}
@@ -707,8 +708,8 @@
 				address.push( form.find('.address-input').val() );
 			}
 
-			if ( form.find('.district-input').val() ) {
-				address.push( form.find('.district-input').val() );
+			if ( form.find('input[name="zipcode"]').val() ) {
+				address.push( form.find('input[name="zipcode"]').val() );
 			}
 
 			$.each(['city','state','country'], function(k,v){
@@ -730,7 +731,7 @@
 			}
 
 			LOADING.show();
-
+console.log( address.join(', ') );
 			property_geocoder.geocode({
 				'address': address.join(', ')
 			}, function(results, status) {

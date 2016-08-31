@@ -2,6 +2,12 @@
 
 @section('account_content')
 
+	<style type="text/css">
+		@media (min-width: 768px) {
+			#filters-form .form-control { max-width: 250px; }
+		}
+	</style>
+
 	<div id="account-tickets">
 
 		@include('common.messages', [ 'dismissible'=>true ])
@@ -27,14 +33,20 @@
 						'waiting' => Lang::get('account/tickets.status.waiting'),
 						'resolved' => Lang::get('account/tickets.status.resolved'),
 						'closed' => Lang::get('account/tickets.status.closed'),
-					], Input::get('status'), [ 'class'=>'form-control' ]) !!}
+					], Input::get('status'), [ 'class'=>'has-select-2 form-control' ]) !!}
 				</div>
 				<div class="form-group">
 					{!! Form::label('user_id', Lang::get('account/tickets.assigned.to'), [ 'class'=>'sr-only' ]) !!}
 					{!! Form::select('user_id', [
 						'' => Lang::get('account/tickets.agents.all'),
 						'null' => Lang::get('account/tickets.unassigned'),
-					]+$employees, Input::get('user_id'), [ 'class'=>'form-control' ]) !!}
+					]+$employees, Input::get('user_id'), [ 'class'=>'has-select-2 form-control' ]) !!}
+				</div>
+				<div class="form-group">
+					{!! Form::label('customer_id', Lang::get('account/tickets.contact.name'), [ 'class'=>'sr-only' ]) !!}
+					{!! Form::select('customer_id', [
+						'' => Lang::get('account/tickets.contact.all'),
+					]+$customers, Input::get('customer_id'), [ 'class'=>'has-select-2 form-control' ]) !!}
 				</div>
 				{!! Form::submit(Lang::get('general.filters.apply'), [ 'class'=>'btn btn-default' ]) !!}
 			{!! Form::close() !!}
@@ -49,6 +61,8 @@
 	<script type="text/javascript">
 		ready_callbacks.push(function() {
 			var cont = $('#account-tickets');
+
+			cont.find('.has-select-2').select2();
 
 			TICKETS.init('#tickets-list');
 

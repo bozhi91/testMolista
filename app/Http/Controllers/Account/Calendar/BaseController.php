@@ -19,28 +19,14 @@ class BaseController extends \App\Http\Controllers\AccountController
 
 	public function getIndex()
 	{
-		$this->setViewValues();
+		$this->_setViewValues();
 		return view('account.calendar.index');
 	}
 
 	public function getCreate()
 	{
-		$start_time = date("Y-m-d H:00", time()+3600);
-		if ( $this->request->input('calendar_defaultView') == 'agendaDay' && preg_match('#^\d{4}-\d{2}-\d{2}$#', $this->request->input('calendar_defaultDate')) )
-		{
-			$start_time = date("Y-m-d", strtotime($this->request->input('calendar_defaultDate'))) . ' '. date("H:00", time()+3600);
-		}
-		$end_time = date("Y-m-d H:00", strtotime($start_time)+3600);
-
-		$defaults = (object) [
-			'user_ids' => [ $this->site_user->id ],
-			'start_time' => $start_time,
-			'end_time' =>  $end_time,
-		];
-
-		$this->setViewValues();
-
-		return view('account.calendar.create', compact('defaults'));
+		$this->_setViewValues();
+		return view('account.calendar.create');
 	}
 	public function postCreate()
 	{
@@ -71,7 +57,7 @@ class BaseController extends \App\Http\Controllers\AccountController
 			abort(404);
 		}
 
-		$this->setViewValues($event);
+		$this->_setViewValues($event);
 
 		return view('account.calendar.edit', compact('event'));
 	}
@@ -103,9 +89,9 @@ class BaseController extends \App\Http\Controllers\AccountController
 	{
 		$event = $this->site->events()->findOrFail($id_event);
 
-		$event->delete();
-
 		\App\Models\Calendar::sendNotification('cancel',$event);
+
+		$event->delete();
 
 		return redirect()->action('Account\Calendar\BaseController@getIndex')->with('success', trans('account/calendar.delete'));
 	}
@@ -113,7 +99,7 @@ class BaseController extends \App\Http\Controllers\AccountController
 	{
 		$response = [];
 
-		$query = $this->site->events()->with('users')->with('property')->with('customer');
+		$query = $this->site->events()->with('users')->with('properties')->with('customer');
 
 		if ( $this->request->input('start') )
 		{
@@ -154,9 +140,9 @@ class BaseController extends \App\Http\Controllers\AccountController
 		$rules = [];
 
 		// Property belongs to site
-		if ( @$data['property_id'] )
+		if ( @$data['property_ids'] )
 		{
-			$rules['property_id'] = 'required|exists:properties,id,site_id,'.$this->site->id;
+			$rules['property_ids.*'] = 'required|exists:properties,id,site_id,'.$this->site->id;
 		}
 
 		// Customer belongs to site
@@ -187,7 +173,8 @@ class BaseController extends \App\Http\Controllers\AccountController
 
 		return action('Account\Calendar\BaseController@getIndex', $params);
 	}
-	protected function setViewValues($event=false)
+
+	protected function _setViewValues($event=false)
 	{
 		\View::share('goback', $this->_getGoBackUrl());
 
@@ -207,9 +194,9 @@ class BaseController extends \App\Http\Controllers\AccountController
 		if ( !$this->site_user->pivot->can_view_all )
 		{
 			$property_ids = $this->site_user->properties()->lists('id')->all();
-			if ( @$event->property_id )
+			if ( $event )
 			{
-				$property_ids[] = $event->property_id;
+				$property_ids = array_merge($property_ids,$event->property_ids);
 			}
 			$query->whereIn('properties.id', $property_ids);
 		}
@@ -220,5 +207,30 @@ class BaseController extends \App\Http\Controllers\AccountController
 
 		$types = \App\Models\Calendar::getTypeOptions();
 		\View::share('types', $types);
+
+		if ( !$event )
+		{
+			$defaults = $this->request->all();
+
+			$defaults['start_time'] = date("Y-m-d H:00", time()+3600);
+			if ( $this->request->input('calendar_defaultView') == 'agendaDay' && preg_match('#^\d{4}-\d{2}-\d{2}$#', $this->request->input('calendar_defaultDate')) )
+			{
+				$defaults['start_time'] = date("Y-m-d", strtotime($this->request->input('calendar_defaultDate'))) . ' '. date("H:00", time()+3600);
+			}
+			$defaults['end_time'] = date("Y-m-d H:00", strtotime($defaults['start_time'])+3600);
+
+			if ( !isset($defaults['user_ids']) || !is_array($defaults['user_ids']) )
+			{
+				$defaults['user_ids'] = [ $this->site_user->id ];
+			}
+
+			if ( isset($defaults['property_ids']) && !is_array($defaults['property_ids']) )
+			{
+				unset($defaults['property_ids']);
+			}
+
+			\View::share('defaults', (object) $defaults);
+		}
+
 	}
 }

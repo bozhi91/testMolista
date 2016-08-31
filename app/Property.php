@@ -114,6 +114,10 @@ class Property extends TranslatableModel
 		return $this->belongsToMany('App\User', 'properties_users', 'property_id', 'user_id')->withPivot('is_owner');
 	}
 
+	public function calendars() {
+		return $this->belongsToMany('App\Models\Calendar', 'calendars_properties', 'property_id', 'calendar_id');
+	}
+
 	public function customers() {
 		return $this->belongsToMany('App\Models\Site\Customer', 'properties_customers', 'property_id', 'customer_id');
 	}
@@ -833,7 +837,17 @@ class Property extends TranslatableModel
 			'ranch' => trans('web/properties.type.ranch'),
 			'hotel' => trans('web/properties.type.hotel'),
 			'aparthotel' => trans('web/properties.type.aparthotel'),
+			'chalet' => trans('web/properties.type.chalet'),
+			'bungalow' => trans('web/properties.type.bungalow'),
+			'building' => trans('web/properties.type.building'),
+			'industrial' => trans('web/properties.type.industrial'),
+			'state' => trans('web/properties.type.state'),
+			'farmhouse' => trans('web/properties.type.farmhouse'),
 		];
+
+
+
+
 
 		if ( $site_id )
 		{
@@ -846,6 +860,8 @@ class Property extends TranslatableModel
 				}
 			}
 		}
+
+		asort($options);
 
 		return $options;
 	}

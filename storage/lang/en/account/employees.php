@@ -10,6 +10,8 @@
 		'empty' => 'No employees found',
 
 		'delete' => 'Are you sure you want to remove this employee?',
+		'delete.intro' => 'Remember that this action cannot be undone.',
+		'delete.reassign' => 'You can reassign all activity to another agent:',
 		'deleted' => 'The employee was successfully removed',
 
 		'name' => 'Name',

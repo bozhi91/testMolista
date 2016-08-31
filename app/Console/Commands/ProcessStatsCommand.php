@@ -342,52 +342,60 @@ class ProcessStatsCommand extends Command
 		]);
 
 		// Get date visits
-		$visits = \App\Models\Calendar::whereNotNull('site_id')->whereNotNull('property_id')
+		$visits = \App\Models\Calendar::whereNotNull('site_id')
 							->whereDate('start_time','=',$date)
 							->where('type','visit')
-							->with('property')
+							->with('properties')
 							->with('users')
 							->get();
 
 		// Process stats
 		foreach ($visits as $visit)
 		{
-			switch ( @$visit->property->mode )
-			{
-				case 'sale':
-				case 'rent':
-				case 'transfer':
-					$field = "{$visit->property->mode}_visits";
-					break;
-				default:
-					$field = false;
-			}
-
-			if ( !$field )
+			if ( $visit->properties->count() < 1 )
 			{
 				continue;
 			}
 
-			// Update site stats
-			$site_line = \App\Models\Site\Stats::firstOrCreate([
-				'date' => $date,
-				'site_id' => $visit->site_id,
-			]);
-			$site_line->update([
-				$field => $site_line->$field + 1,
-			]);
-
-			// Update user stats
-			foreach ($visit->users as $user)
+			foreach ($visit->properties as $property_visited )
 			{
-				$user_line = \App\Models\User\Stats::firstOrCreate([
+				switch ( @$property_visited->mode )
+				{
+					case 'sale':
+					case 'rent':
+					case 'transfer':
+						$field = "{$property_visited->mode}_visits";
+						break;
+					default:
+						$field = false;
+				}
+
+				if ( !$field )
+				{
+					continue;
+				}
+
+				// Update site stats
+				$site_line = \App\Models\Site\Stats::firstOrCreate([
 					'date' => $date,
 					'site_id' => $visit->site_id,
-					'user_id' => $user->id,
 				]);
-				$user_line->update([
-					$field => $user_line->$field + 1,
+				$site_line->update([
+					$field => $site_line->$field + 1,
 				]);
+
+				// Update user stats
+				foreach ($visit->users as $user)
+				{
+					$user_line = \App\Models\User\Stats::firstOrCreate([
+						'date' => $date,
+						'site_id' => $visit->site_id,
+						'user_id' => $user->id,
+					]);
+					$user_line->update([
+						$field => $user_line->$field + 1,
+					]);
+				}
 			}
 		}
 	}

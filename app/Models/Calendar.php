@@ -22,7 +22,8 @@ class Calendar extends Model
 		'user_ids' => 'required|array',
 		'user_ids.*' => 'exists:users,id',
 		'site_id' => 'required|exists:sites,id',
-		'property_id' => 'exists:properties,id',
+		'property_ids' => 'array',
+		'property_ids.*' => 'exists:properties,id',
 		'customer_id' => 'exists:customers,id',
 		'type' => 'required',
 		'status' => '',
@@ -37,7 +38,8 @@ class Calendar extends Model
 	protected static $update_validator_fields = [
 		'user_ids' => 'required|array',
 		'user_ids.*' => 'exists:users,id',
-		'property_id' => 'exists:properties,id',
+		'property_ids' => 'array',
+		'property_ids.*' => 'exists:properties,id',
 		'customer_id' => 'exists:customers,id',
 		'type' => 'required',
 		'status' => '',
@@ -70,7 +72,6 @@ class Calendar extends Model
 		return $this->belongsTo('App\User');
 	}
 	*/
-
 	public function users()
 	{
 		return $this->belongsToMany('App\User', 'calendars_users', 'calendar_id', 'user_id');
@@ -87,9 +88,26 @@ class Calendar extends Model
 		return $user_ids;
 	}
 
+	/*
 	public function property()
 	{
 		return $this->belongsTo('App\Property')->with('infocurrency')->withTranslations();
+	}
+	*/
+	public function properties()
+	{
+		return $this->belongsToMany('App\Property', 'calendars_properties', 'calendar_id', 'property_id');
+	}
+	public function getPropertyIdsAttribute()
+	{
+		$property_ids = [];
+
+		foreach ($this->properties as $property)
+		{
+			$property_ids[] = $property->id;
+		}
+
+		return $property_ids;
 	}
 
 	public function customer()
@@ -102,7 +120,7 @@ class Calendar extends Model
 		$update_notification = false;
 
 		$notify_fields = [
-			'site_id', 'property_id', 'customer_id',
+			'site_id', 'customer_id',
 			'title', 'location',
 			'start_time', 'end_time',
 		];
@@ -124,8 +142,10 @@ class Calendar extends Model
 
 		foreach ($fields as $field)
 		{
-			if ( preg_match('#^user_ids#', $field) )
-			{
+			if ( 
+				preg_match('#^user_ids#', $field) ||
+				preg_match('#^property_ids#', $field)
+			) {
 				continue;
 			}
 
@@ -164,6 +184,23 @@ class Calendar extends Model
 		}
 
 		$item->users()->sync($data['user_ids']);
+
+		if ( empty($data['property_ids']) )
+		{
+			$data['property_ids'] = [];
+		}
+
+		if ( !is_array($data['property_ids']) )
+		{
+			$data['property_ids'] = [];
+		}
+
+		if ( $id && $item->property_ids != $data['property_ids'] ) 
+		{
+			$update_notification = true;
+		}
+
+		$item->properties()->sync($data['property_ids']);
 
 		if ( !$id )
 		{
@@ -320,13 +357,37 @@ class Calendar extends Model
 		return $sent;
 	}
 
-	public function scopeOfUserId($query, $user_id)
+	public function scopeOfUserId($query, $user_ids)
 	{
-		return $query->whereIn("{$this->getTable()}.id", function($query) use ($user_id) {
+		if ( !is_array($user_ids) )
+		{
+			$user_ids = [ $user_ids ];
+		}
+
+		return $query->whereIn("{$this->getTable()}.id", function($query) use ($user_ids) {
 			$query->select('calendar_id')
 					->from('calendars_users')
-					->where('user_id', $user_id);
+					->whereIn('user_id', $user_ids);
 		});
+	}
+
+	public function scopeOfPropertyId($query, $property_ids)
+	{
+		if ( !is_array($property_ids) )
+		{
+			$property_ids = [ $property_ids ];
+		}
+
+		return $query->whereIn("{$this->getTable()}.id", function($query) use ($property_ids) {
+			$query->select('calendar_id')
+					->from('calendars_properties')
+					->whereIn('property_id', $property_ids);
+		});
+	}
+
+	public function scopeOfSite($query, $site_id)
+	{
+		return $query->where("{$this->getTable()}.site_id", $site_id);
 	}
 
 	public function scopeWithStatus($query, $status)
