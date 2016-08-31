@@ -24,7 +24,6 @@ class ServiciosController extends WebController
 			'tipovivienda' => 'required',
 			'telefono' => 'required',
 			'direccion' => 'required',
-			'comentario' => 'required',
 		]);
 
 		$tipo = $this->request->input('tipo');
