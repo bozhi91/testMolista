@@ -21,7 +21,10 @@ class PropertiesController extends WebController
 		// Term => in title
 		if ( $this->request->input('term') )
 		{
-			$query->whereTranslationLike('title', "%{$this->request->input('term')}%");
+			$query->where(function ($query) {
+				$query->whereTranslationLike('title', "%{$this->request->input('term')}%")
+						->orWhere('ref', 'like', "%{$this->request->input('term')}%");
+			});
 		}
 
 		// State
