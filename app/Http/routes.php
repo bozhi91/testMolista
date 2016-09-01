@@ -61,6 +61,9 @@ Route::group([
 		Route::get('properties/check/{type}', 'Admin\Properties\ServicesController@getCheck');
 		Route::resource('properties/services', 'Admin\Properties\ServicesController');
 		Route::resource('properties', 'Admin\Properties\BaseController');
+		// Resellers
+		Route::get('resellers/validate/{type}', 'Admin\ResellersController@getValidate');
+		Route::resource('resellers', 'Admin\ResellersController');
 		// Configuration
 		Route::resource('config/locales', 'Admin\Config\LocalesController');
 		Route::resource('config/translations', 'Admin\Config\TranslationsController');

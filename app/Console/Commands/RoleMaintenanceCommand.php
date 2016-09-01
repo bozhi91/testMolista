@@ -290,6 +290,28 @@ class RoleMaintenanceCommand extends Command
 				'roles' => [ ],
 			],
 		],
+		'reseller' => [
+			'view' => [
+				'display_name' => 'Reseller elements view',
+				'description' => '',
+				'roles' => [ ],
+			],
+			'edit' => [
+				'display_name' => 'Reseller elements edition',
+				'description' => '',
+				'roles' => [ ],
+			],
+			'create' => [
+				'display_name' => 'Reseller elements creation',
+				'description' => '',
+				'roles' => [ ],
+			],
+			'delete' => [
+				'display_name' => 'Reseller elements deletion',
+				'description' => '',
+				'roles' => [ ],
+			],
+		],
 	];
 
 	public function __construct()

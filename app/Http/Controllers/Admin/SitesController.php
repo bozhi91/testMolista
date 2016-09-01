@@ -92,8 +92,9 @@ class SitesController extends Controller
 
 		$companies = \App\User::withRole('company')->orderBy('name')->lists('name','id')->toArray();
 		$employees = \App\User::withRole('employee')->orderBy('name')->lists('name','id')->toArray();
+		$resellers = \App\Models\Reseller::orderBy('name')->lists('name','id')->toArray();
 
-		return view('admin.sites.create', compact('companies','locales','companies','employees'));
+		return view('admin.sites.create', compact('companies','locales','companies','employees','resellers'));
 	}
 
 	public function store()
@@ -108,6 +109,7 @@ class SitesController extends Controller
 			'locales.*' => 'required|in:'.implode(',',array_keys($locales)),
 			'owners' => 'required|array',
 			'owners.*' => 'required|exists:users,id',
+			'reseller_id' => 'exists:resellers,id',
 		]);
 		if ($validator->fails()) 
 		{
@@ -137,6 +139,7 @@ class SitesController extends Controller
 			'country_code' => 'ES',
 			'country_id' => 68,
 			'timezone' => 'Europe/Madrid',
+			'reseller_id' => $this->request->input('reseller_id') ? $this->request->input('reseller_id') : null,
 		]);
 
 		if ( !$site )
@@ -182,12 +185,13 @@ class SitesController extends Controller
 
 		$owners = $site->users()->whereIn('id', $site->owners_ids)->orderBy('name')->lists('name','id')->all();
 		$companies = \App\User::withRole('company')->whereNotIn('id', $site->owners_ids)->orderBy('name')->lists('name','id')->all();
+		$resellers = \App\Models\Reseller::orderBy('name')->lists('name','id')->toArray();
 
 		$invoices = $site->invoices()->orderBy('uploaded_at','desc')->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$current_tab = session('current_tab', $this->request->input('current_tab','site'));
 
-		return view('admin.sites.edit', compact('site','locales','owners','companies','invoices','current_tab','plan_details'));
+		return view('admin.sites.edit', compact('site','locales','owners','companies','resellers','invoices','current_tab','plan_details'));
 	}
 
 	public function update($id)
@@ -203,6 +207,7 @@ class SitesController extends Controller
 			'locales_array.*' => 'required|in:'.implode(',',array_keys($locales)),
 			'owners_ids' => 'required|array',
 			'owners_ids.*' => 'required|exists:users,id',
+			'reseller_id' => 'exists:resellers,id',
 		];
 		$validator = \Validator::make($this->request->all(), $fields);
 		if ($validator->fails()) 
@@ -248,6 +253,7 @@ class SitesController extends Controller
 		// Update data
 		$site->subdomain = $this->request->input('subdomain');
 		$site->custom_theme = $this->request->input('custom_theme');
+		$site->reseller_id = $this->request->input('reseller_id') ? $this->request->input('reseller_id') : null;
 		$site->enabled = $this->request->input('enabled') ? 1 : 0;
 		$site->save();
 

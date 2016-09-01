@@ -41,6 +41,11 @@ class Site extends TranslatableModel
 		return $this->belongsTo('App\Models\Plan');
 	}
 
+	public function reseller()
+	{
+		return $this->belongsTo('App\Models\Reseller')->with('plans');
+	}
+
 	public function country()
 	{
 		return $this->hasOne('App\Models\Geography\Country','code','country_code')->withTranslations();

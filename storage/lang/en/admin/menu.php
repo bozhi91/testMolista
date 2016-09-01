@@ -17,6 +17,8 @@
 		'properties' => 'Properties',
 		'services' => 'Services',
 
+		'resellers' => 'Resellers',
+
 		'configuration' => 'Configuration',
 		'locales' => 'Languages',
 		'translations' => 'Translations',

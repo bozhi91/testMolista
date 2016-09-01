@@ -70,7 +70,10 @@
 						</ul>
 					</li>
 				@endpermission
-				@if ( Auth::user()->can('locale-*') || Auth::user()->can('translation-*') )
+				@permission('reseller-*')
+					<li><a href="{{ action('Admin\ResellersController@index') }}">{{ Lang::get('admin/menu.resellers') }}</a></li>
+				@endpermission
+				@if ( Auth::user()->can('translation-*') || Auth::user()->can('locale-*') || Auth::user()->can('pack-*') || Auth::user()->can('geography-*') || Auth::user()->can('currency-*') )
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Lang::get('admin/menu.configuration') }} <span class="caret"></span></a>
 						<ul class="dropdown-menu">
