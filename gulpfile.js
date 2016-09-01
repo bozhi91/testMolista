@@ -217,4 +217,18 @@ elixir(function(mix) {
 		], 'public/themes/redly/compiled/css/pdf.css')
 		;
 
+	/* White-Cloud */
+	mix
+		.less([
+			'white-cloud/app.less',
+		], 'resources/assets/css/compiled/white-cloud.css')
+		.styles([
+			'compiled/common.css',
+			'compiled/white-cloud.css',
+		], 'public/themes/white-cloud/compiled/css/app.css')
+		.less([
+			'white-cloud/pdf.less',
+		], 'public/themes/white-cloud/compiled/css/pdf.css')
+		;
+
 });
