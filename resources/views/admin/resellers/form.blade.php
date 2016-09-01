@@ -12,6 +12,9 @@
 <ul class="nav nav-tabs main-tabs" role="tablist">
 	<li role="presentation" class="{{ $current_tab == 'general' ? 'active' : '' }}"><a href="#tab-general" aria-controls="tab-general" role="tab" data-toggle="tab" data-tab="general">{{ Lang::get('admin/resellers.tab.general') }}</a></li>
 	<li role="presentation" class="{{ $current_tab == 'commissions' ? 'active' : '' }}"><a href="#tab-commissions" aria-controls="tab-commissions" role="tab" data-toggle="tab" data-tab="commissions">{{ Lang::get('admin/resellers.tab.commissions') }}</a></li>
+	@if ( @$reseller )
+		<li role="presentation" class="{{ $current_tab == 'sites' ? 'active' : '' }}"><a href="#tab-sites" aria-controls="tab-sites" role="tab" data-toggle="tab" data-tab="sites">{{ Lang::get('admin/resellers.tab.sites') }}</a></li>
+	@endif
 </ul>
 
 <div class="tab-content">
@@ -119,6 +122,46 @@
 			</tbody>
 		</table>
 	</div>
+
+	@if ( @$reseller )
+		<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'sites' ? 'active' : '' }}" id="tab-sites">
+			@if ( $reseller->sites->count() < 1 )
+				<div class="alert alert-info" role="alert">{{ Lang::get('admin/resellers.sites.none') }}</div>
+			@else
+				<table class="table">
+					<thead>
+						<tr>
+							<th>{{ Lang::get('admin/resellers.sites.title') }}</th>
+							<th>{{ Lang::get('admin/resellers.sites.country') }}</th>
+							<th>{{ Lang::get('admin/resellers.sites.plan') }}</th>
+							<th>{{ Lang::get('admin/resellers.sites.created') }}</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach ($reseller->sites as $site)
+							<tr>
+								<td>{{ $site->title }}</td>
+								<td>{{ $site->country->name }}</td>
+								<td>
+									{{ $site->plan->name }}
+									@if ( !$site->plan->is_free )
+										({{ $site->plan->currency }})
+									@endif
+								</td>
+								<td>{{ $site->created_at->format('d/m/Y') }}</td>
+								<td class="text-right">
+									@if ( Auth::user()->can('site-edit') )
+										<a href="{{ action('Admin\SitesController@edit', $site->id) }}" class="btn btn-xs btn-default">{{ Lang::get('general.view') }}</a>
+									@endif
+								</td>
+							</tr>
+						@endforeach
+					</tbody>
+				</table>
+			@endif
+		</div>
+	@endif
 
 </div>
 

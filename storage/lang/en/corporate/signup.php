@@ -140,4 +140,8 @@
 		'full.help.title' => 'Need help?',
 		'full.help.email' => 'soporte@molista.com',
 		'full.help.time' => 'M-F from 10:00 to 18:00 h',
+
+		'reseller' => 'Partner',
+		'reseller.code' => 'Partner reference',
+		'reseller.error' => 'The partner reference provided could not be matched with our records.',
 	];

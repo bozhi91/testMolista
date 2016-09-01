@@ -30,12 +30,13 @@
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th>#</th>
-								<th>{{ Lang::get('admin/resellers.ref') }}</th>
-								<th>{{ Lang::get('admin/resellers.name') }}</th>
-								<th>{{ Lang::get('admin/resellers.email') }}</th>
-								<th class="text-center">{{ Lang::get('admin/resellers.enabled') }}</th>
-								<th></th>
+								{!! drawSortableHeaders(url()->full(), [
+									'ref' => [ 'title' => Lang::get('admin/resellers.ref'), ],
+									'name' => [ 'title' => Lang::get('admin/resellers.name'), ],
+									'email' => [ 'title' => Lang::get('admin/resellers.email'), ],
+									'enabled' => [ 'title' => Lang::get('admin/resellers.enabled'),'class'=>'text-center', ],
+									'action' => [ 'title' => '', 'sortable'=>false, ],
+								]) !!}
 							</tr>
 						</thead>
 						<tbody>
@@ -46,7 +47,7 @@
 									<td>{{ $reseller->email }}</td>
 									<td class="text-center"><span class="glyphicon glyphicon-{{ $reseller->enabled ? 'ok' : 'remove' }}" aria-hidden="true"></span></td>
 									<td class="text-right">
-										@permission('resellers-edit')
+										@permission('reseller-edit')
 											<a href="{{ action('Admin\ResellersController@edit', $reseller->id) }}" class="btn btn-xs btn-default">{{ Lang::get('general.edit') }}</a>
 										@endpermission
 									</td>

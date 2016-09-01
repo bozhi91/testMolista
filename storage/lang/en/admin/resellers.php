@@ -22,7 +22,14 @@
 
 		'tab.general' => 'General',
 		'tab.commissions' => 'Commissions',
+		'tab.sites' => 'Sites',
 
 		'create.title' => 'Create reseller',
 		'edit.title' => 'Edit reseller',
+
+		'sites.none' => 'No sites found',
+		'sites.title' => 'Title',
+		'sites.country' => 'Country',
+		'sites.plan' => 'Plan',
+		'sites.created' => 'Created',
 	];

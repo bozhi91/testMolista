@@ -38,7 +38,32 @@ class ResellersController extends Controller
 			$query->where('email', 'LIKE', "%{$this->request->input('email')}%");
 		}
 
-		$resellers = $query->orderBy('name','desc')->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
+		switch ( $this->request->input('order') )
+		{
+			case 'desc':
+				$order = 'desc';
+				break;
+			default:
+				$order = 'asc';
+		}
+
+		switch ( $this->request->input('orderby') )
+		{
+			case 'ref':
+				$query->orderBy('ref', $order);
+				break;
+			case 'email':
+				$query->orderBy('email', $order);
+				break;
+			case 'enabled':
+				$query->orderBy('enabled', $order);
+				break;
+			case 'name':
+			default:
+				$query->orderBy('name', $order);
+				break;
+		}
+		$resellers = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$this->set_go_back_link();
 
@@ -72,7 +97,13 @@ class ResellersController extends Controller
 
 	public function edit($id)
 	{
-		$reseller = \App\Models\Reseller::with('plans')->with('sites')->findOrFail($id);
+		$reseller = \App\Models\Reseller::with('plans')->with(['sites'=>function($query){
+			$query->orderBy('title')
+				->withTranslations()
+				->with('country')
+				->with('plan')
+				;
+		}])->findOrFail($id);
 
 		$this->_setViewValues();
 
