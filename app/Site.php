@@ -960,20 +960,18 @@ class Site extends TranslatableModel
 			'payment_method' =>  '',
 			'payment_amount' => 0,
 			'payment_currency' => $this->plan->currency,
+			'reseller_id' =>  $this->reseller ? $this->reseller->id : null,
+			'reseller_variable' => $this->reseller ? @floatval($this->reseller->plans_commissions[$this->plan_id]['commission_percentage']) : 0,
+			'reseller_fixed' => $this->reseller ? @floatval($this->reseller->plans_commissions[$this->plan_id]['commission_fixed']) : 0,
 			'data' => $data,
 		];
 
-		// Reseller data
-		if ( $this->reseller )
-		{
-			$payment['reseller_id'] =  $this->reseller->id;
-			$payment['reseller_variable'] = @floatval($this->reseller->plans_commissions[$this->plan_id]['commission_percentage']);
-			$payment['reseller_fixed'] = @floatval($this->reseller->plans_commissions[$this->plan_id]['commission_fixed']);
-			$payment['reseller_amount'] = $payment['reseller_fixed'] + ($payment['payment_amount']*$payment['reseller_variable']/100);
-		}
-
 		// Provided data
 		$payment = array_merge($payment,$data);
+
+
+		// Reseller payment amount
+		$payment['reseller_amount'] = $payment['reseller_fixed'] + ($payment['payment_amount']*$payment['reseller_variable']/100);
 
 		// Exchange rate
 		$currency_rate = \App\Models\CurrencyConverter::convert(1, $payment['payment_currency'], 'EUR');

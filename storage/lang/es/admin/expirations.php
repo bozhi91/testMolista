@@ -10,4 +10,8 @@
 
 		'site.view' => 'Ver site',
 		'site.extend' => 'Prorrogar',
+
+		'extend.amount' => 'Cantidad pagada',
+		'extend.paid.from' => 'Inicio período',
+		'extend.paid.until' => 'Fin período',
 	];

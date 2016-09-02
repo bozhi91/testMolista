@@ -10,4 +10,8 @@
 
 		'site.view' => 'View site',
 		'site.extend' => 'Extend',
+
+		'extend.amount' => 'Amount paid',
+		'extend.paid.from' => 'Period begins',
+		'extend.paid.until' => 'Period end',
 	];

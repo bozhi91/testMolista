@@ -107,13 +107,13 @@
 						<td>{{ $plan->name }} ({{ $plan->infocurrency->title }})</td>
 						<td class="error-container">
 							<div class="input-group plan-input-group">
-								{!! Form::number("plans_commissions[{$plan->id}][commission_percentage]", null, [ 'class'=>'form-control number', 'min'=>'0', 'max'=>100, ]) !!}
+								{!! Form::text("plans_commissions[{$plan->id}][commission_percentage]", null, [ 'class'=>'form-control number', 'min'=>'0', 'max'=>100, ]) !!}
 								<div class="input-group-addon">%</div>
 							</div>
 						</td>
 						<td class="error-container">
 							<div class="input-group plan-input-group">
-								{!! Form::number("plans_commissions[{$plan->id}][commission_fixed]", null, [ 'class'=>'form-control number', 'min'=>'0', ]) !!}
+								{!! Form::text("plans_commissions[{$plan->id}][commission_fixed]", null, [ 'class'=>'form-control number', 'min'=>'0', ]) !!}
 								<div class="input-group-addon">{{ $plan->currency }}</div>
 							</div>
 						</td>
