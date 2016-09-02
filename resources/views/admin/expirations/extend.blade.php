@@ -74,12 +74,12 @@
 			});
 
 			form.find('.datetimepicker-start').datetimepicker({
-				format: 'DD/MM/YYYY'
+				format: 'YYYY-MM-DD'
 			}).on("dp.change", function (e) {
 				form.find('.datetimepicker-end').data("DateTimePicker").minDate(e.date);
 			});
 			form.find('.datetimepicker-end').datetimepicker({
-				format: 'DD/MM/YYYY',
+				format: 'YYYY-MM-DD',
 				useCurrent: false //Important! See issue #1075
 			}).on("dp.change", function (e) {
 				form.find('.datetimepicker-start').data("DateTimePicker").maxDate(e.date);

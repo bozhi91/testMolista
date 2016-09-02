@@ -8,6 +8,8 @@
 		'payment.method' => 'Method',
 		'status' => 'Status',
 		'created' => 'Date',
+		'paid.amount' => 'Amount paid',
+		'paid.from' => 'Mark as valid from',
 		'paid.until' => 'Mark as valid until',
 
 		'edit.title' => 'Payment request',

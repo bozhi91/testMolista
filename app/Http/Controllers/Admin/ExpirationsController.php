@@ -70,34 +70,29 @@ class ExpirationsController extends Controller
 		// Validate input
 		$validator = \Validator::make($this->request->all(), [
 			'payment_amount' => 'required|numeric|min:0',
-			'paid_from' => 'required|date_format:"d/m/Y"',
-			'paid_until' => 'required|date_format:"d/m/Y"',
+			'paid_from' => 'required|date_format:"Y-m-d"',
+			'paid_until' => 'required|date_format:"Y-m-d"',
 		]);
 		if ( $validator->fails() )
 		{
 			return redirect()->back()->withInput()->withErrors($validator);
 		}
 
-		// Validate dates
-		if ( !preg_match('#^(\d{2})\/(\d{2})\/(\d{4})$#', $this->request->input('paid_from'), $paid_from) || !preg_match('#^(\d{2})\/(\d{2})\/(\d{4})$#', $this->request->input('paid_until'), $paid_until) )
+		// Validate date
+		if ( strtotime($this->request->input('paid_from')) >= strtotime($this->request->input('paid_until')) )
 		{
 			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
 		}
 
+		// Prepare data
 		$payment = $site->preparePaymentData([
 			'trigger' => 'Admin (Admin\ExpirationsController@postExtend)',
-			'paid_from' => "{$paid_from[3]}-{$paid_from[2]}-$paid_from[1]",
-			'paid_until' => "{$paid_until[3]}-{$paid_until[2]}-$paid_until[1]",
+			'paid_from' => $this->request->input('paid_from'),
+			'paid_until' => $this->request->input('paid_until'),
 			'payment_method' => $site->payment_method,
 			'payment_amount' => $this->request->input('payment_amount'),
 			'created_by' => $this->auth->user()->id,
 		]);
-
-		// Validate period
-		if ( strtotime($payment['paid_from']) >= strtotime($payment['paid_until']) )
-		{
-			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
-		}
 
 		// Validate pàyment data
 		$validator = \App\Models\Site\Payment::getCreateValidator($payment);
