@@ -9,4 +9,5 @@
 		'paid.until' => 'Expiration date',
 
 		'site.view' => 'View site',
+		'site.extend' => 'Extend',
 	];

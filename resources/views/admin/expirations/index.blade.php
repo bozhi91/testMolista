@@ -45,6 +45,9 @@
 										<td>{{ Lang::get("account/payment.method.{$expiration->payment_method}") }}</td>
 										<td>{{ date("d/m/Y", strtotime($expiration->paid_until)) }}</td>
 										<td class="text-right">
+											@if ( $expiration->payment_method == 'transfer' )
+												<a href="{{ action('Admin\ExpirationsController@getExtend', $expiration->id) }}" class="btn btn-xs btn-default">{{ Lang::get('admin/expirations.site.extend') }}</a>
+											@endif
 											@if ( Auth::user()->can('site-edit') )
 												<a href="{{ action('Admin\SitesController@edit', $expiration->id) }}" class="btn btn-xs btn-default">{{ Lang::get('admin/expirations.site.view') }}</a>
 											@endif

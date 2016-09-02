@@ -18,6 +18,7 @@
 		'services' => 'Services',
 
 		'resellers' => 'Resellers',
+		'resellers.payments' => 'Pagos',
 
 		'configuration' => 'Configuration',
 		'locales' => 'Languages',

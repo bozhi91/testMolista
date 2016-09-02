@@ -76,6 +76,11 @@ class Site extends TranslatableModel
 		return $this->hasMany('App\Models\Site\Invoice');
 	}
 
+	public function payments()
+	{
+		return $this->hasMany('App\Models\Site\Payment');
+	}
+
 	public function stats()
 	{
 		return $this->hasMany('App\Models\Site\Stats');
@@ -281,7 +286,15 @@ class Site extends TranslatableModel
 		// Return autologin url
 		$url = action('AccountController@index', [ 'autologin_token' =>$autologin_token ]);
 
-		return $this->getSiteFullUrl( $url );
+		// Subdomain url
+		return str_replace(
+					rtrim(\Config::get('app.application_url'),'/'), //replaces current url
+					\Config::get('app.application_protocol') . "://{$this->subdomain}." . \Config::get('app.application_domain'), // with website url
+					$url
+				);
+
+		// Domain/subdomain
+		//return $this->getSiteFullUrl( $url );
 	}
 
 	public function getRememberPasswordUrlAttribute()
@@ -404,6 +417,17 @@ class Site extends TranslatableModel
 	public function scopeEnabled($query)
 	{
 		return $query->where("{$this->getTable()}.enabled", 1);
+	}
+
+	public function scopeWithDomain($query,$domain)
+	{
+		return $query->where(function ($query) use ($domain) {
+			$query->whereIn('sites.id', function($query) use ($domain) {
+				$query->select('site_id')
+					->from('sites_domains')
+					->where('domain', 'like', "%{$domain}%");
+			})->orWhere('subdomain', 'like', "%{$domain}%");
+		});
 	}
 
 	public function scopeCurrent($query)
@@ -923,4 +947,40 @@ class Site extends TranslatableModel
 
 		return $timezones;
 	}
+
+	public function preparePaymentData($data)
+	{
+		// Site data
+		$payment = [
+			'site_id' => $this->id,
+			'plan_id' => $this->plan_id,
+			'trigger' => '',
+			'paid_from' => null,
+			'paid_until' => null,
+			'payment_method' =>  '',
+			'payment_amount' => 0,
+			'payment_currency' => $this->plan->currency,
+			'data' => $data,
+		];
+
+		// Reseller data
+		if ( $this->reseller )
+		{
+			$payment['reseller_id'] =  $this->reseller->id;
+			$payment['reseller_variable'] = @floatval($this->reseller->plans_commissions[$this->plan_id]['commission_percentage']);
+			$payment['reseller_fixed'] = @floatval($this->reseller->plans_commissions[$this->plan_id]['commission_fixed']);
+			$payment['reseller_amount'] = $payment['reseller_fixed'] + ($payment['payment_amount']*$payment['reseller_variable']/100);
+		}
+
+		// Provided data
+		$payment = array_merge($payment,$data);
+
+		// Exchange rate
+		$currency_rate = \App\Models\CurrencyConverter::convert(1, $payment['payment_currency'], 'EUR');
+		$payment['payment_rate'] = $currency_rate;
+		$payment['reseller_rate'] = $currency_rate;
+
+		return $payment;
+	}
+
 }

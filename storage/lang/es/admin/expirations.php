@@ -9,4 +9,5 @@
 		'paid.until' => 'Fecha vencimiento',
 
 		'site.view' => 'Ver site',
+		'site.extend' => 'Prorrogar',
 	];

@@ -69,6 +69,11 @@ class Reseller extends Model
 		return $this->hasMany('App\Site');
 	}
 
+	public function payments()
+	{
+		return $this->hasMany('App\Models\Site\Payment');
+	}
+
 	public static function saveModel($data, $id = null)
 	{
 		if ($id)

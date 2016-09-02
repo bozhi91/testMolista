@@ -10,6 +10,7 @@
 					{!! Form::hidden('limit', Input::get('limit', Config::get('app.pagination_perpage', 10)) ) !!}
 					<h4>{{ Lang::get('general.filters') }}</h4>
 					<p>{!! Form::text('title', Input::get('title'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('admin/sites.title') ]) !!}</p>
+					<p>{!! Form::text('domain', Input::get('domain'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('admin/sites.domain') ]) !!}</p>
 					<p>{!! Form::select('transfer', [
 						'' => Lang::get('admin/sites.transfer'),
 						1 => Lang::get('general.no'),
@@ -36,6 +37,7 @@
 								{!! drawSortableHeaders(url()->full(), [
 									'id' => [ 'title' => '#' ],
 									'title' => [ 'title' => Lang::get('admin/sites.title')],
+									'domain' => [ 'title' => Lang::get('admin/sites.domain')],
 									'country' => [ 'title' => Lang::get('admin/sites.country'), 'sortable'=>false ],
 									'properties' => [ 'title' => Lang::get('admin/sites.properties'), 'class'=>'text-right' ],
 									'users' => [ 'title' => Lang::get('admin/sites.employees'), 'class'=>'text-right' ],
@@ -50,6 +52,7 @@
 								<tr>
 									<td>{{ $site->id }}</td>
 									<td>{{ $site->title }}</td>
+									<td>{{ $site->main_url }}</td>
 									<td>{{ $site->country->name }}</td>
 									<td class="text-right">{{ number_format($site->properties->count(),0,',','.') }}</td>
 									<td class="text-right">{{ number_format($site->users->count(),0,',','.') }}</td>

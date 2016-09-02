@@ -42,4 +42,24 @@ class ExpirationsController extends Controller
 		return view('admin.expirations.index', compact('expirations','plans'));
 	}
 
+	public function getExtend($id_site)
+	{
+		$site = \App\Site::with('plan')->findOrFail($id_site);
+		if ( $site->payment_method != 'transfer' )
+		{
+			abort(404);
+		}
+echo "<pre>";
+print_r($site);
+echo "</pre>";
+die;
+	}
+	public function postExtend($id_site)
+	{
+echo "<pre>";
+print_r($this->request->all());
+echo "</pre>";
+die;
+	}
+
 }

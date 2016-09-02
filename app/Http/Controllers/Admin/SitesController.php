@@ -39,6 +39,12 @@ class SitesController extends Controller
 			$query->where('web_transfer_requested', intval($this->request->input('transfer'))-1);
 		}
 
+		// Filter by domain
+		if ( $this->request->input('domain') )
+		{
+			$query->withDomain($this->request->input('domain'));
+		}
+
 		switch ( $this->request->input('order') )
 		{
 			case 'desc':

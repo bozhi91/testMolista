@@ -63,6 +63,7 @@ Route::group([
 		Route::resource('properties', 'Admin\Properties\BaseController');
 		// Resellers
 		Route::get('resellers/validate/{type}', 'Admin\ResellersController@getValidate');
+		Route::controller('resellers/payments', 'Admin\Resellers\PaymentsController');
 		Route::resource('resellers', 'Admin\ResellersController');
 		// Configuration
 		Route::resource('config/locales', 'Admin\Config\LocalesController');
