@@ -92,7 +92,7 @@
 							</li>
 							<li class="text-nowrap has-fontello-icon">
 								<i class="fontello-icon fontello-icon-coins hidden-xs"></i>
-								{{ number_format(round($property->price/$property->size),0,',','.') }} {{ $property->infocurrency->symbol }}/m²
+								{{ @number_format(round($property->price/$property->size),0,',','.') }} {{ $property->infocurrency->symbol }}/m²
 							</li>
 							<li>
 								{{ Lang::get('account/properties.ref') }}: {{ $property->ref }}

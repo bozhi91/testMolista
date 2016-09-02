@@ -129,7 +129,7 @@
 											@endif
 										</div>
 										<div>
-											{{ number_format(round($property->price/$property->size),0,',','.') }} 
+											{{ @number_format(round($property->price/$property->size),0,',','.') }} 
 											{{ $property->infocurrency->symbol }}/m²
 										</div>
 										<div>{{ Lang::get('account/properties.ref') }}: {{ $property->ref }}</div>
