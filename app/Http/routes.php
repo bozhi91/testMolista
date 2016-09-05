@@ -36,6 +36,18 @@ Route::group([
 		Route::controller('customers', 'Corporate\CustomersController');
 	});
 
+	// Resellers
+	Route::controller('resellers/auth', 'Resellers\AuthController');
+	Route::group([
+		'prefix' => 'resellers',
+			'middleware' => [
+				'auth.reseller',
+				'setTheme:resellers',
+			],
+	], function() {
+		Route::controller('/', 'ResellersController');
+	});
+
 	// Admin
 	Route::group([
 		'prefix' => 'admin',
