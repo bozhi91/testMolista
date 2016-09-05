@@ -24,7 +24,7 @@
 						{!! Form::label('customer_id', Lang::get('account/customers.h1'), [ 'class'=>'sr-only' ]) !!}
 						{!! Form::select('customer_id', [
 							'' => '&nbsp;',
-						]+$current_site->customers_options, Input::get('customer_id'), [ 'class'=>'has-select-2 form-control' ]) !!}
+						]+$current_site->getCustomersOptions($current_site_user), Input::get('customer_id'), [ 'class'=>'has-select-2 form-control' ]) !!}
 					</div>
 					{!! Form::submit(Lang::get('general.view'), [ 'class'=>'btn btn-default' ]) !!}
 				{!! Form::close() !!}

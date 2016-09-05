@@ -18,6 +18,11 @@ class CustomersController extends \App\Http\Controllers\AccountController
 	{
 		$query = $this->site->customers()->with('queries');
 
+		if ( $this->site_user->hasRole('employee') )
+		{
+			$query->ofUser($this->site_user->id);
+		}
+
 		// Filter by name
 		if ( $this->request->input('full_name') )
 		{
@@ -56,7 +61,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 			'email' => $this->request->input('email'),
 			'phone' => $this->request->input('phone'),
 			'locale' => $this->request->input('locale'),
-			'created_by' => \Auth::user()->id,
+			'created_by' => $this->site_user->id,
 		]);
 
 		if ( !$customer )
@@ -111,7 +116,15 @@ class CustomersController extends \App\Http\Controllers\AccountController
 			return redirect()->action('Account\CustomersController@show', urlencode($customer->email));
 		}
 
-		$customer = $this->site->customers()->with('queries')->where('email', $email)->first();
+		$query = $this->site->customers()->with('queries')->where('email', $email);
+
+		if ( $this->site_user->hasRole('employee') )
+		{
+			$query->ofUser($this->site_user->id);
+		}
+
+		$customer = $query->first();
+
 		if ( !$customer )
 		{
 			abort(404);
@@ -244,7 +257,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 				'email' => $this->request->input('email'),
 				'phone' => $this->request->input('phone'),
 				'locale' => $this->request->input('locale'),
-				'created_by' => \Auth::user()->id,
+				'created_by' => $this->site_user->id,
 			]);
 
 			if ( !$customer )
