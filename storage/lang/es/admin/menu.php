@@ -18,7 +18,7 @@
 		'services' => 'Services',
 
 		'resellers' => 'Resellers',
-		'resellers.payments' => 'Pagos',
+		'resellers.payments' => 'Comisiones',
 
 		'configuration' => 'Configuration',
 		'locales' => 'Languages',

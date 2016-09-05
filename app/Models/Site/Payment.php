@@ -65,6 +65,16 @@ class Payment extends Model
 		return $this->belongsTo('App\Models\Plan');
 	}
 
+	public function reseller()
+	{
+		return $this->belongsTo('App\Models\Reseller');
+	}
+
+	public function infocurrency()
+	{
+		return $this->hasOne('App\Models\Currency', 'code', 'payment_currency')->withTranslations();
+	}
+
 	public static function saveModel($data, $id = null)
 	{
 		if ($id)

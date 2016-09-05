@@ -311,6 +311,11 @@ class RoleMaintenanceCommand extends Command
 				'description' => '',
 				'roles' => [ ],
 			],
+			'payments' => [
+				'display_name' => 'Reseller payments management',
+				'description' => '',
+				'roles' => [ ],
+			],
 		],
 	];
 
