@@ -49,7 +49,7 @@
 		<div class="container">
 			<div class="main-image">
 				@if ( @$main_image )
-					<img src="{{ "{$property->image_path}/{$main_image->image}" }}" />
+					<img src="{{ $main_image }}" />
 				@endif
 			</div>
 		</div>
@@ -61,7 +61,7 @@
 						<td>
 							<div class="image">
 								@if ( @$other_images[0] )
-									<img src="{{ "{$property->image_path}/{$other_images[0]->image}" }}" />
+									<img src="{{ $other_images[0] }}" />
 								@endif
 							</div>
 						</td>
@@ -69,7 +69,7 @@
 						<td>
 							<div class="image">
 								@if ( @$other_images[1] )
-									<img src="{{ "{$property->image_path}/{$other_images[1]->image}" }}" />
+									<img src="{{ $other_images[1] }}" />
 								@endif
 							</div>
 						</td>
@@ -159,8 +159,6 @@
 			<div class="container">
 				<table class="services">
 					<tr>
-						<td></td>
-						<td class="sep"></td>
 						<td>
 							{{ $property->services->sortBy('title')->implode('title',', ') }}
 						</td>
