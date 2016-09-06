@@ -14,7 +14,7 @@
 	#home {
 		.main-property {
 			max-width: 100%;
-			/* .item { height: 720px; } */
+			.item { height: 600px; }
 		}
 	}
 }
@@ -22,7 +22,7 @@
 	#home {
 		.main-property {
 			max-width: 100%;
-			/* .item { height: 480px; } */
+			.item { height: 400px; }
 		}
 	}
 }
@@ -35,7 +35,7 @@
 			position: relative;
 
 			.home-top-inner {
-				position: absolute; z-index: 1050; width: 100%; background: rgba(52,99,129,0.6); padding-top: 10px; padding-bottom: 10px;
+				position: relative; z-index: 1050; width: 100%; background: rgba(52,99,129,0.6); padding-top: 10px; padding-bottom: 10px;
 
 				.nav.navbar-nav {
 					float: none; text-align: center;
@@ -121,6 +121,28 @@
 	#home {
 		.carousel-caption-text {
 			.carousel-caption-button { text-align: center; }
+		}
+	}
+}
+
+/* Settings for home col-sm-4 */
+
+@media (min-width: 768px) and (max-width: 991px) {
+	body.theme-white-cloud {
+		#home {
+			.properties-slider-area {
+				#properties-slider {
+					.carousel-inner {
+						.item {
+							.row {
+								.col-xs-12.col-sm-3 {
+									width: 33.33333333% !important;
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }
