@@ -29,6 +29,12 @@ class Wrapper extends Idealista {
     {
         $data = array_merge($property, $this->config);
 
+        if (in_array($property['type'], ['bungalow', 'hotel', 'aparthotel']]))
+        {
+            $this->errors []= \Lang::get('validation.type');
+            return false;
+        }
+
         $rules = [
             'id' => 'required',
             'title' => 'required',

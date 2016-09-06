@@ -204,6 +204,21 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
     protected function translateType($type){
 
         switch($type){
+            case 'chalet':
+            case 'house':
+            case 'villa':
+                $idealista_type = 'house';
+            break;
+            case 'farmhouse':
+                $idealista_type = 'countryHouse';
+            break;
+            case 'industrial':
+                $idealista_type = 'premise';
+            break;
+            case 'lot':
+            case 'state':
+                $idealista_type = 'land';
+            break;
             case 'apartment':
             case 'duplex':
             case 'lot':
@@ -211,11 +226,6 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
             default:
                 $idealista_type = 'flat';
             break;
-            case 'house':
-            case 'Villa':
-                $idealista_type = 'house';
-            break;
-            //case 'store':
         }
 
         return $idealista_type;
