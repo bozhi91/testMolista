@@ -1,3 +1,15 @@
+<?php
+
+	if (!isset($colperpage)) {
+		$colperpage = 4;
+	}
+
+	if (!isset($showcolrows)) {
+		$showcolrows = true;
+	}
+
+?>
+
 @extends('layouts.web')
 
 @section('content')
@@ -30,14 +42,14 @@
 									<div class="row">
 										@foreach ($properties as $key => $property)
 											@if ( $key > 0 && $key%3 == 0 )
-												</div>
+												@if ( $showcolrows ) </div> @endif
 													@if ( $key > 0 && $key%9 == 0 )
 														</div>
 														<div class="item">
 													@endif
-												<div class="row">
+												@if ( $showcolrows ) <div class="row"> @endif
 											@endif
-											<div class="col-xs-12 col-sm-4">
+											<div class="col-xs-12 col-sm-{{$colperpage}}">
 												@include('web.properties.pill', [ 'item'=>$property])
 											</div>
 										@endforeach

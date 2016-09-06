@@ -1,1 +1,1 @@
-@include('themes.bellamar.web.index')
+@include('themes.bellamar.web.index', ['colperpage'=>'3', 'showcolrows'=>false])
