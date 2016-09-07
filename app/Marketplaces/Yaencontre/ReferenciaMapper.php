@@ -137,6 +137,12 @@ class ReferenciaMapper extends BaseMapper {
 			case 'lot': return [38, 'terreno'];
 			case 'store': return [28, 'local'];
 			case 'ranche': return [26, 'finca rústica'];
+			case 'chalet': return [19, 'chalet'];
+			case 'bungalow': return [23, 'bungalow'];
+			case 'building': return [46, 'edificio'];
+			case 'industrial': return [45, 'nave industrial'];
+			case 'state': return [26, 'finca rústica'];
+			case 'farmhouse': return [17, 'masía'];
 		}
 	}
 
