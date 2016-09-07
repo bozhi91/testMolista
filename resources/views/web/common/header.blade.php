@@ -22,7 +22,7 @@
 				@endforeach
 			@endif
 
-			<ul class="nav navbar-nav header-menu visible-xs">
+			<ul class="nav navbar-nav header-menu header-menu-search-trigger visible-xs">
 				<li class="visible-xs"><a href="javascript:;" class="main-item show-advance-search-trigger">{{ Lang::get('web/search.title.popup') }}</a></li>
 			</ul>
 
