@@ -316,9 +316,9 @@
 				    </div>
 				    <div class="col-xs-12 col-sm-6">
 				        <div class="form-group error-container">
-				            {!! Form::label('details[basement_area]', Lang::get('account/properties.basement_area')) !!}
+				            {!! Form::label('details[size_real]', Lang::get('account/properties.size_real')) !!}
 				            <div class="input-group">
-				                {!! Form::text('details[basement_area]', null, [ 'class'=>'form-control number', 'min'=>'0' ]) !!}
+				                {!! Form::text('details[size_real]', null, [ 'class'=>'form-control number', 'min'=>'0' ]) !!}
 				                <div class="input-group-addon">m²</div>
 				            </div>
 				        </div>
