@@ -211,4 +211,6 @@
 		'showcase_front' => 'Medida de Frente de vidriera',
 		'expenses' => 'Gastos mensuales',
 		'balcony_area' => 'Superficie de Balcón',
+
+		'attributes.yaencontre-city' => 'Población (yaencotre)',
 	];
