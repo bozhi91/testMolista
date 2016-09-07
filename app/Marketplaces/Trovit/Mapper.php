@@ -124,14 +124,18 @@ class Mapper extends \App\Marketplaces\Mapper {
         {
             case 'store':
                 $type = $this->isRent() ? 'For Rent Local' : 'For Sale Local';
-                break;
+            break;
             case 'lot':
-                $type = $this->isSale() ? 'Land For Sale' : '';
-                break;
+            case 'state':
+                $type = $this->isSale() ? 'Land For Sale' : 'Land For Rent';
+            break;
+            case 'industrial':
+                $type = $this->isSale() ? 'Warehouse For Sale' : 'Warehouse For Rent';
+            break;
             case 'hotel':
             case 'aparthotel':
                 $type = 'Short Term Rentals';
-                break;
+            break;
             case 'duplex':
             case 'house':
             case 'penthouse':
@@ -148,18 +152,26 @@ class Mapper extends \App\Marketplaces\Mapper {
     protected function property_type()
     {
         $types = [
-            'store' => 'Local',
-            'lot' => 'Solar',
+            'apartment' => 'Apartamento',
             'duplex' => 'Dúplex',
             'house' => 'Casa',
+            'lot' => 'Solar',
             'penthouse' => 'Ático',
+            'store' => 'Local',
             'villa' => 'Villa',
-            'apartment' => 'Apartamento',
-            'hotel' => '',
-            'aparthotel' => ''
+            'ranch' => 'Finca',
+            'flat' => 'Piso',
+            'hotel' => 'Hotel',
+            'aparthotel' => 'Aparthotel',
+            'chalet' => 'Chalet',
+            'bungalow' => 'Bungalow',
+            'building' => 'Edificio',
+            'industrial' => 'Nave industrial',
+            'state' => 'Finca rústica',
+            'farmhouse' => 'Masía rural',
         ];
 
-        return isset($types[$this->item['type']]) ? $types[$this->item['type']] : 'Piso';
+        return isset($types[$this->item['type']]) ? $types[$this->item['type']] : $this->item['type'];
     }
 
     protected function pictures()

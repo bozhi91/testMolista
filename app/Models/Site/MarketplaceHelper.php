@@ -138,7 +138,7 @@ class MarketplaceHelper
 		}
 
 		// Get XML content
-		if ( file_exists($filepath) && false )
+		if ( file_exists($filepath) && env('APP_DEBUG', false) === false )
 		{
 			$content = file_get_contents($filepath);
 		}
