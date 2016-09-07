@@ -80,7 +80,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 
     public function valid()
     {
-        if (in_array($this->item['type'], ['hotel', 'aparthotel']]))
+        if (in_array($this->item['type'], ['hotel', 'aparthotel', 'chalet', 'bungalow', 'building']]))
         {
             $this->errors []= \Lang::get('validation.type');
             return false;
@@ -126,11 +126,14 @@ class Mapper extends \App\Marketplaces\Mapper {
         $types = [
             'store' => 'Local',
             'lot' => 'Terreno',
+            'state' => 'Terreno',
             'duplex' => 'Duplex',
             'house' => 'Casa',
+            'farmhouse' => 'Casa',
             'penthouse' => 'Atico',
             'villa' => 'Casa',
             'apartment' => 'Piso',
+            'industrial' => 'Nave Industrial',
         ];
 
         return isset($types[$this->item['type']]) ? $types[$this->item['type']] : 'Piso';
