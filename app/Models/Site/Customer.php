@@ -58,6 +58,21 @@ class Customer extends Model
 		$query->whereRaw("CONCAT(customers.`first_name`,' ',customers.`last_name`) LIKE '%" . \DB::connection()->getPdo()->quote($full_name) . "%'");
 	}
 
+	public function scopeOfUser($query, $user_id)
+	{
+		$query->where(function($query) use ($user_id) {
+			$query->whereIn('customers.id', function($query) use ($user_id) {
+				$query->distinct()->select('customer_id')
+					->from('properties_customers')
+					->whereIn('property_id', function($query) use ($user_id) {
+						$query->distinct()->select('property_id')
+							->from('properties_users')
+							->where('user_id', $user_id);
+					});
+			})->orWhere('customers.created_by', $user_id);
+		});
+	}
+
 	public function getPossibleMatchesAttribute() {
 		$query = $this->site->properties();
 
