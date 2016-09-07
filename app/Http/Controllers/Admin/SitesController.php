@@ -33,6 +33,12 @@ class SitesController extends Controller
 			$query->whereTranslationLike('title', "%{$this->request->input('title')}%");
 		}
 
+		// Filter by domain
+		if ( $this->request->input('domain') )
+		{
+			$query->withDomain($this->request->input('domain'));
+		}
+
 		// Filter by web_transfer_requested
 		if ( $this->request->input('transfer') )
 		{
@@ -79,11 +85,33 @@ class SitesController extends Controller
 				break;
 		}
 
+		if ( $this->request->input('csv') )
+		{
+			return $this->csv_output($query, [
+				'id' => '#',
+				'title' => trans('admin/sites.title'),
+				'main_url' => trans('admin/sites.domain'),
+				'country' => trans('admin/sites.country'),
+				'properties' => trans('admin/sites.properties'),
+				'users' => trans('admin/sites.employees'),
+				'web_transfer_requested' => trans('admin/sites.transfer'),
+				'created_at' => trans('admin/sites.created'),
+			]);
+		}
+
 		$sites = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$this->set_go_back_link();
 
 		return view('admin.sites.index', compact('sites'));
+	}
+
+	protected function csv_prepare_row($row)
+	{
+		$row->country = @$row->country->name;
+		$row->properties = $row->properties->count();
+		$row->users = $row->users->count();
+		return $row;
 	}
 
 	public function create()

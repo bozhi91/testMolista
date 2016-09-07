@@ -96,4 +96,34 @@ class Controller extends BaseController
 		return true;
 	}
 
+	protected function csv_output($query, $columns)
+	{
+		$csv = \League\Csv\Writer::createFromFileObject(new \SplTempFileObject());
+		$csv->setDelimiter(';');
+
+		// Headers
+		$csv->insertOne( array_values($columns) );
+
+		// Lines
+		foreach ($query->limit(9999)->get() as $row)
+		{
+			$data = [];
+
+			$row = $this->csv_prepare_row($row);
+			foreach ($columns as $key => $title)
+			{
+				$data[] = @$row->$key;
+			}
+
+			$csv->insertOne( $data );
+		}
+
+		$csv->output(date('YmdHis').'.csv');
+		exit;
+	}
+	protected function csv_prepare_row($row)
+	{
+		return $row;
+	}
+
 }
