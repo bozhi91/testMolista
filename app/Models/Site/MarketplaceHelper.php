@@ -331,6 +331,10 @@ class MarketplaceHelper
 
 			$this->property_marketplace['price'] = $this->property_marketplace['price'] * $this->currencies_rates[$currency];
 		}
+
+		// Marketplace attributes
+		$this->property_marketplace['attributes'] = @$this->property_marketplace['marketplace_attributes'][$this->marketplace->id];
+		unset($this->property_marketplace['marketplace_attributes']);
 	}
 
 	public function deleteXMLs()
