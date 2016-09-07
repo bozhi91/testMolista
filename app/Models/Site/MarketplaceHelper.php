@@ -97,6 +97,15 @@ class MarketplaceHelper
 		return true;
 	}
 
+	public function getAttributes($marketplace = null)
+	{
+		if ($marketplace) {
+			$this->setMarketplace($marketplace);
+		}
+
+		return $this->marketplace_adm->getAttributes();
+	}
+
 	public function checkReadyProperty($marketplace,$property)
 	{
 		$this->setMarketplace($marketplace);
