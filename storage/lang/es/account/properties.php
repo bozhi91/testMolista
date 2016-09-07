@@ -211,4 +211,5 @@
 		'showcase_front' => 'Medida de Frente de vidriera',
 		'expenses' => 'Gastos mensuales',
 		'balcony_area' => 'Superficie de Balcón',
+		'size_real' => 'Superficie útil',
 	];
