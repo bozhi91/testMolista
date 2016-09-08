@@ -73,6 +73,7 @@
 								<span class="marketplace-name text-nowrap;" style="background-image: url({{ asset("marketplaces/{$marketplace->logo}") }});">{{ $marketplace->name }}</span>
 							</td>
 							<td>
+<<<<<<< HEAD
 								@if (!empty($attributes))
 									@foreach ($attributes as $attribute)
 									<div class="form-group error-container">
@@ -94,6 +95,12 @@
 								@if ( $marketplace->pivot->marketplace_export_all )
 									{{ Lang::get('account/marketplaces.export_all.warning') }}
 								@elseif ( $publishable === true )
+=======
+								@if ( $publishable === true )
+									@if ( $marketplace->pivot->marketplace_export_all )
+										{{ Lang::get('account/marketplaces.export_all.warning') }}
+									@endif
+>>>>>>> staging
 								@else
 									<div class="not-published-rel {{ @$item->export_to_all ? 'hide' : '' }}">
 										{{ Lang::get('account/properties.marketplaces.error') }}<br />

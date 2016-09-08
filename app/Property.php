@@ -115,6 +115,10 @@ class Property extends TranslatableModel
 		return $this->belongsToMany('App\User', 'properties_users', 'property_id', 'user_id')->withPivot('is_owner');
 	}
 
+	public function calendars() {
+		return $this->belongsToMany('App\Models\Calendar', 'calendars_properties', 'property_id', 'calendar_id');
+	}
+
 	public function customers() {
 		return $this->belongsToMany('App\Models\Site\Customer', 'properties_customers', 'property_id', 'customer_id');
 	}
@@ -231,7 +235,7 @@ class Property extends TranslatableModel
 		// Check PDF
 		$filepath = "{$dir}/property-{$locale}.pdf";
 
-		$last_time = strtotime("2016-07-11");
+		$last_time = strtotime("2016-09-07");
 		if ( strtotime($this->site->updated_at) > $last_time )
 		{
 			$last_time = strtotime($this->site->updated_at);
@@ -251,11 +255,11 @@ class Property extends TranslatableModel
 				{
 					if ( !$main_image )
 					{
-						$main_image = $image;
+						$main_image = $this->getPdfFileImageTmp("{$this->image_path}/{$image->image}", 525, 215);
 					}
 					elseif ( count($other_images) < 2 )
 					{
-						$other_images[] = $image;
+						$other_images[] = $this->getPdfFileImageTmp("{$this->image_path}/{$image->image}", 255, 160);
 					}
 					else
 					{
@@ -285,10 +289,49 @@ class Property extends TranslatableModel
 				'other_images' => $other_images,
 			])->save($filepath);
 
+			// Delete tmp images
+			if ( $main_image )
+			{
+				unlink($main_image);
+			}
+			foreach ($other_images as $other_image)
+			{
+				unlink($other_image);
+			}
+
 			\LaravelLocalization::setLocale($locale_backup);
 		}
 
 		return $filepath;
+	}
+
+	public function getPdfFileImageTmp($image,$width,$height)
+	{
+		$folder = public_path('_temp');
+		if ( !is_dir($folder) )
+		{
+			\File::makeDirectory(public_path('_temp'), 0775, true);
+		}
+
+		$filename = uniqid('pdf_image_', true);
+		$destination = "{$folder}/{$filename}.jpg";
+
+		while ( file_exists($destination) )
+		{
+			$filename = uniqid('pdf', true);
+			$destination = "{$folder}/{$filename}.jpg";
+		}
+
+		// Create thumb
+		$thumb = \Image::make($image);
+
+		$thumb->encode('jpg');
+
+		$thumb->fit($width, $height, function($constraint) {
+			$constraint->aspectRatio();
+		})->save($destination);
+
+		return $destination;
 	}
 
 	public function getLatPublicAttribute()
@@ -835,7 +878,17 @@ class Property extends TranslatableModel
 			'ranch' => trans('web/properties.type.ranch'),
 			'hotel' => trans('web/properties.type.hotel'),
 			'aparthotel' => trans('web/properties.type.aparthotel'),
+			'chalet' => trans('web/properties.type.chalet'),
+			'bungalow' => trans('web/properties.type.bungalow'),
+			'building' => trans('web/properties.type.building'),
+			'industrial' => trans('web/properties.type.industrial'),
+			'state' => trans('web/properties.type.state'),
+			'farmhouse' => trans('web/properties.type.farmhouse'),
 		];
+
+
+
+
 
 		if ( $site_id )
 		{
@@ -848,6 +901,8 @@ class Property extends TranslatableModel
 				}
 			}
 		}
+
+		asort($options);
 
 		return $options;
 	}

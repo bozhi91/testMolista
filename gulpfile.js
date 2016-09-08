@@ -203,4 +203,18 @@ elixir(function(mix) {
 		], 'public/themes/sky/compiled/css/pdf.css')
 		;
 
+	/* Redly */
+	mix
+		.less([
+			'redly/app.less',
+		], 'resources/assets/css/compiled/redly.css')
+		.styles([
+			'compiled/common.css',
+			'compiled/redly.css',
+		], 'public/themes/redly/compiled/css/app.css')
+		.less([
+			'redly/pdf.less',
+		], 'public/themes/redly/compiled/css/pdf.css')
+		;
+
 });

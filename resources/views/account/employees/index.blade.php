@@ -64,6 +64,7 @@
 		ready_callbacks.push(function() {
 			var cont = $('#admin-employees');
 
+			/*
 			cont.find('form.delete-form').each(function(){
 				$(this).validate({
 					submitHandler: function(f) {
@@ -76,6 +77,7 @@
 					}
 				});
 			});
+			*/
 
 		});
 	</script>

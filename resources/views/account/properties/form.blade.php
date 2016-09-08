@@ -25,6 +25,7 @@
 
 <style type="text/css">
 	#tab-marketplaces .marketplace-name { display: inline-block; padding-left: 25px; background: left center no-repeat; }
+	#tab-visits .column-property { display: none; }
 </style>
 
 {!! Form::model($item, [ 'method'=>$method, 'action'=>$action, 'files'=>true, 'id'=>'edit-form' ]) !!}
@@ -315,9 +316,9 @@
 				    </div>
 				    <div class="col-xs-12 col-sm-6">
 				        <div class="form-group error-container">
-				            {!! Form::label('details[basement_area]', Lang::get('account/properties.basement_area')) !!}
+				            {!! Form::label('details[size_real]', Lang::get('account/properties.size_real')) !!}
 				            <div class="input-group">
-				                {!! Form::text('details[basement_area]', null, [ 'class'=>'form-control number', 'min'=>'0' ]) !!}
+				                {!! Form::text('details[size_real]', null, [ 'class'=>'form-control number', 'min'=>'0' ]) !!}
 				                <div class="input-group-addon">m²</div>
 				            </div>
 				        </div>
@@ -707,8 +708,8 @@
 				address.push( form.find('.address-input').val() );
 			}
 
-			if ( form.find('.district-input').val() ) {
-				address.push( form.find('.district-input').val() );
+			if ( form.find('input[name="zipcode"]').val() ) {
+				address.push( form.find('input[name="zipcode"]').val() );
 			}
 
 			$.each(['city','state','country'], function(k,v){
@@ -730,7 +731,7 @@
 			}
 
 			LOADING.show();
-
+console.log( address.join(', ') );
 			property_geocoder.geocode({
 				'address': address.join(', ')
 			}, function(results, status) {

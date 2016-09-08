@@ -145,6 +145,16 @@ return [
 			'gmaps-circle'	=> '#1396e2',
 		],
 
+		'redly' => [
+			'title'			=> 'Redly',
+			'public'		=> true,
+			'custom'		=> false,
+			'extends'	 	=> 'default',
+			'views-path' 	=> 'themes/redly',
+			'asset-path' 	=> 'themes/redly',
+			'gmaps-circle'	=> '#efb817',
+		],
+
 		// Add your themes here...
 
 		/*--------------[ Example Structre ]-------------

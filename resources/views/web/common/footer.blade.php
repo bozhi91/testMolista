@@ -36,12 +36,15 @@
 							@if ( Auth::guest() )
 								<a href="{{ action('Auth\AuthController@login') }}">{{ Lang::get('web/footer.login') }}</a>
 							@else
-								<a href="{{ action('Auth\AuthController@logout') }}">{{ Lang::get('web/footer.logout') }}</a>
+								Admin:
+								<a href="{{ action('AccountController@index') }}">home</a>
+								|
+								<a href="{{ action('Auth\AuthController@logout') }}">logout</a>
 							@endif
 						</li>
 					</ul>
 					<ul class="nav navbar-nav quick-links">
-						<li><img src="{{ Theme::url('/images/footer-logo.png') }}" alt="" /></li>
+						<li><a href="{{ Config::get('app.application_url') }}" target="_blank"><img src="{{ Theme::url('/images/footer-logo.png') }}" alt="" /></a></li>
 						@if ( !empty($site_setup['social_media']) )
 							<li>
 								@foreach ($site_setup['social_media'] as $key=>$value)

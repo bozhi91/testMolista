@@ -11,8 +11,8 @@
 		<li>{{ Lang::get('account/calendar.end') }}: {{ $event->end_time->format("d/m/Y H:i") }}</li>
 		<li>{{ Lang::get('account/calendar.type') }}: {{ Lang::get("account/calendar.reference.type.{$event->type}") }}</li>
 		<li>{{ Lang::get('account/calendar.agent') }}: {{ @$event->users->implode('name',', ') }}</li>
-		@if ( @$event->property->title )
-			<li>{{ Lang::get('account/calendar.property') }}: {{ @$event->property->title }}</li>
+		@if ( @$event->properties->count() )
+			<li>{{ Lang::get('account/calendar.property') }}: {{ @$event->properties->implode('title',', ') }}</li>
 		@endif
 		@if ( @$event->customer->name )
 			<li>{{ Lang::get('account/calendar.customer') }}: {{ @$event->customer->full_name }}</li>

@@ -32,6 +32,10 @@ class Customer extends Model
 		return $this->belongsToMany('App\Property', 'properties_customers', 'customer_id', 'property_id')->withTranslations();
 	}
 
+	public function properties_discards() {
+		return $this->belongsToMany('App\Property', 'properties_customers_discards', 'customer_id', 'property_id')->withTranslations();
+	}
+
 	public function queries() {
 		return $this->hasMany('App\Models\Site\CustomerQueries')->with('infocurrency');
 	}
@@ -54,6 +58,21 @@ class Customer extends Model
 		$query->whereRaw("CONCAT(customers.`first_name`,' ',customers.`last_name`) LIKE '%" . \DB::connection()->getPdo()->quote($full_name) . "%'");
 	}
 
+	public function scopeOfUser($query, $user_id)
+	{
+		$query->where(function($query) use ($user_id) {
+			$query->whereIn('customers.id', function($query) use ($user_id) {
+				$query->distinct()->select('customer_id')
+					->from('properties_customers')
+					->whereIn('property_id', function($query) use ($user_id) {
+						$query->distinct()->select('property_id')
+							->from('properties_users')
+							->where('user_id', $user_id);
+					});
+			})->orWhere('customers.created_by', $user_id);
+		});
+	}
+
 	public function getPossibleMatchesAttribute() {
 		$query = $this->site->properties();
 
@@ -67,6 +86,11 @@ class Customer extends Model
 		// Not current properties
 		$query->whereNotIn('properties.id', function($query){
 			$query->select('property_id')->from('properties_customers')->where('customer_id', $this->id);
+		});
+
+		// Not discarded
+		$query->whereNotIn('properties.id', function($query){
+			$query->select('property_id')->from('properties_customers_discards')->where('customer_id', $this->id);
 		});
 
 		// Mode

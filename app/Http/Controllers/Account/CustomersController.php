@@ -18,6 +18,11 @@ class CustomersController extends \App\Http\Controllers\AccountController
 	{
 		$query = $this->site->customers()->with('queries');
 
+		if ( $this->site_user->hasRole('employee') )
+		{
+			$query->ofUser($this->site_user->id);
+		}
+
 		// Filter by name
 		if ( $this->request->input('full_name') )
 		{
@@ -56,7 +61,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 			'email' => $this->request->input('email'),
 			'phone' => $this->request->input('phone'),
 			'locale' => $this->request->input('locale'),
-			'created_by' => \Auth::user()->id,
+			'created_by' => $this->site_user->id,
 		]);
 
 		if ( !$customer )
@@ -104,7 +109,22 @@ class CustomersController extends \App\Http\Controllers\AccountController
 
 	public function show($email)
 	{
-		$customer = $this->site->customers()->with('queries')->where('email', $email)->first();
+		// If $email is integer,  redirect
+		if ( preg_match('#^[0-9]+$#', $email) )
+		{
+			$customer = $this->site->customers()->findOrFail($email);
+			return redirect()->action('Account\CustomersController@show', urlencode($customer->email));
+		}
+
+		$query = $this->site->customers()->with('queries')->where('email', $email);
+
+		if ( $this->site_user->hasRole('employee') )
+		{
+			$query->ofUser($this->site_user->id);
+		}
+
+		$customer = $query->first();
+
 		if ( !$customer )
 		{
 			abort(404);
@@ -237,7 +257,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 				'email' => $this->request->input('email'),
 				'phone' => $this->request->input('phone'),
 				'locale' => $this->request->input('locale'),
-				'created_by' => \Auth::user()->id,
+				'created_by' => $this->site_user->id,
 			]);
 
 			if ( !$customer )
@@ -269,7 +289,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		return redirect()->back()->with('success',trans('general.messages.success.saved'));
 	}
 
-	protected function deleteRemovePropertyCustomer($slug)
+	public function deleteRemovePropertyCustomer($slug)
 	{
 		$property = $this->site->properties()
 						->whereTranslation('slug', $slug)
@@ -292,9 +312,40 @@ class CustomersController extends \App\Http\Controllers\AccountController
 			$property->customers()->detach( $customer->id );
 		}
 
+		// Discard
+		if ( !$customer->properties_discards->contains( $property->id ) )
+		{
+			$customer->properties_discards()->attach( $property->id );
+		}
+
 		return redirect()->back()->with('current_tab', $this->request->input('current_tab'))->with('success',trans('general.messages.success.saved'));
 	}
 
+	public function putUndiscardPropertyCustomer($slug)
+	{
+		$property = $this->site->properties()
+						->whereTranslation('slug', $slug)
+						->first();
+		if ( !$property )
+		{
+			return redirect()->back()->with('current_tab', $this->request->input('current_tab'))->with('error',trans('general.messages.error'));
+		}
+
+		$customer = $this->site->customers()->find( $this->request->input('customer_id') );
+
+		if ( !$this->request->input('customer_id') || !$customer )
+		{
+			return redirect()->back()->with('current_tab', $this->request->input('current_tab'))->with('error',trans('general.messages.error'));
+		}
+
+		// Undiscard
+		if ( $customer->properties_discards->contains( $property->id ) )
+		{
+			$customer->properties_discards()->detach( $property->id );
+		}
+
+		return redirect()->back()->with('current_tab', $this->request->input('current_tab'))->with('success',trans('general.messages.success.saved'));
+	}
 	protected function getRequiredFields($id=false)
 	{
 		$locales = array_keys( \App\Session\Site::get('locales_tabs') );

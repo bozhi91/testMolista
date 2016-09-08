@@ -41,6 +41,12 @@ class Mapper extends \App\Marketplaces\Mapper {
             return false;
 		}
 
+        if (in_array($this->item['type'], ['building', 'chalet', 'industrial']]))
+        {
+            $this->errors []= \Lang::get('validation.type');
+            return false;
+        }
+
         $rules = [
             'updated_at' => 'required',
             'mode' => 'required',
@@ -100,6 +106,9 @@ class Mapper extends \App\Marketplaces\Mapper {
             'apartment' => 'Apartment',
             'aparthotel' => 'Apartment',
             'hotel' => 'Hotel',
+            'bungalow' => 'Bungalow',
+            'state' => 'Finca/Country House',
+            'farmhouse' => 'Finca/Country House',
         ];
 
         return isset($types[$this->item['type']]) ? $types[$this->item['type']] : 'Flat';

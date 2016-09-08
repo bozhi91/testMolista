@@ -12,6 +12,14 @@
 			<div class="col-sm-3 col-md-2 hidden-xs">
 				<ul class="nav nav-pills nav-stacked account-menu">
 
+					<li role="presentation">
+						<a href="{{ action('WebController@index') }}" target="_blank">
+							<i class="account-icon account-icon-web"></i>
+							{{ Lang::get('account/menu.web') }}
+						</a>
+					</li>
+					<li class="separator"></li>
+
 					@permission('property-*')
 						<li role="presentation" class="{{ (@$submenu_section == 'properties') ? 'active' : '' }}">
 							<a href="{{ action('Account\PropertiesController@index') }}">

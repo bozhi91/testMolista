@@ -211,6 +211,7 @@
 		'showcase_front' => 'Showcase front',
 		'expenses' => 'Expenses (monthly)',
 		'balcony_area' => 'Balcony area',
+		'size_real' => 'Useful area',
 
 		'attributes.yaencontre-city' => 'City (yaencotre)',
 	];
