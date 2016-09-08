@@ -50,7 +50,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 	{
 		$data = array_merge($this->item, $this->config);
 
-		if (in_array($this->item['type'], ['building']]))
+		if (in_array($this->item['type'], ['building']))
 		{
 		    $this->errors []= \Lang::get('validation.type');
 		    return false;
