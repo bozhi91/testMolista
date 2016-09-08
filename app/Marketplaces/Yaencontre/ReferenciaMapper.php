@@ -70,7 +70,7 @@ class ReferenciaMapper extends BaseMapper {
 			'price' => 'required',
 			'size' => 'required',
 			'size_real' => 'required',
-			'description.0' => 'required',
+			'description.es' => 'required',
 			'oficina' => 'required'
 		];
 
@@ -121,7 +121,7 @@ class ReferenciaMapper extends BaseMapper {
 	 * 48 aparta-hotel
 	 * 49 cueva
 	 * 50 casa rural
-	 * 
+	 *
 	 * @return array
 	 */
 	protected function getPropertyTypes() {

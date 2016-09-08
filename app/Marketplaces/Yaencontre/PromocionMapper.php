@@ -14,9 +14,9 @@ class PromocionMapper extends BaseMapper {
 
 		list($operationId, $operationName) = $this->getOperations();
 		$map['operacion@id=' . $operationId] = $operationName;
-		
+
 		$map['url'] = '';
-		
+
 		//required name of promo
 		$titles = $item['title'];
 		$firstTitle = reset($titles);
@@ -71,8 +71,8 @@ class PromocionMapper extends BaseMapper {
 			'size' => 'required',
 			'rooms' => 'required',
 			'baths' => 'required',
-			'title.0' => 'required',
-			'description.0' => 'required',
+			'title.es' => 'required',
+			'description.es' => 'required',
 			'oficina' => 'required'
 		];
 

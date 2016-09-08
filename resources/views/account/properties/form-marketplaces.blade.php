@@ -78,7 +78,7 @@
 									<div class="form-group error-container">
 										<label>{{ \Lang::get('account/properties.attributes.'.$attribute['id']) }}</label>
 										@if ($attribute['type'] == 'dropdown')
-										<select class="form-control" name="attributes[{{ $marketplace['id'] }}][{{ $attribute['id'] }}]">
+										<select class="form-control" name="marketplace_attributes[{{ $marketplace['id'] }}][{{ $attribute['id'] }}]">
 											<option></option>
 											@foreach ($attribute['values'] as $value)
 											<option value="{{ $value['id'] }}" <?php echo $value['id'] == @$item['marketplace_attributes'][$marketplace['id']][$attribute['id']] ? 'selected="selected"' :'' ?>>{{ $value['label'] }}</option>
