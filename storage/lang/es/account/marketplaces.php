@@ -52,6 +52,7 @@
 		'configuration.fields.account.title' => 'Cuenta',
 		'configuration.fields.account_id' => 'Account ID',
 		'configuration.fields.lastname' => 'Apellidos',
+		'configuration.fields.oficina' => 'Código de cliente',
 
 		'properties' => 'Propiedades',
 		'properties.published' => 'Activa en export',
