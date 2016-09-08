@@ -211,10 +211,7 @@
 		'showcase_front' => 'Medida de Frente de vidriera',
 		'expenses' => 'Gastos mensuales',
 		'balcony_area' => 'Superficie de Balcón',
-<<<<<<< HEAD
+		'size_real' => 'Superficie útil',
 
 		'attributes.yaencontre-city' => 'Población (yaencotre)',
-=======
-		'size_real' => 'Superficie útil',
->>>>>>> staging
 	];
