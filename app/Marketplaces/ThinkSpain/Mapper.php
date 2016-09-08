@@ -41,7 +41,7 @@ class Mapper extends \App\Marketplaces\Mapper {
             return false;
 		}
 
-        if (in_array($this->item['type'], ['building', 'chalet', 'industrial']]))
+        if (in_array($this->item['type'], ['building', 'chalet', 'industrial']))
         {
             $this->errors []= \Lang::get('validation.type');
             return false;
