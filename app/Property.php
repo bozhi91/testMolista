@@ -392,7 +392,14 @@ class Property extends TranslatableModel
 	}
 	public function getImagePathAttribute()
 	{
-		return public_path("sites/{$this->site_id}/properties/{$this->id}");
+		$dirpath = public_path("sites/{$this->site_id}/properties/{$this->id}");
+
+		if ( !is_dir($dirpath))
+		{
+			\File::makeDirectory($dirpath, 0777, true, true);
+		}
+
+		return $dirpath;
 	}
 	public function getMainImageAttribute()
 	{

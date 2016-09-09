@@ -46,6 +46,11 @@ class Site extends TranslatableModel
 		return $this->hasOne('App\Models\Geography\Country','code','country_code')->withTranslations();
 	}
 
+	public function imports()
+	{
+		return $this->hasMany('App\Models\Site\Import');
+	}
+
 	public function planchanges()
 	{
 		return $this->hasMany('App\Models\Site\Planchange');

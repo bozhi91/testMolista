@@ -172,6 +172,7 @@ Route::group([
 			// Invoices
 			Route::controller('invoices', 'Account\InvoicesController');
 		});
+
 		// Properties
 		Route::group([
 			'middleware' => [
@@ -179,6 +180,13 @@ Route::group([
 			],
 		], function() {
 			Route::controller('properties/documents', 'Account\Properties\DocumentsController');
+		});
+		Route::group([
+			'middleware' => [
+				'permission:property-create',
+			],
+		], function() {
+			Route::controller('properties/imports', 'Account\Properties\ImportsController');
 		});
 		Route::get('properties/leads/{slug}', 'Account\PropertiesController@getLeads');
 		Route::get('properties/catch/close/{id}', 'Account\PropertiesController@getCatchClose');
