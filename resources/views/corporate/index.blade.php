@@ -43,13 +43,13 @@
 			</section>
 			<!-- / FIRST BLOCK -->
 
-			<?php 
+			<?php
 				$logos = \App\Session\Geolocation::get('config.marketplaces_images');
 				$logos_folder = \App\Session\Geolocation::get('config.items_folder');
 				if ( empty($logos) )
 				{
-					$logos = [ 'pisos.png','trovit.png','casinuevo.png','kyero.png','enalquiler.png','divendo.png','genteycasas.png' ];
-					$logos_alt = [ 'pisos.com','trovit.es','casinuevo.es','kyero.com','enalquiler.com','divendo.es','genteycasas.com' ];
+					$logos = [ 'pisos.png','trovit.png','idealista.png','casinuevo.png','kyero.png','enalquiler.png','divendo.png' ];
+					$logos_alt = [ 'pisos.com','trovit.es','idealista.com','casinuevo.es','kyero.com','enalquiler.com','divendo.es' ];
 					$logos_folder = 'images/corporate/marketplaces';
 				}
 			?>
