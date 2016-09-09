@@ -133,6 +133,7 @@
 		'show.property.seller.phone' => 'Seller phone',
 		'show.property.seller.cell' => 'Seller movile',
 		'show.property.price.min' => 'Minimum price',
+		'show.property.price.min.help' => 'This is the minimum price for which the owner would be willing to close the transaction (sell, rent, etc.)',
 		'show.property.commission' => 'Commission',
 
 		'show.transactions.none' => 'There are no transactions',

@@ -42,17 +42,20 @@
 </div>
 <div class="row">
 	<div class="col-xs-12 col-sm-3">
-		<div class="form-group error-container">
-			{!! Form::label('price_min', Lang::get('account/properties.show.property.price.min').' *' ) !!}
-			<div class="input-group">
-				@if ( @$price_position == 'before' )
-					<div class="input-group-addon">{{ @$price_symbol }}</div>
-				@endif
-				{!! Form::text('price_min', @$item->price_min, [ 'class'=>'form-control required number', 'min'=>1 ]) !!}
-				@if ( @$price_position == 'after' )
-					<div class="input-group-addon">{{ @$price_symbol }}</div>
-				@endif
+		<div class="form-group">
+			<div class="error-container">
+				{!! Form::label('price_min', Lang::get('account/properties.show.property.price.min').' *' ) !!}
+				<div class="input-group">
+					@if ( @$price_position == 'before' )
+						<div class="input-group-addon">{{ @$price_symbol }}</div>
+					@endif
+					{!! Form::text('price_min', @$item->price_min, [ 'class'=>'form-control required number', 'min'=>1 ]) !!}
+					@if ( @$price_position == 'after' )
+						<div class="input-group-addon">{{ @$price_symbol }}</div>
+					@endif
+				</div>
 			</div>
+			<div class="help-block">{{ Lang::get('account/properties.show.property.price.min.help') }}</div>
 		</div>
 	</div>
 	<div class="col-xs-12 col-sm-3">
