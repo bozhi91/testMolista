@@ -167,7 +167,17 @@
         	form.find('.datetimepicker-start').trigger('dp.change');
         }
 
-		form.find('.has-select-2').select2();
+		form.find('.has-select-2').select2().on("select2:unselecting", function(e) {
+			$(this).data('state', 'unselected');
+		}).on("select2:open", function(e) {
+			var el = $(this);
+			if ( el.data('state') === 'unselected' ) {
+				el.removeData('state'); 
+				setTimeout(function() {
+					el.select2('close');
+				}, 1);
+			}
+		});
 
 		form.find('.property-select').on('change', function(){
 			var opt = $(this).find('option:selected');
