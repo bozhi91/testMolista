@@ -57,9 +57,10 @@ class Currency extends \App\TranslatableModel
 			{
 				case 'i18n.title':
 					$field_parts = explode('.', $field);
-					foreach ($data[$field_parts[0]][$field_parts[1]] as $locale => $value)
+					$field_name = $field_parts[1];
+					foreach ($data[$field_parts[0]][$field_name] as $locale => $value)
 					{
-						$item->translateOrNew($locale)->$field_parts[1] = $value;
+						$item->translateOrNew($locale)->$field_name = $value;
 					}
 					break;
 				case 'enabled':
