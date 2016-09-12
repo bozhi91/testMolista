@@ -418,6 +418,14 @@ class Site extends TranslatableModel
 		// Parse url
 		$parts = parse_url( url()->current() );
 
+		if ( empty($parts['scheme']) || empty($parts['host']) )
+		{
+			$parts = [
+				'scheme' => @$_SERVER['REQUEST_SCHEME'],
+				'host' => @$_SERVER['HTTP_HOST'],
+			];
+		}
+
 		// No host, no results
 		if ( empty($parts['host']) )
 		{
