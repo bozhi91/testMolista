@@ -11,7 +11,7 @@
 	@if ( !empty($seo_title) )
 		<title>{{ $seo_title }}</title>
 	@else
-		<title>Molista</title>
+		<title>{{ env('WHITELABEL_WEBNAME', 'Molista') }}</title>
 	@endif
 
 	@if ( !empty($seo_description) )
@@ -23,6 +23,10 @@
 
 	@if ( LaravelLocalization::getCurrentLocaleDirection() == 'rtl' )
 		<link href="{{ Theme::url('/compiled/css/rtl.css') }}" rel="stylesheet" type='text/css' />
+	@endif
+
+	@if ( env('WHITELABEL_CSS') )
+		<link href="{{ env('WHITELABEL_CSS') }}" rel="stylesheet" type='text/css' />
 	@endif
 
 	<link id="page_favicon" href="{{ asset('favicon.ico') }}" rel="icon" type="image/x-icon" />
@@ -49,7 +53,7 @@
 						<span class="icon-bar"></span>
 					</button>
 					<a class="navbar-brand" href="/" title="{{ Lang::get('corporate/seo.header.link.home') }}">
-						<img src="{{ Theme::url('/images/corporate/logo.png') }}" alt="{{ Lang::get('corporate/seo.header.image.logo') }}">
+						<img src="{{ Theme::url( env('WHITELABEL_LOGO_HEADER', '/images/corporate/logo.png') ) }}" alt="{{ Lang::get('corporate/seo.header.image.logo') }}">
 					</a>
 				</div>
 
