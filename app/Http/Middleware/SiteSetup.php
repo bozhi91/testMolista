@@ -85,7 +85,7 @@ class SiteSetup
 
 	public function checkRedirection()
 	{
-		$parts = parse_url( url()->current() );
+		$parts = parse_url( url_current() );
 
 		if ( preg_match('#^www.#', $parts['host']) )
 		{

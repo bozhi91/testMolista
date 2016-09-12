@@ -416,7 +416,7 @@ class Site extends TranslatableModel
 	public function scopeCurrent($query)
 	{
 		// Parse url
-		$parts = parse_url( url()->current() );
+		$parts = parse_url( url_current() );
 
 		// No host, no results
 		if ( empty($parts['host']) )
