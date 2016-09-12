@@ -29,7 +29,7 @@
 		<link href="{{ env('WHITELABEL_CSS') }}" rel="stylesheet" type='text/css' />
 	@endif
 
-	<link id="page_favicon" href="{{ asset('favicon.ico') }}" rel="icon" type="image/x-icon" />
+	<link id="page_favicon" href="{{ asset( env('WHITELABEL_FAVICON','favicon.ico') ) }}" rel="icon" type="image/x-icon" />
 
 	<script type="text/javascript">
 		var ready_callbacks = [];
@@ -111,13 +111,13 @@
 						<li class="text-nowrap"><a href="{{ action('Corporate\CustomersController@getIndex') }}" title="{{ Lang::get('corporate/seo.footer.link.customer') }}">{{ Lang::get('corporate/home.footer.admin.access') }}</a></li>
 					</ul>
 					<div class="footer-text">
-						<strong>molista.com</strong> {{ Lang::get('corporate/home.footer.operated') }} <strong><a href="http://www.incubout.com/" target="_blank" title="molista.com {{ Lang::get('corporate/home.footer.operated') }} Incubout SL">Incubout SL</a></strong>: 
+						<strong>{{ env('WHITELABEL_WEB_URL','molista.com') }}</strong> {{ Lang::get('corporate/home.footer.operated') }} <strong><a href="{{ env('WHITELABEL_OWNER_URL','http://www.incubout.com/') }}" target="_blank" title="{{ env('WHITELABEL_WEB_URL','molista.com') }} {{ Lang::get('corporate/home.footer.operated') }} {{ env('WHITELABEL_OWNER_NAME','Incubout SL') }}">{{ env('WHITELABEL_OWNER_NAME','Incubout SL') }}</a></strong>: 
 						<div class="visible-xs"></div>
-						<span class="text-nowrap">Salvador Espriu 93 08005 Barcelona</span>
+						<span class="text-nowrap">{{ env('WHITELABEL_OWNER_ADDRESS','Salvador Espriu 93 08005 Barcelona') }}</span>
 						<div class="visible-xs"></div>
-						<span class="text-nowrap">T: <strong>{{ Config::get('app.phone_support') }}</strong></span>
+						<span class="text-nowrap">T: <strong>{{ Config::get('app.phone_support') }}</strong> </span>
 						<div class="visible-xs"></div>
-						<span class="text-nowrap">E: <strong><a href="mailto:info@molista.com" target="_blank">info@molista.com</a></strong></span>
+						<span class="text-nowrap">E: <strong><a href="mailto:{{ env('MAIL_CONTACT','info@molista.com') }}" target="_blank">{{ env('MAIL_CONTACT','info@molista.com') }}</a></strong></span>
 					</div>
 				</div>
 			</div>
