@@ -25,7 +25,7 @@ class SiteAutologin {
 		// Build redirect url
 		$query = $request->query();
 		unset($query['autologin_token']);
-		$redirect = url()->current() . ( empty($query) ? '' : '?'.http_build_query($query) );
+		$redirect = url_current() . ( empty($query) ? '' : '?'.http_build_query($query) );
 
 		// Get the site
 		$site = $request->get('site');
@@ -51,7 +51,7 @@ class SiteAutologin {
 		// Build redirect url
 		$query = $request->query();
 		unset($query['autologin_token']);
-		$redirect = url()->current() . ( empty($query) ? '' : '?'.http_build_query($query) );
+		$redirect = url_current() . ( empty($query) ? '' : '?'.http_build_query($query) );
 
 		// Redirect
 		return redirect()->to($redirect);
