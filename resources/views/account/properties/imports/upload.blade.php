@@ -54,6 +54,10 @@
 				},
 				errorPlacement: function(error, elem) {
 				    elem.closest('div.error-container').append(error);
+				},
+				submitHandler: function(f) {
+					LOADING.show();
+					f.submit();
 				}
 			});
 

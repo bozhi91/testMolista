@@ -122,7 +122,9 @@ class ImportSiteProperties extends Job implements ShouldQueue
 			return $import->error($this->errors);
 		}
 
-		return $import->complete();
+		$messages = [ ( $total_created == 1 ) ? '1 property created' : number_format($total_created,0,',','.') . ' properties created' ];
+
+		return $import->complete([ 'messages' => $messages ]);
 	}
 
 	protected function saveItem()
