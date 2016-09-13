@@ -79,7 +79,7 @@
 		|
 		*/
 
-		'locale' => env('WHITELABEL_LOCALE','es'),
+		'locale' => env('LOCALE_DEFAULT','es'),
 
 		/*
 		|--------------------------------------------------------------------------
@@ -92,7 +92,7 @@
 		|
 		*/
 
-		'fallback_locale' => env('WHITELABEL_LOCALE_FALLBACK','es'),
+		'fallback_locale' => env('LOCALE_FALLBACK_DEFAULT','es'),
 
 		/*
 		|--------------------------------------------------------------------------

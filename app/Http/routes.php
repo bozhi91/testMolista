@@ -13,7 +13,7 @@ Route::group([
 	'prefix' => LaravelLocalization::setLocale(),
 	'middleware' => [
 		'web',
-		'site.login.roles:admin|translator',
+		'site.login.roles:admin|translator|franchisee',
 		'setTheme:corporate',
 	],
 ], function() {
@@ -41,7 +41,7 @@ Route::group([
 		'prefix' => 'admin',
 		'middleware' => [
 			'auth.admin',
-			'role:admin|translator',
+			'role:admin|translator|franchisee',
 			'setTheme:admin',
 		],
 	], function() {

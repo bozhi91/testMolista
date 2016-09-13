@@ -20,7 +20,7 @@ class UsersController extends Controller
 
 	public function index()
 	{
-		$query = \App\User::with('roles')->with('sites');
+		$query = \App\User::with('roles')->with('sites')->withMinLevel($this->auth->user()->role_level);
 
 		// Filter by name
 		if ( $this->request->input('name') )
@@ -42,7 +42,7 @@ class UsersController extends Controller
 
 		$users = $query->orderBy('created_at','desc')->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
-		$roles = \App\Models\Role::orderBy('display_name')->lists('display_name','name');
+		$roles = \App\Models\Role::withMinLevel($this->auth->user()->role_level)->orderBy('display_name')->lists('display_name','name');
 
 		$this->set_go_back_link();
 
@@ -51,7 +51,7 @@ class UsersController extends Controller
 
 	public function create()
 	{
-		$roles = \App\Models\Role::orderBy('display_name')->get();
+		$roles = \App\Models\Role::withMinLevel($this->auth->user()->role_level)->orderBy('display_name')->get();
 
 		$locales = [];
 		foreach (\LaravelLocalization::getSupportedLocales() as $iso => $def)
@@ -102,7 +102,7 @@ class UsersController extends Controller
 
 	public function edit($id)
 	{
-		$user = \App\User::with('roles')->with('sites')->with('translation_locales')->findOrFail($id);
+		$user = \App\User::with('roles')->with('sites')->with('translation_locales')->WithMinLevel($this->auth->user()->role_level)->findOrFail($id);
 
 		$roles = \App\Models\Role::orderBy('display_name')->get();
 
@@ -146,7 +146,7 @@ class UsersController extends Controller
 		}
 
 		// Get user
-		$user = \App\User::with('roles')->with('translation_locales')->findOrFail($id);
+		$user = \App\User::with('roles')->with('translation_locales')->WithMinLevel($this->auth->user()->role_level)->findOrFail($id);
 
 		// Update data
 		foreach ($fields as $field => $def)
