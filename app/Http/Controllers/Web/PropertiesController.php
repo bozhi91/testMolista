@@ -18,13 +18,10 @@ class PropertiesController extends WebController
 					->with('services')
 					;
 
-		// Term => in title
+		// Term
 		if ( $this->request->input('term') )
 		{
-			$query->where(function ($query) {
-				$query->whereTranslationLike('title', "%{$this->request->input('term')}%")
-						->orWhere('ref', 'like', "%{$this->request->input('term')}%");
-			});
+			$query->withTermLike($this->request->input('term'));
 		}
 
 		// State
