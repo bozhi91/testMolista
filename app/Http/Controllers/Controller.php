@@ -52,7 +52,7 @@ class Controller extends BaseController
 		$nav = session()->get('SmartBackLinks', []);
 
 		// Add current value to nav
-		$nav[ url()->current() ] = url()->full();
+		$nav[ url_current() ] = url()->full();
 
 		// Sort nav by key length
 		uksort($nav, function($a,$b){
