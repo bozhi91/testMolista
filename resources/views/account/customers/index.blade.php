@@ -39,6 +39,7 @@
 							{!! drawSortableHeaders(url()->full(), [
 								'name' => [ 'title' => Lang::get('account/customers.name'), 'sortable'=>false, ],
 								'email' => [ 'title' => Lang::get('account/customers.email'), 'sortable'=>false, ],
+								'origin' => [ 'title' => Lang::get('account/customers.origin'), 'sortable'=>false, ],
 								'properties' => [ 'title' => Lang::get('account/customers.properties'), 'sortable'=>false, 'class'=>'text-center', ],
 								'matches' => [ 'title' => Lang::get('account/customers.matches'), 'sortable'=>false, 'class'=>'text-center', ],
 								'action' => [ 'title' => '', 'sortable'=>false, 'class'=>'text-right text-nowrap', ],
@@ -50,6 +51,7 @@
 							<tr>
 								<td>{{ $customer->full_name }}</td>
 								<td>{{ $customer->email }}</td>
+								<td style="text-transform: capitalize;">{{ $customer->origin }}</td>
 								<th class="text-center">{{ number_format($customer->properties->count(), 0, ',', '.') }}</td>
 								<th class="text-center">{{ number_format($customer->possible_matches->count(), 0, ',', '.') }}</td>
 								<td class="text-right text-nowrap">
