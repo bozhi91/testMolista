@@ -911,6 +911,21 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		return true;
 	}
 
+	public function postComment($slug)
+	{
+		$property = $this->site->properties()->whereIn('properties.id', $this->auth->user()->properties()->lists('id'))->whereTranslation('slug', $slug)->first();
+		if ( !$property )
+		{
+			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
+		}
+
+		$property->update([
+			'comment' => $this->request->input('comment')
+		]);
+
+		return redirect()->back()->with('success', trans('general.messages.success.saved'));
+	}
+
 	public function postUpload()
 	{
 

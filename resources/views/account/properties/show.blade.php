@@ -130,6 +130,20 @@
 						<a href="#" data-href="{{ action('Account\PropertiesController@getCatch', $property->id)}}" class="btn btn-primary popup-catch-trigger">{{ Lang::get('account/properties.show.property.catch.actions.create') }}</a>
 					</div>
 				@endif
+
+				{!! Form::model($property, [ 'action'=>['Account\PropertiesController@postComment',$property->slug], 'method'=>'post', 'id'=>'comment-form' ]) !!}
+					<hr />
+					<h3 class="page-title">{{ Lang::get('account/properties.show.property.comment.title') }}</h3>
+					<div class="form-group error-placement">
+						{!! Form::textarea('comment', null, [ 'class'=>'form-control', ]) !!}
+					</div>
+					<div class="form-group">
+						<div class="text-right">
+							{!! Form::button(Lang::get('account/properties.show.property.comment.button'), [ 'type'=>'submit', 'class'=>'btn btn-primary', ]) !!}
+						</div>
+					</div>
+				{!! Form::close() !!}
+
 			</div>
 
 			<div role="tabpanel" class="tab-pane tab-main {{ (old('current_tab') == 'tab-lead') ? 'active' : '' }}" id="tab-lead">
@@ -453,6 +467,13 @@
 				},
 				error: function() {
 						$('#account-visits-ajax-tab').html('<div class="alert alert-danger">{{ print_js_string( Lang::get('general.messages.error') ) }}</div>')
+				}
+			});
+
+			$('#comment-form').validate({
+				submitHandler: function(f) {
+					LOADING.show();
+					f.submit();
 				}
 			});
 

@@ -135,6 +135,9 @@
 		'show.property.price.min' => 'Precio mínimo',
 		'show.property.commission' => 'Comisión',
 
+		'show.property.comment.title' => 'Comentario',
+		'show.property.comment.button' => 'Guardar comentario',
+
 		'show.transactions.none' => 'No hay transacciones',
 		'show.transactions.date' => 'Fecha',
 		'show.transactions.seller' => 'Vendedor',
