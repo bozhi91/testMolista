@@ -413,6 +413,17 @@ class Site extends TranslatableModel
 		return $query->where("{$this->getTable()}.enabled", 1);
 	}
 
+	public function scopeWithDomain($query,$domain)
+	{
+		return $query->where(function ($query) use ($domain) {
+			$query->whereIn('sites.id', function($query) use ($domain) {
+				$query->select('site_id')
+					->from('sites_domains')
+					->where('domain', 'like', "%{$domain}%");
+			})->orWhere('subdomain', 'like', "%{$domain}%");
+		});
+	}
+
 	public function scopeCurrent($query)
 	{
 		// Parse url

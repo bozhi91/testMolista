@@ -45,7 +45,7 @@
 									<td>{{ $user->name }}</td>
 									<td>{{ $user->email }}</td>
 									<td>{{ $user->roles->implode('display_name', ', ') }}</td>
-									<td>{{ $user->sites->implode('title', ', ') }}</td>
+									<td>{{ $user->sites->implode('main_url', ', ') }}</td>
 									<td class="text-right">
 										@if ( Auth::user()->can('user-edit') )
 											<a href="{{ action('Admin\UsersController@edit', $user->id) }}" class="btn btn-xs btn-default">{{ Lang::get('general.edit') }}</a>
@@ -55,7 +55,7 @@
 							@endforeach
 						</tbody>
 					</table>
-					{!! drawPagination($users, Input::only('limit','name','email','role')) !!}
+					{!! drawPagination($users, Input::except('page'), action('Admin\UsersController@index', array_merge(Input::except('page','limit'), ['csv'=>1]))) !!}
 				@endif
 			</div>
 

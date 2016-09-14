@@ -40,13 +40,33 @@ class UsersController extends Controller
 			$query->withRole( $this->request->input('role') );
 		}
 
-		$users = $query->orderBy('created_at','desc')->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
+		$query->orderBy('created_at','desc');
+
+		if ( $this->request->input('csv') )
+		{
+			return $this->csv_output($query, [
+				'id' => '#',
+				'name' => trans('admin/users.name'),
+				'email' => trans('admin/users.email'),
+				'role' => trans('admin/users.role'),
+				'site' => trans('admin/users.site'),
+			]);
+		}
+
+		$users = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$roles = \App\Models\Role::withMinLevel($this->auth->user()->role_level)->orderBy('display_name')->lists('display_name','name');
 
 		$this->set_go_back_link();
 
 		return view('admin.users.index', compact('users','roles'));
+	}
+
+	protected function csv_prepare_row($row)
+	{
+		$row->role = $row->roles->implode('display_name', ', ');
+		$row->site = $row->sites->implode('main_url', ', ');
+		return $row;
 	}
 
 	public function create()
