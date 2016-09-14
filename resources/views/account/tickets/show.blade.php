@@ -190,6 +190,14 @@
 								<div>{{ $ticket->contact->company }}</div>
 								<div class="text-ellipsis" title="{{ $ticket->contact->email }}">{{ $ticket->contact->email }}</div>
 								<div>{{ $ticket->contact->phone }}</div>
+								<hr />
+								{!! Form::open([ 'action'=>'Account\Calendar\BaseController@getCreate', 'method'=>'get', 'class'=>'text-right' ]) !!}
+									{!! Form::hidden('customer_id', @$ticket->contact->id_molista) !!}
+									{!! Form::hidden('user_ids[]', $current_site_user->id) !!}
+									{!! Form::hidden('user_ids[]', @$ticket->user->id_molista) !!}
+									{!! Form::hidden('property_ids[]', @$ticket->item->id_molista) !!}
+									{!! Form::button(Lang::get('account/calendar.button.schedule'), [ 'type'=>'submit', 'class'=>'btn btn-sm btn-default' ]) !!}
+								{!! Form::close() !!}
 							</div>
 						</div>
 					@endif
@@ -256,14 +264,6 @@
 								<div>{{ Lang::get('account/properties.ref')}}: <a href="{{ $property->full_url}}" target="_blank">{{ $property->ref }}</a></div>
 								<div>{{ $property->title }}</div>
 								<div>{{ implode(', ', $property->location_array) }}</div>
-								<hr />
-								{!! Form::open([ 'action'=>'Account\Calendar\BaseController@getCreate', 'method'=>'get', 'class'=>'text-right' ]) !!}
-									{!! Form::hidden('customer_id', @$ticket->contact->id_molista) !!}
-									{!! Form::hidden('user_ids[]', $current_site_user->id) !!}
-									{!! Form::hidden('user_ids[]', @$ticket->user->id_molista) !!}
-									{!! Form::hidden('property_ids[]', @$ticket->item->id_molista) !!}
-									{!! Form::button(Lang::get('account/calendar.button.schedule'), [ 'type'=>'submit', 'class'=>'btn btn-sm btn-default' ]) !!}
-								{!! Form::close() !!}
 							</div>
 						</div>
 					@endif
