@@ -89,17 +89,20 @@
 					</div>
 					<div class="row">
 						<div class="col-xs-12 col-sm-4">
-							<div class="form-group error-placement">
-								{!! Form::label(null, Lang::get('account/properties.show.property.price.min') ) !!}
-								<div class="input-group">
-									@if ( @$property->infocurrency->position == 'before' )
-										<div class="input-group-addon">{{ $property->infocurrency->symbol }}</div>
-									@endif
-									{!! Form::text(null, $property->catch_current->price_min, [ 'class'=>'form-control', 'readonly'=>'readonly', ]) !!}
-									@if ( @$property->infocurrency->position == 'after' )
-										<div class="input-group-addon">{{ $property->infocurrency->symbol }}</div>
-									@endif
+							<div class="form-group">
+								<div class="error-placement">
+									{!! Form::label(null, Lang::get('account/properties.show.property.price.min') ) !!}
+									<div class="input-group">
+										@if ( @$property->infocurrency->position == 'before' )
+											<div class="input-group-addon">{{ $property->infocurrency->symbol }}</div>
+										@endif
+										{!! Form::text(null, $property->catch_current->price_min, [ 'class'=>'form-control', 'readonly'=>'readonly', ]) !!}
+										@if ( @$property->infocurrency->position == 'after' )
+											<div class="input-group-addon">{{ $property->infocurrency->symbol }}</div>
+										@endif
+									</div>
 								</div>
+								<div class="help-block">{{ Lang::get('account/properties.show.property.price.min.help') }}</div>
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-2">

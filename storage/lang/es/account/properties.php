@@ -133,6 +133,7 @@
 		'show.property.seller.phone' => 'Teléfono vendedor',
 		'show.property.seller.cell' => 'Móvil vendedor',
 		'show.property.price.min' => 'Precio mínimo',
+		'show.property.price.min.help' => 'Corresponde al precio mínimo por el que el propietario estaría dispuesto a cerrar la transacción (vender, alquilar, etc)',
 		'show.property.commission' => 'Comisión',
 
 		'show.property.comment.title' => 'Comentario',
