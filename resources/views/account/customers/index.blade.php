@@ -59,7 +59,7 @@
 						@endforeach
 					</tbody>
 				</table>
-                {!! drawPagination($customers, Input::except('page')) !!}
+                {!! drawPagination($customers, Input::except('page'), action('Account\CustomersController@index', [ 'csv'=>1 ])) !!}
 			@endif
 
 		</div>
