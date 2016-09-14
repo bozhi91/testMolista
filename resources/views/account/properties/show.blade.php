@@ -89,17 +89,20 @@
 					</div>
 					<div class="row">
 						<div class="col-xs-12 col-sm-4">
-							<div class="form-group error-placement">
-								{!! Form::label(null, Lang::get('account/properties.show.property.price.min') ) !!}
-								<div class="input-group">
-									@if ( @$property->infocurrency->position == 'before' )
-										<div class="input-group-addon">{{ $property->infocurrency->symbol }}</div>
-									@endif
-									{!! Form::text(null, $property->catch_current->price_min, [ 'class'=>'form-control', 'readonly'=>'readonly', ]) !!}
-									@if ( @$property->infocurrency->position == 'after' )
-										<div class="input-group-addon">{{ $property->infocurrency->symbol }}</div>
-									@endif
+							<div class="form-group">
+								<div class="error-placement">
+									{!! Form::label(null, Lang::get('account/properties.show.property.price.min') ) !!}
+									<div class="input-group">
+										@if ( @$property->infocurrency->position == 'before' )
+											<div class="input-group-addon">{{ $property->infocurrency->symbol }}</div>
+										@endif
+										{!! Form::text(null, $property->catch_current->price_min, [ 'class'=>'form-control', 'readonly'=>'readonly', ]) !!}
+										@if ( @$property->infocurrency->position == 'after' )
+											<div class="input-group-addon">{{ $property->infocurrency->symbol }}</div>
+										@endif
+									</div>
 								</div>
+								<div class="help-block">{{ Lang::get('account/properties.show.property.price.min.help') }}</div>
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-2">
@@ -130,6 +133,20 @@
 						<a href="#" data-href="{{ action('Account\PropertiesController@getCatch', $property->id)}}" class="btn btn-primary popup-catch-trigger">{{ Lang::get('account/properties.show.property.catch.actions.create') }}</a>
 					</div>
 				@endif
+
+				{!! Form::model($property, [ 'action'=>['Account\PropertiesController@postComment',$property->slug], 'method'=>'post', 'id'=>'comment-form' ]) !!}
+					<hr />
+					<h3 class="page-title">{{ Lang::get('account/properties.show.property.comment.title') }}</h3>
+					<div class="form-group error-placement">
+						{!! Form::textarea('comment', null, [ 'class'=>'form-control', ]) !!}
+					</div>
+					<div class="form-group">
+						<div class="text-right">
+							{!! Form::button(Lang::get('account/properties.show.property.comment.button'), [ 'type'=>'submit', 'class'=>'btn btn-primary', ]) !!}
+						</div>
+					</div>
+				{!! Form::close() !!}
+
 			</div>
 
 			<div role="tabpanel" class="tab-pane tab-main {{ (old('current_tab') == 'tab-lead') ? 'active' : '' }}" id="tab-lead">
@@ -453,6 +470,13 @@
 				},
 				error: function() {
 						$('#account-visits-ajax-tab').html('<div class="alert alert-danger">{{ print_js_string( Lang::get('general.messages.error') ) }}</div>')
+				}
+			});
+
+			$('#comment-form').validate({
+				submitHandler: function(f) {
+					LOADING.show();
+					f.submit();
 				}
 			});
 

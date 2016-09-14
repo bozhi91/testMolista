@@ -14,6 +14,8 @@
 				<h1>{{ Lang::get('corporate/features.characteristics') }}: {{ Lang::get('corporate/features.leads.link') }}</h1>
 			@elseif ( $current_tab == 'tab5' )
 				<h1>{{ Lang::get('corporate/features.characteristics') }}: {{ Lang::get('corporate/features.integrations.link') }}</h1>
+			@elseif ( $current_tab == 'tab6' )
+				<h1>{{ Lang::get('corporate/features.characteristics') }}: {{ Lang::get('corporate/features.calendar.link') }}</h1>
 			@else
 				<h1>{{ Lang::get('corporate/features.characteristics') }}</h1>
 			@endif
@@ -74,6 +76,16 @@
 									</div>
 									<div class="features-tab-selector-text hidden-xs">
 										<p>{{ Lang::get('corporate/features.integrations.link') }}</p>
+									</div>
+								</a>
+							</li>
+							<li class="{{ $current_tab == 'tab6' ? 'active' : '' }}">
+								<a href="{{ action('Corporate\FeaturesController@getIndex', $tab_options['tab6']) }}">
+									<div class="features-tab-selector-image">
+										<img src="{{ Theme::url('/images/corporate/features/icon-tab-6.png') }}" class="img-responsive">
+									</div>
+									<div class="features-tab-selector-text hidden-xs">
+										<p>{{ Lang::get('corporate/features.calendar.link') }}</p>
 									</div>
 								</a>
 							</li>
@@ -171,12 +183,27 @@
 								</div>
 							</div>
 						</div>
+					@elseif ( $current_tab == 'tab6' )
+						<div id="feature-tab6" class="tab-pane fade in active feature-tab-styles">
+							<div class="row">
+								<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+									<div class="features-content-text">
+										<h1>{!! Lang::get('corporate/features.calendar.title') !!}</h1>
+										{!! Lang::get('corporate/features.calendar.text') !!}
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+									<div class="feature-content-image">
+										<img src="{{ Theme::url('/images/corporate/features/picture-tab-content-6.png') }}" class="img-responsive">
+									</div>
+								</div>
+							</div>
+						</div>
 					@endif
 				</div>
 			</div>
 		</div>
 
-		
 		<div id="features-home-content">
 			<!-- THIRD BLOCK -->
 			<section class="third-block">

@@ -20,6 +20,7 @@ class FeaturesController extends \App\Http\Controllers\CorporateController
 					'tab3' => 'agente-inmobiliario',
 					'tab4' => 'clientes-inmobiliaria',
 					'tab5' => 'portales-inmobiliarios',
+					'tab6' => 'agenda',
 				];
 		}
 

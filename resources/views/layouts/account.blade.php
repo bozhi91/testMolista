@@ -174,7 +174,7 @@
 
 		ready_callbacks.push(function() {
 			var account_menu = $('#account-container .account-menu');
-			var header_menu = $('#header .header-menu');
+			var header_menu = $('#header .header-menu-search-trigger');
 			var locale_menu = $('#header .header-locale-social');
 
 			// Hide header menu

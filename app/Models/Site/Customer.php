@@ -13,11 +13,13 @@ class Customer extends Model
 		parent::boot();
 
 		// Whenever a customer is created
-		static::created(function($customer){
+		static::created(function($item){
+			$customer = self::find($item->id);
 			$customer->site->ticket_adm->associateContact($customer);
 		});
 		// Whenever a customer is updated
-		static::updated(function($customer){
+		static::updated(function($item){
+			$customer = self::find($item->id);
 			$customer->site->ticket_adm->associateContact($customer);
 		});
 	}

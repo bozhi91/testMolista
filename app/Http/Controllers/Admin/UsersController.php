@@ -20,7 +20,7 @@ class UsersController extends Controller
 
 	public function index()
 	{
-		$query = \App\User::with('roles')->with('sites');
+		$query = \App\User::with('roles')->with('sites')->withMinLevel($this->auth->user()->role_level);
 
 		// Filter by name
 		if ( $this->request->input('name') )
@@ -40,18 +40,38 @@ class UsersController extends Controller
 			$query->withRole( $this->request->input('role') );
 		}
 
-		$users = $query->orderBy('created_at','desc')->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
+		$query->orderBy('created_at','desc');
 
-		$roles = \App\Models\Role::orderBy('display_name')->lists('display_name','name');
+		if ( $this->request->input('csv') )
+		{
+			return $this->csv_output($query, [
+				'id' => '#',
+				'name' => trans('admin/users.name'),
+				'email' => trans('admin/users.email'),
+				'role' => trans('admin/users.role'),
+				'site' => trans('admin/users.site'),
+			]);
+		}
+
+		$users = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
+
+		$roles = \App\Models\Role::withMinLevel($this->auth->user()->role_level)->orderBy('display_name')->lists('display_name','name');
 
 		$this->set_go_back_link();
 
 		return view('admin.users.index', compact('users','roles'));
 	}
 
+	protected function csv_prepare_row($row)
+	{
+		$row->role = $row->roles->implode('display_name', ', ');
+		$row->site = $row->sites->implode('main_url', ', ');
+		return $row;
+	}
+
 	public function create()
 	{
-		$roles = \App\Models\Role::orderBy('display_name')->get();
+		$roles = \App\Models\Role::withMinLevel($this->auth->user()->role_level)->orderBy('display_name')->get();
 
 		$locales = [];
 		foreach (\LaravelLocalization::getSupportedLocales() as $iso => $def)
@@ -102,7 +122,7 @@ class UsersController extends Controller
 
 	public function edit($id)
 	{
-		$user = \App\User::with('roles')->with('sites')->with('translation_locales')->findOrFail($id);
+		$user = \App\User::with('roles')->with('sites')->with('translation_locales')->WithMinLevel($this->auth->user()->role_level)->findOrFail($id);
 
 		$roles = \App\Models\Role::orderBy('display_name')->get();
 
@@ -146,7 +166,7 @@ class UsersController extends Controller
 		}
 
 		// Get user
-		$user = \App\User::with('roles')->with('translation_locales')->findOrFail($id);
+		$user = \App\User::with('roles')->with('translation_locales')->WithMinLevel($this->auth->user()->role_level)->findOrFail($id);
 
 		// Update data
 		foreach ($fields as $field => $def)
