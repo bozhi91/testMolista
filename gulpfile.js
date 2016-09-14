@@ -98,6 +98,12 @@ elixir(function(mix) {
 			'corporate.js',
 		], 'public/compiled/js/corporate.js');
 
+	/* 004estate */
+	mix
+		.less([
+			'004estate.less',
+		], 'public/compiled/css/004estate.css');
+
 
 	/* Admin */
 	mix
