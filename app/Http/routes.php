@@ -60,6 +60,7 @@ Route::group([
 		Route::get('/', 'AdminController@index');
 
 		// Sites
+		Route::controller('sites/payments', 'Admin\Sites\PaymentsController');
 		Route::get('sites/invoice/{id}/{file?}', 'Admin\SitesController@getInvoice');
 		Route::post('sites/invoice/{id}', 'Admin\SitesController@postInvoice');
 		Route::delete('sites/invoice/{id}', 'Admin\SitesController@deleteInvoice');

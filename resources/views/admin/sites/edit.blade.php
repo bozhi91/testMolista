@@ -2,7 +2,12 @@
 
 @section('content')
 
-	<div class="container">
+	<style type="text/css">
+		#tab-site-payments .pagination-limit { display: none; }
+		.mfp-iframe-scaler iframe { background: #fff; }
+	</style>
+
+	<div id="admin-sites" class="container">
 
 		@include('common.messages', [ 'dismissible'=>true ])
 
@@ -12,6 +17,7 @@
 		<ul class="nav nav-tabs main-tabs" role="tablist">
 			<li role="presentation" class="{{ $current_tab == 'site' ? 'active' : '' }}"><a href="#tab-site-config" aria-controls="tab-site-config" role="tab" data-toggle="tab">{{ Lang::get('admin/sites.tab.config') }}</a></li>
 			<li role="presentation" class="{{ $current_tab == 'plan' ? 'active' : '' }}"><a href="#tab-site-plan" aria-controls="tab-site-plan" role="tab" data-toggle="tab">{{ Lang::get('admin/sites.tab.plan') }}</a></li>
+			<li role="presentation" class="{{ $current_tab == 'payments' ? 'active' : '' }}"><a href="#tab-site-payments" aria-controls="tab-site-payments" role="tab" data-toggle="tab">{{ Lang::get('admin/sites.tab.payments') }}</a></li>
 			<li role="presentation" class="{{ $current_tab == 'invoices' ? 'active' : '' }}"><a href="#tab-site-invoices" aria-controls="tab-site-invoices" role="tab" data-toggle="tab">{{ Lang::get('admin/sites.tab.invoices') }}</a></li>
 		</ul>
 
@@ -365,6 +371,12 @@
 				@endif
 			</div>
 
+			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'payments' ? 'active' : '' }}" id="tab-site-payments">
+				<div class="alert">
+					<img src="{{ asset('images/loading.gif') }}" alt="" />
+				</div>
+			</div>
+
 		</div>
 
 		<div class="text-right">
@@ -375,7 +387,17 @@
 	</div>
 
 	<script type="text/javascript">
+		var payments_url = "{{ action('Admin\Sites\PaymentsController@getList', $site->id) }}";
+
+		function payments_reload() {
+			LOADING.show();
+			$('#tab-site-payments').load(payments_url, function(){
+				LOADING.hide();
+			});
+		}
+
 		ready_callbacks.push(function(){
+			var cont = $('#admin-sites');
 			var form = $('#site-form');
 
 			form.validate({
@@ -463,6 +485,46 @@
 					type: 'inline',
 				});
 			});
+
+
+			cont.on('shown.bs.tab', '.main-tabs a[data-toggle="tab"]', function (e) {
+				var sel = $(e.target).attr('href');
+				$(sel).find('.has-select-2').select2();
+			});
+
+			// Tab payments
+			function loadPayments(url) {
+				tab_payments.data('url', url)
+				tab_payments.load(url, function(){
+					LOADING.hide();
+				});
+			}
+
+			var tab_payments = $('#tab-site-payments');
+
+			tab_payments.on('click', '.pagination a', function(e){
+				e.preventDefault();
+
+				LOADING.show();
+
+				payments_url = $(this).attr('href');
+
+				tab_payments.load(payments_url, function(){
+					LOADING.hide();
+				});
+			});
+			tab_payments.on('click', '.edit-payment-trigger', function(e){
+				e.preventDefault();
+				var el = $(this);
+				$.magnificPopup.open({
+					items: {
+						src: el.data().href + '?ajax=1'
+					},
+					type: 'iframe',
+					modal: true
+				});
+			});
+			tab_payments.load(payments_url);
 
 		});
 	</script>
