@@ -21,7 +21,8 @@ class ImportsController extends \App\Http\Controllers\AccountController
 	public function getUpload()
 	{
 		$current_version = \App\Models\Site\Import::versionCurrent();
-		return view('account.properties.imports.upload', compact('current_version'));
+		$csv_columns = \App\Models\Site\Import::getColumns($current_version);
+		return view('account.properties.imports.upload', compact('current_version','csv_columns'));
 	}
 
 	public function postUpload()

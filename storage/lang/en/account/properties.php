@@ -227,4 +227,15 @@
 		'imports.created' => 'The import process is running. You can check its status in this page.',
 
 		'imports.csv.header' => 'Do not modify or delete the top 3 rows.',
+
+		'imports.csv.instructions.title' => 'Instructions',
+		'imports.csv.instructions.intro' => '<ul>
+												<li>Do not modify the CSV file headers.</li>
+												<li>Do not leave empty lines. The import routine ends when an empty line is found.</li>
+												<li>You must respect the field options, including uppercase/lowercase (see table below).</li>
+											</ul>',
+		'imports.csv.instructions.column' => 'Column',
+		'imports.csv.instructions.type' => 'Type',
+		'imports.csv.instructions.required' => 'Required',
+		'imports.csv.instructions.options' => 'Options',
 	];

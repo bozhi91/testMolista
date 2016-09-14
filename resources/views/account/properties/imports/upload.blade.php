@@ -34,6 +34,40 @@
 			</div>
 		</div>
 
+		<div class="instructions">
+			<hr />
+			<h3>{{ Lang::get('account/properties.imports.csv.instructions.title') }}</h3>
+			<div class="intro" style="padding-bottom: 30px; font-size: 16px;">
+				{!! Lang::get('account/properties.imports.csv.instructions.intro') !!}
+			</div>
+			<div class="fields" style="font-size: 11px;">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>{{ Lang::get('account/properties.imports.csv.instructions.column') }}</th>
+							<th>{{ Lang::get('account/properties.imports.csv.instructions.type') }}</th>
+							<th class="text-center">{{ Lang::get('account/properties.imports.csv.instructions.required') }}</th>
+							<th>{{ Lang::get('account/properties.imports.csv.instructions.options') }}</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach ($csv_columns as $k => $v)
+							<tr>
+								<td>{{ $v['title'] }}</td>
+								<td style="text-transform: capitalize;">{{ $v['type'] }}</td>
+								<td class="text-center"><span class="glyphicon glyphicon-{{ $v['required'] ? 'ok' : 'remove' }}" aria-hidden="true"></span></td>
+								<td>
+									@if ( @$v['options'] && is_array($v['options']) )
+										{!! implode('<br />', $v['options']) !!}
+									@endif
+								</td>
+							</tr>
+						@endforeach
+					</tbody>
+				</table>
+			</div>
+		</div>
+
 	</div>
 
 	<script type="text/javascript">
