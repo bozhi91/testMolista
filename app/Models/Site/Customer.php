@@ -28,6 +28,10 @@ class Customer extends Model
 		return $this->belongsTo('App\Site')->withTranslations();
 	}
 
+	public function calendars() {
+		return $this->hasMany('App\Models\Calendar');
+	}
+
 	public function properties() {
 		return $this->belongsToMany('App\Property', 'properties_customers', 'customer_id', 'property_id')->withTranslations();
 	}
