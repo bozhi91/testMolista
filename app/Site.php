@@ -124,9 +124,21 @@ class Site extends TranslatableModel
 	}
 	public function getCustomersOptionsAttribute()
 	{
+		return $this->getCustomersOptions();
+	}
+	public function getCustomersOptions($user=false)
+	{
 		$options = [];
 
-		$customers = $this->customers()->orderBy('first_name')->orderBy('last_name')->orderBy('email')->get();
+		$query = $this->customers()->orderBy('first_name')->orderBy('last_name')->orderBy('email');
+
+		if ( $user && $user->hasRole('employee') )
+		{
+			$query->ofUser($user->id);
+		}
+
+		$customers = $query->get();
+
 		foreach ($customers as $customer)
 		{
 			$options[$customer->id] = "{$customer->full_name} ({$customer->email})";
@@ -433,7 +445,7 @@ class Site extends TranslatableModel
 	public function scopeCurrent($query)
 	{
 		// Parse url
-		$parts = parse_url( url()->current() );
+		$parts = parse_url( url_current() );
 
 		// No host, no results
 		if ( empty($parts['host']) )

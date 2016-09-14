@@ -58,7 +58,7 @@
 							</tbody>
 						</table>
 					</div>
-					{!! drawPagination($expirations, Input::only('limit','title')) !!}
+					{!! drawPagination($expirations, Input::except('page'), action('Admin\ExpirationsController@getIndex', array_merge(Input::except('page','limit'), ['csv'=>1]))) !!}
 				@endif
 			</div>
 

@@ -24,7 +24,7 @@
 						{!! Form::label('customer_id', Lang::get('account/customers.h1'), [ 'class'=>'sr-only' ]) !!}
 						{!! Form::select('customer_id', [
 							'' => '&nbsp;',
-						]+$current_site->customers_options, Input::get('customer_id'), [ 'class'=>'has-select-2 form-control' ]) !!}
+						]+$current_site->getCustomersOptions($current_site_user), Input::get('customer_id'), [ 'class'=>'has-select-2 form-control' ]) !!}
 					</div>
 					{!! Form::submit(Lang::get('general.view'), [ 'class'=>'btn btn-default' ]) !!}
 				{!! Form::close() !!}
@@ -39,6 +39,7 @@
 							{!! drawSortableHeaders(url()->full(), [
 								'name' => [ 'title' => Lang::get('account/customers.name'), 'sortable'=>false, ],
 								'email' => [ 'title' => Lang::get('account/customers.email'), 'sortable'=>false, ],
+								'origin' => [ 'title' => Lang::get('account/customers.origin'), 'sortable'=>false, ],
 								'properties' => [ 'title' => Lang::get('account/customers.properties'), 'sortable'=>false, 'class'=>'text-center', ],
 								'matches' => [ 'title' => Lang::get('account/customers.matches'), 'sortable'=>false, 'class'=>'text-center', ],
 								'action' => [ 'title' => '', 'sortable'=>false, 'class'=>'text-right text-nowrap', ],
@@ -50,6 +51,7 @@
 							<tr>
 								<td>{{ $customer->full_name }}</td>
 								<td>{{ $customer->email }}</td>
+								<td style="text-transform: capitalize;">{{ $customer->origin }}</td>
 								<th class="text-center">{{ number_format($customer->properties->count(), 0, ',', '.') }}</td>
 								<th class="text-center">{{ number_format($customer->possible_matches->count(), 0, ',', '.') }}</td>
 								<td class="text-right text-nowrap">

@@ -338,14 +338,11 @@ class Mapper extends \App\Marketplaces\Mapper {
 	 * 4 Countries y Barrios Cerrados
 	 * 5 Casa Quinta
 	 * 6 Terreno
-	 * 7 ???????????????????
 	 * 8 Galpon
 	 * 9 Local Comercial
 	 * 10 Otros
 	 * 11 Oficina
-	 * 12 ??????????????????
 	 * 13 Cochera
-	 * 13 Otros
 	 * 14 Camas Nauticas
 	 *
 	 * @return integer
@@ -353,15 +350,19 @@ class Mapper extends \App\Marketplaces\Mapper {
 	protected function getPropertyType() {
 		switch ($this->item['type']) {
 			case 'house':
-			case 'penthouse':
 			case 'villa':
 			case 'duplex':
 				return 2;
+			case 'penthouse': return 3;
 			case 'apartment': return 1;
 			case 'lot': return 6;
+			case 'state': return 6;
 			case 'store': return 9;
-			case 'ranche': return 5;
+			case 'ranch': return 5;
+			case 'farmhouse': return 5;
 		}
+
+		return 10;
 	}
 
 	/**

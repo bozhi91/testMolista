@@ -14,7 +14,7 @@
 
 		'ticketing_system_url' => env('TICKETING_SYSTEM_URL'),
 
-		'phone_support' => '93 180 70 20',
+		'phone_support' => env('WHITELABEL_SUPPORT_PHONE','93 180 70 20'),
 
 		/*
 		|--------------------------------------------------------------------------
@@ -79,7 +79,7 @@
 		|
 		*/
 
-		'locale' => 'es',
+		'locale' => env('LOCALE_DEFAULT','es'),
 
 		/*
 		|--------------------------------------------------------------------------
@@ -92,7 +92,7 @@
 		|
 		*/
 
-		'fallback_locale' => 'es',
+		'fallback_locale' => env('LOCALE_FALLBACK_DEFAULT','es'),
 
 		/*
 		|--------------------------------------------------------------------------

@@ -146,6 +146,12 @@ class Mapper extends \App\Marketplaces\Mapper {
             'penthouse' => 'Vivienda',
             'villa' => 'Vivienda',
             'apartment' => 'Vivienda',
+            'chalet' => 'Vivienda',
+            'bungalow' => 'Vivienda',
+            'building' => 'Vivienda',
+            'farmhouse' => 'Vivienda',
+            'industrial' => 'Nave',
+            'state' => 'Suelo',
         ];
 
         return isset($types[$this->item['type']]) ? $types[$this->item['type']] : 'Vivienda';
@@ -162,6 +168,12 @@ class Mapper extends \App\Marketplaces\Mapper {
             'villa' => 'Casa Rural',
             'apartment' => 'Apartamento / Estudio',
             'aparthotel' => 'Apartamento / Estudio',
+            'chalet' => 'Chalet adosado / pareado',
+            'bungalow' => 'Bungalow',
+            'building' => 'Edificio',
+            'industrial' => 'Nave industrial',
+            'state' => 'Finca',
+            'farmhouse' => 'Casa Rural',
         ];
 
         return isset($types[$this->item['type']]) ? $types[$this->item['type']] : 'Piso';

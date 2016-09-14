@@ -13,6 +13,7 @@
 		'phone' => 'Teléfono',
 		'locale' => 'Idioma',
 		'created' => 'Registro',
+		'origin' => 'Origen',
 
 		'create.h1' => 'Nuevo lead',
 

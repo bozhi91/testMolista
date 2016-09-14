@@ -65,9 +65,19 @@
 					</div>
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
+							{!! Form::label(null, Lang::get('account/customers.origin') ) !!}
+							{!! Form::text(null, @$customer->origin, [ 'class'=>'form-control', 'readonly'=>'readonly', 'style'=>'text-transform: capitalize;' ]) !!}
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group error-container">
 							{!! Form::label(null, Lang::get('account/customers.created') ) !!}
 							{!! Form::text(null, @$customer->created_at->format('d/m/Y'), [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6">
 					</div>
 				</div>
 			</div>
@@ -269,6 +279,7 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
+								<th>{{ Lang::get('account/properties.ref') }}</th>
 								<th>{{ Lang::get('account/properties.column.title') }}</th>
 								<th></th>
 							</tr>
@@ -276,6 +287,7 @@
 						<tbody>
 							@foreach ($customer->properties as $property)
 								<tr>
+									<td>{{$property->ref}}</td>
 									<td>{{$property->title}}</td>
 									<td class="text-right text-nowrap">
 										{!! Form::open([ 'action'=>[ 'Account\CustomersController@deleteRemovePropertyCustomer', $property->slug ], 'method'=>'DELETE', 'class'=>'delete-property-form' ]) !!}
@@ -299,6 +311,7 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
+								<th>{{ Lang::get('account/properties.ref') }}</th>
 								<th>{{ Lang::get('account/properties.column.title') }}</th>
 								<th></th>
 							</tr>
@@ -306,6 +319,7 @@
 						<tbody>
 							@foreach ($customer->possible_matches as $property)
 								<tr>
+									<td>{{$property->ref}}</td>
 									<td>{{$property->title}}</td>
 									<td class="text-right text-nowrap">
 										{!! Form::open([ 'action'=>[ 'Account\CustomersController@postAddPropertyCustomer', $property->slug ], 'method'=>'POST', 'class'=>'add-property-form' ]) !!}
@@ -328,6 +342,7 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
+								<th>{{ Lang::get('account/properties.ref') }}</th>
 								<th>{{ Lang::get('account/properties.column.title') }}</th>
 								<th></th>
 							</tr>
@@ -335,6 +350,7 @@
 						<tbody>
 							@foreach ($customer->properties_discards as $property)
 								<tr>
+									<td>{{$property->ref}}</td>
 									<td>{{$property->title}}</td>
 									<td class="text-right text-nowrap">
 										{!! Form::open([ 'action'=>[ 'Account\CustomersController@putUndiscardPropertyCustomer', $property->slug ], 'method'=>'PUT', 'class'=>'undelete-property-form' ]) !!}

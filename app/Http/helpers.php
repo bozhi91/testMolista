@@ -54,7 +54,7 @@
 
     	foreach ($nav as $url => $prev)
     	{
-    		if ( strpos(url()->current(), $url) === false )
+    		if ( strpos(url_current(), $url) === false )
     		{
     			continue;
     		}
@@ -371,7 +371,7 @@
 
 	function sort_link($field)
 	{
-		return url()->current() . '?' . http_build_query(Input::except('sort')) . '&sort=' . $field;
+		return url_current() . '?' . http_build_query(Input::except('sort')) . '&sort=' . $field;
 	}
 
 	function fallback_lang()
@@ -466,4 +466,11 @@
 		}
 
 		return $message;
+	}
+
+	function url_current()
+	{
+		$full = url()->full();
+		$parts = explode('?', $full);
+		return $parts[0];
 	}

@@ -32,4 +32,9 @@
 		'features.power.text' => '<p>Ofrece a tus clientes una <strong>potente herramienta de búsqueda</strong>, con campos avanzados, por características del inmueble, por localización... Con herramientas <strong>SEO</strong> y totalmente <strong>adaptada a tabletas y móviles</strong>.</p>',
 		'features.customizable.title' => 'Personalizable',
 		'features.customizable.text' => '<p>Adáptala a <strong>la imagen de tu empresa</strong> y <strong>personaliza los campos</strong> y las características de los inmuebles que quieras vender o alquilar mediante plantillas personalizables fáciles de usar.</p>',
+
+		'calendar.link' => 'Agenda',
+		'calendar.title' => 'Agenda',
+		'calendar.text' => 'Crea eventos, planifica tus citas y las de tus agentes y <br> muéstralos en el calendario.',
+
 	];
