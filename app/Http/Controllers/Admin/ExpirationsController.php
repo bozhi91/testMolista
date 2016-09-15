@@ -66,14 +66,14 @@ class ExpirationsController extends Controller
 		return view('admin.expirations.index', compact('expirations','plans'));
 	}
 
-<<<<<<< HEAD
 	protected function csv_prepare_row($row)
 	{
 		$row->plan_name = @$row->plan->name;
 		$row->interval = trans("web/plans.price.{$row->payment_interval}");
 		$row->method = trans("account/payment.method.{$row->payment_method}");
 		return $row;
-=======
+	}
+
 	public function getExtend($id_site)
 	{
 		$site = \App\Site::with('plan')->findOrFail($id_site);
@@ -84,6 +84,7 @@ class ExpirationsController extends Controller
 
 		return view('admin.expirations.extend', compact('site'));
 	}
+	
 	public function postExtend($id_site)
 	{
 		$site = \App\Site::with('plan')->findOrFail($id_site);
@@ -146,7 +147,6 @@ class ExpirationsController extends Controller
 		}
 
 		return view('admin.expirations.extended', compact('site'));
->>>>>>> origin/feature/commercial-commission
 	}
 
 }
