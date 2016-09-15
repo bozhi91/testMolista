@@ -27,6 +27,11 @@ class Images extends Model
 	}
 	public function getImageUrlThumbAttribute()
 	{
+		if ( !$this->image_url )
+		{
+			return false;
+		}
+
 		$tmp = pathinfo($this->image_url);
 
 		return implode('/', [
