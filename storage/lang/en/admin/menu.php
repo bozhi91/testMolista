@@ -17,6 +17,9 @@
 		'properties' => 'Properties',
 		'services' => 'Services',
 
+		'resellers' => 'Resellers',
+		'resellers.payments' => 'Commissions',
+
 		'configuration' => 'Configuration',
 		'locales' => 'Languages',
 		'translations' => 'Translations',

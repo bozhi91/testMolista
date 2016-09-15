@@ -19,6 +19,7 @@ return [
 	'country' => 'País',
 	'properties' => 'Propiedades',
 	'employees' => 'Agentes',
+	'reseller' => 'Reseller',
 
 	'create.title' => 'Create site',
 	'edit.title' => 'Edit site',
@@ -26,6 +27,7 @@ return [
 	'tab.config' => 'Configuration',
 	'tab.plan' => 'Plan',
 	'tab.invoices' => 'Facturas',
+	'tab.payments' => 'Pagos',
 
 	'goto.site' => 'Go to site',
 	'goto.admin' => 'Go to admin',
@@ -43,4 +45,13 @@ return [
 	'invoices.message.success' => 'La factura se ha subido correctamente',
 	'invoices.message.deleted' => 'La factura se ha eliminado correctamente',
 	'invoices.warning.delete' => '¿Confirma que desea eliminar permanentemente esta factura?',
+
+	'payments.empty' => 'No se encontró información de pagos',
+	'payments.date' => 'Fecha',
+	'payments.amount' => 'Cantidad',
+	'payments.method' => 'Método',
+	'payments.commission' => 'Comisión',
+	'payments.paid' => 'Pagada',
+	'payments.reseller' => 'Reseller',
+	'payments.button' => 'Modificar reseller',
 ];

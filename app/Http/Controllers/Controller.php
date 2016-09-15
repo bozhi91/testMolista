@@ -20,6 +20,8 @@ class Controller extends BaseController
 	protected $site;
 	protected $site_user;
 
+	protected $reseller;
+
 	protected $geolocation;
 
 	protected $currency;
@@ -36,6 +38,8 @@ class Controller extends BaseController
 		{
 			$this->site->setTicketToken($this->site_user->ticket_user_token);
 		}
+
+		$this->reseller = $this->request->get('reseller');
 
 		$this->geolocation = $this->request->get('geolocation');
 		

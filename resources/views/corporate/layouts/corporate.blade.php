@@ -1,4 +1,4 @@
-<?php 
+<?php
 	$enabled_locales = \App\Models\Locale::getCorporateLocales();
 ?>
 <!DOCTYPE html>
@@ -37,60 +37,66 @@
 
 </head>
 
-<body class="dir-{{ LaravelLocalization::getCurrentLocaleDirection() }}">
+<body class="dir-{{ LaravelLocalization::getCurrentLocaleDirection() }} theme-{{ Theme::get() }}">
 
 	@include('corporate.common.analytics')
 
-	<header id="header">
-		<nav class="navbar navbar-default">
-			<div class="container">
+	@if ( @$custom_header )
+		@include($custom_header)
+	@else
+		<header id="header">
+			<nav class="navbar navbar-default">
+				<div class="container">
 
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="{{ action('CorporateController@index') }}" title="{{ Lang::get('corporate/seo.header.link.home') }}">
-						<img src="{{ Theme::url( env('WHITELABEL_LOGO_HEADER', '/images/corporate/logo.png') ) }}" alt="{{ Lang::get('corporate/seo.header.image.logo') }}">
-					</a>
-				</div>
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="{{ action('CorporateController@index') }}" title="{{ Lang::get('corporate/seo.header.link.home') }}">
+							<img src="{{ Theme::url( env('WHITELABEL_LOGO_HEADER', '/images/corporate/logo.png') ) }}" alt="{{ Lang::get('corporate/seo.header.image.logo') }}">
+						</a>
+					</div>
 
-				<div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav">
-						<li><a href="{{ action('Corporate\DemoController@getIndex') }}" title="{{ Lang::get('corporate/seo.header.link.demo') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</a></li>
-						<li><a href="{{ action('Corporate\FeaturesController@getIndex') }}" title="{{ Lang::get('corporate/seo.header.link.features') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.moreinfo') }}</a></li> 
-						<li><a href="{{ action('Corporate\PricingController@getIndex') }}" title="{{ Lang::get('corporate/seo.header.link.pricing') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.pricing') }}</a></li> 
-						@if ( @$enabled_locales && count($enabled_locales) > 1 )
-							<li class="language-container dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ (1==2) ? Lang::get('corporate/general.languages') : LaravelLocalization::getCurrentLocaleNative() }} <span class="caret"></span></a>
-								<ul class="language_bar_chooser dropdown-menu">
-									@foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-										@if ( in_array($localeCode, $enabled_locales) && $localeCode != LaravelLocalization::getCurrentLocale() )
-											<li>
-												<a rel="alternate" hreflang="{{$localeCode}}" href="{{LaravelLocalization::getLocalizedURL($localeCode) }}">
-													{{{ $properties['native'] }}}
-												</a>
-											</li>
-										@endif
-									@endforeach
-								</ul>
+					<div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
+						<ul class="nav navbar-nav">
+							<li><a href="{{ action('Corporate\DemoController@getIndex') }}" title="{{ Lang::get('corporate/seo.header.link.demo') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</a></li>
+							<li><a href="{{ action('Corporate\FeaturesController@getIndex') }}" title="{{ Lang::get('corporate/seo.header.link.features') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.moreinfo') }}</a></li>
+							<li><a href="{{ action('Corporate\PricingController@getIndex') }}" title="{{ Lang::get('corporate/seo.header.link.pricing') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.pricing') }}</a></li>
+							@if ( @$enabled_locales && count($enabled_locales) > 1 )
+								<li class="language-container dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ (1==2) ? Lang::get('corporate/general.languages') : LaravelLocalization::getCurrentLocaleNative() }} <span class="caret"></span></a>
+									<ul class="language_bar_chooser dropdown-menu">
+										@foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+											@if ( in_array($localeCode, $enabled_locales) && $localeCode != LaravelLocalization::getCurrentLocale() )
+												<li>
+													<a rel="alternate" hreflang="{{$localeCode}}" href="{{LaravelLocalization::getLocalizedURL($localeCode) }}">
+														{{{ $properties['native'] }}}
+													</a>
+												</li>
+											@endif
+										@endforeach
+									</ul>
+								</li>
+							@endif
+							<li>
+								<div class="phone-info">
+									<i class="fa fa-phone" aria-hidden="true"></i>
+									{{ Config::get('app.phone_support') }}
+								</div>
 							</li>
-						@endif
-						<li>
-							<div class="phone-info">
-								<i class="fa fa-phone" aria-hidden="true"></i>
-								{{ Config::get('app.phone_support') }}
-							</div>
-						</li>
-					</ul>
+						</ul>
+					</div>
 				</div>
-			</div>
-		</nav>
-	</header>
+			</nav>
+		</header>
+	@endif
 
-	@yield('content')
+	<section class="section-content">
+		@yield('content')
+	</section>
 
 	<!-- FOOTER -->
 	<footer>
@@ -111,7 +117,7 @@
 						<li class="text-nowrap"><a href="{{ action('Corporate\CustomersController@getIndex') }}" title="{{ Lang::get('corporate/seo.footer.link.customer') }}">{{ Lang::get('corporate/home.footer.admin.access') }}</a></li>
 					</ul>
 					<div class="footer-text">
-						<strong>{{ env('WHITELABEL_WEB_URL','molista.com') }}</strong> {{ Lang::get('corporate/home.footer.operated') }} <strong><a href="{{ env('WHITELABEL_OWNER_URL','http://www.incubout.com/') }}" target="_blank" title="{{ env('WHITELABEL_WEB_URL','molista.com') }} {{ Lang::get('corporate/home.footer.operated') }} {{ env('WHITELABEL_OWNER_NAME','Incubout SL') }}">{{ env('WHITELABEL_OWNER_NAME','Incubout SL') }}</a></strong>: 
+						<strong>{{ env('WHITELABEL_WEB_URL','molista.com') }}</strong> {{ Lang::get('corporate/home.footer.operated') }} <strong><a href="{{ env('WHITELABEL_OWNER_URL','http://www.incubout.com/') }}" target="_blank" title="{{ env('WHITELABEL_WEB_URL','molista.com') }} {{ Lang::get('corporate/home.footer.operated') }} {{ env('WHITELABEL_OWNER_NAME','Incubout SL') }}">{{ env('WHITELABEL_OWNER_NAME','Incubout SL') }}</a></strong>:
 						<div class="visible-xs"></div>
 						<span class="text-nowrap">{{ env('WHITELABEL_OWNER_ADDRESS','Salvador Espriu 93 08005 Barcelona') }}</span>
 						<div class="visible-xs"></div>

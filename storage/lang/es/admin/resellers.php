@@ -1,0 +1,52 @@
+<?php
+
+	return [
+		'empty' => 'No se encontraron resellers',
+
+		'ref' => 'Referencia',
+		'ref.used' => 'La referencia ya está en uso.',
+		'type' => 'Tipo',
+		'type.company' => 'Empresa',
+		'type.individual' => 'Persona',
+		'name' => 'Nombre',
+		'email' => 'Email',
+		'email.used' => 'El email ya está en uso.',
+		'locale' => 'Idioma',
+		'password' => 'Password',
+		'password.helper' => 'Dejar vacío para mantener la password actual.',
+		'enabled' => 'Habilitado',
+		'commission' => 'Commisión',
+		'commission.default' => 'Commisión por defecto',
+		'commission.fixed' => 'Commisión fija',
+		'commission.variable' => 'Commisión variable',
+
+		'tab.general' => 'General',
+		'tab.commissions' => 'Comisiones',
+		'tab.sites' => 'Sites',
+
+		'create.title' => 'Crear reseller',
+		'edit.title' => 'Editar reseller',
+
+		'sites.none' => 'No se encontraron sites',
+		'sites.title' => 'Título',
+		'sites.country' => 'País',
+		'sites.plan' => 'Plan',
+		'sites.created' => 'Creación',
+
+		'payments.empty' => 'No se encontraron pagos',
+		'payments.reseller' => 'Reseller',
+		'payments.reseller.name' => 'Nombre',
+		'payments.reseller.email' => 'Email',
+		'payments.reseller.fixed' => 'Comisión fija',
+		'payments.reseller.variable' => 'Comisión variable',
+		'payments.reseller.total' => 'Comisión total',
+		'payments.amount' => 'Cantidad',
+		'payments.created' => 'Creación',
+		'payments.site' => 'Site',
+		'payments.paid' => 'Pagado',
+		'payments.paid.date' => 'Fecha de pago',
+		'payments.paid.from' => 'Pagado desde',
+		'payments.paid.until' => 'Pagado hasta',
+		'payments.plan' => 'Plan',
+		'payments.pay' => 'Marcar como pagado',
+	];
