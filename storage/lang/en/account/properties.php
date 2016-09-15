@@ -25,6 +25,7 @@
 		'baths' => 'Number of bathrooms',
 		'enabled' => 'Enabled',
 		'enabled.not' => 'Disabled',
+		'home.slider' => 'In home',
 		'highlighted' => 'Highlighted',
 		'highlighted.not' => 'Not highlighted',
 		'new.item' => 'New property',
