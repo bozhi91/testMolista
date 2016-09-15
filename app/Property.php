@@ -403,6 +403,21 @@ class Property extends TranslatableModel
 
 		return false;
 	}
+	public function getMainImageThumbAttribute()
+	{
+		if ( !$this->main_image )
+		{
+			return false;
+		}
+
+		$tmp = pathinfo($this->main_image);
+
+		return implode('/', [
+					$tmp['dirname'],
+					'thumbnail',
+					$tmp['basename'],
+				]);
+	}
 
 	public function getCatchCurrentAttribute()
 	{

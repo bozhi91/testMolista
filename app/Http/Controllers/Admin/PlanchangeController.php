@@ -50,6 +50,7 @@ class PlanchangeController extends Controller
 		$planchange = \App\Models\Site\Planchange::with('plan')->with('site')->findOrFail($id);
 		$old_plan = \App\Models\Plan::find( @$planchange->old_data['plan_id'] );
 		$history = \App\Site::find( @$planchange->site_id )->planchanges()->withTrashed()->with('plan')->where('id','!=',$id)->orderBy('created_at','desc')->get();
+
 		return view('admin.planchange.edit', compact('planchange','old_plan','history'));
 	}
 	public function postEdit($id)
@@ -77,10 +78,35 @@ class PlanchangeController extends Controller
 
 		// Validate input
 		$fields = [
+			'payment_amount' => 'required|numeric|min:0',
+			'paid_from' => 'required|date_format:"Y-m-d"',
 			'paid_until' => 'required|date_format:"Y-m-d"',
 		];
 		$validator = \Validator::make($this->request->all(), $fields);
 		if ( $validator->fails() )
+		{
+			return redirect()->back()->withInput()->withErrors($validator);
+		}
+
+		// Validate date
+		if ( strtotime($this->request->input('paid_from')) >= strtotime($this->request->input('paid_until')) )
+		{
+			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
+		}
+
+		// Prepare data
+		$payment = $planchange->site->preparePaymentData([
+			'trigger' => 'Admin (Admin\PlanchangeController@acceptPlanchange)',
+			'paid_from' => $this->request->input('paid_from'),
+			'paid_until' => $this->request->input('paid_until'),
+			'payment_method' => $planchange->payment_method,
+			'payment_amount' => $this->request->input('payment_amount'),
+			'created_by' => $this->auth->user()->id,
+		]);
+
+		// Validate pàyment data
+		$validator = \App\Models\Site\Payment::getCreateValidator($payment);
+		if ($validator->fails())
 		{
 			return redirect()->back()->withInput()->withErrors($validator);
 		}
@@ -95,10 +121,16 @@ class PlanchangeController extends Controller
 		$site = $planchange->site;
 
 		// Update plan
-		if ( !$site->updatePlan($planchange->id) )
+		if ( $site->updatePlan($planchange->id) )
+		{
+			// Save payment
+			\App\Models\Site\Payment::saveModel($payment);
+		}
+		else
 		{
 			\Log::error("Site -> updatePlan: error updating plan for site ID {$site->id} (planchange {$planchange->id})");
 		}
+
 
 		// Redirect to list
 		return redirect()->action('Admin\PlanchangeController@getIndex')->with('success', trans('admin/planchange.message.accepted'));

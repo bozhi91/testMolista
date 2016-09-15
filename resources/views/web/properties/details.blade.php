@@ -37,8 +37,8 @@
 												</div></div><div class="item"><div class="row">
 											@endif
 											<div class="col-xs-4 col-sm-2">
-												<a title="{{$key}}" href="{{ "{$property->image_folder}/{$image->image}" }}" class="image-thumb" style="background-image: url('{{ "{$property->image_folder}/{$image->image}" }}');">
-													<img src="{{ "{$property->image_folder}/{$image->image}" }}" alt="{{$property->title}}" class="hide" />
+												<a href="{{ "{$property->image_folder}/{$image->image}" }}" class="image-thumb" style="background-image: url('{{ $image->image_url_thumb }}');">
+													<img src="{{ $image->image_url_thumb }}" alt="{{$property->title}}" class="hide" />
 												</a>
 											</div>
 										@endforeach

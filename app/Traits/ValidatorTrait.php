@@ -10,7 +10,7 @@ trait ValidatorTrait {
 		return isset(self::$create_validator_fields) ? self::$create_validator_fields : [];
 	}
 
-	public static function getCreateValidator($data, $exclude, $rules = [])
+	public static function getCreateValidator($data, $exclude = [], $rules = [])
 	{
 		$fields = self::excludeFields(self::getCreateValidatorFields(), $exclude);
 

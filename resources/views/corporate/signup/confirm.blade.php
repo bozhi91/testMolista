@@ -103,6 +103,19 @@
 											<div class="confirm-change"><a href="{{ action('Corporate\SignupController@getIndex') }}">{{ Lang::get('corporate/signup.confirm.change') }}</a></div>
 										</div>
 									</div>
+									@if ( @$data['reseller_code'] )
+										<div class="col-xs-12 col-sm-6">
+											<div class="confirm-block">
+												@if ( @$data['reseller'] )
+													<div class="confirm-label">{{ Lang::get('corporate/signup.reseller') }}</div>
+													<div class="confirm-value">{{ $data['reseller']->name }}</div>
+													<div class="confirm-change"><a href="{{ action('Corporate\SignupController@getIndex') }}">{{ Lang::get('corporate/signup.confirm.change') }}</a></div>
+												@else
+													<div class="alert alert-danger">{{ Lang::get('corporate/signup.reseller.error') }}</div>
+												@endif
+											</div>
+										</div>
+									@endif
 								</div>
 
 								<div class="nav-area">
