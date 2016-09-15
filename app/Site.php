@@ -993,4 +993,14 @@ class Site extends TranslatableModel
 		return $payment;
 	}
 
+	public function getCanHideMolistaAttribute()
+	{
+		if ( @$this->plan->level >= 2 )
+		{
+			return true;
+		}
+
+		return false;
+	}
+
 }
