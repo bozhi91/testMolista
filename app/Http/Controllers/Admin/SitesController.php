@@ -290,6 +290,7 @@ class SitesController extends Controller
 		$site->subdomain = $this->request->input('subdomain');
 		$site->custom_theme = $this->request->input('custom_theme');
 		$site->reseller_id = $this->request->input('reseller_id') ? $this->request->input('reseller_id') : null;
+		$site->hide_molista = $this->request->input('hide_molista') ? 1 : 0;
 		$site->enabled = $this->request->input('enabled') ? 1 : 0;
 		$site->save();
 
