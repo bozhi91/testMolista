@@ -78,6 +78,8 @@
 		'configuration.ga.account.helper' => 'Example: UA-123456-1',
 		'configuration.ga.account.error' => 'The Google Analytics tracking ID format is invalid',
 
+		'configuration.hide.molista' => 'Hide :webname logos',
+		'configuration.hide.molista.helper' => 'This option is only available for site using the Plus plan',
 
 
 		'menus.h1' => 'Menus',
