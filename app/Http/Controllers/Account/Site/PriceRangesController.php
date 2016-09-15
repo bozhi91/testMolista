@@ -58,6 +58,19 @@ class PriceRangesController extends \App\Http\Controllers\AccountController
 		return redirect()->back()->with('current_tab', $this->request->input('current_tab'))->with('success', trans('general.messages.success.saved'));
 	}
 
+	public function deleteRemove($id)
+	{
+		$item = $this->site->priceranges()->find( $id );
+		if ( !$item )
+		{
+			return redirect()->back()->with('current_tab', $this->request->input('current_tab'))->with('error', trans('general.messages.error'));
+		}
+
+//		$item->delete();
+
+		return redirect()->back()->with('current_tab', $this->request->input('current_tab'))->with('success', trans('account/priceranges.form.delete.success'));
+	}
+
 	public function getSort($type)
 	{
 		if ( !in_array($type, \App\Property::getModes()) )

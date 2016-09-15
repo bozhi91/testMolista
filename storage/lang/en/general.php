@@ -34,6 +34,7 @@
 		'messages.close' => 'Close',
 		'messages.error' => 'An error occurred while processing this request.',
 		'messages.success.saved' => 'Data was saved successfully.',
+		'messages.success.deleted' => 'The element was successfully deleted.',
 
 		'autotranslate.trigger' => 'Translate to other languages',
 		'autotranslate.credits' => 'Translated by',
