@@ -55,8 +55,8 @@
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 						</button>
-						<a class="navbar-brand" href="/" title="{{ Lang::get('corporate/seo.header.link.home') }}">
-							<img src="{{ Theme::url('/images/corporate/logo.png') }}" alt="{{ Lang::get('corporate/seo.header.image.logo') }}">
+						<a class="navbar-brand" href="{{ action('CorporateController@index') }}" title="{{ Lang::get('corporate/seo.header.link.home') }}">
+							<img src="{{ Theme::url( env('WHITELABEL_LOGO_HEADER', '/images/corporate/logo.png') ) }}" alt="{{ Lang::get('corporate/seo.header.image.logo') }}">
 						</a>
 					</div>
 
