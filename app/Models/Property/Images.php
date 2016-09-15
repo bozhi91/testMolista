@@ -25,6 +25,16 @@ class Images extends Model
 	{
 		return asset($this->image_path);
 	}
+	public function getImageUrlThumbAttribute()
+	{
+		$tmp = pathinfo($this->image_url);
+
+		return implode('/', [
+					$tmp['dirname'],
+					'thumbnail',
+					$tmp['basename'],
+				]);
+	}
 
 	public function getImageSizeAttribute()
 	{
