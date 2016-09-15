@@ -405,6 +405,11 @@ class Property extends TranslatableModel
 	}
 	public function getMainImageThumbAttribute()
 	{
+		if ( !$this->main_image )
+		{
+			return false;
+		}
+
 		$tmp = pathinfo($this->main_image);
 
 		return implode('/', [
