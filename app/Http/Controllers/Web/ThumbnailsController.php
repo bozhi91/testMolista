@@ -25,6 +25,9 @@ class ThumbnailsController extends \App\Http\Controllers\Controller
 		// Flag
 		switch ($flag)
 		{
+			case 'thumbnail':
+				$this->max_width = 800;
+				break;
 			case 'trovit':
 				$this->max_weight = 1;
 				$this->min_width = 186;
