@@ -72,7 +72,7 @@ class SignupController extends \App\Http\Controllers\CorporateController
 
 		$data = $this->prepareData($data);
 
-		return view('corporate.signup.confirm', compact('data'));
+		return view('corporate.signup.confirm', compact('data','reseller'));
 	}
 	public function postConfirm()
 	{
@@ -175,6 +175,11 @@ class SignupController extends \App\Http\Controllers\CorporateController
 			$site->translateOrNew($locale)->title = $data['subdomain'];
 		}
 
+		if ( @$data['reseller'] )
+		{
+			$site->reseller_id = $data['reseller']->id;
+		}
+
 		// Save site
 		$site->save();
 
@@ -255,6 +260,12 @@ class SignupController extends \App\Http\Controllers\CorporateController
 
 		$data['plan'] = \App\Models\Plan::where('code', $data['pack'])->first()->toArray();
 
+		$data['reseller'] =  false;
+		if ( @$data['reseller_code'] )
+		{
+			$data['reseller'] =  \App\Models\Reseller::enabled()->where('ref', $data['reseller_code'])->first();
+		}
+
 		return $data;
 	}
 
@@ -280,6 +291,7 @@ class SignupController extends \App\Http\Controllers\CorporateController
 			'invoicing.city' => 'required|string',
 			'invoicing.country_id' => 'required|exists:countries,id',
 			'accept' => 'accepted',
+			'reseller_code' => '',
 		];
 
 		// User type related fields

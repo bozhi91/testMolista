@@ -91,23 +91,26 @@
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-6">
-							<label>&nbsp;</label>
-							<div class="text-right">
-								@if ( count($site->owners_ids) > 0 && Auth::user()->can('user-login') )
-									<a href="{{action('Admin\SitesController@show', $site->id)}}" class="btn btn-sm btn-default" target="_blank">
-										<span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
-										{{ Lang::get('admin/sites.goto.admin') }}
-									</a>
-								@endif
-								<a href="{{$site->main_url}}" class="btn btn-sm btn-default" target="_blank">
-									<span class="glyphicon glyphicon-link" aria-hidden="true"></span>
-									{{ Lang::get('admin/sites.goto.site') }}
-								</a>
+							<div class="form-group error-container">
+								{!! Form::label('reseller_id', Lang::get('admin/sites.reseller')) !!}
+								{!! Form::select('reseller_id', [ ''=>'' ]+$resellers, null, [ 'class'=>'form-control' ]) !!}
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-xs-12 col-sm-6">
+							@if ( count($site->owners_ids) > 0 && Auth::user()->can('user-login') )
+								<a href="{{action('Admin\SitesController@show', $site->id)}}" class="btn btn-sm btn-default" target="_blank">
+									<span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+									{{ Lang::get('admin/sites.goto.admin') }}
+								</a>
+							@endif
+							<a href="{{$site->main_url}}" class="btn btn-sm btn-default" target="_blank">
+								<span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+								{{ Lang::get('admin/sites.goto.site') }}
+							</a>
+						</div>
+						<div class="col-xs-12 col-sm-3">
 							<div class="form-group error-container">
 								<div class="checkbox">
 									<label>
@@ -117,9 +120,11 @@
 								</div>
 							</div>
 						</div>
-					</div>
-					<div class="text-right">
-						{!! Form::button( Lang::get('general.continue'), [ 'type'=>'submit', 'class'=>'btn btn-default hide' ]) !!}
+						<div class="col-xs-12 col-sm-3">
+							<div class="text-right">
+								{!! Form::button( Lang::get('general.save'), [ 'type'=>'submit', 'class'=>'btn btn-default' ]) !!}
+							</div>
+						</div>
 					</div>
 				{!! Form::close() !!}
 

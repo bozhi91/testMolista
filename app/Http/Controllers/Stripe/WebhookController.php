@@ -70,9 +70,34 @@ class WebhookController extends BaseController
 
 			if ( $line['period']['end'] )
 			{
-				$site->update([
-					'paid_until' => date('Y-m-d', $line['period']['end']),
+				$paid_from = date('Y-m-d', $line['period']['start']);
+				$paid_until = date('Y-m-d', $line['period']['end']);
+				$paid_rate = \App\Models\CurrencyConverter::convert(1, $site->plan->currency, 'EUR');
+
+				// Generar site_payment
+				$payment = $site->preparePaymentData([
+					'trigger' => 'Stripe webhook (handleInvoicePaymentSucceeded)',
+					'paid_from' => $paid_from,
+					'paid_until' => $paid_until,
+					'payment_method' =>  'stripe',
+					'payment_amount' => @floatval($line['amount']/100),
+					'payload' => $payload,
 				]);
+				$validator = \App\Models\Site\Payment::getCreateValidator($payment);
+				if ($validator->fails())
+				{
+					\Log::error("Stripe webhook invoice.payment_succeeded: unable to create site payment\n",$payment);
+				}
+				else
+				{
+					\App\Models\Site\Payment::saveModel($payment);
+				}
+
+				// Update site
+				$site->update([
+					'paid_until' => $paid_until,
+				]);
+
 				// Send warning email
 				$subject = trans('corporate/signup.email.stripe.subject');
 				$html = view('emails.admin.inform-stripe-payment', $site)->render();

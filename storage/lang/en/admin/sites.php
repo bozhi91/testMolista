@@ -19,6 +19,7 @@ return [
 	'country' => 'Country',
 	'properties' => 'Properties',
 	'employees' => 'Agents',
+	'reseller' => 'Reseller',
 
 	'create.title' => 'Create site',
 	'edit.title' => 'Edit site',

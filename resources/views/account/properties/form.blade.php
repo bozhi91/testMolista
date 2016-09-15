@@ -731,7 +731,6 @@
 			}
 
 			LOADING.show();
-console.log( address.join(', ') );
 			property_geocoder.geocode({
 				'address': address.join(', ')
 			}, function(results, status) {

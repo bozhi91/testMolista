@@ -157,4 +157,7 @@
 		'full.help.email' => 'soporte@molista.com',
 		'full.help.time' => 'L-V de 10:00 a 18:00 h',
 
+		'reseller' => 'Partner',
+		'reseller.code' => 'Partner reference',
+		'reseller.error' => 'La referencia del partner ingresada no es válida.',
 	];

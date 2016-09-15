@@ -9,6 +9,11 @@
 
 	function price($price, $params=false)
 	{
+		if ( is_object($params) && method_exists($params,'toArray') )
+		{
+			$params = $params->toArray();
+		}
+
 		if ( !is_array($params) )
 		{
 			$params = [];
@@ -16,7 +21,7 @@
 
 		$iso = isset($params['iso']) ? $params['iso'] : \App\Session\Currency::get('iso', 'EUR');
 		$symbol = isset($params['symbol']) ? $params['symbol'] : \App\Session\Currency::get('symbol', '€');
-		$decimals = isset($params['decimals']) ? $params['decimals'] : \App\Session\Currency::get('decimals', 2);
+		$decimals = isset($params['decimals']) ? $params['decimals'] : \App\Session\Currency::get('decimals', 0);
 		$position = isset($params['position']) ? $params['position'] : \App\Session\Currency::get('position', 'after');
 
 		$currency = [];
