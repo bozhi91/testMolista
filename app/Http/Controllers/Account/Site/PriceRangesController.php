@@ -66,7 +66,7 @@ class PriceRangesController extends \App\Http\Controllers\AccountController
 			return redirect()->back()->with('current_tab', $this->request->input('current_tab'))->with('error', trans('general.messages.error'));
 		}
 
-//		$item->delete();
+		$item->delete();
 
 		return redirect()->back()->with('current_tab', $this->request->input('current_tab'))->with('success', trans('account/priceranges.form.delete.success'));
 	}
