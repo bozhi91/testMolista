@@ -1,6 +1,6 @@
 @if ( $payments->count() < 1 )
 	<div class="alert alert-info">
-		{{ Lang::get('account/site.payments.empty') }}
+		{{ Lang::get('admin/sites.payments.empty') }}
 	</div>
 @else
 	<table class="table">

@@ -13,9 +13,9 @@ class PaymentsController extends Controller
 		parent::__initialize();
 	}
 
-    public function getList($site_id)
+	public function getList($site_id, $check_ajax = true)
 	{
-		if ( !$this->request->ajax() )
+		if ( $check_ajax && !$this->request->ajax() )
 		{
 			return redirect()->action('Admin\SitesController@edit', $site_id)->with('current_tab','payments');
 		}
@@ -26,22 +26,14 @@ class PaymentsController extends Controller
 						->orderBy('created_at', 'desc')
 						->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
+		$payments->setPath( action('Admin\Sites\PaymentsController@getList', $site_id) );
+
 		return view('admin.sites.payments.list', compact('payments'));
 	}
 
 	public function getEdit($id)
 	{
-		if ( false && !$this->request->input('ajax') )
-		{
-			return redirect()->action('Admin\SitesController@index')->with('current_tab','payments');
-		}
-
-		$payment = \App\Models\Site\Payment::whereNotNull('reseller_id')
-						->with('site')
-						->with('plan')
-						->with('reseller')
-						->with('infocurrency')
-						->findOrFail($id);
+		$payment = \App\Models\Site\Payment::findOrFail($id);
 
 		$resellers = \App\Models\Reseller::orderBy('name')->lists('name','id')->all();
 
@@ -50,35 +42,36 @@ class PaymentsController extends Controller
 
 	public function postSave($id)
 	{
-echo "<pre>";
-print_r($this->request->all());
-echo "</pre>";
-die;
 
-		$payment = \App\Models\Site\Payment::whereNotNull('reseller_id')
-						->where('reseller_paid',0)
-						->with('site')
-						->with('plan')
-						->with('reseller')
-						->with('infocurrency')
-						->find($id);
+		$payment = \App\Models\Site\Payment::find($id);
 		if ( !$payment )
 		{
 			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
 		}
 
 		$validator = \Validator::make($this->request->all(), [
-			'reseller_date' => 'required|date_format:"Y-m-d"',
+			'reseller_id' => 'exists:resellers,id',
+			'reseller_fixed' => 'numeric|min:0',
+			'reseller_variable' => 'numeric|min:0|max:100',
+			'reseller_paid' => 'boolean',
+			'reseller_date' => 'required_with_all:reseller_id,reseller_paid|date_format:"Y-m-d"',
 		]);
 		if ( $validator->fails() )
 		{
 			return redirect()->back()->withInput()->withErrors($validator);
 		}
 
-		$payment->update([
-			'reseller_paid' => 1,
-			'reseller_date' => $this->request->input('reseller_date'),
-		]);
+		$update = [
+			'reseller_id' => $this->request->input('reseller_id') ? $this->request->input('reseller_id') : null,
+			'reseller_fixed' => $this->request->input('reseller_id') ? floatval($this->request->input('reseller_fixed')) : 0,
+			'reseller_variable' => $this->request->input('reseller_id') ? floatval($this->request->input('reseller_variable')) : 0,
+			'reseller_paid' => $this->request->input('reseller_paid') ? 1 : 0,
+			'reseller_date' => $this->request->input('reseller_paid') ? $this->request->input('reseller_date') : null,
+		];
+
+		$update['reseller_amount'] = $update['reseller_fixed'] + ( $payment->payment_amount * $update['reseller_variable'] / 100 );
+
+		$payment->update($update);
 
 		return redirect()->back()->with('success', trans('general.messages.success.saved'));
 	}

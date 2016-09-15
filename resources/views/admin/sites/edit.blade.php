@@ -372,9 +372,7 @@
 			</div>
 
 			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'payments' ? 'active' : '' }}" id="tab-site-payments">
-				<div class="alert">
-					<img src="{{ asset('images/loading.gif') }}" alt="" />
-				</div>
+				{!! $payment_tab !!}
 			</div>
 
 		</div>
@@ -388,9 +386,9 @@
 
 	<script type="text/javascript">
 		var payments_url = "{{ action('Admin\Sites\PaymentsController@getList', $site->id) }}";
-
 		function payments_reload() {
 			LOADING.show();
+			$.magnificPopup.close();
 			$('#tab-site-payments').load(payments_url, function(){
 				LOADING.hide();
 			});
@@ -524,7 +522,6 @@
 					modal: true
 				});
 			});
-			tab_payments.load(payments_url);
 
 		});
 	</script>

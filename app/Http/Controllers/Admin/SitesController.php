@@ -223,9 +223,11 @@ class SitesController extends Controller
 
 		$invoices = $site->invoices()->orderBy('uploaded_at','desc')->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
+		$payment_tab = app('App\Http\Controllers\Admin\Sites\PaymentsController')->getList($id, false)->render();
+
 		$current_tab = session('current_tab', $this->request->input('current_tab','site'));
 
-		return view('admin.sites.edit', compact('site','locales','owners','companies','resellers','invoices','current_tab','plan_details'));
+		return view('admin.sites.edit', compact('site','locales','owners','companies','resellers','invoices','current_tab','plan_details','payment_tab'));
 	}
 
 	public function update($id)
