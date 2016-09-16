@@ -82,10 +82,10 @@
 								</li>
 							@endif
 							<li>
-								<div class="phone-info">
-									<i class="fa fa-phone" aria-hidden="true"></i>
-									{{ Config::get('app.phone_support') }}
-								</div>
+							    <div class="phone-info">
+							        <i class="fa fa-phone" aria-hidden="true"></i>
+							        <a class="corporate-header-tel" href="tel:{{ str_replace(' ', '', Config::get('app.phone_support')) }}">{{ Config::get('app.phone_support') }}</a>
+							    </div>
 							</li>
 						</ul>
 					</div>
@@ -119,11 +119,11 @@
 					<div class="footer-text">
 						<strong>{{ env('WHITELABEL_WEB_URL','molista.com') }}</strong> {{ Lang::get('corporate/home.footer.operated') }} <strong><a href="{{ env('WHITELABEL_OWNER_URL','http://www.incubout.com/') }}" target="_blank" title="{{ env('WHITELABEL_WEB_URL','molista.com') }} {{ Lang::get('corporate/home.footer.operated') }} {{ env('WHITELABEL_OWNER_NAME','Incubout SL') }}">{{ env('WHITELABEL_OWNER_NAME','Incubout SL') }}</a></strong>:
 						<div class="visible-xs"></div>
-						<span class="text-nowrap">{{ env('WHITELABEL_OWNER_ADDRESS','Salvador Espriu 93 08005 Barcelona') }}</span>
+						<span class="text-nowrap"> {{ env('WHITELABEL_OWNER_ADDRESS','Salvador Espriu 93 08005 Barcelona') }}</span>
 						<div class="visible-xs"></div>
-						<span class="text-nowrap">T: <strong>{{ Config::get('app.phone_support') }}</strong> </span>
+						<span class="text-nowrap"> T: <strong><a href="tel:{{ str_replace(' ', '', Config::get('app.phone_support')) }}">{{ Config::get('app.phone_support') }}</a></strong></span>
 						<div class="visible-xs"></div>
-						<span class="text-nowrap">E: <strong><a href="mailto:{{ env('MAIL_CONTACT','info@molista.com') }}" target="_blank">{{ env('MAIL_CONTACT','info@molista.com') }}</a></strong></span>
+						<span class="text-nowrap"> E: <strong><a href="mailto:{{ env('MAIL_CONTACT','info@molista.com') }}" target="_blank">{{ env('MAIL_CONTACT','info@molista.com') }}</a></strong></span>
 					</div>
 				</div>
 			</div>
