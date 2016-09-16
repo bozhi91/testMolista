@@ -17,6 +17,9 @@
 		</thead>
 		<tbody>
 			@foreach ($payments as $payment)
+				<?php
+					$payment->infocurrency->decimals = 2;
+				?>
 				<tr>
 					<td>{{ $payment->created_at->format('d/m/Y') }}</td>
 					<td class="text-right">{{ price($payment->payment_amount, $payment->infocurrency) }}</td>
