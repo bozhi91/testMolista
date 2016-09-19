@@ -233,16 +233,16 @@ class ReferenciaMapper extends BaseMapper {
 		$ubicacion['poblacion@id=' . $poblacionId] = $poblacionLabel;
 
 		//Opcionales
-		$ubicacion['zona'] = '';
+		$ubicacion['zona@id='] = '';
 		$ubicacion['zona_libre'] = '';
 		$ubicacion['cod_postal'] = !empty($l['zipcode']) ? $l['zipcode'] : '';
-		$ubicacion['tipo_via'] = ''; //$ubicacion['tipo_via@id=0'] = 'avenida'; getTipoDeVia()
+		$ubicacion['tipo_via@id='] = '';//$ubicacion['tipo_via@id=0'] = 'avenida'; getTipoDeVia()		
 		$ubicacion['direccion'] = !empty($l['address_parts']['street']) ? $l['address_parts']['street'] : '';
 		$ubicacion['direccion_num'] = !empty($l['address_parts']['number']) ? $l['address_parts']['number'] : '';
 		$ubicacion['direccion_otra_info'] = '';
 		$ubicacion['direccion_privada'] = !empty($l['show_address']) ? (int) $l['show_address'] : 0;
-		$ubicacion['latitude'] = !empty($l['lat']) ? $l['lat'] : '';
-		$ubicacion['longitud'] = !empty($l['lng']) ? $l['lng'] : '';
+		$ubicacion['latitud'] = !empty($l['lat']) ? $l['lat'] : '';
+		$ubicacion['longitud'] = !empty($l['lng']) ? $l['lng']  : '';
 
 		return $ubicacion;
 	}

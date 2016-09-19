@@ -92,7 +92,7 @@ class PromocionMapper extends BaseMapper {
 		$l = $item['location'];
 
 		$direccion = [];
-		$direccion['direccion']['tipo_via'] = ''; //$ubicacion['tipo_via@id=0'] = 'avenida'; getTipoDeVia()
+		$direccion['direccion']['tipo_via@id='] = ''; //$ubicacion['tipo_via@id=0'] = 'avenida'; getTipoDeVia()
 		$direccion['direccion']['nombre_via'] = !empty($l['address_parts']['street']) ? $l['address_parts']['street'] : '';
 		$direccion['direccion']['num_via'] = !empty($l['address_parts']['number']) ? $l['address_parts']['number'] : '';
 
@@ -140,10 +140,10 @@ class PromocionMapper extends BaseMapper {
 		$ubicacion['poblacion@id=' . $poblacionId] = $poblacionLabel;
 
 		//Opcionales
-		$ubicacion['zona'] = ''; //$ubicacion['zona@id=1'] = ''; API ATLAS
+		$ubicacion['zona@id='] = ''; //$ubicacion['zona@id=1'] = ''; API ATLAS
 		$ubicacion['zona_libre'] = '';
 		$ubicacion['cod_postal'] = !empty($l['zipcode']) ? $l['zipcode'] : '';
-		$ubicacion['latitude'] = !empty($l['lat']) ? $l['lat'] : '';
+		$ubicacion['latitud'] = !empty($l['lat']) ? $l['lat'] : '';
 		$ubicacion['longitud'] = !empty($l['lng']) ? $l['lng'] : '';
 
 		return $ubicacion;
