@@ -86,8 +86,8 @@ abstract class BaseMapper extends \App\Marketplaces\Mapper {
 	 */
 	protected function getImages() {
 		$pictures = [];
-		foreach ($this->item['images'] as $image) {
-			$pictures['adjunto@tipo=foto@url=' . $image] = '';
+		foreach ($this->item['images'] as $counter => $image) {
+			$pictures['adjunto@tipo=foto@url=' . $image] = 'Fotografia ' . $counter;
 		}
 		return $pictures;
 	}
