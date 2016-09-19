@@ -10,7 +10,7 @@ abstract class BaseMapper extends \App\Marketplaces\Mapper {
 	 * 3 alquiler de temporada
 	 * 4 traspaso
 	 * 7 alquiler opción compra
-	 * 
+	 *
 	 * @return array
 	 */
 	protected function getOperations() {
@@ -58,11 +58,11 @@ abstract class BaseMapper extends \App\Marketplaces\Mapper {
 	}
 
 	/**
-	 * En caso de alquiler se puede especificar 
-	 * 
-	 * 'diaria', 'semanal', 'quincenal', 'mensual', 
+	 * En caso de alquiler se puede especificar
+	 *
+	 * 'diaria', 'semanal', 'quincenal', 'mensual',
 	 * 'trimestral', 'semestral' y 'anual'.
-	 * 
+	 *
 	 * @return string
 	 */
 	protected function getPeriodicidad() {
@@ -71,7 +71,7 @@ abstract class BaseMapper extends \App\Marketplaces\Mapper {
 
 	/**
 	 * 'no disponible', 'a', 'b', 'c', 'd', 'e', 'f' y 'g'
-	 * 
+	 *
 	 * @return string
 	 */
 	protected function getCertificacionEnergetica() {
@@ -87,7 +87,7 @@ abstract class BaseMapper extends \App\Marketplaces\Mapper {
 	protected function getImages() {
 		$pictures = [];
 		foreach ($this->item['images'] as $counter => $image) {
-			$pictures['adjunto@tipo=foto@url=' . $image] = 'Fotografia ' . $counter;
+			$pictures['adjunto@tipo=foto@url=' . $image] = 'Fotografia ' . ($counter+1);
 		}
 		return $pictures;
 	}
