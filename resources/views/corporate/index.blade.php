@@ -66,7 +66,11 @@
 						@endforeach
 					</ul>
 					<div class="and-more">
-						{!! Lang::get('corporate/home.exports.more') !!}
+						@if ( $marketplaces->count() > 0 )
+							<a href="#exports-popup" class="exports-popup-trigger">{!! Lang::get('corporate/home.exports.more') !!}</a>
+						@else
+							{!! Lang::get('corporate/home.exports.more') !!}
+						@endif
 					</div>
 				</div>
 			</section>
@@ -146,10 +150,28 @@
 
 	</div>
 
+	<div id="exports-popup" class="mfp-hide mfp-white-popup">
+		<h2 class="text-center" style="margin: 0px 0px 20px 0px;">{{ Lang::get('corporate/features.integrations.link') }}</h2>
+		<table class="table table-striped">
+			<tbody>
+				@foreach ($marketplaces as $marketplace)
+					<tr>
+						<td class="text-center"><img src="{{ asset("marketplaces/{$marketplace->logo}") }}" /></td>
+						<td>{{ $marketplace->name }}</td>
+						<td class="text-center"><img src="{{ asset($marketplace->flag) }}" alt="" /></td>
+					</tr>
+				@endforeach
+			</tbody>
+		</table>
+	</div>
+
 	<script type="text/javascript">
 		ready_callbacks.push(function(){
 			var cont = $('#home');
 
+			cont.find('.exports-popup-trigger').magnificPopup({
+				type: 'inline'
+			});
 		});
 	</script>
 

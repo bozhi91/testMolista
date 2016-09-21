@@ -33,7 +33,7 @@
 						</li>
 					@endif
 					@if ( @$reseller_user )
-						<li><a href="{{ action('Resellers\AuthController@getLogout') }}" title="{{ Lang::get('corporate/seo.header.link.pricing') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('resellers.logout') }}</a></li> 
+						<li><a href="{{ action('Resellers\AuthController@getLogout') }}" title="{{ Lang::get('corporate/seo.header.link.pricing') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('resellers.logout') }}</a></li>
 					@endif
 				</ul>
 			</div>

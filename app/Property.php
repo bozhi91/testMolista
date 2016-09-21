@@ -392,7 +392,14 @@ class Property extends TranslatableModel
 	}
 	public function getImagePathAttribute()
 	{
-		return public_path("sites/{$this->site_id}/properties/{$this->id}");
+		$dirpath = public_path("sites/{$this->site_id}/properties/{$this->id}");
+
+		if ( !is_dir($dirpath))
+		{
+			\File::makeDirectory($dirpath, 0777, true, true);
+		}
+
+		return $dirpath;
 	}
 	public function getMainImageAttribute()
 	{
@@ -668,6 +675,11 @@ class Property extends TranslatableModel
 		return $this->marketplace_info;
 	}
 
+	public function scopeInHome($query)
+	{
+		return $query->where('properties.home_slider', 1);
+	}
+
 	public function scopeEnabled($query)
 	{
 		return $query->where('properties.enabled', 1);
@@ -831,6 +843,31 @@ class Property extends TranslatableModel
 				->withPriceBetween("0-{$property->price}", $property->currency)
 				->where('properties.mode', $property->mode)
 				->where('properties.country_id', $property->country_id);
+	}
+
+	public function scopeWithTermLike($query, $term)
+	{
+			$query->where(function($query) use ($term) {
+				$query
+					// Title
+					->whereTranslationLike('title', "%{$term}%")
+					// Ref
+					->orWhere('ref', 'like', "%{$term}%")
+					// show_address == 1
+					->orWhere(function($query) use ($term) {
+						$query->where('show_address', 1)
+							->where(function($query) use ($term) {
+								$query
+									// Address
+									->where('address', 'like', "%{$term}%")
+									// District
+									->orWhere('district', 'like', "%{$term}%")
+									// Zipcode
+									->orWhere('zipcode', 'like', "%{$term}%");
+							});
+					});
+			});
+
 	}
 
 	public function scopeWithEverything($query)

@@ -44,4 +44,6 @@ return [
 	'email.who' => 'Organizer',
 	'email.when' => 'When',
 	'email.where' => 'Where',
+
+	'scheduled' => 'Visita agendada',
 ];

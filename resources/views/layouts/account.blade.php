@@ -21,12 +21,24 @@
 					<li class="separator"></li>
 
 					@permission('property-*')
-						<li role="presentation" class="{{ (@$submenu_section == 'properties') ? 'active' : '' }}">
-							<a href="{{ action('Account\PropertiesController@index') }}">
-								<i class="account-icon account-icon-property"></i>
-								{{ Lang::get('account/menu.properties') }}
-							</a>
-						</li>
+						@if ( (@$submenu_section == 'properties') && $current_site_user->can('property-create') )
+							<li role="presentation" class="active">
+								<a href="{{ action('Account\PropertiesController@index') }}" id="account-menu-btn-properties" data-toggle="collapse" data-target="#account-submenu-properties" aria-expanded="false" class="">
+									<i class="account-icon account-icon-property"></i>
+									{{ Lang::get('account/menu.properties') }}
+								</a>
+								<ul id="account-submenu-properties" class="nav" role="menu" aria-labelledby="account-menu-btn-properties">
+									<li><a href="{{ action('Account\Properties\ImportsController@getIndex') }}" class="{{ (@$submenu_subsection == 'profile-accounts') ? 'current' : '' }}">{{ Lang::get('account/properties.imports.h1') }}</a></li>
+								</ul>
+							</li>
+						@else
+							<li role="presentation" class="{{ (@$submenu_section == 'properties') ? 'active' : '' }}">
+								<a href="{{ action('Account\PropertiesController@index') }}">
+									<i class="account-icon account-icon-property"></i>
+									{{ Lang::get('account/menu.properties') }}
+								</a>
+							</li>
+						@endif
 					@endpermission
 					@permission('employee-*')
 						<li role="presentation" class="{{ (@$submenu_section == 'employees') ? 'active' : '' }}">
@@ -100,7 +112,7 @@
 						<li class="separator"></li>
 					@endif
 
-					@if ( $submenu_section == 'profile' )
+					@if ( @$submenu_section == 'profile' )
 						<li role="presentation" class="active">
 							<a href="javascript:;" id="account-menu-btn-profile" data-toggle="collapse" data-target="#account-submenu-profile" aria-expanded="false" class="">
 								<i class="account-icon account-icon-info"></i>

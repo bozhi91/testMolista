@@ -25,6 +25,7 @@
 		'baths' => 'Number of bathrooms',
 		'enabled' => 'Enabled',
 		'enabled.not' => 'Disabled',
+		'home.slider' => 'In home',
 		'highlighted' => 'Highlighted',
 		'highlighted.not' => 'Not highlighted',
 		'new.item' => 'New property',
@@ -78,6 +79,7 @@
 		'subtitle' => 'Subtitle',
 		'description' => 'Description',
 		'characteristics' => 'Characteristics',
+		'image' => 'Image',
 
 		'images.gallery' => 'Image gallery',
 		'images.upload' => 'Image upload',
@@ -216,4 +218,29 @@
 		'expenses' => 'Expenses (monthly)',
 		'balcony_area' => 'Balcony area',
 		'size_real' => 'Useful area',
+
+		'imports.h1' => 'Import properties',
+		'imports.intro' => '<p>If you already have a catalog of properties, you can load it quickly using a CSV file.</p>',
+		'imports.create' => 'New import',
+		'imports.version' => 'Version',
+		'imports.version.sample' => 'Download sample file',
+		'imports.date' => 'Date',
+		'imports.file' => 'File',
+		'imports.file.error.type' => 'Please select a CSV file',
+		'imports.file.error.upload' => 'There was an error while uploading the file',
+		'imports.status' => 'Status',
+		'imports.created' => 'The import process is running. You can check its status in this page.',
+
+		'imports.csv.header' => 'Do not modify or delete the top 3 rows.',
+
+		'imports.csv.instructions.title' => 'Instructions',
+		'imports.csv.instructions.intro' => '<ul>
+												<li>Do not modify the CSV file headers.</li>
+												<li>Do not leave empty lines. The import routine ends when an empty line is found.</li>
+												<li>You must respect the field options, including uppercase/lowercase (see table below).</li>
+											</ul>',
+		'imports.csv.instructions.column' => 'Column',
+		'imports.csv.instructions.type' => 'Type',
+		'imports.csv.instructions.required' => 'Required',
+		'imports.csv.instructions.options' => 'Options',
 	];
