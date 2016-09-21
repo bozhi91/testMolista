@@ -11,7 +11,7 @@ class CorporateController extends Controller
 
 	public function index()
 	{
-		$marketplaces = \App\Models\Marketplace::enabled()->with('countries')->orderBy('name', 'asc')->get();
+		$marketplaces = \App\Models\Marketplace::enabled()->where('code', 'not like', 'molista%')->with('countries')->orderBy('name', 'asc')->get();
 
 		$response = view('corporate.index', compact('marketplaces'))->render();
 
