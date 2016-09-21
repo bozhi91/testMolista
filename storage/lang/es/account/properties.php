@@ -79,6 +79,7 @@
 		'subtitle' => 'Subtítulo',
 		'description' => 'Descripción',
 		'characteristics' => 'Características',
+		'image' => 'Imagen',
 
 		'images.gallery' => 'Galería de imágenes',
 		'images.upload' => 'Subir imágenes',
@@ -217,4 +218,29 @@
 		'expenses' => 'Gastos mensuales',
 		'balcony_area' => 'Superficie de Balcón',
 		'size_real' => 'Superficie útil',
+
+		'imports.h1' => 'Importar propiedades',
+		'imports.intro' => '<p>Si tienes un catálogo de propiedades, puedes realizar una importación masiva a través de un fichero CSV.</p>',
+		'imports.create' => 'Nueva importación',
+		'imports.version' => 'Versión',
+		'imports.version.sample' => 'Descargar fichero de ejemplo',
+		'imports.date' => 'Fecha',
+		'imports.file' => 'Fichero',
+		'imports.file.error.type' => 'Por favor seleccione un fichero csv',
+		'imports.file.error.upload' => 'Ocurrió un error al cargar el fichero',
+		'imports.status' => 'Estado',
+		'imports.created' => 'El proceso de importación se ha iniciado correctamente. Puedes consultar el progreso en esta misma página.',
+
+		'imports.csv.header' => 'No modifique ni elimine las 3 filas superiores.',
+
+		'imports.csv.instructions.title' => 'Instrucciones',
+		'imports.csv.instructions.intro' => '<ul>
+												<li>No modificar las cabeceras del fichero CSV.</li>
+												<li>No dejar lineas en blanco. La rutina de importación termina cuando se encuentra una linea vacía.</li>
+												<li>Se deben respetar los valores predeterminados, incluyendo mayúsculas/minúsculas (ver tabla inferior).</li>
+											</ul>',
+		'imports.csv.instructions.column' => 'Columna',
+		'imports.csv.instructions.type' => 'Tipo',
+		'imports.csv.instructions.required' => 'Requerida',
+		'imports.csv.instructions.options' => 'Opciones',
 	];

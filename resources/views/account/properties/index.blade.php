@@ -75,7 +75,7 @@
 								<td>{{ $property->ref }}</td>
 								<td>{{ $property->title }}</td>
 								<td>{{  $property->created_at->format('d/m/Y') }}</td>
-								<td>{{ $property->city->name }} / {{ $property->state->name }}</td>
+								<td>{{ @implode(' / ', array_filter([ $property->city->name, $property->state->name ])) }}</td>
 								<td class="text-center">{{ number_format($property->customers->count(), 0, ',', '.')  }}</td>
 								<td class="text-center">
 									@if ( Auth::user()->can('property-edit') && Auth::user()->canProperty('edit') )

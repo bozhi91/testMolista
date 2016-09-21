@@ -4,9 +4,54 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6c50b9fdea07c7cd60f35f00bf92f221",
-    "content-hash": "7268f24aae95a356ea86f3d9cf2c3d0e",
+    "hash": "7b47c5a74812c8ee3b48ce74bf5fc3c7",
+    "content-hash": "3aa8616047474e70fa9fec6a6d452cfb",
     "packages": [
+        {
+            "name": "alexpechkarev/google-geocoder",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alexpechkarev/google-geocoder.git",
+                "reference": "3503c310ab5b51895013440042a8e7c52dc752d3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alexpechkarev/google-geocoder/zipball/3503c310ab5b51895013440042a8e7c52dc752d3",
+                "reference": "3503c310ab5b51895013440042a8e7c52dc752d3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "~2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Alexpechkarev\\GoogleGeocoder": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexander Pechkarev",
+                    "email": "alexpechkarev@gmail.com"
+                }
+            ],
+            "description": "Simple Google Geocoding API v3 wrapper for Laravel 4",
+            "homepage": "https://github.com/alexpechkarev/google-geocoder",
+            "keywords": [
+                "geocoding",
+                "google geocoding api",
+                "laravel"
+            ],
+            "time": "2015-09-14 18:42:18"
+        },
         {
             "name": "bacon/bacon-qr-code",
             "version": "1.0.1",
@@ -2305,7 +2350,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jjriv/emogrifier/zipball/27c6f4dc1e4039d5609950efab0c03a5428e965b",
+                "url": "https://api.github.com/repos/jjriv/emogrifier/zipball/80da49c119415d0aaf0c4d3fa1c8b0c94c11485f",
                 "reference": "27c6f4dc1e4039d5609950efab0c03a5428e965b",
                 "shasum": ""
             },
@@ -5426,6 +5471,70 @@
                 "validate"
             ],
             "time": "2015-08-24 13:29:44"
+        },
+        {
+            "name": "willdurand/geocoder",
+            "version": "2.8.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/geocoder-php/Geocoder.git",
+                "reference": "8a66b8a227328f28ba12f98937a33c6fa0bb90f8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/geocoder-php/Geocoder/zipball/8a66b8a227328f28ba12f98937a33c6fa0bb90f8",
+                "reference": "8a66b8a227328f28ba12f98937a33c6fa0bb90f8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "geoip/geoip": "~1.13",
+                "geoip2/geoip2": "~0.6",
+                "guzzle/guzzle": "@stable",
+                "kriswallsmith/buzz": "@stable",
+                "zendframework/zend-http": "~2.1"
+            },
+            "suggest": {
+                "ext-curl": "Enabling the curl extension allows you to use the CurlHttpAdapter.",
+                "ext-geoip": "Enabling the geoip extension allows you to use the MaxMindProvider.",
+                "geoip/geoip": "If you are going to use the MaxMindBinaryProvider (conflict with geoip extension).",
+                "geoip2/geoip2": "If you are going to use the GeoIP2DatabaseProvider.",
+                "guzzle/guzzle": "Enabling Guzzle allows you to use the GuzzleHttpAdapter.",
+                "kriswallsmith/buzz": "Enabling Buzz allows you to use the BuzzHttpAdapter.",
+                "zendframework/zend-http": "Enabling Zend Http allows you to use the ZendHttpAdapter."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Geocoder": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "William Durand",
+                    "email": "william.durand1@gmail.com"
+                }
+            ],
+            "description": "The almost missing Geocoder PHP 5.3 library.",
+            "homepage": "http://geocoder-php.org",
+            "keywords": [
+                "abstraction",
+                "geocoder",
+                "geocoding",
+                "geoip"
+            ],
+            "time": "2015-01-07 13:23:35"
         }
     ],
     "aliases": [],
@@ -5434,7 +5543,8 @@
         "zizaco/entrust": 20,
         "pelago/emogrifier": 20,
         "yangqi/htmldom": 20,
-        "torann/geoip": 20
+        "torann/geoip": 20,
+        "alexpechkarev/google-geocoder": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
