@@ -293,6 +293,9 @@
 										{!! Form::open([ 'action'=>[ 'Account\CustomersController@deleteRemovePropertyCustomer', $property->slug ], 'method'=>'DELETE', 'class'=>'delete-property-form' ]) !!}
 											{!! Form::hidden('customer_id', $customer->id) !!}
 											{!! Form::hidden('current_tab', 'properties') !!}
+											@if ( $property->calendars->where('customer_id', $customer->id)->count() > 0 )
+												<i class="fa fa-calendar-check-o has-tooltip" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="{{ Lang::get('account/calendar.scheduled') }}"></i>
+											@endif
 											<a href="{{ action('Account\Calendar\BaseController@getCreate') }}?property_ids[]={{$property->id}}&customer_id={{@$customer->id}}" class="btn btn-info btn-xs">{{ Lang::get('account/calendar.button.schedule') }}</a>
 											{!! Form::button(Lang::get('account/customers.discards.action'), [ 'type'=>'submit', 'class'=>'btn btn-danger btn-xs' ]) !!}
 											<a href="{{ action('Web\PropertiesController@details', $property->slug) }}" class="btn btn-default btn-xs" target="_blank">{{ Lang::get('general.view') }}</a>
@@ -476,6 +479,17 @@
 					}
 				});
 			});
+
+			cont.find('form.add-property-form').each(function(){
+				$(this).validate({
+					submitHandler: function(f){
+						LOADING.show();
+						f.submit();
+					}
+				});
+			});
+
+			cont.find('.has-tooltip').tooltip();
 
 			$.ajax({
 				type: 'GET',

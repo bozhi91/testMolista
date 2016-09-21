@@ -116,7 +116,13 @@ class CustomersController extends \App\Http\Controllers\AccountController
 			return redirect()->action('Account\CustomersController@show', urlencode($customer->email));
 		}
 
-		$query = $this->site->customers()->with('queries')->where('email', $email);
+		$query = $this->site->customers()
+					->with('queries')
+					->with([ 'properties' => function($query){
+						$query->with('calendars');
+					}])
+					->with('properties_discards')
+					->where('email', $email);
 
 		if ( $this->site_user->hasRole('employee') )
 		{
