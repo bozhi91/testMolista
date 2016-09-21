@@ -135,6 +135,11 @@
 			</div>
 
 			<div class="map-area">
+				@if ( $property->show_address )
+					<div class="visible-address">
+						{!! $property->full_address !!}
+					</div>
+				@endif
 				<div id="property-map" class="map"></div>
 			</div>
 

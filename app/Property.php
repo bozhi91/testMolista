@@ -838,6 +838,31 @@ class Property extends TranslatableModel
 				->where('properties.country_id', $property->country_id);
 	}
 
+	public function scopeWithTermLike($query, $term)
+	{
+			$query->where(function($query) use ($term) {
+				$query
+					// Title
+					->whereTranslationLike('title', "%{$term}%")
+					// Ref
+					->orWhere('ref', 'like', "%{$term}%")
+					// show_address == 1
+					->orWhere(function($query) use ($term) {
+						$query->where('show_address', 1)
+							->where(function($query) use ($term) {
+								$query
+									// Address
+									->where('address', 'like', "%{$term}%")
+									// District
+									->orWhere('district', 'like', "%{$term}%")
+									// Zipcode
+									->orWhere('zipcode', 'like', "%{$term}%");
+							});
+					});
+			});
+
+	}
+
 	public function scopeWithEverything($query)
 	{
 		return $query
