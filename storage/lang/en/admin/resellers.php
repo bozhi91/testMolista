@@ -49,4 +49,6 @@
 		'payments.paid.until' => 'Paid until',
 		'payments.plan' => 'Plan',
 		'payments.pay' => 'Mark as paid',
+		'payments.amount_pending' => 'Amount pending',
+		'payments.amount_paid' => 'Amount paid',
 	];
