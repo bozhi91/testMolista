@@ -6,10 +6,7 @@
 
 	<div id="home">
 
-		@if ( count($properties) > 0 )
-			<?php
-				$main_property = $properties->shift()
-			?>
+		@if ( $main_property )
 			<div class="main-property carousel slide" data-interval="false">
 				<div class="carousel-inner" role="listbox">
 					<a href="{{ action('Web\PropertiesController@details', $main_property->slug) }}"  class="item active">
@@ -19,7 +16,7 @@
 				</div>
 			</div>
 
-			@if ( count($properties) > 0 )
+			@if ( count($highlighted) > 0 )
 				<div class="container">
 					<div class="properties-slider-area">
 						<h2>{{ Lang::get('web/home.gallery') }}</h2>
@@ -27,7 +24,7 @@
 							<div class="carousel-inner" role="listbox">
 								<div class="item active">
 									<div class="row">
-										@foreach ($properties as $key => $property)
+										@foreach ($highlighted as $key => $property)
 											@if ( $key > 0 && $key%3 == 0 )
 												</div></div><div class="item"><div class="row">
 											@endif
@@ -64,7 +61,7 @@
 		@endif
 
 		<div class="container">
-			<div class="quick-search-area search-area {{ count($properties) ? 'under-properties' : '' }}">
+			<div class="quick-search-area search-area {{ $highlighted->count() > 0 ? 'under-properties' : '' }}">
 				<div class="row">
 					<div class="col-xs-12 col-sm-9"></div>
 					<div class="col-xs-12 col-sm-3">

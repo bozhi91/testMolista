@@ -205,6 +205,7 @@ Route::group([
 		Route::post('properties/catch/{property_id}/{id?}', 'Account\PropertiesController@postCatch');
 		Route::post('properties/upload', 'Account\PropertiesController@postUpload');
 		Route::get('properties/associate/{slug}', 'Account\PropertiesController@getAssociate');
+		Route::get('properties/homeslider/{slug}', 'Account\PropertiesController@getChangeHomeSlider');
 		Route::get('properties/highlight/{slug}', 'Account\PropertiesController@getChangeHighlight');
 		Route::get('properties/status/{slug}', 'Account\PropertiesController@getChangeStatus');
 		Route::resource('properties', 'Account\PropertiesController');

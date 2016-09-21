@@ -25,6 +25,7 @@
 		'baths' => 'Número de baños',
 		'enabled' => 'Habilitada',
 		'enabled.not' => 'Inactiva en web',
+		'home.slider' => 'En portada',
 		'highlighted' => 'Destacada',
 		'highlighted.not' => 'No destacada',
 		'new.item' => 'Novedad',

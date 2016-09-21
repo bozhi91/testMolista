@@ -668,6 +668,11 @@ class Property extends TranslatableModel
 		return $this->marketplace_info;
 	}
 
+	public function scopeInHome($query)
+	{
+		return $query->where('properties.home_slider', 1);
+	}
+
 	public function scopeEnabled($query)
 	{
 		return $query->where('properties.enabled', 1);
