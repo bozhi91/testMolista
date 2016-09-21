@@ -47,7 +47,6 @@
 						</thead>
 						<tbody>
 							@foreach ($payments as $payment)
-								<?php $payment->infocurrency->decimals = 2; ?>
 								<tr>
 									<td>
 										@if ( $payment->reseller )
@@ -60,8 +59,8 @@
 											{{ $payment->site->main_url }}
 										@endif
 									</td>
-									<td class="text-right">{{ !$payment->reseller_paid ? price($payment->reseller_amount, $payment->infocurrency) : '' }}</td>
-									<td class="text-right">{{ $payment->reseller_paid ? price($payment->reseller_amount, $payment->infocurrency) : '' }}</td>
+									<td class="text-right">{{ !$payment->reseller_paid ? price($payment->reseller_amount * $payment->reseller_rate, $comissions_currency) : '' }}</td>
+									<td class="text-right">{{ $payment->reseller_paid ? price($payment->reseller_amount * $payment->reseller_rate, $comissions_currency) : '' }}</td>
 									<td class="text-center">{{ $payment->reseller_paid ? $payment->reseller_date->format('d/m/Y') : '' }}</td>
 									<td class="text-right"><a href="{{ action('Admin\Resellers\PaymentsController@getShow', $payment->id) }}" class="btn btn-xs btn-default">{{ Lang::get('general.view') }}</a></td>
 								</tr>
@@ -70,8 +69,8 @@
 									<td></td>
 									<td></td>
 									<td></td>
-									<td class="text-right table-total">{{ price($payments->where('reseller_paid', 0)->sum('reseller_amount'), $payment->infocurrency) }}</td>
-									<td class="text-right table-total">{{ price($payments->where('reseller_paid', 1)->sum('reseller_amount'), $payment->infocurrency) }}</td>
+									<td class="text-right table-total">{{ price($payments->where('reseller_paid', 0)->sum(function($item){ return $item->reseller_amount * $item->reseller_rate; }), $comissions_currency) }}</td>
+									<td class="text-right table-total">{{ price($payments->where('reseller_paid', 1)->sum(function($item){ return $item->reseller_amount * $item->reseller_rate; }), $comissions_currency) }}</td>
 									<td></td>
 									<td></td>
 								</tr>
