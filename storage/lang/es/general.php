@@ -34,6 +34,7 @@
 		'messages.close' => 'Cerrar',
 		'messages.error' => 'Ocurrió un error al procesar la solicitud.',
 		'messages.success.saved' => 'Los datos se guardaron correctamente.',
+		'messages.success.deleted' => 'El elemento se ha eliminado correctamente.',
 
 		'autotranslate.trigger' => 'Traducir a otros idiomas',
 		'autotranslate.credits' => 'Traducido por',
