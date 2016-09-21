@@ -9,6 +9,11 @@
 
 	function price($price, $params=false)
 	{
+		if ( is_object($params) && method_exists($params,'toArray') )
+		{
+			$params = $params->toArray();
+		}
+
 		if ( !is_array($params) )
 		{
 			$params = [];
@@ -16,7 +21,7 @@
 
 		$iso = isset($params['iso']) ? $params['iso'] : \App\Session\Currency::get('iso', 'EUR');
 		$symbol = isset($params['symbol']) ? $params['symbol'] : \App\Session\Currency::get('symbol', '€');
-		$decimals = isset($params['decimals']) ? $params['decimals'] : \App\Session\Currency::get('decimals', 2);
+		$decimals = isset($params['decimals']) ? $params['decimals'] : \App\Session\Currency::get('decimals', 0);
 		$position = isset($params['position']) ? $params['position'] : \App\Session\Currency::get('position', 'after');
 
 		$currency = [];
@@ -49,7 +54,7 @@
 
     	foreach ($nav as $url => $prev)
     	{
-    		if ( strpos(url()->current(), $url) === false )
+    		if ( strpos(url_current(), $url) === false )
     		{
     			continue;
     		}
@@ -366,7 +371,7 @@
 
 	function sort_link($field)
 	{
-		return url()->current() . '?' . http_build_query(Input::except('sort')) . '&sort=' . $field;
+		return url_current() . '?' . http_build_query(Input::except('sort')) . '&sort=' . $field;
 	}
 
 	function fallback_lang()
@@ -461,4 +466,11 @@
 		}
 
 		return $message;
+	}
+
+	function url_current()
+	{
+		$full = url()->full();
+		$parts = explode('?', $full);
+		return $parts[0];
 	}

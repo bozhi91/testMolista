@@ -98,6 +98,15 @@
 											@endforeach
 										</div>
 									</div>
+									<div class="row">
+										<div class="col-xs-12 col-sm-6">
+											<br />
+											<div class="form-group error-container">
+												{!! Form::label('reseller_code', Lang::get('corporate/signup.reseller.code'), [ 'class'=>'' ]) !!}
+												{!! Form::text('reseller_code', null, [ 'class'=>'form-control' ]) !!}
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 

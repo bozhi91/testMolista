@@ -46,8 +46,15 @@ class Mapper extends \App\Marketplaces\Mapper {
 	/**
 	 * @return boolean
 	 */
-	public function valid() {
+	public function valid()
+	{
 		$data = array_merge($this->item, $this->config);
+
+		if (in_array($this->item['type'], ['building']))
+		{
+		    $this->errors []= \Lang::get('validation.type');
+		    return false;
+		}
 
 		if ($this->isTransfer()) {
 			$this->errors []= \Lang::get('validation.transfer');
@@ -99,13 +106,19 @@ class Mapper extends \App\Marketplaces\Mapper {
 			case 'penthouse':
 			case 'villa':
 			case 'duplex':
+			case 'farmhouse':
+			case 'chalet':
 				return $this->isRent() ? 'Casas en alquiler' : 'Casas en venta';
+			case 'industrial':
+				return 'Oficinas y locales';
 			case 'lot':
+			case 'state':
 				return 'Terrenos y solares';
 			case 'store':
 				return 'Trasteros y garajes';
 			case 'hotel':
 			case 'aparthotel':
+			case 'bungalow':
 				return 'Alquiler vacacional';
 			default:
 				return $this->isRent() ? 'Pisos en alquiler' : 'Pisos en venta';

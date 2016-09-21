@@ -43,11 +43,18 @@ class WebController extends Controller
 
 	public function index()
 	{
-		$properties = $this->site->properties()->enabled()->highlighted()->with('images')->with('state')->with('city')->orderByRaw("RAND()")->get();
+		$main_property = $this->site->properties()->enabled()->inHome()->with('images')->with('state')->with('city')->orderByRaw("RAND()")->first();
+		if ( !$main_property )
+		{
+			$main_property = $this->site->properties()->enabled()->highlighted()->with('images')->with('state')->with('city')->orderByRaw("RAND()")->first();
+		}
+
+		$exclude = $main_property ? $main_property->id : 0;
+		$highlighted = $this->site->properties()->where('properties.id', '!=', $exclude)->enabled()->highlighted()->with('images')->with('state')->with('city')->orderByRaw("RAND()")->get();
 
 		$latest = $this->site->properties()->enabled()->with('images')->with('state')->with('city')->orderBy('created_at','desc')->limit(3)->get();
 
-		return view('web.index', compact('properties','latest'));
+		return view('web.index', compact('main_property','highlighted','latest'));
 	}
 
 }

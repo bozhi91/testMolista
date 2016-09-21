@@ -19,6 +19,7 @@ return [
 	'country' => 'Country',
 	'properties' => 'Properties',
 	'employees' => 'Agents',
+	'reseller' => 'Reseller',
 
 	'create.title' => 'Create site',
 	'edit.title' => 'Edit site',
@@ -26,6 +27,7 @@ return [
 	'tab.config' => 'Configuration',
 	'tab.plan' => 'Plan',
 	'tab.invoices' => 'Invoices',
+	'tab.payments' => 'Payments',
 
 	'goto.site' => 'Go to site',
 	'goto.admin' => 'Go to admin',
@@ -43,4 +45,13 @@ return [
 	'invoices.message.success' => 'The invoice was successfully uploaded',
 	'invoices.message.deleted' => 'The invoice was successfully deleted',
 	'invoices.warning.delete' => 'Are you sure you want to delete this invoice?',
+
+	'payments.empty' => 'No payments found',
+	'payments.date' => 'Date',
+	'payments.amount' => 'Amount',
+	'payments.method' => 'Method',
+	'payments.commission' => 'Commission',
+	'payments.paid' => 'Paid',
+	'payments.reseller' => 'Reseller',
+	'payments.button' => 'Change reseller',
 ];

@@ -20,6 +20,8 @@ class Controller extends BaseController
 	protected $site;
 	protected $site_user;
 
+	protected $reseller;
+
 	protected $geolocation;
 
 	protected $currency;
@@ -37,6 +39,8 @@ class Controller extends BaseController
 			$this->site->setTicketToken($this->site_user->ticket_user_token);
 		}
 
+		$this->reseller = $this->request->get('reseller');
+
 		$this->geolocation = $this->request->get('geolocation');
 		
 		$this->currency = $this->request->get('currency');
@@ -52,7 +56,7 @@ class Controller extends BaseController
 		$nav = session()->get('SmartBackLinks', []);
 
 		// Add current value to nav
-		$nav[ url()->current() ] = url()->full();
+		$nav[ url_current() ] = url()->full();
 
 		// Sort nav by key length
 		uksort($nav, function($a,$b){
@@ -94,6 +98,36 @@ class Controller extends BaseController
 		\View::share('seo_keywords', @$seo['keywords']);
 
 		return true;
+	}
+
+	protected function csv_output($query, $columns)
+	{
+		$csv = \League\Csv\Writer::createFromFileObject(new \SplTempFileObject());
+		$csv->setDelimiter(';');
+
+		// Headers
+		$csv->insertOne( array_values($columns) );
+
+		// Lines
+		foreach ($query->limit(9999)->get() as $row)
+		{
+			$data = [];
+
+			$row = $this->csv_prepare_row($row);
+			foreach ($columns as $key => $title)
+			{
+				$data[] = @$row->$key;
+			}
+
+			$csv->insertOne( $data );
+		}
+
+		$csv->output(date('YmdHis').'.csv');
+		exit;
+	}
+	protected function csv_prepare_row($row)
+	{
+		return $row;
 	}
 
 }

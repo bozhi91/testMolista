@@ -41,6 +41,11 @@ class Site extends TranslatableModel
 		return $this->belongsTo('App\Models\Plan');
 	}
 
+	public function reseller()
+	{
+		return $this->belongsTo('App\Models\Reseller')->with('plans');
+	}
+
 	public function country()
 	{
 		return $this->hasOne('App\Models\Geography\Country','code','country_code')->withTranslations();
@@ -69,6 +74,11 @@ class Site extends TranslatableModel
 	public function invoices()
 	{
 		return $this->hasMany('App\Models\Site\Invoice');
+	}
+
+	public function payments()
+	{
+		return $this->hasMany('App\Models\Site\Payment');
 	}
 
 	public function stats()
@@ -114,9 +124,21 @@ class Site extends TranslatableModel
 	}
 	public function getCustomersOptionsAttribute()
 	{
+		return $this->getCustomersOptions();
+	}
+	public function getCustomersOptions($user=false)
+	{
 		$options = [];
 
-		$customers = $this->customers()->orderBy('first_name')->orderBy('last_name')->orderBy('email')->get();
+		$query = $this->customers()->orderBy('first_name')->orderBy('last_name')->orderBy('email');
+
+		if ( $user && $user->hasRole('employee') )
+		{
+			$query->ofUser($user->id);
+		}
+
+		$customers = $query->get();
+
 		foreach ($customers as $customer)
 		{
 			$options[$customer->id] = "{$customer->full_name} ({$customer->email})";
@@ -276,7 +298,15 @@ class Site extends TranslatableModel
 		// Return autologin url
 		$url = action('AccountController@index', [ 'autologin_token' =>$autologin_token ]);
 
-		return $this->getSiteFullUrl( $url );
+		// Subdomain url
+		return str_replace(
+					rtrim(\Config::get('app.application_url'),'/'), //replaces current url
+					\Config::get('app.application_protocol') . "://{$this->subdomain}." . \Config::get('app.application_domain'), // with website url
+					$url
+				);
+
+		// Domain/subdomain
+		//return $this->getSiteFullUrl( $url );
 	}
 
 	public function getRememberPasswordUrlAttribute()
@@ -401,10 +431,21 @@ class Site extends TranslatableModel
 		return $query->where("{$this->getTable()}.enabled", 1);
 	}
 
+	public function scopeWithDomain($query,$domain)
+	{
+		return $query->where(function ($query) use ($domain) {
+			$query->whereIn('sites.id', function($query) use ($domain) {
+				$query->select('site_id')
+					->from('sites_domains')
+					->where('domain', 'like', "%{$domain}%");
+			})->orWhere('subdomain', 'like', "%{$domain}%");
+		});
+	}
+
 	public function scopeCurrent($query)
 	{
 		// Parse url
-		$parts = parse_url( url()->current() );
+		$parts = parse_url( url_current() );
 
 		// No host, no results
 		if ( empty($parts['host']) )
@@ -918,4 +959,38 @@ class Site extends TranslatableModel
 
 		return $timezones;
 	}
+
+	public function preparePaymentData($data)
+	{
+		// Site data
+		$payment = [
+			'site_id' => $this->id,
+			'plan_id' => $this->plan_id,
+			'trigger' => '',
+			'paid_from' => null,
+			'paid_until' => null,
+			'payment_method' =>  '',
+			'payment_amount' => 0,
+			'payment_currency' => $this->plan->currency,
+			'reseller_id' =>  $this->reseller ? $this->reseller->id : null,
+			'reseller_variable' => $this->reseller ? @floatval($this->reseller->plans_commissions[$this->plan_id]['commission_percentage']) : 0,
+			'reseller_fixed' => $this->reseller ? @floatval($this->reseller->plans_commissions[$this->plan_id]['commission_fixed']) : 0,
+			'data' => $data,
+		];
+
+		// Provided data
+		$payment = array_merge($payment,$data);
+
+
+		// Reseller payment amount
+		$payment['reseller_amount'] = $payment['reseller_fixed'] + ($payment['payment_amount']*$payment['reseller_variable']/100);
+
+		// Exchange rate
+		$currency_rate = \App\Models\CurrencyConverter::convert(1, $payment['payment_currency'], 'EUR');
+		$payment['payment_rate'] = $currency_rate;
+		$payment['reseller_rate'] = $currency_rate;
+
+		return $payment;
+	}
+
 }

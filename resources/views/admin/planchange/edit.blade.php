@@ -27,8 +27,23 @@
 							</div>
 							@if ( $planchange->new_data['payment_method'] == 'transfer' )
 								<div class="form-group error-container">
+									{!! Form::label('payment_amount', Lang::get('admin/planchange.paid.amount')) !!}
+									<div class="input-group plan-input-group">
+										{!! Form::text('payment_amount', null, [ 'class'=>'form-control required number', 'min'=>0 ]) !!}
+										<div class="input-group-addon">{{ $planchange->plan->currency }}</div>
+									</div>
+								</div>
+								<div class="form-group error-container">
+									{!! Form::label('paid_from', Lang::get('admin/planchange.paid.from')) !!}
+									<div style="position: relative;">
+										{!! Form::text('paid_from', null, [ 'class'=>'datetimepicker-start form-control required' ]) !!}
+									</div>
+								</div>
+								<div class="form-group error-container">
 									{!! Form::label('paid_until', Lang::get('admin/planchange.paid.until')) !!}
-									{!! Form::text('paid_until', null, [ 'class'=>'form-control has-datetimepicker' ]) !!}
+									<div style="position: relative;">
+										{!! Form::text('paid_until', null, [ 'class'=>'datetimepicker-end form-control required' ]) !!}
+									</div>
 								</div>
 							@endif
 						</div>
@@ -57,13 +72,45 @@
 									<tbody>
 										<tr>
 											<td>{{ Lang::get('admin/planchange.plan') }}</td>
-											<td>{{ @$old_plan->name }}</td>
-											<td>{{ @$planchange->plan->name }}</td>
+											<td>
+												{{ @$old_plan->name }} 
+												@if ( empty($old_plan->is_free) )
+													({{ @$old_plan->currency }})
+												@endif
+											</td>
+											<td>
+												{{ @$planchange->plan->name }} 
+												@if ( empty($planchange->plan->is_free) )
+													({{ @$planchange->plan->currency }})
+												@endif
+											</td>
 										</tr>
 										<tr>
 											<td>{{ Lang::get('admin/planchange.payment.interval') }}</td>
-											<td>{{ @$planchange->old_data['payment_interval'] ? Lang::get("web/plans.price.{$planchange->old_data['payment_interval']}") : '' }}</td>
-											<td>{{ @$planchange->new_data['payment_interval'] ? Lang::get("web/plans.price.{$planchange->new_data['payment_interval']}") : '' }}</td>
+											<td>
+												@if ( @$old_plan && @$planchange->old_data['payment_interval'] )
+													{{ Lang::get("web/plans.price.{$planchange->old_data['payment_interval']}") }}
+													@if ( empty($old_plan->is_free) )
+														@if ( $planchange->old_data['payment_interval'] == 'month' )
+															({{ price($old_plan->price_month, $old_plan->infocurrency->toArray()) }})
+														@else
+															({{ price($old_plan->price_year, $old_plan->infocurrency->toArray()) }})
+														@endif
+													@endif
+												@endif
+											</td>
+											<td>
+												@if ( @$planchange->plan && @$planchange->new_data['payment_interval'] ) 
+													{{ Lang::get("web/plans.price.{$planchange->new_data['payment_interval']}") }}
+													@if ( empty($planchange->plan->is_free) )
+														@if ( $planchange->new_data['payment_interval'] == 'month' )
+															({{ price($planchange->plan->price_month, $planchange->plan->infocurrency->toArray()) }})
+														@else
+															({{ price($planchange->plan->price_year, $planchange->plan->infocurrency->toArray()) }})
+														@endif
+													@endif
+												@endif
+											</td>
 										</tr>
 										<tr>
 											<td>{{ Lang::get('admin/planchange.payment.method') }}</td>
@@ -75,6 +122,13 @@
 											<td>{{ @$planchange->old_data['iban_account']  }}</td>
 											<td>{{ @$planchange->new_data['iban_account'] }}</td>
 										</tr>
+										@if ( empty($old_plan->is_free) && $planchange->site->paid_until )
+											<tr>
+												<td>{{ Lang::get('admin/expirations.paid.until') }}</td>
+												<td>{{ date("d/m/Y", strtotime($planchange->site->paid_until)) }}</td>
+												<td></td>
+											</tr>
+										@endif
 									</tbody>
 								</table>
 							</div>
@@ -159,9 +213,23 @@
 				}
 			});
 
-			form.find('.has-datetimepicker').datetimepicker({
+			form.find('.datetimepicker-start').datetimepicker({
 				format: 'YYYY-MM-DD'
+			}).on("dp.change", function (e) {
+				form.find('.datetimepicker-end').data("DateTimePicker").minDate(e.date);
 			});
+			form.find('.datetimepicker-end').datetimepicker({
+				format: 'YYYY-MM-DD',
+				useCurrent: false //Important! See issue #1075
+			}).on("dp.change", function (e) {
+				form.find('.datetimepicker-start').data("DateTimePicker").maxDate(e.date);
+			});
+			if ( form.find('.datetimepicker-start').val() ) {
+				form.find('.datetimepicker-start').trigger('dp.change');
+			}
+			if ( form.find('.datetimepicker-end').val() ) {
+				form.find('.datetimepicker-end').trigger('dp.change');
+			}
 
 		});
 	</script>

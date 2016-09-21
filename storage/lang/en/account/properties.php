@@ -25,6 +25,7 @@
 		'baths' => 'Number of bathrooms',
 		'enabled' => 'Enabled',
 		'enabled.not' => 'Disabled',
+		'home.slider' => 'In home',
 		'highlighted' => 'Highlighted',
 		'highlighted.not' => 'Not highlighted',
 		'new.item' => 'New property',
@@ -133,7 +134,11 @@
 		'show.property.seller.phone' => 'Seller phone',
 		'show.property.seller.cell' => 'Seller movile',
 		'show.property.price.min' => 'Minimum price',
+		'show.property.price.min.help' => 'This is the minimum price for which the owner would be willing to close the transaction (sell, rent, etc.)',
 		'show.property.commission' => 'Commission',
+
+		'show.property.comment.title' => 'Comment',
+		'show.property.comment.button' => 'Save comment',
 
 		'show.transactions.none' => 'There are no transactions',
 		'show.transactions.date' => 'Date',
@@ -211,4 +216,5 @@
 		'showcase_front' => 'Showcase front',
 		'expenses' => 'Expenses (monthly)',
 		'balcony_area' => 'Balcony area',
+		'size_real' => 'Useful area',
 	];

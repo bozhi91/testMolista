@@ -69,6 +69,12 @@ class Mapper extends \App\Marketplaces\Mapper {
 
     public function valid()
     {
+        if (in_array($this->item['type'], ['building', 'chalet', 'bungalow']))
+        {
+            $this->errors []= \Lang::get('validation.type');
+            return false;
+        }
+
         $data = array_merge($this->item, $this->config);
 
         $rules = [
@@ -99,9 +105,12 @@ class Mapper extends \App\Marketplaces\Mapper {
     {
         $types = [
             'store' => 'business',
+            'industrial' => 'business',
             'lot' => 'land',
+            'state' => 'land',
             'duplex' => 'appartement',
             'house' => 'old',
+            'farmhouse' => 'old',
             'penthouse' => 'luxury',
             'villa' => 'old',
             'apartment' => 'appartement',

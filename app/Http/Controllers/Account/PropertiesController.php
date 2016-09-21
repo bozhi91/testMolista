@@ -14,7 +14,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		$this->middleware([ 'permission:property-view' ], [ 'only' => [ 'index','show','postCatch' ] ]);
 		$this->middleware([ 'permission:property-create', 'property.permission:create' ], [ 'only' => [ 'create','store' ] ]);
 		$this->middleware([ 'permission:property-edit' ], [ 'only' => [ 'edit','update','getAssociate','postAssociate' ] ]);
-		$this->middleware([ 'property.permission:edit' ], [ 'only' => [ 'update','getAssociate','postAssociate','getChangeStatus' ] ]);
+		$this->middleware([ 'property.permission:edit' ], [ 'only' => [ 'update','getAssociate','postAssociate','getChangeHomeSlider','getChangeHighlight','getChangeStatus' ] ]);
 		$this->middleware([ 'permission:property-delete', 'property.permission:delete' ], [ 'only' => [ 'destroy' ] ]);
 
 		\View::share('submenu_section', 'properties');
@@ -614,7 +614,6 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'success' => 1,
 			'enabled' => $property->enabled,
 		];
-
 	}
 
 	public function getChangeHighlight($slug)
@@ -633,7 +632,24 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'success' => 1,
 			'highlighted' => $property->highlighted,
 		];
+	}
 
+	public function getChangeHomeSlider($slug)
+	{
+		$property = $this->site->properties()->whereIn('properties.id', $this->auth->user()->properties()->lists('id'))->whereTranslation('slug', $slug)->first();
+		if ( !$property )
+		{
+			return [ 'error'=>1 ];
+		}
+
+		$property->home_slider = $property->home_slider ? 0 : 1;
+		$property->save();
+
+
+		return [
+			'success' => 1,
+			'home_slider' => $property->home_slider,
+		];
 	}
 
 	/* HELPER FUNCTIONS --------------------------------------------------------------------------- */
@@ -652,6 +668,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'baths' => 'required|integer|min:0',
 			'services' => 'array',
 			'enabled' => 'boolean',
+			'home_slider' => 'boolean',
 			'highlighted' => 'boolean',
 			'ec' => 'in:'.implode(',', array_keys(\App\Property::getEcOptions())),
 			'ec_pending' => 'boolean',
@@ -909,6 +926,21 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		}
 
 		return true;
+	}
+
+	public function postComment($slug)
+	{
+		$property = $this->site->properties()->whereIn('properties.id', $this->auth->user()->properties()->lists('id'))->whereTranslation('slug', $slug)->first();
+		if ( !$property )
+		{
+			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
+		}
+
+		$property->update([
+			'comment' => $this->request->input('comment')
+		]);
+
+		return redirect()->back()->with('success', trans('general.messages.success.saved'));
 	}
 
 	public function postUpload()

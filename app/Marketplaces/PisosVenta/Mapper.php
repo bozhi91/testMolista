@@ -137,6 +137,12 @@ class Mapper extends \App\Marketplaces\Mapper {
             'villa' => 'Chalet',
             'hotel' => 'Hotel',
             'aparthotel' => 'Apartamento',
+            'chalet' => 'Chalet',
+            'bungalow' => 'Bungalow',
+            'building' => 'Edificio',
+            'industrial' => 'Nave industrial',
+            'state' => 'Finca rústica',
+            'farmhouse' => 'Masia',
         ];
 
         return isset($types[$type]) ? $types[$type] : 'Piso';

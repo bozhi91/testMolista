@@ -3,8 +3,8 @@
 class Mapper extends \App\Marketplaces\Mapper {
 
     /**
-     * Maps a Molista item to trovit.com format according to:
-     * http://about.trovit.com/feed-technical-specs/es/homes/specs.html
+     * Maps a Molista item to clasf.es format according to:
+     * http://www.clasf.es/feed-specifications/
      *
      * @return array
      */
@@ -72,10 +72,17 @@ class Mapper extends \App\Marketplaces\Mapper {
         {
             case 'store':
                 $type = 'locales comerciales';
-                break;
+            break;
             case 'lot':
+            case 'state':
                 $type = 'venta terrenos';
-                break;
+            break;
+            case 'building':
+                $type = 'alquiler y venta edificios';
+            break;
+            case 'industrial':
+                $type = 'venta naves industriales';
+            break;
             case 'duplex':
             case 'house':
             case 'penthouse':
@@ -98,24 +105,37 @@ class Mapper extends \App\Marketplaces\Mapper {
         {
             case 'store':
                 $type = $this->isRent() ? 'alquiler de locales' : ($this->isTransfer() ? 'traspaso' : 'venta de locales');
-                break;
+            break;
             case 'lot':
                 $type = $this->isSale() ? 'venta solares' : '';
-                break;
+            break;
+            case 'state':
+                $type = 'alquiler venta fincas rusticas';
+            break;
             case 'penthouse':
                 $type = 'alquiler venta aticos';
-                break;
+            break;
             case 'duplex':
             case 'house':
             case 'villa':
+            case 'farmhouse':
                 $type = 'alquiler venta casas';
-                break;
+            break;
             case 'apartment':
                 $type = 'alquiler y compra apartamentos';
-                break;
+            break;
+            case 'building':
+                $type = $this->isSale() ? 'venta de edificios' : 'alquiler de edificios';
+            break;
+            case 'industrial':
+                $type = $this->isSale() ? 'venta de naves' : 'alquiler de naves';
+            break;
+            case 'chalet':
+                $type = 'alquiler venta chalets';
+            break;
             default:
                 $type = 'alquiler venta pisos';
-                break;
+            break;
         }
 
         return $type;
@@ -130,22 +150,31 @@ class Mapper extends \App\Marketplaces\Mapper {
         {
             case 'store':
             case 'lot':
+            case 'industrial':
+            case 'building':
                 $type = '';
-                break;
+            break;
             case 'penthouse':
                 $type = $this->isRent() ? 'alquiler de aticos' : 'venta de aticos';
-                break;
+            break;
+            case 'state':
+                $type = $this->isRent() ? 'alquiler de fincas' : 'venta de fincas';
+            break;
             case 'duplex':
             case 'house':
             case 'villa':
+            case 'farmhouse':
                 $type = $this->isRent() ? 'alquiler de casas' : 'venta de casas';
-                break;
+            break;
             case 'apartment':
                 $type = $this->isRent() ? 'alquiler apartamentos' : 'venta de apartamentos';
-                break;
+            break;
+            case 'chalet':
+                $type = $this->isRent() ? 'alquiler de chalets' : 'venta de chalets';
+            break;
             default:
                 $type = $this->isRent() ? 'alquiler de pisos' : 'venta de pisos';
-                break;
+            break;
         }
 
         return $type;

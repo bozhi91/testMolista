@@ -85,6 +85,14 @@ return [
 			'views-path' 	=> 'corporate',
 			'asset-path' 	=> 'corporate',
 		],
+		'resellers' => [
+			'title'			=> 'Resellers',
+			'public'		=> false,
+			'personal'		=> false,
+			'extends'	 	=> 'corporate',
+			'views-path' 	=> 'resellers',
+			'asset-path' 	=> 'resellers',
+		],
 
 		'bellamar' => [
 			'title'			=> 'Bellamar',

@@ -234,7 +234,7 @@ class Property extends TranslatableModel
 		// Check PDF
 		$filepath = "{$dir}/property-{$locale}.pdf";
 
-		$last_time = strtotime("2016-07-11");
+		$last_time = strtotime("2016-09-07");
 		if ( strtotime($this->site->updated_at) > $last_time )
 		{
 			$last_time = strtotime($this->site->updated_at);
@@ -254,11 +254,11 @@ class Property extends TranslatableModel
 				{
 					if ( !$main_image )
 					{
-						$main_image = $image;
+						$main_image = $this->getPdfFileImageTmp("{$this->image_path}/{$image->image}", 525, 215);
 					}
 					elseif ( count($other_images) < 2 )
 					{
-						$other_images[] = $image;
+						$other_images[] = $this->getPdfFileImageTmp("{$this->image_path}/{$image->image}", 255, 160);
 					}
 					else
 					{
@@ -288,10 +288,49 @@ class Property extends TranslatableModel
 				'other_images' => $other_images,
 			])->save($filepath);
 
+			// Delete tmp images
+			if ( $main_image )
+			{
+				unlink($main_image);
+			}
+			foreach ($other_images as $other_image)
+			{
+				unlink($other_image);
+			}
+
 			\LaravelLocalization::setLocale($locale_backup);
 		}
 
 		return $filepath;
+	}
+
+	public function getPdfFileImageTmp($image,$width,$height)
+	{
+		$folder = public_path('_temp');
+		if ( !is_dir($folder) )
+		{
+			\File::makeDirectory(public_path('_temp'), 0775, true);
+		}
+
+		$filename = uniqid('pdf_image_', true);
+		$destination = "{$folder}/{$filename}.jpg";
+
+		while ( file_exists($destination) )
+		{
+			$filename = uniqid('pdf', true);
+			$destination = "{$folder}/{$filename}.jpg";
+		}
+
+		// Create thumb
+		$thumb = \Image::make($image);
+
+		$thumb->encode('jpg');
+
+		$thumb->fit($width, $height, function($constraint) {
+			$constraint->aspectRatio();
+		})->save($destination);
+
+		return $destination;
 	}
 
 	public function getLatPublicAttribute()
@@ -363,6 +402,21 @@ class Property extends TranslatableModel
 		}
 
 		return false;
+	}
+	public function getMainImageThumbAttribute()
+	{
+		if ( !$this->main_image )
+		{
+			return false;
+		}
+
+		$tmp = pathinfo($this->main_image);
+
+		return implode('/', [
+					$tmp['dirname'],
+					'thumbnail',
+					$tmp['basename'],
+				]);
 	}
 
 	public function getCatchCurrentAttribute()
@@ -612,6 +666,11 @@ class Property extends TranslatableModel
 		\App::setLocale($current_locale);
 
 		return $this->marketplace_info;
+	}
+
+	public function scopeInHome($query)
+	{
+		return $query->where('properties.home_slider', 1);
 	}
 
 	public function scopeEnabled($query)

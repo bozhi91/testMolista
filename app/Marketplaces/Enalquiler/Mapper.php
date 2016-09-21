@@ -71,9 +71,13 @@ class Mapper extends \App\Marketplaces\Mapper {
             return false;
         }
 
-        $rules = [
-            //'title.'.$this->iso_lang => 'max:40',
-        ];
+        if (in_array($this->item['type'], ['hotel', 'aparthotel', 'building', 'industrial', 'bungalow', 'state']))
+        {
+            $this->errors []= \Lang::get('validation.type');
+            return false;
+        }
+
+        $rules = [];
 
         $messages = [
             'construction_year.regex' => \Lang::get('validation.date'),
@@ -119,6 +123,8 @@ class Mapper extends \App\Marketplaces\Mapper {
         switch ($this->item['type']) {
             case 'house':
             case 'villa':
+            case 'farmhouse':
+            case 'chalet':
                 $code = 7;
                 break;
             case 'duplex':

@@ -13,7 +13,7 @@ Route::group([
 	'prefix' => LaravelLocalization::setLocale(),
 	'middleware' => [
 		'web',
-		'site.login.roles:admin|translator',
+		'site.login.roles:admin|translator|franchisee',
 		'setTheme:corporate',
 	],
 ], function() {
@@ -36,18 +36,31 @@ Route::group([
 		Route::controller('customers', 'Corporate\CustomersController');
 	});
 
+	// Resellers
+	Route::controller('resellers/auth', 'Resellers\AuthController');
+	Route::group([
+		'prefix' => 'resellers',
+			'middleware' => [
+				'auth.reseller',
+				'setTheme:resellers',
+			],
+	], function() {
+		Route::controller('/', 'ResellersController');
+	});
+
 	// Admin
 	Route::group([
 		'prefix' => 'admin',
 		'middleware' => [
 			'auth.admin',
-			'role:admin|translator',
+			'role:admin|translator|franchisee',
 			'setTheme:admin',
 		],
 	], function() {
 		Route::get('/', 'AdminController@index');
 
 		// Sites
+		Route::controller('sites/payments', 'Admin\Sites\PaymentsController');
 		Route::get('sites/invoice/{id}/{file?}', 'Admin\SitesController@getInvoice');
 		Route::post('sites/invoice/{id}', 'Admin\SitesController@postInvoice');
 		Route::delete('sites/invoice/{id}', 'Admin\SitesController@deleteInvoice');
@@ -61,6 +74,10 @@ Route::group([
 		Route::get('properties/check/{type}', 'Admin\Properties\ServicesController@getCheck');
 		Route::resource('properties/services', 'Admin\Properties\ServicesController');
 		Route::resource('properties', 'Admin\Properties\BaseController');
+		// Resellers
+		Route::get('resellers/validate/{type}', 'Admin\ResellersController@getValidate');
+		Route::controller('resellers/payments', 'Admin\Resellers\PaymentsController');
+		Route::resource('resellers', 'Admin\ResellersController');
 		// Configuration
 		Route::resource('config/locales', 'Admin\Config\LocalesController');
 		Route::resource('config/translations', 'Admin\Config\TranslationsController');
@@ -180,6 +197,7 @@ Route::group([
 		], function() {
 			Route::controller('properties/documents', 'Account\Properties\DocumentsController');
 		});
+		Route::post('properties/comment/{slug}', 'Account\PropertiesController@postComment');
 		Route::get('properties/leads/{slug}', 'Account\PropertiesController@getLeads');
 		Route::get('properties/catch/close/{id}', 'Account\PropertiesController@getCatchClose');
 		Route::post('properties/catch/close/{id}', 'Account\PropertiesController@postCatchClose');
@@ -187,6 +205,7 @@ Route::group([
 		Route::post('properties/catch/{property_id}/{id?}', 'Account\PropertiesController@postCatch');
 		Route::post('properties/upload', 'Account\PropertiesController@postUpload');
 		Route::get('properties/associate/{slug}', 'Account\PropertiesController@getAssociate');
+		Route::get('properties/homeslider/{slug}', 'Account\PropertiesController@getChangeHomeSlider');
 		Route::get('properties/highlight/{slug}', 'Account\PropertiesController@getChangeHighlight');
 		Route::get('properties/status/{slug}', 'Account\PropertiesController@getChangeStatus');
 		Route::resource('properties', 'Account\PropertiesController');
