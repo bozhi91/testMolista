@@ -260,6 +260,24 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		return redirect()->action('Account\PropertiesController@edit', $property->slug)->with('current_tab', $this->request->input('current_tab'))->with('success', trans('account/properties.created'));
 	}
 
+	public function download($slug,$locale) {
+		// Get property
+		$property = $this->site->properties()->enabled()
+					->whereTranslation('slug', $slug)
+					->first();
+						
+		if ( !$property )
+		{
+			abort(404);
+		}
+
+		$filepath = $property->getPdfFile( $locale );
+		
+		return response()->download($filepath, "property-{$locale}.pdf", [
+			'Content-Type: application/pdf',
+		]);
+	}
+	
 	public function edit($slug)
 	{
 		$query = $this->site->properties()

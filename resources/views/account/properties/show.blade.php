@@ -23,6 +23,7 @@
 			<li role="presentation" class="{{ (old('current_tab') == 'tab-logs') ? 'active' : '' }}"><a href="#tab-logs" aria-controls="tab-logs" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.logs') }}</a></li>
 			<li role="presentation" class="{{ (old('current_tab') == 'tab-employees') ? 'active' : '' }}"><a href="#tab-employees" aria-controls="tab-employees" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.employees') }}</a></li>
 			<li role="presentation" class="{{ (old('current_tab') == 'tab-visits') ? 'active' : '' }}"><a href="#tab-visits" aria-controls="tab-visits" role="tab" data-toggle="tab">{{ Lang::get('account/visits.title') }}</a></li>
+			<li role="presentation"><a href="{{ action('Account\PropertiesController@download', [ $property->slug, LaravelLocalization::getCurrentLocale() ]) }}" target="_blank">{{ Lang::get('account/properties.tab.pdf') }}</a></li>
 		</ul>
 
 		<div class="tab-content">
