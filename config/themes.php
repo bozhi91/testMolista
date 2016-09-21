@@ -163,6 +163,16 @@ return [
 			'gmaps-circle'	=> '#efb817',
 		],
 
+		'white-cloud' => [
+			'title'			=> 'White Cloud',
+			'public'		=> true,
+			'custom'		=> false,
+			'extends'	 	=> 'default',
+			'views-path' 	=> 'themes/white-cloud',
+			'asset-path' 	=> 'themes/white-cloud',
+			'gmaps-circle'	=> '#efb817',
+		],
+
 		// Add your themes here...
 
 		/*--------------[ Example Structre ]-------------

@@ -1,3 +1,17 @@
+<?php
+
+	if (!isset($colperpage)) {
+		$colperpage = 4;
+	}
+
+	if (!isset($showcolrows)) {
+		$showcolrows = true;
+	}
+
+	$slider_breakpoint = ( 12 / $colperpage * 3);
+
+?>
+
 @extends('layouts.web')
 
 @section('content')
@@ -23,21 +37,29 @@
 						<div id="properties-slider" class="properties-slider carousel slide">
 							<div class="carousel-inner" role="listbox">
 								<div class="item active">
-									<div class="row">
-										@foreach ($highlighted as $key => $property)
-											@if ( $key > 0 && $key%3 == 0 )
+									@if ( $showcolrows )
+										<div class="row">
+									@endif
+									@foreach ($highlighted as $key => $property)
+										@if ( $key > 0 && $key%3 == 0 )
+											@if ( $showcolrows )
 												</div>
-													@if ( $key > 0 && $key%9 == 0 )
-														</div>
-														<div class="item">
-													@endif
+											@endif
+											@if ( $key > 0 && $key%$slider_breakpoint == 0 )
+												</div>
+												<div class="item">
+											@endif
+											@if ( $showcolrows )
 												<div class="row">
 											@endif
-											<div class="col-xs-12 col-sm-4">
-												@include('web.properties.pill', [ 'item'=>$property])
-											</div>
-										@endforeach
-									</div>
+										@endif
+										<div class="col-xs-12 col-sm-{{$colperpage}}">
+											@include('web.properties.pill', [ 'item'=>$property])
+										</div>
+									@endforeach
+									@if ( $showcolrows )
+										</div>
+									@endif
 								</div>
 							</div>
 							@if ( $highlighted->count() > 9 )
@@ -158,7 +180,7 @@
 
 			var main_property = cont.find('.main-property');
 			var main_property_image = main_property.find('.main-image');
-			if ( main_property_image.length > 0 && main_property.height() > main_property_image.height() ) {
+			if ( (main_property_image.length > 0 && main_property.height() > main_property_image.height()) || $('body').hasClass('theme-white-cloud') ) {
 				main_property_image.addClass('hide');
 				main_property.find('.item.active').css({ 'background-image': 'url(' + main_property_image.attr('src') + ')' })
 			}

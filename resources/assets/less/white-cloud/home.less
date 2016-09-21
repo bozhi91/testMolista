@@ -1,11 +1,20 @@
 @import '../app/home.less';
 
 /* setting on picture at carousel */
+#home {
+	.main-property {
+		.item {
+			background: center center no-repeat;
+    		background-size: contain;
+		}
+	}
+}
+
 @media (min-width: 768px) {
 	#home {
 		.main-property {
 			max-width: 100%;
-			.item { height: 720px; }
+			.item { height: 600px; }
 		}
 	}
 }
@@ -13,7 +22,7 @@
 	#home {
 		.main-property {
 			max-width: 100%;
-			.item { height: 480px; }
+			.item { height: 400px; }
 		}
 	}
 }
@@ -26,7 +35,7 @@
 			position: relative;
 
 			.home-top-inner {
-				position: absolute; z-index: 1; width: 100%; background: rgba(255,0,0,0.6); padding-top: 10px; padding-bottom: 10px;
+				position: relative; z-index: 1050; width: 100%; background: rgba(52,99,129,0.6); padding-top: 10px; padding-bottom: 10px;
 
 				.nav.navbar-nav {
 					float: none; text-align: center;
@@ -35,18 +44,18 @@
 						display: inline-block; float: none; height: 40px;
 
 						a {
-							padding: 10px 15px; background-color: @white; color: @black;
+							padding: 10px 15px; background-color: @white; color: @gray;
 
-							&:hover { background-color: @yellow; color: @white; }
+							&:hover { background-color: @gray; color: @white; opacity: 0.8; }
 						}
 
 						input, select, button, a { height: 100%; border-radius: 0px;}
 
 						button {
-							padding: 8px 13px; background-color: @white; border-color: transparent;
+							padding: 8px 13px; background-color: @yellow; border-color: transparent; color: @white;
 
 							i {font-size: 19px;}
-							&:hover { background-color: @yellow; color: @white; }
+							&:hover { background-color: @yellowHover;}
 						}
 
 						.form-control:focus { border-color: @yellow; }
@@ -102,7 +111,7 @@
 	#home {
 		padding-bottom: 50px;
 
-		.properties-slider-area { margin-top: -85px; }
+		.properties-slider-area { margin-top: 0px; padding: 25px 45px 5px 45px; }
 	}
 }
 
@@ -112,6 +121,28 @@
 	#home {
 		.carousel-caption-text {
 			.carousel-caption-button { text-align: center; }
+		}
+	}
+}
+
+/* Settings for home col-sm-4 */
+
+@media (min-width: 768px) and (max-width: 991px) {
+	body.theme-white-cloud {
+		#home {
+			.properties-slider-area {
+				#properties-slider {
+					.carousel-inner {
+						.item {
+							.row {
+								.col-xs-12.col-sm-3 {
+									width: 33.33333333% !important;
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }
