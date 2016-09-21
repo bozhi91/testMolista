@@ -14,8 +14,10 @@ class AccountsController extends \App\Http\Controllers\AccountController
 		\View::share('submenu_section', 'profile');
 		\View::share('submenu_subsection', 'profile-accounts');
 
-		$this->accounts = $this->site->ticket_adm->getEmailAccounts($this->site_user->ticket_user_id, $this->site_user->ticket_user_token);
-		\View::share('accounts', $this->accounts);
+		if ($this->site) {
+			$this->accounts = $this->site->ticket_adm->getEmailAccounts($this->site_user->ticket_user_id, $this->site_user->ticket_user_token);
+			\View::share('accounts', $this->accounts);
+		}
 	}
 
 	public function getIndex()
@@ -30,7 +32,7 @@ class AccountsController extends \App\Http\Controllers\AccountController
 	public function postCreate()
 	{
 		$validator = \Validator::make($this->request->all(), $this->_getValidationFields());
-		if ($validator->fails()) 
+		if ($validator->fails())
 		{
 			return redirect()->back()->withInput()->withErrors($validator);
 		}
@@ -65,7 +67,7 @@ class AccountsController extends \App\Http\Controllers\AccountController
 		}
 
 		$validator = \Validator::make($this->request->all(), $this->_getValidationFields($id));
-		if ($validator->fails()) 
+		if ($validator->fails())
 		{
 			return redirect()->back()->withInput()->withErrors($validator);
 		}
@@ -114,7 +116,7 @@ class AccountsController extends \App\Http\Controllers\AccountController
 
 	protected function _getAccount($id)
 	{
-		foreach ($this->accounts as $account) 
+		foreach ($this->accounts as $account)
 		{
 			if ( $account->id == $id )
 			{
