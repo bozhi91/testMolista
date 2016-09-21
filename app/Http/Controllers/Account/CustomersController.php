@@ -35,11 +35,60 @@ class CustomersController extends \App\Http\Controllers\AccountController
 			$query->where('customers.email', 'like', "%{$this->request->input('email')}%");
 		}
 
-		$customers = $query->orderBy('created_at','desc')->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
+		$query->orderBy('created_at','desc');
+
+		if ( $this->request->input('csv') )
+		{
+			return $this->exportCsv($query);
+		}
+
+		$customers = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$this->set_go_back_link();
 
 		return view('account.customers.index', compact('customers'));
+	}
+
+	public function exportCsv($query)
+	{
+		$columns = [
+			'full_name' => trans('account/customers.name'),
+			'email' => trans('account/customers.email'),
+			'total_properties' => trans('account/customers.properties'),
+			'total_matches' => trans('account/customers.matches'),
+		];
+
+		$csv = \League\Csv\Writer::createFromFileObject(new \SplTempFileObject());
+		$csv->setDelimiter(';');
+
+		// Headers
+		$csv->insertOne( array_values($columns) );
+
+		// Lines
+		foreach ($query->limit(99999)->get() as $customer)
+		{
+			$data = [];
+
+			foreach ($columns as $key => $value)
+			{
+				switch ($key)
+				{
+					case 'total_properties':
+						$data[] = $customer->properties->count();
+						break;
+					case 'total_matches':
+						$data[] = $customer->possible_matches->count();
+						break;
+					default:
+						$data[] = $customer->$key;
+				}
+			}
+
+			$csv->insertOne( $data );
+		}
+
+		$csv->output('leads_'.date('Ymd').'.csv');
+		exit;
 	}
 
 	public function create()
