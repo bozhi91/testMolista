@@ -110,6 +110,28 @@
 								</div>
 							</div>
 							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									{!! Form::label('hide_molista', Lang::get('account/site.configuration.hide.molista', [ 'webname'=>env('WHITELABEL_WEBNAME','Molista') ])) !!}
+									<div class="error-container">
+										@if ( $current_site->can_hide_molista )
+											{!! Form::select('hide_molista', [ 
+												'1' => Lang::get('general.yes'),
+												'0' => Lang::get('general.no'),
+											], null, [ 'class'=>'form-control' ]) !!}
+										@elseif ( $current_site->hide_molista )
+											{!! Form::select('hide_molista', [ 
+												'1' => Lang::get('general.yes'),
+											], null, [ 'class'=>'form-control' ]) !!}
+										@else
+											{!! Form::select('hide_molista', [ 
+												'0' => Lang::get('general.no'),
+											], null, [ 'class'=>'form-control' ]) !!}
+										@endif
+									</div>
+									@if ( !$current_site->can_hide_molista )
+										<div class="help-block">{{ Lang::get('account/site.configuration.hide.molista.helper') }}</div>
+									@endif
+								</div>
 							</div>
 						</div>
 

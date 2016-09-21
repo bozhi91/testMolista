@@ -78,6 +78,8 @@
 		'configuration.ga.account.helper' => 'Por ejemplo: UA-123456-1',
 		'configuration.ga.account.error' => 'El formato del código de seguimiento no es válido',
 
+		'configuration.hide.molista' => 'Ocultar logos de :webname',
+		'configuration.hide.molista.helper' => 'Esta opción sólo está disponible para los planes Plus',
 
 
 		'menus.h1' => 'Menúes',

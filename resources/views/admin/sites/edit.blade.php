@@ -103,8 +103,34 @@
 							</div>
 						</div>
 					</div>
+
 					<div class="row">
 						<div class="col-xs-12 col-sm-6">
+							<div class="form-group error-container">
+								{!! Form::label('hide_molista', Lang::get('admin/sites.hide.molista')) !!}
+								{!! Form::select('hide_molista', [
+									0 => Lang::get('general.no'),
+									1 => Lang::get('general.yes'),
+								], null, [ 'class'=>'form-control' ]) !!}
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group error-container">
+								<div class="checkbox">
+									<label>
+										{!! Form::checkbox('enabled', 1, null, [ 'class'=>'' ]) !!}
+										{{ Lang::get('admin/sites.enabled') }}
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="pull-right">
+								{!! Form::button( Lang::get('general.save'), [ 'type'=>'submit', 'class'=>'btn btn-default' ]) !!}
+							</div>
 							@if ( count($site->owners_ids) > 0 && Auth::user()->can('user-login') )
 								<a href="{{action('Admin\SitesController@show', $site->id)}}" class="btn btn-sm btn-default" target="_blank">
 									<span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
@@ -115,21 +141,6 @@
 								<span class="glyphicon glyphicon-link" aria-hidden="true"></span>
 								{{ Lang::get('admin/sites.goto.site') }}
 							</a>
-						</div>
-						<div class="col-xs-12 col-sm-3">
-							<div class="form-group error-container">
-								<div class="checkbox">
-									<label>
-										{!! Form::checkbox('enabled', 1, null, [ 'class'=>'' ]) !!}
-										{{ Lang::get('admin/sites.enabled') }}
-									</label>
-								</div>
-							</div>
-						</div>
-						<div class="col-xs-12 col-sm-3">
-							<div class="text-right">
-								{!! Form::button( Lang::get('general.save'), [ 'type'=>'submit', 'class'=>'btn btn-default' ]) !!}
-							</div>
 						</div>
 					</div>
 				{!! Form::close() !!}

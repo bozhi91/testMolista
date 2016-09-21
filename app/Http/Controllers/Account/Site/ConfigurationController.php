@@ -133,6 +133,11 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 		$this->site->customer_register = $this->request->input('customer_register') ? 1 : 0;
 		$this->site->mailer = $this->request->input('mailer');
 
+		if ( $this->site->can_hide_molista )
+		{
+			$this->site->hide_molista = $this->request->input('hide_molista') ? 1 : 0;
+		}
+
 		$signature = $this->request->input('signature');
 		foreach ($signature as $key => $value)
 		{
