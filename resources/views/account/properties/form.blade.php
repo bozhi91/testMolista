@@ -332,6 +332,16 @@
 						<div class="form-group">
 							<div class="checkbox error-container">
 								<label>
+									{!! Form::checkbox('home_slider', 1, null) !!}
+									{{ Lang::get('account/properties.home.slider') }}
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-3">
+						<div class="form-group">
+							<div class="checkbox error-container">
+								<label>
 									{!! Form::checkbox('highlighted', 1, null) !!}
 									{{ Lang::get('account/properties.highlighted') }}
 								</label>

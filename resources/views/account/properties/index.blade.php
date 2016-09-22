@@ -62,7 +62,8 @@
 								'creation' => [ 'title' => Lang::get('account/properties.column.created') ],
 								'location' => [ 'title' => Lang::get('account/properties.column.location') ],
 								'lead' => [ 'title' => Lang::get('account/properties.tab.lead'), 'class'=>'text-center text-nowrap' ],
-								'highlighted' => [ 'title' => Lang::get('account/properties.highlighted'), 'sortable'=>false, 'class'=>'text-center' ],
+								'home_slider' => [ 'title' => Lang::get('account/properties.home.slider'), 'sortable'=>false, 'class'=>'text-center text-nowrap' ],
+								'highlighted' => [ 'title' => Lang::get('account/properties.highlighted'), 'sortable'=>false, 'class'=>'text-center text-nowrap' ],
 								'enabled' => [ 'title' => Lang::get('account/properties.enabled'), 'sortable'=>false, 'class'=>'text-center text-nowrap' ],
 								'action' => [ 'title' => '', 'sortable'=>false ],
 							]) !!}
@@ -74,8 +75,17 @@
 								<td>{{ $property->ref }}</td>
 								<td>{{ $property->title }}</td>
 								<td>{{  $property->created_at->format('d/m/Y') }}</td>
-								<td>{{ $property->city->name }} / {{ $property->state->name }}</td>
+								<td>{{ @implode(' / ', array_filter([ $property->city->name, $property->state->name ])) }}</td>
 								<td class="text-center">{{ number_format($property->customers->count(), 0, ',', '.')  }}</td>
+								<td class="text-center">
+									@if ( Auth::user()->can('property-edit') && Auth::user()->canProperty('edit') )
+										<a href="#" data-url="{{ action('Account\PropertiesController@getChangeHomeSlider', $property->slug) }}" class="change-status-trigger">
+											<span class="glyphicon glyphicon-{{ $property->home_slider ? 'ok' : 'remove' }}" aria-hidden="true"></span>
+										</a>
+									@else
+										<span class="glyphicon glyphicon-{{ $property->highlighted ? 'ok' : 'remove' }}" aria-hidden="true"></span>
+									@endif
+								</td>
 								<td class="text-center">
 									@if ( Auth::user()->can('property-edit') && Auth::user()->canProperty('edit') )
 										<a href="#" data-url="{{ action('Account\PropertiesController@getChangeHighlight', $property->slug) }}" class="change-status-trigger">
@@ -145,7 +155,7 @@
 					success: function(data) {
 						LOADING.hide();
 						if (data.success) {
-							if (data.enabled || data.highlighted) {
+							if (data.enabled || data.highlighted || data.home_slider) {
 								el.find('.glyphicon').removeClass('glyphicon-remove').addClass('glyphicon-ok');
 							} else {
 								el.find('.glyphicon').removeClass('glyphicon-ok').addClass('glyphicon-remove');

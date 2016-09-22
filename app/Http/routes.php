@@ -189,6 +189,7 @@ Route::group([
 			// Invoices
 			Route::controller('invoices', 'Account\InvoicesController');
 		});
+
 		// Properties
 		Route::group([
 			'middleware' => [
@@ -197,7 +198,17 @@ Route::group([
 		], function() {
 			Route::controller('properties/documents', 'Account\Properties\DocumentsController');
 		});
+
 		Route::post('properties/comment/{slug}', 'Account\PropertiesController@postComment');
+
+		Route::group([
+			'middleware' => [
+				'permission:property-create',
+			],
+		], function() {
+			Route::controller('properties/imports', 'Account\Properties\ImportsController');
+		});
+
 		Route::get('properties/leads/{slug}', 'Account\PropertiesController@getLeads');
 		Route::get('properties/catch/close/{id}', 'Account\PropertiesController@getCatchClose');
 		Route::post('properties/catch/close/{id}', 'Account\PropertiesController@postCatchClose');
@@ -205,6 +216,7 @@ Route::group([
 		Route::post('properties/catch/{property_id}/{id?}', 'Account\PropertiesController@postCatch');
 		Route::post('properties/upload', 'Account\PropertiesController@postUpload');
 		Route::get('properties/associate/{slug}', 'Account\PropertiesController@getAssociate');
+		Route::get('properties/homeslider/{slug}', 'Account\PropertiesController@getChangeHomeSlider');
 		Route::get('properties/highlight/{slug}', 'Account\PropertiesController@getChangeHighlight');
 		Route::get('properties/status/{slug}', 'Account\PropertiesController@getChangeStatus');
 		Route::get('properties/{slug}/property-{locale}.pdf', 'Account\PropertiesController@download');

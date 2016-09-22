@@ -51,6 +51,11 @@ class Site extends TranslatableModel
 		return $this->hasOne('App\Models\Geography\Country','code','country_code')->withTranslations();
 	}
 
+	public function imports()
+	{
+		return $this->hasMany('App\Models\Site\Import');
+	}
+
 	public function planchanges()
 	{
 		return $this->hasMany('App\Models\Site\Planchange');
@@ -754,25 +759,31 @@ class Site extends TranslatableModel
 		}
 
 		// Send email
-		$res = \Mail::send('dummy', [ 'content' => $params['content'] ], function ($message) use ($params) {
-			$message->from($params['from_email'], $params['from_name']);
-			$message->replyTo($params['reply_email'], @$params['reply_name']);
+        try {
+            $res = \Mail::send('dummy', [ 'content' => $params['content'] ], function ($message) use ($params) {
+                $message->from($params['from_email'], $params['from_name']);
+                $message->replyTo($params['reply_email'], @$params['reply_name']);
 
-			$message->to($params['to'])->subject($params['subject']);
+                $message->to($params['to'])->subject($params['subject']);
 
-			if ( !empty($params['attachments']) )
-			{
-				if ( !is_array($params['attachments']) )
-				{
-					$params['attachments'] = [ $params['attachments']=>[] ];
-				}
+                if ( !empty($params['attachments']) )
+                {
+                    if ( !is_array($params['attachments']) )
+                    {
+                        $params['attachments'] = [ $params['attachments']=>[] ];
+                    }
 
-				foreach ($params['attachments'] as $attachment => $definition)
-				{
-					$message->attach($attachment,$definition);
-				}
-			}
-		});
+                    foreach ($params['attachments'] as $attachment => $definition)
+                    {
+                        $message->attach($attachment,$definition);
+                    }
+                }
+            });
+        }
+        catch (\Exception $e) {
+            \Log::error($e, $params);
+            $res = false;
+        }
 
 		// Restore mail configuration
 		if ( $params['backup_required'] )

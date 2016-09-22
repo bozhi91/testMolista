@@ -16,6 +16,10 @@
 
 		'phone_support' => env('WHITELABEL_SUPPORT_PHONE','93 180 70 20'),
 
+		'lat_default' => '40.4636670',
+		'lng_default' => '-3.7492200',
+
+
 		/*
 		|--------------------------------------------------------------------------
 		| Application Environment
@@ -223,6 +227,10 @@
 
 			/* https://github.com/tremby/laravel-queue-monitor */
 			Tremby\QueueMonitor\ServiceProvider::class,
+
+			/* https://github.com/alexpechkarev/google-geocoder */
+			Alexpechkarev\GoogleGeocoder\GoogleGeocoderServiceProvider::class,
+
 		],
 
 		/*
