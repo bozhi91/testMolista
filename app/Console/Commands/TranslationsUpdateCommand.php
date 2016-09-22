@@ -21,14 +21,14 @@ class TranslationsUpdateCommand extends Command
 			\DB::statement('ALTER TABLE `translations` AUTO_INCREMENT=1;');
 		}
 
-		$input_path = storage_path('lang');
+		$input_path = resource_path('lang_src');
 
 		$languages = [];
 
 		$this->info( "Generate new translations" );
 
 		// Process languages
-		foreach (scandir($input_path) as $locale) 
+		foreach (scandir($input_path) as $locale)
 		{
 			if ( $locale === '.' ) continue;
 			if ( $locale === '..' ) continue;
@@ -63,7 +63,7 @@ class TranslationsUpdateCommand extends Command
 							->get();
 		foreach ($files as $item)
 		{
-			foreach ($languages as $locale) 
+			foreach ($languages as $locale)
 			{
 				$files_langs[$locale] = $locale;
 				\App\Models\Translation::compileTranslation($item->file,$locale);
@@ -85,7 +85,7 @@ class TranslationsUpdateCommand extends Command
 
 			$path = "{$dir}/{$file}";
 
-			if (is_dir($path)) 
+			if (is_dir($path))
 			{
 				$this->listFolderFiles($path, $files);
 			}
