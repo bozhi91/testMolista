@@ -56,6 +56,7 @@
 		'tab.reports' => 'Reports',
 		'tab.logs' => 'Logs',
 		'tab.seller' => 'Seller',
+		'tab.pdf' => 'PDF',
 
 		'country' => 'Country',
 		'state' => 'State',
