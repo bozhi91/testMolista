@@ -250,8 +250,9 @@ class ImportSiteProperties extends Job implements ShouldQueue
 			}
 		}
 
-		$this->item['lat']	= config('lat_default');
-		$this->item['lng']	= config('lng_default');
+		$this->item['lat']	= config('app.lat_default');
+		$this->item['lng']	= config('app.lng_default');
+
 		return false;
 	}
 
