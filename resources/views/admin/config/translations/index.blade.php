@@ -41,6 +41,7 @@
                     <p>{!! Form::select('status', [''=>Lang::get('admin/config/translations.translated.all'), 'untranslated'=>Lang::get('admin/config/translations.translated.not'), 'translated'=>Lang::get('admin/config/translations.translated.only') ], Input::get('status'), [ 'class'=>'form-control' ]) !!}</p>
                         <p>{!! Form::select('file', [''=>Lang::get('admin/config/translations.key')] + $keys, Input::get('file'), [ 'class'=>'form-control' ]) !!}</p>
                         <p>{!! Form::text('tag', Input::get('tag'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('admin/config/translations.tag') ]) !!}</p>
+                        <p>{!! Form::text('text', Input::get('text'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('admin/config/translations.text') ]) !!}</p>
                     <p>{!! Form::submit( Lang::get('general.filters.apply'), [ 'class'=>'btn btn-default btn-block']) !!}</p>
                 {{ Form::close() }}
             </div>
@@ -110,7 +111,7 @@
                                 });
                                 var data = google.visualization.arrayToDataTable(data_stats);
                                 var options = {
-                                    //width: 400, 
+                                    //width: 400,
                                     height: Math.ceil(total_stats/4) * 200,
                                     redFrom: 0, redTo: 75,
                                     yellowFrom: 75, yellowTo: 95,
@@ -173,7 +174,7 @@
                             </tbody>
                         </table>
                     </div>
-                    {!! drawPagination($translations, Input::only('limit','base','langs','status','file','tag')) !!}
+                    {!! drawPagination($translations, Input::only('limit','base','langs','status','file','tag','text')) !!}
                 @endif
             </div>
         </div>
