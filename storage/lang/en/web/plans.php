@@ -37,4 +37,5 @@
 		'footnote.text0' => 'Includes the transfer of 20 properties.',
 		'footnote.text1' => 'Includes the transfer of 100 properties.',
 		'footnote.optional' => 'This is an optional service.',
+		'vat.included' => 'VAT incl.',
 	];
