@@ -2,6 +2,11 @@
 
 @section('content')
 
+	<style type="text/css">
+		.has-center-line { position: relative; }
+		.has-center-line .center-line { position: absolute; left: 50%; top: 0px; margin-left: -1px; width: 2px; background: #000; height: 100%; }
+	</style>
+
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12">
@@ -24,65 +29,68 @@
 					</div>
 				</div>
 
-				<div class="row">
-					<div class="col-sm-6">
-						<h3>New contracts ({{ Input::get('daterange') }})</h3>
-						<div class="row">
-							<div class="col-sm-4">
-								<div class="panel panel-default text-center">
-									<div class="panel-heading">Free</div>
-									<div class="panel-body">
-										<big>{{ @number_format($items->where('plan_level', 0)->count(), 0, ',', '.') }}</big>
+				<div class="has-center-line">
+					<div class="row">
+						<div class="col-md-6 col-md-push-6">
+							<h3>Current totals</h3>
+							<div class="row">
+								<div class="col-md-4">
+									<div class="panel panel-default text-center">
+										<div class="panel-heading">Total Free</div>
+										<div class="panel-body">
+											<big>{{ @number_format($stats[0]->total_sites, 0, ',', '.') }}</big>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="panel panel-default text-center">
+										<div class="panel-heading">Total Paying</div>
+										<div class="panel-body">
+											<big>{{ @number_format($stats[1]->total_sites+$stats[2]->total_sites, 0, ',', '.') }}</big>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="panel panel-default text-center">
+										<div class="panel-heading">Monthly Revenue</div>
+										<div class="panel-body">
+											<big>{{ @price($stats[1]->total_revenues+$stats[2]->total_revenues, [ 'decimals'=>2 ]) }}</big>
+										</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-sm-4">
-								<div class="panel panel-default text-center">
-									<div class="panel-heading">Pro</div>
-									<div class="panel-body">
-										<big>{{ @number_format($items->where('plan_level', 1)->count(), 0, ',', '.') }}</big>
+						</div>
+						<div class="col-md-6 col-md-pull-6">
+							<h3>New contracts ({{ Input::get('daterange') }})</h3>
+							<div class="row">
+								<div class="col-md-4">
+									<div class="panel panel-default text-center">
+										<div class="panel-heading">Free</div>
+										<div class="panel-body">
+											<big>{{ @number_format($items->where('plan_level', 0)->count(), 0, ',', '.') }}</big>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="panel panel-default text-center">
-									<div class="panel-heading">Plus</div>
-									<div class="panel-body">
-										<big>{{ @number_format($items->where('plan_level', 2)->count(), 0, ',', '.') }}</big>
+								<div class="col-md-4">
+									<div class="panel panel-default text-center">
+										<div class="panel-heading">Pro</div>
+										<div class="panel-body">
+											<big>{{ @number_format($items->where('plan_level', 1)->count(), 0, ',', '.') }}</big>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="panel panel-default text-center">
+										<div class="panel-heading">Plus</div>
+										<div class="panel-body">
+											<big>{{ @number_format($items->where('plan_level', 2)->count(), 0, ',', '.') }}</big>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-6">
-						<h3>Current totals</h3>
-						<div class="row">
-							<div class="col-sm-4">
-								<div class="panel panel-default text-center">
-									<div class="panel-heading">Total Free</div>
-									<div class="panel-body">
-										<big>{{ @number_format($stats[0]->total_sites, 0, ',', '.') }}</big>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="panel panel-default text-center">
-									<div class="panel-heading">Total Paying</div>
-									<div class="panel-body">
-										<big>{{ @number_format($stats[1]->total_sites+$stats[2]->total_sites, 0, ',', '.') }}</big>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="panel panel-default text-center">
-									<div class="panel-heading">Monthly Revenue</div>
-									<div class="panel-body">
-										<big>{{ @number_format($stats[1]->total_revenues+$stats[2]->total_revenues, 0, ',', '.') }}</big>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+					<div class="center-line hidden-xs hidden-sm"></div>
 				</div>
 
 				@if ( $items->count() )
