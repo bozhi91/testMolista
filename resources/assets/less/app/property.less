@@ -21,6 +21,10 @@
 	.details {
 		margin-bottom: 20px; padding: 20px 0px; border: 1px solid @borderColor; border-width: @borderWidth 0px; color: @colorGrey; font-size: 16px;
 		.description { margin-bottom: 20px; font-size: 18px; }
+		&.has-lot-area {
+			.lot-area-metrics { margin-bottom: 15px; }
+			.lot-area-icon { top: -6px; position: relative; }
+		}
 	}
 	.energy-certification {
 		padding-top: 15px; 
@@ -68,9 +72,12 @@
 		.image-thumb { margin-bottom: 20px; }
 		.details {
 			.call-to-action { margin-top: 15px; display: block; }
-		}
-		.metrics {
-			> li { float: left; width: 50%; padding: 0px; }
+			.metrics {
+				> li { float: left; width: 50%; padding: 0px; }
+			}
+			&.has-lot-area {
+				.lot-area-icon { height: 14px; top: -2px; }
+			}
 		}
 		.services { padding-top: 15px; }
 		.energy-certification {
