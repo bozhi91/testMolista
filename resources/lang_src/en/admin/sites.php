@@ -13,6 +13,7 @@ return [
 	'owners' => 'Owners',
 	'created' => 'Created',
 	'enabled' => 'Enabled',
+	'theme' => 'Theme',
 	'theme.custom' => 'Custom theme',
 	'transfer' => 'Web transfer',
 	'currency' => 'Currency',

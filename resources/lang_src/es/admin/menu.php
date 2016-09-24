@@ -20,6 +20,9 @@
 		'resellers' => 'Resellers',
 		'resellers.payments' => 'Comisiones',
 
+		'reports' => 'Reportes',
+		'reports.themes' => 'Plantillas',
+
 		'configuration' => 'Configuration',
 		'locales' => 'Languages',
 		'translations' => 'Translations',

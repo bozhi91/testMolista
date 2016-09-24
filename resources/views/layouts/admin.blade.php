@@ -79,6 +79,14 @@
 						</ul>
 					</li>
 				@endpermission
+				@permission('reports-*')
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Lang::get('admin/menu.reports') }} <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="{{ action('Admin\Reports\ThemesController@getIndex') }}">{{ Lang::get('admin/menu.reports.themes') }}</a></li>
+						</ul>
+					</li>
+				@endpermission
 				@if ( Auth::user()->can('translation-*') || Auth::user()->can('locale-*') || Auth::user()->can('pack-*') || Auth::user()->can('geography-*') || Auth::user()->can('currency-*') )
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Lang::get('admin/menu.configuration') }} <span class="caret"></span></a>
