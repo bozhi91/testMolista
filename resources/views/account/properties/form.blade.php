@@ -708,10 +708,11 @@
 			if (isNaN(price)) price = 0;
 			var price_before = form.find('[name="price_before"]').val();
 			if (isNaN(price_before)) price_before = 0;
-			var discount  = price_before > 0 ? price - price_before : 0;
+			var discount  = 0;
+			if (price_before > 0)  discount = (price_before - price) * 100 / price_before;
 			if (isNaN(discount)) discount = 0;
 
-			form.find('[name="discount"]').val(Math.ceil(discount/100));
+			form.find('[name="discount"]').val(Math.ceil(discount) * -1);
 		}).keyup();
 
 		// Enable map when opening tab
