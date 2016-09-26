@@ -13,7 +13,7 @@
 	@elseif ( !empty($site_setup['seo']['title'][fallback_lang()]) )
 		<title>{{ $site_setup['seo']['title'][fallback_lang()] }}</title>
 	@else
-		<title>Molista</title>
+		<title>{{ env('WHITELABEL_WEBNAME', 'Molista') }}</title>
 	@endif
 
 	@if ( !empty($seo_description) )
