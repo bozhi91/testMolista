@@ -24,6 +24,7 @@
 
 			@if ( $property->images->count() > 0 )
 				<div class="images-gallery">
+					@include('web.properties.discount-label', [ 'item' => $property ])
 					<div class="image-main text-center">
 						<img src="{{ $property->main_image }}" alt="{{$property->title}}" class="img-responsive cursor-pointer trigger-image-thumbs" id="property-main-image" />
 					</div>
@@ -74,7 +75,7 @@
 							</li>
 							<li class="text-nowrap text-lowercase has-fontello-icon">
 								<i class="fontello-icon fontello-icon-table hidden-xs"></i>
-								{{ number_format($property->rooms,0,',','.') }} 
+								{{ number_format($property->rooms,0,',','.') }}
 								@if ($property->rooms == 1)
 									{{ Lang::get('web/properties.more.room') }}
 								@else
@@ -111,7 +112,7 @@
 									<i class="fa fa-info-circle" aria-hidden="true"></i>
 									&nbsp;{{ Lang::get('account/properties.energy.certificate') }}:
 								</span>
-								&nbsp; 
+								&nbsp;
 								@if ( $property->ec_pending )
 									{{ Lang::get('account/properties.energy.certificate.pending') }}</span>
 								@else
@@ -309,7 +310,7 @@
 			cont.find('.bottom-links .property-pill').matchHeight({ byRow : false });
 
 			cont.find('.energy-certification-popover-trigger').popover({
-				html : true, 
+				html : true,
 				content: function() {
 					return cont.find('.energy-certification-popover-content').html();
 				},

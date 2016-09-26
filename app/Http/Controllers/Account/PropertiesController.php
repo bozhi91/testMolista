@@ -661,6 +661,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'type' => 'required|in:'.implode(',', array_keys(\App\Property::getTypeOptions())),
 			'mode' => 'required|in:'.implode(',', \App\Property::getModes()),
 			'price' => 'required|numeric|min:0',
+			'price_before' => 'numeric|min:0',
+			'discount_show' => 'boolean',
 			'currency' => 'required|exists:currencies,code',
 			'size' => 'required|numeric|min:0',
 			'size_unit' => 'required|in:'.implode(',', array_keys(\App\Property::getSizeUnitOptions())),

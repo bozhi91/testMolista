@@ -39,6 +39,9 @@
 		'show_address' => 'Show address',
 		'zipcode' => 'Zipcode',
 		'construction_year' => 'Construction year',
+		'discount' => 'Discount',
+		'price_before' => 'Old price',
+		'discount_show' => 'Show discount',
 
 		'energy.certificate' => 'Energy certificate',
 		'energy.certificate.pending' => 'In process',
