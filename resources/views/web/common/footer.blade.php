@@ -47,7 +47,7 @@
 					</ul>
 					@if ( @$current_site && !$current_site->hide_molista )
 						<ul class="nav navbar-nav quick-links">
-							<li><a href="{{ Config::get('app.application_url') }}" target="_blank"><img src="{{ Theme::url('/images/footer-logo.png') }}" alt="" /></a></li>
+							<li><a href="{{ Config::get('app.application_url') }}" target="_blank"><img src="{{ Theme::url( env('WHITELABEL_LOGO_FOOTER', '/images/footer-logo.png') ) }}" alt="" /></a></li>
 							@if ( !empty($site_setup['social_media']) )
 								<li>
 									@foreach ($site_setup['social_media'] as $key=>$value)
