@@ -973,10 +973,12 @@ class Site extends TranslatableModel
 
 	public function preparePaymentData($data)
 	{
+		$plan_id = empty($data['plan_id']) ? $this->plan_id : $data['plan_id'];
+
 		// Site data
 		$payment = [
 			'site_id' => $this->id,
-			'plan_id' => $this->plan_id,
+			'plan_id' => $plan_id,
 			'trigger' => '',
 			'paid_from' => null,
 			'paid_until' => null,
@@ -984,8 +986,8 @@ class Site extends TranslatableModel
 			'payment_amount' => 0,
 			'payment_currency' => $this->plan->currency,
 			'reseller_id' =>  $this->reseller ? $this->reseller->id : null,
-			'reseller_variable' => $this->reseller ? @floatval($this->reseller->plans_commissions[$this->plan_id]['commission_percentage']) : 0,
-			'reseller_fixed' => $this->reseller ? @floatval($this->reseller->plans_commissions[$this->plan_id]['commission_fixed']) : 0,
+			'reseller_variable' => $this->reseller ? @floatval($this->reseller->plans_commissions[$plan_id]['commission_percentage']) : 0,
+			'reseller_fixed' => $this->reseller ? @floatval($this->reseller->plans_commissions[$plan_id]['commission_fixed']) : 0,
 			'data' => $data,
 		];
 
