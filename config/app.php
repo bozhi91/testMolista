@@ -4,7 +4,8 @@
 
 		'pagination_perpage' => 10,
 		'property_image_maxsize' => env('MAX_PROPERTY_IMAGE_SIZE',2048), //kilobytes
-
+		'slider_image_maxsize' => env('MAX_SLIDER_IMAGE_SIZE',2048), //kilobytes
+		
 		'application_url' => env('APP_URL'),
 		'application_protocol' => env('APP_PROTOCOL'),
 		'application_domain' => env('APP_DOMAIN'),

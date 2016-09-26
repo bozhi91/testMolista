@@ -178,6 +178,26 @@
 		'pages.update.success' => 'The page was successfully updated',
 		'pages.deleted.success' => 'The page was successfully removed',
 
+		'sliders.h1' => 'Sliders',
+		'sliders.empty' => 'No sliders found',
+		'sliders.button.new' => 'Create slider',
+		
+		'sliders.create.title' => 'Create slider',
+		'sliders.edit.title' => 'Edit slider',
+		
+		'sliders.tab.general' => 'Content',
+		'sliders.column.title' => 'Title',
+		'sliders.column.languages' => 'Languages',
+		'sliders.select.alllanguages' => 'All',
+		'sliders.label.title' => 'Title',
+		'sliders.label.languages' => 'Languages',
+		'sliders.label.link' => 'Link',
+		
+		'sliders.general.sliders' => 'Slides',
+		'sliders.general.empty' => 'This slider has no slides',
+		'sliders.upload' => 'Slide upload',
+		
+		
 		'domainname.h1' => 'Domain name',
 		'domainname.domain' => 'Domain',
 		'domainname.domain.helper' => '<p>The domain name is not provided by Molista. You should by your own domain name with the domain name providers of your choice.</p>

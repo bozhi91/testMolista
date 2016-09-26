@@ -177,6 +177,26 @@
 		'pages.update.success' => 'La página se ha guardado correctamente',
 		'pages.deleted.success' => 'La página se ha eliminado correctamente',
 
+		'sliders.h1' => 'Sliders',
+		'sliders.empty' => 'No se encontraron sliders',
+		'sliders.button.new' => 'Crear slider',
+		
+		'sliders.create.title' => 'Crear slider',
+		'sliders.edit.title' => 'Editar slider',
+		
+		'sliders.tab.general' => 'Contenido',
+		'sliders.column.title' => 'Título',
+		'sliders.column.languages' => 'Lenguajes',
+		'sliders.select.alllanguages' => 'Todos',
+		'sliders.label.title' => 'Título',
+		'sliders.label.languages' => 'Lenguajes',
+		'sliders.label.link' => 'Enlaçe',
+		
+		'sliders.general.sliders' => 'Slides',
+		'sliders.general.empty' => 'El slider no tiene imágenes',
+		'sliders.upload' => 'Subir slides',
+		
+		
 		'domainname.h1' => 'Nombre de dominio',
 		'domainname.domain' => 'Dominio',
 		'domainname.domain.helper' => '<p>El nombre de dominio no lo da Molista. Debes comprarlo previamente en cualquiera de las empresas dedicadas a vender nombres de dominio.</p>

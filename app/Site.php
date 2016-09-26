@@ -65,6 +65,11 @@ class Site extends TranslatableModel
 	{
 		return $this->hasMany('App\Models\Site\Pricerange')->withTranslations();
 	}
+	
+	public function slidergroups()
+	{
+		return $this->hasMany('App\Models\Site\SliderGroup');
+	}
 
     public function subscriptions()
     {

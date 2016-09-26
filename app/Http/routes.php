@@ -278,6 +278,9 @@ Route::group([
 			Route::controller('widgets', 'Account\Site\WidgetsController');
 			// Pages
 			Route::resource('pages', 'Account\Site\PagesController');
+			//Sliders
+			Route::post('sliders/upload', 'Account\Site\SlidersController@upload');
+			Route::resource('sliders', 'Account\Site\SlidersController');
 		});
 		Route::controller('visits', 'Account\Visits\AjaxController');
 	});
