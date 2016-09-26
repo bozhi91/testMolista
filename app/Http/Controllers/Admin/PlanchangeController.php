@@ -99,8 +99,10 @@ class PlanchangeController extends Controller
 			'trigger' => 'Admin (Admin\PlanchangeController@acceptPlanchange)',
 			'paid_from' => $this->request->input('paid_from'),
 			'paid_until' => $this->request->input('paid_until'),
+			'plan_id' => $planchange->plan->id,
 			'payment_method' => $planchange->payment_method,
 			'payment_amount' => $this->request->input('payment_amount'),
+			'payment_currency' => $planchange->plan->currency,
 			'created_by' => $this->auth->user()->id,
 		]);
 
