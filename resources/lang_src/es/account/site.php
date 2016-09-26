@@ -196,6 +196,10 @@
 		'sliders.general.empty' => 'El slider no tiene imágenes',
 		'sliders.upload' => 'Subir slides',
 		
+		'sliders.update.success' => 'El slider se ha guardado correctamente',
+		'sliders.create.success' => 'El slider se ha creado correctamente',
+		'sliders.deleted.success' => 'El slider se ha eliminado correctamente',
+		
 		
 		'domainname.h1' => 'Nombre de dominio',
 		'domainname.domain' => 'Dominio',

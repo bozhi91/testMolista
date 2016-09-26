@@ -82,7 +82,7 @@ class SlidersController extends \App\Http\Controllers\AccountController {
 				, $this->request->input('links'));
 
 		return redirect()->action('Account\Site\SlidersController@edit', $group->id)
-						->with('success', trans('account/site.pages.create.success'));
+						->with('success', trans('account/site.sliders.create.success'));
 	}
 
 	/**
@@ -124,7 +124,7 @@ class SlidersController extends \App\Http\Controllers\AccountController {
 				, $this->request->input('links'));
 
 		return redirect()->action('Account\Site\SlidersController@edit', $sliderGroup->id)
-						->with('success', trans('account/site.pages.update.success'));
+						->with('success', trans('account/site.sliders.update.success'));
 	}
 
 	/**
@@ -151,7 +151,7 @@ class SlidersController extends \App\Http\Controllers\AccountController {
 		$sliderGroup->delete();
 
 		return redirect()->action('Account\Site\SlidersController@index')
-						->with('success', trans('account/site.pages.deleted.success'));
+						->with('success', trans('account/site.sliders.deleted.success'));
 	}
 
 	/**

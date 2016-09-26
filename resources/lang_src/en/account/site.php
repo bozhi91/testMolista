@@ -197,6 +197,9 @@
 		'sliders.general.empty' => 'This slider has no slides',
 		'sliders.upload' => 'Slide upload',
 		
+		'sliders.update.success' => 'The slider was successfully created',
+		'sliders.create.success' => 'The slider was successfully updated',
+		'sliders.deleted.success' => 'The slider was successfully removed',
 		
 		'domainname.h1' => 'Domain name',
 		'domainname.domain' => 'Domain',
