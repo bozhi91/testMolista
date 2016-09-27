@@ -27,7 +27,7 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 
 		$menus = $this->site->menus()->lists('title','id')->all();
 		$sliders = $this->site->slidergroups()->lists('name', 'id')->all();
-		
+
 		return view('account.site.widgets.index', compact('widgets', 'type_options', 'group_options', 'menus', 'sliders'));
 	}
 
@@ -37,7 +37,7 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 			'type' => 'required|in:'.implode(',', \App\Models\Site\Widget::getTypeOptions()),
 			'group' => 'required|in:'.implode(',', array_keys(\App\Models\Site\Widget::getGroupOptions())),
 		]);
-		if ($validator->fails()) 
+		if ($validator->fails())
 		{
 			return [ 'error'=>true ];
 		}
@@ -61,14 +61,14 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 			case 'menu':
 				$data['menus'] = $this->site->menus()->lists('title','id')->all();
 			case 'slider':
-				$data['sliders'] = $this->site->sliders()->lists('name', 'id')->all();
+				$data['sliders'] = $this->site->slidergroups()->lists('name', 'id')->all();
 				break;
 		}
 
 		// Update site setup
 		$this->site->updateSiteSetup();
 
-		return [ 
+		return [
 			'success' => 1,
 			'html' => view('account.site.widgets.item', $data)->render(),
 		];
@@ -91,7 +91,7 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 		$fields = [
 			'title' => 'required|array',
 		];
-		
+
 		switch ( $widget->type )
 		{
 			case 'menu':
@@ -104,11 +104,11 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 				$fields['content'] = 'required|array';
 				break;
 		}
-		
+
 		$validator = \Validator::make($data, $fields);
 		if ( $validator->fails() )
 		{
-			return [ 
+			return [
 				'error' => true,
 				'errors' => $validator->errors(),
 			];
