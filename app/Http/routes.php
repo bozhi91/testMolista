@@ -219,6 +219,7 @@ Route::group([
 		Route::get('properties/homeslider/{slug}', 'Account\PropertiesController@getChangeHomeSlider');
 		Route::get('properties/highlight/{slug}', 'Account\PropertiesController@getChangeHighlight');
 		Route::get('properties/status/{slug}', 'Account\PropertiesController@getChangeStatus');
+		Route::get('properties/{slug}/property-{locale}.pdf', 'Account\PropertiesController@download');
 		Route::resource('properties', 'Account\PropertiesController');
 		// Employees
 		Route::get('employees/tickets/{email}', 'Account\EmployeesController@getTickets');
