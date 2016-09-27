@@ -109,6 +109,12 @@ Route::group([
 			Route::get('geography/countries/check/{type}', 'Admin\Geography\CountriesController@getCheck');
 			Route::resource('geography/countries', 'Admin\Geography\CountriesController');
 		});
+		// Plan expirations
+		Route::group([
+			'middleware' => [ 'permission:reports-*' ]
+		], function() {
+			Route::controller('reports/themes', 'Admin\Reports\ThemesController');
+		});
 		// Error log
 		Route::get('errorlog', [
 			'middleware' => ['role:admin'],
