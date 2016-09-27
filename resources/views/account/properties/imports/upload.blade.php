@@ -9,38 +9,50 @@
 		<h1 class="page-title">{{ Lang::get('account/properties.imports.h1') }}</h1>
 
 		<div class="row">
-			<div class="col-xs-12 col-sm-6">
-				{!! Lang::get('account/properties.imports.intro') !!}
+			<div class="col-xs-5">
+				<b>{!! Lang::get('account/properties.imports.intro') !!}</b>
 			</div>
-			<div class="col-xs-12 col-sm-6">
-				{!! Form::model(null, [ 'method'=>'POST', 'action'=>'Account\Properties\ImportsController@postUpload', 'id'=>'upload-form', 'files'=>true ]) !!}
-					<div class="form-group">
-						<div class="error-container">
-							{!! Form::label('file', Lang::get('account/properties.imports.file')) !!}
-							{!! Form::file('file', [ 'class'=>'form-control required' ]); !!}
-						</div>
-						<div class="help-block"><a href="{{ action('Account\Properties\ImportsController@getSample', $current_version) }}" target="_blank">{{ Lang::get('account/properties.imports.version.sample') }}</a></div>
+
+			<div class="col-xs-12">
+				<div class="intro">
+					<h3>{{ Lang::get('account/properties.imports.csv.instructions.title') }}</h3>
+					<div class="intro-text">
+						{!! Lang::get('account/properties.imports.csv.instructions.intro') !!}
 					</div>
-					<div class="form-group">
-						<div class="text-right hidden-xs">
-							<a href="{{ action('Account\Properties\ImportsController@getIndex') }}" class="btn btn-default">{{ Lang::get('general.back') }}</a>
-							{!! Form::button(Lang::get('general.continue'), [ 'type'=>'submit', 'class'=>'btn btn-custom btn-primary' ]) !!}
+				</div>
+				<div class="help-block"><a href="{{ action('Account\Properties\ImportsController@getSample', $current_version) }}" target="_blank"><i class="glyphicon glyphicon-download-alt"></i> {{ Lang::get('account/properties.imports.version.sample') }}</a></div>
+			</div>
+
+			<div class="col-xs-12">
+				<div class="upload-form">
+					<div class="row">
+					{!! Form::model(null, [ 'method'=>'POST', 'action'=>'Account\Properties\ImportsController@postUpload', 'id'=>'upload-form', 'files'=>true ]) !!}
+						<div class="col-xs-12">
+							{!! Form::label('file', Lang::get('account/properties.imports.file_upload')) !!}
 						</div>
-						<div class="visible-xs">
-							{!! Form::button(Lang::get('general.continue'), [ 'type'=>'submit', 'class'=>'btn btn-custom btn-primary btn-block' ]) !!}
+						<div class="form-group col-xs-6">
+							<div class="error-container">
+								{!! Form::file('file', [ 'class'=>'form-control required' ]); !!}
+							</div>
 						</div>
+						<div class="form-group col-xs-6">
+							<div class="hidden-xs">
+								<a href="{{ action('Account\Properties\ImportsController@getIndex') }}" class="btn btn-default">{{ Lang::get('general.back') }}</a>
+								{!! Form::button(Lang::get('general.continue'), [ 'type'=>'submit', 'class'=>'btn btn-custom btn-primary' ]) !!}
+							</div>
+							<div class="visible-xs">
+								{!! Form::button(Lang::get('general.continue'), [ 'type'=>'submit', 'class'=>'btn btn-custom btn-primary btn-block' ]) !!}
+							</div>
+						</div>
+					{!! Form::close() !!}
 					</div>
-				{!! Form::close() !!}
+				</div>
 			</div>
 		</div>
 
 		<div class="instructions">
-			<hr />
-			<h3>{{ Lang::get('account/properties.imports.csv.instructions.title') }}</h3>
-			<div class="intro" style="padding-bottom: 30px; font-size: 16px;">
-				{!! Lang::get('account/properties.imports.csv.instructions.intro') !!}
-			</div>
-			<div class="fields" style="font-size: 11px;">
+			<div class="instructions-head">{{ Lang::get('account/properties.imports.data_structure') }}</div>
+			<div class="fields">
 				<table class="table">
 					<thead>
 						<tr>

@@ -230,6 +230,8 @@
 		'imports.file.error.upload' => 'Ocurrió un error al cargar el fichero',
 		'imports.status' => 'Estado',
 		'imports.created' => 'El proceso de importación se ha iniciado correctamente. Puedes consultar el progreso en esta misma página.',
+		'imports.data_structure' => 'Estructura de datos',
+		'imports.file_upload' => 'Subir fichero',
 
 		'imports.csv.header' => 'No modifique ni elimine las 3 filas superiores.',
 

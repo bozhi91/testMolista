@@ -3,8 +3,8 @@
 #account-pending-request-alert {
 	text-align: center; border-radius: 0px; border: none; padding: 40px; background: @colorRed; color: @colorWhite; font-size: 16px;
 	h4 { text-transform: uppercase; margin: 0px 0px 30px 0px; font-size: 24px; }
-	.button-area { 
-		padding-top: 20px; 
+	.button-area {
+		padding-top: 20px;
 		.btn { text-transform: uppercase; min-width: 200px; margin: 5px; font-weight: bold; }
 	}
 }
@@ -18,8 +18,8 @@
 				padding-left: 35px;
 				.account-icon { position: absolute; font-size: 18px; left: 5px; top: 7px; }
 			}
-			ul > li > a { 
-				padding-left: 35px; 
+			ul > li > a {
+				padding-left: 35px;
 				&.current { background: @colorGreyLight; color: @colorPurple; font-weight: normal; }
 			}
 			&.separator { margin-bottom: 2px; border-top: 1px solid @colorPurple; }
@@ -39,10 +39,10 @@
 	}
 
 	.site-configuration {
-		.mailer-option { 
+		.mailer-option {
 			position: relative;
-			.mailer-current { 
-				position: absolute; display: block; top: -20px; width: 100%; text-align: center; color: @colorPurple; border: @borderWidth solid @colorPurple; border-radius: @borderRadius; padding: 2px 10px; font-size: 10px; 
+			.mailer-current {
+				position: absolute; display: block; top: -20px; width: 100%; text-align: center; color: @colorPurple; border: @borderWidth solid @colorPurple; border-radius: @borderRadius; padding: 2px 10px; font-size: 10px;
 				&:after { content: ''; display: block; width: 0; height: 0; border: 5px solid transparent; vertical-align: middle; border-top-color: @colorPurple; position: absolute; bottom: -10px; left: 50%; margin-left: -6px; }
 			}
 			&.active {
@@ -60,14 +60,14 @@
 			min-height: 95px; list-style-type: none; margin: 0px; padding: 0px;
 			> li { margin: 0px 0px 5px 0px; }
 			.panel { margin-bottom: 0px; }
-			.panel-heading { 
+			.panel-heading {
 				&.closed { border-bottom: none; }
 			}
 		}
 	}
 
 	.site-widgets {
-		.widget-available { 
+		.widget-available {
 			&:nth-child(2n) { padding-left: 5px; }
 			&:nth-child(2n+1) { clear: left; padding-right: 5px; }
 		}
@@ -76,9 +76,9 @@
 			.widget-title { cursor: move; }
 		}
 		.widget-droppables {
-			min-height: 30px; 
-			.widget-title { 
-				cursor: ns-resize; border-bottom: 1px solid @colorGreySemiLight; 
+			min-height: 30px;
+			.widget-title {
+				cursor: ns-resize; border-bottom: 1px solid @colorGreySemiLight;
 				&.closed { border-bottom: none; }
 			}
 			.widget-toggle { display: block; }
@@ -86,7 +86,7 @@
 				.widget-title { border-bottom: none; }
 				.widget-body { display: none; }
 			}
-			
+
 		}
 		.ui-draggable-dragging {
 			z-index: 10;
@@ -99,11 +99,11 @@
 	.nav-tabs-small {
 		border-color: @colorGreyLight;
 		> li {
-			> a { 
+			> a {
 				border-bottom-color: @colorGreyLight; padding: 5px 10px;
 				&:hover, &:focus { border-bottom-color: @colorGreyLight; }
 			}
-			&.active { 
+			&.active {
 				> a {
 					border-color: @colorGreyLight; border-bottom-color: @colorWhite;
 					&:hover, &:focus { border-color: @colorGreyLight; border-bottom-color: @colorWhite; }
@@ -112,16 +112,16 @@
 		}
 	}
 	.tab-content-grey {
-		border-color: @colorGreyLight; padding: 10px; margin-bottom: 15px; 
+		border-color: @colorGreyLight; padding: 10px; margin-bottom: 15px;
 	}
 
 	.search-filters {
-		margin: 30px 0px 20px 0px; 
+		margin: 30px 0px 20px 0px;
 		h2 { font-size: 16px; }
 	}
 
-	.is-sortable { 
-		color: @bodyTextColor; 
+	.is-sortable {
+		color: @bodyTextColor;
 		&.sorted {
 			&:before { content:''; display: inline-block; width:0; height:0; border: 3px solid transparent; vertical-align: middle; opacity: 0.8; margin-right: 3px; }
 			&.desc:before { border-top-color: @bodyTextColor; }
@@ -133,12 +133,12 @@
 		.default-label { display: none; }
 		.info-label { font-size: 10px; top: 3px; margin-right: 2px; }
 		li.handler {
-			&.handler-red { 
-				border-color: @colorRed; background: #f2dede; 
+			&.handler-red {
+				border-color: @colorRed; background: #f2dede;
 				.info-label { color: @colorRed; }
 			}
-			&.handler-orange { 
-				border-color: #8a6d3b; background: #faebcc; 
+			&.handler-orange {
+				border-color: #8a6d3b; background: #faebcc;
 				.info-label { color: #8a6d3b; }
 			}
 			&:first-child {
@@ -147,7 +147,7 @@
 		}
 	}
 
-	.pagination-custom { 
+	.pagination-custom {
 		ul { margin: 20px 0px; }
 		.pagination { font-size: 14px; line-height: 30px; }
 	}
@@ -167,7 +167,7 @@
 		}
 	}
 
-	.labels-email-input { 
+	.labels-email-input {
 		min-height: @inputHeight; height: auto; cursor: pointer;
 		> .fa { margin: 6px 0px 0px 10px; float: right; }
 		.emails-list-item { padding: 2px; cursor: default; }
@@ -187,8 +187,8 @@
 	.calendar-item {
 		.fc-toolbar {
 			h2 { text-transform: uppercase; font-size: 22px; line-height: 30px; }
-			button { 
-				background: @colorWhite; opacity: 1; text-shadow: none; border-width: @borderWidth; border-radius: @borderRadius; border-color: @borderColor; 
+			button {
+				background: @colorWhite; opacity: 1; text-shadow: none; border-width: @borderWidth; border-radius: @borderRadius; border-color: @borderColor;
 				&.fc-button { text-transform: capitalize; }
 			}
 		}
@@ -206,7 +206,7 @@
 	}
 	.calendar-reference {
 		h3 { margin: 0px 0px 5px 0px; font-size: 18px; }
-		li { 
+		li {
 			color: @colorBlack; background: #97d0a2; border-color: transparent; padding: 4px; border-radius: @borderRadius; margin: 0px 0px 5px 0px;
 			&.event-type-visit { background: #fa716a; }
 			&.event-type-catch { background: #00adc0; }
@@ -222,4 +222,14 @@
 	.title { font-size: 14px; font-weight: bold; margin-bottom: 20px; }
 	.comments { margin-bottom: 20px; }
 	.details { margin-bottom: 20px; }
+}
+
+#properties-imports {
+	.intro { border-left: 4px solid; padding-left: 20px; margin-bottom: 15px; }
+	.intro-text { font-size: 16px; }
+	.intro-text ul { padding-left: 20px; }
+	.help-block { margin-left: 30px; margin-bottom: 30px; }
+	.upload-form { background-color: #EBE4D2; padding: 15px 30px; margin-bottom: 20px; }
+	.instructions-head { font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid #000; padding-bottom: 10px; }
+	.fields { font-size: 11px; }
 }
