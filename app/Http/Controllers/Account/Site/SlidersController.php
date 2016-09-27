@@ -81,6 +81,8 @@ class SlidersController extends \App\Http\Controllers\AccountController {
 				, $this->request->input('images')
 				, $this->request->input('links'));
 
+		$this->site->updateSiteSetup();
+		
 		return redirect()->action('Account\Site\SlidersController@edit', $group->id)
 						->with('success', trans('account/site.sliders.create.success'));
 	}
@@ -123,6 +125,9 @@ class SlidersController extends \App\Http\Controllers\AccountController {
 				, $this->request->input('images')
 				, $this->request->input('links'));
 
+		
+		$this->site->updateSiteSetup();
+		
 		return redirect()->action('Account\Site\SlidersController@edit', $sliderGroup->id)
 						->with('success', trans('account/site.sliders.update.success'));
 	}

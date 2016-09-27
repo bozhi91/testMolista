@@ -4,6 +4,14 @@
 		$colperpage = 4;
 	}
 
+	$widgetSlider = false; //ugly temporal
+	if(!empty($site_setup['widgets']['home'])){
+		foreach ($site_setup['widgets']['home'] as $widget) {
+			if($widget['type'] == 'slider'){
+				$widgetSlider = $widget;
+			}
+		}
+	}
 ?>
 
 @extends('layouts.web')
@@ -14,7 +22,9 @@
 
 	<div id="home">
 
-		@if ( $main_property )
+		@if ($widgetSlider)
+			@include('common.widget-slider', ['widget' => $widgetSlider])
+		@elseif ($main_property)
 			<div class="main-property carousel slide" data-interval="false">
 				<div class="carousel-inner" role="listbox">
 					<a href="{{ action('Web\PropertiesController@details', $main_property->slug) }}"  class="item active">
