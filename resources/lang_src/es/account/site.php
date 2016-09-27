@@ -172,6 +172,10 @@
 		'pages.configuration.map.lat' => 'Latitud',
 		'pages.configuration.map.lng' => 'Longitud',
 		'pages.configuration.map.zoom' => 'Nivel de zoom',
+		'pages.configuration.map.button' => 'Buscar dirección',
+		'pages.configuration.map.address' => 'Dirección',
+		'pages.configuration.map.address.helper' => 'Calle, Código postal, Ciudad, País',
+		'pages.configuration.map.geolocate' => 'Geolocalizar',
 
 		'pages.create.success' => 'La página se ha creado correctamente',
 		'pages.update.success' => 'La página se ha guardado correctamente',
