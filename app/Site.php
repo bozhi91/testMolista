@@ -124,6 +124,10 @@ class Site extends TranslatableModel
 		return $this->hasMany('\App\Models\Site\UserSignature');
 	}
 
+	public function users_since() {
+		return $this->hasMany('\App\Models\Site\UserSince');
+	}
+
 	public function customers() {
 		return $this->hasMany('App\Models\Site\Customer');
 	}

@@ -14,6 +14,16 @@
 		'rent' => 'Alquiler',
 		'transfer' => 'Traspaso',
 
+		'abstract.properties.title' => 'Propiedades',
+		'abstract.properties.total.active' => 'Número de propiedades activas',
+		'abstract.properties.total.sale.price' => 'Valor total de inmuebles en venta',
+		'abstract.properties.top' => 'Top 10 propiedades',
+		'abstract.leads.title' => 'Leads',
+		'abstract.leads.total' => 'Número de leads activos',
+		'abstract.leads.since' => 'Nuevos leads desde último login',
+		'abstract.tickets.title' => 'Tickets',
+		'abstract.tickets.open' => 'Número de tickets abiertos',
+
 		'published' => 'Propiedades publicadas',
 		'transactions' => 'Transacciones',
 		'price' => 'Precio promedio',

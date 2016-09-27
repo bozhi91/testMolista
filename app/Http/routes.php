@@ -258,6 +258,8 @@ Route::group([
 			Route::controller('agents', 'Account\Reports\AgentsController');
 			// Leads
 			Route::controller('leads', 'Account\Reports\LeadsController');
+			// Home
+			Route::controller('/', 'Account\ReportsController');
 		});
 		// Site configuration
 		Route::group([
