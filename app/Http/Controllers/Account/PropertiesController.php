@@ -208,7 +208,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'seller_phone' => '',
 			'seller_cell' => '',
 			'price_min' => 'numeric|min:1',
-			'commission' => 'integer|between:0,100',
+			'commission_fixed' => 'numeric|min:0',
+			'commission' => 'numeric|between:0,100',
 		];
 		$validator = \Validator::make($this->request->all(), $catch_fields);
 		if ($validator->fails())
@@ -428,7 +429,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'seller_phone' => '',
 			'seller_cell' => '',
 			'price_min' => 'numeric|min:1',
-			'commission' => 'integer|between:0,100',
+			'commission_fixed' => 'numeric|min:0',
+			'commission' => 'numeric|between:0,100',
 		];
 		$validator = \Validator::make($this->request->all(), $fields);
 		if ($validator->fails())
@@ -531,6 +533,11 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 				$item->update($data);
 				break;
 		}
+
+		// Disable property
+		$item->property->update([
+			'enabled' => 0,
+		]);
 
 		return [ 'success'=>true ];
 	}

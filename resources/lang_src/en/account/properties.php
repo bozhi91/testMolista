@@ -138,6 +138,9 @@
 		'show.property.price.min' => 'Minimum price',
 		'show.property.price.min.help' => 'This is the minimum price for which the owner would be willing to close the transaction (sell, rent, etc.)',
 		'show.property.commission' => 'Commission',
+		'show.property.commission.fixed' => 'Fixed commission',
+		'show.property.commission.variable' => 'Variable commission',
+		'show.property.commission.total' => 'Total commission',
 
 		'show.property.comment.title' => 'Comment',
 		'show.property.comment.button' => 'Save comment',

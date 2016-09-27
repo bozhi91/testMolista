@@ -138,6 +138,9 @@
 		'show.property.price.min' => 'Precio mínimo',
 		'show.property.price.min.help' => 'Corresponde al precio mínimo por el que el propietario estaría dispuesto a cerrar la transacción (vender, alquilar, etc)',
 		'show.property.commission' => 'Comisión',
+		'show.property.commission.fixed' => 'Comisión fija',
+		'show.property.commission.variable' => 'Comisión variable',
+		'show.property.commission.total' => 'Comisión total',
 
 		'show.property.comment.title' => 'Comentario',
 		'show.property.comment.button' => 'Guardar comentario',

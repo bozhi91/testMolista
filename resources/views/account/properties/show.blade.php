@@ -89,7 +89,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-xs-12 col-sm-4">
+						<div class="col-xs-12 col-sm-3">
 							<div class="form-group">
 								<div class="error-placement">
 									{!! Form::label(null, Lang::get('account/properties.show.property.price.min') ) !!}
@@ -106,13 +106,30 @@
 								<div class="help-block">{{ Lang::get('account/properties.show.property.price.min.help') }}</div>
 							</div>
 						</div>
-						<div class="col-xs-12 col-sm-2">
+						<div class="col-xs-12 col-sm-3">
 							<div class="form-group error-placement">
-								{!! Form::label(null, Lang::get('account/properties.show.property.commission') ) !!}
-								{!! Form::text(null, "{$property->catch_current->commission}%", [ 'class'=>'form-control', 'readonly'=>'readonly', ]) !!}
+								{!! Form::label(null, Lang::get('account/properties.show.property.commission.fixed') ) !!}
+								<div class="input-group">
+									@if ( @$property->infocurrency->position == 'before' )
+										<div class="input-group-addon">{{ $property->infocurrency->symbol }}</div>
+									@endif
+									{!! Form::text(null, $property->catch_current->commission_fixed, [ 'class'=>'form-control', 'readonly'=>'readonly', ]) !!}
+									@if ( @$property->infocurrency->position == 'after' )
+										<div class="input-group-addon">{{ $property->infocurrency->symbol }}</div>
+									@endif
+								</div>
 							</div>
 						</div>
-						<div class="col-xs-12 col-sm-6">
+						<div class="col-xs-12 col-sm-3">
+							<div class="form-group error-placement">
+								{!! Form::label(null, Lang::get('account/properties.show.property.commission.variable') ) !!}
+								<div class="input-group">
+									{!! Form::text(null, "{$property->catch_current->commission}", [ 'class'=>'form-control', 'readonly'=>'readonly', ]) !!}
+									<div class="input-group-addon">%</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-3">
 							<label class="hidden-xs">&nbsp;</label>
 							<div class="text-right">
 								<div class="btn-group dropup" role="group">
@@ -255,13 +272,36 @@
 									</td>
 									<td class="text-right">
 										@if ( $catch->status == 'sold' || $catch->status == 'rent' || $catch->status == 'transfer' )
-											{{ price($catch->commission_earned, $property->infocurrency->toArray()) }}
-											({{ number_format($catch->commission, 2, ',', '.') }}%)
+											{{ price($catch->commission_earned, $property->infocurrency) }}
+											<sup>
+												<a href="#commission-modal-{{$catch->id}}" class="transaction-modal-trigger">
+													<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+												</a>
+											</sup>
+											<div id="commission-modal-{{$catch->id}}" class="mfp-white-popup mfp-hide">
+												<h4 class="page-title">{{ Lang::get('account/properties.show.property.commission') }}</h4>
+												<table class="table">
+													<tbody>
+														<tr>
+															<td>{{ Lang::get('account/properties.show.property.commission.variable') }} ({{$catch->commission}}%)</td>
+															<td class="text-right">{{ price($catch->commission_variable, $property->infocurrency) }}</td>
+														</tr>
+														<tr>
+															<td>{{ Lang::get('account/properties.show.property.commission.fixed') }}</td>
+															<td class="text-right">{{ price($catch->commission_fixed, $property->infocurrency) }}</td>
+														</tr>
+														<tr>
+															<th>{{ Lang::get('account/properties.show.property.commission.total') }}</th>
+															<th class="text-right">{{ price($catch->commission_earned, $property->infocurrency) }}</th>
+														</tr>
+													</tbody>
+												</table>
+											</div>
 										@endif
 									</td>
 									<td class="text-right">
 										@if ( $catch->status == 'sold' || $catch->status == 'rent' || $catch->status == 'transfer' )
-											{{ price($catch->price_sold, $property->infocurrency->toArray()) }}
+											{{ price($catch->price_sold, $property->infocurrency) }}
 										@endif
 									</td>
 								</tr>
