@@ -9,6 +9,7 @@
 		'configuration.tab.social' => 'Redes sociales',
 		'configuration.tab.mail' => 'Emails',
 		'configuration.tab.signature' => 'Firma',
+		'configuration.tab.theme' => 'Diseño',
 
 		'configuration.languages' => 'Idiomas habilitados',
 		'configuration.languages.error' => 'Seleccione al menos un idioma',
@@ -18,6 +19,10 @@
 		'configuration.theme' => 'Tema del sitio',
 		'configuration.theme.preview' => 'Ver muestra',
 		'configuration.theme.preview.error' => 'Por favor seleccione un tema para ver una muestra',
+		'configuration.theme.preview.home' => 'Portada',
+		'configuration.theme.preview.product' => 'Propiedad',
+		'configuration.theme.install' => 'Seleccionar',
+		'configuration.theme.pages.showing' => 'Mostrando :from - :to de :total resultados',
 		'configuration.logo' => 'Logo',
 		'configuration.logo.helper' => '<p>Aceptamos imagenes en formato JPG, PNG y GIF.</p><p>No se subirán imágenes con peso superior a :IMAGE_MAXSIZE kilobytes.</p>',
 		'configuration.favicon' => 'Favicon',

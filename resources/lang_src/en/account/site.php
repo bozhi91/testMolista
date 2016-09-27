@@ -9,6 +9,7 @@
 		'configuration.tab.social' => 'Social media',
 		'configuration.tab.mail' => 'Emails',
 		'configuration.tab.signature' => 'Signature',
+		'configuration.tab.theme' => 'Theme',
 
 		'configuration.languages' => 'Enabled languages',
 		'configuration.languages.error' => 'Please select at least one language',
@@ -18,6 +19,10 @@
 		'configuration.theme' => 'Website theme',
 		'configuration.theme.preview' => 'Show preview',
 		'configuration.theme.preview.error' => 'Please first select a theme to see its preview',
+		'configuration.theme.preview.home' => 'Home',
+		'configuration.theme.preview.product' => 'Property',
+		'configuration.theme.install' => 'Select',
+		'configuration.theme.pages.showing' => 'Showing :from - :to of :total results',
 		'configuration.logo' => 'Logo',
 		'configuration.logo.helper' => '<p>We support JPG, PNG and GIF formats.</p><p>Images bigger than :IMAGE_MAXSIZE kilobytes will not be uploaded.</p>',
 		'configuration.favicon' => 'Favicon',
