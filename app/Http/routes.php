@@ -175,8 +175,9 @@ Route::group([
 			'auth.account',
 		],
 	], function() {
-		Route::get('/', 'AccountController@index');
-		Route::post('/', 'AccountController@updateProfile');
+		Route::get('/', 'Account\ReportsController@getIndex');
+		Route::get('profile', 'AccountController@index');
+		Route::post('profile', 'AccountController@updateProfile');
 		Route::controller('profile/signatures', 'Account\Profile\SignaturesController');
 		Route::controller('profile/email-accounts', 'Account\Profile\AccountsController');
 		Route::group([

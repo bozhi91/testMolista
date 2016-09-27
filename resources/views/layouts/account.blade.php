@@ -23,7 +23,7 @@
 					@permission('property-*')
 						@if ( (@$submenu_section == 'properties') && $current_site_user->can('property-create') )
 							<li role="presentation" class="active">
-								<a href="{{ action('Account\PropertiesController@index') }}" id="account-menu-btn-properties" data-toggle="collapse" data-target="#account-submenu-properties" aria-expanded="false" class="">
+								<a href="{{ action('Account\PropertiesController@index') }}">
 									<i class="account-icon account-icon-property"></i>
 									{{ Lang::get('account/menu.properties') }}
 								</a>
@@ -125,7 +125,7 @@
 
 					@if ( @$submenu_section == 'profile' )
 						<li role="presentation" class="active">
-							<a href="javascript:;" id="account-menu-btn-profile" data-toggle="collapse" data-target="#account-submenu-profile" aria-expanded="false" class="">
+							<a href="{{ action('AccountController@index') }}">
 								<i class="account-icon account-icon-info"></i>
 								{{ Lang::get('account/menu.data') }}
 							</a>

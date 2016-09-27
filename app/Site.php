@@ -305,7 +305,7 @@ class Site extends TranslatableModel
 		$autologin_token = $owner->getUpdatedAutologinToken();
 
 		// Return autologin url
-		$url = action('AccountController@index', [ 'autologin_token' =>$autologin_token ]);
+		$url = action('Account\ReportsController@getIndex', [ 'autologin_token' =>$autologin_token ]);
 
 		// Subdomain url
 		return str_replace(
