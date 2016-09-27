@@ -124,14 +124,18 @@
 
 		'widgets.group.header' => 'Page header',
 		'widgets.group.footer' => 'Page footer',
-
+		'widgets.group.home' => 'Page home',
+		
 		'widgets.type.menu' => 'Menú personalizado',
 		'widgets.type.menu.info' => 'Añada uno de sus menúes personalizados como widget.',
 		'widgets.type.menu.select' => 'Seleccionar menú',
 		'widgets.type.text' => 'Bloque de texto',
 		'widgets.type.text.info' => 'Añada un bloque de texto como widget.',
 		'widgets.type.text.content' => 'Texto',
-
+		'widgets.type.slider' => 'Slider',
+		'widgets.type.slider.info' => 'Añada un slider para tu página de início.',
+		'widgets.type.slider.select' => 'Seleccionar slider',
+		
 		'widgets.messages.created' => 'El widget se ha creado correctamente',
 		'widgets.messages.updated' => 'El widget se ha guardado correctamente',
 		'widgets.messages.delete.warning' => '¿Confirma que desea eliminar este elemento?',
@@ -200,6 +204,8 @@
 		'sliders.create.success' => 'El slider se ha creado correctamente',
 		'sliders.deleted.success' => 'El slider se ha eliminado correctamente',
 		
+		'sliders.delete.warning' => '¿Confirma que desea eliminar este slider?',
+
 		
 		'domainname.h1' => 'Nombre de dominio',
 		'domainname.domain' => 'Dominio',

@@ -53,7 +53,7 @@
         cont.find('form.delete-form').each(function () {
             $(this).validate({
                 submitHandler: function (f) {
-                    SITECOMMON.confirm("{{ print_js_string( Lang::get('account/site.slides.delete.warning') ) }}", function (e) {
+                    SITECOMMON.confirm("{{ print_js_string( Lang::get('account/site.sliders.delete.warning') ) }}", function (e) {
                         if (e) {
                             LOADING.show();
                             f.submit();

@@ -36,6 +36,7 @@ class Widget extends TranslatableModel
 		return [
 			'menu',
 			'text',
+			'slider',
 		];
 	}
 

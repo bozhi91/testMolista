@@ -26,8 +26,9 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 		$group_options = \App\Models\Site\Widget::getGroupOptions();
 
 		$menus = $this->site->menus()->lists('title','id')->all();
-
-		return view('account.site.widgets.index', compact('widgets', 'type_options', 'group_options', 'menus'));
+		$sliders = $this->site->slidergroups()->lists('name', 'id')->all();
+		
+		return view('account.site.widgets.index', compact('widgets', 'type_options', 'group_options', 'menus', 'sliders'));
 	}
 
 	public function getStore()
@@ -59,6 +60,8 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 		{
 			case 'menu':
 				$data['menus'] = $this->site->menus()->lists('title','id')->all();
+			case 'slider':
+				$data['sliders'] = $this->site->sliders()->lists('name', 'id')->all();
 				break;
 		}
 
@@ -88,17 +91,20 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 		$fields = [
 			'title' => 'required|array',
 		];
-
+		
 		switch ( $widget->type )
 		{
 			case 'menu':
 				$fields['menu_id'] = 'required|integer|exists:menus,id,site_id,'.$this->site->id;
 				break;
+			case 'slider':
+				$fields['slider_id'] = 'required|integer|exists:slider_group,id,site_id,'.$this->site->id;
+				break;
 			case 'text':
 				$fields['content'] = 'required|array';
 				break;
 		}
-
+		
 		$validator = \Validator::make($data, $fields);
 		if ( $validator->fails() )
 		{
@@ -119,6 +125,9 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 		{
 			case 'menu':
 				$widget->menu_id = $data['menu_id'];
+				break;
+			case 'slider':
+				$widget->slider_id = $data['slider_id'];
 				break;
 			case 'text':
 				foreach (\App\Session\Site::get('locales_tabs') as $locale => $locale_name)

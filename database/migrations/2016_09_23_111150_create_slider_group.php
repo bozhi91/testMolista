@@ -64,6 +64,19 @@ class CreateSliderGroup extends Migration {
 					->onUpdate('cascade')
 					->onDelete('cascade');
 		});
+		
+		
+		//Widget table add column
+		Schema::table('widgets', function($table) {
+			$table->integer('slider_id')->unsigned()->nullable();
+			
+			$table->foreign('slider_id')
+					->references('id')
+					->on('slider_group')
+					->onUpdate('cascade')
+					->onDelete('cascade');
+		});
+		
 	}
 
 	/**
@@ -75,6 +88,10 @@ class CreateSliderGroup extends Migration {
 		Schema::drop('slider_group_locale');
 		Schema::drop('slider_image');
 		Schema::drop('slider_group');
+		
+		Schema::table('widgets', function($table) {
+			$table->dropColumn('slider_id');
+		});
 	}
 
 }
