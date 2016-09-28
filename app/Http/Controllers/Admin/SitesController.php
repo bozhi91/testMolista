@@ -45,10 +45,10 @@ class SitesController extends Controller
 			$query->where('web_transfer_requested', intval($this->request->input('transfer'))-1);
 		}
 
-		// Filter by domain
-		if ( $this->request->input('domain') )
+		// Filter by theme
+		if ( $this->request->input('theme') )
 		{
-			$query->withDomain($this->request->input('domain'));
+			$query->where('theme', $this->request->input('theme'));
 		}
 
 		switch ( $this->request->input('order') )
@@ -62,9 +62,6 @@ class SitesController extends Controller
 
 		switch ( $this->request->input('orderby') )
 		{
-			case 'id':
-				$query->orderBy('id', $order);
-				break;
 			case 'created':
 				$query->orderBy('created_at', $order);
 				break;
@@ -85,10 +82,13 @@ class SitesController extends Controller
 					->orderBy('total_users', $order)
 					->groupBy('sites.id');
 				break;
+			case 'id':
+			case 'theme':
+				$query->orderBy($this->request->input('orderby'), $order);
+				break;
 			case 'title':
 			default:
 				$query->orderBy('title', $order);
-				break;
 		}
 
 		if ( $this->request->input('csv') )
@@ -107,9 +107,19 @@ class SitesController extends Controller
 
 		$sites = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
+		$themes = [];
+		foreach (\Config::get('themes.themes') as $key => $theme)
+		{
+			if ( @$theme['public'] || @$theme['custom'] )
+			{
+				$themes[$key] = $theme['title'];
+			}
+		}
+		asort($themes);
+
 		$this->set_go_back_link();
 
-		return view('admin.sites.index', compact('sites'));
+		return view('admin.sites.index', compact('sites','themes'));
 	}
 
 	protected function csv_prepare_row($row)

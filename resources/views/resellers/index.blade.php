@@ -28,9 +28,6 @@
 				</thead>
 				<tbody>
 					@foreach ($commissions as $commission)
-						<?php
-							$commission->infocurrency->decimals = 2;
-						?>
 						<tr>
 							<td class="text-center">{{ $commission->created_at->format('d/m/Y') }}</td>
 							<td>
@@ -38,8 +35,8 @@
 									{{ $commission->site->main_url }}
 								@endif
 							</td>
-							<td class="text-right">{{ (!$commission->reseller_paid) ? price($commission->reseller_amount, $commission->infocurrency) : '' }}</td>
-							<td class="text-right">{{ ($commission->reseller_paid) ? price($commission->reseller_amount, $commission->infocurrency) : '' }}</td>
+							<td class="text-right">{{ (!$commission->reseller_paid) ? price($commission->reseller_amount * $commission->reseller_rate, $comissions_currency) : '' }}</td>
+							<td class="text-right">{{ ($commission->reseller_paid) ? price($commission->reseller_amount * $commission->reseller_rate, $comissions_currency) : '' }}</td>
 							<td class="text-center"><span class="glyphicon glyphicon-{{ $commission->reseller_paid ? 'ok' : 'remove' }}" aria-hidden="true"></span></td>
 							<td class="text-center">
 								@if ( $commission->reseller_date )
@@ -51,8 +48,8 @@
 					<tr>
 						<td></td>
 						<td></td>
-						<td class="text-right table-total">{{ price($commissions->where('reseller_paid', 0)->sum('reseller_amount'), $commission->infocurrency) }}</td>
-						<td class="text-right table-total">{{ price($commissions->where('reseller_paid', 1)->sum('reseller_amount'), $commission->infocurrency) }}</td>
+						<td class="text-right table-total">{{ price($commissions->where('reseller_paid', 0)->sum(function($item){ return $item->reseller_amount * $item->reseller_rate; }), $comissions_currency) }}</td>
+						<td class="text-right table-total">{{ price($commissions->where('reseller_paid', 1)->sum(function($item){ return $item->reseller_amount * $item->reseller_rate; }), $comissions_currency) }}</td>
 						<td></td>
 						<td></td>
 					</tr>

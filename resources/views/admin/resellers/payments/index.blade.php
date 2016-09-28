@@ -2,6 +2,10 @@
 
 @section('content')
 
+	<style media="screen">
+		.table-total { font-size: 18px; font-weight: bold; }
+	</style>
+
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-3 hidden-xs">
@@ -32,9 +36,10 @@
 							<tr>
 								{!! drawSortableHeaders(url()->full(), [
 									'reseller' => [ 'title' => Lang::get('admin/resellers.payments.reseller'), 'sortable'=>false, ],
-									'amount' => [ 'title' => Lang::get('admin/resellers.payments.amount'), 'sortable'=>false, ],
 									'created' => [ 'title' => Lang::get('admin/resellers.payments.created'), 'sortable'=>false, ],
 									'site' => [ 'title' => Lang::get('admin/resellers.payments.site'), 'sortable'=>false, ],
+									'amount_pending' => [ 'title' => Lang::get('admin/resellers.payments.amount_pending'), 'sortable'=>false, ],
+									'amount_paid' => [ 'title' => Lang::get('admin/resellers.payments.amount_paid'), 'sortable'=>false, ],
 									'paid' => [ 'title' => Lang::get('admin/resellers.payments.paid'), 'class'=>'text-center', 'sortable'=>false, ],
 									'action' => [ 'title' => '', 'sortable'=>false, ],
 								]) !!}
@@ -48,17 +53,27 @@
 											{{ $payment->reseller->name }}
 										@endif
 									</td>
-									<td>{{ price($payment->payment_amount, $payment->infocurrency) }}</td>
 									<td>{{ $payment->created_at->format('d/m/Y') }}</td>
 									<td>
 										@if ( $payment->site )
 											{{ $payment->site->main_url }}
 										@endif
 									</td>
-									<td class="text-center"><span class="glyphicon glyphicon-{{ $payment->reseller_paid ? 'ok' : 'remove' }}" aria-hidden="true"></span></td>
+									<td class="text-right">{{ !$payment->reseller_paid ? price($payment->reseller_amount * $payment->reseller_rate, $comissions_currency) : '' }}</td>
+									<td class="text-right">{{ $payment->reseller_paid ? price($payment->reseller_amount * $payment->reseller_rate, $comissions_currency) : '' }}</td>
+									<td class="text-center">{{ $payment->reseller_paid ? $payment->reseller_date->format('d/m/Y') : '' }}</td>
 									<td class="text-right"><a href="{{ action('Admin\Resellers\PaymentsController@getShow', $payment->id) }}" class="btn btn-xs btn-default">{{ Lang::get('general.view') }}</a></td>
 								</tr>
 							@endforeach
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td class="text-right table-total">{{ price($payments->where('reseller_paid', 0)->sum(function($item){ return $item->reseller_amount * $item->reseller_rate; }), $comissions_currency) }}</td>
+									<td class="text-right table-total">{{ price($payments->where('reseller_paid', 1)->sum(function($item){ return $item->reseller_amount * $item->reseller_rate; }), $comissions_currency) }}</td>
+									<td></td>
+									<td></td>
+								</tr>
 						</tbody>
 					</table>
 					{!! drawPagination($payments, Input::except('page')) !!}

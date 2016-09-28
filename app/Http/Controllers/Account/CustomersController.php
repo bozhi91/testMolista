@@ -99,7 +99,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 	public function store()
 	{
 		$validator = \Validator::make($this->request->all(), $this->getRequiredFields());
-		if ($validator->fails()) 
+		if ($validator->fails())
 		{
 			return redirect()->back()->withInput()->withErrors($validator);
 		}
@@ -140,7 +140,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		}
 
 		$validator = \Validator::make($this->request->all(), $this->getRequiredFields($customer->id));
-		if ($validator->fails()) 
+		if ($validator->fails())
 		{
 			return redirect()->back()->withInput()->withErrors($validator);
 		}
@@ -209,7 +209,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 	public function postProfile($email)
 	{
 		$customer = $this->site->customers()->with('queries')->where('email', $email)->first();
-		if ( !$customer ) 
+		if ( !$customer )
 		{
 			abort(404);
 		}
@@ -234,7 +234,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 			'more_attributes' => 'array',
 		];
 		$validator = \Validator::make($this->request->all(), $fields);
-		if ( $validator->fails() ) 
+		if ( $validator->fails() )
 		{
 			return redirect()->back()->withInput()->withErrors($validator);
 		}
@@ -250,7 +250,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		$data = [
 			'more_attributes' => [],
 		];
-		foreach ($fields as $key => $value) 
+		foreach ($fields as $key => $value)
 		{
 			$value = $this->request->input($key);
 
@@ -301,7 +301,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 
 		if ( !$customer_id ) {
 			$validator = \Validator::make($this->request->all(), $this->getRequiredFields());
-			if ($validator->fails()) 
+			if ($validator->fails())
 			{
 				return redirect()->back()->withInput()->withErrors($validator);
 			}
@@ -413,6 +413,6 @@ class CustomersController extends \App\Http\Controllers\AccountController
 			'locale' => 'required|in:'.implode(',',$locales),
 		];
 
-		return $fields;		
+		return $fields;
 	}
 }

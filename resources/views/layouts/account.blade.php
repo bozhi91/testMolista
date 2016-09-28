@@ -23,7 +23,7 @@
 					@permission('property-*')
 						@if ( (@$submenu_section == 'properties') && $current_site_user->can('property-create') )
 							<li role="presentation" class="active">
-								<a href="{{ action('Account\PropertiesController@index') }}" id="account-menu-btn-properties" data-toggle="collapse" data-target="#account-submenu-properties" aria-expanded="false" class="">
+								<a href="{{ action('Account\PropertiesController@index') }}">
 									<i class="account-icon account-icon-property"></i>
 									{{ Lang::get('account/menu.properties') }}
 								</a>
@@ -40,6 +40,7 @@
 							</li>
 						@endif
 					@endpermission
+
 					@permission('employee-*')
 						<li role="presentation" class="{{ (@$submenu_section == 'employees') ? 'active' : '' }}">
 							<a href="{{ action('Account\EmployeesController@index') }}">
@@ -48,6 +49,7 @@
 							</a>
 						</li>
 					@endpermission
+
 					<li role="presentation" class="{{ (@$submenu_section == 'customers') ? 'active' : '' }}">
 						<a href="{{ action('Account\CustomersController@index') }}">
 							<i class="account-icon account-icon-lead"></i>
@@ -69,17 +71,26 @@
 					<li class="separator"></li>
 
 					@role('company')
-						<li role="presentation" class="{{ (@$submenu_section == 'reports') ? 'active' : '' }}">
-							<a href="javascript:;" data-toggle="collapse" data-target="#account-submenu-reports" aria-expanded="false" class="{{ (@$submenu_section == 'reports') ? '' : 'collapsed' }}">
-								<i class="account-icon account-icon-reports"></i>
-								{{ Lang::get('account/menu.reports') }}
-							</a>
-							<ul id="account-submenu-reports" class="nav {{ (@$submenu_section == 'reports') ? '' : 'collapse' }}" role="menu">
-								<li><a href="{{ action('Account\Reports\PropertiesController@getIndex') }}" class="{{ (@$submenu_subsection == 'reports-properties') ? 'current' : '' }}">{{ Lang::get('account/menu.reports.properties') }}</a></li>
-								<li><a href="{{ action('Account\Reports\AgentsController@getIndex') }}" class="{{ (@$submenu_subsection == 'reports-agents') ? 'current' : '' }}">{{ Lang::get('account/menu.reports.agents') }}</a></li>
-								<li><a href="{{ action('Account\Reports\LeadsController@getIndex') }}" class="{{ (@$submenu_subsection == 'reports-leads') ? 'current' : '' }}">{{ Lang::get('account/menu.reports.leads') }}</a></li>
-							</ul>
-						</li>
+						@if ( @$submenu_section == 'reports' )
+							<li role="presentation" class="active">
+								<a href="{{ action('Account\ReportsController@getIndex') }}">
+									<i class="account-icon account-icon-reports"></i>
+									{{ Lang::get('account/menu.reports') }}
+								</a>
+								<ul id="account-submenu-reports" class="nav" role="menu">
+									<li><a href="{{ action('Account\Reports\PropertiesController@getIndex') }}" class="{{ (@$submenu_subsection == 'reports-properties') ? 'current' : '' }}">{{ Lang::get('account/menu.reports.properties') }}</a></li>
+									<li><a href="{{ action('Account\Reports\AgentsController@getIndex') }}" class="{{ (@$submenu_subsection == 'reports-agents') ? 'current' : '' }}">{{ Lang::get('account/menu.reports.agents') }}</a></li>
+									<li><a href="{{ action('Account\Reports\LeadsController@getIndex') }}" class="{{ (@$submenu_subsection == 'reports-leads') ? 'current' : '' }}">{{ Lang::get('account/menu.reports.leads') }}</a></li>
+								</ul>
+							</li>
+						@else
+							<li role="presentation">
+								<a href="{{ action('Account\ReportsController@getIndex') }}">
+									<i class="account-icon account-icon-reports"></i>
+									{{ Lang::get('account/menu.reports') }}
+								</a>
+							</li>
+						@endif
 						<li class="separator"></li>
 					@endrole
 
@@ -114,7 +125,7 @@
 
 					@if ( @$submenu_section == 'profile' )
 						<li role="presentation" class="active">
-							<a href="javascript:;" id="account-menu-btn-profile" data-toggle="collapse" data-target="#account-submenu-profile" aria-expanded="false" class="">
+							<a href="{{ action('AccountController@index') }}">
 								<i class="account-icon account-icon-info"></i>
 								{{ Lang::get('account/menu.data') }}
 							</a>

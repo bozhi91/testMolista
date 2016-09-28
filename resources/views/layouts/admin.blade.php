@@ -14,6 +14,10 @@
 
 	<link id="page_favicon" href="{{ Theme::url('/favicon.ico') }}" rel="icon" type="image/x-icon" />
 
+	@if ( @$use_google_maps )
+		<script src="http://maps.google.com/maps/api/js?key={{ Config::get('app.google_maps_api_key')}}"></script>
+	@endif	
+
 	<script type="text/javascript">
 		var ready_callbacks = [];
 	</script>
@@ -76,6 +80,14 @@
 						<ul class="dropdown-menu">
 							<li><a href="{{ action('Admin\ResellersController@index') }}">{{ Lang::get('admin/menu.list') }}</a></li>
 							<li><a href="{{ action('Admin\Resellers\PaymentsController@getIndex') }}">{{ Lang::get('admin/menu.resellers.payments') }}</a></li>
+						</ul>
+					</li>
+				@endpermission
+				@permission('reports-*')
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Lang::get('admin/menu.reports') }} <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="{{ action('Admin\Reports\ThemesController@getIndex') }}">{{ Lang::get('admin/menu.reports.themes') }}</a></li>
 						</ul>
 					</li>
 				@endpermission

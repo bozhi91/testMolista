@@ -14,7 +14,6 @@ class WebController extends Controller
     	parent::__initialize();
     	
 		$search_data = [
-			'modes' => \App\Property::getModeOptions(),
 			'sizes' => \App\Property::getSizeOptions(),
 			'rooms' => \App\Property::getRoomOptions(),
 			'baths' => \App\Property::getBathOptions(),
@@ -29,13 +28,14 @@ class WebController extends Controller
 			})->orderBy('name')->lists('name','slug')->all();
 			$search_data['prices'] = \App\Property::getPriceOptions($this->site->id);
 			$search_data['types'] = \App\Property::getTypeOptions($this->site->id);
+			$search_data['modes'] = \App\Property::getModeOptions($this->site->id);
 		}
 		else
 		{
 			$search_data['states'] = \App\Models\Geography\State::enabled()->orderBy('name')->lists('name','slug')->all();
 			$search_data['prices'] = \App\Property::getPriceOptions();
 			$search_data['types'] = \App\Property::getTypeOptions();
-
+			$search_data['modes'] = \App\Property::getModeOptions();
 		}
 
 		\View::share('search_data', $search_data);
