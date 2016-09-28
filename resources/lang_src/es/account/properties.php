@@ -39,6 +39,9 @@
 		'show_address' => 'Mostrar dirección',
 		'zipcode' => 'Código postal',
 		'construction_year' => 'Año de construcción',
+		'discount' => 'Descuento',
+		'price_before' => 'Precio anterior',
+		'discount_show' => 'Mostrar descuento',
 
 		'energy.certificate' => 'Certificado energético',
 		'energy.certificate.pending' => 'En trámite',
