@@ -6,7 +6,7 @@ class ProcessStatsCommand extends Command
 {
 	protected $signature = 'stats:process {date? : The date to process}';
 
-	protected $description = 'Process sites and users stats';
+	protected $description = 'Process globals, sites and users stats';
 
 	protected $sites;
 
@@ -54,6 +54,9 @@ class ProcessStatsCommand extends Command
 				$this->processDate( date('Y-m-d', $i) );
 			}
 		}
+
+		// Global stats
+		\App\Models\Stats::processStats();
 
 		// Delete stats cache
 		$this->info("\tDeleting stats cache");

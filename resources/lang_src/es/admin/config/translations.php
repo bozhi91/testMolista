@@ -10,6 +10,7 @@ return [
 
     'tag' => 'Key',
     'key' => 'Tag',
+    'text' => 'Texto',
 
     'warning' => 'Select the base language and at least one language to translate',
     'abstract' => 'Translations abstract',

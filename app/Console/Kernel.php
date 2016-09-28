@@ -26,6 +26,7 @@ class Kernel extends ConsoleKernel
 		Commands\PlanMaintenanceCommand::class,
 		Commands\MarketplaceUploadFeedCommand::class,
 		Commands\GeographyLoadCountryCitiesCommand::class,
+		Commands\InitGlobalStatsCommand::class,
 	];
 
 	/**

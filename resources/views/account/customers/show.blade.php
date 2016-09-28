@@ -293,8 +293,8 @@
 										{!! Form::open([ 'action'=>[ 'Account\CustomersController@deleteRemovePropertyCustomer', $property->slug ], 'method'=>'DELETE', 'class'=>'delete-property-form' ]) !!}
 											{!! Form::hidden('customer_id', $customer->id) !!}
 											{!! Form::hidden('current_tab', 'properties') !!}
-											@if ( $property->calendars->where('customer_id', $customer->id)->count() > 0 )
-												<i class="fa fa-calendar-check-o has-tooltip" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="{{ Lang::get('account/calendar.scheduled') }}"></i>
+											@if ( $event = $property->calendars->where('customer_id', $customer->id)->last() )
+												<a href="{{ action('Account\Calendar\BaseController@getEvent', $event->id) }}"><i class="fa fa-calendar-check-o has-tooltip" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="{{ Lang::get('account/calendar.scheduled') }}"></i></a>
 											@endif
 											<a href="{{ action('Account\Calendar\BaseController@getCreate') }}?property_ids[]={{$property->id}}&customer_id={{@$customer->id}}" class="btn btn-info btn-xs">{{ Lang::get('account/calendar.button.schedule') }}</a>
 											{!! Form::button(Lang::get('account/customers.discards.action'), [ 'type'=>'submit', 'class'=>'btn btn-danger btn-xs' ]) !!}

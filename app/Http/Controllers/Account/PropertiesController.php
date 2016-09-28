@@ -208,7 +208,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'seller_phone' => '',
 			'seller_cell' => '',
 			'price_min' => 'numeric|min:1',
-			'commission' => 'integer|between:0,100',
+			'commission_fixed' => 'numeric|min:0',
+			'commission' => 'numeric|between:0,100',
 		];
 		$validator = \Validator::make($this->request->all(), $catch_fields);
 		if ($validator->fails())
@@ -260,6 +261,24 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		return redirect()->action('Account\PropertiesController@edit', $property->slug)->with('current_tab', $this->request->input('current_tab'))->with('success', trans('account/properties.created'));
 	}
 
+	public function download($slug,$locale) {
+		// Get property
+		$property = $this->site->properties()->enabled()
+					->whereTranslation('slug', $slug)
+					->first();
+						
+		if ( !$property )
+		{
+			abort(404);
+		}
+
+		$filepath = $property->getPdfFile( $locale );
+		
+		return response()->download($filepath, "property-{$locale}.pdf", [
+			'Content-Type: application/pdf',
+		]);
+	}
+	
 	public function edit($slug)
 	{
 		$query = $this->site->properties()
@@ -410,7 +429,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'seller_phone' => '',
 			'seller_cell' => '',
 			'price_min' => 'numeric|min:1',
-			'commission' => 'integer|between:0,100',
+			'commission_fixed' => 'numeric|min:0',
+			'commission' => 'numeric|between:0,100',
 		];
 		$validator = \Validator::make($this->request->all(), $fields);
 		if ($validator->fails())
@@ -513,6 +533,11 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 				$item->update($data);
 				break;
 		}
+
+		// Disable property
+		$item->property->update([
+			'enabled' => 0,
+		]);
 
 		return [ 'success'=>true ];
 	}
@@ -661,6 +686,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'type' => 'required|in:'.implode(',', array_keys(\App\Property::getTypeOptions())),
 			'mode' => 'required|in:'.implode(',', \App\Property::getModes()),
 			'price' => 'required|numeric|min:0',
+			'price_before' => 'numeric|min:0',
+			'discount_show' => 'boolean',
 			'currency' => 'required|exists:currencies,code',
 			'size' => 'required|numeric|min:0',
 			'size_unit' => 'required|in:'.implode(',', array_keys(\App\Property::getSizeUnitOptions())),

@@ -39,6 +39,9 @@
 		'show_address' => 'Show address',
 		'zipcode' => 'Zipcode',
 		'construction_year' => 'Construction year',
+		'discount' => 'Discount',
+		'price_before' => 'Old price',
+		'discount_show' => 'Show discount',
 
 		'energy.certificate' => 'Energy certificate',
 		'energy.certificate.pending' => 'In process',
@@ -57,6 +60,7 @@
 		'tab.reports' => 'Reports',
 		'tab.logs' => 'Logs',
 		'tab.seller' => 'Seller',
+		'tab.pdf' => 'PDF',
 
 		'country' => 'Country',
 		'state' => 'State',
@@ -137,6 +141,9 @@
 		'show.property.price.min' => 'Minimum price',
 		'show.property.price.min.help' => 'This is the minimum price for which the owner would be willing to close the transaction (sell, rent, etc.)',
 		'show.property.commission' => 'Commission',
+		'show.property.commission.fixed' => 'Fixed commission',
+		'show.property.commission.variable' => 'Variable commission',
+		'show.property.commission.total' => 'Total commission',
 
 		'show.property.comment.title' => 'Comment',
 		'show.property.comment.button' => 'Save comment',

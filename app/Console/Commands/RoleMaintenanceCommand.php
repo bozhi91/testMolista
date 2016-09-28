@@ -327,6 +327,13 @@ class RoleMaintenanceCommand extends Command
 				'roles' => [ ],
 			],
 		],
+		'reports' => [
+			'view' => [
+				'display_name' => 'View reports',
+				'description' => '',
+				'roles' => [ ],
+			],
+		],
 	];
 
 	public function __construct()
