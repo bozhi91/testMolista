@@ -124,6 +124,10 @@ class Site extends TranslatableModel
 		return $this->hasMany('\App\Models\Site\UserSignature');
 	}
 
+	public function users_since() {
+		return $this->hasMany('\App\Models\Site\UserSince');
+	}
+
 	public function customers() {
 		return $this->hasMany('App\Models\Site\Customer');
 	}
@@ -301,7 +305,7 @@ class Site extends TranslatableModel
 		$autologin_token = $owner->getUpdatedAutologinToken();
 
 		// Return autologin url
-		$url = action('AccountController@index', [ 'autologin_token' =>$autologin_token ]);
+		$url = action('Account\ReportsController@getIndex', [ 'autologin_token' =>$autologin_token ]);
 
 		// Subdomain url
 		return str_replace(
