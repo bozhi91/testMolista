@@ -22,10 +22,10 @@
 
 
 	<!-- Controls -->
-	<a class="left carousel-control" href="#home-slider" role="button" data-slide="prev">
+	<a class="left carousel-control slider-control" href="#home-slider" role="button" data-slide="prev">
 		<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
 	</a>
-	<a class="right carousel-control" href="#home-slider" role="button" data-slide="next">
+	<a class="right carousel-control slider-control" href="#home-slider" role="button" data-slide="next">
 		<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 	</a>
 </div>

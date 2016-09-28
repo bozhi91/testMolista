@@ -135,7 +135,7 @@
 			cont.find('.search-area .quick-link').matchHeight({ byRow : false });
 
 			if ( cont.find('.properties-slider .carousel-inner .item').length < 2) {
-				cont.find('.carousel-control').remove();
+				cont.find('.carousel-control').not('.slider-control').remove();
 			} else {
 				cont.find('.carousel-control').removeClass('hide');
 			}
