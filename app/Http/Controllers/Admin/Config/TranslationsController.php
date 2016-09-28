@@ -58,7 +58,7 @@ class TranslationsController extends AdminController
 			$base = $this->request->input('base');
 			$langs = $this->request->input('langs');
 
-			$query = \App\Models\Translation::with('translations');
+			$query = \App\Models\Translation::with('translations')->select('translations.*');
 
 			// Filter by file
 			if ( $this->request->input('file') )
@@ -70,6 +70,16 @@ class TranslationsController extends AdminController
 			if ( $this->request->input('tag') )
 			{
 				$query->where('tag', 'LIKE', "%{$this->request->input('tag')}%");
+			}
+
+			// Filter by text
+			if ( $this->request->get('text') )
+			{
+				$query->join('translations_translations', 'translations_translations.translation_id', '=', 'translations.id')
+					->where('translations_translations.value', 'like', "%{$this->request->get('text')}%")
+					->whereIn('translations_translations.locale', $langs)
+					->groupBy('translations.id')
+					;
 			}
 
 			// Filter by status
