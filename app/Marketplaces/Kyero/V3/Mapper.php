@@ -49,7 +49,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 
         if (!empty($item['surface_area']))
         {
-            $map['surface_area'] =
+            $map['size'] =
             [
                 '#built' => $item['size']
             ];

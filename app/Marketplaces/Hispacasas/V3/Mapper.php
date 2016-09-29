@@ -48,7 +48,7 @@ class Mapper extends \App\Marketplaces\Mapper {
         $map['#baths'] = $item['baths'];
         $map['#pool'] = !empty($item['features']['pool']) ? 1 : 0;
 
-        if (!empty($item['surface_area']))
+        if (!empty($item['size']))
         {
             $map['surface_area'] =
             [
