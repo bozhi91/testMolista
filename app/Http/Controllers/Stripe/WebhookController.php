@@ -66,7 +66,7 @@ class WebhookController extends BaseController
 
 		if ( $site )
 		{
-			$total = @floatval($payload['data']['object']['total']);
+			$total = @floatval($payload['data']['object']['total'] / 100);
 			$current_subscription = $site->subscriptions()->where('name','main')->first();
 
 			if ( $total && $current_subscription )
