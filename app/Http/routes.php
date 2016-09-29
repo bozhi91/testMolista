@@ -253,22 +253,23 @@ Route::group([
 		Route::controller('tickets', 'Account\TicketsController');
 		// Calendar
 		Route::controller('calendar', 'Account\Calendar\BaseController');
+
 		// Reports
 		Route::group([
-			'prefix' => 'reports',
 			'middleware' => [
 				'role:company',
 			],
 		], function() {
 			// Properties
-			Route::controller('properties', 'Account\Reports\PropertiesController');
+			Route::controller('reports/properties', 'Account\Reports\PropertiesController');
 			// Agents
-			Route::controller('agents', 'Account\Reports\AgentsController');
+			Route::controller('reports/agents', 'Account\Reports\AgentsController');
 			// Leads
-			Route::controller('leads', 'Account\Reports\LeadsController');
-			// Home
-			Route::controller('/', 'Account\ReportsController');
+			Route::controller('reports/leads', 'Account\Reports\LeadsController');
 		});
+		// Reports home
+		Route::controller('reports', 'Account\ReportsController');
+
 		// Site configuration
 		Route::group([
 			'prefix' => 'site',
