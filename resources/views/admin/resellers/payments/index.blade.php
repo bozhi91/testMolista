@@ -55,7 +55,7 @@
 							@foreach ($payments as $payment)
 								<tr>
 									<td>
-										@if (!$payment->reseller_paid || true)
+										@if (!$payment->reseller_paid)
 										<input type="checkbox" name="payments[]" value="{{ $payment->id }}" />
 										@endif
 									</td>
