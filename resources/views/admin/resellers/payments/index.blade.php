@@ -116,6 +116,7 @@
 					element.closest('.error-container').append(error);
 				},
 				submitHandler: function(f) {
+					LOADING.show();
 					f.submit();
 				}
 			});
