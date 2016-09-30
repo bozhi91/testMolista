@@ -38,6 +38,7 @@ elixir(function(mix) {
 			'jquery.cookie.js',
 			'bootstrap-table.js',
 			'bootstrap-datetimepicker.js',
+			'bootstrap-daterangepicker.js',
 			'bootstrap-slider.js',
 			'summernote.js',
 			'alertify.js',

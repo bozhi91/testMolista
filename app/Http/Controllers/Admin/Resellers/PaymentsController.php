@@ -71,9 +71,12 @@ class PaymentsController extends Controller
 
 		$payments = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
+		$comissions_currency = \App\Models\Currency::where('code', 'EUR')->first();
+		$comissions_currency->decimals = 2;
+
 		$this->set_go_back_link();
 
-		return view('admin.resellers.payments.index', compact('payments'));
+		return view('admin.resellers.payments.index', compact('payments', 'comissions_currency'));
 	}
 
 	public function getShow($id)

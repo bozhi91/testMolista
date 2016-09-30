@@ -49,4 +49,6 @@
 		'payments.paid.until' => 'Pagado hasta',
 		'payments.plan' => 'Plan',
 		'payments.pay' => 'Marcar como pagado',
+		'payments.amount_pending' => 'Cantidad pendiente',
+		'payments.amount_paid' => 'Cantidad pagada',
 	];

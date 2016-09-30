@@ -37,6 +37,10 @@ class User extends Authenticatable
 		return $this->hasMany('\App\Models\Site\UserSignature');
 	}
 
+	public function sites_since() {
+		return $this->hasMany('\App\Models\Site\UserSince');
+	}
+
 	public function properties() {
 		return $this->belongsToMany('App\Property', 'properties_users', 'user_id', 'property_id')->withTranslations();
 	}

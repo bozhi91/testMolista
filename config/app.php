@@ -231,6 +231,9 @@
 			/* https://github.com/alexpechkarev/google-geocoder */
 			Alexpechkarev\GoogleGeocoder\GoogleGeocoderServiceProvider::class,
 
+			/* https://github.com/incubout/heartbeats */
+			Incubout\Heartbeats\HeartbeatsServiceProvider::class,
+
 		],
 
 		/*

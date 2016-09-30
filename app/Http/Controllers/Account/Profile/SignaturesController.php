@@ -16,8 +16,10 @@ class SignaturesController extends \App\Http\Controllers\AccountController
 		\View::share('submenu_section', 'profile');
 		\View::share('submenu_subsection', 'profile-signatures');
 
-		$this->signatures = $this->site_user->sites_signatures()->ofSite($this->site->id)->orderBy('title')->get();
-		\View::share('signatures', $this->signatures);
+		if ($this->site_user) {
+			$this->signatures = $this->site_user->sites_signatures()->ofSite($this->site->id)->orderBy('title')->get();
+			\View::share('signatures', $this->signatures);
+		}
 	}
 
 	public function getIndex()
@@ -35,7 +37,7 @@ class SignaturesController extends \App\Http\Controllers\AccountController
 			'site_id' => $this->site->id,
 			'user_id' => $this->site_user->id,
 		]);
-		
+
 		$validator = \App\Models\Site\UserSignature::getCreateValidator($data,false);
 		if ($validator->fails())
 		{
@@ -66,7 +68,7 @@ class SignaturesController extends \App\Http\Controllers\AccountController
 			'site_id' => $this->site->id,
 			'user_id' => $this->site_user->id,
 		]);
-		
+
 		$validator = \App\Models\Site\UserSignature::getUpdateValidator($data,$id);
 		if ($validator->fails())
 		{
@@ -126,7 +128,7 @@ class SignaturesController extends \App\Http\Controllers\AccountController
 
 		// Get images
 		$images = $dom->getElementsByTagName('img');
-		
+
 		foreach ($images as $img)
 		{
 			$src = $img->getAttribute('src');
@@ -168,12 +170,12 @@ class SignaturesController extends \App\Http\Controllers\AccountController
 					})
 					->encode($mimetype, 100) 	// encode file to the specified mimetype
 					->save( public_path( $filepath )	);
-			
+
 				$img->removeAttribute('src');
 				$img->setAttribute('src', asset($filepath));
 
 				$data['images'][] = public_path($filepath);
-			} 
+			}
 
 		}
 

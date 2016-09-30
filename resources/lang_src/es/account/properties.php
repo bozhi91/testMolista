@@ -39,6 +39,9 @@
 		'show_address' => 'Mostrar dirección',
 		'zipcode' => 'Código postal',
 		'construction_year' => 'Año de construcción',
+		'discount' => 'Descuento',
+		'price_before' => 'Precio anterior',
+		'discount_show' => 'Mostrar descuento',
 
 		'energy.certificate' => 'Certificado energético',
 		'energy.certificate.pending' => 'En trámite',
@@ -57,6 +60,7 @@
 		'tab.reports' => 'Reportes',
 		'tab.logs' => 'Logs',
 		'tab.seller' => 'Vendedor',
+		'tab.pdf' => 'PDF',
 
 		'country' => 'País',
 		'state' => 'Provincia',
@@ -137,6 +141,9 @@
 		'show.property.price.min' => 'Precio mínimo',
 		'show.property.price.min.help' => 'Corresponde al precio mínimo por el que el propietario estaría dispuesto a cerrar la transacción (vender, alquilar, etc)',
 		'show.property.commission' => 'Comisión',
+		'show.property.commission.fixed' => 'Comisión fija',
+		'show.property.commission.variable' => 'Comisión variable',
+		'show.property.commission.total' => 'Comisión total',
 
 		'show.property.comment.title' => 'Comentario',
 		'show.property.comment.button' => 'Guardar comentario',

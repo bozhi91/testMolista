@@ -34,7 +34,10 @@ class ResellersController extends Controller
 
 		$commissions = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
-		return view('resellers.index', compact('commissions'));
+		$comissions_currency = \App\Models\Currency::where('code', 'EUR')->first();
+		$comissions_currency->decimals = 2;
+
+		return view('resellers.index', compact('commissions', 'comissions_currency'));
 	}
 
 }

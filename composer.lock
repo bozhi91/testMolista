@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7b47c5a74812c8ee3b48ce74bf5fc3c7",
-    "content-hash": "3aa8616047474e70fa9fec6a6d452cfb",
+    "hash": "3669dd4a6150df266f787181bc6ec0dd",
+    "content-hash": "55c9d789814a59f3734dc83bb7c1d823",
     "packages": [
         {
             "name": "alexpechkarev/google-geocoder",
@@ -1120,6 +1120,39 @@
                 "views"
             ],
             "time": "2016-02-03 23:31:34"
+        },
+        {
+            "name": "incubout/heartbeats",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/incubout/heartbeats.git",
+                "reference": "7354ecbeea1387266611ee9523d74b5ce304f220"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/incubout/heartbeats/zipball/7354ecbeea1387266611ee9523d74b5ce304f220",
+                "reference": "7354ecbeea1387266611ee9523d74b5ce304f220",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Incubout\\Heartbeats\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Albert Miró",
+                    "email": "albert@incubout.com"
+                }
+            ],
+            "description": "Sends heartbeats to check things are working fine.",
+            "time": "2016-09-23 08:18:08"
         },
         {
             "name": "intervention/image",
@@ -2350,7 +2383,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jjriv/emogrifier/zipball/80da49c119415d0aaf0c4d3fa1c8b0c94c11485f",
+                "url": "https://api.github.com/repos/jjriv/emogrifier/zipball/27c6f4dc1e4039d5609950efab0c03a5428e965b",
                 "reference": "27c6f4dc1e4039d5609950efab0c03a5428e965b",
                 "shasum": ""
             },

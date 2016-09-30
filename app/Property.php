@@ -891,7 +891,7 @@ class Property extends TranslatableModel
 			'transfer',
 		];
 	}
-	static public function getModeOptions()
+	static public function getModeOptions($site_id=false)
 	{
 		$options = [];
 
@@ -899,6 +899,20 @@ class Property extends TranslatableModel
 		{
 			$options[$key] = trans("web/properties.mode.{$key}");
 		}
+
+		if ( $site_id )
+		{
+			$assigned = \App\Property::distinct()->select('mode')->where('site_id',$site_id)->lists('mode')->all();
+			foreach ($options as $key => $value)
+			{
+				if ( !in_array($key, $assigned) )
+				{
+					unset($options[$key]);
+				}
+			}
+		}
+
+		asort($options);
 
 		return $options;
 	}
@@ -935,10 +949,6 @@ class Property extends TranslatableModel
 			'state' => trans('web/properties.type.state'),
 			'farmhouse' => trans('web/properties.type.farmhouse'),
 		];
-
-
-
-
 
 		if ( $site_id )
 		{
@@ -982,19 +992,23 @@ class Property extends TranslatableModel
 		];
 
 		// Get custom ranges
-		$priceranges = \App\Site::find($site_id)->getGroupedPriceranges();
-		foreach ($ranges as $type => $data )
-		{
-			if ( $priceranges->$type->count() > 0 )
+		$site = \App\Site::find($site_id);
+
+		if ($site) {
+			$priceranges = $site->getGroupedPriceranges();
+			foreach ($ranges as $type => $data )
 			{
-				$ranges[$type] = [];
-				foreach ($priceranges->$type as $pricerange)
+				if ( $priceranges->$type->count() > 0 )
 				{
-					$key = implode('-', [
-						$pricerange->from ? $pricerange->from : 'less',
-						$pricerange->till ? $pricerange->till : 'more',
-					]);
-					$ranges[$type][$key] = $pricerange->title;
+					$ranges[$type] = [];
+					foreach ($priceranges->$type as $pricerange)
+					{
+						$key = implode('-', [
+							$pricerange->from ? $pricerange->from : 'less',
+							$pricerange->till ? $pricerange->till : 'more',
+						]);
+						$ranges[$type][$key] = $pricerange->title;
+					}
 				}
 			}
 		}

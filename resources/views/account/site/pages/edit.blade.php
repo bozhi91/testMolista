@@ -1,4 +1,6 @@
-@extends('layouts.account')
+@extends('layouts.account', [
+	'use_google_maps' => true,
+])
 
 @section('account_content')
 
@@ -36,23 +38,25 @@
 							<p>&nbsp</p>
 						@elseif ( $page->type == 'map' )
 							<div class="row">
-								<div class="col-xs-12 col-xs-4">
+								<div class="col-xs-12 col-sm-4 col-md-3">
 									<div class="form-group error-container">
 										{!! Form::label("configuration[map][lat]", Lang::get('account/site.pages.configuration.map.lat')) !!}
-										{!! Form::text("configuration[map][lat]", null, [ 'class'=>'form-control required number' ]) !!}
+										{!! Form::text("configuration[map][lat]", null, [ 'class'=>'input-lat form-control required number' ]) !!}
 									</div>
-								</div>
-								<div class="col-xs-12 col-xs-4">
 									<div class="form-group error-container">
 										{!! Form::label("configuration[map][lng]", Lang::get('account/site.pages.configuration.map.lng')) !!}
-										{!! Form::text("configuration[map][lng]", null, [ 'class'=>'form-control required number' ]) !!}
+										{!! Form::text("configuration[map][lng]", null, [ 'class'=>'input-lng form-control required number' ]) !!}
 									</div>
-								</div>
-								<div class="col-xs-12 col-xs-4">
 									<div class="form-group error-container">
 										{!! Form::label("configuration[map][zoom]", Lang::get('account/site.pages.configuration.map.zoom')) !!}
-										{!! Form::selectRange("configuration[map][zoom]", 0, 21, null, [ 'class'=>'form-control required number' ]) !!}
+										{!! Form::selectRange("configuration[map][zoom]", 0, 21, null, [ 'class'=>'input-zoom form-control required number' ]) !!}
 									</div>
+									<div class="form-group error-container">
+										<a href="#map-address-form" class="btn btn-md btn-block btn-default map-address-trigger">{{ Lang::get('account/site.pages.configuration.map.button') }}</a>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-8 col-md-9">
+									<div id="gmap" style="height: 300px;"></div>
 								</div>
 							</div>
 							<p>&nbsp</p>
@@ -144,7 +148,7 @@
 
 				<div class="text-right">
 					{!! print_goback_button( Lang::get('general.back'), [ 'class'=>'btn btn-default' ]) !!}
-					{!! Form::submit( Lang::get('general.continue'), [ 'class'=>'btn btn-primary']) !!}
+					{!! Form::button( Lang::get('general.continue'), [ 'type'=>'submit', 'class'=>'btn btn-primary']) !!}
 				</div>
 
 				<br />
@@ -153,12 +157,25 @@
 
 		{!! Form::close() !!}
 
+		{!! Form::open([ 'id'=>'map-address-form', 'class'=>'mfp-hide mfp-white-popup' ]) !!}
+			<div class="form-group">
+				{!! Form::label('address', Lang::get('account/site.pages.configuration.map.address')) !!}
+				<div class="error-container">
+					{!! Form::text('address', null, [ 'id'=>'address-input', 'class'=>'form-control required' ]) !!}
+				</div>
+				<div class="help-block">{{ Lang::get('account/site.pages.configuration.map.address.helper') }}</div>
+			</div>
+			<div class="text-right">
+				{!! Form::button( Lang::get('account/site.pages.configuration.map.geolocate'), [ 'type'=>'submit', 'class'=>'btn btn-sm btn-primary']) !!}
+			</div>
+		{!! Form::close() !!}
 
 	</div>
 
 	<script type="text/javascript">
 		ready_callbacks.push(function(){
 			var form = $('#edit-form');
+			var geocoder = new google.maps.Geocoder();
 
 			// Enable first language tab
 			form.find('.locale-tabs').each(function(){
@@ -198,6 +215,73 @@
 						}
 					}
 				});
+			});
+
+			var gmap = $('#gmap');
+			if ( gmap.length )
+			{
+				var mapLatLng = { 
+					lat: parseFloat( form.find('.input-lat').val() || {{ config('app.lat_default') }} ), 
+					lng: parseFloat( form.find('.input-lng').val() || {{ config('app.lng_default') }} )
+				};
+
+				var map = new google.maps.Map(document.getElementById('gmap'), {
+					zoom: parseInt( form.find('.input-zoom').val() ),
+					center: mapLatLng
+				});
+
+				var marker = new google.maps.Marker({
+					position: mapLatLng,
+					map: map,
+					draggable: true
+				});
+
+				marker.addListener('dragend',function(event) {
+					form.find('.input-lat').val( event.latLng.lat() );
+					form.find('.input-lng').val( event.latLng.lng() );
+				});
+
+				form.on('change', '.input-zoom', function(){
+					map.setZoom( parseInt( $(this).val() ) );
+				});
+
+				form.find('.map-address-trigger').magnificPopup({
+					type: 'inline',
+					preloader: false,
+					focus: '#address-input',
+					callbacks: {
+						beforeOpen: function() {
+							$('#address-input').val('');
+						}
+					}
+				});
+			}
+
+			$('#map-address-form').validate({
+				errorPlacement: function(error, element) {
+					element.closest('.error-container').append(error);
+				},
+				submitHandler: function(f) {
+					if ( gmap.length ) {
+						LOADING.show();
+						geocoder.geocode({
+							'address': $('#address-input').val()
+						}, function(results, status) {
+							LOADING.hide();
+							$.magnificPopup.close();
+							if (status === google.maps.GeocoderStatus.OK) {
+								map.setCenter( results[0].geometry.location );
+								marker.setPosition( results[0].geometry.location );
+								form.find('.input-lat').val( results[0].geometry.location.lat() );
+								form.find('.input-lng').val( results[0].geometry.location.lng() );
+							} else {
+								alertify.error("{{ print_js_string( Lang::get('account/properties.geolocate.error') ) }}"+status);
+							}
+						});
+					} else {
+						return false;
+					}
+				}
 			});
 
 		});

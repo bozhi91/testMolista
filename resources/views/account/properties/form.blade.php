@@ -92,6 +92,36 @@
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6">
+						<div class="form-group error-container">
+							{!! Form::hidden('currency', $infocurrency->code) !!}
+							{!! Form::label('price_before', Lang::get('account/properties.price_before')) !!}
+							<div class="input-group">
+								@if ( $infocurrency->position == 'before' )
+									<div class="input-group-addon">{{ $infocurrency->symbol }}</div>
+								@endif
+								{!! Form::text('price_before', null, [ 'class'=>'form-control number', 'min'=>'0' ]) !!}
+								@if ( $infocurrency->position == 'after' )
+									<div class="input-group-addon">{{ $infocurrency->symbol }}</div>
+								@endif
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-3">
+						<div class="form-group error-container">
+							{!! Form::label('discount', Lang::get('account/properties.discount')) !!}
+							<div class="input-group">
+								{!! Form::text('discount', null, [ 'class'=>'form-control', 'readonly' => 'readonly', 'max'=>'0' ]) !!}
+								<div class="input-group-addon">%</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-3">
+						<div class="form-group error-container">
+							{!! Form::label('discount_show', Lang::get('account/properties.discount_show')) !!}
+							{!! Form::select('discount_show', [ '' => '','0'=>Lang::get('general.no'), '1'=>Lang::get('general.yes') ], null, [ 'class'=>'form-control' ]) !!}
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6">
 				        <div class="form-group error-container">
 				            {!! Form::label('details[expenses]', Lang::get('account/properties.expenses')) !!}
 				            <div class="input-group">
@@ -671,6 +701,19 @@
 		});
 
 		property_geocoder = new google.maps.Geocoder();
+
+		// Discount
+		form.find('[name="price"],[name="price_before"]').keyup(function(){
+			var price = form.find('[name="price"]').val();
+			if (isNaN(price)) price = 0;
+			var price_before = form.find('[name="price_before"]').val();
+			if (isNaN(price_before)) price_before = 0;
+			var discount  = 0;
+			if (price_before > 0)  discount = (price_before - price) * 100 / price_before;
+			if (isNaN(discount)) discount = 0;
+
+			form.find('[name="discount"]').val(Math.ceil(discount) * -1);
+		}).keyup();
 
 		// Enable map when opening tab
 		form.find('.main-tabs a[href="#tab-location"]').on('shown.bs.tab', function (e) {

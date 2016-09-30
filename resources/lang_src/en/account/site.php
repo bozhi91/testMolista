@@ -178,6 +178,10 @@
 		'pages.configuration.map.lat' => 'Latitude',
 		'pages.configuration.map.lng' => 'Longitude',
 		'pages.configuration.map.zoom' => 'Zoom level',
+		'pages.configuration.map.button' => 'Address search',
+		'pages.configuration.map.address' => 'Address',
+		'pages.configuration.map.address.helper' => 'Street, Zipcode, City, Country',
+		'pages.configuration.map.geolocate' => 'Geolocate',
 
 		'pages.create.success' => 'The page was successfully created',
 		'pages.update.success' => 'The page was successfully updated',

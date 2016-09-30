@@ -109,6 +109,12 @@ Route::group([
 			Route::get('geography/countries/check/{type}', 'Admin\Geography\CountriesController@getCheck');
 			Route::resource('geography/countries', 'Admin\Geography\CountriesController');
 		});
+		// Plan expirations
+		Route::group([
+			'middleware' => [ 'permission:reports-*' ]
+		], function() {
+			Route::controller('reports/themes', 'Admin\Reports\ThemesController');
+		});
 		// Error log
 		Route::get('errorlog', [
 			'middleware' => ['role:admin'],
@@ -175,8 +181,9 @@ Route::group([
 			'auth.account',
 		],
 	], function() {
-		Route::get('/', 'AccountController@index');
-		Route::post('/', 'AccountController@updateProfile');
+		Route::get('/', 'Account\ReportsController@getIndex');
+		Route::get('profile', 'AccountController@index');
+		Route::post('profile', 'AccountController@updateProfile');
 		Route::controller('profile/signatures', 'Account\Profile\SignaturesController');
 		Route::controller('profile/email-accounts', 'Account\Profile\AccountsController');
 		Route::group([
@@ -219,6 +226,7 @@ Route::group([
 		Route::get('properties/homeslider/{slug}', 'Account\PropertiesController@getChangeHomeSlider');
 		Route::get('properties/highlight/{slug}', 'Account\PropertiesController@getChangeHighlight');
 		Route::get('properties/status/{slug}', 'Account\PropertiesController@getChangeStatus');
+		Route::get('properties/{slug}/property-{locale}.pdf', 'Account\PropertiesController@download');
 		Route::resource('properties', 'Account\PropertiesController');
 		// Employees
 		Route::get('employees/tickets/{email}', 'Account\EmployeesController@getTickets');
@@ -245,20 +253,23 @@ Route::group([
 		Route::controller('tickets', 'Account\TicketsController');
 		// Calendar
 		Route::controller('calendar', 'Account\Calendar\BaseController');
+
 		// Reports
 		Route::group([
-			'prefix' => 'reports',
 			'middleware' => [
 				'role:company',
 			],
 		], function() {
 			// Properties
-			Route::controller('properties', 'Account\Reports\PropertiesController');
+			Route::controller('reports/properties', 'Account\Reports\PropertiesController');
 			// Agents
-			Route::controller('agents', 'Account\Reports\AgentsController');
+			Route::controller('reports/agents', 'Account\Reports\AgentsController');
 			// Leads
-			Route::controller('leads', 'Account\Reports\LeadsController');
+			Route::controller('reports/leads', 'Account\Reports\LeadsController');
 		});
+		// Reports home
+		Route::controller('reports', 'Account\ReportsController');
+
 		// Site configuration
 		Route::group([
 			'prefix' => 'site',

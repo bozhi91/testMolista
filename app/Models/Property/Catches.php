@@ -47,9 +47,14 @@ class Catches extends Model
 		return empty($fullname) ? false : implode(' ', $fullname);
 	}
 
-	public function getCommissionEarnedAttribute()
+	public function getCommissionVariableAttribute()
 	{
 		return @floatval( $this->price_sold * $this->commission / 100 );
+	}
+
+	public function getCommissionEarnedAttribute()
+	{
+		return $this->commission_fixed + $this->commission_variable;
 	}
 
 	// Total customers associated to this property

@@ -14,6 +14,16 @@
 		'rent' => 'Rent',
 		'transfer' => 'Transfer',
 
+		'abstract.properties.title' => 'Properties',
+		'abstract.properties.total.active' => 'Number of active properties',
+		'abstract.properties.total.sale.price' => 'Total value of selling properties',
+		'abstract.properties.top' => 'Top 10 properties',
+		'abstract.leads.title' => 'Leads',
+		'abstract.leads.total' => 'Number of active leads',
+		'abstract.leads.since' => 'New leads since last login',
+		'abstract.tickets.title' => 'Tickets',
+		'abstract.tickets.open' => 'Number of open tickets',
+
 		'published' => 'Published properties',
 		'transactions' => 'Transactions',
 		'price' => 'Average price',
