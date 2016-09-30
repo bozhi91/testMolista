@@ -47,7 +47,7 @@ class Yaencontre extends \App\Marketplaces\XML {
 	}
 
 	/**
-	 * Will map single property 
+	 * Will map single property
 	 * @param array $p
 	 */
 	private function mapProperty(array $p) {
@@ -68,7 +68,7 @@ class Yaencontre extends \App\Marketplaces\XML {
 	 * Put properties into categories (array keys):
 	 * - referencias
 	 * - promociones
-	 * 
+	 *
 	 * @param array $properties
 	 * @return array
 	 */
@@ -93,6 +93,15 @@ class Yaencontre extends \App\Marketplaces\XML {
 	 */
 	public function getAttributes() {
 		return (new AttributesHandler())->getAttributes();
+	}
+
+	public function getFeedUrl()
+	{
+		if (!empty($this->config['oficina'])) {
+			return $this->config['oficina'].'.xml';
+		}
+
+		return null;
 	}
 
 }

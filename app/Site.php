@@ -324,10 +324,30 @@ class Site extends TranslatableModel
 	}
 	public function getXmlFeedUrl($marketplace,$type)
 	{
-		if ( !$this->main_url )
+		if (!$this->main_url)
 		{
 			return false;
 		}
+
+        if ($type == 'properties') {
+            $adm = \App\Models\Marketplace::where('code', $marketplace)->where('enabled', 1)->first();
+            if ($adm) {
+                $helper = $this->MarketplaceHelper;
+                $helper->setMarketplace($adm);
+
+                $url = $helper->getMarketplaceAdm()->getFeedUrl();
+            }
+        }
+
+        if (!empty($url)) {
+            return implode('/',[
+    			rtrim($this->main_url, '/'),
+    			'feeds',
+    			$type,
+                $marketplace,
+    			$url
+    		]);
+        }
 
 		return implode('/',[
 			rtrim($this->main_url, '/'),

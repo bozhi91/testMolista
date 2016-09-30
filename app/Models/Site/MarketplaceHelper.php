@@ -274,7 +274,6 @@ class MarketplaceHelper
 
 	public function setMarketplace($marketplace)
 	{
-
 		// Marketplace without pivot data
 		if ( !isset($marketplace->pivot->marketplace_configuration) )
 		{
