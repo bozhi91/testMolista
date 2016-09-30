@@ -95,7 +95,7 @@
 
 				@if ( $items->count() )
 					<h3>New contracts by location</h3>
-					<div id="sites-map" style="height: 400px; margin-bottom: 10px;"></div>
+					<div id="sites-map" style="height: 700px; margin-bottom: 10px;"></div>
 					<ul class="list-inline">
 						<li><img src="{{ asset('images/admin/markers/paid.png') }}" alt="" /></li>
 						<li>Paid plan</li>
