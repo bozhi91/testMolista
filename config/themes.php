@@ -173,6 +173,16 @@ return [
 			'gmaps-circle'	=> '#efb817',
 		],
 
+		'sam' => [
+			'title'			=> 'Sam',
+			'public'		=> true,
+			'custom'		=> false,
+			'extends'	 	=> 'default',
+			'views-path' 	=> 'themes/sam',
+			'asset-path' 	=> 'themes/sam',
+			'gmaps-circle'	=> '#1396e2',
+		],
+
 		// Add your themes here...
 
 		/*--------------[ Example Structre ]-------------
