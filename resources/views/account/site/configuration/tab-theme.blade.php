@@ -60,13 +60,7 @@
 						@endif
 						<div class="col-xs-12 col-sm-4">
 							<div class="theme-pill">
-								<label class="theme-pill-label" style="background-image: url('{{ asset("images/themes/{$def['theme']}/previews/home.jpg") }}');">
-									<div class="theme-pill-label-bg"></div>
-									<div class="theme-pill-label-text">
-										<span>{{ Lang::get('account/site.configuration.theme.install') }}</span>
-									</div>
-									{!! Form::radio('theme', $def['theme'], null, [ 'class'=>'theme-radio-input required', 'style'=>'opacity: 0;' ]) !!}
-								</label>
+								<div class="theme-pill-preview" style="background-image: url('{{ asset("images/themes/{$def['theme']}/previews/home.jpg") }}');"></div>
 								<div class="theme-pill-title">{{ empty($def['title']) ? ucfirst($def['theme']) : $def['title'] }}</div>
 								<ul class="list-inline theme-pill-previews">
 									<li>
@@ -82,6 +76,12 @@
 										</a>
 									</li>
 								</ul>
+								<div class="theme-pill-button">
+									<label class="btn btn-primary">
+										{!! Form::radio('theme', $def['theme'], null, [ 'class'=>'theme-radio-input required', 'style'=>'opacity: 0; display: none;' ]) !!}
+										{{ Lang::get('account/site.configuration.theme.install') }}
+									</label>
+								</div>
 							</div>
 						</div>
 					@endforeach
