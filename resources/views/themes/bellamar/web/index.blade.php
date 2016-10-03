@@ -76,8 +76,6 @@
 				</div>
 			@endif
 
-		@endif
-
 		<div class="container">
 			<div class="quick-search-area search-area {{ $highlighted->count() ? 'under-properties' : '' }}">
 				<div class="row">
@@ -136,6 +134,8 @@
 				</div>
 			</div>
 		</div>
+
+		@endif
 
 	</div>
 
