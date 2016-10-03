@@ -278,7 +278,7 @@ class MarketplaceHelper
 		if ( !isset($marketplace->pivot->marketplace_configuration) )
 		{
 			// Create marketplace from site
-			$marketplace = $this->site->marketplaces()->find($marketplace->id);
+			$marketplace_site = $this->site->marketplaces()->find($marketplace->id);
 			if ($marketplace_site) {
 				$marketplace = $marketplace_site;
 			}
