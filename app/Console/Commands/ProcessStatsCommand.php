@@ -220,17 +220,17 @@ class ProcessStatsCommand extends Command
 				case 'sale':
 					$stats[$property->site_id]['current_sale']++;
 					$stats[$property->site_id]['current_sale_price'] =  ( $sale_price_total + $property->price ) / $stats[$property->site_id]['current_sale'];
-					$stats[$property->site_id]['current_sale_sqm'] = ( $sale_sqm_total + ($property->price / $property->size) ) / $stats[$property->site_id]['current_sale'];
+					$stats[$property->site_id]['current_sale_sqm'] = ( $sale_sqm_total + ($property->size > 0 ? $property->price / $property->size : 0) ) / $stats[$property->site_id]['current_sale'];
 					break;
 				case 'rent':
 					$stats[$property->site_id]['current_rent']++;
 					$stats[$property->site_id]['current_rent_price'] =  ( $rent_price_total + $property->price ) / $stats[$property->site_id]['current_rent'];
-					$stats[$property->site_id]['current_rent_sqm'] = ( $rent_sqm_total + ($property->price / $property->size) ) / $stats[$property->site_id]['current_rent'];
+					$stats[$property->site_id]['current_rent_sqm'] = ( $rent_sqm_total + ($property->size > 0 ? $property->price / $property->size : 0) ) / $stats[$property->site_id]['current_rent'];
 					break;
 				case 'transfer':
 					$stats[$property->site_id]['current_transfer']++;
 					$stats[$property->site_id]['current_transfer_price'] =  ( $transfer_price_total + $property->price ) / $stats[$property->site_id]['current_transfer'];
-					$stats[$property->site_id]['current_transfer_sqm'] = ( $transfer_sqm_total + ($property->price / $property->size) ) / $stats[$property->site_id]['current_transfer'];
+					$stats[$property->site_id]['current_transfer_sqm'] = ( $transfer_sqm_total + ($property->size > 0 ? $property->price / $property->size : 0) ) / $stats[$property->site_id]['current_transfer'];
 					break;
 			}
 		}
