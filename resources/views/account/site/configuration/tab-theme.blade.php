@@ -15,6 +15,7 @@
 	}
 
 	ksort($themes);
+	$themes = array_values($themes);
 
 	if ( $theme_current )
 	{
