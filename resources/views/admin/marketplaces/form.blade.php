@@ -141,11 +141,26 @@
 						{!! Form::label('upload_type', Lang::get('admin/marketplaces.upload_type')) !!}
 						{!! Form::select('upload_type', [
 							'url' => 'URL',
+							'url_single' => 'Unified URL',
 							'ftp' => 'FTP',
 						], null, [ 'class'=>'form-control' ]) !!}
 					</div>
 				</div>
 			</div>
+
+			@if ($item)
+			<div class="upload-type upload-type-url_single">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="form-group error-container">
+							{!! Form::label('url_single_url', 'URL') !!}
+							{!! Form::text('url_single_url', action('Web\FeedsController@unifiedFeed', [$item->code, $item->integration_secret]), [ 'class'=>'form-control', 'readonly' => 'readonly' ]) !!}
+						</div>
+					</div>
+				</div>
+			</div>
+			@endif
+
 			<div class="upload-type upload-type-ftp">
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
