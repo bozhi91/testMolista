@@ -72,23 +72,25 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 	}
 
 	public function postUpdate($id)
-	{
+	{		
 		$widget = $this->site->widgets()->find($id);
 		if ( !$widget )
 		{
 			return [ 'error'=>true ];
 		}
 
-		$data = $this->request->input("items.{$id}");
+		$allData = $this->request->all();		
+		$data = $allData['items'][$id];
+		
 		if ( !$data || !is_array($data) )
 		{
 			return [ 'error'=>true ];
 		}
-
+		
 		$fields = [
 			'title' => 'required|array',
 		];
-
+		
 		switch ( $widget->type )
 		{
 			case 'menu':
@@ -96,6 +98,10 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 				break;
 			case 'text':
 				$fields['content'] = 'required|array';
+				break;
+			case 'awesome-link':
+				$fields['content'] = 'required|array';
+				$fields['file'] = 'image|max:2048';
 				break;
 		}
 
@@ -113,7 +119,7 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 		{
 			$widget->translateOrNew($locale)->title = @sanitize( $data['title'][$locale] );
 		}
-
+				
 		// Save type related data
 		switch ( $widget->type )
 		{
@@ -125,6 +131,26 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 				{
 					$widget->translateOrNew($locale)->content = @sanitize( $data['content'][$locale] );
 				}
+				break;
+			case 'awesome-link':
+				foreach (\App\Session\Site::get('locales_tabs') as $locale => $locale_name)
+				{
+					$widget->translateOrNew($locale)->content = @sanitize( $data['content'][$locale] );
+				}
+				
+				$widgetData = $widget->data;
+				$widgetData['color'] = $data['label_color'];
+				
+				if(!empty($data['file'])) {
+					if(!empty($widgetData['image'])){
+						$currentFile = public_path($widgetData['image']);
+						unlink($currentFile);
+					}
+					
+					$widgetData['image'] = $this->upload($data['file'], $widget->id);
+				}
+								
+				$widget->data = $widgetData;
 				break;
 		}
 
@@ -143,7 +169,15 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 		{
 			return [ 'error'=>true ];
 		}
-
+		
+		$widgetDir = 'sites/' . $this->site->id . '/widgets/' . $id;
+		$widgetDirPath = public_path($widgetDir);
+		if (is_dir($widgetDirPath)) {
+			array_map('unlink', glob("$widgetDirPath/*.*"));
+			rmdir($widgetDirPath);
+		}
+		
+		
 		$widget->delete();
 
 		// Update site setup
@@ -186,4 +220,24 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 		return [ 'success'=>true ];
 	}
 
+	/**
+	 * Upload widget image
+	 * @return string|null
+	 */
+	public function upload($file, $id) {		
+		$dir = 'sites/' . $this->site->id .'/widgets/'  . $id;
+		$dirpath = public_path($dir);
+		
+		// If the uploads fail due to file system, you can try doing public_path().'/uploads'
+		$filename = $ofilename = preg_replace('#[^a-z0-9\.]#', '', strtolower($file->getClientOriginalName()));
+		while (file_exists("{$dirpath}/{$filename}")) {
+			$filename = uniqid() . "_{$ofilename}";
+		}
+		
+		$upload_success = $file->move($dirpath, $filename);
+		if ($upload_success) {
+			return "/{$dir}/{$filename}";
+		}
+	}
+	
 }

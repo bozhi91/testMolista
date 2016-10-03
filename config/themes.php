@@ -68,6 +68,9 @@ return [
 										'accept' => 'menu',
 										'max' => 1,
 									],
+									'home' => [
+										'accept' => 'awesome-link',
+									],
 									'footer' => [
 									],
 								],

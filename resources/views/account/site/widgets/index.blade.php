@@ -74,13 +74,14 @@
 						errorPlacement: function(error, element) {
 							element.closest('.error-container').append(error);
 						},
-						submitHandler: function(f) {
+						submitHandler: function(f) {							
 							LOADING.show();
 							$.ajax({
 								method: 'POST',
-								dataType: 'json',
 								url: form.attr('action'),
-								data: form.serialize(),
+								data: new FormData(form[0]),
+								processData: false,
+								contentType: false,
 								success: function(data) {
 									LOADING.hide();
 									if ( data.success ) {
@@ -104,7 +105,25 @@
 							});
 						}
 					});
+					
+					form.find('.label-color-input').each(function(){
+						var el = $(this);
+						var target = form.find('.label-color-hidden');
 
+						if ( !target.val() ) {
+							target.val('s');
+						}
+
+						el.spectrum({
+							color: target.val(),
+							move: function(color) {
+								el.spectrum('toggle');
+								target.val( color.toHexString() );
+								form.find('.label-color-input').spectrum("set", color);
+							}
+						});
+					});
+					
 				});
 			}
 
