@@ -10,7 +10,7 @@
 		}
 		elseif ( @$def['public'] || $theme == $site->custom_theme )
 		{
-			$themes[] = $def;
+			$themes[$theme] = $def;
 		}
 	}
 
