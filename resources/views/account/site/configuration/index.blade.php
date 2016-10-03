@@ -2,9 +2,6 @@
 
 @section('account_content')
 
-<?php
-$current_tab = 'theme';
-?>
 	<div class="site-configuration">
 
 	 	@include('common.messages', [ 'dismissible'=>true ])
