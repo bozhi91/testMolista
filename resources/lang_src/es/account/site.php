@@ -190,7 +190,7 @@
 
 		'sliders.tab.general' => 'Contenido',
 		'sliders.column.title' => 'Título',
-		'sliders.column.languages' => 'Lenguajes',
+		'sliders.column.languages' => 'Idiomas',
 		'sliders.select.alllanguages' => 'Todos',
 		'sliders.label.title' => 'Título',
 		'sliders.label.languages' => 'Idiomas',
