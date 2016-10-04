@@ -319,7 +319,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 	}
 
 	public function update(Request $request, $slug)
-	{
+	{						
 		// Get property
 		$query = $this->site->properties()
 						->whereTranslation('slug', $slug)
@@ -839,6 +839,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		$position = 0;
 		$preserve = [];
 
+		$rotation = $this->request->input('rotation');
+		
 		// Update images position
 		if ( $this->request->input('images') ) {
 			foreach ($this->request->input('images') as $image_id)
@@ -878,17 +880,34 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 						continue;
 					}
 
+					$newlocation = "{$dirpath}/{$filename}";
+					
 					// Move image to permanent location
-					rename($filepath, "{$dirpath}/{$filename}");
-
+					rename($filepath, $newlocation);
+										
+					//rotate image if necessary
+					if(!empty($rotation[$image_id])){
+						$degree = -(int)$rotation[$image_id];
+						\Image::make($newlocation)->rotate($degree)->save($newlocation);
+					}
+					
 					// Preserve
 					$preserve[] = $new_image->id;
 				}
 				// Old image
 				else
 				{
+					$image = $property->images()->find($image_id);
+					
+					//rotate image if necessary
+					if(!empty($rotation[$image_id])){
+						$path = public_path("sites/{$property->site_id}/properties/{$property->id}/{$image->image}");
+						$degree = -(int)$rotation[$image_id];
+						\Image::make($path)->rotate($degree)->save($path);
+					}
+					
 					// Update position
-					$property->images()->find($image_id)->update([
+					$image->update([
 						'default' => 0,
 						'position' => $position
 					]);
