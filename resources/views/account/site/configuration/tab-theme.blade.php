@@ -47,8 +47,8 @@
 				<div class="row">
 					@foreach ($themes as $key => $def)
 						@if ( $key > 0 && $key%$themes_per_page == 0 )
-							<?php 
-								$themes_pages_counter++; 
+							<?php
+								$themes_pages_counter++;
 								$themes_pages_from = $themes_pages_counter * $themes_per_page + 1;
 								$themes_pages_to = $themes_pages_counter * $themes_per_page + $themes_per_page;
 								if ( $themes_pages_to > $themes_total )
@@ -61,7 +61,7 @@
 						@endif
 						<div class="col-xs-12 col-sm-4">
 							<div class="theme-pill">
-								<div class="theme-pill-preview" style="background-image: url('{{ asset("images/themes/{$def['theme']}/previews/home.jpg") }}');"></div>
+								<div class="theme-pill-preview" style="background-image: url('{{ asset("images/themes/{$def['theme']}/previews/home-small.jpg") }}');"></div>
 								<div class="theme-pill-title">{{ empty($def['title']) ? ucfirst($def['theme']) : $def['title'] }}</div>
 								<ul class="list-inline theme-pill-previews">
 									<li>
