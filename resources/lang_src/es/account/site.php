@@ -125,7 +125,7 @@
 		'widgets.group.header' => 'Page header',
 		'widgets.group.footer' => 'Page footer',
 		'widgets.group.home' => 'Page home',
-		
+
 		'widgets.type.menu' => 'Menú personalizado',
 		'widgets.type.menu.info' => 'Añada uno de sus menúes personalizados como widget.',
 		'widgets.type.menu.select' => 'Seleccionar menú',
@@ -135,7 +135,7 @@
 		'widgets.type.slider' => 'Slider',
 		'widgets.type.slider.info' => 'Añada un slider para tu página de início.',
 		'widgets.type.slider.select' => 'Seleccionar slider',
-		
+
 		'widgets.messages.created' => 'El widget se ha creado correctamente',
 		'widgets.messages.updated' => 'El widget se ha guardado correctamente',
 		'widgets.messages.delete.warning' => '¿Confirma que desea eliminar este elemento?',
@@ -184,29 +184,29 @@
 		'sliders.h1' => 'Sliders',
 		'sliders.empty' => 'No se encontraron sliders',
 		'sliders.button.new' => 'Crear slider',
-		
+
 		'sliders.create.title' => 'Crear slider',
 		'sliders.edit.title' => 'Editar slider',
-		
+
 		'sliders.tab.general' => 'Contenido',
 		'sliders.column.title' => 'Título',
 		'sliders.column.languages' => 'Lenguajes',
 		'sliders.select.alllanguages' => 'Todos',
 		'sliders.label.title' => 'Título',
-		'sliders.label.languages' => 'Lenguajes',
-		'sliders.label.link' => 'Enlaçe',
-		
+		'sliders.label.languages' => 'Idiomas',
+		'sliders.label.link' => 'Enlace',
+
 		'sliders.general.sliders' => 'Slides',
 		'sliders.general.empty' => 'El slider no tiene imágenes',
 		'sliders.upload' => 'Subir slides',
-		
+
 		'sliders.update.success' => 'El slider se ha guardado correctamente',
 		'sliders.create.success' => 'El slider se ha creado correctamente',
 		'sliders.deleted.success' => 'El slider se ha eliminado correctamente',
-		
+
 		'sliders.delete.warning' => '¿Confirma que desea eliminar este slider?',
 
-		
+
 		'domainname.h1' => 'Nombre de dominio',
 		'domainname.domain' => 'Dominio',
 		'domainname.domain.helper' => '<p>El nombre de dominio no lo da Molista. Debes comprarlo previamente en cualquiera de las empresas dedicadas a vender nombres de dominio.</p>
