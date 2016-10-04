@@ -223,3 +223,37 @@
 	.comments { margin-bottom: 20px; }
 	.details { margin-bottom: 20px; }
 }
+
+
+@themePillBorderColor: #e5e5e5;
+@themePillBorderColorCurrent: #212121;
+
+#theme-carousel {
+	.theme-pill { 
+		margin: 20px 0px; padding-bottom: 10px; border: 1px solid @themePillBorderColor; color: #212121;
+		.theme-pill-preview { height: 200px; background: center top no-repeat; background-size: cover; border-bottom: 1px solid @themePillBorderColor; margin: 0px; }
+		.theme-pill-title { padding: 10px; font-size: 16px; .lato; font-weight: 700; }
+		.theme-pill-previews { 
+			margin: 0px 10px; 
+			a {
+				text-decoration: none; font-size: 14px; color: #dcdcdc;
+				.glyphicon { font-size: 12px; }
+				&:hover { color: #212121; }
+			}
+		}
+		.theme-pill-button { padding: 15px 10px 0px 10px; }
+
+		&.current { 
+			border-color: @themePillBorderColorCurrent;
+			.theme-pill-label { border-color: @themePillBorderColorCurrent; }
+		}
+	}
+	.theme-pages {
+		li { 
+			cursor: pointer; background: #dcd9d9; font-size: 13.5px; .lato; color: #fff; line-height: 38px; min-width: 38px; text-align: center; border-radius: 50%;
+			&.theme-pages-number { padding-left: 10px; padding-right: 10px; }
+			&:hover, &.active { background: #888787; }
+		}
+	}
+	.theme-banner { padding-top: 50px; }
+}
