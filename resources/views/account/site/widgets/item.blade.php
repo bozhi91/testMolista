@@ -48,7 +48,7 @@
 								@if($type == 'awesome-link')
 									<div class="form-group error-container">
 										{!! Form::label("{$item_key}[content][{$locale}]", Lang::get("account/site.widgets.type.awesome-link.link")) !!}
-										{!! Form::text("{$item_key}[content][{$locale}]", @$item->i18n['content'][$locale], [ 'class'=>'form-control required' ]) !!}
+										{!! Form::text("{$item_key}[content][{$locale}]", @$item->i18n['content'][$locale], [ 'class'=>'form-control '.(($type == 'custom' && $locale == fallback_lang()) ? 'required' : '') ]) !!}
 									</div>
 								@endif
 								

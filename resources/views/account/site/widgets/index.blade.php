@@ -63,7 +63,7 @@
 			function initForms() {
 				cont.find('.widget-form').each(function(){
 					var form = $(this);
-
+						
 					if ( form.hasClass('initialized') )
 					{
 						return true;
@@ -74,7 +74,7 @@
 						errorPlacement: function(error, element) {
 							element.closest('.error-container').append(error);
 						},
-						submitHandler: function(f) {							
+						submitHandler: function(f) {
 							LOADING.show();
 							$.ajax({
 								method: 'POST',
