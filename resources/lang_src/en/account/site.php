@@ -126,6 +126,7 @@
 		'widgets.group.header' => 'Page header',
 		'widgets.group.footer' => 'Page footer',
 		'widgets.group.home' => 'Page home',
+		'widgets.group.home-footer' => 'Home footer',
 
 		'widgets.type.menu' => 'Custom menu',
 		'widgets.type.menu.info' => 'Add one of your custom menus as a widget.',
