@@ -55,6 +55,13 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			$query->whereTranslationLike('title', "%{$this->request->input('title')}%");
 		}
 
+		// Filter by address
+		if ( $this->request->input('address') )
+		{
+			$clean_filters = true;
+			$query->where('properties.address', 'LIKE', "%{$this->request->input('address')}%");
+		}
+
 		// Filter by highlighted
 		if ( $this->request->input('highlighted') )
 		{
@@ -266,19 +273,19 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		$property = $this->site->properties()->enabled()
 					->whereTranslation('slug', $slug)
 					->first();
-						
+
 		if ( !$property )
 		{
 			abort(404);
 		}
 
 		$filepath = $property->getPdfFile( $locale );
-		
+
 		return response()->download($filepath, "property-{$locale}.pdf", [
 			'Content-Type: application/pdf',
 		]);
 	}
-	
+
 	public function edit($slug)
 	{
 		$query = $this->site->properties()
