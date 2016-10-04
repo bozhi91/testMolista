@@ -11,6 +11,7 @@
 		'limit' => 'Limit',
 		'all' => 'Export all',
 		'exported' => 'Exported',
+		'exported_info' => 'It shows the properties that will be send to the export platform. If the property is published or not it depends on the external platform rules. You can check if a property meet the platform rules on the edit section of the property.',
 		'updated' => 'Last updated',
 		'country' => 'Country',
 
