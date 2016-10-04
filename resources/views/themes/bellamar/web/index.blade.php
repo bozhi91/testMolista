@@ -106,7 +106,7 @@
 						<div class="row">
 							@if ($awesomeLinks)
 								@foreach ($awesomeLinks as $linkWidget)
-									<div class="col-xs-12 col-sm-6 hidden-xs">
+									<div class="col-xs-12 col-sm-6">
 										@include('common.widget-awesome-link', ['widget' => $linkWidget])
 									</div>
 								@endforeach
