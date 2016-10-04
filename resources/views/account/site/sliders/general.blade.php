@@ -10,7 +10,7 @@
 	<div class="col-xs-12 col-sm-6">
 		<div class="form-group error-container">
 			{!! Form::label('languages', Lang::get('account/site.sliders.label.languages')) !!}
-			{!! Form::select('languages[]', $languages, isset($languagesCurrent) ? $languagesCurrent : null, [
+			{!! Form::select('languages[]', $languages, isset($languagesCurrent) ? $languagesCurrent : 0, [
 			'class'=>'form-control has-select-2 required', 
 			'multiple' => 'multiple',
 			]) !!}
