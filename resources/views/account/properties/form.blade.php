@@ -866,6 +866,31 @@
 			});
 		});
 
+		form.on('click', '.image-rotate-trigger', function(e){
+			e.preventDefault();
+			
+			var el = $(this);
+			var thumb = el.closest('.handler').find('.thumb');
+			var input = el.parent().find('.rotation-hidden-input');
+			var degree = input.val();
+			
+			if(!degree) {
+				thumb.addClass('rotated-90');
+				input.val('90');
+			} else if(degree == '90') {
+				thumb.removeClass('rotated-90');
+				thumb.addClass('rotated-180');
+				input.val('180');
+			} else if(degree == '180') {
+				thumb.removeClass('rotated-180');
+				thumb.addClass('rotated-270');
+				input.val('270');
+			} else if(degree == '270') {
+				thumb.removeClass('rotated-270');
+				input.val('');
+			}
+		});
+
 		// Translations
 		var translation_flag_fields = '.title-input, .description-input';
 
