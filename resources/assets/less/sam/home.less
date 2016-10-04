@@ -22,39 +22,40 @@
 /* ########## Search Home Top ########## */
 @media (min-width: 768px) {
 	#home-top-search {
+
 		.relative {
-			position: relative;
+			position: static;
+		}
 
-			.home-top-inner {
-				position: absolute; z-index: 1; width: 100%; background: rgba(0,0,0,0.4); padding-top: 10px; padding-bottom: 10px;
+		.home-top-inner {
+			z-index: 1; width: 100%; background: @searchBarBackground; padding-top: 10px; padding-bottom: 10px;
 
-				.nav.navbar-nav {
-					float: none; text-align: center;
+			.nav.navbar-nav {
+				float: none; text-align: center;
 
-					li {
-						display: inline-block; float: none; height: 40px;
+				li {
+					display: inline-block; float: none; height: 40px;
 
-						a {
-							padding: 10px 15px; background-color: @white; color: @gray;
+					a {
+						padding: 10px 15px; background-color: @white; color: @gray;
 
-							&:hover { background-color: @gray; color: @white; opacity: 0.8; }
-						}
-
-						input, select, button, a { height: 100%; border-radius: 0px;}
-
-						button {
-							padding: 8px 13px; background-color: @yellow; border-color: transparent;
-
-							i {font-size: 19px;}
-							&:hover { background-color: @yellowHover;}
-						}
-
-						select.form-control.has-placeholder {
-						    max-width: 130px;
-						}
-
-						.form-control:focus { border-color: @yellow; }
+						&:hover { background-color: @gray; color: @white; opacity: 0.8; }
 					}
+
+					input, select, button, a { height: 100%; border-radius: 0px;}
+
+					button {
+						padding: 8px 13px; background-color: @yellow; border-color: transparent;
+
+						i {font-size: 19px;}
+						&:hover { background-color: @yellowHover;}
+					}
+
+					select.form-control.has-placeholder {
+					    max-width: 130px;
+					}
+
+					.form-control:focus { border-color: @yellow; }
 				}
 			}
 		}
