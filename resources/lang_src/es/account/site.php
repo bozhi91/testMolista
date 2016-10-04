@@ -132,6 +132,13 @@
 		'widgets.type.text.info' => 'Añada un bloque de texto como widget.',
 		'widgets.type.text.content' => 'Texto',
 
+		'widgets.type.awesome-link' => 'Link personalizado',
+		'widgets.type.awesome-link.info' => 'Añada multiples links personalizados a tu página principal.',
+		'widgets.type.awesome-link.color' => 'Color',
+		'widgets.type.awesome-link.link' => 'Enlace',
+		'widgets.type.awesome-link.file' => 'Imagen',
+		'widgets.type.awesome-link.help' => 'Imagen tiene que tener el tamaño máximo de 100x100 pixels',
+		
 		'widgets.messages.created' => 'El widget se ha creado correctamente',
 		'widgets.messages.updated' => 'El widget se ha guardado correctamente',
 		'widgets.messages.delete.warning' => '¿Confirma que desea eliminar este elemento?',

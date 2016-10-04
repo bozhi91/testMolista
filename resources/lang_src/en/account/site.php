@@ -133,6 +133,14 @@
 		'widgets.type.text.info' => 'Add one block of text as a widget.',
 		'widgets.type.text.content' => 'Text',
 
+		'widgets.type.awesome-link' => 'Custom link',
+		'widgets.type.awesome-link.info' => 'Add multiples custom links to your home page.',
+		'widgets.type.awesome-link.color' => 'Color',
+		'widgets.type.awesome-link.link' => 'Link',
+		'widgets.type.awesome-link.file' => 'Image',
+		'widgets.type.awesome-link.help' => 'Image must have 100x100 pixels max size',
+		
+		
 		'widgets.messages.created' => 'The widget was successfully created',
 		'widgets.messages.updated' => 'The widget was successfully updated',
 		'widgets.messages.delete.warning' => 'Are you sure you want to remove this element?',
