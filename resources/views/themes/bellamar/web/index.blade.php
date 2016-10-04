@@ -81,7 +81,7 @@
 		<div class="container">
 			<div class="quick-search-area search-area {{ $highlighted->count() ? 'under-properties' : '' }}">
 				<div class="row">
-					<div class="col-xs-12 col-sm-8">
+					<div class="col-xs-12 col-sm-12 col-md-8">
 						<h2>{{ Lang::get('web/home.categories') }}</h2>
 						<div class="row">
 							<div class="col-xs-12 col-md-6">
@@ -118,7 +118,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-xs-12 col-sm-4">
+					<div class="col-xs-12 col-sm-12 col-md-4">
 						<div class="hidden-xs hidden-sm">
 							@if ( $latest->count() )
 								<h2>{{ Lang::get('web/home.recent') }}</h2>
@@ -128,10 +128,10 @@
 
 							@endif
 						</div>
-						<div class="visible-xs visible-sm">
+						<!--<div class="visible-xs visible-sm">
 							<h2>{{ Lang::get('web/search.quick.title') }}</h2>
 							<div class="quick-search-xs-sm-area"></div>
-						</div>
+						</div>-->
 					</div>
 				</div>
 			</div>
