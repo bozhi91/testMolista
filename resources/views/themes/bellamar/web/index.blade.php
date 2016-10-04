@@ -102,7 +102,9 @@
 			<div class="quick-search-area search-area {{ $highlighted->count() ? 'under-properties' : '' }}">
 				<div class="row">
 					<div class="col-xs-12 col-sm-8">
+						@if (!$awesomeLinks)
 						<h2>{{ Lang::get('web/home.categories') }}</h2>
+						@endif
 						<div class="row">
 							@if ($awesomeLinks)
 								@foreach ($awesomeLinks as $linkWidget)

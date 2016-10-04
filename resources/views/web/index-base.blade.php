@@ -12,7 +12,7 @@
 			}
 		}
 	}
-	
+
 	$awesomeLinks = [];
 	if(!empty($site_setup['widgets']['home-footer'])){
 		foreach ($site_setup['widgets']['home-footer'] as $widget) {
@@ -21,7 +21,7 @@
 			}
 		}
 	}
-	
+
 ?>
 
 @extends('layouts.web')
