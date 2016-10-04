@@ -115,9 +115,10 @@
 						}
 
 						el.spectrum({
+							preferredFormat: "hex",
+							showInput: true,
 							color: target.val(),
 							move: function(color) {
-								el.spectrum('toggle');
 								target.val( color.toHexString() );
 								form.find('.label-color-input').spectrum("set", color);
 							}
