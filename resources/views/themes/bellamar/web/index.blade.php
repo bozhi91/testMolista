@@ -18,6 +18,15 @@
 			}
 		}
 	}
+	
+	$awesomeLinks = [];
+	if(!empty($site_setup['widgets']['home-footer'])){
+		foreach ($site_setup['widgets']['home-footer'] as $widget) {
+			if($widget['type'] == 'awesome-link'){
+				$awesomeLinks[] = $widget;
+			}
+		}
+	}
 ?>
 
 @extends('layouts.web')
@@ -97,6 +106,14 @@
 					<div class="col-xs-12 col-sm-8">
 						<h2>{{ Lang::get('web/home.categories') }}</h2>
 						<div class="row">
+							@if ($awesomeLinks)
+								@foreach ($awesomeLinks as $linkWidget)
+									<div class="col-xs-12 col-sm-6 hidden-xs">
+										@include('common.widget-awesome-link', ['widget' => $linkWidget])
+									</div>
+								@endforeach
+							@else
+							
 							<div class="col-xs-12 col-md-6">
 								<a href="{{ action('Web\PropertiesController@index', [ 'newly_build'=>1 ]) }}" class="quick-link quick-link-new">
 									<div class="image"></div>
@@ -129,6 +146,7 @@
 									</div>
 								</a>
 							</div>
+							@endif
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-4">
