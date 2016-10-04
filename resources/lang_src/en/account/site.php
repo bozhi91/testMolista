@@ -125,6 +125,7 @@
 
 		'widgets.group.header' => 'Page header',
 		'widgets.group.footer' => 'Page footer',
+		'widgets.group.home' => 'Page home',
 
 		'widgets.type.menu' => 'Custom menu',
 		'widgets.type.menu.info' => 'Add one of your custom menus as a widget.',
@@ -132,6 +133,9 @@
 		'widgets.type.text' => 'Text block',
 		'widgets.type.text.info' => 'Add one block of text as a widget.',
 		'widgets.type.text.content' => 'Text',
+		'widgets.type.slider' => 'Slider',
+		'widgets.type.slider.info' => 'Add a slider to your home page.',
+		'widgets.type.slider.select' => 'Select slider',
 
 		'widgets.type.awesome-link' => 'Custom link',
 		'widgets.type.awesome-link.info' => 'Add multiples custom links to your home page.',
@@ -186,6 +190,32 @@
 		'pages.update.success' => 'The page was successfully updated',
 		'pages.deleted.success' => 'The page was successfully removed',
 
+		'sliders.h1' => 'Sliders',
+		'sliders.empty' => 'No sliders found',
+		'sliders.button.new' => 'Create slider',
+		
+		'sliders.create.title' => 'Create slider',
+		'sliders.edit.title' => 'Edit slider',
+		
+		'sliders.tab.general' => 'Content',
+		'sliders.column.title' => 'Title',
+		'sliders.column.languages' => 'Languages',
+		'sliders.select.alllanguages' => 'All',
+		'sliders.label.title' => 'Title',
+		'sliders.label.languages' => 'Languages',
+		'sliders.label.link' => 'Link',
+		
+		'sliders.general.sliders' => 'Slides',
+		'sliders.general.empty' => 'This slider has no slides',
+		'sliders.upload' => 'Slide upload',
+		
+		'sliders.update.success' => 'The slider was successfully created',
+		'sliders.create.success' => 'The slider was successfully updated',
+		'sliders.deleted.success' => 'The slider was successfully removed',
+		
+		'sliders.delete.warning' => 'Are you sure you want to remove this slider?',
+		
+		
 		'domainname.h1' => 'Domain name',
 		'domainname.domain' => 'Domain',
 		'domainname.domain.helper' => '<p>The domain name is not provided by Molista. You should by your own domain name with the domain name providers of your choice.</p>

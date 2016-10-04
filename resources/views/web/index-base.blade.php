@@ -4,18 +4,24 @@
 		$colperpage = 4;
 	}
 
-	$widgetSlider = false; //ugly temporal
-	$awesomeLinks = [];
-	
+	$widgetSlider = false;
 	if(!empty($site_setup['widgets']['home'])){
 		foreach ($site_setup['widgets']['home'] as $widget) {
 			if($widget['type'] == 'slider'){
 				$widgetSlider = $widget;
-			}elseif($widget['type'] == 'awesome-link'){
+			}
+		}
+	}
+	
+	$awesomeLinks = [];
+	if(!empty($site_setup['widgets']['home-footer'])){
+		foreach ($site_setup['widgets']['home-footer'] as $widget) {
+			if($widget['type'] == 'awesome-link'){
 				$awesomeLinks[] = $widget;
 			}
 		}
-	}		
+	}
+	
 ?>
 
 @extends('layouts.web')
@@ -26,7 +32,9 @@
 
 	<div id="home">
 
-		@if ( $main_property )
+		@if ($widgetSlider)
+			@include('common.widget-slider', ['widget' => $widgetSlider])
+		@elseif ($main_property)
 			<div class="main-property carousel slide" data-interval="false">
 				<div class="carousel-inner" role="listbox">
 					<a href="{{ action('Web\PropertiesController@details', $main_property->slug) }}"  class="item active">
@@ -147,7 +155,7 @@
 			cont.find('.search-area .quick-link').matchHeight({ byRow : false });
 
 			if ( cont.find('.properties-slider .carousel-inner .item').length < 2) {
-				cont.find('.carousel-control').remove();
+				cont.find('.carousel-control').not('.slider-control').remove();
 			} else {
 				cont.find('.carousel-control').removeClass('hide');
 			}

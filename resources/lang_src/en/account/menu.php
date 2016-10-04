@@ -31,6 +31,7 @@
 		'site.widgets' => 'Widgets',
 		'site.menus' => 'Menus',
 		'site.pages' => 'Pages',
+		'site.sliders' => 'Sliders',
 
 		'web' => 'View website',
 	];

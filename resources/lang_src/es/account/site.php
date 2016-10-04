@@ -124,6 +124,7 @@
 
 		'widgets.group.header' => 'Page header',
 		'widgets.group.footer' => 'Page footer',
+		'widgets.group.home' => 'Page home',
 
 		'widgets.type.menu' => 'Menú personalizado',
 		'widgets.type.menu.info' => 'Añada uno de sus menúes personalizados como widget.',
@@ -131,6 +132,9 @@
 		'widgets.type.text' => 'Bloque de texto',
 		'widgets.type.text.info' => 'Añada un bloque de texto como widget.',
 		'widgets.type.text.content' => 'Texto',
+		'widgets.type.slider' => 'Slider',
+		'widgets.type.slider.info' => 'Añada un slider para tu página de início.',
+		'widgets.type.slider.select' => 'Seleccionar slider',
 
 		'widgets.type.awesome-link' => 'Link personalizado',
 		'widgets.type.awesome-link.info' => 'Añada multiples links personalizados a tu página principal.',
@@ -183,6 +187,32 @@
 		'pages.create.success' => 'La página se ha creado correctamente',
 		'pages.update.success' => 'La página se ha guardado correctamente',
 		'pages.deleted.success' => 'La página se ha eliminado correctamente',
+
+		'sliders.h1' => 'Sliders',
+		'sliders.empty' => 'No se encontraron sliders',
+		'sliders.button.new' => 'Crear slider',
+
+		'sliders.create.title' => 'Crear slider',
+		'sliders.edit.title' => 'Editar slider',
+
+		'sliders.tab.general' => 'Contenido',
+		'sliders.column.title' => 'Título',
+		'sliders.column.languages' => 'Idiomas',
+		'sliders.select.alllanguages' => 'Todos',
+		'sliders.label.title' => 'Título',
+		'sliders.label.languages' => 'Idiomas',
+		'sliders.label.link' => 'Enlace',
+
+		'sliders.general.sliders' => 'Slides',
+		'sliders.general.empty' => 'El slider no tiene imágenes',
+		'sliders.upload' => 'Subir slides',
+
+		'sliders.update.success' => 'El slider se ha guardado correctamente',
+		'sliders.create.success' => 'El slider se ha creado correctamente',
+		'sliders.deleted.success' => 'El slider se ha eliminado correctamente',
+
+		'sliders.delete.warning' => '¿Confirma que desea eliminar este slider?',
+
 
 		'domainname.h1' => 'Nombre de dominio',
 		'domainname.domain' => 'Dominio',

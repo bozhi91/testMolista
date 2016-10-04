@@ -69,6 +69,10 @@ return [
 										'max' => 1,
 									],
 									'home' => [
+										'accept' => 'slider',
+										'max' => 1,
+									],
+									'home-footer' => [
 										'accept' => 'awesome-link',
 									],
 									'footer' => [

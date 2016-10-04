@@ -19,6 +19,11 @@ class Widget extends TranslatableModel
 		return $this->belongsTo('App\Models\Site\Menu');
 	}
 
+	public function slider()
+	{
+		return $this->belongsTo('App\Models\Site\SliderGroup');
+	}
+	
 	public function scopeWithMenu($query)
 	{
 		return $query->with(['menu' => function($query){
@@ -40,6 +45,7 @@ class Widget extends TranslatableModel
 		return [
 			'menu',
 			'text',
+			'slider',
 			'awesome-link',
 		];
 	}
