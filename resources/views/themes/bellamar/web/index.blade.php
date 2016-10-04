@@ -165,9 +165,6 @@
 				</div>
 			</div>
 		</div>
-
-		@endif
-
 	</div>
 
 	<script type="text/javascript">
