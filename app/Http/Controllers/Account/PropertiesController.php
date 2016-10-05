@@ -872,6 +872,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 					$new_image = $property->images()->create([
 						'image' => $filename,
 						'position' => $position,
+						'created_at' => new \DateTime(),
+						'updated_at' => new \DateTime(),
 					]);
 
 					// Check ok
@@ -898,22 +900,18 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 				else
 				{
 					$image = $property->images()->find($image_id);
-					
+								
 					$updateFields = [
 						'default' => 0,
-						'position' => $position
+						'position' => $position,
 					];
 					
 					//rotate image if necessary
 					if(!empty($rotation[$image_id])){
-						$path = public_path("sites/{$property->site_id}/properties/{$property->id}/{$image->image}");
 						$degree = -(int)$rotation[$image_id];
-						
-						$newImageName = $degree ."_{$image->image}";
-						$newPath = public_path("sites/{$property->site_id}/properties/{$property->id}/{$newImageName}");
-
-						\Image::make($path)->rotate($degree)->save($newPath);
-						$updateFields['image'] = $newImageName;
+						$path = public_path("sites/{$property->site_id}/properties/{$property->id}/{$image->image}");
+						\Image::make($path)->rotate($degree)->save($path);
+						$updateFields['updated_at'] = new \DateTime();
 					}
 					
 					// Update position
