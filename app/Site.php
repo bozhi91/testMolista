@@ -677,7 +677,7 @@ class Site extends TranslatableModel
 							{
 								$w['items'][] = [
 									'title' => $item->item_title,
-									'url' => $item->item_url,
+									'url' => $item->type == 'custom' ? $item->url : \LaravelLocalization::getLocalizedURL($locale,$item->item_url),
 									'target' => $item->target,
 								];
 							}
