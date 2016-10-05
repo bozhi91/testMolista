@@ -405,7 +405,7 @@ class Property extends TranslatableModel
 	{
 		foreach ($this->images->sortByDesc('default') as $image)
 		{
-			return "{$this->image_folder}/{$image->image}";
+			return $image->image_url;
 		}
 
 		return false;
