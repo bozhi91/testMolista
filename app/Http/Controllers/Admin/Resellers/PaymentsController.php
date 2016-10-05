@@ -120,4 +120,38 @@ class PaymentsController extends Controller
 
 		return redirect()->back()->with('success', trans('general.messages.success.saved'));
 	}
+
+	public function postPayBatch()
+	{
+		$validator = \Validator::make($this->request->all(), [
+			'reseller_date' => 'required|date_format:"Y-m-d"',
+			'payments' => 'required|array'
+		]);
+		if ( $validator->fails() )
+		{
+			return redirect()->back()->withInput()->withErrors($validator);
+		}
+
+		$payments = \App\Models\Site\Payment::whereNotNull('reseller_id')
+			->where('reseller_paid', 0)
+			->with('site')
+			->with('plan')
+			->with('reseller')
+			->with('infocurrency')
+			->whereIn('id', $this->request->get('payments'))
+			->get();
+		if ( !$payments )
+		{
+			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
+		}
+
+		foreach ($payments as $payment) {
+			$payment->update([
+				'reseller_paid' => 1,
+				'reseller_date' => $this->request->input('reseller_date'),
+			]);
+		}
+
+		return redirect()->back()->with('success', trans('general.messages.success.saved'));
+	}
 }
