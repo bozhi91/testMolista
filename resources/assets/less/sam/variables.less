@@ -23,18 +23,26 @@
 @colorPurple: @backgroundFooterBottom;
 @colorPurpleDark: @backgroundFooterBottom;
 
+/* new colors */
+@brown : #868080;
+
 /* NEW PARTS */
 
 @headerTextColor : #444444;
 @headerTextHoverColor : @black;
 @headerBackground : @white;
-@headerBorderColor : @gray;
+
+/* Locale and Social */
+@headerLocaleSocialTextColor : @black;
+@headerLocaleSocialBackground : @brown;
+/* end Locale and Social */
 
 /* header language dropdown */
-@headerLanguageSelectorBackground : @gray;
-@headerLanguageSelectorTextColor : @black;
-@headerLanguageSelectedTextBackground : @black;
-@headerLanguageSelectedTextColor : @white;
+@headerLanguageSelectorBackground : @headerLocaleSocialBackground;
+@headerLanguageSelectorTextColor : @headerLocaleSocialTextColor;
+@headerLanguageSelectorBorderColor : @black;
+@headerLanguageSelectorTextHoverBackground : @black;
+@headerLanguageSelectorTextHoverColor : @white;
 /* end header language dropdown */
 
 @searchBarBackground : rgba(0,0,0,0.4);
