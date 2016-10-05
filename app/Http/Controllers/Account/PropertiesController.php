@@ -899,18 +899,26 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 				{
 					$image = $property->images()->find($image_id);
 					
+					$updateFields = [
+						'default' => 0,
+						'position' => $position
+					];
+					
 					//rotate image if necessary
 					if(!empty($rotation[$image_id])){
 						$path = public_path("sites/{$property->site_id}/properties/{$property->id}/{$image->image}");
 						$degree = -(int)$rotation[$image_id];
-						\Image::make($path)->rotate($degree)->save($path);
+						
+						$newImageName = $degree ."_{$image->image}";
+						$newPath = public_path("sites/{$property->site_id}/properties/{$property->id}/{$newImageName}");
+
+						\Image::make($path)->rotate($degree)->save($newPath);
+						$updateFields['image'] = $newImageName;
 					}
 					
 					// Update position
-					$image->update([
-						'default' => 0,
-						'position' => $position
-					]);
+					$image->update($updateFields);
+					
 					// Preserve
 					$preserve[] = $image_id;
 
