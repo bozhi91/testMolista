@@ -19,16 +19,15 @@ class Images extends Model
 
 	public function getImagePathAttribute()
 	{
-		return "sites/{$this->property->site_id}/properties/{$this->property->id}/{$this->versioned_image}";
+		return "sites/{$this->property->site_id}/properties/{$this->property->id}/{$this->image}";
 	}
 	public function getImageUrlAttribute()
 	{
+		if($this->updated_at){
+			return asset($this->image_path . '?v=' . strtotime($this->updated_at));
+		}
+		
 		return asset($this->image_path);
-	}
-	
-	public function getVersionedImageAttribute() {
-		return !$this->updated_at ? 
-				$this->image : $this->image . '?v=' . strtotime($this->updated_at);
 	}
 	
 	public function getImageUrlThumbAttribute()
