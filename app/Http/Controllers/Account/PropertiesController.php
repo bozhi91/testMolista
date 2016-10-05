@@ -911,6 +911,11 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 						$degree = -(int)$rotation[$image_id];
 						$path = public_path("sites/{$property->site_id}/properties/{$property->id}/{$image->image}");
 						\Image::make($path)->rotate($degree)->save($path);
+						
+						//delete thumbnail
+						$thumbPath = public_path("sites/{$property->site_id}/properties/{$property->id}/thumbnail/{$image->image}");
+						\File::delete($thumbPath);
+						
 						$updateFields['updated_at'] = new \DateTime();
 					}
 					
