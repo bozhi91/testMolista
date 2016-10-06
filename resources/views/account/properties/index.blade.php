@@ -118,6 +118,21 @@
 										<a href="{{ action('Account\PropertiesController@edit', $property->slug) }}" class="btn btn-primary btn-xs">{{ Lang::get('general.edit') }}</a>
 									@endif
 									<a href="{{ action('Account\PropertiesController@show', $property->slug) }}" class="btn btn-primary btn-xs">{{ Lang::get('general.view') }}</a>
+									
+									<div class="btn-group" style="border:none;" role="group">
+										<button type="button" class="btn btn-primary btn-xs dropdown-toggle"
+												data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										{{ Lang::get('general.share') }} <span class="caret"></span>
+										</button>
+										<ul class="dropdown-menu">
+											<li>
+												<a class="share-social-link" 
+												   href="{{Share::load($property->full_url)->facebook() }}">
+													<i class="fa fa-facebook" aria-hidden="true"></i> Facebook
+												</a>
+											</li>
+										</ul>
+									</div>
 									{!! Form::close() !!}
 								</td>
 							</tr>
@@ -134,6 +149,23 @@
 		ready_callbacks.push(function() {
 			var cont = $('#admin-properties');
 
+			//Share dialog
+			cont.find('.share-social-link').on('click', function(e){
+				var popupSize = { width: 780, height: 550 };
+				var verticalPos = Math.floor(($(window).width() - popupSize.width) / 2);
+				var horisontalPos = Math.floor(($(window).height() - popupSize.height) / 2);
+
+				var popup = window.open($(this).prop('href'), 'social',
+					'width='+popupSize.width+',height='+popupSize.height+
+					',left='+verticalPos+',top='+horisontalPos+
+					',location=0,menubar=0,toolbar=0,status=0,scrollbars=1,resizable=1');
+
+				if (popup) {
+					popup.focus();
+					e.preventDefault();
+				}
+			})
+			
 			cont.find('.property-table-thumb').each(function(){
 				$(this).magnificPopup({
 					type: 'image',
