@@ -48,6 +48,9 @@ Route::group([
 		Route::controller('/', 'ResellersController');
 	});
 
+	// Thumbnails
+	Route::get('sites/{site_id}/properties/{property_id}/{flag}/{image}', 'Web\ThumbnailsController@property');
+
 	// Admin
 	Route::group([
 		'prefix' => 'admin',
