@@ -55,6 +55,13 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			$query->whereTranslationLike('title', "%{$this->request->input('title')}%");
 		}
 
+		// Filter by address
+		if ( $this->request->input('address') )
+		{
+			$clean_filters = true;
+			$query->where('properties.address', 'LIKE', "%{$this->request->input('address')}%");
+		}
+
 		// Filter by highlighted
 		if ( $this->request->input('highlighted') )
 		{
@@ -319,7 +326,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 	}
 
 	public function update(Request $request, $slug)
-	{
+	{						
 		// Get property
 		$query = $this->site->properties()
 						->whereTranslation('slug', $slug)
@@ -839,6 +846,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		$position = 0;
 		$preserve = [];
 
+		$rotation = $this->request->input('rotation');
+		
 		// Update images position
 		if ( $this->request->input('images') ) {
 			foreach ($this->request->input('images') as $image_id)
@@ -870,6 +879,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 					$new_image = $property->images()->create([
 						'image' => $filename,
 						'position' => $position,
+						'created_at' => new \DateTime(),
+						'updated_at' => new \DateTime(),
 					]);
 
 					// Check ok
@@ -878,20 +889,46 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 						continue;
 					}
 
+					$newlocation = "{$dirpath}/{$filename}";
+					
 					// Move image to permanent location
-					rename($filepath, "{$dirpath}/{$filename}");
-
+					rename($filepath, $newlocation);
+										
+					//rotate image if necessary
+					if(!empty($rotation[$image_id])){
+						$degree = -(int)$rotation[$image_id];
+						\Image::make($newlocation)->rotate($degree)->save($newlocation);
+					}
+					
 					// Preserve
 					$preserve[] = $new_image->id;
 				}
 				// Old image
 				else
 				{
-					// Update position
-					$property->images()->find($image_id)->update([
+					$image = $property->images()->find($image_id);
+								
+					$updateFields = [
 						'default' => 0,
-						'position' => $position
-					]);
+						'position' => $position,
+					];
+					
+					//rotate image if necessary
+					if(!empty($rotation[$image_id])){
+						$degree = -(int)$rotation[$image_id];
+						$path = public_path("sites/{$property->site_id}/properties/{$property->id}/{$image->image}");
+						\Image::make($path)->rotate($degree)->save($path);
+						
+						//delete thumbnail
+						$thumbPath = public_path("sites/{$property->site_id}/properties/{$property->id}/thumbnail/{$image->image}");
+						\File::delete($thumbPath);
+						
+						$updateFields['updated_at'] = new \DateTime();
+					}
+					
+					// Update position
+					$image->update($updateFields);
+					
 					// Preserve
 					$preserve[] = $image_id;
 

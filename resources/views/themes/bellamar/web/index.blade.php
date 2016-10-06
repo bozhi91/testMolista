@@ -10,6 +10,14 @@
 
 	$slider_breakpoint = ( 12 / $colperpage * 3);
 
+	$widgetSlider = false; //ugly temporal
+	if(!empty($site_setup['widgets']['home'])){
+		foreach ($site_setup['widgets']['home'] as $widget) {
+			if($widget['type'] == 'slider'){
+				$widgetSlider = $widget;
+			}
+		}
+	}
 ?>
 
 @extends('layouts.web')
@@ -20,16 +28,23 @@
 
 	<div id="home">
 
+		@if($widgetSlider)
+			@include('common.widget-slider', ['widget' => $widgetSlider])
+		@endif
+		
 		@if ( $main_property )
-			<div class="main-property carousel slide" data-interval="false">
-				<div class="carousel-inner" role="listbox">
-					<div data-href="{{ action('Web\PropertiesController@details', $main_property->slug) }}" class="item active cursor-pointer">
-						<img src="{{$main_property->main_image}}" alt="{{$main_property->title}}" class="main-image" />
-						@include('web.index-caption')
+		
+			@if(!$widgetSlider)
+				<div class="main-property carousel slide" data-interval="false">
+					<div class="carousel-inner" role="listbox">
+						<div data-href="{{ action('Web\PropertiesController@details', $main_property->slug) }}" class="item active cursor-pointer">
+							<img src="{{$main_property->main_image}}" alt="{{$main_property->title}}" class="main-image" />
+							@include('web.index-caption')
+						</div>
 					</div>
 				</div>
-			</div>
-
+			@endif
+		
 			@if ( $highlighted->count() > 0 )
 				<div class="container">
 					<div class="properties-slider-area">
