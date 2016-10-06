@@ -55,6 +55,13 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			$query->whereTranslationLike('title', "%{$this->request->input('title')}%");
 		}
 
+		// Filter by address
+		if ( $this->request->input('address') )
+		{
+			$clean_filters = true;
+			$query->where('properties.address', 'LIKE', "%{$this->request->input('address')}%");
+		}
+
 		// Filter by highlighted
 		if ( $this->request->input('highlighted') )
 		{
