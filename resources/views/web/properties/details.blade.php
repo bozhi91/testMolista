@@ -38,7 +38,7 @@
 												</div></div><div class="item"><div class="row">
 											@endif
 											<div class="col-xs-4 col-sm-2">
-												<a href="{{ "{$property->image_folder}/{$image->image}" }}" class="image-thumb" style="background-image: url('{{ $image->image_url_thumb }}');">
+												<a href="{{ $image->image_url }}" class="image-thumb" style="background-image: url('{{ $image->image_url_thumb }}');">
 													<img src="{{ $image->image_url_thumb }}" alt="{{$property->title}}" class="hide" />
 												</a>
 											</div>

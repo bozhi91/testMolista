@@ -474,3 +474,15 @@
 		$parts = explode('?', $full);
 		return $parts[0];
 	}
+
+	function moment_lang()
+	{
+		switch ( strtolower(LaravelLocalization::getCurrentLocaleScript()) )
+		{
+			case 'arab':
+				return 'en';
+
+		}
+
+		return LaravelLocalization::getCurrentLocale();
+	}

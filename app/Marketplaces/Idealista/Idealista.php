@@ -10,6 +10,7 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
     protected $aggregator;
     protected $code;
     protected $reference;
+    protected $newly_build;
 
     //Original properties data
     protected $properties = [];
@@ -28,6 +29,7 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
         $this->setAggregator($config['aggregator']);
         $this->setCode(@$config['code']);
         $this->setReference(@$config['reference']);
+        $this->newly_build = !empty($config['newly_build']);
 
         //Generate client node
         $this->setClient([
@@ -87,40 +89,41 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
         $writer->endElement();
 
         //Write newbuildListing
-        $writer->startElement('newbuildListing');
-        foreach($this->getNewbuildListing() as $k => $data){
-            //Start newDevelopment path
-            $writer->startElement('newDevelopment');
+        if (!empty($this->newly_build)) {
+            $writer->startElement('newbuildListing');
+            foreach($this->getNewbuildListing() as $k => $data){
+                //Start newDevelopment path
+                $writer->startElement('newDevelopment');
 
-            //Code
-            $writer->startElement('code');
-            $writer->write($data['promo_code']);
-            $writer->endElement();
+                //Code
+                $writer->startElement('code');
+                $writer->write($data['promo_code']);
+                $writer->endElement();
 
-            //Address
-            $writer->startElement('address');
-            $writer->write($data['address']);
-            $writer->endElement();
+                //Address
+                $writer->startElement('address');
+                $writer->write($data['address']);
+                $writer->endElement();
 
-            //Features path
-            $writer->startElement('features');
-            $writer->writeAttribute('type', 'promo');
-            $writer->endElement();
+                //Features path
+                $writer->startElement('features');
+                $writer->writeAttribute('type', 'promo');
+                $writer->endElement();
 
-            //Typologies path
-            $writer->startElement('typologies');
-            //Add property
-            $writer->startElement('property');
-            $this->writeXmlProperty($data, $writer);
-            $writer->endElement();
-            //End typologies path
-            $writer->endElement();
+                //Typologies path
+                $writer->startElement('typologies');
+                //Add property
+                $writer->startElement('property');
+                $this->writeXmlProperty($data, $writer);
+                $writer->endElement();
+                //End typologies path
+                $writer->endElement();
 
-            //End newDevelopment path
+                //End newDevelopment path
+                $writer->endElement();
+            }
             $writer->endElement();
-
         }
-        $writer->endElement();
 
         //Clients end
         $writer->endElement();

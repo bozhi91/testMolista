@@ -65,6 +65,11 @@ class Site extends TranslatableModel
 	{
 		return $this->hasMany('App\Models\Site\Pricerange')->withTranslations();
 	}
+	
+	public function slidergroups()
+	{
+		return $this->hasMany('App\Models\Site\SliderGroup');
+	}
 
     public function subscriptions()
     {
@@ -677,8 +682,24 @@ class Site extends TranslatableModel
 							{
 								$w['items'][] = [
 									'title' => $item->item_title,
-									'url' => $item->item_url,
+									'url' => $item->type == 'custom' ? $item->url : \LaravelLocalization::getLocalizedURL($locale,$item->item_url),
 									'target' => $item->target,
+								];
+							}
+						}
+						break;
+					case 'slider':
+						$w['items'] = [];
+						if ( $widget->slider )
+						{
+							$images = $widget->slider->images()
+									->orderBy('position', 'asc')->get();
+							
+							foreach ($images as $image)
+							{
+								$w['items'][] = [
+									'image' => $image->image,
+									'link' => $image->link,
 								];
 							}
 						}

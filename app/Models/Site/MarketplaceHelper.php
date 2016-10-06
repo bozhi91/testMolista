@@ -296,6 +296,7 @@ class MarketplaceHelper
 			switch ( $this->marketplace->configuration['thumb_flag'] )
 			{
 				case 'greenacres':
+				case 'idealista':
 					$add_extension = '.jpg';
 					break;
 				default:
