@@ -7,6 +7,9 @@
 	</style>
 
 	<div class="container">
+
+		@include('common.messages', [ 'dismissible'=>true ])
+
 		<div class="row">
 			<div class="col-sm-3 hidden-xs">
 
@@ -31,9 +34,12 @@
 				@if ( $payments->count() < 1)
 					<div class="alert alert-info" role="alert">{{ Lang::get('admin/resellers.payments.empty') }}</div>
 				@else
+
+					{!! Form::model(null, [ 'method'=>'POST', 'action'=>[ 'Admin\Resellers\PaymentsController@postPayBatch' ], 'id'=>'payment-form' ]) !!}
 					<table class="table table-striped">
 						<thead>
 							<tr>
+								<th><input type="checkbox" class="check-all" /></th>
 								{!! drawSortableHeaders(url()->full(), [
 									'reseller' => [ 'title' => Lang::get('admin/resellers.payments.reseller'), 'sortable'=>false, ],
 									'created' => [ 'title' => Lang::get('admin/resellers.payments.created'), 'sortable'=>false, ],
@@ -48,6 +54,11 @@
 						<tbody>
 							@foreach ($payments as $payment)
 								<tr>
+									<td>
+										@if (!$payment->reseller_paid)
+										<input type="checkbox" name="payments[]" value="{{ $payment->id }}" />
+										@endif
+									</td>
 									<td>
 										@if ( $payment->reseller )
 											{{ $payment->reseller->name }}
@@ -69,6 +80,7 @@
 									<td></td>
 									<td></td>
 									<td></td>
+									<td></td>
 									<td class="text-right table-total">{{ price($payments->where('reseller_paid', 0)->sum(function($item){ return $item->reseller_amount * $item->reseller_rate; }), $comissions_currency) }}</td>
 									<td class="text-right table-total">{{ price($payments->where('reseller_paid', 1)->sum(function($item){ return $item->reseller_amount * $item->reseller_rate; }), $comissions_currency) }}</td>
 									<td></td>
@@ -76,6 +88,17 @@
 								</tr>
 						</tbody>
 					</table>
+
+					<div class="error-container">
+						<div class="form-inline">
+							<div class="form-group" style="position: relative;">
+								{!! Form::text('reseller_date', null, [ 'class'=>'form-control required', 'placeholder'=>Lang::get('admin/resellers.payments.paid.date') ]) !!}
+							</div>
+							{!! Form::button(Lang::get('admin/resellers.payments.pay'), [ 'type'=>'submit', 'class'=>'btn btn-info']) !!}
+						</div>
+					</div>
+					{!! Form::close() !!}
+
 					{!! drawPagination($payments, Input::except('page')) !!}
 				@endif
 
@@ -85,6 +108,33 @@
 
 	<script type="text/javascript">
 		ready_callbacks.push(function(){
+			var form = $('#payment-form');
+
+			form.validate({
+				ignore: '',
+				errorPlacement: function(error, element) {
+					element.closest('.error-container').append(error);
+				},
+				submitHandler: function(f) {
+					LOADING.show();
+					f.submit();
+				}
+			});
+
+			form.find('input[name="reseller_date"]').datetimepicker({
+				format: 'YYYY-MM-DD'
+			});
+
+			form.on('click', '.check-all', function(){
+				var checks = form.find('[name="payments\[\]"]');
+
+				//if (checks.length != checks.filter(':checked').length) {
+				if (this.checked) {
+					checks.prop('checked', true);
+				} else {
+					checks.prop('checked', false);
+				}
+			});
 		});
 	</script>
 

@@ -11,6 +11,7 @@
 		'limit' => 'Límite',
 		'all' => 'Exportar todo',
 		'exported' => 'Exportado',
+		'exported_info' => 'Indica las propiedades que se enviarán al portal externo para publicar. Si la propiedad se acaba publicando o no depende de las reglas de cada portal. Puede saber si una propiedad cumple los requisitos de un portal en la ficha de edición de la propiedad.',
 		'updated' => 'Fecha actualización',
 		'country' => 'País',
 

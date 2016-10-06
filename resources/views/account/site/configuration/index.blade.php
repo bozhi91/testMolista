@@ -15,6 +15,7 @@
 
 				<ul class="nav nav-tabs main-tabs" role="tablist">
 					<li role="presentation" class="{{ $current_tab == 'config' ? 'active' : '' }}"><a href="#tab-site-config" aria-controls="tab-site-config" role="tab" data-toggle="tab" data-tab="config">{{ Lang::get('account/site.configuration.tab.config') }}</a></li>
+					<li role="presentation" class="{{ $current_tab == 'theme' ? 'active' : '' }}"><a href="#tab-site-theme" aria-controls="tab-site-theme" role="tab" data-toggle="tab" data-tab="theme">{{ Lang::get('account/site.configuration.tab.theme') }}</a></li>
 					<li role="presentation" class="{{ $current_tab == 'signature' ? 'active' : '' }}"><a href="#tab-site-signature" aria-controls="tab-site-signature" role="tab" data-toggle="tab" data-tab="signature">{{ Lang::get('account/site.configuration.tab.signature') }}</a></li>
 					<li role="presentation" class="{{ $current_tab == 'mail' ? 'active' : '' }}"><a href="#tab-site-mail" aria-controls="tab-site-mail" role="tab" data-toggle="tab" data-tab="mail">{{ Lang::get('account/site.configuration.tab.mail') }}</a></li>
 					<li role="presentation" class="{{ $current_tab == 'texts' ? 'active' : '' }}"><a href="#tab-site-texts" aria-controls="tab-site-texts" role="tab" data-toggle="tab" data-tab="texts">{{ Lang::get('account/site.configuration.tab.texts') }}</a></li>
@@ -25,26 +26,6 @@
 
 					<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'config' ? 'active' : '' }}" id="tab-site-config">
 						<div class="row">
-							<div class="col-xs-12 col-sm-6">
-								<div class="form-group error-container">
-									<a href="#" class="pull-right theme-preview-trigger" title="{{ Lang::get('account/site.configuration.theme.preview') }}">
-										<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-									</a>
-									<label>{{ Lang::get('account/site.configuration.theme') }}</label>
-									<?php
-										$themes = [];
-										foreach (Config::get('themes.themes') as $theme => $def) 
-										{
-											if ( !empty($def['public']) || $theme == $site->custom_theme ) 
-											{
-												$themes[$theme] = empty($def['title']) ? ucfirst($theme) : $def['title'];
-											}
-										}
-										asort($themes);
-									?>
-									{!! Form::select('theme', [ ''=>'' ]+$themes, null, [ 'class'=>'form-control required' ]) !!}
-								</div>
-							</div>
 							<div class="col-xs-12 col-sm-6">
 								<div class="form-group error-container">
 									{!! Form::label('site_currency', Lang::get('account/site.configuration.currency')) !!}
@@ -200,6 +181,10 @@
 
 					</div>
 
+					<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'theme' ? 'active' : '' }}" id="tab-site-theme">
+						@include('account/site/configuration.tab-theme')
+					</div>
+
 					<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'signature' ? 'active' : '' }}" id="tab-site-signature">
 						@include('account/site/configuration.tab-signature')
 					</div>
@@ -314,7 +299,11 @@
 			form.validate({
 				ignore: '',
 				errorPlacement: function(error, element) {
-					element.closest('.error-container').append(error);
+					if ( element.attr('name') == 'theme' ) {
+						element.closest('.error-container').prepend( error.addClass('alert alert-danger').css({ display: 'block' }) );
+					} else {
+						element.closest('.error-container').append(error);
+					}
 				},
 				invalidHandler: function(e, validator){
 					if ( validator.errorList.length ) {
@@ -552,26 +541,6 @@
 						LOADING.hide();
 						alertify.error("{{ print_js_string( Lang::get('account/site.configuration.mailing.test.error') ) }}");
 					}
-				});
-			});
-
-			// Theme preview
-			form.on('click','.theme-preview-trigger',function(e){
-				e.preventDefault();
-
-				var theme = form.find('select[name="theme"]').val();
-
-				if ( !theme )
-				{
-					alertify.error("{{ print_js_string( Lang::get('account/site.configuration.theme.preview.error') ) }}");
-					return;
-				}
-
-				$.magnificPopup.open({
-					items: {
-						src: '/images/themes/' + theme + '.jpg'
-					},
-					type: 'image'
 				});
 			});
 

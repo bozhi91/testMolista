@@ -71,20 +71,17 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 		switch ( $this->request->input('order') )
 		{
-			case 'desc':
-				$order = 'desc';
+			case 'asc':
+				$order = 'asc';
 				break;
 			default:
-				$order = 'asc';
+				$order = 'desc';
 		}
 
 		switch ( $this->request->input('orderby') )
 		{
 			case 'reference':
 				$query->orderBy('ref', $order);
-				break;
-			case 'creation':
-				$query->orderBy('created_at', $order);
 				break;
 			case 'location':
 				$query->orderBy('city_name', $order);
@@ -96,8 +93,11 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 						->orderBy('customers_total', $order);
 				break;
 			case 'title':
-			default:
 				$query->orderBy('title', $order);
+				break;
+			case 'creation':
+			default:
+				$query->orderBy('created_at', $order);
 				break;
 		}
 
@@ -266,19 +266,19 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		$property = $this->site->properties()->enabled()
 					->whereTranslation('slug', $slug)
 					->first();
-						
+
 		if ( !$property )
 		{
 			abort(404);
 		}
 
 		$filepath = $property->getPdfFile( $locale );
-		
+
 		return response()->download($filepath, "property-{$locale}.pdf", [
 			'Content-Type: application/pdf',
 		]);
 	}
-	
+
 	public function edit($slug)
 	{
 		$query = $this->site->properties()
