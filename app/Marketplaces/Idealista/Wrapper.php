@@ -1,6 +1,6 @@
 <?php namespace App\Marketplaces\Idealista;
 
-class Wrapper extends Idealista {
+class Wrapper extends Idealista implements \App\Marketplaces\Interfaces\PublishByFtpInterface {
 
     protected $configuration = [
         [
@@ -52,6 +52,11 @@ class Wrapper extends Idealista {
         }
 
         return true;
+    }
+
+    public function getFeedRemoteFilename(\App\Site $site)
+    {
+        return (empty($this->config['code']) ? $site->id : $this->config['code']).'.xml';
     }
 
 }

@@ -250,11 +250,11 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
     protected function processDescriptions($property){
 
         $descriptions = [];
-        foreach($property['description'] as $locale => $description){
+        foreach($property['title'] as $locale => $title){
             $descriptions[]['description'] = [
                 'language' => $this->translateLanguage($locale),
-                'title' => substr($description, 0, 139),
-                'comment' => substr($description, 0, 2499),
+                'title' => $title,
+                'comment' => substr(@$property['description'][$locale], 0, 2499),
             ];
         }
 
