@@ -66,7 +66,7 @@
         | set it to false.
         |
         */
-        'fallback_locale' => 'es',
+        'fallback_locale' => env('WHITELABEL_FALLBACK_LOCALE','es'),
 
         /*
         |--------------------------------------------------------------------------

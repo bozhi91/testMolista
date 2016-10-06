@@ -61,6 +61,7 @@
 
 	<script type="text/javascript">
 		ready_callbacks.push(function() {
+
 			var cont = $('#calendar-page');
 			var filters = $('#filters-form');
 			var calendar = cont.find('.calendar-item');
@@ -81,16 +82,29 @@
 				defaultDate: '{{ Input::get('calendar_defaultDate') ? Input::get('calendar_defaultDate') : date('Y-m-d') }}',
 				firstDay: 1,
 				allDaySlot: false,
-				events: {
-					url: '{{ action('Account\Calendar\BaseController@getEvents') }}',
-					data : function() {
-						var data = {};
-						$.each(filters.serializeArray(), function(k,v){
-							data[v.name] = v.value;
-						});
-						return data;
-					}
+				events: function(start, end, timezone, callback) {
+					var data = {};
+					$.each(filters.serializeArray(), function(k,v){
+						data[v.name] = v.value;
+					});
+					data.start = start.unix(),
+
+					$.ajax({
+						url: '{{ action('Account\Calendar\BaseController@getEvents') }}',
+						dataType: 'json',
+						data: {
+							calendar_defaultView: filters.find('input[name="calendar_defaultView"]').val(),
+							calendar_defaultDate: filters.find('input[name="calendar_defaultDate"]').val(),
+							agent: filters.find('input[name="agent"]').val(),
+							start: start.locale('{{moment_lang()}}').format('YYYY-MM-DD'),
+							end: end.locale('{{moment_lang()}}').format('YYYY-MM-DD')
+						},
+						success: function(events) {
+							callback(events);
+						}
+					});
 				},
+
 				eventClick: function(event) {
 					if (event.summary) {
 						$('#event-summary-modal').html(event.summary);
@@ -105,7 +119,7 @@
 				},
 				viewRender: function(view,element) {
 					$('#calendar-defaultView').val(view.type);
-					$('#calendar-defaultDate').val(view.intervalStart.format('YYYY-MM-DD'));
+					$('#calendar-defaultDate').val( view.intervalStart.locale('{{moment_lang()}}').format('YYYY-MM-DD') );
 				},
 				loading: function( isLoading, view ) {
 					if (isLoading) {
