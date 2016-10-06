@@ -64,6 +64,7 @@
 								'lead' => [ 'title' => Lang::get('account/properties.tab.lead'), 'class'=>'text-center text-nowrap' ],
 								'home_slider' => [ 'title' => Lang::get('account/properties.home.slider'), 'sortable'=>false, 'class'=>'text-center text-nowrap' ],
 								'highlighted' => [ 'title' => Lang::get('account/properties.highlighted'), 'sortable'=>false, 'class'=>'text-center text-nowrap' ],
+								'image' => [ 'title' => Lang::get('account/properties.image'), 'sortable'=>false, 'class'=>'text-center text-nowrap' ],
 								'enabled' => [ 'title' => Lang::get('account/properties.enabled'), 'sortable'=>false, 'class'=>'text-center text-nowrap' ],
 								'action' => [ 'title' => '', 'sortable'=>false ],
 							]) !!}
@@ -94,6 +95,10 @@
 									@else
 										<span class="glyphicon glyphicon-{{ $property->highlighted ? 'ok' : 'remove' }}" aria-hidden="true"></span>
 									@endif
+								</td>
+								<td class="text-center">
+									<a href="{{ $property->main_image }}" target="_blank" class="property-table-thumb" 
+									   style="background-image: url('{{ $property->main_image_thumb }}')"></a>
 								</td>
 								<td class="text-center">
 									@if ( Auth::user()->can('property-edit') && Auth::user()->canProperty('edit') )
@@ -128,6 +133,17 @@
 	<script type="text/javascript">
 		ready_callbacks.push(function() {
 			var cont = $('#admin-properties');
+
+			cont.find('.property-table-thumb').each(function(){
+				$(this).magnificPopup({
+					type: 'image',
+					closeOnContentClick: false,
+					mainClass: 'mfp-img-mobile',
+					image: {
+						verticalFit: true
+					}
+				});
+			});
 
 			cont.find('form.delete-form').each(function(){
 				$(this).validate({
