@@ -4,12 +4,12 @@
 	background-color: @white;
 
 	.header-container {
-		border-top: 100px solid @white; position: relative;
+		border-top: 125px solid @white; position: relative;
 
 		#app-navbar-collapse { border-top: 1px solid @gray; border-color: @gray; }
 
 		.header-locale-social {
-			position: absolute; top: -85px; right: 0;
+			position: absolute; top: -95px; right: 0;
 
 		    .locale-select {
 		    	.main-item {
@@ -81,14 +81,26 @@
 		    		.list-inline { margin-right: 0px; }
 		    	}
 		    }
+		    .navbar-brand {
+				height: 100px;
+				width: 350px;
+			}
+			.header-locale-social {
+				.social-media {
+					.list-inline {
+						padding-left: 5px;
+    					padding-right: 5px;
+					}
+				}
+			}
 		}
 	}
 }
 
 @media (min-width: 768px) {
 	#header {
-		.navbar-brand {	margin: 0px auto; position: absolute; top: -100px; left: 25%; right: 25%; }
-		.navbar-brand { height: 97px; width: 200px; background: center no-repeat; background-size: contain; }
+		.navbar-brand {	margin: 0px auto; position: absolute; top: -115px; left: 25%; right: 25%; }
+		.navbar-brand { height: 100px; width: 450px; background: center no-repeat; background-size: contain; }
 		.header-container { .navbar-right { margin-right: 0px; } }
 	}
 }
@@ -118,7 +130,7 @@
 		}
 		.navbar-collapse { border-color: @yellow; }
     	.navbar-brand { margin-top: 5px; margin-bottom: 5px; }
-    	.navbar-brand { height: 70px; width: 170px; background: left center no-repeat; background-size: contain; }
+    	.navbar-brand { height: 70px; width: 280px; background: left center no-repeat; background-size: contain; }
 
     	/* settings on button responsive */
     	.navbar-toggle { border-color: #ddd !important; }
