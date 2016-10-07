@@ -14,6 +14,8 @@
 		'ref' => 'Referencia',
 		'type' => 'Tipo',
 		'mode' => 'Modalidad',
+		'rent' => 'Alquiler',
+		'sale' => 'Venta',
 		'price' => 'Precio',
 		'price.min' => 'Precio min',
 		'price.max' => 'Precio max',

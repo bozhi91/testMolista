@@ -31,8 +31,21 @@
 						{!! Form::text('title', Input::get('title'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('account/properties.title') ]) !!}
 					</div>
 					<div class="form-group">
-						{!! Form::label('address', Lang::get('account/properties.addres'), [ 'class'=>'sr-only' ]) !!}
+						{!! Form::label('address', Lang::get('account/properties.address'), [ 'class'=>'sr-only' ]) !!}
 						{!! Form::text('address', Input::get('address'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('account/properties.address') ]) !!}
+					</div>
+					<div class="form-group">
+						{!! Form::label('price', Lang::get('account/properties.price'), [ 'class'=>'sr-only' ]) !!}
+						
+						<div class="input-group input-group-with-select">
+							<div class="input-group-select-left">
+								{!! Form::select('operation', [
+								'=' => '=', '<' => '<', '>' => '>', '<=' => '<=',
+								'>=' => '>=',
+							], Input::get('operation'), [ 'class'=>'form-control' ]) !!}
+							</div>
+							{!! Form::text('price', Input::get('price'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('account/properties.price')]) !!}
+						</div>
 					</div>
 					<div class="form-group">
 						{!! Form::label('highlighted', Lang::get('account/properties.highlighted'), [ 'class'=>'sr-only' ]) !!}
@@ -49,6 +62,14 @@
 							'2' => Lang::get('account/properties.enabled'),
 							'1' => Lang::get('account/properties.enabled.not'),
 						], Input::get('enabled'), [ 'class'=>'form-control' ]) !!}
+					</div>
+					<div class="form-group">
+						{!! Form::label('mode', Lang::get('account/properties.mode'), [ 'class'=>'sr-only' ]) !!}
+						{!! Form::select('mode', [
+							'' => '',
+							'rent' => Lang::get('account/properties.rent'),
+							'sale' => Lang::get('account/properties.sale'),
+						], Input::get('mode'), [ 'class'=>'form-control' ]) !!}
 					</div>
 					{!! Form::submit(Lang::get('general.filters.apply'), [ 'class'=>'btn btn-default' ]) !!}
 				{!! Form::close() !!}

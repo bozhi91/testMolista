@@ -14,6 +14,8 @@
 		'ref' => 'Reference',
 		'type' => 'Type',
 		'mode' => 'Mode',
+		'rent' => 'Rent',
+		'sale' => 'Sale',
 		'price' => 'Price',
 		'price.min' => 'Price min',
 		'price.max' => 'Price max',
