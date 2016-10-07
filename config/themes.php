@@ -179,8 +179,8 @@ return [
 
 		'kredikasa' => [
 			'title'			=> 'Kredikasa',
-			'public'		=> true,
-			'custom'		=> false,
+			'public'		=> false,
+			'custom'		=> true,
 			'extends'	 	=> 'default',
 			'views-path' 	=> 'themes/kredikasa',
 			'asset-path' 	=> 'themes/kredikasa',
