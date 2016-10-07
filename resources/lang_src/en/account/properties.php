@@ -8,6 +8,7 @@
 
 		'column.title' => 'Property',
 		'column.location' => 'Location',
+		'column.address' => 'Address',
 		'column.created' => 'Created',
 
 		'ref' => 'Reference',
@@ -237,6 +238,8 @@
 		'imports.file.error.upload' => 'There was an error while uploading the file',
 		'imports.status' => 'Status',
 		'imports.created' => 'The import process is running. You can check its status in this page.',
+		'imports.data_structure' => 'Data structure',
+		'imports.file_upload' => 'Upload file',
 
 		'imports.csv.header' => 'Do not modify or delete the top 3 rows.',
 

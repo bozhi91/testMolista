@@ -48,6 +48,9 @@ Route::group([
 		Route::controller('/', 'ResellersController');
 	});
 
+	// Thumbnails
+	Route::get('sites/{site_id}/properties/{property_id}/{flag}/{image}', 'Web\ThumbnailsController@property');
+
 	// Admin
 	Route::group([
 		'prefix' => 'admin',
@@ -289,6 +292,9 @@ Route::group([
 			Route::controller('widgets', 'Account\Site\WidgetsController');
 			// Pages
 			Route::resource('pages', 'Account\Site\PagesController');
+			//Sliders
+			Route::post('sliders/upload', 'Account\Site\SlidersController@upload');
+			Route::resource('sliders', 'Account\Site\SlidersController');
 		});
 		Route::controller('visits', 'Account\Visits\AjaxController');
 	});

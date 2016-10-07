@@ -38,6 +38,7 @@ class ThumbnailsController extends \App\Http\Controllers\Controller
 				$this->min_height = 960;
 				break;
 			case 'greenacres':
+			case 'idealista':
 				$this->encode_format = 'jpg';
 				$this->original = substr($this->original, 0, -4);
 				break;

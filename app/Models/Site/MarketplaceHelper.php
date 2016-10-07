@@ -158,6 +158,8 @@ class MarketplaceHelper
 			// Export all properties to marketplace
 			if ( @$this->marketplace->pivot->marketplace_export_all )
 			{
+				// Just enabled for web properties
+				$query->enabled();
 			}
 			// Only enabled for this marketplace
 			else
@@ -294,6 +296,7 @@ class MarketplaceHelper
 			switch ( $this->marketplace->configuration['thumb_flag'] )
 			{
 				case 'greenacres':
+				case 'idealista':
 					$add_extension = '.jpg';
 					break;
 				default:

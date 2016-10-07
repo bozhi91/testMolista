@@ -31,6 +31,10 @@
 						{!! Form::text('title', Input::get('title'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('account/properties.title') ]) !!}
 					</div>
 					<div class="form-group">
+						{!! Form::label('address', Lang::get('account/properties.addres'), [ 'class'=>'sr-only' ]) !!}
+						{!! Form::text('address', Input::get('address'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('account/properties.address') ]) !!}
+					</div>
+					<div class="form-group">
 						{!! Form::label('highlighted', Lang::get('account/properties.highlighted'), [ 'class'=>'sr-only' ]) !!}
 						{!! Form::select('highlighted', [
 							'' => '',
@@ -61,6 +65,7 @@
 								'title' => [ 'title' => Lang::get('account/properties.column.title') ],
 								'creation' => [ 'title' => Lang::get('account/properties.column.created') ],
 								'location' => [ 'title' => Lang::get('account/properties.column.location') ],
+								'address' => [ 'title' => Lang::get('account/properties.column.address') ],
 								'lead' => [ 'title' => Lang::get('account/properties.tab.lead'), 'class'=>'text-center text-nowrap' ],
 								'home_slider' => [ 'title' => Lang::get('account/properties.home.slider'), 'sortable'=>false, 'class'=>'text-center text-nowrap' ],
 								'highlighted' => [ 'title' => Lang::get('account/properties.highlighted'), 'sortable'=>false, 'class'=>'text-center text-nowrap' ],
@@ -76,6 +81,7 @@
 								<td>{{ $property->title }}</td>
 								<td>{{  $property->created_at->format('d/m/Y') }}</td>
 								<td>{{ @implode(' / ', array_filter([ $property->city->name, $property->state->name ])) }}</td>
+								<td>{{ $property->address }}</td>
 								<td class="text-center">{{ number_format($property->customers->count(), 0, ',', '.')  }}</td>
 								<td class="text-center">
 									@if ( Auth::user()->can('property-edit') && Auth::user()->canProperty('edit') )

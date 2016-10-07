@@ -10,6 +10,14 @@
 
 	$slider_breakpoint = ( 12 / $colperpage * 3);
 
+	$widgetSlider = false; //ugly temporal
+	if(!empty($site_setup['widgets']['home'])){
+		foreach ($site_setup['widgets']['home'] as $widget) {
+			if($widget['type'] == 'slider'){
+				$widgetSlider = $widget;
+			}
+		}
+	}
 ?>
 
 @extends('layouts.web')
@@ -20,16 +28,23 @@
 
 	<div id="home">
 
+		@if($widgetSlider)
+			@include('common.widget-slider', ['widget' => $widgetSlider])
+		@endif
+		
 		@if ( $main_property )
-			<div class="main-property carousel slide" data-interval="false">
-				<div class="carousel-inner" role="listbox">
-					<div data-href="{{ action('Web\PropertiesController@details', $main_property->slug) }}" class="item active cursor-pointer">
-						<img src="{{$main_property->main_image}}" alt="{{$main_property->title}}" class="main-image" />
-						@include('web.index-caption')
+		
+			@if(!$widgetSlider)
+				<div class="main-property carousel slide" data-interval="false">
+					<div class="carousel-inner" role="listbox">
+						<div data-href="{{ action('Web\PropertiesController@details', $main_property->slug) }}" class="item active cursor-pointer">
+							<img src="{{$main_property->main_image}}" alt="{{$main_property->title}}" class="main-image" />
+							@include('web.index-caption')
+						</div>
 					</div>
 				</div>
-			</div>
-
+			@endif
+		
 			@if ( $highlighted->count() > 0 )
 				<div class="container">
 					<div class="properties-slider-area">
@@ -76,12 +91,10 @@
 				</div>
 			@endif
 
-		@endif
-
 		<div class="container">
 			<div class="quick-search-area search-area {{ $highlighted->count() ? 'under-properties' : '' }}">
 				<div class="row">
-					<div class="col-xs-12 col-sm-8">
+					<div class="col-xs-12 col-sm-12 col-md-8">
 						<h2>{{ Lang::get('web/home.categories') }}</h2>
 						<div class="row">
 							<div class="col-xs-12 col-md-6">
@@ -118,7 +131,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-xs-12 col-sm-4">
+					<div class="col-xs-12 col-sm-12 col-md-4">
 						<div class="hidden-xs hidden-sm">
 							@if ( $latest->count() )
 								<h2>{{ Lang::get('web/home.recent') }}</h2>
@@ -128,14 +141,16 @@
 
 							@endif
 						</div>
-						<div class="visible-xs visible-sm">
+						<!--<div class="visible-xs visible-sm">
 							<h2>{{ Lang::get('web/search.quick.title') }}</h2>
 							<div class="quick-search-xs-sm-area"></div>
-						</div>
+						</div>-->
 					</div>
 				</div>
 			</div>
 		</div>
+
+		@endif
 
 	</div>
 

@@ -68,6 +68,10 @@ return [
 										'accept' => 'menu',
 										'max' => 1,
 									],
+									'home' => [
+										'accept' => 'slider',
+										'max' => 1,
+									],
 									'footer' => [
 									],
 								],
