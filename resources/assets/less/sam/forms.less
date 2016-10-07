@@ -7,18 +7,29 @@
 
 	h2 { color: @black; }
 
-	.form-control:focus { border-color: @yellow; }
+	.form-control:focus { border-color: @allInputBorders; }
+
+	.btn.btn-submit.btn-warning.text-uppercase {
+		color: @buttonsTextColor !important;
+	    border-color: @buttonsBorder;
+	    background: @buttonsBackground;
+
+	    &:focus {
+	    	border-color: @buttonsBorder !important;
+	    	background: @buttonsBackground !important;
+	    }
+	}
 }
 
 .select2-container--default.select2-container--focus .select2-selection--single,
 .select2-container--default.select2-container--open .select2-selection--single,
 .select2-container--default.select2-container--focus .select2-selection--multiple,
 .select2-container--default.select2-container--open .select2-selection--multiple {
-	border: 1px solid @yellow;
+	border: 1px solid @allInputBorders;
 }
 
 .select2-container--open .select2-dropdown--below {
-	border-color: @yellow !important;
+	border-color: @allInputBorders !important;
 }
 
 /* End Advanced Search Modal */
@@ -30,7 +41,7 @@
 
 	h2 { color: @black; }
 
-	.form-control:focus { border-color: @yellow; }	
+	.form-control:focus { border-color: @allInputBorders; }	
 }
 
 /* End More info Button Form */

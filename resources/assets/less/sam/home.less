@@ -22,40 +22,78 @@
 /* ########## Search Home Top ########## */
 @media (min-width: 768px) {
 	#home-top-search {
-
-		.relative {
-			position: static;
-		}
+		box-shadow: 0px 2px 15px @boxshadowColor;
 
 		.home-top-inner {
-			z-index: 1; width: 100%; background: @searchBarBackground; padding-top: 10px; padding-bottom: 10px;
+			z-index: 1; width: 100%; background: @searchBarBackground; padding-top: 25px; padding-bottom: 25px;
 
-			.nav.navbar-nav {
-				float: none; text-align: center;
+			.home-top-search-top-block {
 
-				li {
-					display: inline-block; float: none; height: 40px;
+				.block-input {
+					width: 40%;
+
+					.block-input-inner {
+						.form-control {
+							color: @searchBarInputTextColor;
+							text-align: right;
+
+							&::-webkit-input-placeholder { color: @searchBarInputTextColor; }
+							&:-moz-placeholder { color: @searchBarInputTextColor; opacity:  1; }
+							&::-moz-placeholder { color: @searchBarInputTextColor; opacity: 1; }
+							&:-ms-input-placeholder { color: @searchBarInputTextColor; }
+						}
+
+						input:after {
+							font-family: FontAwesome;
+							content: "\f002";
+						}
+					}
+				}
+
+				.block-trigger-modal {
+					margin-top: 10px;
+					font-size: 16px;
 
 					a {
-						padding: 10px 15px; background-color: @white; color: @gray;
+						color: @searchBarTriggerButton;
 
-						&:hover { background-color: @gray; color: @white; opacity: 0.8; }
+
+						.block-trigger-modal-icon {
+
+						}
+
+						.block-trigger-modal-text {
+
+						}
 					}
+				}
+			}
 
-					input, select, button, a { height: 100%; border-radius: 0px;}
+			.home-top-search-bottom-block {
+				margin-top: 10px;
 
-					button {
-						padding: 8px 13px; background-color: @yellow; border-color: transparent;
+				.block-selector {
+					width: 20%;
+				}
 
-						i {font-size: 19px;}
-						&:hover { background-color: @yellowHover;}
+				.block-submit {
+					width: 20%;
+
+					.home-top-search-submit {
+						width: auto;
+						border-radius: 4px;
+						padding: 6px 24px;
+						font-weight: bold;
+    					letter-spacing: 1px;
+						text-transform: uppercase;
+						color: @searchBarSubmitTextColor;
+						background-color: @searchBarSubmitBackground;
+						border-color: @searchBarSubmitBorderColor;
+
+						&:hover {
+							opacity: 0.8;
+						}
 					}
-
-					select.form-control.has-placeholder {
-					    max-width: 130px;
-					}
-
-					.form-control:focus { border-color: @yellow; }
 				}
 			}
 		}
@@ -76,17 +114,18 @@
 				width: 100%;
 
 				.carousel-caption-text {
-					text-align: left; padding: 20px 30px;
+					float: right; text-align: right; padding: 20px 30px;
 
 					.carousel-caption-title { color: @black; font-size: 22px; }
 					.carousel-caption-subtitle { color: @black; font-size: 22px; font-weight: bold; margin-top: -5px; }
 					.carousel-caption-button {
-						margin-top: 15px;
+						margin-top: 5px;
+						margin-bottom: 5px;
 
 					 	a {
-							background-color: @yellow; color: @white; padding: 5px 10px; font-size: 14px;
+							background-color: @buttonsBackground; color: @buttonsTextColor; padding: 5px 10px; font-size: 14px;
 
-						    &:hover { text-decoration: underline; opacity: 0.8; }
+						    &:hover { opacity: 0.8; }
 						}
 					}
 				}
@@ -95,7 +134,7 @@
 	}
 
 	.properties-slider-area { 
-		border: 0px; background-color: @backgroundGray;
+		border: 0px; background-color: @backgroundHomeProperties;
 
 		h2 { color: @black; display: none; }
 	}
@@ -107,7 +146,7 @@
 	#home {
 		padding-bottom: 50px;
 
-		.properties-slider-area { margin-top: -85px; }
+		.properties-slider-area { margin-top: 0px; padding: 35px 0px 5px 0px; }
 	}
 }
 

@@ -1,7 +1,7 @@
 @import '../app/pills.less';
 
 .property-pill {
-    position: relative; border: 1px solid @gray; background-color: @white;
+    position: relative; border: 1px solid @propertyPillBorderColor; background-color: @propertyPillBackgroundColor;
 
     .padder {
     	position: static;
@@ -9,19 +9,20 @@
 		.image { margin-bottom: 5px; }
 
 		.text {
-			padding: 10px 15px; margin-bottom: 40px; border-bottom: 1px solid @gray; min-height: 90px;
+			padding: 10px 15px; margin-bottom: 110px; min-height: 50px;
 
-			.title a { color: @gray; font-weight: bold; }
-			.price { position: absolute; bottom: 9px; color: @black; font-weight: bold; }
+			.title a { color: @propertyPillTitleColor; font-weight: bold; font-size: 24px; }
+			.price { position: absolute; bottom: 65px; font-size: 25px; color: @propertyPillPriceColor; font-weight: bold; }
+			.location { color: @propertyPillLocationColor; }
 			.metrics { display: none; }
 			.labels { position: absolute; top: 7px; right: 5px; .label { font-size: 14px; } }
 			.button {
-				display: block !important; text-align: right; position: absolute; bottom: 9px; right: 15px;
+				display: block !important; text-align: left; position: absolute; bottom: 25px; left: 15px;
 
 				a {
-				    background-color: @yellow; padding: 5px 10px; font-size: 14px; color: @white;
+				    background-color: @propertyPillButtonBackground; padding: 10px 15px; font-size: 14px; color: @propertyPillButtonColor;
 
-				    &:hover { background-color: @yellowHover; }
+				    &:hover { background-color: @propertyPillButtonHoverBackground; opacity: 0.8; text-decoration: none; }
 				}
 			}
 		}

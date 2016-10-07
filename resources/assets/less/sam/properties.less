@@ -11,14 +11,14 @@
 
 			/* colors */
 				label { color: #a0a0a0; }
-				.form-control:focus { border-color: @yellow;}
+				.form-control:focus { border-color: @allInputBorders;}
 				.form-control.is-placeholder { color: #a0a0a0; }
 				.form-control::-webkit-input-placeholder { color: #a0a0a0; }
 				.form-control:-moz-placeholder { color: #a0a0a0; }
 				.form-control::-moz-placeholder { color: #a0a0a0; }
 				.form-control:-ms-input-placeholder { color: #a0a0a0; }
-				.select2-container--default.select2-container--focus .select2-selection--single, .select2-container--default.select2-container--open .select2-selection--single, .select2-container--default.select2-container--focus .select2-selection--multiple, .select2-container--default.select2-container--open .select2-selection--multiple { border: 1px solid @yellow;}
-				.btn.btn-warning { border-color: @yellow; background: @yellow; color: @white; }
+				.select2-container--default.select2-container--focus .select2-selection--single, .select2-container--default.select2-container--open .select2-selection--single, .select2-container--default.select2-container--focus .select2-selection--multiple, .select2-container--default.select2-container--open .select2-selection--multiple { border: 1px solid @allInputBorders;}
+				.btn.btn-warning { border-color: @buttonsBorder; background: @buttonsBackground; color: @buttonsTextColor; }
 			/* end colors */
 		}
 	}
@@ -68,7 +68,7 @@
 /* #### 2 Columns #### */
 
 /* Setting for select in search-area */
-	.select2-container--open .select2-dropdown--below { border-color: @yellow; }
+	.select2-container--open .select2-dropdown--below { border-color: @allInputBorders; }
 /* End Setting for select in search-area */
 
 /* Change width of property row */
@@ -91,9 +91,9 @@
 					.image-column {
 						.image { height: 100%; }
 						.price { 
-							position: absolute; bottom: 0px; width: 100%; background-color: @yellow; text-align: left; padding: 5px 0px;
+							position: absolute; bottom: 0px; width: 100%; background-color: @propertyListPriceBackground; text-align: left; padding: 5px 0px;
 
-							a { color: @white; margin-left: 10px; font-size: 20px; }
+							a { color: @propertyListPriceTextColor; margin-left: 10px; font-size: 20px; }
 						}
 					}
 				}
@@ -109,16 +109,16 @@
 						.title {
 							text-decoration: underline; margin-top: 10px;
 	
-							a { color: @gray; font-weight: bold; }
+							a { color: @propertyListTitleTextColor; font-weight: bold; }
 						}
-						.location { margin-top: 10px; }
-						.description { margin-top: 60px; }
-						.price { }
-						.metrics { }
+						.location { margin-top: 10px; color: @propertyListLocationTextColor; }
+						.description { margin-top: 60px; color: @propertyListDescriptionTextColor; }
+						.price { color: @propertyListPriceTextColor; }
+						.metrics { color: @propertyListMetricsTextColor; }
 						.btn-more-info { 
 							position: absolute; bottom: 0px; right: auto; border-radius: 0px;
 
-							&:hover { color: @black !important; text-decoration: underline; }
+							&:hover { opacity: 0.8; }
 						}
 					}
 				}
@@ -187,19 +187,20 @@
 						.title {
 							text-decoration: underline; margin-top: 0px;
 
-							a { color: @gray; font-weight: bold; }
+							a { color: @propertyListTitleTextColor; font-weight: bold; }
 						}
-						.location { margin-top: 0px; }
-						.description { margin-top: 0px; }
-						.price { display: none; }
+						.location { margin-top: 0px; color: @propertyListLocationTextColor; }
+						.description { margin-top: 0px; color: @propertyListDescriptionTextColor; }
+						.price { display: none; color: @propertyListPriceTextColor; }
+						.metrics { color: @propertyListMetricsTextColor; }
 					}
 				}
 				.col-xs-12.col-sm-3 {
 					.image-column {
 						.price {
-							position: absolute; bottom: 0px; right: 0px; background-color: @yellow;
+							position: absolute; bottom: 0px; right: 0px; background-color: @propertyListPriceBackground;
 
-						    a { padding-left: 15px; padding-right: 15px; color: @white; }
+						    a { padding-left: 15px; padding-right: 15px; color: @propertyListPriceTextColor; }
 						}
 					}
 				}

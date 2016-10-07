@@ -7,14 +7,14 @@
 		.header {
 			margin-bottom: 25px;
 
-			h1 { position: absolute; color: @gray; }
-			.price { float: left !important; margin-top: 35px; color: @black; font-size: 20px; }
+			h1 { position: absolute; color: @propertyTitleTextColor; }
+			.price { float: left !important; margin-top: 35px; color: @propertyPriceTextColor; font-size: 20px; }
 			.location { position: absolute; left: 58%; top: 155px; }
 		}
 		.header:after { display: table; content: ""; clear: both; }
 		.images-gallery { width: 58.33333333%; float: left; padding-right: 30px; }
 		.details {
-			width: 41.66666667%; float: left; position: static; border: 0px;
+			width: 41.66666667%; float: left; position: static; border: 0px; color: @propertyDetailsTextColor;
 
 			.cols-xs-12.col-sm-9 { width: 100%; position: static; }
 			.description { margin-top: 80px; }
@@ -42,7 +42,13 @@
 		padding: 20px;
 
 		.container { position: relative; }
-		.header { h1 { color: @black; } }
+		.header {
+			h1 { color: @propertyTitleTextColor; }
+			.price { color: @propertyPriceTextColor; }
+		}
+		.details {
+			color: @propertyDetailsTextColor;
+		}
 	}
 }
 
