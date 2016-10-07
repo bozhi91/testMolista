@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2306">
+        <name><![CDATA[Casc Antic]]></name>
+    </zone>
+    
+    <zone id="2307">
+        <name><![CDATA[Eixample]]></name>
+    </zone>
+    
+    <zone id="2308">
+        <name><![CDATA[Els Closos]]></name>
+    </zone>
+    
+    <zone id="2309">
+        <name><![CDATA[Les Planes]]></name>
+    </zone>
+    
+    <zone id="2310">
+        <name><![CDATA[Urbanitzacio Les Rives Blaves]]></name>
+    </zone>
+    
+    <zone id="2311">
+        <name><![CDATA[Urbanitzacio Oasis]]></name>
+    </zone>
+    
+    <zone id="2312">
+        <name><![CDATA[Poligon Industrial Can Vinyals]]></name>
+    </zone>
+    
+    <zone id="2313">
+        <name><![CDATA[Poligon Industrial de la Fou]]></name>
+    </zone>
+    
+    <zone id="2314">
+        <name><![CDATA[Poligon Industrial del Moli]]></name>
+    </zone>
+    
+    <zone id="2315">
+        <name><![CDATA[Poligon Industrial Can Singla]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="34222">
+        <name><![CDATA[Centro ]]></name>
+    </zone>
+    
+    <zone id="34225">
+        <name><![CDATA[El Boquetillo]]></name>
+    </zone>
+    
+    <zone id="34226">
+        <name><![CDATA[Los Boliches]]></name>
+    </zone>
+    
+    <zone id="34229">
+        <name><![CDATA[Los Pacos]]></name>
+    </zone>
+    
+    <zone id="34232">
+        <name><![CDATA[Torreblanca]]></name>
+    </zone>
+    
+    <zone id="34235">
+        <name><![CDATA[Carvajal]]></name>
+    </zone>
+    
+    <zone id="34238">
+        <name><![CDATA[Miramar]]></name>
+    </zone>
+    
+    <zone id="34240">
+        <name><![CDATA[Recinto ferial]]></name>
+    </zone>
+    
+    <zone id="34243">
+        <name><![CDATA[Plaza de toros]]></name>
+    </zone>
+    
+    <zone id="34246">
+        <name><![CDATA[Castillo Sohail]]></name>
+    </zone>
+    
+    <zone id="35028">
+        <name><![CDATA[Zona Puerto Deportivo]]></name>
+    </zone>
+    
+</zones>

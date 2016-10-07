@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="28951">
+        <name><![CDATA[Barrio Santa María]]></name>
+    </zone>
+    
+    <zone id="28952">
+        <name><![CDATA[Barrio Sant Lluís]]></name>
+    </zone>
+    
+    <zone id="28953">
+        <name><![CDATA[Sant Genís de Palafolls]]></name>
+    </zone>
+    
+    <zone id="28954">
+        <name><![CDATA[Urb. Ciudad Jardín]]></name>
+    </zone>
+    
+    <zone id="28955">
+        <name><![CDATA[Urb. Mas Carbó]]></name>
+    </zone>
+    
+    <zone id="28956">
+        <name><![CDATA[Urb. Mas Reixac]]></name>
+    </zone>
+    
+    <zone id="28957">
+        <name><![CDATA[Les Ferreries-Centro]]></name>
+    </zone>
+    
+</zones>

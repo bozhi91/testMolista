@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3403">
+        <name><![CDATA[Bolnuevo]]></name>
+    </zone>
+    
+    <zone id="3404">
+        <name><![CDATA[Cañada de Gallego]]></name>
+    </zone>
+    
+    <zone id="3405">
+        <name><![CDATA[Cañadas del Romero]]></name>
+    </zone>
+    
+    <zone id="3406">
+        <name><![CDATA[El Garrobo]]></name>
+    </zone>
+    
+    <zone id="3407">
+        <name><![CDATA[El Margajón]]></name>
+    </zone>
+    
+    <zone id="3408">
+        <name><![CDATA[El Mingrano]]></name>
+    </zone>
+    
+    <zone id="3409">
+        <name><![CDATA[El Saladillo]]></name>
+    </zone>
+    
+    <zone id="3410">
+        <name><![CDATA[Gañuelas]]></name>
+    </zone>
+    
+    <zone id="3411">
+        <name><![CDATA[Ifre-Pastrana]]></name>
+    </zone>
+    
+    <zone id="3412">
+        <name><![CDATA[La Atalaya]]></name>
+    </zone>
+    
+    <zone id="3413">
+        <name><![CDATA[La Majada]]></name>
+    </zone>
+    
+    <zone id="3414">
+        <name><![CDATA[Las Balsicas]]></name>
+    </zone>
+    
+    <zone id="3415">
+        <name><![CDATA[Las Moreras]]></name>
+    </zone>
+    
+    <zone id="3416">
+        <name><![CDATA[Los Rincones]]></name>
+    </zone>
+    
+    <zone id="3417">
+        <name><![CDATA[Leiva]]></name>
+    </zone>
+    
+</zones>

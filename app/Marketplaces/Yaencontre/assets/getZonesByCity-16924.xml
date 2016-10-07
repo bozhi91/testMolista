@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2340">
+        <name><![CDATA[Talavera la Nueva]]></name>
+    </zone>
+    
+    <zone id="2341">
+        <name><![CDATA[Gamonal]]></name>
+    </zone>
+    
+</zones>

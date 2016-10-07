@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="715">
+        <name><![CDATA[Els comtals]]></name>
+    </zone>
+    
+    <zone id="716">
+        <name><![CDATA[Mion-puigberenguer]]></name>
+    </zone>
+    
+    <zone id="717">
+        <name><![CDATA[Barri antic]]></name>
+    </zone>
+    
+    <zone id="718">
+        <name><![CDATA[El xup]]></name>
+    </zone>
+    
+    <zone id="719">
+        <name><![CDATA[Font dels capellans]]></name>
+    </zone>
+    
+    <zone id="720">
+        <name><![CDATA[Escodines]]></name>
+    </zone>
+    
+    <zone id="721">
+        <name><![CDATA[Sagrada familia]]></name>
+    </zone>
+    
+    <zone id="722">
+        <name><![CDATA[Valldaura]]></name>
+    </zone>
+    
+    <zone id="723">
+        <name><![CDATA[Vic-remei]]></name>
+    </zone>
+    
+    <zone id="724">
+        <name><![CDATA[Balconada]]></name>
+    </zone>
+    
+    <zone id="725">
+        <name><![CDATA[Cal grabat]]></name>
+    </zone>
+    
+    <zone id="726">
+        <name><![CDATA[Viladordis]]></name>
+    </zone>
+    
+    <zone id="727">
+        <name><![CDATA[Poblenou]]></name>
+    </zone>
+    
+    <zone id="728">
+        <name><![CDATA[Sant pau]]></name>
+    </zone>
+    
+    <zone id="729">
+        <name><![CDATA[Cots-guix-pujades roja]]></name>
+    </zone>
+    
+    <zone id="730">
+        <name><![CDATA[Crta. santpedor]]></name>
+    </zone>
+    
+    <zone id="731">
+        <name><![CDATA[Miralpeix]]></name>
+    </zone>
+    
+    <zone id="732">
+        <name><![CDATA[Saldes-plaza catalunya]]></name>
+    </zone>
+    
+    <zone id="733">
+        <name><![CDATA[Sol y aire]]></name>
+    </zone>
+    
+    <zone id="734">
+        <name><![CDATA[Passeig rodalies]]></name>
+    </zone>
+    
+    <zone id="34503">
+        <name><![CDATA[Les Bases de Manresa]]></name>
+    </zone>
+    
+</zones>

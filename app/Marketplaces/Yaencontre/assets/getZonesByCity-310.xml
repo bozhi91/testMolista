@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="752">
+        <name><![CDATA[Urb. el mas d¸en gall]]></name>
+    </zone>
+    
+    <zone id="753">
+        <name><![CDATA[Pol. l¸olana]]></name>
+    </zone>
+    
+    <zone id="754">
+        <name><![CDATA[Pol. can sedó]]></name>
+    </zone>
+    
+    <zone id="755">
+        <name><![CDATA[Pol. del sud]]></name>
+    </zone>
+    
+    <zone id="756">
+        <name><![CDATA[Pol.can comelles]]></name>
+    </zone>
+    
+    <zone id="757">
+        <name><![CDATA[Urb. can sedó]]></name>
+    </zone>
+    
+    <zone id="758">
+        <name><![CDATA[Pol. sud magarola]]></name>
+    </zone>
+    
+    <zone id="759">
+        <name><![CDATA[Pol.can comelles sud]]></name>
+    </zone>
+    
+    <zone id="760">
+        <name><![CDATA[Urb. can vinyals]]></name>
+    </zone>
+    
+    <zone id="761">
+        <name><![CDATA[Urb. can rial]]></name>
+    </zone>
+    
+    <zone id="762">
+        <name><![CDATA[Pol.can roca]]></name>
+    </zone>
+    
+</zones>

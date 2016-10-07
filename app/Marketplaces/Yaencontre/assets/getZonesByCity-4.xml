@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3441">
+        <name><![CDATA[La Romanica]]></name>
+    </zone>
+    
+    <zone id="3442">
+        <name><![CDATA[Can Llobet]]></name>
+    </zone>
+    
+    <zone id="3443">
+        <name><![CDATA[Ensanche Centro]]></name>
+    </zone>
+    
+    <zone id="3444">
+        <name><![CDATA[Casco Antiguo]]></name>
+    </zone>
+    
+    <zone id="3445">
+        <name><![CDATA[Can Serra]]></name>
+    </zone>
+    
+    <zone id="3446">
+        <name><![CDATA[Can Gorgs]]></name>
+    </zone>
+    
+    <zone id="3447">
+        <name><![CDATA[Parque Central del Valles]]></name>
+    </zone>
+    
+    <zone id="34477">
+        <name><![CDATA[Parc Europa]]></name>
+    </zone>
+    
+    <zone id="34479">
+        <name><![CDATA[Ca n'Esteper]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="33837">
+        <name><![CDATA[Altzibar]]></name>
+    </zone>
+    
+    <zone id="33838">
+        <name><![CDATA[Arragua]]></name>
+    </zone>
+    
+    <zone id="33839">
+        <name><![CDATA[Elizalde]]></name>
+    </zone>
+    
+    <zone id="33840">
+        <name><![CDATA[Ergoien]]></name>
+    </zone>
+    
+    <zone id="33841">
+        <name><![CDATA[Gurutze]]></name>
+    </zone>
+    
+    <zone id="33842">
+        <name><![CDATA[Iturriotz]]></name>
+    </zone>
+    
+    <zone id="33843">
+        <name><![CDATA[Karrika]]></name>
+    </zone>
+    
+    <zone id="33844">
+        <name><![CDATA[Ugaldetxo]]></name>
+    </zone>
+    
+</zones>

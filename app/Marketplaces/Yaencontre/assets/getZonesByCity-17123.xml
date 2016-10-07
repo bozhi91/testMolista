@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3533">
+        <name><![CDATA[El Carmen]]></name>
+    </zone>
+    
+    <zone id="3534">
+        <name><![CDATA[Socusa]]></name>
+    </zone>
+    
+    <zone id="3535">
+        <name><![CDATA[Obradores]]></name>
+    </zone>
+    
+    <zone id="3536">
+        <name><![CDATA[San Jeronimo]]></name>
+    </zone>
+    
+    <zone id="3537">
+        <name><![CDATA[San Felix]]></name>
+    </zone>
+    
+    <zone id="3538">
+        <name><![CDATA[Alameda Park]]></name>
+    </zone>
+    
+    <zone id="3539">
+        <name><![CDATA[San Francisco]]></name>
+    </zone>
+    
+    <zone id="3540">
+        <name><![CDATA[La Presa]]></name>
+    </zone>
+    
+    <zone id="3541">
+        <name><![CDATA[Els Pouets]]></name>
+    </zone>
+    
+    <zone id="3542">
+        <name><![CDATA[Montemayor]]></name>
+    </zone>
+    
+    <zone id="3543">
+        <name><![CDATA[La Malla]]></name>
+    </zone>
+    
+    <zone id="34417">
+        <name><![CDATA[Centro ciudad]]></name>
+    </zone>
+    
+</zones>

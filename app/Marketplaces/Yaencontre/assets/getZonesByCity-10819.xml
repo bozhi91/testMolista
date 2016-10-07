@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2829">
+        <name><![CDATA[Nucli Historic]]></name>
+    </zone>
+    
+    <zone id="2830">
+        <name><![CDATA[Dalt Vila-Laberint de Pedra i Cal]]></name>
+    </zone>
+    
+    <zone id="2831">
+        <name><![CDATA[La Marina i Sa Penya-La Ciutat Marinera]]></name>
+    </zone>
+    
+</zones>

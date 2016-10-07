@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="593">
+        <name><![CDATA[El graell]]></name>
+    </zone>
+    
+    <zone id="594">
+        <name><![CDATA[El calvet]]></name>
+    </zone>
+    
+    <zone id="595">
+        <name><![CDATA[Nucli antic]]></name>
+    </zone>
+    
+    <zone id="596">
+        <name><![CDATA[Sant salvador]]></name>
+    </zone>
+    
+    <zone id="597">
+        <name><![CDATA[Cal esteve]]></name>
+    </zone>
+    
+    <zone id="598">
+        <name><![CDATA[El pinyot vell]]></name>
+    </zone>
+    
+    <zone id="599">
+        <name><![CDATA[Salelles]]></name>
+    </zone>
+    
+</zones>

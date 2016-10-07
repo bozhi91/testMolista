@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="22517">
+        <name><![CDATA[Vila-seca]]></name>
+    </zone>
+    
+    <zone id="22518">
+        <name><![CDATA[La Pineda]]></name>
+    </zone>
+    
+    <zone id="22519">
+        <name><![CDATA[La Plana]]></name>
+    </zone>
+    
+</zones>

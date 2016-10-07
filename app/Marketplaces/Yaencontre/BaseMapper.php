@@ -2,6 +2,8 @@
 
 namespace App\Marketplaces\Yaencontre;
 
+use App\Marketplaces\Yaencontre\AttributesHandler;
+
 abstract class BaseMapper extends \App\Marketplaces\Mapper {
 
 	/**
@@ -87,7 +89,7 @@ abstract class BaseMapper extends \App\Marketplaces\Mapper {
 	protected function getImages() {
 		$pictures = [];
 		foreach ($this->item['images'] as $counter => $image) {
-			$pictures['adjunto@tipo=foto@url=' . $image] = 'Fotografia ' . ($counter+1);
+			$pictures['adjunto@tipo=foto@url=' . $image] = 'Fotografia ' . ($counter + 1);
 		}
 		return $pictures;
 	}
@@ -97,7 +99,7 @@ abstract class BaseMapper extends \App\Marketplaces\Mapper {
 	 */
 	protected function getProvinciaData() {
 		$valor = $this->item['attributes']['yaencontre-city'];
-		$explodedValor = explode('-', $valor);
+		$explodedValor = explode(AttributesHandler::SEP, $valor);
 		return [$explodedValor[3], $explodedValor[2]];
 	}
 
@@ -106,8 +108,20 @@ abstract class BaseMapper extends \App\Marketplaces\Mapper {
 	 */
 	protected function getPoblacionData() {
 		$valor = $this->item['attributes']['yaencontre-city'];
-		$explodedValor = explode('-', $valor);
+		$explodedValor = explode(AttributesHandler::SEP, $valor);
 		return [$explodedValor[1], $explodedValor[0]];
+	}
+
+	/**
+	 * @return array
+	 */
+	protected function getZoneData() {
+		$valor = $this->item['attributes']['yaencontre-city'];
+		$explodedValor = explode(AttributesHandler::SEP, $valor);
+		if (isset($explodedValor[4]) && isset($explodedValor[5])) {
+			return [$explodedValor[5], $explodedValor[4]];
+		}
+		return [null, null];
 	}
 
 }

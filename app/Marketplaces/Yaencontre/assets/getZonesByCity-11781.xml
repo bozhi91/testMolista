@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2974">
+        <name><![CDATA[Jerez Ciudad]]></name>
+    </zone>
+    
+    <zone id="2975">
+        <name><![CDATA[Estrella del Marques]]></name>
+    </zone>
+    
+    <zone id="2976">
+        <name><![CDATA[El Torno]]></name>
+    </zone>
+    
+    <zone id="2977">
+        <name><![CDATA[Guadalcacin]]></name>
+    </zone>
+    
+    <zone id="2978">
+        <name><![CDATA[La Barca de la Florida]]></name>
+    </zone>
+    
+    <zone id="2979">
+        <name><![CDATA[Nueva Jarilla]]></name>
+    </zone>
+    
+    <zone id="2980">
+        <name><![CDATA[San Isidro del Guadalete]]></name>
+    </zone>
+    
+    <zone id="2981">
+        <name><![CDATA[Torrecera]]></name>
+    </zone>
+    
+    <zone id="2982">
+        <name><![CDATA[Cuartillos (Barriada Rural)]]></name>
+    </zone>
+    
+    <zone id="2983">
+        <name><![CDATA[El Mojo-Baldio de Gallardo (Barriada Rural)]]></name>
+    </zone>
+    
+    <zone id="2984">
+        <name><![CDATA[El Portal (Barriada Rural)]]></name>
+    </zone>
+    
+    <zone id="2985">
+        <name><![CDATA[Gibalbin (Barriada Rural)]]></name>
+    </zone>
+    
+    <zone id="2986">
+        <name><![CDATA[La Corta (Barriada Rural)]]></name>
+    </zone>
+    
+    <zone id="2987">
+        <name><![CDATA[La Ina (Barriada Rural)]]></name>
+    </zone>
+    
+    <zone id="2988">
+        <name><![CDATA[Las Pachecas (Barriada Rural)]]></name>
+    </zone>
+    
+    <zone id="2989">
+        <name><![CDATA[Las Tablas-Polila-Añina (Barriada Rural)]]></name>
+    </zone>
+    
+    <zone id="2990">
+        <name><![CDATA[Lomopardo (Barriada Rural)]]></name>
+    </zone>
+    
+    <zone id="2991">
+        <name><![CDATA[Los Albarizones (Barriada Rural)]]></name>
+    </zone>
+    
+    <zone id="2992">
+        <name><![CDATA[Majarromaque (Barriada Rural)]]></name>
+    </zone>
+    
+    <zone id="2993">
+        <name><![CDATA[Mesas de Asta (Barriada Rural)]]></name>
+    </zone>
+    
+    <zone id="2994">
+        <name><![CDATA[Mesas de Santa Rosa (Barriada Rural)]]></name>
+    </zone>
+    
+    <zone id="2995">
+        <name><![CDATA[Puente de la Guareña (Barriada Rural)]]></name>
+    </zone>
+    
+    <zone id="2996">
+        <name><![CDATA[Rejamancera (Barriada Rural)]]></name>
+    </zone>
+    
+    <zone id="2997">
+        <name><![CDATA[Torremelgarejo (Barriada Rural)]]></name>
+    </zone>
+    
+</zones>

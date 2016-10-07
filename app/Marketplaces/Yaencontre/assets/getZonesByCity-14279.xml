@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="33849">
+        <name><![CDATA[Ensanche-Espartales]]></name>
+    </zone>
+    
+    <zone id="33853">
+        <name><![CDATA[El Val]]></name>
+    </zone>
+    
+    <zone id="33854">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="33855">
+        <name><![CDATA[Reyes Catolicos]]></name>
+    </zone>
+    
+    <zone id="33856">
+        <name><![CDATA[Chorillo-Garena]]></name>
+    </zone>
+    
+    <zone id="33857">
+        <name><![CDATA[Ensanche]]></name>
+    </zone>
+    
+    <zone id="33860">
+        <name><![CDATA[Pryconsa]]></name>
+    </zone>
+    
+    <zone id="33861">
+        <name><![CDATA[Colonia]]></name>
+    </zone>
+    
+    <zone id="33863">
+        <name><![CDATA[Venecia]]></name>
+    </zone>
+    
+    <zone id="33864">
+        <name><![CDATA[San isidro]]></name>
+    </zone>
+    
+    <zone id="33865">
+        <name><![CDATA[Estación]]></name>
+    </zone>
+    
+    <zone id="33866">
+        <name><![CDATA[Casco Histórico]]></name>
+    </zone>
+    
+    <zone id="33867">
+        <name><![CDATA[Nueva Alcalá]]></name>
+    </zone>
+    
+    <zone id="33868">
+        <name><![CDATA[Rinconada]]></name>
+    </zone>
+    
+    <zone id="33869">
+        <name><![CDATA[Puerta de Madrid]]></name>
+    </zone>
+    
+    <zone id="33870">
+        <name><![CDATA[El Juncal ]]></name>
+    </zone>
+    
+    <zone id="33871">
+        <name><![CDATA[Chorillo]]></name>
+    </zone>
+    
+    <zone id="33872">
+        <name><![CDATA[Garena]]></name>
+    </zone>
+    
+    <zone id="33877">
+        <name><![CDATA[Espartales]]></name>
+    </zone>
+    
+    <zone id="34412">
+        <name><![CDATA[El Val]]></name>
+    </zone>
+    
+    <zone id="34414">
+        <name><![CDATA[Reyes Católicos]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2832">
+        <name><![CDATA[El Rajolar]]></name>
+    </zone>
+    
+    <zone id="2833">
+        <name><![CDATA[Barrio de la Estacion]]></name>
+    </zone>
+    
+    <zone id="2834">
+        <name><![CDATA[Los Grupos]]></name>
+    </zone>
+    
+    <zone id="34449">
+        <name><![CDATA[Eliana Pueblo]]></name>
+    </zone>
+    
+    <zone id="34450">
+        <name><![CDATA[Montealegre]]></name>
+    </zone>
+    
+    <zone id="34452">
+        <name><![CDATA[Montepilar]]></name>
+    </zone>
+    
+    <zone id="34453">
+        <name><![CDATA[Montesol]]></name>
+    </zone>
+    
+    <zone id="34456">
+        <name><![CDATA[Entrepinos]]></name>
+    </zone>
+    
+    <zone id="34457">
+        <name><![CDATA[El Carme - Sant Agustí - Bonavista]]></name>
+    </zone>
+    
+    <zone id="34460">
+        <name><![CDATA[El Paraiso - Los Almendros]]></name>
+    </zone>
+    
+</zones>

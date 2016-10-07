@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1545">
+        <name><![CDATA[Can Milà]]></name>
+    </zone>
+    
+    <zone id="1546">
+        <name><![CDATA[Can Surià]]></name>
+    </zone>
+    
+    <zone id="1547">
+        <name><![CDATA[Las Américas]]></name>
+    </zone>
+    
+    <zone id="1548">
+        <name><![CDATA[Las Colinas]]></name>
+    </zone>
+    
+    <zone id="1549">
+        <name><![CDATA[Mas Mestres]]></name>
+    </zone>
+    
+    <zone id="1550">
+        <name><![CDATA[Pineda Park]]></name>
+    </zone>
+    
+    <zone id="1551">
+        <name><![CDATA[Plana Novella]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2109">
+        <name><![CDATA[Anaga]]></name>
+    </zone>
+    
+    <zone id="2110">
+        <name><![CDATA[Centro-Ifara]]></name>
+    </zone>
+    
+    <zone id="2111">
+        <name><![CDATA[La Salud-La Salle]]></name>
+    </zone>
+    
+    <zone id="2112">
+        <name><![CDATA[Ofra-Costa Sur]]></name>
+    </zone>
+    
+    <zone id="2113">
+        <name><![CDATA[Suroeste]]></name>
+    </zone>
+    
+    <zone id="34532">
+        <name><![CDATA[Almaciga]]></name>
+    </zone>
+    
+    <zone id="34534">
+        <name><![CDATA[Afur]]></name>
+    </zone>
+    
+    <zone id="34537">
+        <name><![CDATA[Casas de La Cumbre]]></name>
+    </zone>
+    
+    <zone id="34539">
+        <name><![CDATA[Chamorga]]></name>
+    </zone>
+    
+    <zone id="34541">
+        <name><![CDATA[El Bailadero]]></name>
+    </zone>
+    
+    <zone id="34544">
+        <name><![CDATA[El Suculum]]></name>
+    </zone>
+    
+    <zone id="34546">
+        <name><![CDATA[Igueste San Andrés]]></name>
+    </zone>
+    
+    <zone id="34548">
+        <name><![CDATA[La Alegría]]></name>
+    </zone>
+    
+    <zone id="34549">
+        <name><![CDATA[Los Campitos]]></name>
+    </zone>
+    
+    <zone id="34550">
+        <name><![CDATA[Lomo de las Bodegas-La Cumbrilla]]></name>
+    </zone>
+    
+    <zone id="34551">
+        <name><![CDATA[Maria Jiménez]]></name>
+    </zone>
+    
+    <zone id="34552">
+        <name><![CDATA[Roque Negro]]></name>
+    </zone>
+    
+    <zone id="34554">
+        <name><![CDATA[San Andrés]]></name>
+    </zone>
+    
+    <zone id="34556">
+        <name><![CDATA[Taborno]]></name>
+    </zone>
+    
+    <zone id="34558">
+        <name><![CDATA[Taganana]]></name>
+    </zone>
+    
+    <zone id="34560">
+        <name><![CDATA[Valle Tahodio]]></name>
+    </zone>
+    
+    <zone id="34563">
+        <name><![CDATA[Valleseco]]></name>
+    </zone>
+    
+    <zone id="34564">
+        <name><![CDATA[Barrio Nuevo]]></name>
+    </zone>
+    
+    <zone id="34567">
+        <name><![CDATA[Duggi]]></name>
+    </zone>
+    
+    <zone id="34568">
+        <name><![CDATA[Ifara]]></name>
+    </zone>
+    
+    <zone id="34569">
+        <name><![CDATA[Las Acacias]]></name>
+    </zone>
+    
+    <zone id="34572">
+        <name><![CDATA[Las Mimosas]]></name>
+    </zone>
+    
+    <zone id="34574">
+        <name><![CDATA[Las Mimosas]]></name>
+    </zone>
+    
+    <zone id="34576">
+        <name><![CDATA[Los Hoteles]]></name>
+    </zone>
+    
+    <zone id="34578">
+        <name><![CDATA[Los Lavaderos]]></name>
+    </zone>
+    
+    <zone id="34581">
+        <name><![CDATA[Salamanca]]></name>
+    </zone>
+    
+    <zone id="34582">
+        <name><![CDATA[Toscal]]></name>
+    </zone>
+    
+    <zone id="34585">
+        <name><![CDATA[Urbanización Anaga]]></name>
+    </zone>
+    
+    <zone id="34588">
+        <name><![CDATA[Uruguay]]></name>
+    </zone>
+    
+    <zone id="34590">
+        <name><![CDATA[Zona Centro]]></name>
+    </zone>
+    
+    <zone id="34591">
+        <name><![CDATA[Zona Rambla]]></name>
+    </zone>
+    
+    <zone id="34594">
+        <name><![CDATA[Buenavista]]></name>
+    </zone>
+    
+    <zone id="34596">
+        <name><![CDATA[Chapatal]]></name>
+    </zone>
+    
+    <zone id="34599">
+        <name><![CDATA[Cruz del Señor]]></name>
+    </zone>
+    
+    <zone id="34602">
+        <name><![CDATA[Cuatro Torres]]></name>
+    </zone>
+    
+    <zone id="34605">
+        <name><![CDATA[Cuesta de Piedra]]></name>
+    </zone>
+    
+    <zone id="34608">
+        <name><![CDATA[El Cabo]]></name>
+    </zone>
+    
+    <zone id="34609">
+        <name><![CDATA[El Perú]]></name>
+    </zone>
+    
+    <zone id="34612">
+        <name><![CDATA[La Salle]]></name>
+    </zone>
+    
+    <zone id="34614">
+        <name><![CDATA[La Salud]]></name>
+    </zone>
+    
+    <zone id="34616">
+        <name><![CDATA[La Victoria]]></name>
+    </zone>
+    
+    <zone id="34617">
+        <name><![CDATA[Los Gladiolos]]></name>
+    </zone>
+    
+    <zone id="34620">
+        <name><![CDATA[Los Llanos]]></name>
+    </zone>
+    
+    <zone id="34623">
+        <name><![CDATA[San Sebastián]]></name>
+    </zone>
+    
+    <zone id="34625">
+        <name><![CDATA[Villa Ascensión]]></name>
+    </zone>
+    
+    <zone id="34626">
+        <name><![CDATA[Chimisay]]></name>
+    </zone>
+    
+    <zone id="34628">
+        <name><![CDATA[Ballester]]></name>
+    </zone>
+    
+    <zone id="34630">
+        <name><![CDATA[Buenos Aires]]></name>
+    </zone>
+    
+    <zone id="34631">
+        <name><![CDATA[Camino del Hierro]]></name>
+    </zone>
+    
+    <zone id="34634">
+        <name><![CDATA[Cesar Casariego]]></name>
+    </zone>
+    
+    <zone id="34635">
+        <name><![CDATA[Chamberi]]></name>
+    </zone>
+    
+    <zone id="34636">
+        <name><![CDATA[Finca La Multa]]></name>
+    </zone>
+    
+    <zone id="34638">
+        <name><![CDATA[Garcia Escamez]]></name>
+    </zone>
+    
+    <zone id="34639">
+        <name><![CDATA[Juan XXIII]]></name>
+    </zone>
+    
+    <zone id="34642">
+        <name><![CDATA[Las Cabritas]]></name>
+    </zone>
+    
+    <zone id="34645">
+        <name><![CDATA[Las Delicias]]></name>
+    </zone>
+    
+    <zone id="34646">
+        <name><![CDATA[Las Retamas]]></name>
+    </zone>
+    
+    <zone id="34649">
+        <name><![CDATA[Mayorazgo]]></name>
+    </zone>
+    
+    <zone id="34650">
+        <name><![CDATA[Miramar]]></name>
+    </zone>
+    
+    <zone id="34653">
+        <name><![CDATA[Moraditas]]></name>
+    </zone>
+    
+    <zone id="34654">
+        <name><![CDATA[Nuevo Obrero]]></name>
+    </zone>
+    
+    <zone id="34655">
+        <name><![CDATA[San Antonio]]></name>
+    </zone>
+    
+    <zone id="34656">
+        <name><![CDATA[San Pío X]]></name>
+    </zone>
+    
+    <zone id="34659">
+        <name><![CDATA[Santa Clara]]></name>
+    </zone>
+    
+    <zone id="34661">
+        <name><![CDATA[Somosierra]]></name>
+    </zone>
+    
+    <zone id="34664">
+        <name><![CDATA[Tio Pino]]></name>
+    </zone>
+    
+    <zone id="34665">
+        <name><![CDATA[Tristan]]></name>
+    </zone>
+    
+    <zone id="34666">
+        <name><![CDATA[Villa Benítez]]></name>
+    </zone>
+    
+    <zone id="34668">
+        <name><![CDATA[Vistabella]]></name>
+    </zone>
+    
+    <zone id="34669">
+        <name><![CDATA[Acoran]]></name>
+    </zone>
+    
+    <zone id="34672">
+        <name><![CDATA[Alisios]]></name>
+    </zone>
+    
+    <zone id="34675">
+        <name><![CDATA[Añaza]]></name>
+    </zone>
+    
+    <zone id="34676">
+        <name><![CDATA[Barranco Grande]]></name>
+    </zone>
+    
+    <zone id="34678">
+        <name><![CDATA[El Chorrillo	]]></name>
+    </zone>
+    
+    <zone id="34679">
+        <name><![CDATA[El Sobradillo]]></name>
+    </zone>
+    
+    <zone id="34681">
+        <name><![CDATA[El Tablero]]></name>
+    </zone>
+    
+    <zone id="34684">
+        <name><![CDATA[La Gallega]]></name>
+    </zone>
+    
+    <zone id="34686">
+        <name><![CDATA[Llano del Moro]]></name>
+    </zone>
+    
+    <zone id="34688">
+        <name><![CDATA[Santa María del Mar]]></name>
+    </zone>
+    
+    <zone id="34690">
+        <name><![CDATA[Tincer]]></name>
+    </zone>
+    
+</zones>

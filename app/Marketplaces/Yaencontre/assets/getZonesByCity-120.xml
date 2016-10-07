@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="552">
+        <name><![CDATA[Castellgalí]]></name>
+    </zone>
+    
+    <zone id="553">
+        <name><![CDATA[Urb.mas planoi]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="33696">
+        <name><![CDATA[Falguera, La]]></name>
+    </zone>
+    
+    <zone id="33697">
+        <name><![CDATA[Ciaño]]></name>
+    </zone>
+    
+    <zone id="33724">
+        <name><![CDATA[Barros]]></name>
+    </zone>
+    
+    <zone id="33725">
+        <name><![CDATA[Lada]]></name>
+    </zone>
+    
+    <zone id="33726">
+        <name><![CDATA[Riaño]]></name>
+    </zone>
+    
+    <zone id="33727">
+        <name><![CDATA[Sama]]></name>
+    </zone>
+    
+    <zone id="33728">
+        <name><![CDATA[Tuilla]]></name>
+    </zone>
+    
+    <zone id="33729">
+        <name><![CDATA[La Venta]]></name>
+    </zone>
+    
+</zones>

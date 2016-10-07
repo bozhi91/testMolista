@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="22434">
+        <name><![CDATA[Centre]]></name>
+    </zone>
+    
+    <zone id="22435">
+        <name><![CDATA[Eixample]]></name>
+    </zone>
+    
+    <zone id="22436">
+        <name><![CDATA[Santa Eugenia]]></name>
+    </zone>
+    
+    <zone id="22437">
+        <name><![CDATA[Mas Xirgu]]></name>
+    </zone>
+    
+    <zone id="22438">
+        <name><![CDATA[Nord]]></name>
+    </zone>
+    
+    <zone id="22439">
+        <name><![CDATA[Sud]]></name>
+    </zone>
+    
+    <zone id="22440">
+        <name><![CDATA[Est]]></name>
+    </zone>
+    
+    <zone id="22441">
+        <name><![CDATA[Oest]]></name>
+    </zone>
+    
+</zones>

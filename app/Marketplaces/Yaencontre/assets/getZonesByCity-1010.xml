@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1013">
+        <name><![CDATA[Can toni]]></name>
+    </zone>
+    
+    <zone id="1014">
+        <name><![CDATA[El gladiol]]></name>
+    </zone>
+    
+    <zone id="1015">
+        <name><![CDATA[El rectoret]]></name>
+    </zone>
+    
+    <zone id="1016">
+        <name><![CDATA[Los rosales]]></name>
+    </zone>
+    
+    <zone id="1017">
+        <name><![CDATA[Projardins]]></name>
+    </zone>
+    
+    <zone id="1018">
+        <name><![CDATA[Casc antic]]></name>
+    </zone>
+    
+    <zone id="1020">
+        <name><![CDATA[Costa cunit]]></name>
+    </zone>
+    
+    <zone id="1021">
+        <name><![CDATA[Cunit est]]></name>
+    </zone>
+    
+    <zone id="1824">
+        <name><![CDATA[Els Jardins]]></name>
+    </zone>
+    
+    <zone id="1825">
+        <name><![CDATA[Can Molas]]></name>
+    </zone>
+    
+    <zone id="1826">
+        <name><![CDATA[La Baronia]]></name>
+    </zone>
+    
+    <zone id="1827">
+        <name><![CDATA[Sol Cunit]]></name>
+    </zone>
+    
+    <zone id="1828">
+        <name><![CDATA[Procunit]]></name>
+    </zone>
+    
+    <zone id="1829">
+        <name><![CDATA[Plademar]]></name>
+    </zone>
+    
+    <zone id="1830">
+        <name><![CDATA[Cunit Diagonal]]></name>
+    </zone>
+    
+    <zone id="1831">
+        <name><![CDATA[Cunidor]]></name>
+    </zone>
+    
+    <zone id="1832">
+        <name><![CDATA[Valparaiso]]></name>
+    </zone>
+    
+    <zone id="1833">
+        <name><![CDATA[Els Atmetllers]]></name>
+    </zone>
+    
+    <zone id="1834">
+        <name><![CDATA[Cal Cego]]></name>
+    </zone>
+    
+    <zone id="1835">
+        <name><![CDATA[Can Nicolau]]></name>
+    </zone>
+    
+    <zone id="1836">
+        <name><![CDATA[Les Torres]]></name>
+    </zone>
+    
+    <zone id="1837">
+        <name><![CDATA[Haug]]></name>
+    </zone>
+    
+    <zone id="1838">
+        <name><![CDATA[Prat de Cunit]]></name>
+    </zone>
+    
+    <zone id="1839">
+        <name><![CDATA[Sant Jaume]]></name>
+    </zone>
+    
+    <zone id="1840">
+        <name><![CDATA[Pug Pelós]]></name>
+    </zone>
+    
+</zones>

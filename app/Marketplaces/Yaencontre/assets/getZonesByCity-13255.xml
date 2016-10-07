@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2438">
+        <name><![CDATA[Zona Centro]]></name>
+    </zone>
+    
+    <zone id="2439">
+        <name><![CDATA[Molino de la Vega]]></name>
+    </zone>
+    
+    <zone id="2440">
+        <name><![CDATA[Barrio de la Navidad]]></name>
+    </zone>
+    
+    <zone id="2441">
+        <name><![CDATA[Barrio de las Colonias]]></name>
+    </zone>
+    
+    <zone id="2442">
+        <name><![CDATA[Santa Lucia]]></name>
+    </zone>
+    
+    <zone id="2443">
+        <name><![CDATA[Cardeñas]]></name>
+    </zone>
+    
+    <zone id="2444">
+        <name><![CDATA[Barrio del Carmen]]></name>
+    </zone>
+    
+    <zone id="2445">
+        <name><![CDATA[Barrio de la Orden]]></name>
+    </zone>
+    
+    <zone id="2446">
+        <name><![CDATA[Santa Marta]]></name>
+    </zone>
+    
+    <zone id="2447">
+        <name><![CDATA[Zona Parque Moret]]></name>
+    </zone>
+    
+    <zone id="2448">
+        <name><![CDATA[Diego Sayago (El Torrejon)]]></name>
+    </zone>
+    
+    <zone id="2449">
+        <name><![CDATA[Principe Felipe]]></name>
+    </zone>
+    
+    <zone id="2450">
+        <name><![CDATA[La Ribera-Alqueria]]></name>
+    </zone>
+    
+    <zone id="2451">
+        <name><![CDATA[Urbanizacion Verdeluz]]></name>
+    </zone>
+    
+    <zone id="2452">
+        <name><![CDATA[Barrio de la Hispanidad]]></name>
+    </zone>
+    
+    <zone id="2453">
+        <name><![CDATA[Urbanizacion Santa Maria del Pilar]]></name>
+    </zone>
+    
+    <zone id="2454">
+        <name><![CDATA[Jardines Sierra de Huelva]]></name>
+    </zone>
+    
+    <zone id="2455">
+        <name><![CDATA[San Antonio]]></name>
+    </zone>
+    
+    <zone id="2456">
+        <name><![CDATA[Barrio de las Adoratrices]]></name>
+    </zone>
+    
+    <zone id="2457">
+        <name><![CDATA[Tres Ventanas]]></name>
+    </zone>
+    
+    <zone id="2458">
+        <name><![CDATA[Poligono San Sebastian]]></name>
+    </zone>
+    
+    <zone id="2459">
+        <name><![CDATA[El Higueral]]></name>
+    </zone>
+    
+    <zone id="2460">
+        <name><![CDATA[Barrio de Jose Antonio]]></name>
+    </zone>
+    
+    <zone id="2461">
+        <name><![CDATA[Barrio de los Rosales]]></name>
+    </zone>
+    
+    <zone id="2462">
+        <name><![CDATA[Pilar de Balbueno]]></name>
+    </zone>
+    
+    <zone id="2463">
+        <name><![CDATA[Perez Cubillas]]></name>
+    </zone>
+    
+    <zone id="2464">
+        <name><![CDATA[Nuestra Sra del Rocio]]></name>
+    </zone>
+    
+    <zone id="2465">
+        <name><![CDATA[Vicente Yañez Pinzon]]></name>
+    </zone>
+    
+    <zone id="2466">
+        <name><![CDATA[Barrio de la Cinta]]></name>
+    </zone>
+    
+    <zone id="2467">
+        <name><![CDATA[Barrio de Balbueno]]></name>
+    </zone>
+    
+    <zone id="2468">
+        <name><![CDATA[Barrio de Jesus]]></name>
+    </zone>
+    
+    <zone id="2469">
+        <name><![CDATA[Barrio de Tartessos]]></name>
+    </zone>
+    
+    <zone id="2470">
+        <name><![CDATA[Barrio del Matadero]]></name>
+    </zone>
+    
+    <zone id="2471">
+        <name><![CDATA[Reina Victoria (Barrio Obrero)]]></name>
+    </zone>
+    
+    <zone id="2472">
+        <name><![CDATA[Huerta Mena]]></name>
+    </zone>
+    
+    <zone id="2473">
+        <name><![CDATA[Barrio de Guadalupe]]></name>
+    </zone>
+    
+    <zone id="2474">
+        <name><![CDATA[Barrio de Viaplana]]></name>
+    </zone>
+    
+    <zone id="2475">
+        <name><![CDATA[Zona el Conquero]]></name>
+    </zone>
+    
+    <zone id="2476">
+        <name><![CDATA[El Polvorin]]></name>
+    </zone>
+    
+    <zone id="2477">
+        <name><![CDATA[Barrio de Pescaderia]]></name>
+    </zone>
+    
+    <zone id="2478">
+        <name><![CDATA[Barrio de la Florida]]></name>
+    </zone>
+    
+    <zone id="2479">
+        <name><![CDATA[Barrio de Vistalegre]]></name>
+    </zone>
+    
+    <zone id="2480">
+        <name><![CDATA[Barrio el Seminario]]></name>
+    </zone>
+    
+    <zone id="2481">
+        <name><![CDATA[Barrio de San Sebastian]]></name>
+    </zone>
+    
+    <zone id="2482">
+        <name><![CDATA[Barrio Principe Juan Carlos]]></name>
+    </zone>
+    
+    <zone id="2483">
+        <name><![CDATA[Diseminado (Marismas del Titan y Punta del Sebo)]]></name>
+    </zone>
+    
+    <zone id="2484">
+        <name><![CDATA[Barriada de Zafra]]></name>
+    </zone>
+    
+</zones>

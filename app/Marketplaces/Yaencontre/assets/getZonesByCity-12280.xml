@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="22593">
+        <name><![CDATA[Tondos ]]></name>
+    </zone>
+    
+    <zone id="22594">
+        <name><![CDATA[Nohales]]></name>
+    </zone>
+    
+    <zone id="22595">
+        <name><![CDATA[Colliguilla]]></name>
+    </zone>
+    
+    <zone id="22596">
+        <name><![CDATA[Colliga]]></name>
+    </zone>
+    
+    <zone id="22597">
+        <name><![CDATA[Mohorte]]></name>
+    </zone>
+    
+    <zone id="22598">
+        <name><![CDATA[Villanueva de los Escuderos]]></name>
+    </zone>
+    
+    <zone id="22599">
+        <name><![CDATA[Valdecabras]]></name>
+    </zone>
+    
+    <zone id="22600">
+        <name><![CDATA[La Melgosa]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="143">
+        <name><![CDATA[Bonanova]]></name>
+    </zone>
+    
+    <zone id="145">
+        <name><![CDATA[Mas-mel]]></name>
+    </zone>
+    
+    <zone id="146">
+        <name><![CDATA[L´estany]]></name>
+    </zone>
+    
+    <zone id="147">
+        <name><![CDATA[Romani]]></name>
+    </zone>
+    
+    <zone id="148">
+        <name><![CDATA[Baronia]]></name>
+    </zone>
+    
+    <zone id="149">
+        <name><![CDATA[Calafell residencial]]></name>
+    </zone>
+    
+    <zone id="150">
+        <name><![CDATA[Brisas de calafell]]></name>
+    </zone>
+    
+    <zone id="151">
+        <name><![CDATA[Bellamar]]></name>
+    </zone>
+    
+    <zone id="152">
+        <name><![CDATA[Alordà parc]]></name>
+    </zone>
+    
+    <zone id="153">
+        <name><![CDATA[Prat de calafell]]></name>
+    </zone>
+    
+    <zone id="154">
+        <name><![CDATA[Parc de la sínia]]></name>
+    </zone>
+    
+    <zone id="155">
+        <name><![CDATA[El sindicat]]></name>
+    </zone>
+    
+    <zone id="156">
+        <name><![CDATA[El clos de rectorat]]></name>
+    </zone>
+    
+    <zone id="157">
+        <name><![CDATA[Miramar residencial]]></name>
+    </zone>
+    
+    <zone id="158">
+        <name><![CDATA[Masia de la font]]></name>
+    </zone>
+    
+    <zone id="159">
+        <name><![CDATA[Calafell parc]]></name>
+    </zone>
+    
+    <zone id="160">
+        <name><![CDATA[Mas romeu]]></name>
+    </zone>
+    
+    <zone id="161">
+        <name><![CDATA[Comafarella]]></name>
+    </zone>
+    
+    <zone id="162">
+        <name><![CDATA[Segur de calafell]]></name>
+    </zone>
+    
+    <zone id="163">
+        <name><![CDATA[Parc de pau]]></name>
+    </zone>
+    
+    <zone id="164">
+        <name><![CDATA[Segur de dalt]]></name>
+    </zone>
+    
+    <zone id="165">
+        <name><![CDATA[Valldemar]]></name>
+    </zone>
+    
+    <zone id="946">
+        <name><![CDATA[Bonavista]]></name>
+    </zone>
+    
+    <zone id="34337">
+        <name><![CDATA[Bellamel]]></name>
+    </zone>
+    
+    <zone id="34340">
+        <name><![CDATA[La Platja de Calafell]]></name>
+    </zone>
+    
+    <zone id="34342">
+        <name><![CDATA[Les Villes]]></name>
+    </zone>
+    
+    <zone id="34344">
+        <name><![CDATA[Montmar]]></name>
+    </zone>
+    
+    <zone id="34347">
+        <name><![CDATA[Parc empresarial de Calafell]]></name>
+    </zone>
+    
+</zones>

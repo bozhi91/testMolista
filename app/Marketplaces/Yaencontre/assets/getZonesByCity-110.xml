@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1445">
+        <name><![CDATA[El Pla]]></name>
+    </zone>
+    
+    <zone id="1446">
+        <name><![CDATA[Centre o Can Nadal]]></name>
+    </zone>
+    
+    <zone id="1447">
+        <name><![CDATA[Falguera]]></name>
+    </zone>
+    
+    <zone id="1448">
+        <name><![CDATA[Les Grases]]></name>
+    </zone>
+    
+    <zone id="1449">
+        <name><![CDATA[Can Calders]]></name>
+    </zone>
+    
+    <zone id="1450">
+        <name><![CDATA[Roses - Castellbell]]></name>
+    </zone>
+    
+    <zone id="1451">
+        <name><![CDATA[Mas Lluí]]></name>
+    </zone>
+    
+    <zone id="1819">
+        <name><![CDATA[Can Llobera]]></name>
+    </zone>
+    
+    <zone id="1820">
+        <name><![CDATA[Can Maginàs]]></name>
+    </zone>
+    
+    <zone id="1822">
+        <name><![CDATA[La Salut]]></name>
+    </zone>
+    
+</zones>

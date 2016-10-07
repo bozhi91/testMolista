@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2927">
+        <name><![CDATA[Area 17]]></name>
+    </zone>
+    
+    <zone id="2928">
+        <name><![CDATA[Armunia]]></name>
+    </zone>
+    
+    <zone id="2929">
+        <name><![CDATA[Arturo Eyries]]></name>
+    </zone>
+    
+    <zone id="2930">
+        <name><![CDATA[Casco Antiguo]]></name>
+    </zone>
+    
+    <zone id="2931">
+        <name><![CDATA[Cruce de Armunia]]></name>
+    </zone>
+    
+    <zone id="2932">
+        <name><![CDATA[El Crucero]]></name>
+    </zone>
+    
+    <zone id="2933">
+        <name><![CDATA[El Ejido]]></name>
+    </zone>
+    
+    <zone id="2934">
+        <name><![CDATA[Ensanche]]></name>
+    </zone>
+    
+    <zone id="2935">
+        <name><![CDATA[Eras de Renueva]]></name>
+    </zone>
+    
+    <zone id="2936">
+        <name><![CDATA[La Asunción]]></name>
+    </zone>
+    
+    <zone id="2937">
+        <name><![CDATA[La Chantria]]></name>
+    </zone>
+    
+    <zone id="2938">
+        <name><![CDATA[La Inmaculada]]></name>
+    </zone>
+    
+    <zone id="2939">
+        <name><![CDATA[La Lastra]]></name>
+    </zone>
+    
+    <zone id="2940">
+        <name><![CDATA[La Palomera]]></name>
+    </zone>
+    
+    <zone id="2941">
+        <name><![CDATA[La Sal]]></name>
+    </zone>
+    
+    <zone id="2942">
+        <name><![CDATA[La Torre]]></name>
+    </zone>
+    
+    <zone id="2943">
+        <name><![CDATA[La Vega]]></name>
+    </zone>
+    
+    <zone id="2944">
+        <name><![CDATA[La Victoria]]></name>
+    </zone>
+    
+    <zone id="2945">
+        <name><![CDATA[Las Ventas]]></name>
+    </zone>
+    
+    <zone id="2946">
+        <name><![CDATA[Obra Sindical del Hogar]]></name>
+    </zone>
+    
+    <zone id="2947">
+        <name><![CDATA[Oteruelo de la Valdocina]]></name>
+    </zone>
+    
+    <zone id="2948">
+        <name><![CDATA[Paraiso-Cantinas]]></name>
+    </zone>
+    
+    <zone id="2949">
+        <name><![CDATA[Patronato viviendas militares]]></name>
+    </zone>
+    
+    <zone id="2950">
+        <name><![CDATA[Pinilla]]></name>
+    </zone>
+    
+    <zone id="2951">
+        <name><![CDATA[Puente Castro]]></name>
+    </zone>
+    
+    <zone id="2952">
+        <name><![CDATA[San Esteban]]></name>
+    </zone>
+    
+    <zone id="2953">
+        <name><![CDATA[San Lorenzo]]></name>
+    </zone>
+    
+    <zone id="2954">
+        <name><![CDATA[San Mames]]></name>
+    </zone>
+    
+    <zone id="2955">
+        <name><![CDATA[San Martín]]></name>
+    </zone>
+    
+    <zone id="2956">
+        <name><![CDATA[San Pedro]]></name>
+    </zone>
+    
+    <zone id="2957">
+        <name><![CDATA[Santa Ana]]></name>
+    </zone>
+    
+    <zone id="2958">
+        <name><![CDATA[Santa Marina]]></name>
+    </zone>
+    
+    <zone id="2959">
+        <name><![CDATA[Santa Olaja]]></name>
+    </zone>
+    
+    <zone id="2960">
+        <name><![CDATA[Trobajo del Cerecedo]]></name>
+    </zone>
+    
+    <zone id="29015">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+</zones>

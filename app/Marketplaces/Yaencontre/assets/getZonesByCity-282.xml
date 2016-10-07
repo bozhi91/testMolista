@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="735">
+        <name><![CDATA[Santpedor]]></name>
+    </zone>
+    
+    <zone id="736">
+        <name><![CDATA[Mirador de montserrat]]></name>
+    </zone>
+    
+</zones>

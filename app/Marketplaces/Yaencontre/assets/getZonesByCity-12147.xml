@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="22627">
+        <name><![CDATA[Ciudad Vieja-Pescaderia-Orzan]]></name>
+    </zone>
+    
+    <zone id="22628">
+        <name><![CDATA[Montealto-Torre-Adormideras]]></name>
+    </zone>
+    
+    <zone id="22629">
+        <name><![CDATA[Juan Florez-Duran Loriga-Palloza]]></name>
+    </zone>
+    
+    <zone id="22630">
+        <name><![CDATA[Los Mallos-Sagrada Familia-Santa Margarita]]></name>
+    </zone>
+    
+    <zone id="22631">
+        <name><![CDATA[Riazor-Labañou-Los Rosales]]></name>
+    </zone>
+    
+    <zone id="22632">
+        <name><![CDATA[Agra del Orzan]]></name>
+    </zone>
+    
+    <zone id="22633">
+        <name><![CDATA[Elviña-Oza-Los Castros-Barrio de las Flores]]></name>
+    </zone>
+    
+    <zone id="22634">
+        <name><![CDATA[Eiris-Santa Gema-La Zapateira]]></name>
+    </zone>
+    
+    <zone id="22635">
+        <name><![CDATA[Palavea-Mesoiro-Feans]]></name>
+    </zone>
+    
+    <zone id="22636">
+        <name><![CDATA[Bens-Sardiñeira-La Silva]]></name>
+    </zone>
+    
+    <zone id="33782">
+        <name><![CDATA[La Gaiteira]]></name>
+    </zone>
+    
+    <zone id="33783">
+        <name><![CDATA[Cuatro Caminos]]></name>
+    </zone>
+    
+    <zone id="34485">
+        <name><![CDATA[San Andrés]]></name>
+    </zone>
+    
+</zones>

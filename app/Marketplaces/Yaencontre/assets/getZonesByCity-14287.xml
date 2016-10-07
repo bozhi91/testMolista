@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2415">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="2416">
+        <name><![CDATA[Las Aves]]></name>
+    </zone>
+    
+    <zone id="2417">
+        <name><![CDATA[Vergel-Olivas]]></name>
+    </zone>
+    
+    <zone id="2418">
+        <name><![CDATA[Nuevo Aranjuez]]></name>
+    </zone>
+    
+    <zone id="2419">
+        <name><![CDATA[Foso-Moreras]]></name>
+    </zone>
+    
+    <zone id="2420">
+        <name><![CDATA[Cortijo de San Isidro]]></name>
+    </zone>
+    
+    <zone id="2421">
+        <name><![CDATA[La Montaña]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3648">
+        <name><![CDATA[Zona Centro]]></name>
+    </zone>
+    
+    <zone id="3649">
+        <name><![CDATA[Barrio de los Reyes]]></name>
+    </zone>
+    
+    <zone id="3650">
+        <name><![CDATA[Las Casillas]]></name>
+    </zone>
+    
+    <zone id="3651">
+        <name><![CDATA[Barrio de Abantos]]></name>
+    </zone>
+    
+    <zone id="3652">
+        <name><![CDATA[El Romeral]]></name>
+    </zone>
+    
+    <zone id="3653">
+        <name><![CDATA[Zaburdon]]></name>
+    </zone>
+    
+    <zone id="3654">
+        <name><![CDATA[Cebadillas]]></name>
+    </zone>
+    
+    <zone id="3655">
+        <name><![CDATA[Monte Carmelo]]></name>
+    </zone>
+    
+    <zone id="3656">
+        <name><![CDATA[Barrio del Rosario]]></name>
+    </zone>
+    
+    <zone id="3657">
+        <name><![CDATA[El Plantel]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="22489">
+        <name><![CDATA[Nucleo Urbano]]></name>
+    </zone>
+    
+    <zone id="22490">
+        <name><![CDATA[Barrio de Consolacion]]></name>
+    </zone>
+    
+    <zone id="22491">
+        <name><![CDATA[Baños del Peral]]></name>
+    </zone>
+    
+</zones>

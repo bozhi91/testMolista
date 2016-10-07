@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3612">
+        <name><![CDATA[Pineda de Mar Pueblo]]></name>
+    </zone>
+    
+    <zone id="3613">
+        <name><![CDATA[Can Feliu de Merola]]></name>
+    </zone>
+    
+    <zone id="3614">
+        <name><![CDATA[Can Carreres]]></name>
+    </zone>
+    
+    <zone id="3615">
+        <name><![CDATA[Montessol]]></name>
+    </zone>
+    
+    <zone id="34318">
+        <name><![CDATA[Poblenou]]></name>
+    </zone>
+    
+    <zone id="34321">
+        <name><![CDATA[Les Creus]]></name>
+    </zone>
+    
+    <zone id="34322">
+        <name><![CDATA[Can Cornet]]></name>
+    </zone>
+    
+    <zone id="34323">
+        <name><![CDATA[Pinemar]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1575">
+        <name><![CDATA[Can Rovira]]></name>
+    </zone>
+    
+    <zone id="1576">
+        <name><![CDATA[Mas Rovira]]></name>
+    </zone>
+    
+    <zone id="1577">
+        <name><![CDATA[Vall del Sol]]></name>
+    </zone>
+    
+    <zone id="1578">
+        <name><![CDATA[Can Batlle]]></name>
+    </zone>
+    
+    <zone id="1579">
+        <name><![CDATA[El Mirador]]></name>
+    </zone>
+    
+    <zone id="1580">
+        <name><![CDATA[La Llibra Casanova]]></name>
+    </zone>
+    
+    <zone id="1581">
+        <name><![CDATA[Els Pinars]]></name>
+    </zone>
+    
+    <zone id="1582">
+        <name><![CDATA[La Soleia]]></name>
+    </zone>
+    
+    <zone id="1583">
+        <name><![CDATA[La Solana]]></name>
+    </zone>
+    
+    <zone id="1584">
+        <name><![CDATA[Vallirana Parc]]></name>
+    </zone>
+    
+    <zone id="1585">
+        <name><![CDATA[Selva Negra]]></name>
+    </zone>
+    
+    <zone id="1586">
+        <name><![CDATA[Casetes Montané]]></name>
+    </zone>
+    
+    <zone id="1587">
+        <name><![CDATA[Casetes Julià]]></name>
+    </zone>
+    
+    <zone id="1588">
+        <name><![CDATA[Can Julià]]></name>
+    </zone>
+    
+    <zone id="1589">
+        <name><![CDATA[La Pinatella]]></name>
+    </zone>
+    
+    <zone id="1590">
+        <name><![CDATA[Penya Forcada]]></name>
+    </zone>
+    
+    <zone id="1591">
+        <name><![CDATA[Pla del Pèlac]]></name>
+    </zone>
+    
+    <zone id="1592">
+        <name><![CDATA[Les Bassioles]]></name>
+    </zone>
+    
+    <zone id="1593">
+        <name><![CDATA[El Lledoner]]></name>
+    </zone>
+    
+    <zone id="1594">
+        <name><![CDATA[Inter Club]]></name>
+    </zone>
+    
+    <zone id="1595">
+        <name><![CDATA[Can Prunera]]></name>
+    </zone>
+    
+</zones>

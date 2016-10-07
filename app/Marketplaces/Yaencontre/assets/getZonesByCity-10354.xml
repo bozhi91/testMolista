@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3430">
+        <name><![CDATA[Nucleo Urbano]]></name>
+    </zone>
+    
+    <zone id="3431">
+        <name><![CDATA[El Parador]]></name>
+    </zone>
+    
+    <zone id="3432">
+        <name><![CDATA[Las Marinas]]></name>
+    </zone>
+    
+    <zone id="3433">
+        <name><![CDATA[Aguadulce]]></name>
+    </zone>
+    
+    <zone id="3434">
+        <name><![CDATA[San Francisco]]></name>
+    </zone>
+    
+    <zone id="3435">
+        <name><![CDATA[Las Salinas]]></name>
+    </zone>
+    
+    <zone id="3436">
+        <name><![CDATA[Urb. Roquetas de Mar]]></name>
+    </zone>
+    
+    <zone id="3437">
+        <name><![CDATA[Urb. Playa Serena]]></name>
+    </zone>
+    
+    <zone id="3438">
+        <name><![CDATA[El Solanillo]]></name>
+    </zone>
+    
+    <zone id="3439">
+        <name><![CDATA[Cortijos de Marin]]></name>
+    </zone>
+    
+    <zone id="3440">
+        <name><![CDATA[Carretera de la Mojonera]]></name>
+    </zone>
+    
+    <zone id="33732">
+        <name><![CDATA[Urb. Playa Serena Sur]]></name>
+    </zone>
+    
+</zones>

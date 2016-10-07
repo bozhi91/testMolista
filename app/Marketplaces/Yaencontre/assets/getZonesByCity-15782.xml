@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="33933">
+        <name><![CDATA[Setién]]></name>
+    </zone>
+    
+    <zone id="33936">
+        <name><![CDATA[Rubayo]]></name>
+    </zone>
+    
+    <zone id="33937">
+        <name><![CDATA[Orejo]]></name>
+    </zone>
+    
+    <zone id="33940">
+        <name><![CDATA[Pedreña]]></name>
+    </zone>
+    
+</zones>

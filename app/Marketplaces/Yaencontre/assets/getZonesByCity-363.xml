@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1332">
+        <name><![CDATA[La Vila]]></name>
+    </zone>
+    
+    <zone id="1333">
+        <name><![CDATA[Can Carreras]]></name>
+    </zone>
+    
+    <zone id="1334">
+        <name><![CDATA[El Pla]]></name>
+    </zone>
+    
+    <zone id="1335">
+        <name><![CDATA[Buenos Aires]]></name>
+    </zone>
+    
+    <zone id="1336">
+        <name><![CDATA[Torrent de Llops]]></name>
+    </zone>
+    
+    <zone id="1337">
+        <name><![CDATA[Camí Fondo]]></name>
+    </zone>
+    
+    <zone id="1338">
+        <name><![CDATA[Can Bros]]></name>
+    </zone>
+    
+    <zone id="1434">
+        <name><![CDATA[Can Cases]]></name>
+    </zone>
+    
+    <zone id="1435">
+        <name><![CDATA[La Mina]]></name>
+    </zone>
+    
+    <zone id="1436">
+        <name><![CDATA[Rosanes]]></name>
+    </zone>
+    
+    <zone id="1437">
+        <name><![CDATA[Pont del Diable]]></name>
+    </zone>
+    
+    <zone id="1438">
+        <name><![CDATA[Les Bóviles]]></name>
+    </zone>
+    
+</zones>

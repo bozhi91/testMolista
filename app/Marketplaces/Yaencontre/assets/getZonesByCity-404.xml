@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="878">
+        <name><![CDATA[Vora sitges]]></name>
+    </zone>
+    
+    <zone id="879">
+        <name><![CDATA[Daltmar]]></name>
+    </zone>
+    
+    <zone id="880">
+        <name><![CDATA[Muntanya del mar]]></name>
+    </zone>
+    
+    <zone id="881">
+        <name><![CDATA[Can roca]]></name>
+    </zone>
+    
+    <zone id="882">
+        <name><![CDATA[Les palmeres]]></name>
+    </zone>
+    
+    <zone id="883">
+        <name><![CDATA[Las américas]]></name>
+    </zone>
+    
+    <zone id="884">
+        <name><![CDATA[California]]></name>
+    </zone>
+    
+    <zone id="885">
+        <name><![CDATA[Nou canyelles]]></name>
+    </zone>
+    
+    <zone id="886">
+        <name><![CDATA[La cogullada]]></name>
+    </zone>
+    
+    <zone id="887">
+        <name><![CDATA[La selva de las maravillas]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3616">
+        <name><![CDATA[Centro historico]]></name>
+    </zone>
+    
+    <zone id="3617">
+        <name><![CDATA[Torroba]]></name>
+    </zone>
+    
+    <zone id="3619">
+        <name><![CDATA[Cotomar]]></name>
+    </zone>
+    
+    <zone id="3620">
+        <name><![CDATA[Atalaya]]></name>
+    </zone>
+    
+    <zone id="3621">
+        <name><![CDATA[Virgen]]></name>
+    </zone>
+    
+    <zone id="3622">
+        <name><![CDATA[Cantal]]></name>
+    </zone>
+    
+    <zone id="3623">
+        <name><![CDATA[Señorio]]></name>
+    </zone>
+    
+    <zone id="3624">
+        <name><![CDATA[Nuevo Rincon]]></name>
+    </zone>
+    
+    <zone id="3625">
+        <name><![CDATA[Benagalbon]]></name>
+    </zone>
+    
+    <zone id="3626">
+        <name><![CDATA[La Cala]]></name>
+    </zone>
+    
+    <zone id="3627">
+        <name><![CDATA[Cuartel]]></name>
+    </zone>
+    
+    <zone id="3628">
+        <name><![CDATA[Castillo]]></name>
+    </zone>
+    
+    <zone id="3629">
+        <name><![CDATA[Playa]]></name>
+    </zone>
+    
+    <zone id="3630">
+        <name><![CDATA[Pedania Cala del Moral]]></name>
+    </zone>
+    
+    <zone id="3631">
+        <name><![CDATA[Pedania Benagalbon]]></name>
+    </zone>
+    
+    <zone id="3632">
+        <name><![CDATA[Pedania Torre de Benagalbon]]></name>
+    </zone>
+    
+</zones>

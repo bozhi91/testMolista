@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="828">
+        <name><![CDATA[Montgavina]]></name>
+    </zone>
+    
+    <zone id="829">
+        <name><![CDATA[El coll]]></name>
+    </zone>
+    
+    <zone id="830">
+        <name><![CDATA[Plans d¸aiguadolç]]></name>
+    </zone>
+    
+    <zone id="831">
+        <name><![CDATA[Baix fondal]]></name>
+    </zone>
+    
+    <zone id="832">
+        <name><![CDATA[Terramar]]></name>
+    </zone>
+    
+    <zone id="833">
+        <name><![CDATA[Quint mar]]></name>
+    </zone>
+    
+    <zone id="834">
+        <name><![CDATA[La plana]]></name>
+    </zone>
+    
+    <zone id="835">
+        <name><![CDATA[Els molins]]></name>
+    </zone>
+    
+    <zone id="836">
+        <name><![CDATA[La madriguera]]></name>
+    </zone>
+    
+    <zone id="837">
+        <name><![CDATA[La granja]]></name>
+    </zone>
+    
+    <zone id="838">
+        <name><![CDATA[Oasis]]></name>
+    </zone>
+    
+    <zone id="839">
+        <name><![CDATA[Sant crispí]]></name>
+    </zone>
+    
+    <zone id="840">
+        <name><![CDATA[Casas del sord]]></name>
+    </zone>
+    
+    <zone id="841">
+        <name><![CDATA[Cases noves]]></name>
+    </zone>
+    
+    <zone id="842">
+        <name><![CDATA[Bobila]]></name>
+    </zone>
+    
+    <zone id="843">
+        <name><![CDATA[Llevantina]]></name>
+    </zone>
+    
+    <zone id="844">
+        <name><![CDATA[Santa barbara]]></name>
+    </zone>
+    
+    <zone id="845">
+        <name><![CDATA[Sinia morera]]></name>
+    </zone>
+    
+    <zone id="846">
+        <name><![CDATA[Poble sec]]></name>
+    </zone>
+    
+    <zone id="847">
+        <name><![CDATA[Can pei]]></name>
+    </zone>
+    
+    <zone id="848">
+        <name><![CDATA[Centre poble]]></name>
+    </zone>
+    
+    <zone id="849">
+        <name><![CDATA[Aiguadolç]]></name>
+    </zone>
+    
+    <zone id="850">
+        <name><![CDATA[Vallpineda]]></name>
+    </zone>
+    
+    <zone id="851">
+        <name><![CDATA[Vinyet]]></name>
+    </zone>
+    
+    <zone id="1351">
+        <name><![CDATA[Parc del Garraf]]></name>
+    </zone>
+    
+    <zone id="1352">
+        <name><![CDATA[Pins Bens]]></name>
+    </zone>
+    
+    <zone id="1539">
+        <name><![CDATA[Els Ametllers]]></name>
+    </zone>
+    
+    <zone id="1540">
+        <name><![CDATA[Can Girona]]></name>
+    </zone>
+    
+    <zone id="1541">
+        <name><![CDATA[Hospital]]></name>
+    </zone>
+    
+    <zone id="1542">
+        <name><![CDATA[La Marina de Aiguadolç]]></name>
+    </zone>
+    
+    <zone id="1543">
+        <name><![CDATA[Port de Aiguadolç]]></name>
+    </zone>
+    
+    <zone id="1544">
+        <name><![CDATA[San Sebastian]]></name>
+    </zone>
+    
+    <zone id="1715">
+        <name><![CDATA[Cent]]></name>
+    </zone>
+    
+    <zone id="1728">
+        <name><![CDATA[Polígon Mas Alba]]></name>
+    </zone>
+    
+    <zone id="1813">
+        <name><![CDATA[Botigues de Sitges, Les]]></name>
+    </zone>
+    
+</zones>

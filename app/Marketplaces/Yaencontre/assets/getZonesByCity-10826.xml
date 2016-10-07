@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1770">
+        <name><![CDATA[Cales de Mallorca]]></name>
+    </zone>
+    
+    <zone id="1771">
+        <name><![CDATA[Cala Murada]]></name>
+    </zone>
+    
+    <zone id="1772">
+        <name><![CDATA[Illot (S´)]]></name>
+    </zone>
+    
+    <zone id="1773">
+        <name><![CDATA[Porto Cristo]]></name>
+    </zone>
+    
+    <zone id="1774">
+        <name><![CDATA[Son Macià]]></name>
+    </zone>
+    
+    <zone id="1775">
+        <name><![CDATA[Cala Anguila]]></name>
+    </zone>
+    
+    <zone id="1776">
+        <name><![CDATA[Cala Mendia]]></name>
+    </zone>
+    
+    <zone id="1777">
+        <name><![CDATA[Estany d´en Mas (S´)]]></name>
+    </zone>
+    
+</zones>

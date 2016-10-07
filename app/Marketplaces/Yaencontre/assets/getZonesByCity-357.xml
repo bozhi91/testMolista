@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1339">
+        <name><![CDATA[Montserrat]]></name>
+    </zone>
+    
+    <zone id="1340">
+        <name><![CDATA[Les Flors]]></name>
+    </zone>
+    
+    <zone id="1341">
+        <name><![CDATA[Set Camins]]></name>
+    </zone>
+    
+    <zone id="1342">
+        <name><![CDATA[Sant Crist]]></name>
+    </zone>
+    
+    <zone id="1343">
+        <name><![CDATA[Poble Sec]]></name>
+    </zone>
+    
+    <zone id="1344">
+        <name><![CDATA[Les Comes]]></name>
+    </zone>
+    
+    <zone id="1345">
+        <name><![CDATA[Fàtima]]></name>
+    </zone>
+    
+    <zone id="1346">
+        <name><![CDATA[Nucli Antic Adoberies]]></name>
+    </zone>
+    
+    <zone id="1347">
+        <name><![CDATA[Nucli Antic Molí Nou]]></name>
+    </zone>
+    
+    <zone id="1348">
+        <name><![CDATA[Soledat]]></name>
+    </zone>
+    
+    <zone id="1480">
+        <name><![CDATA[Sant Agustí]]></name>
+    </zone>
+    
+</zones>

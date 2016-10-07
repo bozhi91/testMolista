@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1755">
+        <name><![CDATA[Arenal (S´)]]></name>
+    </zone>
+    
+    <zone id="1756">
+        <name><![CDATA[Estanyol de Migjorn (S´)]]></name>
+    </zone>
+    
+    <zone id="1757">
+        <name><![CDATA[Badia Blava]]></name>
+    </zone>
+    
+    <zone id="1758">
+        <name><![CDATA[Badia Gran]]></name>
+    </zone>
+    
+    <zone id="1759">
+        <name><![CDATA[Bellavista]]></name>
+    </zone>
+    
+    <zone id="1760">
+        <name><![CDATA[Cala Blava]]></name>
+    </zone>
+    
+    <zone id="1761">
+        <name><![CDATA[Cala Pi]]></name>
+    </zone>
+    
+    <zone id="1762">
+        <name><![CDATA[Pas de Vallgornera (Es)]]></name>
+    </zone>
+    
+    <zone id="1763">
+        <name><![CDATA[Vallgonera Nou]]></name>
+    </zone>
+    
+    <zone id="1764">
+        <name><![CDATA[Tolleric]]></name>
+    </zone>
+    
+    <zone id="1765">
+        <name><![CDATA[Palmeres (Ses)]]></name>
+    </zone>
+    
+    <zone id="1766">
+        <name><![CDATA[Son Veri Nou]]></name>
+    </zone>
+    
+    <zone id="1767">
+        <name><![CDATA[Torre (Sa)]]></name>
+    </zone>
+    
+    <zone id="1768">
+        <name><![CDATA[Maioris Decima]]></name>
+    </zone>
+    
+    <zone id="1769">
+        <name><![CDATA[Puig de Ros]]></name>
+    </zone>
+    
+    <zone id="34416">
+        <name><![CDATA[Llucmajor]]></name>
+    </zone>
+    
+</zones>

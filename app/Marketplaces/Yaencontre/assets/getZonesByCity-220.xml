@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2221">
+        <name><![CDATA[Mercat Escola Ribes]]></name>
+    </zone>
+    
+    <zone id="2222">
+        <name><![CDATA[Plana de Can Bertran Maristes]]></name>
+    </zone>
+    
+    <zone id="2223">
+        <name><![CDATA[Zona Centro]]></name>
+    </zone>
+    
+    <zone id="2224">
+        <name><![CDATA[Nord Serreta]]></name>
+    </zone>
+    
+    <zone id="2225">
+        <name><![CDATA[Can Oriol]]></name>
+    </zone>
+    
+    <zone id="2226">
+        <name><![CDATA[Can Roses]]></name>
+    </zone>
+    
+    <zone id="2227">
+        <name><![CDATA[25 Setembre]]></name>
+    </zone>
+    
+    <zone id="2228">
+        <name><![CDATA[El Pinar]]></name>
+    </zone>
+    
+    <zone id="2229">
+        <name><![CDATA[Las Torres Progres]]></name>
+    </zone>
+    
+    <zone id="2230">
+        <name><![CDATA[Can Fatjó]]></name>
+    </zone>
+    
+    <zone id="2231">
+        <name><![CDATA[Can Ballhonrat-Can Sedo-Can Alfamora]]></name>
+    </zone>
+    
+    <zone id="2232">
+        <name><![CDATA[Can Ximelis]]></name>
+    </zone>
+    
+    <zone id="2233">
+        <name><![CDATA[Els Abets-La Perla]]></name>
+    </zone>
+    
+    <zone id="2234">
+        <name><![CDATA[Can Serrafossar]]></name>
+    </zone>
+    
+    <zone id="2235">
+        <name><![CDATA[El Carmelo]]></name>
+    </zone>
+    
+    <zone id="2236">
+        <name><![CDATA[San Muç]]></name>
+    </zone>
+    
+    <zone id="2237">
+        <name><![CDATA[Castell Nou]]></name>
+    </zone>
+    
+    <zone id="2238">
+        <name><![CDATA[Can Mir]]></name>
+    </zone>
+    
+    <zone id="2239">
+        <name><![CDATA[Vallespark]]></name>
+    </zone>
+    
+    <zone id="2240">
+        <name><![CDATA[Can Barcelo]]></name>
+    </zone>
+    
+    <zone id="2241">
+        <name><![CDATA[Can Sola]]></name>
+    </zone>
+    
+</zones>

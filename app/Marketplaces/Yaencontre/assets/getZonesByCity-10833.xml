@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1750">
+        <name><![CDATA[Centre]]></name>
+    </zone>
+    
+    <zone id="1751">
+        <name><![CDATA[Ponent]]></name>
+    </zone>
+    
+    <zone id="1752">
+        <name><![CDATA[Nord]]></name>
+    </zone>
+    
+    <zone id="1753">
+        <name><![CDATA[Llevant]]></name>
+    </zone>
+    
+    <zone id="1754">
+        <name><![CDATA[Platja de Palma]]></name>
+    </zone>
+    
+    <zone id="34041">
+        <name><![CDATA[Sa Calatrava]]></name>
+    </zone>
+    
+    <zone id="34042">
+        <name><![CDATA[Cort, Jaume III]]></name>
+    </zone>
+    
+    <zone id="34044">
+        <name><![CDATA[La LLotja-Born]]></name>
+    </zone>
+    
+    <zone id="34046">
+        <name><![CDATA[El Mercat]]></name>
+    </zone>
+    
+    <zone id="34048">
+        <name><![CDATA[La Missió]]></name>
+    </zone>
+    
+    <zone id="34051">
+        <name><![CDATA[Monti-sion]]></name>
+    </zone>
+    
+    <zone id="34053">
+        <name><![CDATA[Plaça dels Patins]]></name>
+    </zone>
+    
+    <zone id="34054">
+        <name><![CDATA[Puig de Sant Pere]]></name>
+    </zone>
+    
+    <zone id="34056">
+        <name><![CDATA[Sant Juame]]></name>
+    </zone>
+    
+    <zone id="34059">
+        <name><![CDATA[Sant Nicolau]]></name>
+    </zone>
+    
+    <zone id="34060">
+        <name><![CDATA[La Seu]]></name>
+    </zone>
+    
+    <zone id="34061">
+        <name><![CDATA[Sindicat]]></name>
+    </zone>
+    
+    <zone id="34062">
+        <name><![CDATA[Zona portuaria]]></name>
+    </zone>
+    
+    <zone id="34063">
+        <name><![CDATA[Cabrera]]></name>
+    </zone>
+    
+    <zone id="34066">
+        <name><![CDATA[S´Aranjassa]]></name>
+    </zone>
+    
+    <zone id="34069">
+        <name><![CDATA[Can Capes]]></name>
+    </zone>
+    
+    <zone id="34071">
+        <name><![CDATA[Sa Casa Blanca]]></name>
+    </zone>
+    
+    <zone id="34074">
+        <name><![CDATA[Estadi Balear]]></name>
+    </zone>
+    
+    <zone id="34075">
+        <name><![CDATA[Foners]]></name>
+    </zone>
+    
+    <zone id="34076">
+        <name><![CDATA[Els Hostalets]]></name>
+    </zone>
+    
+    <zone id="34078">
+        <name><![CDATA[Verge de Lluc]]></name>
+    </zone>
+    
+    <zone id="34081">
+        <name><![CDATA[Marquès de la Fontsanta]]></name>
+    </zone>
+    
+    <zone id="34084">
+        <name><![CDATA[Pere Garau]]></name>
+    </zone>
+    
+    <zone id="34085">
+        <name><![CDATA[Es Pil.larí]]></name>
+    </zone>
+    
+    <zone id="34086">
+        <name><![CDATA[Polígon de LLevant]]></name>
+    </zone>
+    
+    <zone id="34087">
+        <name><![CDATA[Rafal Nou]]></name>
+    </zone>
+    
+    <zone id="34088">
+        <name><![CDATA[Rafal Vell]]></name>
+    </zone>
+    
+    <zone id="34089">
+        <name><![CDATA[Sant Jordi]]></name>
+    </zone>
+    
+    <zone id="34092">
+        <name><![CDATA[La Soledad]]></name>
+    </zone>
+    
+    <zone id="34095">
+        <name><![CDATA[Son Canals]]></name>
+    </zone>
+    
+    <zone id="34098">
+        <name><![CDATA[Son Cladera]]></name>
+    </zone>
+    
+    <zone id="34099">
+        <name><![CDATA[Son Ferriol]]></name>
+    </zone>
+    
+    <zone id="34102">
+        <name><![CDATA[Son Fortesa]]></name>
+    </zone>
+    
+    <zone id="34104">
+        <name><![CDATA[Son Gotleu]]></name>
+    </zone>
+    
+    <zone id="34107">
+        <name><![CDATA[Son Malferit]]></name>
+    </zone>
+    
+    <zone id="34108">
+        <name><![CDATA[Son Riera]]></name>
+    </zone>
+    
+    <zone id="34110">
+        <name><![CDATA[Son Rullán]]></name>
+    </zone>
+    
+    <zone id="34113">
+        <name><![CDATA[Es Vivero]]></name>
+    </zone>
+    
+    <zone id="34116">
+        <name><![CDATA[Aeroport]]></name>
+    </zone>
+    
+    <zone id="34118">
+        <name><![CDATA[Amanecer]]></name>
+    </zone>
+    
+    <zone id="34120">
+        <name><![CDATA[Arxiduc]]></name>
+    </zone>
+    
+    <zone id="34122">
+        <name><![CDATA[Bons Aires]]></name>
+    </zone>
+    
+    <zone id="34125">
+        <name><![CDATA[Camp Redó]]></name>
+    </zone>
+    
+    <zone id="34126">
+        <name><![CDATA[Cas Capiscol]]></name>
+    </zone>
+    
+    <zone id="34127">
+        <name><![CDATA[Establiments]]></name>
+    </zone>
+    
+    <zone id="34128">
+        <name><![CDATA[Sa Indioteria]]></name>
+    </zone>
+    
+    <zone id="34130">
+        <name><![CDATA[S´Oliverar]]></name>
+    </zone>
+    
+    <zone id="34133">
+        <name><![CDATA[Secar de la Real]]></name>
+    </zone>
+    
+    <zone id="34135">
+        <name><![CDATA[Plaça de Toros]]></name>
+    </zone>
+    
+    <zone id="34137">
+        <name><![CDATA[Son Sardina]]></name>
+    </zone>
+    
+    <zone id="34140">
+        <name><![CDATA[Son Oliva]]></name>
+    </zone>
+    
+    <zone id="34142">
+        <name><![CDATA[Son Espanyol]]></name>
+    </zone>
+    
+    <zone id="34144">
+        <name><![CDATA[S´Arenal]]></name>
+    </zone>
+    
+    <zone id="34145">
+        <name><![CDATA[Can Pastilla]]></name>
+    </zone>
+    
+    <zone id="34148">
+        <name><![CDATA[Can Pere Antoni]]></name>
+    </zone>
+    
+    <zone id="34149">
+        <name><![CDATA[Coll d´en Rabassa]]></name>
+    </zone>
+    
+    <zone id="34152">
+        <name><![CDATA[Les Meravelles]]></name>
+    </zone>
+    
+    <zone id="34154">
+        <name><![CDATA[El Molinar]]></name>
+    </zone>
+    
+    <zone id="34155">
+        <name><![CDATA[Los Almendros-Son Pacs]]></name>
+    </zone>
+    
+    <zone id="34157">
+        <name><![CDATA[La Bonanova]]></name>
+    </zone>
+    
+    <zone id="34158">
+        <name><![CDATA[Cala Major]]></name>
+    </zone>
+    
+    <zone id="34160">
+        <name><![CDATA[Camp d´en Serra]]></name>
+    </zone>
+    
+    <zone id="34161">
+        <name><![CDATA[Es Fortí]]></name>
+    </zone>
+    
+    <zone id="34164">
+        <name><![CDATA[Génova]]></name>
+    </zone>
+    
+    <zone id="34165">
+        <name><![CDATA[El Jonquet]]></name>
+    </zone>
+    
+    <zone id="34172">
+        <name><![CDATA[Portopí]]></name>
+    </zone>
+    
+    <zone id="34174">
+        <name><![CDATA[Sant Agustí]]></name>
+    </zone>
+    
+    <zone id="34177">
+        <name><![CDATA[Santa Catalina]]></name>
+    </zone>
+    
+    <zone id="34179">
+        <name><![CDATA[Son Anglada]]></name>
+    </zone>
+    
+    <zone id="34182">
+        <name><![CDATA[Son Armadams]]></name>
+    </zone>
+    
+    <zone id="34185">
+        <name><![CDATA[Son Cotoner]]></name>
+    </zone>
+    
+    <zone id="34186">
+        <name><![CDATA[Son Dameto]]></name>
+    </zone>
+    
+    <zone id="34189">
+        <name><![CDATA[Son Dureta]]></name>
+    </zone>
+    
+    <zone id="34192">
+        <name><![CDATA[Son Espanyolet]]></name>
+    </zone>
+    
+    <zone id="34193">
+        <name><![CDATA[Son Flor]]></name>
+    </zone>
+    
+    <zone id="34196">
+        <name><![CDATA[Son Peretó]]></name>
+    </zone>
+    
+    <zone id="34198">
+        <name><![CDATA[Son Rapinya]]></name>
+    </zone>
+    
+    <zone id="34199">
+        <name><![CDATA[Son Roca]]></name>
+    </zone>
+    
+    <zone id="34200">
+        <name><![CDATA[Son Serra-La Vileta]]></name>
+    </zone>
+    
+    <zone id="34203">
+        <name><![CDATA[Son Vida]]></name>
+    </zone>
+    
+    <zone id="34205">
+        <name><![CDATA[Son Xigala]]></name>
+    </zone>
+    
+    <zone id="34208">
+        <name><![CDATA[Son Ximelis]]></name>
+    </zone>
+    
+    <zone id="34211">
+        <name><![CDATA[El Terreno]]></name>
+    </zone>
+    
+    <zone id="34212">
+        <name><![CDATA[Sa Teulera]]></name>
+    </zone>
+    
+    <zone id="34215">
+        <name><![CDATA[Bellver]]></name>
+    </zone>
+    
+</zones>

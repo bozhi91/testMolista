@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2502">
+        <name><![CDATA[Casco Urbano]]></name>
+    </zone>
+    
+    <zone id="2503">
+        <name><![CDATA[La Navata]]></name>
+    </zone>
+    
+    <zone id="2504">
+        <name><![CDATA[Los Ranchos]]></name>
+    </zone>
+    
+    <zone id="2505">
+        <name><![CDATA[Los Jarales]]></name>
+    </zone>
+    
+    <zone id="2506">
+        <name><![CDATA[El Guijo]]></name>
+    </zone>
+    
+</zones>

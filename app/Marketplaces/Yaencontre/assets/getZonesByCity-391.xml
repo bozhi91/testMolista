@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="95">
+        <name><![CDATA[Canyet]]></name>
+    </zone>
+    
+    <zone id="96">
+        <name><![CDATA[Mas-ram]]></name>
+    </zone>
+    
+    <zone id="97">
+        <name><![CDATA[Bona vista]]></name>
+    </zone>
+    
+    <zone id="98">
+        <name><![CDATA[Montigala]]></name>
+    </zone>
+    
+    <zone id="99">
+        <name><![CDATA[Pomar]]></name>
+    </zone>
+    
+    <zone id="100">
+        <name><![CDATA[Morera]]></name>
+    </zone>
+    
+    <zone id="101">
+        <name><![CDATA[Bufala]]></name>
+    </zone>
+    
+    <zone id="102">
+        <name><![CDATA[Manresà]]></name>
+    </zone>
+    
+    <zone id="103">
+        <name><![CDATA[Canyado]]></name>
+    </zone>
+    
+    <zone id="104">
+        <name><![CDATA[Casagemes]]></name>
+    </zone>
+    
+    <zone id="105">
+        <name><![CDATA[Centre]]></name>
+    </zone>
+    
+    <zone id="106">
+        <name><![CDATA[Progres]]></name>
+    </zone>
+    
+    <zone id="107">
+        <name><![CDATA[Sant crist]]></name>
+    </zone>
+    
+    <zone id="108">
+        <name><![CDATA[Sistrells]]></name>
+    </zone>
+    
+    <zone id="109">
+        <name><![CDATA[Lloreda]]></name>
+    </zone>
+    
+    <zone id="110">
+        <name><![CDATA[La pau]]></name>
+    </zone>
+    
+    <zone id="111">
+        <name><![CDATA[La salut alta]]></name>
+    </zone>
+    
+    <zone id="112">
+        <name><![CDATA[La salut baixa]]></name>
+    </zone>
+    
+    <zone id="113">
+        <name><![CDATA[Artigas]]></name>
+    </zone>
+    
+    <zone id="114">
+        <name><![CDATA[Sant roc]]></name>
+    </zone>
+    
+    <zone id="115">
+        <name><![CDATA[Gorg]]></name>
+    </zone>
+    
+    <zone id="116">
+        <name><![CDATA[Llefia alta]]></name>
+    </zone>
+    
+    <zone id="117">
+        <name><![CDATA[Llefia baixa]]></name>
+    </zone>
+    
+    <zone id="118">
+        <name><![CDATA[Congres]]></name>
+    </zone>
+    
+    <zone id="119">
+        <name><![CDATA[Pep ventura]]></name>
+    </zone>
+    
+    <zone id="120">
+        <name><![CDATA[La balsa]]></name>
+    </zone>
+    
+    <zone id="34706">
+        <name><![CDATA[Raval]]></name>
+    </zone>
+    
+    <zone id="34709">
+        <name><![CDATA[Les Guixeres]]></name>
+    </zone>
+    
+</zones>

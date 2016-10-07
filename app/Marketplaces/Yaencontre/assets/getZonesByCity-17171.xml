@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3428">
+        <name><![CDATA[Nucleo Urbano]]></name>
+    </zone>
+    
+    <zone id="3429">
+        <name><![CDATA[Urbanizacion Lladro]]></name>
+    </zone>
+    
+</zones>

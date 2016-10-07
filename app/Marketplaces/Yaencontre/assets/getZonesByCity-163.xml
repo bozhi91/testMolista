@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="22509">
+        <name><![CDATA[Nucli Urba]]></name>
+    </zone>
+    
+    <zone id="22510">
+        <name><![CDATA[Barri de Sant Pere]]></name>
+    </zone>
+    
+    <zone id="22511">
+        <name><![CDATA[Mas Cos]]></name>
+    </zone>
+    
+    <zone id="22512">
+        <name><![CDATA[Mas Llombard Nord]]></name>
+    </zone>
+    
+    <zone id="22513">
+        <name><![CDATA[Mas Llombard Sud]]></name>
+    </zone>
+    
+    <zone id="22514">
+        <name><![CDATA[La Conrreria]]></name>
+    </zone>
+    
+    <zone id="22515">
+        <name><![CDATA[Can Boc]]></name>
+    </zone>
+    
+    <zone id="22516">
+        <name><![CDATA[Can Calet]]></name>
+    </zone>
+    
+</zones>

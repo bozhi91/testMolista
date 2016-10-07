@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2562">
+        <name><![CDATA[Adra]]></name>
+    </zone>
+    
+    <zone id="2563">
+        <name><![CDATA[Puente del Rio]]></name>
+    </zone>
+    
+    <zone id="2564">
+        <name><![CDATA[La Curva]]></name>
+    </zone>
+    
+    <zone id="2565">
+        <name><![CDATA[La Alqueria]]></name>
+    </zone>
+    
+    <zone id="2566">
+        <name><![CDATA[Cuatro Higueras]]></name>
+    </zone>
+    
+    <zone id="2567">
+        <name><![CDATA[Guainos Bajo]]></name>
+    </zone>
+    
+    <zone id="2568">
+        <name><![CDATA[Venta Nueva]]></name>
+    </zone>
+    
+    <zone id="2569">
+        <name><![CDATA[El Lance de la Virgen]]></name>
+    </zone>
+    
+    <zone id="2570">
+        <name><![CDATA[El Toril]]></name>
+    </zone>
+    
+    <zone id="2571">
+        <name><![CDATA[La Alcazaba]]></name>
+    </zone>
+    
+    <zone id="2572">
+        <name><![CDATA[Fuente de Ahijado]]></name>
+    </zone>
+    
+    <zone id="2573">
+        <name><![CDATA[La Fuente Santilla]]></name>
+    </zone>
+    
+    <zone id="2574">
+        <name><![CDATA[El Campillo]]></name>
+    </zone>
+    
+    <zone id="2575">
+        <name><![CDATA[Guainos Altos]]></name>
+    </zone>
+    
+    <zone id="2576">
+        <name><![CDATA[El Canal]]></name>
+    </zone>
+    
+    <zone id="2577">
+        <name><![CDATA[El Pato]]></name>
+    </zone>
+    
+    <zone id="2578">
+        <name><![CDATA[La Parra]]></name>
+    </zone>
+    
+    <zone id="2579">
+        <name><![CDATA[Los Perez]]></name>
+    </zone>
+    
+    <zone id="2580">
+        <name><![CDATA[Los Moras]]></name>
+    </zone>
+    
+    <zone id="2581">
+        <name><![CDATA[Gurrias]]></name>
+    </zone>
+    
+    <zone id="2582">
+        <name><![CDATA[La Loma de los Vargas]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3365">
+        <name><![CDATA[El Baro]]></name>
+    </zone>
+    
+    <zone id="3366">
+        <name><![CDATA[La Malla]]></name>
+    </zone>
+    
+    <zone id="3367">
+        <name><![CDATA[Mallaetes]]></name>
+    </zone>
+    
+    <zone id="3368">
+        <name><![CDATA[Masia Arnal]]></name>
+    </zone>
+    
+    <zone id="3369">
+        <name><![CDATA[Mas Camarena]]></name>
+    </zone>
+    
+    <zone id="3370">
+        <name><![CDATA[Providencia]]></name>
+    </zone>
+    
+</zones>

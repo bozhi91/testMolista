@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="22492">
+        <name><![CDATA[Nucleo Urbano]]></name>
+    </zone>
+    
+    <zone id="22493">
+        <name><![CDATA[Alquerias de Santa Barbara ]]></name>
+    </zone>
+    
+    <zone id="22494">
+        <name><![CDATA[Poblados Maritimos ]]></name>
+    </zone>
+    
+</zones>

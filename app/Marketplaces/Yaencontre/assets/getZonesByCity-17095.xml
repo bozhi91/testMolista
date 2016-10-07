@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2835">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="2836">
+        <name><![CDATA[Beniopa]]></name>
+    </zone>
+    
+    <zone id="2837">
+        <name><![CDATA[Benipeixcar]]></name>
+    </zone>
+    
+    <zone id="22626">
+        <name><![CDATA[Playa de Gandia]]></name>
+    </zone>
+    
+</zones>

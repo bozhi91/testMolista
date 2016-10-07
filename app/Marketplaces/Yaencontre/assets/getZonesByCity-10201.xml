@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2267">
+        <name><![CDATA[Les Roques]]></name>
+    </zone>
+    
+    <zone id="2268">
+        <name><![CDATA[Saladar]]></name>
+    </zone>
+    
+    <zone id="2269">
+        <name><![CDATA[Paris-Pedrera]]></name>
+    </zone>
+    
+    <zone id="2270">
+        <name><![CDATA[Oeste]]></name>
+    </zone>
+    
+    <zone id="2271">
+        <name><![CDATA[Zona Centro]]></name>
+    </zone>
+    
+    <zone id="2272">
+        <name><![CDATA[Baix la Mar]]></name>
+    </zone>
+    
+    <zone id="34438">
+        <name><![CDATA[Devessa - Monte Pego]]></name>
+    </zone>
+    
+    <zone id="34440">
+        <name><![CDATA[El Montgó]]></name>
+    </zone>
+    
+    <zone id="34441">
+        <name><![CDATA[El Puerto]]></name>
+    </zone>
+    
+    <zone id="34443">
+        <name><![CDATA[Las Rotas - Les Rotes]]></name>
+    </zone>
+    
+    <zone id="34445">
+        <name><![CDATA[La Xara - La Sella]]></name>
+    </zone>
+    
+    <zone id="34448">
+        <name><![CDATA[Las Marinas - Les Marines ]]></name>
+    </zone>
+    
+</zones>

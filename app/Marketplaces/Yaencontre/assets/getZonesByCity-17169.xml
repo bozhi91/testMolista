@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2703">
+        <name><![CDATA[Casco antiguo]]></name>
+    </zone>
+    
+    <zone id="2704">
+        <name><![CDATA[El Barrio-barrio de San Claudio]]></name>
+    </zone>
+    
+    <zone id="2705">
+        <name><![CDATA[Ildefonso Fierro]]></name>
+    </zone>
+    
+    <zone id="2706">
+        <name><![CDATA[Ciudad Jardín]]></name>
+    </zone>
+    
+    <zone id="2707">
+        <name><![CDATA[La Barraca]]></name>
+    </zone>
+    
+    <zone id="2708">
+        <name><![CDATA[Santigons]]></name>
+    </zone>
+    
+    <zone id="2709">
+        <name><![CDATA[Magraners]]></name>
+    </zone>
+    
+    <zone id="2710">
+        <name><![CDATA[Alfinach]]></name>
+    </zone>
+    
+    <zone id="2711">
+        <name><![CDATA[Los Monasterios]]></name>
+    </zone>
+    
+    <zone id="2712">
+        <name><![CDATA[Urb. Monte Picaio]]></name>
+    </zone>
+    
+    <zone id="2713">
+        <name><![CDATA[Playa de Puzol]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2697">
+        <name><![CDATA[Barrio de las Barrancas]]></name>
+    </zone>
+    
+    <zone id="2698">
+        <name><![CDATA[Barrio del Charco]]></name>
+    </zone>
+    
+    <zone id="2699">
+        <name><![CDATA[Barrio de la Rambleta]]></name>
+    </zone>
+    
+    <zone id="2700">
+        <name><![CDATA[Barrio del Raval]]></name>
+    </zone>
+    
+    <zone id="2701">
+        <name><![CDATA[Puerto de Catarroja]]></name>
+    </zone>
+    
+    <zone id="2702">
+        <name><![CDATA[Barrio de la Region]]></name>
+    </zone>
+    
+</zones>

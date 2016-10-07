@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3418">
+        <name><![CDATA[Urb. Montecalderon]]></name>
+    </zone>
+    
+    <zone id="3419">
+        <name><![CDATA[Urb. Valdelosllanos]]></name>
+    </zone>
+    
+    <zone id="3420">
+        <name><![CDATA[Urb. Las Colinas]]></name>
+    </zone>
+    
+    <zone id="3421">
+        <name><![CDATA[Urb. El Coto]]></name>
+    </zone>
+    
+    <zone id="3422">
+        <name><![CDATA[Urb. Los Arenales]]></name>
+    </zone>
+    
+    <zone id="3423">
+        <name><![CDATA[Mesones]]></name>
+    </zone>
+    
+    <zone id="34495">
+        <name><![CDATA[El Casar Pueblo]]></name>
+    </zone>
+    
+</zones>

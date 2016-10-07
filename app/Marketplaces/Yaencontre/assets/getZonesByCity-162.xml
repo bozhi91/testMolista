@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2998">
+        <name><![CDATA[Barri del Centre]]></name>
+    </zone>
+    
+    <zone id="2999">
+        <name><![CDATA[Barri de la Riera Seca]]></name>
+    </zone>
+    
+    <zone id="3000">
+        <name><![CDATA[Barri de l´Estacio de França]]></name>
+    </zone>
+    
+    <zone id="3001">
+        <name><![CDATA[Barri del Col·legis Nous]]></name>
+    </zone>
+    
+    <zone id="3002">
+        <name><![CDATA[Barri de l´Estacio del Nord]]></name>
+    </zone>
+    
+    <zone id="3003">
+        <name><![CDATA[Barri de Can Pantiquet]]></name>
+    </zone>
+    
+    <zone id="3004">
+        <name><![CDATA[Barri del Calderi]]></name>
+    </zone>
+    
+    <zone id="3005">
+        <name><![CDATA[Barri de Santa Rosa]]></name>
+    </zone>
+    
+    <zone id="3006">
+        <name><![CDATA[Barri de la Plana Lledo]]></name>
+    </zone>
+    
+    <zone id="3007">
+        <name><![CDATA[Barri de Can Borrell]]></name>
+    </zone>
+    
+    <zone id="3008">
+        <name><![CDATA[Barri de la Casilla]]></name>
+    </zone>
+    
+    <zone id="3009">
+        <name><![CDATA[Barri de Lourdes]]></name>
+    </zone>
+    
+    <zone id="3010">
+        <name><![CDATA[Gallecs]]></name>
+    </zone>
+    
+    <zone id="3011">
+        <name><![CDATA[Area del Tir Olimpic]]></name>
+    </zone>
+    
+    <zone id="3012">
+        <name><![CDATA[Poligon Industrial de Can Prat]]></name>
+    </zone>
+    
+    <zone id="3013">
+        <name><![CDATA[Poligon Industrial de Can Margarola]]></name>
+    </zone>
+    
+    <zone id="3014">
+        <name><![CDATA[Poligon Industrial de la Farinera]]></name>
+    </zone>
+    
+</zones>

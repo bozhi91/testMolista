@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3386">
+        <name><![CDATA[Anaka]]></name>
+    </zone>
+    
+    <zone id="3387">
+        <name><![CDATA[Behobia]]></name>
+    </zone>
+    
+    <zone id="3388">
+        <name><![CDATA[Bidasoa]]></name>
+    </zone>
+    
+    <zone id="3389">
+        <name><![CDATA[Lapice-Lapitze]]></name>
+    </zone>
+    
+    <zone id="3390">
+        <name><![CDATA[Meaka]]></name>
+    </zone>
+    
+    <zone id="3391">
+        <name><![CDATA[Olaberria]]></name>
+    </zone>
+    
+    <zone id="3392">
+        <name><![CDATA[Ventas de Irun]]></name>
+    </zone>
+    
+    <zone id="3393">
+        <name><![CDATA[Azken Portu]]></name>
+    </zone>
+    
+    <zone id="3394">
+        <name><![CDATA[Belaskoenea]]></name>
+    </zone>
+    
+    <zone id="3395">
+        <name><![CDATA[San Miguel]]></name>
+    </zone>
+    
+    <zone id="3396">
+        <name><![CDATA[Arbes]]></name>
+    </zone>
+    
+    <zone id="3397">
+        <name><![CDATA[Artia]]></name>
+    </zone>
+    
+    <zone id="3398">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="3399">
+        <name><![CDATA[Parte Vieja]]></name>
+    </zone>
+    
+    <zone id="3400">
+        <name><![CDATA[Mendibil]]></name>
+    </zone>
+    
+    <zone id="3401">
+        <name><![CDATA[Dumboa]]></name>
+    </zone>
+    
+    <zone id="3402">
+        <name><![CDATA[Anzaran Santiago]]></name>
+    </zone>
+    
+</zones>
