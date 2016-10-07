@@ -177,6 +177,16 @@ return [
 			'gmaps-circle'	=> '#efb817',
 		],
 
+		'kredikasa' => [
+			'title'			=> 'Kredikasa',
+			'public'		=> true,
+			'custom'		=> false,
+			'extends'	 	=> 'default',
+			'views-path' 	=> 'themes/kredikasa',
+			'asset-path' 	=> 'themes/kredikasa',
+			'gmaps-circle'	=> '#efb817',
+		],
+
 		// Add your themes here...
 
 		/*--------------[ Example Structre ]-------------

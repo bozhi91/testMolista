@@ -238,4 +238,18 @@ elixir(function(mix) {
 		], 'public/themes/white-cloud/compiled/css/pdf.css')
 		;
 
+	/* Kredikasa */
+	mix
+		.less([
+			'kredikasa/app.less',
+		], 'resources/assets/css/compiled/kredikasa.css')
+		.styles([
+			'compiled/common.css',
+			'compiled/kredikasa.css',
+		], 'public/themes/kredikasa/compiled/css/app.css')
+		.less([
+			'kredikasa/pdf.less',
+		], 'public/themes/kredikasa/compiled/css/pdf.css')
+		;
+
 });
