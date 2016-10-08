@@ -238,4 +238,18 @@ elixir(function(mix) {
 		], 'public/themes/white-cloud/compiled/css/pdf.css')
 		;
 
+	/* Sam */
+	mix
+		.less([
+			'sam/app.less',
+		], 'resources/assets/css/compiled/sam.css')
+		.styles([
+			'compiled/common.css',
+			'compiled/sam.css',
+		], 'public/themes/sam/compiled/css/app.css')
+		.less([
+			'white-cloud/pdf.less',
+		], 'public/themes/sam/compiled/css/pdf.css')
+		;
+
 });
