@@ -1,0 +1,1 @@
+@include ('web.properties.row-price' , ['price_class'=>'text-bold text-right'])
