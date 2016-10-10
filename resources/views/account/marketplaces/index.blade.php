@@ -33,8 +33,8 @@
 
 			@if ( $current_site->plan_property_limit > 0 )
 				<div class="alert alert-info">
-					{!! Lang::get('account/warning.export.limit', [ 
-						'max_properties' => number_format(App\Session\Site::get('plan.max_properties'),0,',','.'), 
+					{!! Lang::get('account/warning.export.limit', [
+						'max_properties' => number_format(App\Session\Site::get('plan.max_properties'),0,',','.'),
 					]) !!}
 				</div>
 			@endif
@@ -47,7 +47,7 @@
 							'title' => [ 'title' => Lang::get('account/marketplaces.title'), 'sortable'=>false ],
 							'country' => [ 'title' => Lang::get('account/marketplaces.country'), 'sortable'=>false, 'class'=>'text-center' ],
 							'limit' => [ 'title' => Lang::get('account/marketplaces.limit'), 'sortable'=>false, 'class'=>'text-center' ],
-							'properties' => [ 'title' => Lang::get('account/marketplaces.exported'), 'sortable'=>false, 'class'=>'text-center' ],
+							'properties' => [ 'title' => Lang::get('account/marketplaces.exported').' <span class="glyphicon glyphicon-info-sign" data-container="body" data-toggle="popover" data-placement="top" data-content="'.\Lang::get('account/marketplaces.exported_info').'"></span>', 'sortable'=>false, 'class'=>'text-center' ],
 							'all' => [ 'title' => Lang::get('account/marketplaces.all'), 'sortable'=>false, 'class'=>'text-center' ],
 							'configured' => [ 'title' => Lang::get('account/marketplaces.configured'), 'sortable'=>false, 'class'=>'text-center' ],
 							'updated' => [ 'title' => Lang::get('account/marketplaces.updated'), 'sortable'=>false, 'class'=>'text-center text-nowrap' ],
@@ -122,6 +122,8 @@
 	<script type="text/javascript">
 		ready_callbacks.push(function() {
 			var cont = $('#account-marketplaces');
+
+  			$('[data-toggle="popover"]').css('cursor', 'pointer').popover();
 
 			cont.find('form.delete-form').each(function(){
 				$(this).validate({

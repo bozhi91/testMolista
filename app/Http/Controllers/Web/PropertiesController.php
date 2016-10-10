@@ -18,16 +18,27 @@ class PropertiesController extends WebController
 					->with('services')
 					;
 
-		// Term => in title
+		// Term
 		if ( $this->request->input('term') )
 		{
-			$query->whereTranslationLike('title', "%{$this->request->input('term')}%");
+			$query->withTermLike($this->request->input('term'));
 		}
 
 		// State
+		$search_data_cities = [];
 		if ( $this->request->input('state') )
 		{
 			$query->inState( $this->request->input('state') );
+
+			$cities = \App\Models\Geography\City::enabled();
+			$cities->withStateSlug( $this->request->input('state') );
+			$site_id = $this->site->id;
+			$cities->whereIn('cities.id', function($query) use ($site_id) {
+				$query->distinct()->select('city_id')->from('properties')->where('site_id', $site_id)->where('enabled', 1);
+			});
+			$search_data_cities = $cities->select('cities.id','cities.name AS label','cities.slug AS code')
+				->orderBy('cities.name')
+				->get()->pluck('label', 'code')->toArray();
 		}
 
 		// City
@@ -60,7 +71,7 @@ class PropertiesController extends WebController
 				$query->where('newly_build', 1)
 						->orWhere('second_hand', 1);
 			});
-		} 
+		}
 		// New construction
 		elseif ( $this->request->input('newly_build') )
 		{
@@ -122,7 +133,7 @@ class PropertiesController extends WebController
 
 		// Sort order
 		$order = $this->request->input('order');
-		if ( $order && array_key_exists($order, \App\Property::getSortOptions()) ) 
+		if ( $order && array_key_exists($order, \App\Property::getSortOptions()) )
 		{
 			list ($field,$sense) = explode('-',$order,2);
 			$query->orderBy($field,$sense);
@@ -136,7 +147,7 @@ class PropertiesController extends WebController
 
 		$hide_advanced_search_modal = true;
 
-		return view('web.properties.index', compact('properties','hide_advanced_search_modal'));
+		return view('web.properties.index', compact('properties','hide_advanced_search_modal','search_data_cities'));
 	}
 
 	public function details($slug)
@@ -157,7 +168,7 @@ class PropertiesController extends WebController
 		// If slug is from another language, redirect
 		if ( $slug != $property->slug )
 		{
-			return redirect()->to(action('Web\PropertiesController@details', $property->slug), 301); 
+			return redirect()->to(action('Web\PropertiesController@details', $property->slug), 301);
 		}
 
 		$this->set_seo_values([
@@ -187,7 +198,7 @@ class PropertiesController extends WebController
 			'phone' => 'required',
 			'message' => 'required'
 		]);
-		if ($validator->fails()) 
+		if ($validator->fails())
 		{
 			return [ 'error'=>true ];
 		}

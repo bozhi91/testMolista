@@ -68,6 +68,10 @@ return [
 										'accept' => 'menu',
 										'max' => 1,
 									],
+									'home' => [
+										'accept' => 'slider',
+										'max' => 1,
+									],
 									'footer' => [
 									],
 								],
@@ -84,6 +88,14 @@ return [
 			'extends'	 	=> 'default',
 			'views-path' 	=> 'corporate',
 			'asset-path' 	=> 'corporate',
+		],
+		'resellers' => [
+			'title'			=> 'Resellers',
+			'public'		=> false,
+			'personal'		=> false,
+			'extends'	 	=> 'corporate',
+			'views-path' 	=> 'resellers',
+			'asset-path' 	=> 'resellers',
 		],
 
 		'bellamar' => [
@@ -143,6 +155,46 @@ return [
 			'views-path' 	=> 'themes/sky',
 			'asset-path' 	=> 'themes/sky',
 			'gmaps-circle'	=> '#1396e2',
+		],
+
+		'redly' => [
+			'title'			=> 'Redly',
+			'public'		=> true,
+			'custom'		=> false,
+			'extends'	 	=> 'default',
+			'views-path' 	=> 'themes/redly',
+			'asset-path' 	=> 'themes/redly',
+			'gmaps-circle'	=> '#efb817',
+		],
+
+		'white-cloud' => [
+			'title'			=> 'White Cloud',
+			'public'		=> true,
+			'custom'		=> false,
+			'extends'	 	=> 'default',
+			'views-path' 	=> 'themes/white-cloud',
+			'asset-path' 	=> 'themes/white-cloud',
+			'gmaps-circle'	=> '#efb817',
+		],
+
+		'sam' => [
+			'title'			=> 'Sam',
+			'public'		=> true,
+			'custom'		=> false,
+			'extends'	 	=> 'default',
+			'views-path' 	=> 'themes/sam',
+			'asset-path' 	=> 'themes/sam',
+			'gmaps-circle'	=> '#1396e2',
+		],
+
+		'kredikasa' => [
+			'title'			=> 'Kredikasa',
+			'public'		=> false,
+			'custom'		=> true,
+			'extends'	 	=> 'default',
+			'views-path' 	=> 'themes/kredikasa',
+			'asset-path' 	=> 'themes/kredikasa',
+			'gmaps-circle'	=> '#efb817',
 		],
 
 		// Add your themes here...

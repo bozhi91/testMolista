@@ -6,6 +6,10 @@
 
 		@include('common.messages', [ 'dismissible'=>true ])
 
+		<div class="pull-right hidden-xs">
+			{!! print_goback_button( Lang::get('general.back'), [ 'class'=>'btn btn-primary' ]) !!}
+		</div>
+
 		<h1 class="page-title">{{ Lang::get('account/tickets.new') }}</h1>
 
 		{!! Form::model(null, [ 'method'=>'POST', 'action'=>'Account\TicketsController@postCreate', 'files'=>true, 'id'=>'ticket-form' ]) !!}

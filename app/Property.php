@@ -114,6 +114,10 @@ class Property extends TranslatableModel
 		return $this->belongsToMany('App\User', 'properties_users', 'property_id', 'user_id')->withPivot('is_owner');
 	}
 
+	public function calendars() {
+		return $this->belongsToMany('App\Models\Calendar', 'calendars_properties', 'property_id', 'calendar_id');
+	}
+
 	public function customers() {
 		return $this->belongsToMany('App\Models\Site\Customer', 'properties_customers', 'property_id', 'customer_id');
 	}
@@ -230,7 +234,7 @@ class Property extends TranslatableModel
 		// Check PDF
 		$filepath = "{$dir}/property-{$locale}.pdf";
 
-		$last_time = strtotime("2016-07-11");
+		$last_time = strtotime("2016-09-07");
 		if ( strtotime($this->site->updated_at) > $last_time )
 		{
 			$last_time = strtotime($this->site->updated_at);
@@ -250,11 +254,11 @@ class Property extends TranslatableModel
 				{
 					if ( !$main_image )
 					{
-						$main_image = $image;
+						$main_image = $this->getPdfFileImageTmp("{$this->image_path}/{$image->image}", 525, 215);
 					}
 					elseif ( count($other_images) < 2 )
 					{
-						$other_images[] = $image;
+						$other_images[] = $this->getPdfFileImageTmp("{$this->image_path}/{$image->image}", 255, 160);
 					}
 					else
 					{
@@ -284,10 +288,49 @@ class Property extends TranslatableModel
 				'other_images' => $other_images,
 			])->save($filepath);
 
+			// Delete tmp images
+			if ( $main_image )
+			{
+				unlink($main_image);
+			}
+			foreach ($other_images as $other_image)
+			{
+				unlink($other_image);
+			}
+
 			\LaravelLocalization::setLocale($locale_backup);
 		}
 
 		return $filepath;
+	}
+
+	public function getPdfFileImageTmp($image,$width,$height)
+	{
+		$folder = public_path('_temp');
+		if ( !is_dir($folder) )
+		{
+			\File::makeDirectory(public_path('_temp'), 0775, true);
+		}
+
+		$filename = uniqid('pdf_image_', true);
+		$destination = "{$folder}/{$filename}.jpg";
+
+		while ( file_exists($destination) )
+		{
+			$filename = uniqid('pdf', true);
+			$destination = "{$folder}/{$filename}.jpg";
+		}
+
+		// Create thumb
+		$thumb = \Image::make($image);
+
+		$thumb->encode('jpg');
+
+		$thumb->fit($width, $height, function($constraint) {
+			$constraint->aspectRatio();
+		})->save($destination);
+
+		return $destination;
 	}
 
 	public function getLatPublicAttribute()
@@ -349,16 +392,38 @@ class Property extends TranslatableModel
 	}
 	public function getImagePathAttribute()
 	{
-		return public_path("sites/{$this->site_id}/properties/{$this->id}");
+		$dirpath = public_path("sites/{$this->site_id}/properties/{$this->id}");
+
+		if ( !is_dir($dirpath))
+		{
+			\File::makeDirectory($dirpath, 0777, true, true);
+		}
+
+		return $dirpath;
 	}
 	public function getMainImageAttribute()
 	{
 		foreach ($this->images->sortByDesc('default') as $image)
 		{
-			return "{$this->image_folder}/{$image->image}";
+			return $image->image_url;
 		}
 
 		return false;
+	}
+	public function getMainImageThumbAttribute()
+	{
+		if ( !$this->main_image )
+		{
+			return false;
+		}
+
+		$tmp = pathinfo($this->main_image);
+
+		return implode('/', [
+					$tmp['dirname'],
+					'thumbnail',
+					$tmp['basename'],
+				]);
 	}
 
 	public function getCatchCurrentAttribute()
@@ -610,6 +675,11 @@ class Property extends TranslatableModel
 		return $this->marketplace_info;
 	}
 
+	public function scopeInHome($query)
+	{
+		return $query->where('properties.home_slider', 1);
+	}
+
 	public function scopeEnabled($query)
 	{
 		return $query->where('properties.enabled', 1);
@@ -775,6 +845,31 @@ class Property extends TranslatableModel
 				->where('properties.country_id', $property->country_id);
 	}
 
+	public function scopeWithTermLike($query, $term)
+	{
+			$query->where(function($query) use ($term) {
+				$query
+					// Title
+					->whereTranslationLike('title', "%{$term}%")
+					// Ref
+					->orWhere('ref', 'like', "%{$term}%")
+					// show_address == 1
+					->orWhere(function($query) use ($term) {
+						$query->where('show_address', 1)
+							->where(function($query) use ($term) {
+								$query
+									// Address
+									->where('address', 'like', "%{$term}%")
+									// District
+									->orWhere('district', 'like', "%{$term}%")
+									// Zipcode
+									->orWhere('zipcode', 'like', "%{$term}%");
+							});
+					});
+			});
+
+	}
+
 	public function scopeWithEverything($query)
 	{
 		return $query
@@ -796,7 +891,7 @@ class Property extends TranslatableModel
 			'transfer',
 		];
 	}
-	static public function getModeOptions()
+	static public function getModeOptions($site_id=false)
 	{
 		$options = [];
 
@@ -804,6 +899,20 @@ class Property extends TranslatableModel
 		{
 			$options[$key] = trans("web/properties.mode.{$key}");
 		}
+
+		if ( $site_id )
+		{
+			$assigned = \App\Property::distinct()->select('mode')->where('site_id',$site_id)->lists('mode')->all();
+			foreach ($options as $key => $value)
+			{
+				if ( !in_array($key, $assigned) )
+				{
+					unset($options[$key]);
+				}
+			}
+		}
+
+		asort($options);
 
 		return $options;
 	}
@@ -833,6 +942,12 @@ class Property extends TranslatableModel
 			'ranch' => trans('web/properties.type.ranch'),
 			'hotel' => trans('web/properties.type.hotel'),
 			'aparthotel' => trans('web/properties.type.aparthotel'),
+			'chalet' => trans('web/properties.type.chalet'),
+			'bungalow' => trans('web/properties.type.bungalow'),
+			'building' => trans('web/properties.type.building'),
+			'industrial' => trans('web/properties.type.industrial'),
+			'state' => trans('web/properties.type.state'),
+			'farmhouse' => trans('web/properties.type.farmhouse'),
 		];
 
 		if ( $site_id )
@@ -846,6 +961,8 @@ class Property extends TranslatableModel
 				}
 			}
 		}
+
+		asort($options);
 
 		return $options;
 	}
@@ -875,19 +992,23 @@ class Property extends TranslatableModel
 		];
 
 		// Get custom ranges
-		$priceranges = \App\Site::find($site_id)->getGroupedPriceranges();
-		foreach ($ranges as $type => $data )
-		{
-			if ( $priceranges->$type->count() > 0 )
+		$site = \App\Site::find($site_id);
+
+		if ($site) {
+			$priceranges = $site->getGroupedPriceranges();
+			foreach ($ranges as $type => $data )
 			{
-				$ranges[$type] = [];
-				foreach ($priceranges->$type as $pricerange)
+				if ( $priceranges->$type->count() > 0 )
 				{
-					$key = implode('-', [
-						$pricerange->from ? $pricerange->from : 'less',
-						$pricerange->till ? $pricerange->till : 'more',
-					]);
-					$ranges[$type][$key] = $pricerange->title;
+					$ranges[$type] = [];
+					foreach ($priceranges->$type as $pricerange)
+					{
+						$key = implode('-', [
+							$pricerange->from ? $pricerange->from : 'less',
+							$pricerange->till ? $pricerange->till : 'more',
+						]);
+						$ranges[$type][$key] = $pricerange->title;
+					}
 				}
 			}
 		}

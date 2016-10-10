@@ -1,16 +1,76 @@
+.rotated-thumb(@degree) {
+    -ms-transform: rotate(@degree); /* IE 9 */
+    -webkit-transform: rotate(@degree); /* Chrome, Safari, Opera */
+    transform: rotate(@degree);
+}
+
 .image-gallery {
-	list-style-type: none; margin: 0; padding: 0; width: 100%; 
-	.handler { margin: 5px 5px 5px 0px; border: 1px solid #ddd; float: left; width: 150px; background: #fff; }
-	.thumb { height: 90px; background: center center no-repeat; background-size: cover; display: block; margin: 5px 5px 15px 5px; }
-	.options { 
-		margin: 5px; font-size: 0.8em;
-		a {
-			color: #ccc; 
-			&:hover { color: #999; }
-		}
-	}
-	&.sortable-image-gallery {
-		.handler { cursor: move; }
-		.thumb { margin-bottom: 5px; }
-	}
+    list-style-type: none; 
+    margin: 0; 
+    padding: 0; 
+    width: 100%; 
+
+    >.handler { 
+        margin: 5px 5px 5px 0px; 
+        border: 1px solid #ddd; 
+        float: left; 
+        width: 150px; 
+        background: #fff; 
+
+        >.property-image-container {
+            overflow: hidden;
+            margin: 5px 5px 15px 5px;
+        }
+
+        >.options { 
+            margin: 5px; 
+            font-size: 0.8em;
+
+            > a {
+                color: #ccc; 
+                &:hover { color: #999; }
+            }
+        }
+    }
+
+    &.sortable-image-gallery {
+        >.handler { 
+            cursor: move; 
+            
+            >.property-image-container { 
+                margin-bottom: 5px; 
+            }
+        }
+    }
+
+    .thumb { 
+        height: 90px; 
+        background: center center no-repeat;
+        background-size: cover;
+        display: block;
+
+        &.rotated-90 {
+            .rotated-thumb(90deg);
+            //resize background cover properly
+            height: 138px;
+            width: 90px;
+            margin-top: -24px;
+            margin-left: 24px;
+            margin-bottom: -24px;
+        }
+
+        &.rotated-180 {
+            .rotated-thumb(180deg);
+        }
+
+        &.rotated-270 {
+            .rotated-thumb(270deg);
+            //resize background cover properly
+            height: 138px;
+            width: 90px;
+            margin-top: -24px;
+            margin-left: 24px;
+            margin-bottom: -24px;
+        }
+    }
 }

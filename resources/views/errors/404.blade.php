@@ -1,11 +1,11 @@
 @extends('layouts.web')
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                {{ Lang::get('errors.404.body') }}
-            </div>
-        </div>
-    </div>
+
+	<div class="container">
+		<div class="error-message">
+			{{ Lang::get('errors.404.body') }}
+		</div>
+	</div>
+
 @endsection

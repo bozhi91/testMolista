@@ -1,6 +1,6 @@
 <div class="property-pill property-pill-small">
-	<a href="{{ action('Web\PropertiesController@details', $item->slug) }}" class="image" style="background-image: url('{{ $item->main_image }}');">
-		<img src="{{ $item->main_image }}" alt="{{$item->title}}" class="hide" />
+	<a href="{{ action('Web\PropertiesController@details', $item->slug) }}" class="image" style="background-image: url('{{ $item->main_image_thumb }}');">
+		<img src="{{ $item->main_image_thumb }}" alt="{{$item->title}}" class="hide" />
 	</a>
 	<div class="text">
 		<div class="title text-bold">

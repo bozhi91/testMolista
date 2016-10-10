@@ -65,6 +65,13 @@ class TicketsController extends \App\Http\Controllers\AccountController
 			$params['user_id'] = @intval($tmp->ticket_user_id);
 		}
 
+		if ( $this->request->input('customer_id') ) 
+		{
+			$clean_filters = true;
+			$tmp = $this->site->customers()->find($this->request->input('customer_id'));
+			$params['contact_id'] = @intval($tmp->ticket_contact_id);
+		}
+
 		$tickets = $this->site->ticket_adm->getTickets($params);
 
 		if ( $this->request->ajax() )
@@ -75,7 +82,11 @@ class TicketsController extends \App\Http\Controllers\AccountController
 
 		$employees = $this->_getEmployeesOptions();
 
-		return view('account.tickets.index', compact('tickets','employees','clean_filters'));
+		$customers = $this->site->customers_options;
+
+		$this->set_go_back_link();
+
+		return view('account.tickets.index', compact('tickets','employees','customers','clean_filters'));
 	}
 
 	public function getCreate()
@@ -145,6 +156,10 @@ class TicketsController extends \App\Http\Controllers\AccountController
 	public function getShow($ticket_id)
 	{
 		$ticket = $this->_getTicket($ticket_id);
+		if ( !$ticket )
+		{
+			abort(404);
+		}
 
 		$employees = $this->_getEmployeesOptions();
 
@@ -277,7 +292,7 @@ class TicketsController extends \App\Http\Controllers\AccountController
 
 		if ( !$ticket )
 		{
-			return false; false;
+			return false;
 		}
 
 		// Check ownership

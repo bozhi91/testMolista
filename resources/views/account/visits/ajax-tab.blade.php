@@ -63,8 +63,8 @@
 				<tr>
 					<td class="column-date">{{ $visit->start_time->format("d/m/Y") }}</td>
 					<td class="column-customer">{{ @$visit->customer->full_name }}</td>
-					<td class="column-agent">{{ @$visit->user->name }}</td>
-					<td class="column-property">{{ @$visit->property->title }}</td>
+					<td class="column-agent">{{ @$visit->users->implode('name',', ') }}</td>
+					<td class="column-property">{{ @$visit->properties->implode('title',', ') }}</td>
 				</tr>
 			@endforeach
 		</tbody>

@@ -66,22 +66,72 @@ class WebhookController extends BaseController
 
 		if ( $site )
 		{
-			$line = @reset( $payload['data']['object']['lines']['data'] );
+			$total = @floatval($payload['data']['object']['total'] / 100);
+			$current_subscription = $site->subscriptions()->where('name','main')->first();
 
-			if ( $line['period']['end'] )
+			if ( $total && $current_subscription )
 			{
-				$site->update([
-					'paid_until' => date('Y-m-d', $line['period']['end']),
-				]);
-				// Send warning email
-				$subject = trans('corporate/signup.email.stripe.subject');
-				$html = view('emails.admin.inform-stripe-payment', $site)->render();
-				$to = env('EMAIL_PAYMENT_WARNINGS_TO', 'admin@molista.com');
-				\Mail::send('dummy', [ 'content' => $html ], function($message) use ($subject, $to) {
-					$message->from( env('MAIL_FROM_EMAIL'), env('MAIL_FROM_NAME') );
-					$message->subject($subject);
-					$message->to( $to );
-				});
+				// Get valid dates for current subscription
+				\Stripe\Stripe::setApiKey( env('STRIPE_SECRET') );
+				$customer = \Stripe\Customer::retrieve( $site->stripe_id );
+				if ( $customer )
+				{
+					$paid_from = false;
+					$paid_until = false;
+
+					$subscriptions = @$customer->subscriptions->data;
+
+					if ( $subscriptions)
+					{
+						foreach ($subscriptions  as $subscription)
+						{
+							if ( $current_subscription->stripe_id == $subscription['id'] ) 
+							{
+								$paid_from = date('Y-m-d', $subscription['current_period_start']);
+								$paid_until = date('Y-m-d', $subscription['current_period_end']);
+							}
+						}
+					}
+
+					if ( $paid_from && $paid_until )
+					{
+						$paid_rate = \App\Models\CurrencyConverter::convert(1, $site->plan->currency, 'EUR');
+
+						// Generar site_payment
+						$payment = $site->preparePaymentData([
+							'trigger' => 'Stripe webhook (handleInvoicePaymentSucceeded)',
+							'paid_from' => $paid_from,
+							'paid_until' => $paid_until,
+							'payment_method' =>  'stripe',
+							'payment_amount' => $total,
+							'payload' => $payload,
+						]);
+						$validator = \App\Models\Site\Payment::getCreateValidator($payment);
+						if ($validator->fails())
+						{
+							\Log::error("Stripe webhook invoice.payment_succeeded: unable to create site payment\n",$payment);
+						}
+						else
+						{
+							\App\Models\Site\Payment::saveModel($payment);
+						}
+
+						// Update site
+						$site->update([
+							'paid_until' => $paid_until,
+						]);
+
+						// Send warning email
+						$subject = trans('corporate/signup.email.stripe.subject');
+						$html = view('emails.admin.inform-stripe-payment', $site)->render();
+						$to = env('EMAIL_PAYMENT_WARNINGS_TO', 'admin@molista.com');
+						\Mail::send('dummy', [ 'content' => $html ], function($message) use ($subject, $to) {
+							$message->from( env('MAIL_FROM_EMAIL'), env('MAIL_FROM_NAME') );
+							$message->subject($subject);
+							$message->to( $to );
+						});
+					}
+				}
 			}
 		}
 

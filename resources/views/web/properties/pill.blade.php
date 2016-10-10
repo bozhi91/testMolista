@@ -1,8 +1,9 @@
 <div class="property-pill">
 	<div class="padder">
-		<a href="{{ action('Web\PropertiesController@details', $item->slug) }}" class="image" style="background-image: url('{{ $item->main_image }}');">
-			<img src="{{ $item->main_image }}" alt="{{$item->title}}" class="hide" />
+		<a href="{{ action('Web\PropertiesController@details', $item->slug) }}" class="image" style="background-image: url('{{ $item->main_image_thumb }}');">
+			<img src="{{ $item->main_image_thumb }}" alt="{{$item->title}}" class="hide" />
 		</a>
+		@include('web.properties.discount-label')
 		<div class="text">
 			@if ( $item->label)
 				<div class="labels">
@@ -21,7 +22,7 @@
 			<ul class="list-inline metrics">
 				<li class="text-nowrap text-lowercase has-fontello-icon">
 					<i class="fontello-icon fontello-icon-table"></i>
-					{{ number_format($property->rooms,0,',','.') }} 
+					{{ number_format($property->rooms,0,',','.') }}
 					@if ($property->rooms == 1)
 						{{ Lang::get('web/properties.more.room') }}
 					@else

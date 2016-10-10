@@ -27,4 +27,6 @@ deploy.sh
 /backups
 
 .env
+.env.molista
+.env.004estate
 /nbproject/private/

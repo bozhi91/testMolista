@@ -54,6 +54,13 @@
 						</div>
 					@endif
 
+					@if($type == 'slider')
+						<div class="form-group error-container">
+							{!! Form::label("{$item_key}[slider_id]", Lang::get("account/site.widgets.type.slider.select")) !!}
+							{!! Form::select("{$item_key}[slider_id]", [''=>'']+$sliders, @$item->slider_id, [ 'class'=>'form-control required' ]) !!}
+						</div>
+					@endif
+					
 				</div>
 				<div class="text-right">
 					<div class="pull-left">

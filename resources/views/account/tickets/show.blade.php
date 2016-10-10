@@ -11,6 +11,10 @@
 
 	        @include('common.messages', [ 'dismissible'=>true ])
 
+			<div class="pull-right hidden-xs">
+				{!! print_goback_button( Lang::get('general.back'), [ 'class'=>'btn btn-primary' ]) !!}
+			</div>
+
 			<h1 class="page-title">
 				{{ Lang::get('account/tickets.view.title') }} #{{ $ticket->reference }}
 				@if ( @$property )
@@ -110,7 +114,7 @@
 										{!! Form::select('private', [
 											'0' => Lang::get('account/tickets.public'),
 											'1' => Lang::get('account/tickets.internal'),
-										], null, [ 'class'=>'form-control input-sm alert-danger required' ]) !!}
+										], null, [ 'class'=>'form-control input-sm required' ]) !!}
 									</div>
 								</div>
 								<div class="col-xs-6">
@@ -186,6 +190,14 @@
 								<div>{{ $ticket->contact->company }}</div>
 								<div class="text-ellipsis" title="{{ $ticket->contact->email }}">{{ $ticket->contact->email }}</div>
 								<div>{{ $ticket->contact->phone }}</div>
+								<hr />
+								{!! Form::open([ 'action'=>'Account\Calendar\BaseController@getCreate', 'method'=>'get', 'class'=>'text-right' ]) !!}
+									{!! Form::hidden('customer_id', @$ticket->contact->id_molista) !!}
+									{!! Form::hidden('user_ids[]', $current_site_user->id) !!}
+									{!! Form::hidden('user_ids[]', @$ticket->user->id_molista) !!}
+									{!! Form::hidden('property_ids[]', @$ticket->item->id_molista) !!}
+									{!! Form::button(Lang::get('account/calendar.button.schedule'), [ 'type'=>'submit', 'class'=>'btn btn-sm btn-default' ]) !!}
+								{!! Form::close() !!}
 							</div>
 						</div>
 					@endif
@@ -319,6 +331,15 @@
 					f.submit();
 				}
 			});
+
+			reply_form.on('change', 'select[name="private"]', function(){
+				if ( $(this).val() == 1 ) {
+					$(this).addClass('alert-danger');
+				} else {
+					$(this).removeClass('alert-danger');
+				}
+			});
+
 			cont.on('click', '.btn-reply-form-trigger', function(e){
 				e.preventDefault();
 				cont.find('.reply-form-trigger-area').hide();

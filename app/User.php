@@ -37,6 +37,10 @@ class User extends Authenticatable
 		return $this->hasMany('\App\Models\Site\UserSignature');
 	}
 
+	public function sites_since() {
+		return $this->hasMany('\App\Models\Site\UserSince');
+	}
+
 	public function properties() {
 		return $this->belongsToMany('App\Property', 'properties_users', 'user_id', 'property_id')->withTranslations();
 	}
@@ -132,6 +136,21 @@ class User extends Authenticatable
 		];
 	}
 
+	public function getRoleLevelAttribute()
+	{
+		$level = 1000;
+
+		foreach ($this->roles as $role) 
+		{
+			if ( $level > $role->level )
+			{
+				$level = $role->level;
+			}
+		}
+
+		return $level;
+	}
+
 	public function scopeofSite($query, $site_id)
 	{
 		$query->whereIn('id', function($query) use ($site_id) {
@@ -175,6 +194,16 @@ class User extends Authenticatable
 			$query->select('user_id')
 					->from('sites_users')
 					->where('site_id', '!=', $site_id);
+			});
+	}
+
+	public function scopeWithMinLevel($query, $min_level)
+	{
+		return $query->whereIn('id', function($query) use ($min_level) {
+			$query->select('role_user.user_id')
+					->from('role_user')
+					->join('roles', 'role_user.role_id', '=', 'roles.id')
+					->where('roles.level', '>=', $min_level);
 			});
 	}
 

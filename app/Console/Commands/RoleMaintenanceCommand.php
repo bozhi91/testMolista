@@ -15,21 +15,31 @@ class RoleMaintenanceCommand extends Command
 			'name' => 'admin',
 			'display_name' => 'Admin',
 			'description' => 'This guy can do everything',
+			'level' => 1,
 		],
 		'company' => [
 			'name' => 'company',
 			'display_name' => 'Company',
 			'description' => 'Real estate company',
+			'level' => 100,
 		],
 		'employee' => [
 			'name' => 'employee',
 			'display_name' => 'Employee',
 			'description' => 'Real estate company employee',
+			'level' => 200,
 		],
 		'translator' => [
 			'name' => 'translator',
 			'display_name' => 'Translator',
 			'description' => 'Translator',
+			'level' => 20,
+		],
+		'franchisee' => [
+			'name' => 'franchisee',
+			'display_name' => 'Franchisee',
+			'description' => 'Franchisee, like 004estate admin',
+			'level' => 10,
 		],
 	];
 
@@ -38,19 +48,19 @@ class RoleMaintenanceCommand extends Command
 			'access' => [
 				'display_name' => 'Access admin',
 				'description' => '',
-				'roles' => [ 'translator' ],
+				'roles' => [ 'translator', 'franchisee' ],
 			],
 		],
 		'site' => [
 			'view' => [
 				'display_name' => 'Site view',
 				'description' => '',
-				'roles' => [ 'company' ],
+				'roles' => [ 'company', 'franchisee' ],
 			],
 			'edit' => [
 				'display_name' => 'Site edition',
 				'description' => '',
-				'roles' => [ 'company' ],
+				'roles' => [ 'company', 'franchisee' ],
 			],
 			'create' => [
 				'display_name' => 'Site creation',
@@ -89,22 +99,22 @@ class RoleMaintenanceCommand extends Command
 			'view' => [
 				'display_name' => 'User view',
 				'description' => '',
-				'roles' => [ ],
+				'roles' => [ 'franchisee' ],
 			],
 			'edit' => [
 				'display_name' => 'User edition',
 				'description' => '',
-				'roles' => [ ],
+				'roles' => [ 'franchisee' ],
 			],
 			'create' => [
 				'display_name' => 'User creation',
 				'description' => '',
-				'roles' => [ ],
+				'roles' => [ 'franchisee' ],
 			],
 			'delete' => [
 				'display_name' => 'User deletion',
 				'description' => '',
-				'roles' => [ ],
+				'roles' => [ 'franchisee' ],
 			],
 			'login' => [
 				'display_name' => 'User login',
@@ -116,12 +126,12 @@ class RoleMaintenanceCommand extends Command
 			'view' => [
 				'display_name' => 'Locale view',
 				'description' => '',
-				'roles' => [ ],
+				'roles' => [ 'franchisee' ],
 			],
 			'edit' => [
 				'display_name' => 'Locale edition',
 				'description' => '',
-				'roles' => [ ],
+				'roles' => [ 'franchisee' ],
 			],
 			'create' => [
 				'display_name' => 'Locale creation',
@@ -138,12 +148,12 @@ class RoleMaintenanceCommand extends Command
 			'view' => [
 				'display_name' => 'Translation view',
 				'description' => '',
-				'roles' => [ 'translator' ],
+				'roles' => [ 'translator', 'franchisee' ],
 			],
 			'edit' => [
 				'display_name' => 'Translation edition',
 				'description' => '',
-				'roles' => [ 'translator' ],
+				'roles' => [ 'translator', 'franchisee' ],
 			],
 			'create' => [
 				'display_name' => 'Translation creation',
@@ -160,22 +170,22 @@ class RoleMaintenanceCommand extends Command
 			'view' => [
 				'display_name' => 'Geography elements view',
 				'description' => '',
-				'roles' => [ ],
+				'roles' => [ 'franchisee' ],
 			],
 			'edit' => [
 				'display_name' => 'Geography elements edition',
 				'description' => '',
-				'roles' => [ ],
+				'roles' => [ 'franchisee' ],
 			],
 			'create' => [
 				'display_name' => 'Geography elements creation',
 				'description' => '',
-				'roles' => [ ],
+				'roles' => [ 'franchisee' ],
 			],
 			'delete' => [
 				'display_name' => 'Geography elements deletion',
 				'description' => '',
-				'roles' => [ ],
+				'roles' => [ 'franchisee' ],
 			],
 		],
 		'property' => [
@@ -231,12 +241,12 @@ class RoleMaintenanceCommand extends Command
 			'view' => [
 				'display_name' => 'Marketplace elements view',
 				'description' => '',
-				'roles' => [ ],
+				'roles' => [ 'franchisee' ],
 			],
 			'edit' => [
 				'display_name' => 'Marketplace elements edition',
 				'description' => '',
-				'roles' => [ ],
+				'roles' => [ 'franchisee' ],
 			],
 			'create' => [
 				'display_name' => 'Marketplace elements creation',
@@ -253,31 +263,31 @@ class RoleMaintenanceCommand extends Command
 			'aproove' => [
 				'display_name' => 'Plan change requests aprooval',
 				'description' => '',
-				'roles' => [ ],
+				'roles' => [ 'franchisee' ],
 			],
 		],
 		'expirations' => [
 			'view' => [
 				'display_name' => 'Plan expirations view',
 				'description' => '',
-				'roles' => [ ],
+				'roles' => [ 'franchisee' ],
 			],
 			'edit' => [
 				'display_name' => 'Plan expirations edition',
 				'description' => '',
-				'roles' => [ ],
+				'roles' => [ 'franchisee' ],
 			],
 		],
 		'currency' => [
 			'view' => [
 				'display_name' => 'Currency elements view',
 				'description' => '',
-				'roles' => [ ],
+				'roles' => [ 'franchisee' ],
 			],
 			'edit' => [
 				'display_name' => 'Currency elements edition',
 				'description' => '',
-				'roles' => [ ],
+				'roles' => [ 'franchisee' ],
 			],
 			'create' => [
 				'display_name' => 'Currency elements creation',
@@ -286,6 +296,40 @@ class RoleMaintenanceCommand extends Command
 			],
 			'delete' => [
 				'display_name' => 'Currency elements deletion',
+				'description' => '',
+				'roles' => [ ],
+			],
+		],
+		'reseller' => [
+			'view' => [
+				'display_name' => 'Reseller elements view',
+				'description' => '',
+				'roles' => [ ],
+			],
+			'edit' => [
+				'display_name' => 'Reseller elements edition',
+				'description' => '',
+				'roles' => [ ],
+			],
+			'create' => [
+				'display_name' => 'Reseller elements creation',
+				'description' => '',
+				'roles' => [ ],
+			],
+			'delete' => [
+				'display_name' => 'Reseller elements deletion',
+				'description' => '',
+				'roles' => [ ],
+			],
+			'payments' => [
+				'display_name' => 'Reseller payments management',
+				'description' => '',
+				'roles' => [ ],
+			],
+		],
+		'reports' => [
+			'view' => [
+				'display_name' => 'View reports',
 				'description' => '',
 				'roles' => [ ],
 			],
@@ -323,6 +367,7 @@ class RoleMaintenanceCommand extends Command
 			// Update role
 			$role->display_name = $r['display_name'];
 			$role->description = $r['description'];
+			$role->level = $r['level'];
 			$role->save();
 
 			$role_ids[] = $role->id;

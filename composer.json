@@ -30,7 +30,10 @@
         "torann/geoip": "0.2.*@dev",
         "florianv/laravel-swap": "^0.4.0",
         "eluceo/ical": "^0.10.1",
-        "tremby/laravel-queue-monitor": "^2.3"
+        "tremby/laravel-queue-monitor": "^2.3",
+        "sabre/xml": "^1.4",
+        "alexpechkarev/google-geocoder": "dev-master",
+        "incubout/heartbeats": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

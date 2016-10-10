@@ -13,7 +13,7 @@
 	@elseif ( !empty($site_setup['seo']['title'][fallback_lang()]) )
 		<title>{{ $site_setup['seo']['title'][fallback_lang()] }}</title>
 	@else
-		<title>Molista</title>
+		<title>{{ env('WHITELABEL_WEBNAME', 'Molista') }}</title>
 	@endif
 
 	@if ( !empty($seo_description) )
@@ -41,7 +41,7 @@
 	@if ( !empty($site_setup['favicon']) )
 		<link id="page_favicon" href="{{ $site_setup['favicon'] }}" rel="icon" type="image/x-icon" />
 	@else
-		<link id="page_favicon" href="{{ asset('favicon.ico') }}" rel="icon" type="image/x-icon" />
+		<link id="page_favicon" href="{{ asset( env('WHITELABEL_FAVICON', 'favicon.ico') ) }}" rel="icon" type="image/x-icon" />
 	@endif
 
 	@if ( !empty($use_google_maps) )

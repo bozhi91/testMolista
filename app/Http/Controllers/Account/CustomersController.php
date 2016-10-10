@@ -18,6 +18,11 @@ class CustomersController extends \App\Http\Controllers\AccountController
 	{
 		$query = $this->site->customers()->with('queries');
 
+		if ( $this->site_user->hasRole('employee') )
+		{
+			$query->ofUser($this->site_user->id);
+		}
+
 		// Filter by name
 		if ( $this->request->input('full_name') )
 		{
@@ -30,11 +35,60 @@ class CustomersController extends \App\Http\Controllers\AccountController
 			$query->where('customers.email', 'like', "%{$this->request->input('email')}%");
 		}
 
-		$customers = $query->orderBy('created_at','desc')->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
+		$query->orderBy('created_at','desc');
+
+		if ( $this->request->input('csv') )
+		{
+			return $this->exportCsv($query);
+		}
+
+		$customers = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$this->set_go_back_link();
 
 		return view('account.customers.index', compact('customers'));
+	}
+
+	public function exportCsv($query)
+	{
+		$columns = [
+			'full_name' => trans('account/customers.name'),
+			'email' => trans('account/customers.email'),
+			'total_properties' => trans('account/customers.properties'),
+			'total_matches' => trans('account/customers.matches'),
+		];
+
+		$csv = \League\Csv\Writer::createFromFileObject(new \SplTempFileObject());
+		$csv->setDelimiter(';');
+
+		// Headers
+		$csv->insertOne( array_values($columns) );
+
+		// Lines
+		foreach ($query->limit(99999)->get() as $customer)
+		{
+			$data = [];
+
+			foreach ($columns as $key => $value)
+			{
+				switch ($key)
+				{
+					case 'total_properties':
+						$data[] = $customer->properties->count();
+						break;
+					case 'total_matches':
+						$data[] = $customer->possible_matches->count();
+						break;
+					default:
+						$data[] = $customer->$key;
+				}
+			}
+
+			$csv->insertOne( $data );
+		}
+
+		$csv->output('leads_'.date('Ymd').'.csv');
+		exit;
 	}
 
 	public function create()
@@ -45,7 +99,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 	public function store()
 	{
 		$validator = \Validator::make($this->request->all(), $this->getRequiredFields());
-		if ($validator->fails()) 
+		if ($validator->fails())
 		{
 			return redirect()->back()->withInput()->withErrors($validator);
 		}
@@ -56,7 +110,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 			'email' => $this->request->input('email'),
 			'phone' => $this->request->input('phone'),
 			'locale' => $this->request->input('locale'),
-			'created_by' => \Auth::user()->id,
+			'created_by' => $this->site_user->id,
 		]);
 
 		if ( !$customer )
@@ -86,7 +140,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		}
 
 		$validator = \Validator::make($this->request->all(), $this->getRequiredFields($customer->id));
-		if ($validator->fails()) 
+		if ($validator->fails())
 		{
 			return redirect()->back()->withInput()->withErrors($validator);
 		}
@@ -104,7 +158,28 @@ class CustomersController extends \App\Http\Controllers\AccountController
 
 	public function show($email)
 	{
-		$customer = $this->site->customers()->with('queries')->where('email', $email)->first();
+		// If $email is integer,  redirect
+		if ( preg_match('#^[0-9]+$#', $email) )
+		{
+			$customer = $this->site->customers()->findOrFail($email);
+			return redirect()->action('Account\CustomersController@show', urlencode($customer->email));
+		}
+
+		$query = $this->site->customers()
+					->with('queries')
+					->with([ 'properties' => function($query){
+						$query->with('calendars');
+					}])
+					->with('properties_discards')
+					->where('email', $email);
+
+		if ( $this->site_user->hasRole('employee') )
+		{
+			$query->ofUser($this->site_user->id);
+		}
+
+		$customer = $query->first();
+
 		if ( !$customer )
 		{
 			abort(404);
@@ -134,7 +209,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 	public function postProfile($email)
 	{
 		$customer = $this->site->customers()->with('queries')->where('email', $email)->first();
-		if ( !$customer ) 
+		if ( !$customer )
 		{
 			abort(404);
 		}
@@ -159,7 +234,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 			'more_attributes' => 'array',
 		];
 		$validator = \Validator::make($this->request->all(), $fields);
-		if ( $validator->fails() ) 
+		if ( $validator->fails() )
 		{
 			return redirect()->back()->withInput()->withErrors($validator);
 		}
@@ -175,7 +250,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		$data = [
 			'more_attributes' => [],
 		];
-		foreach ($fields as $key => $value) 
+		foreach ($fields as $key => $value)
 		{
 			$value = $this->request->input($key);
 
@@ -226,7 +301,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 
 		if ( !$customer_id ) {
 			$validator = \Validator::make($this->request->all(), $this->getRequiredFields());
-			if ($validator->fails()) 
+			if ($validator->fails())
 			{
 				return redirect()->back()->withInput()->withErrors($validator);
 			}
@@ -237,7 +312,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 				'email' => $this->request->input('email'),
 				'phone' => $this->request->input('phone'),
 				'locale' => $this->request->input('locale'),
-				'created_by' => \Auth::user()->id,
+				'created_by' => $this->site_user->id,
 			]);
 
 			if ( !$customer )
@@ -269,7 +344,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		return redirect()->back()->with('success',trans('general.messages.success.saved'));
 	}
 
-	protected function deleteRemovePropertyCustomer($slug)
+	public function deleteRemovePropertyCustomer($slug)
 	{
 		$property = $this->site->properties()
 						->whereTranslation('slug', $slug)
@@ -292,9 +367,40 @@ class CustomersController extends \App\Http\Controllers\AccountController
 			$property->customers()->detach( $customer->id );
 		}
 
+		// Discard
+		if ( !$customer->properties_discards->contains( $property->id ) )
+		{
+			$customer->properties_discards()->attach( $property->id );
+		}
+
 		return redirect()->back()->with('current_tab', $this->request->input('current_tab'))->with('success',trans('general.messages.success.saved'));
 	}
 
+	public function putUndiscardPropertyCustomer($slug)
+	{
+		$property = $this->site->properties()
+						->whereTranslation('slug', $slug)
+						->first();
+		if ( !$property )
+		{
+			return redirect()->back()->with('current_tab', $this->request->input('current_tab'))->with('error',trans('general.messages.error'));
+		}
+
+		$customer = $this->site->customers()->find( $this->request->input('customer_id') );
+
+		if ( !$this->request->input('customer_id') || !$customer )
+		{
+			return redirect()->back()->with('current_tab', $this->request->input('current_tab'))->with('error',trans('general.messages.error'));
+		}
+
+		// Undiscard
+		if ( $customer->properties_discards->contains( $property->id ) )
+		{
+			$customer->properties_discards()->detach( $property->id );
+		}
+
+		return redirect()->back()->with('current_tab', $this->request->input('current_tab'))->with('success',trans('general.messages.success.saved'));
+	}
 	protected function getRequiredFields($id=false)
 	{
 		$locales = array_keys( \App\Session\Site::get('locales_tabs') );
@@ -307,6 +413,6 @@ class CustomersController extends \App\Http\Controllers\AccountController
 			'locale' => 'required|in:'.implode(',',$locales),
 		];
 
-		return $fields;		
+		return $fields;
 	}
 }

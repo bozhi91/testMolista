@@ -12,6 +12,7 @@
 				{!! Form::model(null, [ 'method'=>'get', 'id'=>'list-filters', 'class'=>'list-filters' ]) !!}
 					{!! Form::hidden('limit', Input::get('limit', Config::get('app.pagination_perpage', 10)) ) !!}
 					<h4>{{ Lang::get('general.filters') }}</h4>
+					<p>{!! Form::text('domain', Input::get('domain'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('admin/expirations.site') ]) !!}</p>
 					<p>{!! Form::select('plan_id', [ ''=>Lang::get('admin/expirations.plan') ]+$plans, Input::get('plan_id'), [ 'class'=>'form-control' ]) !!}</p>
 					<p>{!! Form::submit( Lang::get('general.filters.apply'), [ 'class'=>'btn btn-default btn-block']) !!}</p>
 				{{ Form::close() }}
@@ -45,6 +46,9 @@
 										<td>{{ Lang::get("account/payment.method.{$expiration->payment_method}") }}</td>
 										<td>{{ date("d/m/Y", strtotime($expiration->paid_until)) }}</td>
 										<td class="text-right">
+											@if ( $expiration->payment_method == 'transfer' )
+												<a href="{{ action('Admin\ExpirationsController@getExtend', $expiration->id) }}" class="btn btn-xs btn-default">{{ Lang::get('admin/expirations.site.extend') }}</a>
+											@endif
 											@if ( Auth::user()->can('site-edit') )
 												<a href="{{ action('Admin\SitesController@edit', $expiration->id) }}" class="btn btn-xs btn-default">{{ Lang::get('admin/expirations.site.view') }}</a>
 											@endif
@@ -54,7 +58,7 @@
 							</tbody>
 						</table>
 					</div>
-					{!! drawPagination($expirations, Input::only('limit','title')) !!}
+					{!! drawPagination($expirations, Input::except('page'), action('Admin\ExpirationsController@getIndex', array_merge(Input::except('page','limit'), ['csv'=>1]))) !!}
 				@endif
 			</div>
 

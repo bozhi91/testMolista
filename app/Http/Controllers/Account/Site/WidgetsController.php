@@ -26,8 +26,9 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 		$group_options = \App\Models\Site\Widget::getGroupOptions();
 
 		$menus = $this->site->menus()->lists('title','id')->all();
+		$sliders = $this->site->slidergroups()->lists('name', 'id')->all();
 
-		return view('account.site.widgets.index', compact('widgets', 'type_options', 'group_options', 'menus'));
+		return view('account.site.widgets.index', compact('widgets', 'type_options', 'group_options', 'menus', 'sliders'));
 	}
 
 	public function getStore()
@@ -36,7 +37,7 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 			'type' => 'required|in:'.implode(',', \App\Models\Site\Widget::getTypeOptions()),
 			'group' => 'required|in:'.implode(',', array_keys(\App\Models\Site\Widget::getGroupOptions())),
 		]);
-		if ($validator->fails()) 
+		if ($validator->fails())
 		{
 			return [ 'error'=>true ];
 		}
@@ -59,13 +60,15 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 		{
 			case 'menu':
 				$data['menus'] = $this->site->menus()->lists('title','id')->all();
+			case 'slider':
+				$data['sliders'] = $this->site->slidergroups()->lists('name', 'id')->all();
 				break;
 		}
 
 		// Update site setup
 		$this->site->updateSiteSetup();
 
-		return [ 
+		return [
 			'success' => 1,
 			'html' => view('account.site.widgets.item', $data)->render(),
 		];
@@ -94,6 +97,9 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 			case 'menu':
 				$fields['menu_id'] = 'required|integer|exists:menus,id,site_id,'.$this->site->id;
 				break;
+			case 'slider':
+				$fields['slider_id'] = 'required|integer|exists:slider_group,id,site_id,'.$this->site->id;
+				break;
 			case 'text':
 				$fields['content'] = 'required|array';
 				break;
@@ -102,7 +108,7 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 		$validator = \Validator::make($data, $fields);
 		if ( $validator->fails() )
 		{
-			return [ 
+			return [
 				'error' => true,
 				'errors' => $validator->errors(),
 			];
@@ -119,6 +125,9 @@ class WidgetsController extends \App\Http\Controllers\AccountController
 		{
 			case 'menu':
 				$widget->menu_id = $data['menu_id'];
+				break;
+			case 'slider':
+				$widget->slider_id = $data['slider_id'];
 				break;
 			case 'text':
 				foreach (\App\Session\Site::get('locales_tabs') as $locale => $locale_name)

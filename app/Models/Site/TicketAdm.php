@@ -348,7 +348,7 @@ class TicketAdm
 		return false;
 	}
 
-	public function dissociateUsers($users) 
+	public function dissociateUsers($users, $reassignee=false) 
 	{
 		if ( !$this->site_ready )
 		{
@@ -364,7 +364,11 @@ class TicketAdm
 				continue;
 			}
 
+			// Add to delete queue
 			$deletes[] = $user->ticket_user_id;
+
+			// Reassign tickets
+			$this->reassignUserTickets($user, $reassignee); 
 		}
 
 		if ( count($deletes) < 1 )
@@ -402,6 +406,48 @@ class TicketAdm
 		return false;
 	}
 
+	public function reassignUserTickets($user, $reassignee) 
+	{
+		if ( !$user || !$user->ticket_user_id )
+		{
+			return false;
+		}
+
+		if ( !$reassignee || !$reassignee->ticket_user_id )
+		{
+			return false;
+		}
+
+		$data = [
+			'headers'=> [
+				'Authorization' => $this->getAuthorizationHeader(),
+			],
+			'json' => [
+				'user_id' => $reassignee->ticket_user_id,
+			],
+		];
+		$response = $this->guzzle_client->request('POST', "user/{$user->ticket_user_id}/reasign?site_id={$this->site_id}", $data);
+
+		// Success
+		if ( $response->getStatusCode() == 204 )
+		{
+			return true;
+		}
+
+		// Get body
+		$body = @json_decode( $response->getBody() );
+
+		// Log error
+		$error_message = "TICKETING -> could not reassign user tickets of site {$this->site->id}: {$user->id} => {$reassignee->id}";
+		if ( @$body->message )
+		{
+			$error_message .= ": {$body->message}";
+		}
+		\Log::error($error_message);
+
+		return false;
+	}
+
 	public function associateContact($contact) 
 	{
 		if ( !$this->site_ready )
@@ -418,6 +464,7 @@ class TicketAdm
 				'fullname' => $contact->full_name,
 				'phone' => $contact->phone,
 				'locale' => $contact->locale,
+				'referer' => $contact->origin,
 				//'company' => '',
 				//'address' => '',
 				//'image' => '',
@@ -573,6 +620,16 @@ class TicketAdm
 			$data['user_id'] = $params['user_id'];
 		}
 
+		if ( isset($params['contact_email']) )
+		{
+			$data['contact_email'] = $params['contact_email'];
+		}
+
+		if ( isset($params['contact_id']) )
+		{
+			$data['contact_id'] = $params['contact_id'];
+		}
+
 		if ( @$params['status'] )
 		{
 			$data['status'] = is_array($params['status']) ? implode(',',$params['status']) : $params['status'];
@@ -644,11 +701,25 @@ class TicketAdm
 		$first_message = @array_pop(array_values($ticket->messages));
 		$ticket->subject = @$first_message->subject;
 
+		//  Ticket contact
+		if ( @$ticket->contact->id )
+		{
+			$customer = \App\Models\Site\Customer::where('ticket_contact_id', $ticket->contact->id)->first();
+			$ticket->contact->id_molista = @$customer->id;
+		}
+
+		//  Ticket property
+		if ( @$ticket->item->id )
+		{
+			$property = \App\Property::withTrashed()->where('ticket_item_id', $ticket->item->id)->first();
+			$ticket->item->id_molista = @$property->id;
+		}
 
 		// Add user images
+		$user_ids_rel = [];
 		$images = [ 'default' => asset('images/users/default.png') ];
 
-		//  To user
+		//  Ticket user
 		if ( @$ticket->user )
 		{
 			if ( @$ticket->user->id )
@@ -656,9 +727,11 @@ class TicketAdm
 				if ( empty($images[$ticket->user->id]) )
 				{
 					$user = \App\User::where('ticket_user_id', $ticket->user->id)->first();
+					$user_ids_rel[$ticket->user->id] = @$user->id;
 					$images[$ticket->user->id] = ( $user && $user->image ) ? $user->image_url : $images['default'];
 				}
 				$ticket->user->image = $images[$ticket->user->id];
+				$ticket->user->id_molista = @$user_ids_rel[$ticket->user->id];
 			}
 			else
 			{
@@ -666,7 +739,7 @@ class TicketAdm
 			}
 		}
 
-		//  To messages
+		//  Ticket messages
 		foreach ($ticket->messages as $key => $message)
 		{
 			if ( $message->user )

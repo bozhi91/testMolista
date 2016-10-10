@@ -223,6 +223,13 @@ class Mapper extends \App\Marketplaces\Mapper {
 			case 'apartment':
 			case 'aparthotel':
 				return 'apartment';
+			case 'building':
+				return 'building';
+			case 'state':
+				return 'country';
+			case 'farmhouse':
+				return 'country house';
+
 			default: return 'other';
 		}
 	}

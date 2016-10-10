@@ -128,31 +128,47 @@ class Mapper extends \App\Marketplaces\Mapper {
     {
         switch ($this->item['type'])
         {
+            case 'chalet':
+                $type = 64;
+            break;
+            case 'bungalow':
+                $type = 32;
+            break;
+            case 'building':
+                $type = 2048;
+            break;
+            case 'industrial':
+                $type = 1024;
+            break;
             case 'store':
                 $type = 512;
-                break;
+            break;
             case 'lot':
                 $type = 8192;
-                break;
+            break;
             case 'duplex':
                 $type = 8;
-                break;
+            break;
+            case 'farmhouse':
             case 'house':
                 $type = 16;
-                break;
+            break;
+            case 'state':
+                $type = 4096;
+            break;
             case 'penthouse':
                 $type = 2;
-                break;
+            break;
             case 'villa':
                 $type = 128;
-                break;
+            break;
             case 'apartment':
             case 'aparthotel':
                 $type = 2;
-                break;
+            break;
             default:
                 $type = 4;
-                break;
+            break;
         }
 
         return $type;

@@ -33,10 +33,22 @@ class SitesController extends Controller
 			$query->whereTranslationLike('title', "%{$this->request->input('title')}%");
 		}
 
+		// Filter by domain
+		if ( $this->request->input('domain') )
+		{
+			$query->withDomain($this->request->input('domain'));
+		}
+
 		// Filter by web_transfer_requested
 		if ( $this->request->input('transfer') )
 		{
 			$query->where('web_transfer_requested', intval($this->request->input('transfer'))-1);
+		}
+
+		// Filter by theme
+		if ( $this->request->input('theme') )
+		{
+			$query->where('theme', $this->request->input('theme'));
 		}
 
 		switch ( $this->request->input('order') )
@@ -50,9 +62,6 @@ class SitesController extends Controller
 
 		switch ( $this->request->input('orderby') )
 		{
-			case 'id':
-				$query->orderBy('id', $order);
-				break;
 			case 'created':
 				$query->orderBy('created_at', $order);
 				break;
@@ -73,17 +82,52 @@ class SitesController extends Controller
 					->orderBy('total_users', $order)
 					->groupBy('sites.id');
 				break;
+			case 'id':
+			case 'theme':
+				$query->orderBy($this->request->input('orderby'), $order);
+				break;
 			case 'title':
 			default:
 				$query->orderBy('title', $order);
-				break;
+		}
+
+		if ( $this->request->input('csv') )
+		{
+			return $this->csv_output($query, [
+				'id' => '#',
+				'title' => trans('admin/sites.title'),
+				'main_url' => trans('admin/sites.domain'),
+				'country' => trans('admin/sites.country'),
+				'properties' => trans('admin/sites.properties'),
+				'users' => trans('admin/sites.employees'),
+				'web_transfer_requested' => trans('admin/sites.transfer'),
+				'created_at' => trans('admin/sites.created'),
+			]);
 		}
 
 		$sites = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
+		$themes = [];
+		foreach (\Config::get('themes.themes') as $key => $theme)
+		{
+			if ( @$theme['public'] || @$theme['custom'] )
+			{
+				$themes[$key] = $theme['title'];
+			}
+		}
+		asort($themes);
+
 		$this->set_go_back_link();
 
-		return view('admin.sites.index', compact('sites'));
+		return view('admin.sites.index', compact('sites','themes'));
+	}
+
+	protected function csv_prepare_row($row)
+	{
+		$row->country = @$row->country->name;
+		$row->properties = $row->properties->count();
+		$row->users = $row->users->count();
+		return $row;
 	}
 
 	public function create()
@@ -92,8 +136,9 @@ class SitesController extends Controller
 
 		$companies = \App\User::withRole('company')->orderBy('name')->lists('name','id')->toArray();
 		$employees = \App\User::withRole('employee')->orderBy('name')->lists('name','id')->toArray();
+		$resellers = \App\Models\Reseller::orderBy('name')->lists('name','id')->toArray();
 
-		return view('admin.sites.create', compact('companies','locales','companies','employees'));
+		return view('admin.sites.create', compact('companies','locales','companies','employees','resellers'));
 	}
 
 	public function store()
@@ -108,6 +153,7 @@ class SitesController extends Controller
 			'locales.*' => 'required|in:'.implode(',',array_keys($locales)),
 			'owners' => 'required|array',
 			'owners.*' => 'required|exists:users,id',
+			'reseller_id' => 'exists:resellers,id',
 		]);
 		if ($validator->fails()) 
 		{
@@ -137,6 +183,7 @@ class SitesController extends Controller
 			'country_code' => 'ES',
 			'country_id' => 68,
 			'timezone' => 'Europe/Madrid',
+			'reseller_id' => $this->request->input('reseller_id') ? $this->request->input('reseller_id') : null,
 		]);
 
 		if ( !$site )
@@ -182,12 +229,15 @@ class SitesController extends Controller
 
 		$owners = $site->users()->whereIn('id', $site->owners_ids)->orderBy('name')->lists('name','id')->all();
 		$companies = \App\User::withRole('company')->whereNotIn('id', $site->owners_ids)->orderBy('name')->lists('name','id')->all();
+		$resellers = \App\Models\Reseller::orderBy('name')->lists('name','id')->toArray();
 
 		$invoices = $site->invoices()->orderBy('uploaded_at','desc')->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
+		$payment_tab = app('App\Http\Controllers\Admin\Sites\PaymentsController')->getList($id, false)->render();
+
 		$current_tab = session('current_tab', $this->request->input('current_tab','site'));
 
-		return view('admin.sites.edit', compact('site','locales','owners','companies','invoices','current_tab','plan_details'));
+		return view('admin.sites.edit', compact('site','locales','owners','companies','resellers','invoices','current_tab','plan_details','payment_tab'));
 	}
 
 	public function update($id)
@@ -203,6 +253,7 @@ class SitesController extends Controller
 			'locales_array.*' => 'required|in:'.implode(',',array_keys($locales)),
 			'owners_ids' => 'required|array',
 			'owners_ids.*' => 'required|exists:users,id',
+			'reseller_id' => 'exists:resellers,id',
 		];
 		$validator = \Validator::make($this->request->all(), $fields);
 		if ($validator->fails()) 
@@ -248,6 +299,8 @@ class SitesController extends Controller
 		// Update data
 		$site->subdomain = $this->request->input('subdomain');
 		$site->custom_theme = $this->request->input('custom_theme');
+		$site->reseller_id = $this->request->input('reseller_id') ? $this->request->input('reseller_id') : null;
+		$site->hide_molista = $this->request->input('hide_molista') ? 1 : 0;
 		$site->enabled = $this->request->input('enabled') ? 1 : 0;
 		$site->save();
 

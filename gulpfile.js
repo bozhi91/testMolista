@@ -38,6 +38,7 @@ elixir(function(mix) {
 			'jquery.cookie.js',
 			'bootstrap-table.js',
 			'bootstrap-datetimepicker.js',
+			'bootstrap-daterangepicker.js',
 			'bootstrap-slider.js',
 			'summernote.js',
 			'alertify.js',
@@ -97,6 +98,12 @@ elixir(function(mix) {
 			'jquery.sticky-kit.js',
 			'corporate.js',
 		], 'public/compiled/js/corporate.js');
+
+	/* 004estate */
+	mix
+		.less([
+			'004estate.less',
+		], 'public/compiled/css/004estate.css');
 
 
 	/* Admin */
@@ -201,6 +208,62 @@ elixir(function(mix) {
 		.less([
 			'sky/pdf.less',
 		], 'public/themes/sky/compiled/css/pdf.css')
+		;
+
+	/* Redly */
+	mix
+		.less([
+			'redly/app.less',
+		], 'resources/assets/css/compiled/redly.css')
+		.styles([
+			'compiled/common.css',
+			'compiled/redly.css',
+		], 'public/themes/redly/compiled/css/app.css')
+		.less([
+			'redly/pdf.less',
+		], 'public/themes/redly/compiled/css/pdf.css')
+		;
+
+	/* White-Cloud */
+	mix
+		.less([
+			'white-cloud/app.less',
+		], 'resources/assets/css/compiled/white-cloud.css')
+		.styles([
+			'compiled/common.css',
+			'compiled/white-cloud.css',
+		], 'public/themes/white-cloud/compiled/css/app.css')
+		.less([
+			'white-cloud/pdf.less',
+		], 'public/themes/white-cloud/compiled/css/pdf.css')
+		;
+
+	/* Sam */
+	mix
+		.less([
+			'sam/app.less',
+		], 'resources/assets/css/compiled/sam.css')
+		.styles([
+			'compiled/common.css',
+			'compiled/sam.css',
+		], 'public/themes/sam/compiled/css/app.css')
+		.less([
+			'white-cloud/pdf.less',
+		], 'public/themes/sam/compiled/css/pdf.css')
+		;
+
+	/* Kredikasa */
+	mix
+		.less([
+			'kredikasa/app.less',
+		], 'resources/assets/css/compiled/kredikasa.css')
+		.styles([
+			'compiled/common.css',
+			'compiled/kredikasa.css',
+		], 'public/themes/kredikasa/compiled/css/app.css')
+		.less([
+			'kredikasa/pdf.less',
+		], 'public/themes/kredikasa/compiled/css/pdf.css')
 		;
 
 });

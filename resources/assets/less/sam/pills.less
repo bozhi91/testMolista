@@ -1,0 +1,47 @@
+@import '../app/pills.less';
+
+.property-pill {
+    position: relative; border: 1px solid @propertyPillBorderColor; background-color: @propertyPillBackgroundColor;
+
+    .padder {
+    	position: static;
+
+		.image { margin-bottom: 5px; }
+
+		.text {
+			padding: 10px 15px; margin-bottom: 95px; min-height: 50px;
+
+			.title a { color: @propertyPillTitleColor; font-weight: bold; font-size: 24px; }
+			.price { position: absolute; bottom: 65px; font-size: 25px; color: @propertyPillPriceColor; font-weight: bold; }
+			.location { color: @propertyPillLocationColor; }
+			.metrics { display: none; }
+			.labels { position: absolute; top: 7px; right: 5px; .label { font-size: 14px; } }
+			.button {
+				display: block !important; text-align: left; position: absolute; bottom: 25px; left: 15px;
+
+				a {
+				    background-color: @propertyPillButtonBackground; padding: 10px 15px; font-size: 14px; color: @propertyPillButtonColor;
+
+				    &:hover { background-color: @propertyPillButtonHoverBackground; opacity: 0.8; text-decoration: none; }
+				}
+			}
+		}
+		.text:after { display: table; content: ""; clear: both; }
+	}
+}
+
+/* responsive */
+
+@media (min-width: 768px) and (max-width: 1091px) {
+	.property-pill {
+		.padder {
+			.text { min-height: 120px; }
+			.price { font-size: 12px; }
+			.button a { font-size: 12px !important; }
+		}
+	}
+}
+
+@media (max-width: 767px) {
+	.property-pill { height: auto !important; }
+}

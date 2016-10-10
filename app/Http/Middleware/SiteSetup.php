@@ -35,7 +35,7 @@ class SiteSetup
 		}
 
 		// Set redirection after user login
-		putenv( "afterLoginRedirectTo=" . action('Account\TicketsController@getIndex') );
+		putenv( "afterLoginRedirectTo=" . action('Account\ReportsController@getIndex') );
 
 		// Set required site
 		putenv( "loginRequiredSite={$setup['site_id']}" );
@@ -85,7 +85,7 @@ class SiteSetup
 
 	public function checkRedirection()
 	{
-		$parts = parse_url( url()->current() );
+		$parts = parse_url( url_current() );
 
 		if ( preg_match('#^www.#', $parts['host']) )
 		{

@@ -1,3 +1,25 @@
+<?php
+
+	if (!isset($colperpage)) {
+		$colperpage = 4;
+	}
+
+	if (!isset($showcolrows)) {
+		$showcolrows = true;
+	}
+
+	$slider_breakpoint = ( 12 / $colperpage * 3);
+
+	$widgetSlider = false; //ugly temporal
+	if(!empty($site_setup['widgets']['home'])){
+		foreach ($site_setup['widgets']['home'] as $widget) {
+			if($widget['type'] == 'slider'){
+				$widgetSlider = $widget;
+			}
+		}
+	}
+?>
+
 @extends('layouts.web')
 
 @section('content')
@@ -6,47 +28,58 @@
 
 	<div id="home">
 
-		@if ( count($properties) > 0 )
-			<?php
-				$main_property = $properties->shift()
-			?>
-
-			<div class="main-property carousel slide" data-interval="false">
-				<div class="carousel-inner" role="listbox">
-					<div data-href="{{ action('Web\PropertiesController@details', $main_property->slug) }}" class="item active cursor-pointer">
-						<img src="{{$main_property->main_image}}" alt="{{$main_property->title}}" class="main-image" />
-						@include('web.index-caption')
+		@if($widgetSlider)
+			@include('common.widget-slider', ['widget' => $widgetSlider])
+		@endif
+		
+		@if ( $main_property )
+		
+			@if(!$widgetSlider)
+				<div class="main-property carousel slide" data-interval="false">
+					<div class="carousel-inner" role="listbox">
+						<div data-href="{{ action('Web\PropertiesController@details', $main_property->slug) }}" class="item active cursor-pointer">
+							<img src="{{$main_property->main_image}}" alt="{{$main_property->title}}" class="main-image" />
+							@include('web.index-caption')
+						</div>
 					</div>
 				</div>
-			</div>
-
-			@if ( count($properties) > 0 )
+			@endif
+		
+			@if ( $highlighted->count() > 0 )
 				<div class="container">
 					<div class="properties-slider-area">
 						<h2>{{ Lang::get('web/home.gallery') }}</h2>
 						<div id="properties-slider" class="properties-slider carousel slide">
 							<div class="carousel-inner" role="listbox">
 								<div class="item active">
-									<div class="row">
-										@foreach ($properties as $key => $property)
-											@if ( $key > 0 && $key%3 == 0 )
+									@if ( $showcolrows )
+										<div class="row">
+									@endif
+									@foreach ($highlighted as $key => $property)
+										@if ( $key > 0 && $key%3 == 0 )
+											@if ( $showcolrows )
 												</div>
-													@if ( $key > 0 && $key%9 == 0 )
-														</div>
-														<div class="item">
-													@endif
+											@endif
+											@if ( $key > 0 && $key%$slider_breakpoint == 0 )
+												</div>
+												<div class="item">
+											@endif
+											@if ( $showcolrows )
 												<div class="row">
 											@endif
-											<div class="col-xs-12 col-sm-4">
-												@include('web.properties.pill', [ 'item'=>$property])
-											</div>
-										@endforeach
-									</div>
+										@endif
+										<div class="col-xs-12 col-sm-{{$colperpage}}">
+											@include('web.properties.pill', [ 'item'=>$property])
+										</div>
+									@endforeach
+									@if ( $showcolrows )
+										</div>
+									@endif
 								</div>
 							</div>
-							@if ( count($properties) > 9 )
+							@if ( $highlighted->count() > 9 )
 								<ul class="list-inline text-right properties-slider-indicators hidden-xs">
-									@foreach ($properties as $key => $property)
+									@foreach ($highlighted as $key => $property)
 										@if ( $key%9 == 0 )
 											<li data-target="#properties-slider" data-slide-to="{{ $key/9 }}" class="{{ $key ? '' : 'active' }}">{{ ($key/9)+1 }}</li>
 										@endif
@@ -58,12 +91,10 @@
 				</div>
 			@endif
 
-		@endif
-
 		<div class="container">
-			<div class="quick-search-area search-area {{ count($properties) ? 'under-properties' : '' }}">
+			<div class="quick-search-area search-area {{ $highlighted->count() ? 'under-properties' : '' }}">
 				<div class="row">
-					<div class="col-xs-12 col-sm-8">
+					<div class="col-xs-12 col-sm-12 col-md-8">
 						<h2>{{ Lang::get('web/home.categories') }}</h2>
 						<div class="row">
 							<div class="col-xs-12 col-md-6">
@@ -100,7 +131,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-xs-12 col-sm-4">
+					<div class="col-xs-12 col-sm-12 col-md-4">
 						<div class="hidden-xs hidden-sm">
 							@if ( $latest->count() )
 								<h2>{{ Lang::get('web/home.recent') }}</h2>
@@ -110,14 +141,16 @@
 
 							@endif
 						</div>
-						<div class="visible-xs visible-sm">
+						<!--<div class="visible-xs visible-sm">
 							<h2>{{ Lang::get('web/search.quick.title') }}</h2>
 							<div class="quick-search-xs-sm-area"></div>
-						</div>
+						</div>-->
 					</div>
 				</div>
 			</div>
 		</div>
+
+		@endif
 
 	</div>
 
@@ -162,7 +195,7 @@
 
 			var main_property = cont.find('.main-property');
 			var main_property_image = main_property.find('.main-image');
-			if ( main_property_image.length > 0 && main_property.height() > main_property_image.height() ) {
+			if ( (main_property_image.length > 0 && main_property.height() > main_property_image.height()) || $('body').hasClass('theme-white-cloud') ) {
 				main_property_image.addClass('hide');
 				main_property.find('.item.active').css({ 'background-image': 'url(' + main_property_image.attr('src') + ')' })
 			}

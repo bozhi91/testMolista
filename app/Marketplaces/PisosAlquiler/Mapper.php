@@ -88,6 +88,47 @@ class Mapper extends \App\Marketplaces\Mapper {
         return $pictures;
     }
 
+    /**
+     * Piso
+     * Torre
+     * Parking
+     * Local comercial
+     * Nave industrial
+     * Almacén
+     * Despacho
+     * Casa
+     * Solar
+     * Dúplex
+     * Chalet
+     * Oficina
+     * Apartamento
+     * Edificio
+     * Ático
+     * Masia
+     * Hotel
+     * Finca rústica
+     * Cortijo
+     * Garaje
+     * Tríplex
+     * Casa de campo
+     * Refugio
+     * Terreno
+     * Parcela
+     * Casa unifamiliar
+     * Casa adosada
+     * Loft
+     * Restaurante
+     * Trastero
+     * Terreno industrial
+     * Parcela industrial
+     * Bungalow
+     * Casa cueva
+     * Estudio
+     * Habitación
+     * Casa pareada
+     * Nave comercial
+     * @return string
+     */
     protected function tipo_inmueble()
     {
         $type = $this->item['type'];
@@ -101,6 +142,12 @@ class Mapper extends \App\Marketplaces\Mapper {
             'villa' => 'Chalet',
             'hotel' => 'Hotel',
             'aparthotel' => 'Apartamento',
+            'chalet' => 'Chalet',
+            'bungalow' => 'Bungalow',
+            'building' => 'Edificio',
+            'industrial' => 'Nave industrial',
+            'state' => 'Finca rústica',
+            'farmhouse' => 'Masia',
         ];
 
         return isset($types[$type]) ? $types[$type] : 'Piso';

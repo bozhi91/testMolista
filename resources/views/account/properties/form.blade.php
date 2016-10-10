@@ -25,6 +25,7 @@
 
 <style type="text/css">
 	#tab-marketplaces .marketplace-name { display: inline-block; padding-left: 25px; background: left center no-repeat; }
+	#tab-visits .column-property { display: none; }
 </style>
 
 {!! Form::model($item, [ 'method'=>$method, 'action'=>$action, 'files'=>true, 'id'=>'edit-form' ]) !!}
@@ -88,6 +89,36 @@
 									<div class="input-group-addon">{{ $infocurrency->symbol }}</div>
 								@endif
 							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group error-container">
+							{!! Form::hidden('currency', $infocurrency->code) !!}
+							{!! Form::label('price_before', Lang::get('account/properties.price_before')) !!}
+							<div class="input-group">
+								@if ( $infocurrency->position == 'before' )
+									<div class="input-group-addon">{{ $infocurrency->symbol }}</div>
+								@endif
+								{!! Form::text('price_before', null, [ 'class'=>'form-control number', 'min'=>'0' ]) !!}
+								@if ( $infocurrency->position == 'after' )
+									<div class="input-group-addon">{{ $infocurrency->symbol }}</div>
+								@endif
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-3">
+						<div class="form-group error-container">
+							{!! Form::label('discount', Lang::get('account/properties.discount')) !!}
+							<div class="input-group">
+								{!! Form::text('discount', null, [ 'class'=>'form-control', 'readonly' => 'readonly', 'max'=>'0' ]) !!}
+								<div class="input-group-addon">%</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-3">
+						<div class="form-group error-container">
+							{!! Form::label('discount_show', Lang::get('account/properties.discount_show')) !!}
+							{!! Form::select('discount_show', [ '' => '','0'=>Lang::get('general.no'), '1'=>Lang::get('general.yes') ], null, [ 'class'=>'form-control' ]) !!}
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6">
@@ -315,9 +346,9 @@
 				    </div>
 				    <div class="col-xs-12 col-sm-6">
 				        <div class="form-group error-container">
-				            {!! Form::label('details[basement_area]', Lang::get('account/properties.basement_area')) !!}
+				            {!! Form::label('details[size_real]', Lang::get('account/properties.size_real')) !!}
 				            <div class="input-group">
-				                {!! Form::text('details[basement_area]', null, [ 'class'=>'form-control number', 'min'=>'0' ]) !!}
+				                {!! Form::text('details[size_real]', null, [ 'class'=>'form-control number', 'min'=>'0' ]) !!}
 				                <div class="input-group-addon">m²</div>
 				            </div>
 				        </div>
@@ -327,6 +358,16 @@
 				<hr />
 				{!! Form::label(null, Lang::get('account/properties.characteristics')) !!}
 				<div class="row">
+					<div class="col-xs-12 col-sm-3">
+						<div class="form-group">
+							<div class="checkbox error-container">
+								<label>
+									{!! Form::checkbox('home_slider', 1, null) !!}
+									{{ Lang::get('account/properties.home.slider') }}
+								</label>
+							</div>
+						</div>
+					</div>
 					<div class="col-xs-12 col-sm-3">
 						<div class="form-group">
 							<div class="checkbox error-container">
@@ -661,6 +702,19 @@
 
 		property_geocoder = new google.maps.Geocoder();
 
+		// Discount
+		form.find('[name="price"],[name="price_before"]').keyup(function(){
+			var price = form.find('[name="price"]').val();
+			if (isNaN(price)) price = 0;
+			var price_before = form.find('[name="price_before"]').val();
+			if (isNaN(price_before)) price_before = 0;
+			var discount  = 0;
+			if (price_before > 0)  discount = (price_before - price) * 100 / price_before;
+			if (isNaN(discount)) discount = 0;
+
+			form.find('[name="discount"]').val(Math.ceil(discount) * -1);
+		}).keyup();
+
 		// Enable map when opening tab
 		form.find('.main-tabs a[href="#tab-location"]').on('shown.bs.tab', function (e) {
 			var el = $(e.target);
@@ -707,8 +761,8 @@
 				address.push( form.find('.address-input').val() );
 			}
 
-			if ( form.find('.district-input').val() ) {
-				address.push( form.find('.district-input').val() );
+			if ( form.find('input[name="zipcode"]').val() ) {
+				address.push( form.find('input[name="zipcode"]').val() );
 			}
 
 			$.each(['city','state','country'], function(k,v){
@@ -730,7 +784,6 @@
 			}
 
 			LOADING.show();
-
 			property_geocoder.geocode({
 				'address': address.join(', ')
 			}, function(results, status) {
@@ -811,6 +864,31 @@
 					initImageWarnings();
 				}
 			});
+		});
+
+		form.on('click', '.image-rotate-trigger', function(e){
+			e.preventDefault();
+			
+			var el = $(this);
+			var thumb = el.closest('.handler').find('.thumb');
+			var input = el.parent().find('.rotation-hidden-input');
+			var degree = input.val();
+			
+			if(!degree) {
+				thumb.addClass('rotated-90');
+				input.val('90');
+			} else if(degree == '90') {
+				thumb.removeClass('rotated-90');
+				thumb.addClass('rotated-180');
+				input.val('180');
+			} else if(degree == '180') {
+				thumb.removeClass('rotated-180');
+				thumb.addClass('rotated-270');
+				input.val('270');
+			} else if(degree == '270') {
+				thumb.removeClass('rotated-270');
+				input.val('');
+			}
 		});
 
 		// Translations
