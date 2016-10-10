@@ -60,7 +60,7 @@
 
 								<div class="col-xs-12 col-sm-4">
 									<div class="servicios-picture-content">
-										<a data-toggle="modal" data-target="#ModalPatrimonio">
+										<a data-toggle="modal" data-target="#ModalEnConstruccion">
 											<div class="servicios-picture-circle">
 												<img src="/images/themes/bellamar/circulo-3.png" alt="" />
 											</div>
@@ -78,7 +78,7 @@
 
 								<div class="col-xs-12 col-sm-4">
 									<div class="servicios-picture-content">
-										<a data-toggle="modal" data-target="#ModalComunidades">
+										<a data-toggle="modal" data-target="#ModalEnConstruccion">
 											<div class="servicios-picture-circle">
 												<img src="/images/themes/bellamar/circulo-4.png" alt="" />
 											</div>
@@ -91,7 +91,7 @@
 
 								<div class="col-xs-12 col-sm-4">
 									<div class="servicios-picture-content">
-										<a href="" target="_blank">
+										<a data-toggle="modal" data-target="#ModalEnConstruccion"><!-- <a href="" target="_blank"> -->
 											<div class="servicios-picture-circle">
 												<img src="/images/themes/bellamar/circulo-5.png" alt="" />
 											</div>
@@ -104,7 +104,7 @@
 
 								<div class="col-xs-12 col-sm-4">
 									<div class="servicios-picture-content">
-										<a href="" target="_blank">
+										<a data-toggle="modal" data-target="#ModalEnConstruccion"><!-- <a href="" target="_blank"> -->
 											<div class="servicios-picture-circle">
 												<img src="/images/themes/bellamar/circulo-6.png" alt="" />
 											</div>
@@ -335,6 +335,31 @@
 
         </div>
 
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal En Construcción -->
+<div class="modal fade ModalStaticText" id="ModalEnConstruccion" tabindex="-1" role="dialog" aria-labelledby="EnConstruccion">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-construccion-block">
+        	<div class="warning-background top"></div>
+
+        	<div class="modal-construccion-content">
+        		<p class="modal-construccion-content-title">Sección en construcción</p>
+        		<p class="modal-construccion-content-subtitle">Disculpe las molestias</p>
+        	</div>
+
+        	<div class="warning-background bottom"></div>
+        </div>
       </div>
       <div class="modal-footer">
       </div>
