@@ -9,7 +9,7 @@ class Writer extends \App\XML\Writer {
 	public function __construct() {
 		$this->openMemory();
 		$this->startDocument('1.0', 'UTF-8');
-		$this->startElement('product');
+		$this->startElement('producto');
 		$this->writeAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
 		$this->writeAttribute('xmlns:xsd', 'http://www.w3.org/2001/XMLSchema');
 	}

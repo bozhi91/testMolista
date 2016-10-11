@@ -1,0 +1,1146 @@
+1;950006;4;Argentona Est
+1;1550006;3;Bufalà
+1;1550006;4;Canyado
+1;1550006;5;Canyet
+1;1550006;9;Gorg
+1;1550006;11;Llefià
+1;1550006;12;Lloreda
+1;1550006;13;Montigalà
+1;1550006;14;Morera
+1;1550006;16;La salut
+1;1550006;18;Sistrells
+1;1550006;20;Pomar
+1;1550006;21;Artigues
+1;1550006;22;Sant Roc
+1;1550006;23;Congrés
+1;1550006;24;Sant Crist
+1;1550006;25;Bonavista
+1;1550006;26;Mas Ram
+1;1550006;27;Progrés-Pep Ventura
+1;1550006;28;Port
+1;1550006;29;Centre
+1;1550006;30;Casagemes
+1;1930008;101;Raval
+1;1930008;102;Gòtic
+1;1930008;103;Barceloneta
+1;1930008;104;St. Pere - Sta. Caterina - El Born
+1;1930008;201;Fort Pienc
+1;1930008;202;Sagrada Família
+1;1930008;203;Dreta de l´Eixample
+1;1930008;204;Esquerra Alta de l´Eixample
+1;1930008;205;Esquerra Baixa de l´Eixample
+1;1930008;206;Sant Antoni
+1;1930008;301;Poble Sec
+1;1930008;302;La Marina-Port
+1;1930008;303;La Marina-Montjuïc
+1;1930008;304;Font de la Guatlla
+1;1930008;305;La Bordeta
+1;1930008;306;Hostafrancs
+1;1930008;307;Sants
+1;1930008;308;Badal
+1;1930008;401;Les Corts
+1;1930008;402;Sant Ramon - Maternitat
+1;1930008;403;Pedralbes
+1;1930008;501;Tres Torres
+1;1930008;502;Sarrià
+1;1930008;503;Vallvidrera - Tibidabo - Les Planes
+1;1930008;504;Sant Gervasi - Bonanova
+1;1930008;505;Sant Gervasi - Galvany
+1;1930008;506;Putget - Farró
+1;1930008;601;Vallcarca - Penitents
+1;1930008;602;El Coll
+1;1930008;603;La Salut
+1;1930008;604;Vila de Gràcia
+1;1930008;605;Camp d´en Grassot - Gràcia N.
+1;1930008;701;Baix Guinardó
+1;1930008;702;Can Baró
+1;1930008;703;Guinardó
+1;1930008;704;Font d´en Fargas
+1;1930008;705;Carmel
+1;1930008;706;Taxonera
+1;1930008;707;Sant Genís dels Agudells
+1;1930008;708;Montbau
+1;1930008;709;Vall d´Hebron
+1;1930008;710;Horta
+1;1930008;801;Vilapicina - Torre Llobeta
+1;1930008;802;Porta
+1;1930008;803;Turó de la Peira - Can Peguera
+1;1930008;804;La Guineueta
+1;1930008;805;Canyelles
+1;1930008;806;Roquetes
+1;1930008;807;Verdun
+1;1930008;808;Prosperitat
+1;1930008;809;Trinitat Nova
+1;1930008;810;Torre Baró
+1;1930008;811;Ciutat Meridiana
+1;1930008;812;Vallbona
+1;1930008;901;Trinitat Vella
+1;1930008;902;Bon Pastor
+1;1930008;903;Sant Andreu
+1;1930008;904;La Sagrera
+1;1930008;905;Congrés - Indians
+1;1930008;906;Navas
+1;1930008;1001;Camp de l´Arpa
+1;1930008;1002;El Clot
+1;1930008;1003;Glòries El Parc
+1;1930008;1004;Vila Olímpica
+1;1930008;1005;Poblenou
+1;1930008;1006;Diagonal Mar - La Mar Bella
+1;1930008;1007;Besòs - Maresme
+1;1930008;1008;Provençals del Poblenou
+1;1930008;1009;Sant Martí
+1;1930008;1010;La Verneda - La Pau
+1;2350006;1;Otras zonas
+1;2350006;2;Centro
+1;2350006;3;Urbanizaciones
+1;2530008;1;Otras zonas
+1;2530008;2;Bruc residencial
+1;2530008;3;Montserrat Park
+1;2530008;4;Pueblo
+1;5170005;1;Pueblo
+1;5170005;2;Can Font
+1;5170005;3;Airesol
+1;5170005;4;Otras zonas
+1;5170005;5;Sant Feliu Del Racó
+1;5170005;6;Can Carner
+1;5380001;1;Pueblo
+1;5380001;2;Gallpigat
+1;5380001;3;Mas Astarrós
+1;5380001;4;Urbanització Prat
+1;5380001;5;Sant Cristofol
+1;5380001;6;Otras zonas
+1;5690004;1;Otras zonas
+1;5690004;2;Garraf II (Les Botigues de Sitges)
+1;5690004;3;Playa
+1;5690004;4;Granvía-Mar
+1;5690004;5;Can Bou
+1;5690004;6;Centro
+1;5690004;7;Pueblo
+1;5690004;8;Muntanyeta
+1;5690004;9;Can Roca
+1;5690004;10;Els Canyars
+1;5690004;11;Castillo
+1;5690004;12;Can Vinader
+1;5690004;13;Vistalegre
+1;5690004;14;Bellamar
+1;5690004;15;Montemar
+1;5690004;16;Poal
+1;5690004;17;Rat Penat (Les Botigues de Sitges)
+1;6150006;1;Mas Planoy
+1;6150006;2;Pueblo
+1;6150006;3;Otras zonas
+1;6920002;1;Otras zonas
+1;6920002;2;Can dalmases
+1;6920002;3;Olle
+1;6920002;4;Font del codo
+1;6920002;5;Les Illes
+1;6920002;6;Pueblo
+1;7340003;15;Fontsanta-Fatjó
+1;7340003;16;El Pedró
+1;7340003;17;La Gavarra
+1;7340003;18;Sant Ildefons
+1;7340003;19;Centre
+1;7340003;20;Riera
+1;7340003;21;Almeda
+1;7520002;1;Otras zonas
+1;7520002;2;Pueblo
+1;7520002;3;Can Massuet
+1;7520002;4;Can Canyamars
+1;7520002;5;Can Figueres
+1;7650006;1;Otras zonas
+1;7650006;2;La pasión
+1;7650006;3;Centro pueblo
+1;7650006;4;Can comelles
+1;7650006;5;El castell
+1;7650006;6;La plana
+1;7650006;7;Can rial
+1;7650006;8;Mas d´en Gall
+1;7650006;9;La creu
+1;7650006;10;Otras
+1;7710007;1;Otras zonas
+1;7710007;2;Centro
+1;7710007;3;La Plana
+1;7710007;4;El Gallo
+1;7710007;5;Can Clota
+1;7710007;6;Can Vidalet
+1;7710007;7;La Miranda
+1;7710007;8;La Mallola
+1;7710007;9;Finestrelles
+1;7710007;10;Ciutat Diagonal
+1;8980001;1;Otras zonas
+1;8980001;2;Centro
+1;8980001;3;Plaza Catalunya
+1;8980001;4;Av. L´eramprunyà
+1;8980001;5;Can tintorer
+1;8980001;6;Las Panas
+1;8980001;7;Rambla
+1;8980001;8;Gava Mar
+1;8980001;9;Diagonal
+1;8980001;10;Colomeres
+1;8980001;11;Can tries
+1;8980001;12;Paseo Maragall
+1;8980001;13;Ausias Marc
+1;8980001;14;Ctra. Santa Creu
+1;8980001;15;Gavanova
+1;8980001;16;Fuenteamarilla
+1;8980001;17;Las bobilas
+1;8980001;18;Riera San Lorenzo
+1;8980001;19;Illa
+1;8980001;20;Bruguers
+1;8980001;21;La Sentiu
+1;9610007;1;Otras zonas
+1;9610007;2;El lledoner
+1;9610007;3;Can bassa
+1;9610007;4;Ponent
+1;9610007;5;Joan Prim
+1;9610007;6;Centre
+1;9610007;7;La font verda
+1;9610007;8;Sota el cami ral
+1;9610007;9;Sant miquel
+1;9610007;10;Les Trestorres
+1;9610007;11;Can gili
+1;9610007;12;los institutos
+1;9610007;13;Zona hospital
+1;9610007;14;Camp
+1;9610007;15;Can monic
+1;10170005;1;Otras zonas
+1;10170005;2;Collblanc
+1;10170005;3;Torrassa
+1;10170005;4;Florida
+1;10170005;5;Pubillacasas
+1;10170005;6;Can Serra
+1;10170005;8;San José
+1;10170005;9;Can Vidalet
+1;10170005;10;Bellvitge
+1;10170005;11;Santa eulalia
+1;10170005;12;Sector Sant Feliu
+1;10170005;13;San Muç
+1;10170005;14;Mercado
+1;10170005;15;11 de Septiembre
+1;10170005;16;Centro
+1;10170005;20;Progreso
+1;10170005;23;Correos
+1;10220002;1;Sesoliveres-Pla de la Massa
+1;10220002;2;Set Camins
+1;10220002;3;Les Comes
+1;10220002;4;Poble Sec
+1;10220002;5;Centre
+1;10220002;6;Llevant
+1;10220002;7;Polígon Industrial
+1;11360009;1;Mion-Puigberenguer
+1;11360009;2;Poble Nou
+1;11360009;3;Plaça Catalunya
+1;11360009;4;Valldaura-Carretera de Cardona
+1;11360009;5;Centre-Carretera de Vic
+1;11360009;6;Barri Antic
+1;11360009;7;Escodines
+1;11360009;8;Sagrada Familia-Font dels Capellans
+1;11360009;9;La Balconada-Cal Gravat
+1;11360009;10;Carretera Santpedor-Bases de Manresa
+1;11360009;11;Congost-Santa Caterina
+1;11410007;1;Otras zonas
+1;11410007;2;Centro
+1;11410007;3;Plaça del vi
+1;11410007;4;Otras
+1;11410007;5;Buenos Aires
+1;11410007;6;El plà
+1;11410007;7;Can carreras
+1;11410007;8;Torrent de Llops
+1;11410007;9;Camí fondo
+1;11410007;10;Can casas
+1;11410007;11;La vila
+1;11890004;1;Otras zonas
+1;11890004;2;Centro
+1;11890004;3;Plaça
+1;11890004;4;Zona alta
+1;11890004;5;Ocata
+1;12130008;1;Otras zonas
+1;12130008;2;Centro
+1;12130008;3;Vista Alegre
+1;12130008;4;Pla d´en Boet
+1;12130008;5;Cerdanyola
+1;12130008;6;Peramàs
+1;12130008;7;Eixample
+1;12130008;8;Urb. Sant Salvador
+1;12130008;9;La llàntia
+1;12130008;10;Via Europa
+1;12130008;11;Escorxador
+1;12130008;12;Cirera
+1;12130008;13;Els Molins
+1;12130008;14;Rocafonda
+1;12130008;15;El palau
+1;12130008;16;Urb. Can Quirze
+1;12130008;17;Urb. La fornenca
+1;12130008;18;Urb. Can Marquès
+1;12130008;19;Urb. Les Sureres
+1;12130008;20;Urb. Can Vilardell
+1;12130008;21;Rocablanca
+1;12130008;22;Costa Levante
+1;12130008;23;Can bruguera
+1;12130008;24;Havana
+1;12130008;25;Camí de la serra
+1;12130008;26;Semicentro
+1;12490004;1;Otras zonas
+1;12490004;2;Can Borrell
+1;12490004;3;Can Pantiquet
+1;12490004;4;Zona centro
+1;12490004;5;Plana Lledó
+1;12490004;6;Riera Seca
+1;12490004;7;Estación del Norte
+1;12490004;8;Santa Rosa
+1;12490004;9;Vallehermoso
+1;12490004;10;Zona Inem
+1;12490004;11;Estación de Francia
+1;12490004;12;Can Lladó
+1;12490004;13;Lourdes
+1;14770005;1;Otras zonas
+1;14770005;2;Las planas
+1;14770005;3;Las ramblas
+1;14770005;4;Els closos
+1;15550006;1;Otras zonas
+1;15550006;2;Centro
+1;16350006;1;Can Moré-Santa Anna
+1;16350006;2;Les Creus
+1;16350006;3;Pinemar
+1;16350006;4;Poblenou
+1;16350006;5;Centre
+1;18460009;12;La Serreta
+1;18460009;18;Can Roses
+1;18460009;25;Sant Muç
+1;18460009;42;Can Vallhonrat
+1;18460009;46;Castellnou-Can Mir-Can Solà
+1;18460009;47;Els Avets-Can Serrafossà-Ximelis
+1;18460009;48;Zona Industrial
+1;18460009;49;Can Fatjó-Sant Jordi Park-Plana del Castell
+1;18460009;50;Zona Nord
+1;18460009;51;Ca n´Oriol
+1;18460009;52;Mercat
+1;18460009;53;Progrés
+1;18460009;54;Ca n´Alzamora
+1;18460009;55;Les Torres
+1;18460009;56;Centre
+1;18780001;1;Alianza
+1;18780001;2;Ca n´Oriac
+1;18780001;3;Campoamor
+1;18780001;4;Can Deu
+1;18780001;5;Can Feu
+1;18780001;6;Can Puiggener
+1;18780001;7;Can Rull
+1;18780001;8;Castellarnau
+1;18780001;9;Centre-Gran Via
+1;18780001;10;Centre
+1;18780001;11;Concordia
+1;18780001;12;Covadonga
+1;18780001;13;Creu Alta
+1;18780001;14;Creu de Barbera
+1;18780001;15;Eix Macià
+1;18780001;16;Eixample
+1;18780001;17;El llano
+1;18780001;18;Els Merinals
+1;18780001;19;Gràcia
+1;18780001;20;Hostafrancs
+1;18780001;21;La planada del pintor
+1;18780001;22;Les Termes
+1;18780001;23;Plaça Catalunya
+1;18780001;24;Plaça Espanya
+1;18780001;25;Pueblonuevo
+1;18780001;26;Ronda Zamenhof
+1;18780001;27;Sant Oleguer
+1;18780001;28;Serra d´en Cameró
+1;18780001;29;Sol i Padris
+1;18780001;30;Torre-Romeu
+1;18780001;31;Can Llong
+1;18780001;32;La Roureda
+1;18780001;33;Espronceda
+1;18780001;34;El torrent del capellà
+1;18780001;35;Can Roquetas
+1;18780001;36;Otras zonas
+1;19760009;1;El Mirador-La Cornisa
+1;19760009;2;Centre
+1;19760009;3;Rocaferrera
+1;19760009;4;Canafort-El Puntó
+1;19760009;5;Bell-Aire
+1;19760009;6;Ametllareda
+1;19760009;7;Can Sans
+1;19760009;8;El Balís
+1;19760009;9;Supermaresme
+1;20090004;1;Marianao
+1;20090004;2;Camps Blancs
+1;20090004;3;Centre
+1;20090004;4;Vinyets-Molí Vell
+1;20090004;5;Ciutat Cooperativa-Molí Nou
+1;20090004;6;Casablanca
+1;20550006;1;Volpelleres
+1;20550006;2;Turó de Can Mates-Carretera de Rubí
+1;20550006;3;Mira-sol
+1;20550006;4;Valldoreix
+1;20550006;5;Roquetes-Can Magí
+1;20550006;6;Coll Favà
+1;20550006;7;Sant Domènec
+1;20550006;8;Parc Central
+1;20550006;9;Colomer
+1;20550006;10;Arxiu-Estació
+1;20550006;11;Golf-Can Trabal
+1;20550006;12;La Floresta
+1;20550006;13;Les Planes-Sol i Aire
+1;20550006;14;Eixample
+1;20550006;15;Torreblanca
+1;20550006;16;Centre
+1;20550006;17;El Coll
+1;20550006;18;Sant Francesc
+1;21070005;1;Otras zonas
+1;21070005;2;Centro
+1;21070005;3;Urbanizaciones
+1;21140003;1;El Pla
+1;21140003;2;Centre-Can Nadal
+1;21140003;3;La Salut-Can Calders
+1;21140003;4;Roses-Castellbell
+1;21140003;5;Mas Lluí
+1;21720002;7;Eixample
+1;21720002;8;Centre
+1;21720002;9;Sant Joan-TV3
+1;21720002;10;Les Planes
+1;21720002;11;Torreblanca
+1;21910007;1;Zona Industrial i Agrícola
+1;21910007;2;La Xinesca
+1;21910007;3;Les Pinedes
+1;21910007;4;Veral d´Ocata
+1;21910007;5;El Barato
+1;21910007;6;Centre
+1;22120002;1;Zona Industrial
+1;22120002;2;La Plana-Bellsoleig
+1;22120002;3;La Miranda-Can Candeler
+1;22120002;4;Centre
+1;23590004;1;Otras zonas
+1;23590004;2;Centre
+1;23590004;3;Urbanitzacions
+1;24570005;2;Santa Rosa
+1;24570005;3;Singuerlín
+1;24570005;4;Fondo
+1;24570005;13;Cementiri Vell
+1;24570005;14;Guinardera
+1;24570005;15;Can Franquesa
+1;24570005;19;Oliveres
+1;24570005;20;Riu Nord
+1;24570005;21;Riu Sud
+1;24570005;22;Centre
+1;24570005;23;Riera Alta
+1;24570005;24;Barri Llatí
+1;24570005;25;Can Mariner
+1;24570005;26;El Raval
+1;24570005;27;Safaretjos
+1;24820002;1;Otras zonas
+1;24820002;2;Centro
+1;24820002;3;Urbanizaciones
+1;26650006;1;Serraparera
+1;26650006;2;Centre-Cordelles
+1;26650006;3;Sant Ramón
+1;26650006;4;Montflorit
+1;26650006;5;Guiera-Canaletes
+1;26650006;6;Fontetes
+1;27040003;1;Terramar-Vinyet
+1;27040003;2;Vallpineda-Santa Bàrbara
+1;27040003;3;Els Molins-Poble Sec
+1;27040003;4;Centre
+1;27040003;5;Sant Sebastià-Aiguadolç
+1;27040003;6;Llevantina-Montgavina-Quintmar
+1;27040003;7;Garraf
+1;27040003;8;Les Botigues de Sitges
+1;27980001;1;Can Parellada
+1;27980001;2;Les Fonts
+1;27980001;3;Can Palet de Vista Alegre
+1;27980001;4;Can Jofresa
+1;27980001;5;Can Palet
+1;27980001;7;Segle XX
+1;27980001;8;Roc Blanc
+1;27980001;9;La Maurina
+1;27980001;10;Ca n´Aurell
+1;27980001;11;Escoles
+1;27980001;12;Ca n´Anglada
+1;27980001;14;Centre
+1;27980001;15;Vallparadís
+1;27980001;16;Can Boada
+1;27980001;18;Montserrat
+1;27980001;19;La Cogullada
+1;27980001;21;Pere parres
+1;27980001;23;Sant Pere
+1;27980001;24;Sant Pere Nord
+1;27980001;26;Plà del Bonaire
+1;27980001;27;Egara
+1;27980001;28;Sant Llorenç
+1;27980001;31;Can Gonteres
+1;27980001;33;Can Roca
+1;27980001;35;Cementiri Vell
+1;27980001;37;Polígon Industrial Santa Margarida
+1;27980001;40;Xúquer
+1;27980001;42;Poblenou-Zona Esportiva
+1;27980001;43;Les Arenes-La Grípia
+1;27980001;44;Les Martines
+1;27980001;45;Torre-sana
+1;29170005;1;Pueblo
+1;29170005;2;Can serra
+1;29170005;3;Torreblanca I
+1;29170005;4;Torreblanca II
+1;29170005;5;Ventallol
+1;29170005;6;La coma
+1;29170005;7;El palà
+1;29170005;8;Els caus
+1;29170005;9;El eixample
+1;29170005;10;Otras zonas
+1;29170005;11;Urb. La Creu
+1;29170005;12;Urb. La Farinera
+1;29810007;1;El Sucre-El Nadal
+1;29810007;2;Nord
+1;29810007;3;Centre
+1;29810007;4;Caputxins-Ambulatori
+1;29810007;5;Remei-La Guixa
+1;29810007;6;Estadi-Santa Anna
+1;30080001;1;Otras zonas
+1;30080001;2;La planasa
+1;30080001;3;Can Turu
+1;30080001;4;Centre
+1;30150006;1;Torrent Ballester
+1;30150006;2;La Roureda
+1;30150006;3;Centre
+1;30150006;4;Torre-roja-Campreciós
+1;30150006;5;Vilamarina
+1;30730008;1;Santa Maria
+1;30730008;2;Fondo Somella
+1;30730008;3;La Collada-Sis Camins
+1;30730008;4;Nord
+1;30730008;5;Prat de Vilanova
+1;30730008;6;L´Aragai
+1;30730008;7;Molí de Vent
+1;30730008;8;Sant Joan
+1;30730008;9;Centrevila
+1;30730008;10;La Geltrú-Sant Jordi
+1;30730008;11;Masia Nova-Solicrup
+1;30730008;12;Ribes Roges
+1;30730008;13;Barri de Mar
+2;2370005;1;Otras zonas
+2;2370005;2;Urbanizaciones
+2;2370005;3;Centro
+2;2370005;4;Playa
+2;2370005;5;Semi-centro
+2;2370005;6;Puerto
+2;2370005;7;Zona Pinos
+2;2370005;8;La plantera
+2;2370005;9;Los Pavos
+2;4860009;1;Port d´Aro
+2;4860009;2;Centre-Platja
+2;4860009;3;Fenals
+2;4860009;4;Urbanitzacions
+2;4860009;5;Los Pinos-Politur
+2;6690004;1;Parc Bosc-Castell
+2;6690004;2;Poble Nou-Olivar Gran
+2;6690004;3;Eixample-Horta Capallera
+2;6690004;4;Centre
+2;6690004;5;Creu de la Mà
+2;6690004;6;Carretera de Roses-Fossos
+2;7920002;1;Otras zonas
+2;7920002;2;Campodrà
+2;7920002;3;Pedret
+2;7920002;4;Germans Sabat
+2;7920002;5;Barri vell
+2;7920002;6;Sant Daniel
+2;7920002;7;Sant Ponç - Domeny
+2;7920002;8;La Rodona
+2;7920002;9;Eixample
+2;7920002;10;Montilivi
+2;7920002;11;Palau
+2;7920002;12;Sant Narcis
+2;7920002;13;Centre
+2;7920002;14;Santa Eugenia
+2;7920002;15;Montjuïc
+2;7920002;16;Torre Gironella
+2;7920002;17;Fontajau
+2;7920002;18;La Devesa
+2;7920002;19;Can Gibert
+2;7920002;20;Vista Alegre
+2;7920002;21;Pont Major
+2;9500000;1;Urbanitzacions del Nord
+2;9500000;2;Condado del Jaruco
+2;9500000;3;Mas Romeu
+2;9500000;4;El Molí-El Rieral
+2;9500000;5;Mas Baell-Can Carbó
+2;9500000;6;Roca Grossa
+2;9500000;7;Serra Brava
+2;9500000;8;Santa Clotilde
+2;9500000;9;Fenals
+2;9500000;10;Centre
+2;9500000;11;Montgoda
+2;9500000;12;Canyelles
+2;16090004;1;Mas Trempat-Sant Amanç-Casa Nova
+2;16090004;2;Puntabrava-Port Salvi
+2;16090004;3;Eixample
+2;16090004;4;Centre
+2;16090004;5;Tueda
+2;16090004;6;Volta de l´Ametller
+2;16090004;7;Sant Pol
+2;16090004;8;Vilartagues-Tueda de Dalt
+3;2540003;1;Arties
+3;2540003;2;Bagergue
+3;2540003;3;Garòs
+3;2540003;4;Gessa
+3;2540003;5;Montgarri
+3;2540003;6;Salardú
+3;2540003;7;Tredòs
+3;2540003;8;Unha
+3;2540003;9;Baquèira
+3;12070005;101;Ciutat Jardí
+3;12070005;102;Balàfia
+3;12070005;103;Joc de la Bola
+3;12070005;104;Mariola
+3;12070005;105;Instituts-Universitat
+3;12070005;106;Centre Històric
+3;12070005;107;Cappont
+3;12070005;108;La Bordeta
+3;12070005;109;Magraners
+3;12070005;110;Rambla Ferran
+3;12070005;111;Pardinyes
+3;12070005;112;Clot-Príncep de Viana
+3;12070005;201;Llívia
+3;12070005;202;Raimat
+3;12070005;203;Sucs
+3;12070005;204;La Caparrella
+3;12070005;205;La Cerdera
+3;12070005;206;Butsènit
+3;12070005;207;Partides Rurals
+4;14845;1;Otras zonas
+4;14845;2;La creu
+4;14845;3;Masia Blanca
+4;14845;4;El francas
+4;19115;1;Otras zonas
+4;19115;2;Comafarella
+4;19115;3;Mas mel
+4;19115;4;L´estany
+4;19115;5;Valldemar
+4;19115;6;Brises de calafell
+4;19115;7;Segur de dalt
+4;430008;1;Platges d´Alcanar
+4;430008;2;Alcanar
+4;430008;3;Les Cases d´Alcanar
+4;430008;4;La Selleta
+4;1200000;1;Otras zonas
+4;1200000;2;Altafulla
+4;1200000;3;Brisas de mar
+4;1200000;4;Els munts
+4;2870005;1;Otras zonas
+4;2870005;2;La Bisbal
+4;2870005;3;La miralba
+4;2870005;4;Can gordei
+4;2870005;5;L´esplai
+4;2870005;6;La masieta
+4;2870005;7;La pineda de santa cristina
+4;2870005;8;El priorat de la bisbal
+4;2870005;9;L´ortigos
+4;3790004;1;Otras zonas
+4;3790004;2;Masia de la font
+4;3790004;3;Ciutat jardí Bonanova
+4;3790004;4;Miramar residencial
+4;3790004;5;Prat de calafell
+4;3790004;6;Calafell Playa
+4;3790004;7;Alorda Park
+4;3790004;8;Bellama Mar
+4;3790004;9;Mas romeu
+4;3790004;10;Calafell Park
+4;3850006;1;Ponent
+4;3850006;2;La Vila-Parellada
+4;3850006;3;Horta Santa Maria-Port
+4;3850006;4;Cambrils Badia-El Regueral
+4;3850006;5;Vilafortuny
+4;5090004;1;Otras zonas
+4;5090004;2;Creixell
+4;5090004;3;La coma
+4;5090004;4;Rincón del cesar
+4;5090004;5;Les eres
+4;5090004;6;La massó
+4;5090004;7;Les morisques
+4;5090004;8;Creixell mar
+4;5090004;9;La plana
+4;5090004;10;Les sinies
+4;5090004;11;Port roma
+4;5090004;12;Marina de creixell
+4;5160009;1;Otras zonas
+4;5160009;2;Cunit
+4;5160009;3;Cunit diagonal
+4;5160009;4;Cunidor
+4;5160009;5;Valparaíso
+4;5160009;6;Haug
+4;5160009;7;Les sorres
+4;5160009;8;Can nicolau
+4;5160009;9;Can toni
+4;5160009;10;Prat de cunit
+4;5160009;11;Cal cego
+4;5160009;12;Can Torrents
+4;5160009;13;Can molas
+4;5160009;14;Puig pelos
+4;5160009;15;El rectoret
+4;5160009;16;La boronia
+4;5160009;17;Els ametllers
+4;5160009;18;Plademar
+4;5160009;19;Procunit
+4;5160009;20;Solcunit
+4;5160009;21;Els jardins
+4;5160009;22;Els rosers
+4;5160009;23;Costa-cunit
+4;11140003;1;Otras zonas
+4;11140003;2;La pobla de montornés
+4;11140003;3;Castell de montornés
+4;11140003;4;Pobla mar
+4;12330008;1;Ponent
+4;12330008;2;Mestral
+4;12330008;3;Centre
+4;12330008;4;Migjorn
+4;12330008;5;Llevant
+4;13100000;1;Otras zonas
+4;13100000;2;L´eixample
+4;13100000;3;Cruselles
+4;13100000;4;Bará mar
+4;13100000;5;La barquera
+4;13100000;6;Les Torres
+4;13100000;7;Merymar
+4;13100000;8;Vives platja
+4;13100000;9;Bará playa
+4;13100000;10;Costa dorada
+4;13100000;11;Marisol
+4;13100000;12;El roc de sant gaieta
+4;13100000;13;El Francaset
+4;13100000;14;Roda de Barà
+4;13460009;1;Otras zonas
+4;13460009;2;Llorenç del penedès
+4;13460009;3;L´estrella
+4;13460009;4;El camp
+4;13780001;1;Otras zonas
+4;13780001;2;Sant jaume del domenys
+4;13780001;3;Els arquets
+4;13780001;4;L´arquet
+4;13780001;5;Lletger
+4;13780001;6;L´Hostal
+4;13780001;7;Torregassa
+4;13780001;8;El papagallo
+4;13780001;9;La carronya
+4;13780001;10;El papiolet
+4;14010007;1;Otras zonas
+4;14010007;2;Santa Oliva
+4;14010007;3;Les pedreres
+4;14010007;4;Moli blanquillo
+4;14010007;5;Sant Jordi
+4;14820002;1;Otras zonas
+4;14820002;2;Centro
+4;14820002;3;Sant Pere i Sant Pau
+4;14820002;4;Sant Salvador
+4;14820002;5;Torreforta
+4;14820002;6;La floresta
+4;14820002;7;La Granja
+4;14820002;8;Camp Clar
+4;14820002;9;Boscos
+4;14820002;10;Els Pallaresos
+4;14820002;11;La Mora
+4;14820002;12;Bonavista
+4;15360009;1;Otras zonas
+4;15360009;2;Torredembarra
+4;15360009;3;Els munts
+4;15360009;4;Babilonia
+4;15360009;5;Reco roma
+4;15360009;6;Baix a mar
+4;15360009;7;Clara
+4;15360009;8;Clara sol
+4;15360009;9;Les anfores
+4;15360009;10;Sadolla
+4;15360009;11;Bizanci
+4;15360009;12;Clara mar
+4;15360009;13;Marítima residencial nord
+4;15360009;14;Marítima residencial sud
+4;16340003;1;Otras zonas
+4;16340003;2;El vendrell
+4;16340003;3;Nou Vendrell
+4;16340003;4;Coto del rey
+4;16340003;5;La Muntanyeta
+4;16340003;6;Franquesa
+4;16340003;7;Oasis park
+4;16340003;8;Vendrell mar
+4;16340003;9;Eden Park
+4;16340003;10;Bonavista
+4;16340003;11;El romani
+4;16340003;12;Mas d´en gual
+4;16340003;13;Mas levi
+4;16340003;14;Els masos
+4;16340003;15;Nirvana
+4;16340003;16;Los algarrobos
+4;16340003;17;Torreblanca
+4;16340003;18;Sant Salvador
+4;16340003;19;El puig
+4;16340003;20;Coma-ruga
+4;16340003;21;El Tancat
+4;16340003;22;Mas Borràs
+4;90570005;1;Barenys
+4;90570005;2;Platja de Ponent
+4;90570005;3;Centre
+4;90570005;4;Platja de Llevant
+4;90570005;5;Plaça Europa
+4;90570005;6;Platja Capellans
+4;90570005;7;Covamar
+4;90570005;8;Cap de Salou
+7;407;101;Cala Major
+7;407;102;Sant Agustí
+7;407;103;Gènova
+7;407;104;La Bonanova
+7;407;105;El Terreno
+7;407;106;Sa Teulera
+7;407;107;Son Armadams
+7;407;108;Son Dureta
+7;407;109;Son Espanyolet
+7;407;110;Santa Catalina
+7;407;111;Son Dameto
+7;407;112;Camp D´en Serralta
+7;407;113;Son Cotoner
+7;407;114;El Fortí
+7;407;115;Son Vida
+7;407;116;Son Anglada
+7;407;117;Son Roca
+7;407;118;Son Xigala
+7;407;119;Los Almendros-Son Rapinya
+7;407;120;Son Serra-Sa Vileta
+7;407;121;Son Flor-Son Moix
+7;407;122;Es Jonquet
+7;407;123;Porto Pi
+7;407;201;Establiments
+7;407;202;Son Espanyol
+7;407;203;Son Sardina
+7;407;204;Sa Indioteria Rural
+7;407;205;El Secar de la Real
+7;407;206;Sa Indioteria Urbà
+7;407;207;Cas Capiscol
+7;407;208;Es Camp Redó
+7;407;209;Bons Aires
+7;407;210;Amanecer
+7;407;211;L´Olivera
+7;407;212;Son Oliva
+7;407;213;Plaça de Toros
+7;407;214;Arxiduc
+7;407;301;Es Puig de Sant Pere
+7;407;302;La Llotja-Born
+7;407;303;La Seu
+7;407;304;Monti-Sion
+7;407;305;La Calatrava
+7;407;306;Jaume III
+7;407;307;Sant Jaume
+7;407;308;Sant Nicolau
+7;407;309;Cort
+7;407;310;El Sindicat
+7;407;311;El Mercat
+7;407;312;La Missió
+7;407;313;Plaça dels Patins
+7;407;314;Zona Portuària
+7;407;401;Son Cladera
+7;407;402;Mare de Déu de Lluc
+7;407;403;Son Rullan
+7;407;404;Son Fortesa
+7;407;405;Els Hostalets
+7;407;406;Marquès de Fontsanta
+7;407;407;Pere Garau
+7;407;408;Foners
+7;407;409;Polígon de Llevant
+7;407;410;La Soledat Sud
+7;407;411;La Soledat Nord
+7;407;412;Son Gotleu
+7;407;413;Son Canals
+7;407;414;Can Capes
+7;407;415;Es Rafal Vell
+7;407;416;Es Vivero
+7;407;417;Es Rafal Nou
+7;407;418;Estadi Balear
+7;407;419;Son Malferit
+7;407;420;Son Ferriol
+7;407;421;Son Riera-Aeroport
+7;407;422;Es Pil·larí
+7;407;423;S´Aranjassa
+7;407;424;Sant Jordi
+7;407;425;Sa Casa Blanca
+7;407;501;Es Portixol-Es Molinar
+7;407;502;Es Coll d´En Rabassa
+7;407;503;Can Pastilla
+7;407;504;Les Maravelles
+7;407;505;S´Arenal
+12;149;101;Ciudad de Asís
+12;149;102;La Florida
+12;149;103;Babel
+12;149;104;Alipark
+12;149;105;Benalúa
+12;149;106;San Gabriel
+12;149;201;Divina Pastora
+12;149;202;Tómbola-Rabasa
+12;149;203;Paus
+12;149;204;San Agustín
+12;149;205;Los Ángeles
+12;149;206;San Blas
+12;149;207;Santo Domingo
+12;149;301;Ciudad Jardín
+12;149;302;Virgen del Remedio-Lo Morant
+12;149;303;Virgen del Carmen
+12;149;304;Nou Alacant
+12;149;305;Juan XXIII
+12;149;306;Garbinet
+12;149;307;Villafranqueza
+12;149;401;Altozano
+12;149;402;Campoamor
+12;149;403;Carolinas Altas
+12;149;404;Carolinas Bajas
+12;149;405;Pla del Bon Repos
+12;149;501;Ensanche-Diputación
+12;149;502;Mercado
+12;149;503;Centro
+12;149;504;Casco Antiguo
+12;149;505;San Antón
+12;149;601;Vistahermosa
+12;149;602;La Albufereta
+12;149;603;Alicante Golf
+12;149;604;Playa de San Juan
+12;149;605;Cabo de las Huertas
+12;149;701;Santa Faz
+12;149;702;Rebolledo
+12;149;703;Moralet
+12;149;704;La Alcoraya
+12;149;705;El Bacarot-Vallonga
+12;149;706;Cañada del Fenollar
+12;319;1;Pueblo Poniente
+12;319;2;Playa de Poniente
+12;319;3;Centro Urbano
+12;319;4;Pueblo Levante
+12;319;5;Playa de Levante
+12;319;6;Rincón de Loix
+12;633;1;Devesses-Monte Pego
+12;633;2;Les Marines-Las Marinas
+12;633;3;Centro Urbano
+12;633;4;Saladar
+12;633;5;El Puerto
+12;633;6;Les Rotes-Las Rotas
+12;633;7;El Montgó
+12;633;8;La Pedrera-Vessanes
+12;633;9;La Xara-La Sella
+12;651;101;Carrús Oest
+12;651;102;Carrús Est
+12;651;103;Corazón de Jesús
+12;651;104;Pla de Sant Josep-Asil
+12;651;105;Sector V
+12;651;106;Zona Universitaria
+12;651;107;Centro
+12;651;108;Altabix
+12;651;109;Nueva altabix
+12;651;110;El Raval-Puertas Encarnades
+12;651;201;La Marina
+12;651;202;La Foia
+12;651;203;Las Bayas
+12;651;204;Algoda-Matola
+12;651;205;Algorós
+12;651;206;Alzabares
+12;651;207;Peña de las Águilas
+12;651;208;Jubalcoy
+12;651;209;La Perleta
+12;651;210;L´Altet
+12;651;211;Arenales del Sol
+12;651;212;Valverde
+12;651;213;Torrellano
+12;993;101;Orihuela Pueblo
+12;993;201;Los Almendros-La Florida
+12;993;202;Villamartín-Las Filipinas
+12;993;203;Lomas de Campoamor-Las Ramblas
+12;993;204;Lomas de Cabo Roig-Los Dolses
+12;993;205;Playa Flamenca
+12;993;206;La Zenia
+12;993;207;La Regia
+12;993;208;Campoamor
+12;993;209;Agua Marina
+12;993;210;Cabo Roig
+12;993;211;Punta Prima
+12;993;212;Los Altos-Los Balcones
+12;1339;1;Los Balcones-Los Altos
+12;1339;2;El Acequión-Los Náufragos
+12;1339;3;Centro
+12;1339;4;Playa del Cura
+12;1339;5;Playa de los Locos
+12;1339;6;Nueva Torrevieja-Aguas Nuevas
+12;1339;7;La Mata
+12;1339;8;La Siesta-El Salado-Torreta
+20;402;1;Oeste
+20;402;2;Sur
+20;402;3;Norte
+20;402;4;Centro
+20;402;5;Parque Sensal
+20;402;6;Este
+20;402;7;El Grao
+20;1359;1;Avenida Alemania-Italia
+20;1359;2;Madrigal
+20;1359;3;Centro
+20;1359;4;Cariñena
+20;1359;5;Piscinas
+20;1359;6;El Pilar
+48;137;1;Zona Metro
+48;137;2;Alboraya Centro
+48;137;3;Ausias March
+48;137;4;La Patacona
+48;137;5;Port Saplaya
+48;174;1;Zona Industrial
+48;174;2;Centro
+48;174;3;Urbanizaciones
+48;174;4;Zona la Barraca de Aguas Vivas
+48;174;5;L´Alquenència
+48;787;1;Zona Campus Universitario
+48;787;2;Zona Concordia
+48;787;3;El Castell
+48;787;4;L´Eixereta
+48;787;5;Zona Cantereria
+48;1056;1;La Vega-Marenyet
+48;1056;2;Pueblo de Cullera
+1;600000;1;Otras zonas
+1;600000;2;Centre
+1;600000;3;Primera linea de mar
+1;600000;4;Urbanització
+1;600000;5;Zona estación
+1;600000;6;Zona alta
+1;600000;7;Zona riera
+1;600000;8;Casco antiguo
+1;600000;9;Portimar I
+1;600000;10;Portimar II
+1;600000;11;Portinyol
+1;600000;12;Puerto
+1;950006;1;Urbanitzacions
+1;950006;2;Nucli Urbà
+1;950006;3;Sud
+48;1056;3;Sant Antoni
+48;1056;4;Bonavista-Lago San Lorenzo
+48;1056;5;Racó
+48;1056;6;El Faro-el Dossel
+48;1108;1;San Ramón-Monte de Piedad
+48;1108;2;Avenida de la Paz
+48;1108;3;Centro
+48;1108;4;Barrio de la Luz
+48;1311;1;Plaça Elíptica-República Argentina-Germanies
+48;1311;2;Centro Ciudad
+48;1311;3;Benipeixcar-El Raval
+48;1311;4;Urbanizaciones-Santa Anna-Las Estrellas
+48;1311;5;Playa de Gandía
+48;1311;6;Grau de Gandía-Marenys de Rafalcaid
+48;1593;1;Alameda Park
+48;1593;2;El Mercado
+48;1593;3;Centro Ciudad
+48;1593;4;El Carmen
+48;1593;5;Polígono del Aeropuerto
+48;1593;6;San Jerónimo
+48;1691;1;País Valencià
+48;1691;2;La Constitución-Canaleta
+48;1691;3;Cardenal Benlloch
+48;1691;4;El Río
+48;1691;5;Juzgados
+48;1901;1;La Cañada
+48;1901;2;Parc Tecnològic
+48;1901;3;Fuente del Jarro
+48;1901;4;Valterna
+48;1901;5;Sotolivar-Mas del Rosari
+48;1901;6;Casas Verdes
+48;1901;7;Santa Rita
+48;1901;8;El Alborgí
+48;1901;9;Centro Ciudad
+48;1901;10;Torremelar
+48;2055;1;Monasterios-Alfinach
+48;2055;2;Puçol Ciudad
+48;2055;3;Puçol Playa
+48;2205;101;Doctor Palacios-Alto Palancia
+48;2205;102;Centro-El Castillo
+48;2205;103;Antiga Moreira
+48;2205;104;Zona Estación
+48;2205;201;El Baladre
+48;2205;202;Avenida de Abril-9 de Octubre
+48;2205;203;Nuevo Centro
+48;2205;204;San José-Los Metales
+48;2205;205;Centro Pueblo
+48;2205;206;Padre Jaime-Los Cabos
+48;2205;207;Las Islas
+48;2205;208;Playa Puerto de Sagunto
+48;2205;301;Corinto-Almardà
+48;2444;1;Mas del Jutge
+48;2444;2;Calle Valencia
+48;2444;3;El Molí
+48;2444;4;Camí Reial
+48;2444;5;Avenida al Vedat
+48;2444;6;Avenida Alta-Auditorio
+48;2444;7;Parc Central
+48;2444;8;El Vedat
+48;2444;9;Centro
+48;2508;101;Malva Rosa
+48;2508;102;El Cabanyal-El Canyamelar
+48;2508;103;El Grau
+48;2508;104;Natzaret
+48;2508;105;Beteró
+48;2508;201;La Carrasca
+48;2508;202;Vega Baixa
+48;2508;203;L´Amistat
+48;2508;204;Ciutat Jardí
+48;2508;205;L´Illa Perduda
+48;2508;301;Albors
+48;2508;302;Aiora
+48;2508;303;Camí Fondo
+48;2508;304;La Creu del Grau
+48;2508;305;Penya-roja
+48;2508;401;Mont Olivet
+48;2508;402;En Corts
+48;2508;403;Na Rovella
+48;2508;404;Ciutat de les Arts i les Ciències
+48;2508;405;Fonteta de Sant Lluís
+48;2508;406;La Punta
+48;2508;407;Malilla
+48;2508;501;Pla del Remei
+48;2508;502;Gran Via
+48;2508;503;Russafa
+48;2508;601;Jaume Roig
+48;2508;602;Ciutat Universitaria
+48;2508;603;Exposició
+48;2508;604;Mestalla
+48;2508;701;Benimaclet
+48;2508;702;Camí de la Vera
+48;2508;801;Ciutat Fallera
+48;2508;802;Nou Benicalap
+48;2508;803;Benicalap
+48;2508;901;Beniferri
+48;2508;902;Sant Pau
+48;2508;903;Nou Campanar
+48;2508;904;Campanar
+48;2508;905;El Calvari
+48;2508;906;Les Tendetes
+48;2508;1001;El Carme
+48;2508;1002;La Seu
+48;2508;1003;El Mercat
+48;2508;1004;El Pilar
+48;2508;1005;Sant Francesc
+48;2508;1006;La Xeresa
+48;2508;1101;La Petxina
+48;2508;1102;Arrancapins
+48;2508;1103;El Botànic
+48;2508;1104;La Roqueta
+48;2508;1201;La Raiosa
+48;2508;1202;L´Hort de Senabre
+48;2508;1203;La Creu Coberta
+48;2508;1204;Camí Reial
+48;2508;1205;Sant Marcel·lí
+48;2508;1301;Tormos
+48;2508;1302;Marxalenes
+48;2508;1303;Sant Antoni
+48;2508;1304;Morvedre
+48;2508;1305;Trinitat
+48;2508;1401;Soternes
+48;2508;1402;Nou Moles
+48;2508;1403;La Llum
+48;2508;1404;La Fontsanta
+48;2508;1405;Tres Forques
+48;2508;1501;Vara de Quart
+48;2508;1502;Sant Isidre
+48;2508;1503;Safranar
+48;2508;1504;Patraix
+48;2508;1505;Favara
+48;2508;1601;Torrefiel
+48;2508;1602;Els Orriols
+48;2508;1603;Sant Llorenç
+48;2508;1701;Pobles del Nord
+48;2508;1801;Pobles de l´Oest
+48;2508;1901;Pobles del Sud
