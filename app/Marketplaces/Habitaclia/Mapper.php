@@ -20,7 +20,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 		$map['id_sucursal'] = ''; //site id?
 		$map['propietario'] = '';
 		$map['email_sucursal'] = '';
-		$map['email_comercializadora'] = '';
+		$map['email_comercializadora'] = $this->config['email'];
 		//Opcional
 		
 		$map['venta_01'] = $this->isSale() ? 1 : 0;
@@ -138,6 +138,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 			'type' => 'required',
 			'attributes.habitaclia-city' => 'required',
 			'location.address' => 'required',
+			'email' => 'required',
 		];
 
 		$validator = \Validator::make($data, $rules, []);
