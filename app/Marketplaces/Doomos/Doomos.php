@@ -2,17 +2,32 @@
 
 namespace App\Marketplaces\Doomos;
 
+use App\Marketplaces\Trovit\Trovit;
 use App\Marketplaces\Interfaces\UnifiedXmlInterface;
 
-class Doomos extends \App\Marketplaces\XML implements UnifiedXmlInterface {
-
-	protected $iso_lang = 'es';
+class Doomos extends Trovit implements UnifiedXmlInterface {
 
 	/**
 	 * @param array $files
-	 * @return array
+	 * @return string
 	 */
 	public function getUnifiedXml(array $files) {
-		return null;
+		$dom = new \DOMDocument();
+		$dom->appendChild($dom->createElement('trovit'));
+
+		foreach ($files as $xml) {
+			$addDom = new \DOMDocument();
+			$addDom->loadXml($xml);
+			if ($addDom->documentElement) {
+				foreach ($addDom->documentElement->childNodes as $node) {
+					$dom->documentElement->appendChild(
+							$dom->importNode($node, TRUE)
+					);
+				}
+			}
+		}
+
+		return $dom->saveXML();
 	}
+
 }
