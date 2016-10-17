@@ -32,4 +32,6 @@
 		'discards.undelete' => 'Quitar de esta lista',
 
 		'associate.h1' => 'Usar lead existente',
+		
+		'dni' => 'DNI',
 	];

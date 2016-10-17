@@ -78,6 +78,10 @@
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6">
+						<div class="form-group error-container">
+							{!! Form::label(null, Lang::get('account/customers.dni') ) !!}
+							{!! Form::text(null, @$customer->dni, [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
+						</div>
 					</div>
 				</div>
 			</div>

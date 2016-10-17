@@ -152,7 +152,6 @@ class CustomersController extends \App\Http\Controllers\AccountController
 			'email' => $this->request->input('email'),
 			'phone' => $this->request->input('phone'),
 			'locale' => $this->request->input('locale'),
-			'dni' => $this->request->input('dni'),
 		]);
 
 		return redirect()->action('Account\CustomersController@show', urlencode($customer->email))->with('success', trans('account/customers.message.saved'));

@@ -59,7 +59,7 @@
 			</div>
 			<div class="col-xs-12 col-sm-6">
 				<div class="form-group error-container">
-					{!! form::label('dni', Lang::get('web/customers.register.dni')) !!}
+					{!! form::label('dni', Lang::get('account/customers.dni')) !!}
 					{!! form::text('dni', null, [ 'class'=>'form-control']) !!}
 				</div>
 			</div>
