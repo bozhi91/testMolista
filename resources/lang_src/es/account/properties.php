@@ -253,4 +253,6 @@
 		'imports.csv.instructions.type' => 'Tipo',
 		'imports.csv.instructions.required' => 'Requerida',
 		'imports.csv.instructions.options' => 'Opciones',
+		
+		'attributes.habitaclia-city' => 'Población',
 	];
