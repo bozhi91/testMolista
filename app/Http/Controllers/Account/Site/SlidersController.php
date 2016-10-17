@@ -247,7 +247,7 @@ class SlidersController extends \App\Http\Controllers\AccountController {
 		foreach ($group->images as $currentImage) {
 			if (!in_array($currentImage->id, $imagesInput)) {
 				$path = public_path($currentImage->image);
-				@unlink($path);
+				unlink($path);
 
 				$currentImage->delete();
 			}
