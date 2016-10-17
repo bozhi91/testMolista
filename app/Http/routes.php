@@ -131,6 +131,9 @@ Route::group([
 
 	});
 
+	// Feeds
+	Route::get('feeds/{code}/{hash}', 'Web\FeedsController@unifiedFeed');
+
 	// Auth
 	Route::auth();
 });
