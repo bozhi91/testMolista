@@ -1,0 +1,117 @@
+@import '../app/home.less';
+
+/* setting on picture at carousel */
+@media (min-width: 768px) {
+	#home {
+		.main-property {
+			max-width: 100%;
+			.item { height: 720px; }
+		}
+	}
+}
+@media (max-width: 767px) {
+	#home {
+		.main-property {
+			max-width: 100%;
+			.item { height: 480px; }
+		}
+	}
+}
+/* end setting on picture at carousel */
+
+/* ########## Search Home Top ########## */
+@media (min-width: 768px) {
+	#home-top-search {
+		.relative {
+			position: relative;
+
+			.home-top-inner {
+				position: absolute; z-index: 1; width: 100%; background: rgba(255,0,0,0.8); padding-top: 10px; padding-bottom: 10px;
+
+				.nav.navbar-nav {
+					float: none; text-align: center;
+
+					li {
+						display: inline-block; float: none; height: 40px;
+
+						a {
+							padding: 10px 15px; background-color: @white; color: @black;
+
+							&:hover { background-color: @yellow; color: @white; }
+						}
+
+						input, select, button, a { height: 100%; border-radius: 0px;}
+
+						button {
+							padding: 8px 13px; background-color: @white; border-color: transparent;
+
+							i {font-size: 19px;}
+							&:hover { background-color: @yellow; color: @white; }
+						}
+
+						.form-control:focus { border-color: @yellow; }
+					}
+				}
+			}
+		}
+	}
+}
+@media (max-width: 767px) { #home-top-search { display: none; } }
+/* ########## END Search Home Top ########## */
+
+#home {
+	.carousel {
+		.carousel-caption {
+
+			.container { width: auto !important; }
+
+			.col-xs-12.col-md-3.hidden-xs.hidden-sm { display: none; }
+
+			.col-xs-12.col-md-6 {
+				width: 100%;
+
+				.carousel-caption-text {
+					text-align: left; padding: 20px 30px;
+
+					.carousel-caption-title { color: @black; font-size: 22px; }
+					.carousel-caption-subtitle { color: @black; font-size: 22px; font-weight: bold; margin-top: -5px; }
+					.carousel-caption-button {
+						margin-top: 15px;
+
+					 	a {
+							background-color: @yellow; color: @white; padding: 5px 10px; font-size: 14px;
+
+						    &:hover { text-decoration: underline; opacity: 0.8; }
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.properties-slider-area { 
+		border: 0px; background-color: @backgroundGray;
+
+		h2 { color: @black; display: none; }
+	}
+
+	.search-area.under-properties { display: none; }
+}
+
+@media (min-width: 768px) {
+	#home {
+		padding-bottom: 50px;
+
+		.properties-slider-area { margin-top: -85px; }
+	}
+}
+
+/* responsive */
+
+@media (max-width: 767px) {
+	#home {
+		.carousel-caption-text {
+			.carousel-caption-button { text-align: center; }
+		}
+	}
+}
