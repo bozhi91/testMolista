@@ -1,0 +1,42 @@
+1;Piso;1
+1;Duplex;2
+1;Casa;3
+1;Apartamento;4
+1;Torre;6
+1;Ático;7
+1;Masía;8
+1;Loft;9
+1;Casa pareada;10
+1;Estudio;11
+1;Casa adosada;12
+1;Planta baja;13
+1;Tríplex;14
+2;Oficina;1
+3;Local Comercial;1
+4;Nave Industrial;1
+4;Almacén;2
+4;Local Industrial;3
+5;Terreno residencial;1
+5;Finca rústica;2
+5;Solar Industrial;3
+5;Suelo para equipamiento;4
+5;Solar urbano;5
+6;Parking coche;1
+6;Parking moto;2
+8;Vivienda con inquilinos;1
+8;Vivienda sin Inquilinos;2
+8;Edificios;3
+9;Castillo;1
+9;Módulo cámping;2
+9;Palacete;3
+9;Otros;4
+10;Bar;1
+10;Restaurante;2
+10;Tienda;3
+10;Hotel;4
+10;Discoteca;5
+10;Geriátrico;6
+10;Academia;7
+10;Inmobiliaria;8
+10;Complejo turístico;9
+10;Otros;10
