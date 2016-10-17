@@ -57,6 +57,12 @@
 					{!! form::select('locale', $site_setup['locales_tabs'], null, [ 'class'=>'form-control required']) !!}
 				</div>
 			</div>
+			<div class="col-xs-12 col-sm-6">
+				<div class="form-group error-container">
+					{!! form::label('dni', Lang::get('web/customers.register.dni')) !!}
+					{!! form::text('dni', null, [ 'class'=>'form-control']) !!}
+				</div>
+			</div>
 		@endif
 	</div>
 
