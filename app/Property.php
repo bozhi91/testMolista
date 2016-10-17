@@ -647,7 +647,16 @@ class Property extends TranslatableModel
 		// Images
 		foreach ($this->images->sortBy('position') as $image)
 		{
-			$this->marketplace_info['images'][] = $image->image_url;
+			$image_url = $image->image_url;
+
+			// Remove version from image url
+			$query = parse_url($image_url, PHP_URL_QUERY);
+			if ( $query )
+			{
+				$image_url = str_replace("?{$query}", '', $image_url);
+			}
+
+			$this->marketplace_info['images'][] = $image_url;
 		}
 
 		// Features
