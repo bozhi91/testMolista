@@ -9,67 +9,60 @@ class Mapper extends \App\Marketplaces\Mapper {
 	 */
 	public function map() {
 		$item = $this->item;
-		
+
 		$map = [];
 
 		$map['customer_property_id'] = $item['id'];
 		$map['type'] = $this->getType();
-		$map['mode'] = '';
-		$map['price'] = '400';
-		$map['currency'] = '';
-		
-		$map['address'] = '';
-		$map['location'] = '';
-		
-		$map['features']['area'] = '';
-		$map['features']['unit'] = '';
-		$map['features']['bedrooms'] = '';
-		$map['features']['bathrooms'] = '';
-		$map['features']['balcony'] = '';
-		$map['features']['elevator'] = '';
-		$map['features']['furnished'] = '';
-		$map['features']['equiped'] = '';
+		$map['mode'] = $this->getMode();
+		$map['price'] = number_format($item['price'], 2, '.', '');
+		$map['currency'] = $this->getCurrency();
 
-		$map['energy_certification']['description'] = 'N';
+		$location = $item['location'];
+		if (!empty($location['lat']) && !empty($location['lng'])) {
+			$map['location']['latitude'] = $location['lat'];
+			$map['location']['longitude'] = $location['lng'];
+		} else {
+			$map['address']['type'] = $location['address_parts']['type'];
+			$map['address']['streetName'] = $location['address_parts']['street'];
+			$map['address']['streetNumber'] = $location['address_parts']['number'];
+			
+			if(!empty($location['address_parts']['stair'])){
+				$map['address']['stair'] = $location['address_parts']['stair'];
+			}
+			
+			if(!empty($location['address_parts']['floor'])){
+				$map['address']['floorNumber'] = $location['address_parts']['floor'];
+			}
+			
+			if(!empty($location['address_parts']['door'])){
+				$map['address']['doorNumber'] = $location['address_parts']['door'];
+			}
 		
-		
-		
-		/*[
-			'customer_property_id' => 'blabla',
-			'type' => '1',
-			'mode' => '1',
-			'price' => '400',
-			//'currency' => '€',
-			//'address' => '',
-			'location' => [
-				'latitude' => 41.37358080,
-				'longitude' => 2.16367380,
-			],
-			'features' => [
-				'area' => 123,
-				'unit' => 1,
-				'bedrooms' => 3,
-				'bathrooms' => 4,
-				'balcony' => true,
-				'elevator' => true,
-				'furnished' => true,
-				'equiped' => true,
-			],
-			'energy_certification' => [
-				'description' => 'N'
-			],
-			'images' => [
-				[
-					'url' => 'http://www.carinoproperties.com/wordpress/wp-content/uploads/2014/11/1414822499.jpg',
-					'principal' => true,
-				]
-			],
-			'plans' => [],
-			'status' => 1,
-			'contactEmail' => 'vd@incubout.com',
-			'contactPhone' => '',
-		];*/
+			$map['address']['city'] = $location['city'];
+			$map['address']['province'] = $location['state'];
+			$map['address']['country'] = $location['country'];
+			$map['address']['hideStreetNumber'] = 
+					empty($location['show_address']) ? true : !$location['show_address'];
+		}
 
+		$map['features']['area'] = $item['size'];
+		$map['features']['unit'] = $item['size_unit'] == 'sqm' ? '1' : '2';
+		$map['features']['bedrooms'] = $item['bedrooms'];
+		$map['features']['bathrooms'] = $item['baths'];
+		$map['features']['balcony'] = !empty($item['features']['balcony']);
+		$map['features']['elevator'] = !empty($item['features']['elevator']);
+		$map['features']['furnished'] = !empty($item['features']['furnished']);
+		$map['features']['equiped'] = false;
+
+		$map['energy_certification']['description'] = $item['ec_pending'] ? 'N' : $item['ec'];
+
+		$map['images'] = $this->getImages();
+		//$map['plans'] = [];
+
+		$map['status'] = '1'; //Disponible
+		$map['contactEmail'] = !empty($this->config['email']) ? $this->config['email'] : '';
+		$map['contactPhone'] = !empty($this->config['phone']) ? $this->config['phone'] : '';
 
 		return $map;
 	}
@@ -79,9 +72,49 @@ class Mapper extends \App\Marketplaces\Mapper {
 	 */
 	public function valid() {
 		return true;
+		
+		if (in_array($this->item['type'], ['ranche', 'state', 'hotel',
+					'aparthotel', 'building', 'lot', 'store', 'industrial'])) {
+			$this->errors [] = \Lang::get('validation.type');
+			return false;
+		}
+
+		if ($this->isTransfer()) {
+			$this->errors [] = \Lang::get('validation.transfer');
+			return false;
+		}
+
+
+		$data = array_merge($this->item, $this->config);
+
+		$rules = [
+			'id' => 'required',
+			'type' => 'required',
+			'price' => 'required',
+			'location.address_parts.type' => 'required',
+			'location.address_parts.street' => 'required',
+			'location.address_parts.number' => 'required',
+			'location.city' => 'required',
+			'location.state' => 'required',
+			'location.country' => 'required',
+			'size' => 'required',
+			'size_unit' => 'required',
+			'bedrooms' => 'required',
+			'baths' => 'required',
+			'ec' => 'required',
+			'images.0' => 'required',
+			'access_token' => 'required',
+			'access_token_secret' => 'required',
+		];
+
+		$validator = \Validator::make($data, $rules, []);
+		if ($validator->fails()) {
+			$this->errors = $validator->errors()->all();
+		}
+
+		return empty($this->errors);
 	}
 
-	
 	/**
 	 * Piso -> 1
 	 * Casa -> 2
@@ -89,10 +122,12 @@ class Mapper extends \App\Marketplaces\Mapper {
 	 * Parking -> 4
 	 * Solar/Parcela -> 5
 	 * Oficina -> 6
+	 * 
+	 * @return string
 	 */
-	protected function getType(){
+	protected function getType() {
 		switch ($this->item['type']) {
-			case 'flat': 
+			case 'flat':
 			case 'duplex':
 			case 'apartment':
 				return '1';
@@ -103,42 +138,42 @@ class Mapper extends \App\Marketplaces\Mapper {
 			case 'farmhouse':
 			case 'bungalow':
 				return '2';
-				
-			
-				
-			/*case 'ranche':
-			case 'state':
-				return [5, 'Terrenos y Solares', 2, 'Finca rústica'];
-			case 'hotel':
-			case 'aparthotel':
-				return [10, 'Negocio', 4, 'Hotel'];
-			case 'building': return [8, 'Inversiones', 3, 'Edificios'];
-			case 'lot': return [5, 'Terrenos y Solares', 1, 'Terreno residencial'];
-			case 'store': return [3, 'Local', 1, 'Local Comercial'];
-			case 'industrial': return [4, 'Industrial', 1, 'Nave Industrial'];
-			
-			
-			case 'house':
-			case 'penthouse':
-			case 'villa':
-			case 'duplex':
-			case 'farmhouse':
-			case 'chalet':
-				return $this->isRent() ? 'Casas en alquiler' : 'Casas en venta';
-			case 'industrial':
-				return 'Oficinas y locales';
-			case 'lot':
-			case 'state':
-				return 'Terrenos y solares';
-			case 'store':
-				return 'Trasteros y garajes';
-			case 'hotel':
-			case 'aparthotel':
-			case 'bungalow':
-				return 'Alquiler vacacional';
-			default:
-				return $this->isRent() ? 'Pisos en alquiler' : 'Pisos en venta';*/
 		}
 	}
-	
+
+	/**
+	 * Alquiler -> 1
+	 * Venta -> 2
+	 * 
+	 * @return string
+	 */
+	protected function getMode() {
+		if ($this->isRent()) {
+			return '1';
+		} elseif ($this->isSale()) {
+			return '2';
+		}
+	}
+
+	/**
+	 * @return string
+	 */
+	protected function getCurrency() {
+		return '€';
+	}
+
+	/**
+	 * @return array
+	 */
+	protected function getImages() {
+		$pictures = [];
+		foreach ($this->item['images'] as $counter => $image) {
+			$pictures[] = [
+				'url' => $image,
+				'principal' => $counter == 0
+			];
+		}
+		return $pictures;
+	}
+
 }

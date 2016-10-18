@@ -142,6 +142,7 @@
 						{!! Form::select('upload_type', [
 							'url' => 'URL',
 							'ftp' => 'FTP',
+							'api' => 'API',
 						], null, [ 'class'=>'form-control' ]) !!}
 					</div>
 				</div>

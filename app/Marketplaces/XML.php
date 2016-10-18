@@ -27,17 +27,6 @@ abstract class XML extends Base implements PublishPropertyXmlInterface {
         return $this->writer->getXml();
     }
 
-    public function validateProperty(array $property)
-    {
-        $mapper = static::getMapper($property, $this->iso_lang, $this->config);
-        if ($mapper->valid())
-        {
-            return true;
-        }
-
-        return $mapper->errors();
-    }
-
     protected static function getWriter($config)
     {
         $class = static::getClassName().'\Writer';
@@ -49,19 +38,6 @@ abstract class XML extends Base implements PublishPropertyXmlInterface {
         }
 
         return $instance;
-    }
-
-    protected static function getMapper(array $property, $lang, array $config = [])
-    {
-        $class = static::getClassName().'\Mapper';
-        return new $class($property, $lang, $config);
-    }
-
-    protected static function getClassName()
-    {
-        $parts = explode('\\', static::class);
-        array_pop($parts);
-        return implode('\\', $parts);
     }
 
 }

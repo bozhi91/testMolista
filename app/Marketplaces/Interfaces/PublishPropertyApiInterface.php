@@ -5,11 +5,10 @@ namespace App\Marketplaces\Interfaces;
 interface PublishPropertyApiInterface {
 
 	/**
-	 * Publish properties
+	 * Publish property
 	 * 
-	 * @param array $properties
+	 * @param array $property
 	 * @return boolean|array
 	 */
-	public function publishProperties(array $properties);
-	
+	public function publishProperty(array $property);
 }
