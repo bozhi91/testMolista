@@ -54,6 +54,8 @@
 		'configuration.fields.account_id' => 'Account ID',
 		'configuration.fields.lastname' => 'Apellidos',
 		'configuration.fields.code' => 'Identificador de cliente',
+		'configuration.fields.access_token' => 'Token de acceso',
+		'configuration.fields.access_token_secret' => 'Token secreto de acceso',
 
 		'properties' => 'Propiedades',
 		'properties.published' => 'Activa en export',
