@@ -48,6 +48,7 @@ class TranslationsUpdateCommand extends Command
 				$file = preg_replace('#\.php$#', '', $file);
 
 				$tags = include($path);
+
 				if ( empty($tags) ) continue;
 				if ( !is_array($tags) ) continue;
 
@@ -91,6 +92,8 @@ class TranslationsUpdateCommand extends Command
 			}
 			else
 			{
+				if (!preg_match('#\.php$#', $file)) continue;
+
 				$files[] = $path;
 			}
 		}
