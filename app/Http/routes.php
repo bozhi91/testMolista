@@ -244,6 +244,9 @@ Route::group([
 		Route::get('customers/properties/{slug}', 'Account\CustomersController@getAddPropertyCustomer');
 		Route::post('customers/profile/{email}', 'Account\CustomersController@postProfile');
 		Route::resource('customers', 'Account\CustomersController');
+		
+		Route::post('customers/comment/{slug}', 'Account\CustomersController@postComment');
+		
 		// Marketplaces
 		Route::group([
 			'middleware' => [
