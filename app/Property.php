@@ -641,7 +641,8 @@ class Property extends TranslatableModel
 		{
 			\App::setLocale($locale);
 			$slug = empty($i18n['slug'][$locale]) ? $i18n['slug'][$fallback_locale] : $i18n['slug'][$locale];
-			$this->marketplace_info['url'][$locale] = \LaravelLocalization::getLocalizedURL($locale, action('Web\PropertiesController@details', $slug));
+			$temporal_url = parse_url(\LaravelLocalization::getLocalizedURL($locale, action('Web\PropertiesController@details', $slug)));
+			$this->marketplace_info['url'][$locale] = $this->site->main_url.@$temporal_url['path'];
 		}
 
 		// Images
