@@ -42,6 +42,7 @@ class Stats extends Model
 					->addSelect( \DB::raw("(CASE `plan_level` WHEN 1 THEN 'Pro' WHEN 2 THEN 'Plus' ELSE 'Free' END) as plan_name") )
 					->addSelect( \DB::raw("COUNT(*) as total_sites") )
 					->addSelect(  \DB::raw("SUM(`monthly_fee`) as total_revenues"))
+					->whereNotIn('site_id', explode(',', env('EXCLUDE_SITES_FROM_STATS')))
 					->groupBy('plan_level')
 					->get()->keyBy('plan_level');
 
@@ -55,7 +56,7 @@ class Stats extends Model
 		self::$countries_rel = \App\Models\Geography\Country::withTranslations()->lists('name','id')->all();
 
 		\App\Site::with('plan')->chunk(25, function ($sites) {
-			foreach ($sites as $site) 
+			foreach ($sites as $site)
 			{
 				$old = \App\Models\Stats::firstOrCreate([
 					'site_id' => $site->id,
