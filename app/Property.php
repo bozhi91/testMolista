@@ -641,13 +641,23 @@ class Property extends TranslatableModel
 		{
 			\App::setLocale($locale);
 			$slug = empty($i18n['slug'][$locale]) ? $i18n['slug'][$fallback_locale] : $i18n['slug'][$locale];
-			$this->marketplace_info['url'][$locale] = \LaravelLocalization::getLocalizedURL($locale, action('Web\PropertiesController@details', $slug));
+			$temporal_url = parse_url(\LaravelLocalization::getLocalizedURL($locale, action('Web\PropertiesController@details', $slug)));
+			$this->marketplace_info['url'][$locale] = $this->site->main_url.@$temporal_url['path'];
 		}
 
 		// Images
 		foreach ($this->images->sortBy('position') as $image)
 		{
-			$this->marketplace_info['images'][] = $image->image_url;
+			$image_url = $image->image_url;
+
+			// Remove version from image url
+			$query = parse_url($image_url, PHP_URL_QUERY);
+			if ( $query )
+			{
+				$image_url = str_replace("?{$query}", '', $image_url);
+			}
+
+			$this->marketplace_info['images'][] = $image_url;
 		}
 
 		// Features
