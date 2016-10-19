@@ -35,6 +35,7 @@ class Property extends TranslatableModel
 	protected $casts = [
 		'address_parts' => 'array',
 		'details' => 'array',
+		'marketplace_attributes' => 'array',
 	];
 
 	protected $marketplace_info;
@@ -617,6 +618,7 @@ class Property extends TranslatableModel
 			],
 			'images' => [],
 			'features' => [],
+			'marketplace_attributes' => $this->marketplace_attributes,
 			'created_at' => $this->created_at->format('Y-m-d H:i:s'),
 			'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
 		];

@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<states>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <state id="201">
+        <name><![CDATA[Ain]]></name>
+    </state>
+    
+    <state id="202">
+        <name><![CDATA[Aisne]]></name>
+    </state>
+    
+    <state id="203">
+        <name><![CDATA[Allier]]></name>
+    </state>
+    
+    <state id="204">
+        <name><![CDATA[Alpes-de-Haute-Provence]]></name>
+    </state>
+    
+    <state id="205">
+        <name><![CDATA[Hautes-Alpes]]></name>
+    </state>
+    
+    <state id="206">
+        <name><![CDATA[Alpes-Maritimes]]></name>
+    </state>
+    
+    <state id="207">
+        <name><![CDATA[Ardèche]]></name>
+    </state>
+    
+    <state id="208">
+        <name><![CDATA[Ardennes]]></name>
+    </state>
+    
+    <state id="209">
+        <name><![CDATA[Ariège]]></name>
+    </state>
+    
+    <state id="210">
+        <name><![CDATA[Aube]]></name>
+    </state>
+    
+    <state id="211">
+        <name><![CDATA[Aude]]></name>
+    </state>
+    
+    <state id="212">
+        <name><![CDATA[Aveyron]]></name>
+    </state>
+    
+    <state id="213">
+        <name><![CDATA[Bouches-du-Rhône]]></name>
+    </state>
+    
+    <state id="214">
+        <name><![CDATA[Calvados]]></name>
+    </state>
+    
+    <state id="215">
+        <name><![CDATA[Cantal]]></name>
+    </state>
+    
+    <state id="216">
+        <name><![CDATA[Charente]]></name>
+    </state>
+    
+    <state id="217">
+        <name><![CDATA[Charente-Maritime]]></name>
+    </state>
+    
+    <state id="218">
+        <name><![CDATA[Cher]]></name>
+    </state>
+    
+    <state id="219">
+        <name><![CDATA[Corrèze]]></name>
+    </state>
+    
+    <state id="220">
+        <name><![CDATA[Corse-du-Sud]]></name>
+    </state>
+    
+    <state id="221">
+        <name><![CDATA[Haute-Corse]]></name>
+    </state>
+    
+    <state id="222">
+        <name><![CDATA[Côte-d´Or]]></name>
+    </state>
+    
+    <state id="223">
+        <name><![CDATA[Côtes-d´Armor]]></name>
+    </state>
+    
+    <state id="224">
+        <name><![CDATA[Creuse]]></name>
+    </state>
+    
+    <state id="225">
+        <name><![CDATA[Dordogne]]></name>
+    </state>
+    
+    <state id="226">
+        <name><![CDATA[Doubs]]></name>
+    </state>
+    
+    <state id="227">
+        <name><![CDATA[Drôme]]></name>
+    </state>
+    
+    <state id="228">
+        <name><![CDATA[Eure]]></name>
+    </state>
+    
+    <state id="229">
+        <name><![CDATA[Eure-et-Loir]]></name>
+    </state>
+    
+    <state id="230">
+        <name><![CDATA[Finistère]]></name>
+    </state>
+    
+    <state id="231">
+        <name><![CDATA[Gard]]></name>
+    </state>
+    
+    <state id="232">
+        <name><![CDATA[Haute-Garonne]]></name>
+    </state>
+    
+    <state id="233">
+        <name><![CDATA[Gers]]></name>
+    </state>
+    
+    <state id="234">
+        <name><![CDATA[Gironde]]></name>
+    </state>
+    
+    <state id="235">
+        <name><![CDATA[Hérault]]></name>
+    </state>
+    
+    <state id="236">
+        <name><![CDATA[Ille-et-Vilaine]]></name>
+    </state>
+    
+    <state id="237">
+        <name><![CDATA[Indre]]></name>
+    </state>
+    
+    <state id="238">
+        <name><![CDATA[Indre-et-Loire]]></name>
+    </state>
+    
+    <state id="239">
+        <name><![CDATA[Isère]]></name>
+    </state>
+    
+    <state id="240">
+        <name><![CDATA[Jura]]></name>
+    </state>
+    
+    <state id="241">
+        <name><![CDATA[Landes]]></name>
+    </state>
+    
+    <state id="242">
+        <name><![CDATA[Loir-et-Cher]]></name>
+    </state>
+    
+    <state id="243">
+        <name><![CDATA[Loire]]></name>
+    </state>
+    
+    <state id="244">
+        <name><![CDATA[Haute-Loire]]></name>
+    </state>
+    
+    <state id="245">
+        <name><![CDATA[Loire-Atlantique]]></name>
+    </state>
+    
+    <state id="246">
+        <name><![CDATA[Loiret]]></name>
+    </state>
+    
+    <state id="247">
+        <name><![CDATA[Lot]]></name>
+    </state>
+    
+    <state id="248">
+        <name><![CDATA[Lot-et-Garonne]]></name>
+    </state>
+    
+    <state id="249">
+        <name><![CDATA[Lozère]]></name>
+    </state>
+    
+    <state id="250">
+        <name><![CDATA[Maine-et-Loire]]></name>
+    </state>
+    
+    <state id="251">
+        <name><![CDATA[Manche]]></name>
+    </state>
+    
+    <state id="252">
+        <name><![CDATA[Marne]]></name>
+    </state>
+    
+    <state id="253">
+        <name><![CDATA[Haute-Marne]]></name>
+    </state>
+    
+    <state id="254">
+        <name><![CDATA[Mayenne]]></name>
+    </state>
+    
+    <state id="255">
+        <name><![CDATA[Meurthe-et-Moselle]]></name>
+    </state>
+    
+    <state id="256">
+        <name><![CDATA[Meuse]]></name>
+    </state>
+    
+    <state id="257">
+        <name><![CDATA[Morbihan]]></name>
+    </state>
+    
+    <state id="258">
+        <name><![CDATA[Moselle]]></name>
+    </state>
+    
+    <state id="259">
+        <name><![CDATA[Nièvre]]></name>
+    </state>
+    
+    <state id="260">
+        <name><![CDATA[Nord]]></name>
+    </state>
+    
+    <state id="261">
+        <name><![CDATA[Oise]]></name>
+    </state>
+    
+    <state id="262">
+        <name><![CDATA[Orne]]></name>
+    </state>
+    
+    <state id="263">
+        <name><![CDATA[Pas-de-Calais]]></name>
+    </state>
+    
+    <state id="264">
+        <name><![CDATA[Puy-de-Dôme]]></name>
+    </state>
+    
+    <state id="265">
+        <name><![CDATA[Pyrénées-Atlantiques]]></name>
+    </state>
+    
+    <state id="266">
+        <name><![CDATA[Hautes-Pyrénées]]></name>
+    </state>
+    
+    <state id="267">
+        <name><![CDATA[Pyrénées-Orientales]]></name>
+    </state>
+    
+    <state id="268">
+        <name><![CDATA[Bas-Rhin]]></name>
+    </state>
+    
+    <state id="269">
+        <name><![CDATA[Haut-Rhin]]></name>
+    </state>
+    
+    <state id="270">
+        <name><![CDATA[Rhône]]></name>
+    </state>
+    
+    <state id="271">
+        <name><![CDATA[Haute-Saone]]></name>
+    </state>
+    
+    <state id="272">
+        <name><![CDATA[Saone-et-Loire]]></name>
+    </state>
+    
+    <state id="273">
+        <name><![CDATA[Sarthe]]></name>
+    </state>
+    
+    <state id="274">
+        <name><![CDATA[Savoie]]></name>
+    </state>
+    
+    <state id="275">
+        <name><![CDATA[Haute-Savoie]]></name>
+    </state>
+    
+    <state id="276">
+        <name><![CDATA[París]]></name>
+    </state>
+    
+    <state id="277">
+        <name><![CDATA[Seine-Maritime]]></name>
+    </state>
+    
+    <state id="278">
+        <name><![CDATA[Seine-et-Marne]]></name>
+    </state>
+    
+    <state id="279">
+        <name><![CDATA[Yvelines]]></name>
+    </state>
+    
+    <state id="280">
+        <name><![CDATA[Deux-Sèvres]]></name>
+    </state>
+    
+    <state id="281">
+        <name><![CDATA[Somme]]></name>
+    </state>
+    
+    <state id="282">
+        <name><![CDATA[Tarn]]></name>
+    </state>
+    
+    <state id="283">
+        <name><![CDATA[Tarn-et-Garonne]]></name>
+    </state>
+    
+    <state id="284">
+        <name><![CDATA[Var]]></name>
+    </state>
+    
+    <state id="285">
+        <name><![CDATA[Vaucluse]]></name>
+    </state>
+    
+    <state id="286">
+        <name><![CDATA[Vendée]]></name>
+    </state>
+    
+    <state id="287">
+        <name><![CDATA[Vienne]]></name>
+    </state>
+    
+    <state id="288">
+        <name><![CDATA[Haute-Vienne]]></name>
+    </state>
+    
+    <state id="289">
+        <name><![CDATA[Vosges]]></name>
+    </state>
+    
+    <state id="290">
+        <name><![CDATA[Yonne]]></name>
+    </state>
+    
+    <state id="291">
+        <name><![CDATA[Territoire de Belfort]]></name>
+    </state>
+    
+    <state id="292">
+        <name><![CDATA[Essonne]]></name>
+    </state>
+    
+    <state id="293">
+        <name><![CDATA[Hauts-de-Seine]]></name>
+    </state>
+    
+    <state id="294">
+        <name><![CDATA[Seine-Saint-Denis]]></name>
+    </state>
+    
+    <state id="295">
+        <name><![CDATA[Val-de-Marne]]></name>
+    </state>
+    
+    <state id="296">
+        <name><![CDATA[Val-d'Oise]]></name>
+    </state>
+    
+</states>

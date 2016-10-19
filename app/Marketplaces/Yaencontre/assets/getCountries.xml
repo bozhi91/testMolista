@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<countries>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <country id="106" code="AD">
+        <name><![CDATA[Andorra]]></name>
+    </country>
+    
+    <country id="174" code="FR">
+        <name><![CDATA[Francia]]></name>
+    </country>
+    
+    <country id="306" code="ES">
+        <name><![CDATA[España]]></name>
+    </country>
+    
+</countries>
