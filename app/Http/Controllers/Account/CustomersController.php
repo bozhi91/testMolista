@@ -416,4 +416,21 @@ class CustomersController extends \App\Http\Controllers\AccountController
 
 		return $fields;
 	}
+	
+	
+	public function postComment($slug)
+	{
+		$customer = $this->site->customers()->where('email', $slug)->first();
+		if ( !$customer )
+		{
+			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
+		}
+
+		$customer->update([
+			'comment' => $this->request->input('comment')
+		]);
+
+		return redirect()->back()->with('success', trans('general.messages.success.saved'));
+	}
+	
 }

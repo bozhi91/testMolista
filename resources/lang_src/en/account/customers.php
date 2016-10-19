@@ -19,6 +19,8 @@
 
 		'show.h1' => 'Lead view',
 		'show.tab.general' => 'General',
+		'show.customer.comment.title' => 'Comment',
+		'show.customer.comment.button' => 'Save comment',
 
 		'message.saved' => 'The lead has been successfully saved',
 

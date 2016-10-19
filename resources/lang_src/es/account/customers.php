@@ -19,6 +19,8 @@
 
 		'show.h1' => 'Vista lead',
 		'show.tab.general' => 'General',
+		'show.customer.comment.title' => 'Comentario',
+		'show.customer.comment.button' => 'Guardar comentario',
 
 		'message.saved' => 'El lead se ha guardado correctamente',
 
