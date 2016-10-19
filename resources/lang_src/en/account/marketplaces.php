@@ -56,7 +56,8 @@
 		'configuration.fields.code' => 'Customer code',
 		'configuration.fields.access_token' => 'Access token',
 		'configuration.fields.access_token_secret' => 'Secret access token',
-
+		'configuration.fields.access_data.title' => 'Token data',
+		
 		'properties' => 'Properties',
 		'properties.published' => 'Enabled in export',
 		'properties.enabled' => 'Enabled in web',

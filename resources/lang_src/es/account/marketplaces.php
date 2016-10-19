@@ -56,6 +56,7 @@
 		'configuration.fields.code' => 'Identificador de cliente',
 		'configuration.fields.access_token' => 'Token de acceso',
 		'configuration.fields.access_token_secret' => 'Token secreto de acceso',
+		'configuration.fields.access_data.title' => 'Datos de token',
 
 		'properties' => 'Propiedades',
 		'properties.published' => 'Activa en export',

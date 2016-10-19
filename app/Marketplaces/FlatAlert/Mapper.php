@@ -26,24 +26,23 @@ class Mapper extends \App\Marketplaces\Mapper {
 			$map['address']['type'] = $location['address_parts']['type'];
 			$map['address']['streetName'] = $location['address_parts']['street'];
 			$map['address']['streetNumber'] = $location['address_parts']['number'];
-			
-			if(!empty($location['address_parts']['stair'])){
+
+			if (!empty($location['address_parts']['stair'])) {
 				$map['address']['stair'] = $location['address_parts']['stair'];
 			}
-			
-			if(!empty($location['address_parts']['floor'])){
+
+			if (!empty($location['address_parts']['floor'])) {
 				$map['address']['floorNumber'] = $location['address_parts']['floor'];
 			}
-			
-			if(!empty($location['address_parts']['door'])){
+
+			if (!empty($location['address_parts']['door'])) {
 				$map['address']['doorNumber'] = $location['address_parts']['door'];
 			}
-		
+
 			$map['address']['city'] = $location['city'];
 			$map['address']['province'] = $location['state'];
 			$map['address']['country'] = $location['country'];
-			$map['address']['hideStreetNumber'] = 
-					empty($location['show_address']) ? true : !$location['show_address'];
+			$map['address']['hideStreetNumber'] = empty($location['show_address']) ? true : !$location['show_address'];
 		}
 
 		$map['features']['area'] = $item['size'];
@@ -55,12 +54,16 @@ class Mapper extends \App\Marketplaces\Mapper {
 		$map['features']['furnished'] = !empty($item['features']['furnished']);
 		$map['features']['equiped'] = false;
 
-		$map['energy_certification']['description'] = $item['ec_pending'] ? 'N' : $item['ec'];
-
+		if($item['ec_pending'] || empty($item['ec'])) {
+			$map['energy_certification']['description'] = 'N';
+		} else {
+			$map['energy_certification']['description'] = $item['ec'];
+		}
+		
 		$map['images'] = $this->getImages();
 		//$map['plans'] = [];
 
-		$map['status'] = '1'; //Disponible
+		$map['status'] = $this->getStatus();
 		$map['contactEmail'] = !empty($this->config['email']) ? $this->config['email'] : '';
 		$map['contactPhone'] = !empty($this->config['phone']) ? $this->config['phone'] : '';
 
@@ -71,37 +74,36 @@ class Mapper extends \App\Marketplaces\Mapper {
 	 * @return boolean
 	 */
 	public function valid() {
-		return true;
-		
-		if (in_array($this->item['type'], ['ranche', 'state', 'hotel',
-					'aparthotel', 'building', 'lot', 'store', 'industrial'])) {
+		if(!$this->validType()){
 			$this->errors [] = \Lang::get('validation.type');
 			return false;
 		}
-
+		
 		if ($this->isTransfer()) {
 			$this->errors [] = \Lang::get('validation.transfer');
 			return false;
 		}
-
-
+				
 		$data = array_merge($this->item, $this->config);
-
+				
 		$rules = [
 			'id' => 'required',
 			'type' => 'required',
 			'price' => 'required',
-			'location.address_parts.type' => 'required',
-			'location.address_parts.street' => 'required',
-			'location.address_parts.number' => 'required',
-			'location.city' => 'required',
-			'location.state' => 'required',
-			'location.country' => 'required',
+			'location.lat' => 'required_without:location.address_parts.type,'
+			. 'location.address_parts.street,location.address_parts.number,location.city,location.state,location.country',
+			'location.lng' => 'required_without:location.address_parts.type,'
+			. 'location.address_parts.street,location.address_parts.number,location.city,location.state,location.country',
+			'location.address_parts.type' => 'required_without:location.lat,location.lng',
+			'location.address_parts.street' => 'required_without:location.lat,location.lng',
+			'location.address_parts.number' => 'required_without:location.lat,location.lng',
+			'location.city' => 'required_without:location.lat,location.lng',
+			'location.state' => 'required_without:location.lat,location.lng',
+			'location.country' => 'required_without:location.lat,location.lng',
 			'size' => 'required',
 			'size_unit' => 'required',
 			'bedrooms' => 'required',
 			'baths' => 'required',
-			'ec' => 'required',
 			'images.0' => 'required',
 			'access_token' => 'required',
 			'access_token_secret' => 'required',
@@ -113,6 +115,14 @@ class Mapper extends \App\Marketplaces\Mapper {
 		}
 
 		return empty($this->errors);
+	}
+
+	/**
+	 * @return true
+	 */
+	protected function validType() {
+		return !in_array($this->item['type'], ['ranche', 'state', 'hotel',
+					'aparthotel', 'building', 'lot', 'store', 'industrial']);
 	}
 
 	/**
@@ -176,4 +186,13 @@ class Mapper extends \App\Marketplaces\Mapper {
 		return $pictures;
 	}
 
+	/**
+	 * 1 Disponible
+	 * 99 Delete
+	 * @return string
+	 */
+	protected function getStatus() {
+		return '1';
+	}
+	
 }

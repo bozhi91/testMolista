@@ -2,8 +2,6 @@
 
 namespace App\Marketplaces;
 
-use GuzzleHttp\Psr7\Response;
-
 abstract class Service {
 
 	protected $config = [];
@@ -12,8 +10,4 @@ abstract class Service {
 		$this->config = $config;
 	}
 
-	/**
-	 * @return Response
-	 */
-	abstract public function publishProperty(array $property);
 }

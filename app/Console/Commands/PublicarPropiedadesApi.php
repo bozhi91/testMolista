@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Site;
 use Illuminate\Console\Command;
 
 class PublicarPropiedadesApi extends Command {
@@ -11,14 +12,14 @@ class PublicarPropiedadesApi extends Command {
 	 *
 	 * @var string
 	 */
-	protected $signature = 'command:name';
+	protected $signature = 'properties:publish {site? : Site id} {marketplaces? : Marketplaces codes}';
 
 	/**
 	 * The console command description.
 	 *
 	 * @var string
 	 */
-	protected $description = 'Command description';
+	protected $description = 'Publish properties for API marketplaces';
 
 	/**
 	 * Create a new command instance.
@@ -35,7 +36,56 @@ class PublicarPropiedadesApi extends Command {
 	 * @return mixed
 	 */
 	public function handle() {
-		//
+		$sites = $this->getSites();
+		foreach ($sites as $site) {
+			$query = $site->marketplaces()->where('upload_type', 'api');
+			
+			$marketplaceCodes = $this->argument('marketplaces');
+			if ($marketplaceCodes) {
+				$exploded = explode(',', $marketplaceCodes);
+				$query->whereIn('code', $exploded);
+			}
+			
+			$marketplaces = $query->get();
+			foreach ($marketplaces as $marketplace) {
+				$this->handleSingle($site, $marketplace);
+			}
+		}
+	}
+
+	/**
+	 * @return Site[]
+	 */
+	private function getSites() {
+		$siteId = $this->argument('site');
+
+		$sites = [];
+
+		if ($siteId) {
+			$site = Site::find($siteId);
+			if (!$site) {
+				$this->error("Site with id \"{$siteId}\" does not exist");
+				return false;
+			}
+			$sites[] = $site;
+		} else {
+			$sites = Site::all();
+		}
+
+		return $sites;
+	}
+
+	/**
+	 * @param Site $site
+	 * @param Marketplace $marketplace
+	 */
+	private function handleSingle($site, $marketplace) {
+		$helper = new \App\Models\Site\MarketplaceHelper($site);
+		$helper->setMarketplace($marketplace);		
+		
+		$properties = $helper->getMarketplaceProperties();
+		$handler = $helper->getMarketplaceAdm();
+		$handler->publishProperties($properties);
 	}
 
 }
