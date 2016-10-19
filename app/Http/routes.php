@@ -131,6 +131,9 @@ Route::group([
 
 	});
 
+	// Feeds
+	Route::get('feeds/{code}/{hash}', 'Web\FeedsController@unifiedFeed');
+
 	// Auth
 	Route::auth();
 });
@@ -176,6 +179,9 @@ Route::group([
 
 	// Feeds
 	Route::controller('feeds', 'Web\FeedsController');
+
+	// Themes Custom
+	Route::controller('custom/servicios', 'Web\Custom\ServiciosController');
 
 	// Account
 	Route::group([
@@ -244,6 +250,9 @@ Route::group([
 		Route::get('customers/properties/{slug}', 'Account\CustomersController@getAddPropertyCustomer');
 		Route::post('customers/profile/{email}', 'Account\CustomersController@postProfile');
 		Route::resource('customers', 'Account\CustomersController');
+		
+		Route::post('customers/comment/{slug}', 'Account\CustomersController@postComment');
+		
 		// Marketplaces
 		Route::group([
 			'middleware' => [

@@ -19,6 +19,7 @@ class AdminController extends Controller
 		}
 
 		$query = \App\Models\Stats::with('site')->with('plan')->withDateRange( $this->request->input('daterange') );
+		$query->whereNotIn('site_id', explode(',', env('EXCLUDE_SITES_FROM_STATS')));
 
 		$items = $query->get();
 

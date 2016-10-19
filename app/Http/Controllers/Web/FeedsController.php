@@ -63,4 +63,37 @@ class FeedsController extends \App\Http\Controllers\WebController
 		return $code;
 	}
 
+	public function unifiedFeed($code, $hash)
+	{
+		$marketplace = \App\Models\Marketplace::where('code', $code)
+							->enabled()
+							->first();
+
+		if ( !$marketplace || $marketplace->integration_secret != $hash)
+		{
+			abort(404);
+		}
+
+		// Find client with the marketplace enabled
+		$sites = \App\Site::enabled()
+						->whereHas('marketplaces', function($query) use ($marketplace){
+							$query->where('marketplace_enabled', 1);
+							$query->where('marketplace_id', $marketplace->id);
+						})
+						->get();
+
+		$files = [];
+		foreach ($sites as $site) {
+			$files[$site->id] = $site->marketplace_helper->getMarketplaceXml($marketplace, 'properties');
+		}
+
+		$adm = new $marketplace->class_path;
+		$content = $adm->getUnifiedXml($files);
+
+		// Output XML
+		return response($content, '200')->withHeaders([
+			'Content-Type' => 'text/xml'
+		]);
+	}
+
 }

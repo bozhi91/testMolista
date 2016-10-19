@@ -78,8 +78,26 @@
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6">
+						<div class="form-group error-container">
+							{!! Form::label(null, Lang::get('account/customers.dni') ) !!}
+							{!! Form::text(null, @$customer->dni, [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
+						</div>
 					</div>
 				</div>
+				
+				{!! Form::model($customer, [ 'action'=>['Account\CustomersController@postComment',$customer->email], 'method'=>'post', 'id'=>'comment-form' ]) !!}
+					<hr />
+					<h3 class="page-title">{{ Lang::get('account/customers.show.customer.comment.title') }}</h3>
+					<div class="form-group error-placement">
+						{!! Form::textarea('comment', null, [ 'class'=>'form-control', ]) !!}
+					</div>
+					<div class="form-group">
+						<div class="text-right">
+							{!! Form::button(Lang::get('account/customers.show.customer.comment.button'), [ 'type'=>'submit', 'class'=>'btn btn-primary', ]) !!}
+						</div>
+					</div>
+				{!! Form::close() !!}
+				
 			</div>
 
 			<div role="tabpanel" class="tab-pane tab-main {{$current_tab == 'profile' ? 'active' : '' }}" id="tab-profile">
