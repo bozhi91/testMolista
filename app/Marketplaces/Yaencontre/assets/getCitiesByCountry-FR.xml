@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8" ?><cities>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <city id="143683" stateId="209">
+        <name><![CDATA[Ascou-Pailhères]]></name>
+    </city>
+    
+    <city id="143684" stateId="209">
+        <name><![CDATA[Aulus-les-Bains]]></name>
+    </city>
+    
+    <city id="143685" stateId="209">
+        <name><![CDATA[Ax-les-Thermes]]></name>
+    </city>
+    
+    <city id="143703" stateId="209">
+        <name><![CDATA[Guzet-Neige]]></name>
+    </city>
+    
+    <city id="143716" stateId="209">
+        <name><![CDATA[Mirepoix]]></name>
+    </city>
+    
+    <city id="143730" stateId="209">
+        <name><![CDATA[Ornolac-Ussat-les-Bains]]></name>
+    </city>
+    
+    <city id="143738" stateId="209">
+        <name><![CDATA[Montferrier]]></name>
+    </city>
+    
+    <city id="143687" stateId="232">
+        <name><![CDATA[Barbazan]]></name>
+    </city>
+    
+    <city id="143709" stateId="232">
+        <name><![CDATA[Le Mourtis]]></name>
+    </city>
+    
+    <city id="143714" stateId="232">
+        <name><![CDATA[Bagnères-de-Luchon]]></name>
+    </city>
+    
+    <city id="143727" stateId="232">
+        <name><![CDATA[Saint-Bertrand-de-Comminges]]></name>
+    </city>
+    
+    <city id="143728" stateId="232">
+        <name><![CDATA[Salies-du-Salat]]></name>
+    </city>
+    
+    <city id="143741" stateId="239">
+        <name><![CDATA[Alpes dÂ´Huez]]></name>
+    </city>
+    
+    <city id="143748" stateId="239">
+        <name><![CDATA[Les deux Alpes]]></name>
+    </city>
+    
+    <city id="143678" stateId="265">
+        <name><![CDATA[Arette La Pierre Saint Martin]]></name>
+    </city>
+    
+    <city id="143682" stateId="265">
+        <name><![CDATA[Artouste]]></name>
+    </city>
+    
+    <city id="143690" stateId="265">
+        <name><![CDATA[Cambo-les-Bains]]></name>
+    </city>
+    
+    <city id="143694" stateId="265">
+        <name><![CDATA[Eaux-Bonnes]]></name>
+    </city>
+    
+    <city id="143695" stateId="265">
+        <name><![CDATA[Les Eaux Chaudes]]></name>
+    </city>
+    
+    <city id="143702" stateId="265">
+        <name><![CDATA[Gourette]]></name>
+    </city>
+    
+    <city id="143707" stateId="265">
+        <name><![CDATA[Laruns]]></name>
+    </city>
+    
+    <city id="143713" stateId="265">
+        <name><![CDATA[Louvie-Juzon]]></name>
+    </city>
+    
+    <city id="143719" stateId="265">
+        <name><![CDATA[Oloron-Sainte-Marie]]></name>
+    </city>
+    
+    <city id="143725" stateId="265">
+        <name><![CDATA[Saint-Pée-sur-Nivelle]]></name>
+    </city>
+    
+    <city id="143737" stateId="265">
+        <name><![CDATA[Le Somport]]></name>
+    </city>
+    
+    <city id="143815" stateId="265">
+        <name><![CDATA[Hendaya]]></name>
+    </city>
+    
+    <city id="143816" stateId="265">
+        <name><![CDATA[Saint-Jean-de-Luz]]></name>
+    </city>
+    
+    <city id="143817" stateId="265">
+        <name><![CDATA[Urrugne]]></name>
+    </city>
+    
+    <city id="143818" stateId="265">
+        <name><![CDATA[Biarritz]]></name>
+    </city>
+    
+    <city id="143819" stateId="265">
+        <name><![CDATA[Bayonne]]></name>
+    </city>
+    
+    <city id="143677" stateId="266">
+        <name><![CDATA[Ancizan]]></name>
+    </city>
+    
+    <city id="143679" stateId="266">
+        <name><![CDATA[Argelès-Gazost]]></name>
+    </city>
+    
+    <city id="143681" stateId="266">
+        <name><![CDATA[Arreau]]></name>
+    </city>
+    
+    <city id="143686" stateId="266">
+        <name><![CDATA[Bagnères-de-Bigorre]]></name>
+    </city>
+    
+    <city id="143688" stateId="266">
+        <name><![CDATA[Barèges]]></name>
+    </city>
+    
+    <city id="143689" stateId="266">
+        <name><![CDATA[Beaucens]]></name>
+    </city>
+    
+    <city id="143691" stateId="266">
+        <name><![CDATA[Capvern les Bains]]></name>
+    </city>
+    
+    <city id="143692" stateId="266">
+        <name><![CDATA[Cauterets]]></name>
+    </city>
+    
+    <city id="143700" stateId="266">
+        <name><![CDATA[Gavarnie]]></name>
+    </city>
+    
+    <city id="143701" stateId="266">
+        <name><![CDATA[Gèdre]]></name>
+    </city>
+    
+    <city id="143704" stateId="266">
+        <name><![CDATA[Le Hautacam, Préchac]]></name>
+    </city>
+    
+    <city id="143705" stateId="266">
+        <name><![CDATA[Préchac]]></name>
+    </city>
+    
+    <city id="143706" stateId="266">
+        <name><![CDATA[La Mongie]]></name>
+    </city>
+    
+    <city id="143711" stateId="266">
+        <name><![CDATA[Loudenvielle]]></name>
+    </city>
+    
+    <city id="143712" stateId="266">
+        <name><![CDATA[Lourdes]]></name>
+    </city>
+    
+    <city id="143715" stateId="266">
+        <name><![CDATA[Luz Saint Sauveur]]></name>
+    </city>
+    
+    <city id="143718" stateId="266">
+        <name><![CDATA[Nistos]]></name>
+    </city>
+    
+    <city id="143720" stateId="266">
+        <name><![CDATA[Germ]]></name>
+    </city>
+    
+    <city id="143724" stateId="266">
+        <name><![CDATA[Saint-Lary-Soulan]]></name>
+    </city>
+    
+    <city id="143733" stateId="266">
+        <name><![CDATA[Val Louron]]></name>
+    </city>
+    
+    <city id="143735" stateId="266">
+        <name><![CDATA[Vielle-Aure]]></name>
+    </city>
+    
+    <city id="143736" stateId="266">
+        <name><![CDATA[Aragnouet]]></name>
+    </city>
+    
+    <city id="143676" stateId="267">
+        <name><![CDATA[Amélie-Les-Bains]]></name>
+    </city>
+    
+    <city id="143680" stateId="267">
+        <name><![CDATA[Arles sur Tech]]></name>
+    </city>
+    
+    <city id="143693" stateId="267">
+        <name><![CDATA[Céret]]></name>
+    </city>
+    
+    <city id="143696" stateId="267">
+        <name><![CDATA[Err]]></name>
+    </city>
+    
+    <city id="143697" stateId="267">
+        <name><![CDATA[Eyne 2600]]></name>
+    </city>
+    
+    <city id="143698" stateId="267">
+        <name><![CDATA[Font-Romeu-Odeillo-Via]]></name>
+    </city>
+    
+    <city id="143699" stateId="267">
+        <name><![CDATA[Formiguères]]></name>
+    </city>
+    
+    <city id="143708" stateId="267">
+        <name><![CDATA[Le Boulou]]></name>
+    </city>
+    
+    <city id="143710" stateId="267">
+        <name><![CDATA[Les Angles]]></name>
+    </city>
+    
+    <city id="143717" stateId="267">
+        <name><![CDATA[Molitg-les-Bains]]></name>
+    </city>
+    
+    <city id="143721" stateId="267">
+        <name><![CDATA[Porté-Puymorens]]></name>
+    </city>
+    
+    <city id="143722" stateId="267">
+        <name><![CDATA[Prats-de-Mollo-la-Preste]]></name>
+    </city>
+    
+    <city id="143723" stateId="267">
+        <name><![CDATA[Puyvalador]]></name>
+    </city>
+    
+    <city id="143726" stateId="267">
+        <name><![CDATA[Saint-Pierre-dels-Forcats]]></name>
+    </city>
+    
+    <city id="143729" stateId="267">
+        <name><![CDATA[Tautavel]]></name>
+    </city>
+    
+    <city id="143731" stateId="267">
+        <name><![CDATA[Bolquère]]></name>
+    </city>
+    
+    <city id="143732" stateId="267">
+        <name><![CDATA[Pyrénées 2000]]></name>
+    </city>
+    
+    <city id="143734" stateId="267">
+        <name><![CDATA[Vernet-les-Bains]]></name>
+    </city>
+    
+    <city id="143742" stateId="274">
+        <name><![CDATA[Val dÂ´IsÃ¨re]]></name>
+    </city>
+    
+    <city id="143743" stateId="274">
+        <name><![CDATA[Saint martin de Belleville]]></name>
+    </city>
+    
+    <city id="143744" stateId="274">
+        <name><![CDATA[Tignes]]></name>
+    </city>
+    
+    <city id="143745" stateId="274">
+        <name><![CDATA[Meribel]]></name>
+    </city>
+    
+    <city id="143746" stateId="274">
+        <name><![CDATA[Bourg Saint Maurice]]></name>
+    </city>
+    
+    <city id="143740" stateId="275">
+        <name><![CDATA[Morzine]]></name>
+    </city>
+    
+    <city id="143747" stateId="275">
+        <name><![CDATA[Chamonix Mont Blanc]]></name>
+    </city>
+    
+</cities>

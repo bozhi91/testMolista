@@ -732,7 +732,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'i18n.label' => 'required|array',
 			'construction_year' => 'integer|min:0',
 			'export_to_all' => 'boolean',
-			'details' => ''
+			'details' => '',
+			'marketplace_attributes' => ''
 		];
 
 		return $fields;
@@ -805,7 +806,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			{
 				$property->$field = $this->request->input($field) ? 1 : 0;
 			}
-			elseif ( in_array($field, [ 'country_id','territory_id','state_id','city_id','construction_year','details' ]) )
+			elseif ( in_array($field, [ 'country_id','territory_id','state_id','city_id','construction_year','details', 'marketplace_attributes' ]) )
 			{
 				$property->$field = $this->request->input($field) ? $this->request->input($field) : null;
 			}

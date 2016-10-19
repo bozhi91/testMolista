@@ -51,6 +51,8 @@
 		'configuration.fields.name' => 'Name',
 		'configuration.fields.phone' => 'Phone',
 		'configuration.fields.lastname' => 'Last name',
+		'configuration.fields.oficina' => 'Account ID',
+
 		'configuration.fields.account.title' => 'Account',
 		'configuration.fields.account_id' => 'Account ID',
 		'configuration.fields.code' => 'Customer code',

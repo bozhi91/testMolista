@@ -97,6 +97,15 @@ class MarketplaceHelper
 		return true;
 	}
 
+	public function getAttributes($marketplace = null)
+	{
+		if ($marketplace) {
+			$this->setMarketplace($marketplace);
+		}
+
+		return $this->marketplace_adm->getAttributes();
+	}
+
 	public function checkReadyProperty($marketplace,$property)
 	{
 		$this->setMarketplace($marketplace);
@@ -267,12 +276,14 @@ class MarketplaceHelper
 
 	public function setMarketplace($marketplace)
 	{
-
 		// Marketplace without pivot data
 		if ( !isset($marketplace->pivot->marketplace_configuration) )
 		{
 			// Create marketplace from site
-			$marketplace = $this->site->marketplaces()->find($marketplace->id);
+			$marketplace_site = $this->site->marketplaces()->find($marketplace->id);
+			if ($marketplace_site) {
+				$marketplace = $marketplace_site;
+			}
 		}
 
 		$config = isset($marketplace->pivot->marketplace_configuration)
@@ -325,6 +336,10 @@ class MarketplaceHelper
 
 			$this->property_marketplace['price'] = $this->property_marketplace['price'] * $this->currencies_rates[$currency];
 		}
+
+		// Marketplace attributes
+		$this->property_marketplace['attributes'] = @$this->property_marketplace['marketplace_attributes'][$this->marketplace->id];
+		unset($this->property_marketplace['marketplace_attributes']);
 	}
 
 	public function deleteXMLs()
