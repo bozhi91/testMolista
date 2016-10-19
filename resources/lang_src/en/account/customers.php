@@ -20,7 +20,10 @@
 		'show.h1' => 'Lead view',
 		'show.tab.general' => 'General',
 
+		'delete' => 'Are you sure you want to remove this lead?',
+
 		'message.saved' => 'The lead has been successfully saved',
+		'message.deleted' => 'The lead has been successfully deleted',
 
 		'profile' => 'Search profile',
 		'profile.update' => 'Update profile',

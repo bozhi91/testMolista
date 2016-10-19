@@ -55,6 +55,7 @@
 								<th class="text-center">{{ number_format($customer->properties->count(), 0, ',', '.') }}</td>
 								<th class="text-center">{{ number_format($customer->possible_matches->count(), 0, ',', '.') }}</td>
 								<td class="text-right text-nowrap">
+									<a href="#"data-rel="{{ action('Account\CustomersController@destroy', urlencode($customer->email)) }}" class="btn btn-danger btn-xs delete-trigger">{{ Lang::get('general.delete') }}</a>
 									<a href="{{ action('Account\CustomersController@show', urlencode($customer->email)) }}" class="btn btn-primary btn-xs">{{ Lang::get('general.view') }}</a>
 								</td>
 							</tr>
@@ -63,6 +64,9 @@
 				</table>
                 {!! drawPagination($customers, Input::except('page'), action('Account\CustomersController@index', [ 'csv'=>1 ])) !!}
 			@endif
+
+			{!! Form::open([ 'method'=>'DELETE', 'class'=>'delete-form', 'action'=>'AccountController@index' ]) !!}
+			{!! Form::close() !!}
 
 		</div>
 	</div>
@@ -86,6 +90,22 @@
 			});
 
 			form.find('.has-select-2').select2();
+
+			cont.find('form.delete-form').validate({
+				submitHandler: function(f) {
+					SITECOMMON.confirm("{{ print_js_string( Lang::get('account/customers.delete') ) }}", function (e) {
+						if (e) {
+							LOADING.show();
+							f.submit();
+						}
+					});
+				}
+			});
+
+			cont.on('click','.delete-trigger', function(e){
+				e.preventDefault();
+				cont.find('form.delete-form').attr('action', $(this).data().rel).submit();
+			});
 
 		});
 	</script>

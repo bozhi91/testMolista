@@ -415,4 +415,18 @@ class CustomersController extends \App\Http\Controllers\AccountController
 
 		return $fields;
 	}
+
+	public function destroy($email)
+	{
+		$customer = $this->site->customers()->where('email', $email)->first();
+		if ( !$customer )
+		{
+			return redirect()->back()->with('error',trans('general.messages.error'));
+		}
+
+		//[TODO] DELETE CUSTOMER EN MOLISTA Y TICKETS
+
+		return redirect()->action('Account\CustomersController@index')->with('success',trans('account/customers.message.deleted'));
+	}
+
 }
