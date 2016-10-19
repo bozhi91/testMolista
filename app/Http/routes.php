@@ -180,6 +180,9 @@ Route::group([
 	// Feeds
 	Route::controller('feeds', 'Web\FeedsController');
 
+	// Themes Custom
+	Route::controller('custom/servicios', 'Web\Custom\ServiciosController');
+
 	// Account
 	Route::group([
 		'prefix' => 'account',
