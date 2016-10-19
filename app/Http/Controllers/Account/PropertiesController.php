@@ -639,6 +639,23 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		}
 
 		$property->enabled = $property->enabled ? 0 : 1;
+
+		// If change to enabled
+		if ( $property->enabled )
+		{
+			// Get site plan max_properties limitation
+			$max_properties = @intval($property->site->plan->max_properties);
+
+			// If limitation has been reached
+			if ( $max_properties && $this->site->properties()->enabled()->count() >= $max_properties )
+			{
+				return [
+					'error' => 1,
+					'error_message' => strip_tags(str_replace("\n", ' ', trans('account/warning.export.limit', [ 'max_properties' => $max_properties ]))),
+				];
+			}
+		}
+
 		$property->save();
 
 
