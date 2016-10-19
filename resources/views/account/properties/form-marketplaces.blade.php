@@ -54,6 +54,9 @@
 							{
 								$marketplace_published = true;
 							}
+
+							// Get marketplace attributes
+							$attributes = $current_site->marketplace_helper->getAttributes($marketplace);
 						?>
 						<tr>
 							<td class="text-center" style="width: 60px;">
@@ -70,6 +73,24 @@
 								<span class="marketplace-name text-nowrap;" style="background-image: url({{ asset("marketplaces/{$marketplace->logo}") }});">{{ $marketplace->name }}</span>
 							</td>
 							<td>
+								@if (!empty($attributes))
+									@foreach ($attributes as $attribute)
+									<div class="form-group error-container">
+										<label>{{ \Lang::get('account/properties.attributes.'.$attribute['id']) }}</label>
+										@if ($attribute['type'] == 'dropdown')
+										<select class="form-control" name="marketplace_attributes[{{ $marketplace['id'] }}][{{ $attribute['id'] }}]">
+											<option></option>
+											@foreach ($attribute['values'] as $value)
+											<option value="{{ $value['id'] }}" <?php echo $value['id'] == @$item['marketplace_attributes'][$marketplace['id']][$attribute['id']] ? 'selected="selected"' :'' ?>>{{ $value['label'] }}</option>
+											@endforeach
+										</select>
+										@endif
+									</div>
+									@endforeach
+
+									<hr>
+								@endif
+
 								@if ( $publishable === true )
 									@if ( $marketplace->pivot->marketplace_export_all )
 										{{ Lang::get('account/marketplaces.export_all.warning') }}

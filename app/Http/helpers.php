@@ -453,9 +453,9 @@
 	function translate_marketplace_error($message)
 	{
 		// EN
-		if (preg_match('#^The ([\w\s]+) field#', $message, $match)) {}
+		if (preg_match('#^The ([\w\s\.\-]+) field#', $message, $match)) {}
 		// ES
-		elseif (preg_match('#^El campo ([\w\s]+) es#', $message, $match)) {}
+		elseif (preg_match('#^El campo ([\w\s\.\-]+) es#', $message, $match)) {}
 
 		if (!empty($match[1])) {
 			$field = preg_replace('#\s#', '_', $match[1]);

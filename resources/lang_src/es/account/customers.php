@@ -19,6 +19,8 @@
 
 		'show.h1' => 'Vista lead',
 		'show.tab.general' => 'General',
+		'show.customer.comment.title' => 'Comentario',
+		'show.customer.comment.button' => 'Guardar comentario',
 
 		'delete' => '¿Confirma que desea eliminar permanentemente este cliente?',
 
@@ -35,4 +37,6 @@
 		'discards.undelete' => 'Quitar de esta lista',
 
 		'associate.h1' => 'Usar lead existente',
+		
+		'dni' => 'DNI',
 	];

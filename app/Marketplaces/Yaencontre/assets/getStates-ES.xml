@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<states>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <state id="1">
+        <name><![CDATA[Alava]]></name>
+    </state>
+    
+    <state id="2">
+        <name><![CDATA[Albacete]]></name>
+    </state>
+    
+    <state id="3">
+        <name><![CDATA[Alicante/Alacant]]></name>
+    </state>
+    
+    <state id="4">
+        <name><![CDATA[Almería]]></name>
+    </state>
+    
+    <state id="5">
+        <name><![CDATA[Avila]]></name>
+    </state>
+    
+    <state id="6">
+        <name><![CDATA[Badajoz]]></name>
+    </state>
+    
+    <state id="7">
+        <name><![CDATA[Balears (Illes)]]></name>
+    </state>
+    
+    <state id="8">
+        <name><![CDATA[Barcelona]]></name>
+    </state>
+    
+    <state id="9">
+        <name><![CDATA[Burgos]]></name>
+    </state>
+    
+    <state id="10">
+        <name><![CDATA[Cáceres]]></name>
+    </state>
+    
+    <state id="11">
+        <name><![CDATA[Cádiz]]></name>
+    </state>
+    
+    <state id="12">
+        <name><![CDATA[Castellón/Castelló]]></name>
+    </state>
+    
+    <state id="13">
+        <name><![CDATA[Ciudad Real]]></name>
+    </state>
+    
+    <state id="14">
+        <name><![CDATA[Córdoba]]></name>
+    </state>
+    
+    <state id="15">
+        <name><![CDATA[Coruña (A)]]></name>
+    </state>
+    
+    <state id="16">
+        <name><![CDATA[Cuenca]]></name>
+    </state>
+    
+    <state id="17">
+        <name><![CDATA[Girona]]></name>
+    </state>
+    
+    <state id="18">
+        <name><![CDATA[Granada]]></name>
+    </state>
+    
+    <state id="19">
+        <name><![CDATA[Guadalajara]]></name>
+    </state>
+    
+    <state id="20">
+        <name><![CDATA[Guipúzcoa]]></name>
+    </state>
+    
+    <state id="21">
+        <name><![CDATA[Huelva]]></name>
+    </state>
+    
+    <state id="22">
+        <name><![CDATA[Huesca]]></name>
+    </state>
+    
+    <state id="23">
+        <name><![CDATA[Jaén]]></name>
+    </state>
+    
+    <state id="24">
+        <name><![CDATA[León]]></name>
+    </state>
+    
+    <state id="25">
+        <name><![CDATA[Lleida]]></name>
+    </state>
+    
+    <state id="26">
+        <name><![CDATA[Rioja (La)]]></name>
+    </state>
+    
+    <state id="27">
+        <name><![CDATA[Lugo]]></name>
+    </state>
+    
+    <state id="28">
+        <name><![CDATA[Madrid]]></name>
+    </state>
+    
+    <state id="29">
+        <name><![CDATA[Málaga]]></name>
+    </state>
+    
+    <state id="30">
+        <name><![CDATA[Murcia]]></name>
+    </state>
+    
+    <state id="31">
+        <name><![CDATA[Navarra]]></name>
+    </state>
+    
+    <state id="32">
+        <name><![CDATA[Ourense]]></name>
+    </state>
+    
+    <state id="33">
+        <name><![CDATA[Asturias]]></name>
+    </state>
+    
+    <state id="34">
+        <name><![CDATA[Palencia]]></name>
+    </state>
+    
+    <state id="35">
+        <name><![CDATA[Palmas (Las)]]></name>
+    </state>
+    
+    <state id="36">
+        <name><![CDATA[Pontevedra]]></name>
+    </state>
+    
+    <state id="37">
+        <name><![CDATA[Salamanca]]></name>
+    </state>
+    
+    <state id="38">
+        <name><![CDATA[Santa Cruz de Tenerife]]></name>
+    </state>
+    
+    <state id="39">
+        <name><![CDATA[Cantabria]]></name>
+    </state>
+    
+    <state id="40">
+        <name><![CDATA[Segovia]]></name>
+    </state>
+    
+    <state id="41">
+        <name><![CDATA[Sevilla]]></name>
+    </state>
+    
+    <state id="42">
+        <name><![CDATA[Soria]]></name>
+    </state>
+    
+    <state id="43">
+        <name><![CDATA[Tarragona]]></name>
+    </state>
+    
+    <state id="44">
+        <name><![CDATA[Teruel]]></name>
+    </state>
+    
+    <state id="45">
+        <name><![CDATA[Toledo]]></name>
+    </state>
+    
+    <state id="46">
+        <name><![CDATA[Valencia/València]]></name>
+    </state>
+    
+    <state id="47">
+        <name><![CDATA[Valladolid]]></name>
+    </state>
+    
+    <state id="48">
+        <name><![CDATA[Vizcaya/Bizcaia]]></name>
+    </state>
+    
+    <state id="49">
+        <name><![CDATA[Zamora]]></name>
+    </state>
+    
+    <state id="50">
+        <name><![CDATA[Zaragoza]]></name>
+    </state>
+    
+    <state id="51">
+        <name><![CDATA[Ceuta]]></name>
+    </state>
+    
+    <state id="52">
+        <name><![CDATA[Melilla]]></name>
+    </state>
+    
+</states>

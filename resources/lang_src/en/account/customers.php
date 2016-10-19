@@ -19,6 +19,8 @@
 
 		'show.h1' => 'Lead view',
 		'show.tab.general' => 'General',
+		'show.customer.comment.title' => 'Comment',
+		'show.customer.comment.button' => 'Save comment',
 
 		'delete' => 'Are you sure you want to remove this lead?',
 
@@ -35,4 +37,6 @@
 		'discards.undelete' => 'Remove from this list',
 
 		'associate.h1' => 'Use existing lead',
+		
+		'dni' => 'DNI',
 	];
