@@ -167,7 +167,11 @@
 								el.find('.glyphicon').removeClass('glyphicon-ok').addClass('glyphicon-remove');
 							}
 						} else {
-							alertify.error("{{ print_js_string( Lang::get('general.messages.error') ) }}");
+							if ( data.error_message ) {
+								alertify.error(data.error_message);
+							} else {
+								alertify.error("{{ print_js_string( Lang::get('general.messages.error') ) }}");
+							}
 						}
 					},
 					error: function() {
