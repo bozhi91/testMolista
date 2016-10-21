@@ -18,6 +18,9 @@ class TicketsController extends \App\Http\Controllers\AccountController
 
 	public function getIndex()
 	{
+		// Import new customers from ticketing
+		$this->site->importTicketingCustomers();
+
 		if ( !$this->request->input('limit') )
 		{
 			$this->request->merge([

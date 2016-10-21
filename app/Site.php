@@ -1061,4 +1061,55 @@ class Site extends TranslatableModel
 		return false;
 	}
 
+	public function importTicketingCustomers()
+	{
+		// Get ticket customers
+		$contacts = $this->ticket_adm->getContacts();
+
+		if ( !$contacts )
+		{
+			return false;
+		}
+
+		// Get current customers
+		$contact_ids = $this->customers()->where('ticket_contact_id', '!=','')->lists('ticket_contact_id')->all();
+
+		foreach ($contacts as $contact)
+		{
+			if ( in_array($contact->id, $contact_ids) )
+			{
+				continue;
+			}
+
+			$customer = $this->customers()->where('email', $contact->email)->first();
+			if ( $customer )
+			{
+				if ( !$customer->ticket_contact_id )
+				{
+					$customer->update([
+						'ticket_contact_id' => $contact->id,
+					]);
+				}
+			}
+			else
+			{
+				$fullname_parts = explode(' ', $contact->fullname, 2);
+				$first_name = empty($fullname_parts[0]) ? '' : $fullname_parts[0];
+				$last_name = empty($fullname_parts[1]) ? '' : $fullname_parts[1];
+
+				$this->customers()->create([
+					'first_name' => $first_name,
+					'last_name' => $last_name,
+					'email' => $contact->email,
+					'phone' => $contact->phone ? $contact->phone : '',
+					'locale' => config()->get('app.fallback_locale'),
+					'origin' => $contact->referer  ? $contact->referer : 'tickets',
+					'ticket_contact_id' => $contact->id,
+				]);
+			}
+		}
+
+		return true;
+	}
+
 }

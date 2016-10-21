@@ -510,6 +510,36 @@ class TicketAdm
 		return true;
 	}
 
+	public function getContacts()
+	{
+		if ( !$this->site_ready )
+		{
+			return false;
+		}
+
+		$response = $this->guzzle_client->request('GET', "contact?site_id={$this->site_id}", [
+			'headers'=> [
+				'Authorization' => $this->getAuthorizationHeader(),
+			],
+		]);
+
+		// Error
+		$body = @json_decode( $response->getBody() );
+
+		if ( $response->getStatusCode() != 200 )
+		{
+			$error_message = "TICKETING -> could not retrieve contacts for site ID {$this->site_id}";
+			if ( @$body->message )
+			{
+				$error_message .= ": {$body->message}";
+			}
+			\Log::error($error_message);
+			return false;
+		}
+
+		return $body;
+	}
+
 	public function associateItem($item) 
 	{
 		if ( !$this->site_ready )
