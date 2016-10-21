@@ -516,7 +516,7 @@ class Property extends TranslatableModel
 	public function getFullUrlAttribute()
 	{
 		$site_url = rtrim($this->site->main_url, '/');
-		$property_url = action('Web\PropertiesController@details', $this->slug);
+		$property_url = action('Web\PropertiesController@details', [ $this->slug, $this->id ]);
 
 		// Is domain right?
 		if ( preg_match('#^'.$site_url.'#', $property_url) )
@@ -528,7 +528,7 @@ class Property extends TranslatableModel
 		$property_url = str_replace(
 							\Config::get('app.application_url'),
 							'',
-							action('Web\PropertiesController@details', $this->slug)
+							action('Web\PropertiesController@details', [ $this->slug, $this->id ])
 						);
 
 		return implode('/', [
@@ -643,7 +643,7 @@ class Property extends TranslatableModel
 		{
 			\App::setLocale($locale);
 			$slug = empty($i18n['slug'][$locale]) ? $i18n['slug'][$fallback_locale] : $i18n['slug'][$locale];
-			$temporal_url = parse_url(\LaravelLocalization::getLocalizedURL($locale, action('Web\PropertiesController@details', $slug)));
+			$temporal_url = parse_url(\LaravelLocalization::getLocalizedURL($locale, action('Web\PropertiesController@details', [ $slug, $this->id ])));
 			$this->marketplace_info['url'][$locale] = $this->site->main_url.@$temporal_url['path'];
 		}
 

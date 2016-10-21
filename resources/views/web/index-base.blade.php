@@ -27,7 +27,7 @@
 		@elseif ($main_property)
 			<div class="main-property carousel slide" data-interval="false">
 				<div class="carousel-inner" role="listbox">
-					<a href="{{ action('Web\PropertiesController@details', $main_property->slug) }}"  class="item active">
+					<a href="{{ $main_property->full_url }}"  class="item active">
 						<img src="{{$main_property->main_image}}" alt="{{$main_property->title}}" class="main-image" />
 						@include('web.index-caption')
 					</a>

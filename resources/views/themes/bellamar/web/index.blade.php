@@ -37,7 +37,7 @@
 			@if(!$widgetSlider)
 				<div class="main-property carousel slide" data-interval="false">
 					<div class="carousel-inner" role="listbox">
-						<div data-href="{{ action('Web\PropertiesController@details', $main_property->slug) }}" class="item active cursor-pointer">
+						<div data-href="{{ $main_property->full_url }}" class="item active cursor-pointer">
 							<img src="{{$main_property->main_image}}" alt="{{$main_property->title}}" class="main-image" />
 							@include('web.index-caption')
 						</div>
