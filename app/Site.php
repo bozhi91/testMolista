@@ -700,9 +700,21 @@ class Site extends TranslatableModel
 						{
 							foreach ($widget->menu->items as $item)
 							{
+								if ( $item->type == 'custom' )
+								{
+									$url = $item->url;
+								}
+								else
+								{
+									$url_parts = parse_url(\LaravelLocalization::getLocalizedURL($locale,$item->item_url).'?sdfsa=2434321');
+									$url = implode('?', array_filter([
+										@$url_parts['path'],
+										@$url_parts['query'],
+									]));
+								}
 								$w['items'][] = [
 									'title' => $item->item_title,
-									'url' => $item->type == 'custom' ? $item->url : \LaravelLocalization::getLocalizedURL($locale,$item->item_url),
+									'url' => $url,
 									'target' => $item->target,
 								];
 							}
