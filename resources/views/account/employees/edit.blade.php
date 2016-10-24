@@ -24,6 +24,7 @@
 					<li role="presentation"><a href="#tab-permissions" aria-controls="tab-permissions" role="tab" data-toggle="tab">{{ Lang::get('account/employees.show.tab.permissions') }}</a></li>
 					<li role="presentation"><a href="#tab-tickets" aria-controls="tab-tickets" role="tab" data-toggle="tab">{{ Lang::get('account/employees.tickets') }}</a></li>
 					<li role="presentation"><a href="#tab-visits" aria-controls="tab-visits" role="tab" data-toggle="tab">{{ Lang::get('account/visits.title') }}</a></li>
+					<li role="presentation"><a href="#tab-leads" aria-controls="tab-leads" role="tab" data-toggle="tab">{{ Lang::get('account/employees.leads') }}</a></li>
 				</ul>
 
 				<div class="tab-content">
@@ -139,6 +140,10 @@
 						@include('account.visits.ajax-tab', [
 							'visits_init' => true,
 						])
+					</div>
+					
+					<div role="tabpanel" class="tab-pane tab-main" id="tab-leads">
+						Leads
 					</div>
 
 				</div>
