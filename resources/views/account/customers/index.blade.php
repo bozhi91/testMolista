@@ -37,12 +37,12 @@
 					<thead>
 						<tr>
 							{!! drawSortableHeaders(url()->full(), [
-								'name' => [ 'title' => Lang::get('account/customers.name'), 'sortable'=>false, ],
-								'email' => [ 'title' => Lang::get('account/customers.email'), 'sortable'=>false, ],
-								'origin' => [ 'title' => Lang::get('account/customers.origin'), 'sortable'=>false, ],
-								'properties' => [ 'title' => Lang::get('account/customers.properties'), 'sortable'=>false, 'class'=>'text-center', ],
+								'name' => [ 'title' => Lang::get('account/customers.name'), ],
+								'email' => [ 'title' => Lang::get('account/customers.email'), ],
+								'origin' => [ 'title' => Lang::get('account/customers.origin'), ],
+								'properties' => [ 'title' => Lang::get('account/customers.properties'), 'class'=>'text-center', ],
 								'matches' => [ 'title' => Lang::get('account/customers.matches'), 'sortable'=>false, 'class'=>'text-center', ],
-								'action' => [ 'title' => '', 'sortable'=>false, 'class'=>'text-right text-nowrap', ],
+								'action' => [ 'title' => '', 'class'=>'text-right text-nowrap', ],
 							]) !!}
 						</tr>
 					</thead>

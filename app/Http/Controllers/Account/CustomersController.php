@@ -35,8 +35,30 @@ class CustomersController extends \App\Http\Controllers\AccountController
 			$query->where('customers.email', 'like', "%{$this->request->input('email')}%");
 		}
 
-		$query->orderBy('created_at','desc');
-
+		$order = $this->request->input('order');		
+		switch ( $this->request->input('orderby') )
+		{
+			case 'name': 
+				$query->orderBy('first_name', $order); 
+				$query->orderBy('last_name', $order);
+				break;
+			case 'email': 
+				$query->orderBy('email', $order); 
+				break;
+			case 'origin': 
+				$query->orderBy('origin', $order); 
+				break;
+			case 'properties': 
+				$query->select('*');				
+				$query->addSelect(\DB::raw('(SELECT COUNT(*) FROM properties_customers '
+						. 'WHERE properties_customers.customer_id = customers.id) as properties_total'));
+				$query->orderBy('properties_total', $order);
+				break;
+			default: 
+				$query->orderBy('created_at', 'desc'); 
+				break;
+		}
+				
 		if ( $this->request->input('csv') )
 		{
 			return $this->exportCsv($query);
