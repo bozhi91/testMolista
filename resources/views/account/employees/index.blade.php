@@ -21,12 +21,14 @@
 				<table class="table table-striped">
 					<thead>
 						<tr>
-							<th>{{ Lang::get('account/employees.name') }}</th>
-							<th>{{ Lang::get('account/employees.email') }}</th>
-							<th class="text-center">{{ Lang::get('account/employees.properties') }}</th>
-							<th class="text-center text-nowrap">{{ Lang::get('account/employees.tickets') }}</th>
-							<th class="text-center">{{ Lang::get('account/employees.leads') }}</th>
-							<th></th>
+							{!! drawSortableHeaders(url()->full(), [
+								'name' => [ 'title' => Lang::get('account/employees.name') ],
+								'email' => [ 'title' => Lang::get('account/employees.email') ],
+								'properties' => [ 'title' => Lang::get('account/employees.properties'), 'class'=>'text-center', 'sortable'=>false ],
+								'tickets' => [ 'title' => Lang::get('account/employees.tickets'), 'sortable'=>false, 'class'=>'text-center text-nowrap' ],
+								'leads' => [ 'title' => Lang::get('account/employees.leads'), 'class'=>'text-center', 'sortable'=>false ],
+								'action' => [ 'title' => '', 'sortable'=>false ],
+							]) !!}
 						</tr>
 					</thead>
 					<tbody>
