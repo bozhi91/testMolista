@@ -54,6 +54,9 @@ class CustomersController extends \App\Http\Controllers\AccountController
 						. 'WHERE properties_customers.customer_id = customers.id) as properties_total'));
 				$query->orderBy('properties_total', $order);
 				break;
+			case 'status':
+				$query->orderBy('active', $order); 
+				break;
 			case 'creation':
 			default: 
 				$query->orderBy('created_at', $order ? $order : 'desc'); 
@@ -443,5 +446,43 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		];
 
 		return $fields;
+	}
+	
+	public function getChangeStatus($email)
+	{
+		// If $email is integer,  redirect
+		if ( preg_match('#^[0-9]+$#', $email) )
+		{
+			$customer = $this->site->customers()->findOrFail($email);
+			return redirect()->action('Account\CustomersController@show', urlencode($customer->email));
+		}
+
+		$query = $this->site->customers()
+					->with('queries')
+					->with([ 'properties' => function($query){
+						$query->with('calendars');
+					}])
+					->with('properties_discards')
+					->where('email', $email);
+
+		if ( $this->site_user->hasRole('employee') )
+		{
+			$query->ofUser($this->site_user->id);
+		}
+
+		$customer = $query->first();
+
+		if ( !$customer )
+		{
+			return [ 'error'=>1 ];
+		}
+		
+		$customer->active = !$customer->active;
+		$customer->save();
+		
+		return [
+			'success' => 1,
+			'active' => $customer->active
+		];
 	}
 }

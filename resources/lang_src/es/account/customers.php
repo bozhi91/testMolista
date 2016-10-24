@@ -14,6 +14,7 @@
 		'locale' => 'Idioma',
 		'created' => 'Registro',
 		'origin' => 'Origen',
+		'active' => 'Activo',
 
 		'create.h1' => 'Nuevo lead',
 

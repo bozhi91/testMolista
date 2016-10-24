@@ -14,6 +14,7 @@
 		'locale' => 'Language',
 		'created' => 'Created',
 		'origin' => 'Source',
+		'active' => 'Active',
 
 		'create.h1' => 'Create lead',
 

@@ -243,6 +243,7 @@ Route::group([
 		Route::post('customers/properties/{slug}', 'Account\CustomersController@postAddPropertyCustomer');
 		Route::get('customers/properties/{slug}', 'Account\CustomersController@getAddPropertyCustomer');
 		Route::post('customers/profile/{email}', 'Account\CustomersController@postProfile');
+		Route::get('customers/status/{email}', 'Account\CustomersController@getChangeStatus');
 		Route::resource('customers', 'Account\CustomersController');
 		// Marketplaces
 		Route::group([

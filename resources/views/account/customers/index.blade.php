@@ -37,6 +37,7 @@
 					<thead>
 						<tr>
 							{!! drawSortableHeaders(url()->full(), [
+								'status' => [ 'title' => Lang::get('account/customers.active'), ],
 								'name' => [ 'title' => Lang::get('account/customers.name'), ],
 								'email' => [ 'title' => Lang::get('account/customers.email'), ],
 								'creation' => [ 'title' => Lang::get('account/customers.created') ],
@@ -51,6 +52,11 @@
 					<tbody>
 						@foreach ($customers as $customer)
 							<tr>
+								<td class="text-center">
+									<a href="#" data-url="{{ action('Account\CustomersController@getChangeStatus', $customer->email) }}" class="change-status-trigger">
+										<span class="glyphicon glyphicon-{{ $customer->active ? 'ok' : 'remove' }}" aria-hidden="true"></span>
+									</a>
+								</td>
 								<td>{{ $customer->full_name }}</td>
 								<td>{{ $customer->email }}</td>
 								<td>{{  $customer->created_at->format('d/m/Y') }}</td>
@@ -90,6 +96,37 @@
 			});
 
 			form.find('.has-select-2').select2();
+
+			cont.on('click', '.change-status-trigger', function(e){
+				e.preventDefault();
+
+				LOADING.show();
+
+				var el = $(this);
+
+				$.ajax({
+					dataType: 'json',
+					url: el.data().url,
+					success: function(data) {
+						LOADING.hide();
+						if (data.success) {
+							if (data.active) {
+								el.find('.glyphicon').removeClass('glyphicon-remove').addClass('glyphicon-ok');
+							} else {
+								el.find('.glyphicon').removeClass('glyphicon-ok').addClass('glyphicon-remove');
+							}
+						} else {
+							alertify.error("{{ print_js_string( Lang::get('general.messages.error') ) }}");
+						}
+					},
+					error: function() {
+						LOADING.hide();
+						alertify.error("{{ print_js_string( Lang::get('general.messages.error') ) }}");
+					}
+				});
+
+			});
+
 
 		});
 	</script>
