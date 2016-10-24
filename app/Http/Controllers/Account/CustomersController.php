@@ -54,8 +54,9 @@ class CustomersController extends \App\Http\Controllers\AccountController
 						. 'WHERE properties_customers.customer_id = customers.id) as properties_total'));
 				$query->orderBy('properties_total', $order);
 				break;
+			case 'creation':
 			default: 
-				$query->orderBy('created_at', 'desc'); 
+				$query->orderBy('created_at', $order ? $order : 'desc'); 
 				break;
 		}
 				
@@ -66,9 +67,15 @@ class CustomersController extends \App\Http\Controllers\AccountController
 
 		$customers = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
+		if ( $customers->count() > 0 )
+		{			
+			$ids = $customers->pluck('id')->all();
+			$stats = $this->site->ticket_adm->getCustomersStats($ids);
+		}
+				
 		$this->set_go_back_link();
 
-		return view('account.customers.index', compact('customers'));
+		return view('account.customers.index', compact('customers', 'stats'));
 	}
 
 	public function exportCsv($query)

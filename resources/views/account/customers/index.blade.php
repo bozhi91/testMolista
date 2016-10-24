@@ -39,9 +39,11 @@
 							{!! drawSortableHeaders(url()->full(), [
 								'name' => [ 'title' => Lang::get('account/customers.name'), ],
 								'email' => [ 'title' => Lang::get('account/customers.email'), ],
+								'creation' => [ 'title' => Lang::get('account/customers.created') ],
 								'origin' => [ 'title' => Lang::get('account/customers.origin'), ],
 								'properties' => [ 'title' => Lang::get('account/customers.properties'), 'class'=>'text-center', ],
 								'matches' => [ 'title' => Lang::get('account/customers.matches'), 'sortable'=>false, 'class'=>'text-center', ],
+								'tickets' => [ 'title' => Lang::get('account/employees.tickets'), 'sortable'=>false, 'class'=>'text-center', ],
 								'action' => [ 'title' => '', 'class'=>'text-right text-nowrap', ],
 							]) !!}
 						</tr>
@@ -51,9 +53,11 @@
 							<tr>
 								<td>{{ $customer->full_name }}</td>
 								<td>{{ $customer->email }}</td>
+								<td>{{  $customer->created_at->format('d/m/Y') }}</td>
 								<td style="text-transform: capitalize;">{{ $customer->origin }}</td>
-								<th class="text-center">{{ number_format($customer->properties->count(), 0, ',', '.') }}</td>
-								<th class="text-center">{{ number_format($customer->possible_matches->count(), 0, ',', '.') }}</td>
+								<td class="text-center">{{ number_format($customer->properties->count(), 0, ',', '.') }}</td>
+								<td class="text-center">{{ number_format($customer->possible_matches->count(), 0, ',', '.') }}</td>
+								<td class="text-center">{{ @number_format(intval( $stats[$customer->id]->tickets->open ), 0, ',', '.') }}</td>
 								<td class="text-right text-nowrap">
 									<a href="{{ action('Account\CustomersController@show', urlencode($customer->email)) }}" class="btn btn-primary btn-xs">{{ Lang::get('general.view') }}</a>
 								</td>
