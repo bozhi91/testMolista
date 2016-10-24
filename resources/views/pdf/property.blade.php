@@ -180,10 +180,12 @@
 							@endif
 						</td>
 						<td class="powered-logo">
+							@if (!$property->site->hide_molista)
 							<div class="powered">Powered by</div>
 							<div class="logo">
 								<img src="{{ public_path('images/pdf/molista.png') }}" />
 							</div>
+							@endif
 						</td>
 					</tr>
 				</table>
