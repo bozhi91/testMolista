@@ -3,20 +3,20 @@
 	.section-1 {
 		.section-1-left-block {
 			background-color: #211f22;
-			height: 570px;
+			height: 690px;
 
 			.section-1-left-block-content {
 				padding-top: 150px;
-				width: 350px;
+				width: 410px;
     			margin: auto;
 
 				.section-1-left-block-title {
 					color: #f0c700;
-					font-size: 38px;
+					font-size: 48px;
 				}
 				.section-1-left-block-subtitle {
 					color: #ffffff;
-					font-size: 38px;
+					font-size: 48px;
 				}
 			}
 		}
@@ -24,6 +24,8 @@
 		@media (max-width: 991px) {
 			.section-1-left-block {
 				.section-1-left-block-content {
+					width: 315px;
+
 					.section-1-left-block-title {
 						font-size: 32px;
 					}
@@ -40,15 +42,18 @@
 
 				.section-1-left-block-content {
 					padding-top: 50px;
+					width: 335px;
 				}
 			}
 		}
 
 		@media (max-width: 400px) {
 			.section-1-left-block {
-				height: 230px;
+				height: 300px;
 
 				.section-1-left-block-content {
+					width: 100%;
+
 					.section-1-left-block-title {
 						font-size: 26px;
 					}
@@ -61,11 +66,11 @@
 
 		.section-1-right-block {
 			background-color: #ffffff;
-			height: 570px;
+			height: 690px;
 
 			.section-1-right-block-content {
 				padding-top: 150px;
-				width: 350px;
+				width: 410px;
     			margin: auto;
 
 				.section-1-right-block-list {
@@ -74,7 +79,7 @@
 							color: #211f22;
 							border-color: transparent !important;
 							padding-left: 55px;
-							font-size: 16px;
+							font-size: 24px;
 
 							.icon-img {
 								margin-left: -35px;
@@ -89,9 +94,11 @@
 				}
 
 				.section-1-right-block-button {
-					.section-1-right-block-button {
+					.section-1-right-block-button-content {
 						padding-left: 15px;
 						text-align: center;
+						padding-top: 20px;
+						padding-bottom: 20px;
 
 						.start-button {
 							color: #211f22;
@@ -102,7 +109,6 @@
 							border: 1px solid #211f22;
 
 							&:hover {
-								opacity: 0.8;
 								text-decoration: none;
 								background-color: #211f22;
 								color: #ffffff;
@@ -110,7 +116,7 @@
 						}
 					}
 					@media (max-width: 400px) {
-						.section-1-right-block-button {
+						.section-1-right-block-button-content {
 							text-align: left;
 						}
 					}
@@ -121,7 +127,7 @@
 						height: 183px;
 						margin-right: auto;
 						margin-left: auto;
-    					margin-top: 33px;
+    					margin-top: 63px;
 					}
 					@media (max-width: 400px) {
 						img {
@@ -130,15 +136,30 @@
 					}
 				}
 			}
-			@media (max-width: 768px) {
+		}
+		@media (max-width: 991px) {
+			.section-1-right-block {
 				.section-1-right-block-content {
-					padding-top: 50px;
+					width: 315px;
+
+					.section-1-right-block-list {
+						.list-group {
+							.list-group-item {
+								padding-left: 30px;
+    							font-size: 19px;
+							}
+						}
+					}
 				}
 			}
 		}
 		@media (max-width: 768px) {
 			.section-1-right-block {
-				height: 475px;
+				height: 580px;
+
+				.section-1-right-block-content {
+					padding-top: 50px;
+				}
 			}
 		}
 		@media (max-width: 400px) {
@@ -179,7 +200,7 @@
 		.section-2-title {
 			text-align: center;
 			color: #211f22;
-			font-size: 38px;
+			font-size: 48px;
 
 
 			.section-2-title-yellow {
@@ -191,7 +212,7 @@
 			text-align: center;
 			padding-top: 20px;
 			padding-bottom: 20px;
-			font-size: 16px;
+			font-size: 24px;
 		}
 
 		.section-2-icons {
@@ -218,15 +239,29 @@
 			.tip-title {
 				color: #211f22;
 				font-weight: bold;
-				font-size: 16px;
+				font-size: 24px;
 			}
 			.tip-text {
 				color: #211f22;
-				font-size: 16px;
+				font-size: 24px;
 			}
-			@media (max-width: 768px) {
+		}
+	}
+	@media (max-width: 991px) {
+		.section-2 {
+			.section-2-title {
+				font-size: 32px;
+			}
+			.section-2-subtitle {
+				font-size: 19px;
+			}
+			.section-2-tips {
+				.tip-title {
+					font-size: 19px;
+				}
 				.tip-text {
 					margin-bottom: 20px;
+					font-size: 19px;
 				}
 			}
 		}
@@ -240,9 +275,9 @@
 
 		.section-3-title {
 			color: #211f22;
-			font-size: 26px;
-			padding-top: 10px;
-			padding-bottom: 30px;
+			font-size: 30px;
+			padding-top: 20px;
+			padding-bottom: 40px;
 		}
 		@media (max-width: 768px) {
 			.section-3-title {
@@ -270,6 +305,13 @@
 			}
 		}
 	}
+	@media (max-width: 991px) {
+		.section-3 {
+			.section-3-title {
+
+			}
+		}
+	}
 	@media (max-width: 768px) {
 		.section-3 {
 			padding-top: 20px;
@@ -283,7 +325,7 @@
 
 		.section-4-title {
 			color: #ffffff;
-			font-size: 30px;
+			font-size: 48px;
     		padding-top: 20px;
     		padding-bottom: 10px;
 
@@ -304,7 +346,6 @@
 				border: 1px solid #211f22;
 
 				&:hover {
-					opacity: 0.8;
 					text-decoration: none;
 					background-color: #211f22;
 					color: #ffffff;

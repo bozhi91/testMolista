@@ -7,7 +7,7 @@
 	<div class="section-1">
 		<div class="col-xs-12 col-sm-6 section-1-left-block">
 			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
+				<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-1 col-lg-8 col-lg-offset-2">
 					<div class="section-1-left-block-content">
 						<div class="section-1-left-block-title">
 							Facilitamos el día a día <br class="hidden-xs">
@@ -22,17 +22,17 @@
 		</div>
 		<div class="col-xs-12 col-sm-6 section-1-right-block">
 			<div class="row">
-				<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+				<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
 					<div class="section-1-right-block-content">
 						<div class="section-1-right-block-list">
 							<ul class="list-group">
 								<li class="list-group-item"><span class="icon-img"><img src="/images/corporate/landing/chevron-right.png"></span>Configuración de tu web <span class="section-1-right-block-list-yellow">INCLUIDO</span></li>
 								<li class="list-group-item"><span class="icon-img"><img src="/images/corporate/landing/chevron-right.png"></span>Trapaso de web <span class="section-1-right-block-list-yellow">GRATIS*</span></li>
-								<li class="list-group-item"><span class="icon-img"><img src="/images/corporate/landing/chevron-right.png"></span>Exportación a los principales portales <br>inmobiliarios <span class="section-1-right-block-list-yellow">Incluido</span></li>
+								<li class="list-group-item"><span class="icon-img"><img src="/images/corporate/landing/chevron-right.png"></span>Exportación a los principales portales <br>inmobiliarios <span class="section-1-right-block-list-yellow">INCLUIDO</span></li>
 							</ul>
 						</div>
 						<div class="section-1-right-block-button">
-							<div class="section-1-right-block-button">
+							<div class="section-1-right-block-button-content">
 								<a class="start-button" href="#">QUIERO EMPEZAR AHORA</a>
 							</div>
 						</div>
@@ -90,22 +90,22 @@
 				<div class="col-xs-12 col-sm-4">
 					<div class="tip-title">Tu CRM</div>
 					<div class="tip-text">
-						Gestiona tus inmuebles, clientes y <br class="hidden-xs" >
+						Gestiona tus inmuebles, clientes y <br class="hidden-xs hidden-sm hidden-md" >
 						agentes desde una única herramienta.
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-4">
 					<div class="tip-title">Tu página web</div>
 					<div class="tip-text">
-						Elije entre diferentes plantillas para <br class="hidden-xs" >
-						darle el look profesional y <br class="hidden-xs" >
+						Elije entre diferentes plantillas para <br class="hidden-xs hidden-sm hidden-md" >
+						darle el look profesional y <br class="hidden-xs hidden-sm hidden-md" >
 						personalizado.
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-4">
 					<div class="tip-title">Tu marketplace</div>
 					<div class="tip-text">
-						Sincroniza tus inmuebles con los <br class="hidden-xs" >
+						Sincroniza tus inmuebles con los <br class="hidden-xs hidden-sm hidden-md" >
 						principales portales inmobiliarios
 					</div>
 				</div>
