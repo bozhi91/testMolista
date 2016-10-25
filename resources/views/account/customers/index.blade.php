@@ -19,13 +19,38 @@
 				@endif
 				<h2>{{ Lang::get('general.filters') }}</h2>
 				{!! Form::open([ 'method'=>'GET', 'class'=>'form-inline', 'id'=>'filters-form' ]) !!}
-					{!! Form::hidden('limit', Input::get('limit')) !!}
 					<div class="form-group">
-						{!! Form::label('customer_id', Lang::get('account/customers.h1'), [ 'class'=>'sr-only' ]) !!}
-						{!! Form::select('customer_id', [
-							'' => '&nbsp;',
-						]+$current_site->getCustomersOptions($current_site_user), Input::get('customer_id'), [ 'class'=>'has-select-2 form-control' ]) !!}
+						{!! Form::label('active', Lang::get('account/customers.active'), [ 'class'=>'sr-only' ]) !!}
+						{!! Form::select('active', [
+							'' => '',
+							'1' => Lang::get('account/customers.active'),
+							'0' => Lang::get('account/customers.active.not'),
+						], Input::get('active'), [ 'class'=>'form-control' ]) !!}
 					</div>
+					<div class="form-group">
+						{!! Form::label('name', Lang::get('account/customers.name'), [ 'class'=>'sr-only' ]) !!}
+						{!! Form::text('name', Input::get('name'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('account/customers.name') ]) !!}
+					</div>
+					<div class="form-group">
+						{!! Form::label('email', Lang::get('account/customers.email'), [ 'class'=>'sr-only' ]) !!}
+						{!! Form::text('email', Input::get('email'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('account/customers.email') ]) !!}
+					</div>
+					<div class="form-group">
+						{!! Form::label('created_at', Lang::get('account/customers.created'), [ 'class'=>'sr-only' ]) !!}
+						{!! Form::text('created_at', Input::get('created_at'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('account/customers.created') ]) !!}
+					</div>
+					<div class="form-group">
+						{!! Form::label('origin', Lang::get('account/customers.origin'), [ 'class'=>'sr-only' ]) !!}
+						{!! Form::select('origin', [
+							'' => '',
+							'web' => 'Web',
+						], Input::get('origin'), [ 'class'=>'form-control' ]) !!}
+					</div>
+					<div class="form-group">
+						{!! Form::label('properties', Lang::get('account/customers.properties'), [ 'class'=>'sr-only' ]) !!}
+						{!! Form::text('properties', Input::get('properties'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('account/customers.properties') ]) !!}
+					</div>
+					
 					{!! Form::submit(Lang::get('general.view'), [ 'class'=>'btn btn-default' ]) !!}
 				{!! Form::close() !!}
 			</div>
@@ -80,7 +105,7 @@
 	<script type="text/javascript">
 		ready_callbacks.push(function() {
 			var cont = $('#admin-customers');
-			var form = $('#filters-form');
+			/*var form = $('#filters-form');
 			var viewurl = "{{ action('Account\CustomersController@show', 'USEREMAIL') }}";
 
 			form.validate({
@@ -95,7 +120,7 @@
 				}
 			});
 
-			form.find('.has-select-2').select2();
+			form.find('.has-select-2').select2();*/
 
 			cont.on('click', '.change-status-trigger', function(e){
 				e.preventDefault();

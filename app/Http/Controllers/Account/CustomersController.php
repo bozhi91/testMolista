@@ -24,9 +24,9 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		}
 
 		// Filter by name
-		if ( $this->request->input('full_name') )
+		if ( $this->request->input('name') )
 		{
-			$query->withFullName( $this->request->input('full_name') );
+			$query->withFullName( $this->request->input('name') );
 		}
 
 		// Filter by email
@@ -34,7 +34,28 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		{
 			$query->where('customers.email', 'like', "%{$this->request->input('email')}%");
 		}
-
+		
+		//Filter by active
+		if($this->request->input('active') || $this->request->input('active') === '0') {
+			$query->where('active', $this->request->input('active'));
+		}
+		
+		//Filter by origin
+		if($this->request->input('origin')) {
+			$query->where('origin', $this->request->input('origin'));
+		}
+		
+		//Filter by created at
+		if($this->request->input('created_at')) {			
+			$query->where(\DB::raw("DATE_FORMAT(created_at, '%d/%m/%Y')"), 'like', "%{$this->request->input('created_at')}%");
+		}
+		
+		//Filter by properties
+		$propertiesQuery = \DB::raw('(SELECT COUNT(*) FROM properties_customers WHERE properties_customers.customer_id = customers.id)');
+		if($this->request->input('properties')) {	
+			$query->where($propertiesQuery, $this->request->input('properties'));
+		}
+		
 		$order = $this->request->input('order');		
 		switch ( $this->request->input('orderby') )
 		{
@@ -49,10 +70,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 				$query->orderBy('origin', $order); 
 				break;
 			case 'properties': 
-				$query->select('*');				
-				$query->addSelect(\DB::raw('(SELECT COUNT(*) FROM properties_customers '
-						. 'WHERE properties_customers.customer_id = customers.id) as properties_total'));
-				$query->orderBy('properties_total', $order);
+				$query->orderBy($propertiesQuery, $order);
 				break;
 			case 'status':
 				$query->orderBy('active', $order); 
