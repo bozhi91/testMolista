@@ -44,6 +44,21 @@
 			}
 		}
 
+		@media (max-width: 400px) {
+			.section-1-left-block {
+				height: 230px;
+
+				.section-1-left-block-content {
+					.section-1-left-block-title {
+						font-size: 26px;
+					}
+					.section-1-left-block-subtitle {
+						font-size: 26px;
+					}
+				}
+			}
+		}
+
 		.section-1-right-block {
 			background-color: #ffffff;
 			height: 570px;
@@ -76,6 +91,7 @@
 				.section-1-right-block-button {
 					.section-1-right-block-button {
 						padding-left: 15px;
+						text-align: center;
 
 						.start-button {
 							color: #211f22;
@@ -90,12 +106,24 @@
 							}
 						}
 					}
+					@media (max-width: 400px) {
+						.section-1-right-block-button {
+							text-align: left;
+						}
+					}
 				}
 
 				.section-1-right-block-image {
 					img {
 						height: 183px;
+						margin-right: auto;
+						margin-right: auto;
     					margin-top: 33px;
+					}
+					@media (max-width: 400px) {
+						img {
+							margin-left: 0px;
+						}
 					}
 				}
 			}
@@ -108,6 +136,20 @@
 		@media (max-width: 768px) {
 			.section-1-right-block {
 				height: 475px;
+			}
+		}
+		@media (max-width: 400px) {
+			.section-1-right-block {
+				.section-1-right-block-content {
+					.section-1-right-block-button {
+						.section-1-right-block-button {
+							.start-button {
+								font-size: 18px;
+								margin-left: 20px;
+							}
+						}
+					}
+				}
 			}
 		}
 	}
@@ -260,6 +302,12 @@
 
 				&:hover {
 					opacity: 0.8;
+				}
+			}
+			@media (max-width: 400px) {
+				.start-button {
+					font-size: 18px;
+					margin-left: 20px;
 				}
 			}
 		}
