@@ -17,7 +17,7 @@ class SendNotificationOnPropertySale extends Job implements ShouldQueue {
 	 *
 	 * @return void
 	 */
-	public function __construct(array $emails, $locale) {
+	public function __construct() {
 
 	}
 
@@ -27,6 +27,25 @@ class SendNotificationOnPropertySale extends Job implements ShouldQueue {
 	 * @return void
 	 */
 	public function handle() {
+		$subject = trans('corporate/signup.email.subject');
+		
+	
+		/*$css_path = base_path('resources/assets/css/emails/signup.css');
+		if ( file_exists($css_path) )
+		{
+			$emogrifier = new \Pelago\Emogrifier($html, file_get_contents($css_path));
+			$html = $emogrifier->emogrify();
+		}*/
+		
+		\Mail::send('emails.property.notify-close-transaction', [ ], function($message) use ($subject) {
+			$message->from( env('MAIL_FROM_EMAIL'), env('MAIL_FROM_NAME') );
+			$message->subject($subject);
+			$message->to('demmbox@gmail.com');
+			//$message->bcc('luis@molista.com', 'Luis Krug');
+		});
+		
+		
+		
 		
 	}
 
