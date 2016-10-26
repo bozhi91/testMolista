@@ -518,23 +518,24 @@ class Property extends TranslatableModel
 		$site_url = rtrim($this->site->main_url, '/');
 		$property_url = action('Web\PropertiesController@details', $this->slug);
 
-		// Is domain right?
-		if ( preg_match('#^'.$site_url.'#', $property_url) )
-		{
-			return $property_url;
+		// Use always the main domain
+		$parts = parse_url($property_url);
+
+		$url = $site_url;
+
+		if (!empty($parts['path'])) {
+			$url .= $parts['path'];
 		}
 
-		// Fix wrong domain
-		$property_url = str_replace(
-							\Config::get('app.application_url'),
-							'',
-							action('Web\PropertiesController@details', $this->slug)
-						);
+		if (!empty($parts['query'])) {
+			$url .= '?'.$parts['query'];
+		}
 
-		return implode('/', [
-			$site_url,
-			$property_url,
-		]);
+		if (!empty($parts['fragment'])) {
+			$url .= '#'.$parts['fragment'];
+		}
+
+		return $url;
 	}
 
 	public function getContactsAttribute()
