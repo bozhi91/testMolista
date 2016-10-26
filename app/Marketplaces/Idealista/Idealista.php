@@ -65,7 +65,7 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
     protected function generateXML(){
 
         //Start xml doc
-        $writer = new \Sabre\Xml\Writer();
+        $writer = new Writer();
         $writer->openMemory();
         $writer->setIndent(true);
         $writer->startDocument('1.0', 'UTF-8');
@@ -97,7 +97,7 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
 
                 //Code
                 $writer->startElement('code');
-                $writer->write($data['promo_code']);
+                $writer->write($data['promo_code'], true);
                 $writer->endElement();
 
                 //Address
