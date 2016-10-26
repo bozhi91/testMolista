@@ -15,6 +15,7 @@
 		'created' => 'Created',
 		'origin' => 'Source',
 		'active' => 'Active',
+		'active.not' => 'Not active',
 
 		'create.h1' => 'Create lead',
 

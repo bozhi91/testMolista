@@ -15,6 +15,7 @@
 		'created' => 'Registro',
 		'origin' => 'Origen',
 		'active' => 'Activo',
+		'active.not' => 'No activo',
 
 		'create.h1' => 'Nuevo lead',
 

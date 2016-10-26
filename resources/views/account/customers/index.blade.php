@@ -48,7 +48,7 @@
 					</div>
 					<div class="form-group">
 						{!! Form::label('properties', Lang::get('account/customers.properties'), [ 'class'=>'sr-only' ]) !!}
-						{!! Form::text('properties', Input::get('properties'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('account/customers.properties') ]) !!}
+						{!! Form::text('properties', Input::get('properties'), [ 'class'=>'form-control', 'id' => 'not-properties', 'placeholder'=>Lang::get('account/customers.properties') ]) !!}
 					</div>
 					
 					{!! Form::submit(Lang::get('general.view'), [ 'class'=>'btn btn-default' ]) !!}
