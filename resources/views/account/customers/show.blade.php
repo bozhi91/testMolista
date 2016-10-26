@@ -316,7 +316,7 @@
 											@endif
 											<a href="{{ action('Account\Calendar\BaseController@getCreate') }}?property_ids[]={{$property->id}}&customer_id={{@$customer->id}}" class="btn btn-info btn-xs">{{ Lang::get('account/calendar.button.schedule') }}</a>
 											{!! Form::button(Lang::get('account/customers.discards.action'), [ 'type'=>'submit', 'class'=>'btn btn-danger btn-xs' ]) !!}
-											<a href="{{ action('Web\PropertiesController@details', $property->slug) }}" class="btn btn-default btn-xs" target="_blank">{{ Lang::get('general.view') }}</a>
+											<a href="{{ $property->full_url }}" class="btn btn-default btn-xs" target="_blank">{{ Lang::get('general.view') }}</a>
 										{!! Form::close() !!}
 									</td>
 								</tr>
@@ -347,7 +347,7 @@
 											{!! Form::hidden('customer_id', $customer->id) !!}
 											{!! Form::hidden('current_tab', 'matches') !!}
 											{!! Form::button(Lang::get('account/customers.matches.action'), [ 'type'=>'submit', 'class'=>'btn btn-default btn-xs' ]) !!}
-											<a href="{{ action('Web\PropertiesController@details', $property->slug) }}" class="btn btn-default btn-xs" target="_blank">{{ Lang::get('general.view') }}</a>
+											<a href="{{ $property->full_url }}" class="btn btn-default btn-xs" target="_blank">{{ Lang::get('general.view') }}</a>
 										{!! Form::close() !!}
 									</td>
 								</tr>
@@ -378,7 +378,7 @@
 											{!! Form::hidden('customer_id', $customer->id) !!}
 											{!! Form::hidden('current_tab', 'discards') !!}
 											{!! Form::button(Lang::get('account/customers.discards.undelete'), [ 'type'=>'submit', 'class'=>'btn btn-default btn-xs' ]) !!}
-											<a href="{{ action('Web\PropertiesController@details', $property->slug) }}" class="btn btn-default btn-xs" target="_blank">{{ Lang::get('general.view') }}</a>
+											<a href="{{ $property->full_url }}" class="btn btn-default btn-xs" target="_blank">{{ Lang::get('general.view') }}</a>
 										{!! Form::close() !!}
 									</td>
 								</tr>
