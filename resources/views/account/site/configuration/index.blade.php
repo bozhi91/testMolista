@@ -55,7 +55,7 @@
 								<div class="form-group">
 									<div class="error-container">
 										<label>{{ Lang::get('account/site.configuration.favicon') }}</label>
-										{!! Form::file('favicon', [ 'class'=>'form-control', 'accept'=>'image/x-icon' ]) !!}
+										{!! Form::file('favicon', [ 'class'=>'form-control', 'accept'=> 'image/x-icon,image/vnd.microsoft.icon' ]) !!}
 									</div>
 									<div class="help-block">
 										{!! Lang::get('account/site.configuration.favicon.helper', [ 'IMAGE_MAXSIZE'=>Config::get('app.property_image_maxsize', 2048) ]) !!}
@@ -73,7 +73,7 @@
 							<div class="col-xs-12 col-sm-6">
 								<div class="form-group error-container">
 									{!! Form::label('customer_register', Lang::get('account/site.configuration.client.register')) !!}
-									{!! Form::select('customer_register', [ 
+									{!! Form::select('customer_register', [
 										'1' => Lang::get('general.yes'),
 										'0' => Lang::get('general.no'),
 									], null, [ 'class'=>'form-control' ]) !!}
@@ -95,16 +95,16 @@
 									{!! Form::label('hide_molista', Lang::get('account/site.configuration.hide.molista', [ 'webname'=>env('WHITELABEL_WEBNAME','Molista') ])) !!}
 									<div class="error-container">
 										@if ( $current_site->can_hide_molista )
-											{!! Form::select('hide_molista', [ 
+											{!! Form::select('hide_molista', [
 												'1' => Lang::get('general.yes'),
 												'0' => Lang::get('general.no'),
 											], null, [ 'class'=>'form-control' ]) !!}
 										@elseif ( $current_site->hide_molista )
-											{!! Form::select('hide_molista', [ 
+											{!! Form::select('hide_molista', [
 												'1' => Lang::get('general.yes'),
 											], null, [ 'class'=>'form-control' ]) !!}
 										@else
-											{!! Form::select('hide_molista', [ 
+											{!! Form::select('hide_molista', [
 												'0' => Lang::get('general.no'),
 											], null, [ 'class'=>'form-control' ]) !!}
 										@endif
@@ -416,7 +416,7 @@
 
 				// No text to translate from
 				if (!text) {
-					alertify.error("{{ print_js_string( Lang::get('general.autotranslate.error.text') ) }}"); 
+					alertify.error("{{ print_js_string( Lang::get('general.autotranslate.error.text') ) }}");
 					return false;
 				}
 

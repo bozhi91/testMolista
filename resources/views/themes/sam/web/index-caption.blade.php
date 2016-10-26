@@ -16,7 +16,7 @@
 					<div class="carousel-caption-subtitle text-nowrap hidden-xs"> {{ price($main_property->price, $main_property->infocurrency->toArray()) }} </div>
 
 					<div class="carousel-caption-button">
-						<a href="{{ action('Web\PropertiesController@details', $main_property->slug) }}" class="carousel-button">{{ Lang::get('web/properties.search.results.more') }}</a>
+						<a href="{{ $main_property->full_url }}" class="carousel-button">{{ Lang::get('web/properties.search.results.more') }}</a>
 					</div>
 
 				</div>

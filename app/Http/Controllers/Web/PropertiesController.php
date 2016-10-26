@@ -150,25 +150,29 @@ class PropertiesController extends WebController
 		return view('web.properties.index', compact('properties','hide_advanced_search_modal','search_data_cities'));
 	}
 
-	public function details($slug)
+	public function details($slug, $id = false)
 	{
+		if ( !$id )
+		{
+			if ( $property = $this->site->properties()->enabled()->whereTranslation('slug', $slug)->first() )
+			{
+				return redirect()->to($property->full_url, 301);
+			}
+
+			abort(404);
+		}
+
 		$property = $this->site->properties()->enabled()
 					->with('state')
 					->with('city')
 					->with('services')
 					->with('images')
-					->whereTranslation('slug', $slug)
-					->first();
+					->findOrFail($id);
 
-		if ( !$property )
+		// If slug is from another language
+		if ( $property->slug != $slug )
 		{
-			abort(404);
-		}
-
-		// If slug is from another language, redirect
-		if ( $slug != $property->slug )
-		{
-			return redirect()->to(action('Web\PropertiesController@details', $property->slug), 301);
+			return redirect()->to($property->full_url, 301);
 		}
 
 		$this->set_seo_values([
