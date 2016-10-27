@@ -35,7 +35,7 @@ Route::group([
 		// Customers area
 		Route::controller('customers', 'Corporate\CustomersController');
 		// Landing
-		Route::controller('landing', 'Corporate\LandingController');
+		Route::controller('starter', 'Corporate\LandingController');
 	});
 
 	// Resellers
