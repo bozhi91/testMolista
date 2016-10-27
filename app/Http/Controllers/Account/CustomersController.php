@@ -24,9 +24,9 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		}
 
 		// Filter by name
-		if ( $this->request->input('full_name') )
+		if ( $this->request->input('name') )
 		{
-			$query->withFullName( $this->request->input('full_name') );
+			$query->withFullName( $this->request->input('name') );
 		}
 
 		// Filter by email
@@ -35,7 +35,51 @@ class CustomersController extends \App\Http\Controllers\AccountController
 			$query->where('customers.email', 'like', "%{$this->request->input('email')}%");
 		}
 
-		$query->orderBy('created_at','desc');
+		//Filter by active
+		if($this->request->input('active') || $this->request->input('active') === '0') {
+			$query->where('active', $this->request->input('active'));
+		}
+
+		//Filter by origin
+		if($this->request->input('origin')) {
+			$query->where('origin', $this->request->input('origin'));
+		}
+
+		//Filter by created at
+		if($this->request->input('created_at')) {
+			$query->where(\DB::raw("DATE_FORMAT(created_at, '%d/%m/%Y')"), 'like', "%{$this->request->input('created_at')}%");
+		}
+
+		//Filter by properties
+		$propertiesQuery = \DB::raw('(SELECT COUNT(*) FROM properties_customers WHERE properties_customers.customer_id = customers.id)');
+		if($this->request->input('properties')) {
+			$query->where($propertiesQuery, $this->request->input('properties'));
+		}
+
+		$order = $this->request->input('order');
+		switch ( $this->request->input('orderby') )
+		{
+			case 'name':
+				$query->orderBy('first_name', $order);
+				$query->orderBy('last_name', $order);
+				break;
+			case 'email':
+				$query->orderBy('email', $order);
+				break;
+			case 'origin':
+				$query->orderBy('origin', $order);
+				break;
+			case 'properties':
+				$query->orderBy($propertiesQuery, $order);
+				break;
+			case 'status':
+				$query->orderBy('active', $order);
+				break;
+			case 'creation':
+			default:
+				$query->orderBy('created_at', $order ? $order : 'desc');
+				break;
+		}
 
 		if ( $this->request->input('csv') )
 		{
@@ -44,9 +88,15 @@ class CustomersController extends \App\Http\Controllers\AccountController
 
 		$customers = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
+		if ( $customers->count() > 0 )
+		{
+			$ids = $customers->pluck('id')->all();
+			$stats = $this->site->ticket_adm->getCustomersStats($ids);
+		}
+
 		$this->set_go_back_link();
 
-		return view('account.customers.index', compact('customers'));
+		return view('account.customers.index', compact('customers', 'stats'));
 	}
 
 	public function exportCsv($query)
@@ -416,8 +466,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 
 		return $fields;
 	}
-	
-	
+
 	public function postComment($slug)
 	{
 		$customer = $this->site->customers()->where('email', $slug)->first();
@@ -432,5 +481,43 @@ class CustomersController extends \App\Http\Controllers\AccountController
 
 		return redirect()->back()->with('success', trans('general.messages.success.saved'));
 	}
-	
+
+	public function getChangeStatus($email)
+	{
+		// If $email is integer,  redirect
+		if ( preg_match('#^[0-9]+$#', $email) )
+		{
+			$customer = $this->site->customers()->findOrFail($email);
+			return redirect()->action('Account\CustomersController@show', urlencode($customer->email));
+		}
+
+		$query = $this->site->customers()
+					->with('queries')
+					->with([ 'properties' => function($query){
+						$query->with('calendars');
+					}])
+					->with('properties_discards')
+					->where('email', $email);
+
+		if ( $this->site_user->hasRole('employee') )
+		{
+			$query->ofUser($this->site_user->id);
+		}
+
+		$customer = $query->first();
+
+		if ( !$customer )
+		{
+			return [ 'error'=>1 ];
+		}
+
+		$customer->active = !$customer->active;
+		$customer->save();
+
+		return [
+			'success' => 1,
+			'active' => $customer->active
+		];
+	}
+
 }
