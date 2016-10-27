@@ -15,7 +15,7 @@
         <meta name="description" content="{{ $seo_description }}" />
     @endif
 
-    <link href="{{ Theme::url('/compiled/css/corporate.css') }}" rel="stylesheet" type='text/css' />
+    <link href="{{ Theme::url('/compiled/css/corporate.css').'?v='.env('CSS_VERSION') }}" rel="stylesheet" type='text/css' />
 
     <link id="page_favicon" href="{{ asset('favicon.ico') }}" rel="icon" type="image/x-icon" />
 
@@ -37,7 +37,7 @@
 
 @include('common.footer')
 
-<script src="{{ Theme::url('/compiled/js/corporate.js') }}"></script>
+<script src="{{ Theme::url('/compiled/js/corporate.js').'?v='.env('JS_VERSION') }}"></script>
 <script src="{{ Theme::url('/js/jquery.validate/messages_' . LaravelLocalization::getCurrentLocale() . '.min.js') }}"></script>
 <script src="{{ Theme::url('/js/alertify/messages_' . LaravelLocalization::getCurrentLocale() . '.js') }}"></script>
 
