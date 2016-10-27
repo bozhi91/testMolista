@@ -255,4 +255,7 @@
 		'imports.csv.instructions.options' => 'Opciones',
 		
 		'attributes.habitaclia-city' => 'Población',
+		'email.sold.subject' => 'La propiedad ":title" ":reference" ha sido vendida',
+		'email.sold.intro' => 'Hola, :name',
+		'email.sold.body' => 'Contacte con nosotros para obtener más información de otras propiedades disponibles que puedan ser de su interés.'
 	];
