@@ -34,6 +34,8 @@ Route::group([
 		Route::controller('signup', 'Corporate\SignupController');
 		// Customers area
 		Route::controller('customers', 'Corporate\CustomersController');
+		// Landing
+		Route::controller('landing', 'Corporate\LandingController');
 	});
 
 	// Resellers
@@ -159,6 +161,8 @@ Route::group([
 ], function() {
 	// Web
 	Route::get('/', 'WebController@index');
+	// Info
+	Route::controller('info', 'Web\InfoController');
 	// Properties
 	Route::get('properties', 'Web\PropertiesController@index');
 	Route::get('property/{slug}/property-{locale}.pdf', 'Web\PropertiesController@downloads');
@@ -249,10 +253,11 @@ Route::group([
 		Route::post('customers/properties/{slug}', 'Account\CustomersController@postAddPropertyCustomer');
 		Route::get('customers/properties/{slug}', 'Account\CustomersController@getAddPropertyCustomer');
 		Route::post('customers/profile/{email}', 'Account\CustomersController@postProfile');
+		Route::get('customers/status/{email}', 'Account\CustomersController@getChangeStatus');
 		Route::resource('customers', 'Account\CustomersController');
-		
+
 		Route::post('customers/comment/{slug}', 'Account\CustomersController@postComment');
-		
+
 		// Marketplaces
 		Route::group([
 			'middleware' => [

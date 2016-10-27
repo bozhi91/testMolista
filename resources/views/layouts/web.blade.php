@@ -46,7 +46,7 @@
 
 	@if ( !empty($use_google_maps) )
 		<script src="http://maps.google.com/maps/api/js?key={{ Config::get('app.google_maps_api_key')}}"></script>
-	@endif	
+	@endif
 
 	<script type="text/javascript">
 		var ready_callbacks = [];
@@ -75,6 +75,8 @@
 		@include('web.search.modal')
 	@endif
 
+	@include('web.common.cookies', [ 'showjs'=>true ])
+
 	@if ( Request::server('REQUEST_SCHEME') == 'https' )
 		<script type="text/javascript" src="https://ws.sharethis.com/button/buttons.js"></script>
 	@else
@@ -82,15 +84,14 @@
 	@endif
 	<script type="text/javascript">
 		stLight.options({
-			publisher: "2572efa4-03fa-451c-b604-4fb0add8bbb4", 
-			doNotHash: true, 
-			doNotCopy: true, 
+			publisher: "2572efa4-03fa-451c-b604-4fb0add8bbb4",
+			doNotHash: true,
+			doNotCopy: true,
 			hashAddressBar: false,
 			popup: true,
 			servicePopup: true
 		});
 	</script>
-
 
 	<script src="{{ Theme::url('/compiled/js/app.js') }}"></script>
 	<script src="{{ Theme::url('/js/jquery.validate/messages_' . LaravelLocalization::getCurrentLocale() . '.min.js') }}"></script>

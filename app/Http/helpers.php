@@ -486,3 +486,27 @@
 
 		return LaravelLocalization::getCurrentLocale();
 	}
+
+	function site_url($url, \App\Site $site = null)
+	{
+		if (!$site) return $url;
+
+		// Use always the main domain
+		$parts = parse_url($url);
+
+		$final = trim($site->main_url);
+
+		if (!empty($parts['path'])) {
+			$final .= $parts['path'];
+		}
+
+		if (!empty($parts['query'])) {
+			$final .= '?'.$parts['query'];
+		}
+
+		if (!empty($parts['fragment'])) {
+			$final .= '#'.$parts['fragment'];
+		}
+
+		return $final;
+	}
