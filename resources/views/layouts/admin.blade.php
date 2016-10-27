@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>{{ empty($page_title) ? 'Molista' : $page_title }}</title>
 
-	<link href="{{ Theme::url('/compiled/css/admin.css') }}" rel="stylesheet" type='text/css' />
+	<link href="{{ Theme::url('/compiled/css/admin.css').'?v='.env('CSS_VERSION') }}" rel="stylesheet" type='text/css' />
 
 	@if ( LaravelLocalization::getCurrentLocaleDirection() == 'rtl' )
 		<link href="{{ Theme::url('/compiled/css/rtl.css') }}" rel="stylesheet" type='text/css' />
@@ -16,7 +16,7 @@
 
 	@if ( @$use_google_maps )
 		<script src="http://maps.google.com/maps/api/js?key={{ Config::get('app.google_maps_api_key')}}"></script>
-	@endif	
+	@endif
 
 	<script type="text/javascript">
 		var ready_callbacks = [];
@@ -157,7 +157,7 @@
 
 @yield('content')
 
-<script src="{{ Theme::url('/compiled/js/admin.js') }}"></script>
+<script src="{{ Theme::url('/compiled/js/admin.js').'?v='.env('JS_VERSION') }}"></script>
 <script src="{{ Theme::url('/js/jquery.validate/messages_' . LaravelLocalization::getCurrentLocale() . '.min.js') }}"></script>
 <script src="{{ Theme::url('/js/alertify/messages_' . LaravelLocalization::getCurrentLocale() . '.js') }}"></script>
 <script src="{{ Theme::url('/js/select2/' . LaravelLocalization::getCurrentLocale() . '.js') }}"></script>
