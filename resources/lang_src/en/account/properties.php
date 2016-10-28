@@ -256,4 +256,9 @@
 
 		'attributes.habitaclia-city' => 'City',
 		'attributes.yaencontre-city' => 'City (yaencotre)',
+		
+		
+		'email.price.fall.intro' => 'Hello, :name',
+		'email.price.fall' => 'The price of the property :title ":reference" has dropped. Current price is :current.',
+		'email.price.fallen.subject' => 'The price of the property ":reference" has dropped',
 	];

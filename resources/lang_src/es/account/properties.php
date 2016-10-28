@@ -256,4 +256,8 @@
 
 		'attributes.habitaclia-city' => 'Población',
 		'attributes.yaencontre-city' => 'Población (yaencotre)',
+		
+		'email.price.fall.intro' => 'Hola, :name',
+		'email.price.fall' => 'El precio de la propiedad :title ":reference" ha bajado. El precio actual es de :current.',
+		'email.price.fallen.subject' => 'El precio de la propiedad ":reference" ha bajado',
 	];
