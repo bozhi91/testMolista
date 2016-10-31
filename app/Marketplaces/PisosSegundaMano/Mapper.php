@@ -1,4 +1,4 @@
-<?php namespace App\Marketplaces\PisosAlquiler;
+<?php namespace App\Marketplaces\PisosSegundaMano;
 
 class Mapper extends \App\Marketplaces\Mapper {
 
@@ -15,7 +15,7 @@ class Mapper extends \App\Marketplaces\Mapper {
         $map['IdInmobiliariaExterna'] = $item['site_id']; //  OBLIGATORIO
         $map['IdPisoExterno'] = $item['id']; // OBLIGATORIO
         $map['TipoInmueble'] = $this->tipo_inmueble();    // OLBIGATORIO
-        $map['TipoOperacion'] = 3; // Alquiler
+        $map['TipoOperacion'] = $this->isRent() ? 3 : 4; // Alquiler / Venta
         $map['PrecioEur'] = intval($item['price']);
         $map['OpcionACompra'] = !empty($item['features']['option-to-buy']) ? 1 : 0;
         $map['NombrePoblacion'] = $item['location']['city']; // OBLIGATORIO
@@ -55,9 +55,9 @@ class Mapper extends \App\Marketplaces\Mapper {
 
     public function valid()
     {
-        if (!$this->isRent())
+        if ($this->isNew())
         {
-            $this->errors []= \Lang::get('validation.rent');
+            $this->errors []= \Lang::get('validation.second_hand');
             return false;
         }
 
