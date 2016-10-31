@@ -100,4 +100,6 @@
 		'rent' => 'La propiedad no está en alquiler',
 		'type' => 'Este tipo de propiedad no se puede publicar',
 		'transfer' => 'No se permiten propiedades de traspaso',
+		'second_hand' => 'La propiedad no es de segunda mano',
+		'new' => 'La propiedad no es de Obra Nueva',
 	];
