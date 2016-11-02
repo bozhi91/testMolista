@@ -28,6 +28,7 @@ class Mapper extends \App\Marketplaces\Mapper {
         $map['Descripcion'] = $this->translate($item['description'], 'es');
         $map['Fotos'] = $this->fotos();
         $map['NombreCalle'] = $item['location']['address']; // OBLIGATORIO
+        $map['NumeroCalle'] = $this->getAddressNumber(); // OBLIGATORIO
         $map['MostrarCalle'] = empty($item['location']['show_address']) ? 0 : 1;
         $map['Latitud'] = $item['location']['lat'];
         $map['Longitud'] = $item['location']['lng'];
