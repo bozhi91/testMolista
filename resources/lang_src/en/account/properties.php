@@ -259,4 +259,11 @@
 		
 		'districts.h1' => 'Districts',
 		'districts.create' => 'New district',
+		'districts.deleted' => 'The district was successfully deleted',
+		'districts.name' => 'Name',
+		'districts.create.title' => 'Create district',
+		'districts.edit.title' => 'Edit district',
+		'districts.general' => 'General',
+		'districts.message.saved' => 'The district was successfully saved',
+		'districts.delete' => 'Are you sure you want to remove this district?',
 	];

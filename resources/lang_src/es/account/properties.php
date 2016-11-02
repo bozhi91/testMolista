@@ -259,4 +259,11 @@
 		
 		'districts.h1' => 'Distritos',
 		'districts.create' => 'Nuevo distrito',
+		'districts.deleted' => 'El distrito se ha eliminado correctamente',
+		'districts.name' => 'Nombre',
+		'districts.create.title' => 'Crear distrito',
+		'districts.edit.title' => 'Editar distrito',
+		'districts.general' => 'General',
+		'districts.message.saved' => 'El distrito se ha guardado correctamente',
+		'districts.delete' => '¿Confirma que desea eliminar permanentemente este distrito?',
 	];
