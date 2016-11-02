@@ -61,8 +61,14 @@ class Mapper extends \App\Marketplaces\Mapper {
             return false;
         }
 
+        $this->item['location']['number'] = $this->getAddressNumber();
+
         $rules = [
             'site_id' => 'required',
+            'location.address' => 'required',
+            'location.city' => 'required',
+            'location.zipcode' => 'required',
+            'location.number' => 'required',
         ];
 
         $messages = [];
@@ -151,6 +157,20 @@ class Mapper extends \App\Marketplaces\Mapper {
         ];
 
         return isset($types[$type]) ? $types[$type] : 'Piso';
+    }
+
+    protected function getAddressNumber()
+    {
+        if (!empty($this->item['location']['address_parts']['number'])) {
+            return $this->item['location']['address_parts']['number'];
+        }
+
+        preg_match('#[^\d]+(\d+)[\s]*#msi', $this->item['location']['address'], $match);
+        if (!empty($match[1])) {
+            return $match[1];
+        }
+
+        return null;
     }
 
     protected function categoria_emision()
