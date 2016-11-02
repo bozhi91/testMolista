@@ -256,4 +256,7 @@
 
 		'attributes.habitaclia-city' => 'Población',
 		'attributes.yaencontre-city' => 'Población (yaencotre)',
+		
+		'districts.h1' => 'Distritos',
+		'districts.create' => 'Nuevo distrito',
 	];

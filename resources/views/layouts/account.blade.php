@@ -30,6 +30,9 @@
 								<ul id="account-submenu-properties" class="nav" role="menu" aria-labelledby="account-menu-btn-properties">
 									<li><a href="{{ action('Account\Properties\ImportsController@getIndex') }}" class="{{ (@$submenu_subsection == 'profile-accounts') ? 'current' : '' }}">{{ Lang::get('account/properties.imports.h1') }}</a></li>
 								</ul>
+								<ul class="nav" role="menu" aria-labelledby="account-menu-btn-properties">
+									<li><a href="{{ action('Account\Properties\DistrictsController@getIndex') }}" class="{{ (@$submenu_subsection == 'profile-accounts') ? 'current' : '' }}">{{ Lang::get('account/properties.districts.h1') }}</a></li>
+								</ul>
 							</li>
 						@else
 							<li role="presentation" class="{{ (@$submenu_section == 'properties') ? 'active' : '' }}">

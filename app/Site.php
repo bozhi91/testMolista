@@ -56,6 +56,11 @@ class Site extends TranslatableModel
 		return $this->hasMany('App\Models\Site\Import');
 	}
 
+	public function districts()
+	{
+		return $this->hasMany('App\Models\Site\District');
+	}
+	
 	public function planchanges()
 	{
 		return $this->hasMany('App\Models\Site\Planchange');
