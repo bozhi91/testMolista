@@ -266,4 +266,18 @@ elixir(function(mix) {
 		], 'public/themes/kredikasa/compiled/css/pdf.css')
 		;
 
+	/* Modular */
+	mix
+		.less([
+			'modular/app.less',
+		], 'resources/assets/css/compiled/modular.css')
+		.styles([
+			'compiled/common.css',
+			'compiled/modular.css',
+		], 'public/themes/modular/compiled/css/app.css')
+		.less([
+			'white-cloud/pdf.less',
+		], 'public/themes/modular/compiled/css/pdf.css')
+		;
+
 });

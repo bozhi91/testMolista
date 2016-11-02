@@ -197,6 +197,16 @@ return [
 			'gmaps-circle'	=> '#efb817',
 		],
 
+		'modular' => [
+			'title'			=> 'Modular',
+			'public'		=> true,
+			'custom'		=> false,
+			'extends'	 	=> 'default',
+			'views-path' 	=> 'themes/modular',
+			'asset-path' 	=> 'themes/modular',
+			'gmaps-circle'	=> '#1396e2',
+		],
+
 		// Add your themes here...
 
 		/*--------------[ Example Structre ]-------------
