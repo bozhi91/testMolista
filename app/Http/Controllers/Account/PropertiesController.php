@@ -190,10 +190,11 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		}
 
 		$managers = $this->site->users()->orderBy('name')->lists('name','id')->all();
-
+		$districts = $this->site->districts()->orderBy('name')->lists('name','id');
+			
 		$current_tab = session('current_tab', 'general');
 
-		return view('account.properties.create', compact('modes','types','energy_types','services','countries','states','cities','country_id','managers','current_tab'));
+		return view('account.properties.create', compact('modes','types','energy_types','services','countries','states','cities','country_id','managers','current_tab', 'districts'));
 	}
 
 	public function store()
@@ -314,7 +315,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		$countries = $this->site->enabled_countries;
 		$states = \App\Models\Geography\State::enabled()->where('country_id', $property->country_id)->lists('name','id');
 		$cities = \App\Models\Geography\City::enabled()->where('state_id', $property->state_id)->lists('name','id');
-
+		$districts = $this->site->districts()->orderBy('name')->lists('name','id');
+		
 		$marketplaces = $this->site->marketplaces()
 							->wherePivot('marketplace_enabled','=',1)
 							->withSiteProperties($this->site->id)
@@ -322,7 +324,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 		$current_tab = session('current_tab', 'general');
 
-		return view('account.properties.edit', compact('property','modes','types','energy_types','services','countries','states','cities','marketplaces','current_tab'));
+		return view('account.properties.edit', compact('property','modes','types','energy_types','services','countries','states','cities','marketplaces','current_tab', 'districts'));
 	}
 
 	public function update(Request $request, $slug)
@@ -733,7 +735,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'territory_id' => 'exists:territories,id',
 			'state_id' => 'required|exists:states,id',
 			'city_id' => 'required|exists:cities,id',
-			'district' => '',
+			'district_id' => '',
 			'address' => '',
 			'address_parts' => 'array',
 			'show_address' => 'boolean',
@@ -823,7 +825,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			{
 				$property->$field = $this->request->input($field) ? 1 : 0;
 			}
-			elseif ( in_array($field, [ 'country_id','territory_id','state_id','city_id','construction_year','details', 'marketplace_attributes' ]) )
+			elseif ( in_array($field, [ 'country_id','territory_id','state_id','city_id','construction_year','details', 'marketplace_attributes', 'district_id' ]) )
 			{
 				$property->$field = $this->request->input($field) ? $this->request->input($field) : null;
 			}

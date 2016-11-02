@@ -23,6 +23,18 @@ class TableDistrict extends Migration {
 					->onUpdate('cascade')
 					->onDelete('cascade');
 		});
+		
+		
+		Schema::table('properties', function (Blueprint $table) {
+			$table->bigInteger('district_id')->nullable()
+					->unsigned()->index()->after('district');
+			
+			$table->foreign('district_id')
+					->references('id')
+					->on('districts')
+					->onUpdate('set null')
+					->onDelete('set null');
+		});
 	}
 
 	/**
@@ -31,6 +43,11 @@ class TableDistrict extends Migration {
 	 * @return void
 	 */
 	public function down() {
+		Schema::table('properties', function (Blueprint $table) {
+			$table->dropForeign('properties_district_id_foreign');
+			$table->dropColumn('district_id');
+		});
+		
 		Schema::drop('districts');
 	}
 

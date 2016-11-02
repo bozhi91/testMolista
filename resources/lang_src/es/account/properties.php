@@ -266,4 +266,5 @@
 		'districts.general' => 'General',
 		'districts.message.saved' => 'El distrito se ha guardado correctamente',
 		'districts.delete' => '¿Confirma que desea eliminar permanentemente este distrito?',
+		'districts.empty' => 'No hay distritos creados',
 	];

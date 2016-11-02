@@ -477,8 +477,9 @@
 							{!! Form::select('city_id', $tmp, null, [ 'class'=>'form-control required city-input' ]) !!}
 						</div>
 						<div class="form-group error-container">
-							{!! Form::label('district', Lang::get('account/properties.district')) !!}
-							{!! Form::text('district', null, [ 'class'=>'form-control district-input' ]) !!}
+							<?php $tmp = empty($districts) ? [ ''=>'' ] : [ ''=>'' ] + $districts->toArray(); ?>
+							{!! Form::label('district_id', Lang::get('account/properties.district')) !!}
+							{!! Form::select('district_id', $tmp, @$property->district_id, [ 'class'=>'form-control district-input' ]) !!}
 						</div>
 						@include('account/properties/form-address')
 					</div>
