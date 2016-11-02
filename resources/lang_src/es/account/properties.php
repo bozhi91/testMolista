@@ -256,4 +256,10 @@
 
 		'attributes.habitaclia-city' => 'Población',
 		'attributes.yaencontre-city' => 'Población (yaencotre)',
+
+		'location.address' => 'Dirección',
+		'location.city' => 'Ciudad',
+		'location.zipcode' => 'Código Postal',
+		'location.number' => 'Número calle',
+
 	];
