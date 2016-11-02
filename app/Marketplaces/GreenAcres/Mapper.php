@@ -37,12 +37,16 @@ class Mapper extends \App\Marketplaces\Mapper {
 
         foreach ($item['title'] as $lang => $title)
         {
-            $map['title_'.$lang] = $title;
+			if($this->isSupportedLanguage($lang)){
+				$map['title_'.$lang] = $title;
+			}
         }
 
         foreach ($item['description'] as $lang => $title)
         {
-            $map['summary_'.$lang] = $title;
+			if($this->isSupportedLanguage($lang)){
+				$map['summary_'.$lang] = $title;
+			}
         }
 
         $map['#n_beds'] = $item['rooms'];
@@ -135,4 +139,15 @@ class Mapper extends \App\Marketplaces\Mapper {
         return $pictures;
     }
 
+	
+	/**
+	 * @param string $language
+	 * @return bool
+	 */
+	protected function isSupportedLanguage($language){
+		return in_array($language, [
+			'bg', 'cz', 'de', 'dk', 'en', 'es', 'fi', 'fr', 'gr',
+			'it', 'nl', 'pl', 'pt', 'ro', 'ru', 'se', 'sk', 'vi'
+		]);
+	}
 }

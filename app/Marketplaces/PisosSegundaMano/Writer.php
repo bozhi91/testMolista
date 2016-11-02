@@ -1,4 +1,4 @@
-<?php namespace App\Marketplaces\PisosAlquiler;
+<?php namespace App\Marketplaces\PisosSegundaMano;
 
 class Writer extends \App\XML\Writer {
 
@@ -8,10 +8,15 @@ class Writer extends \App\XML\Writer {
     {
         $this->openMemory();
         $this->startDocument('1.0', 'UTF-8');
+        $this->startElement('Publicacion');
+        $this->startElement('Table');
+        $this->writeAttribute('Name', 'Inmuebles');
     }
 
     public function end()
     {
+        $this->endElement();
+        $this->endElement();
         $this->endDocument();
 
         $this->ended = true;
@@ -19,7 +24,7 @@ class Writer extends \App\XML\Writer {
 
     public function addItem($item)
     {
-        $this->write('Publicacion', ['Table@Name=Inmuebles' => ['Inmueble' => $item] ]);
+        $this->write('Inmueble', $item);
     }
 
     public function getXml()

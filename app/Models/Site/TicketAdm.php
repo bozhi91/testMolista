@@ -1126,7 +1126,7 @@ class TicketAdm
 			\Log::error($error_message);
 			return false;
 		}
-
+		
 		foreach ($body as $data)
 		{
 			$user_id = @$data->user_id;
@@ -1154,6 +1154,90 @@ class TicketAdm
 		return $stats;
 	}
 
+	
+	public function getCustomersStats($customers_ids)
+	{
+		if ( !$this->site_ready || empty($customers_ids) )
+		{
+			return false;
+		}
+
+		if ( !is_array($customers_ids) )
+		{
+			$customers_ids = [ $customers_ids ];
+		}
+
+		// Stats groups
+		$stats_groups = ['tickets','contacts'];
+
+		// Stats default
+		$stats_default = [
+			'tickets' => [],
+			'items' => [],
+		];
+		foreach ($this->states as $state)
+		{
+			$stats_default['tickets'][$state] = 0;
+		}
+
+		// Request url
+		$url = "stats/contact/?site_id={$this->site_id}";
+
+		$stats = [];
+		foreach ($customers_ids as $id) 
+		{
+			$url .= "&contact_id[]={$id}";
+			$stats[$id] = $stats_default;
+		}
+
+		$response = $this->guzzle_client->request('GET', $url, [
+			'headers'=> [
+				'Authorization' => $this->getAuthorizationHeader(),
+			],
+		]);
+		
+		// Error
+		$body = @json_decode( $response->getBody() );
+				
+		if ( $response->getStatusCode() != 200 )
+		{
+			$error_message = "TICKETING -> could not access customers stats";
+			if ( @$body->message )
+			{
+				$error_message .= ": {$body->message}";
+			}
+			\Log::error($error_message);
+			return false;
+		}
+						
+		foreach ($body as $data)
+		{			
+			$contact_id = @$data->contact_id;
+			if ( !$contact_id )
+			{
+				continue;
+			}
+
+			$stat = $stats[$contact_id];
+
+			foreach ($stats_groups as $group)
+			{
+				if ( @$data->$group->states )
+				{
+					foreach ($data->$group->states as $type => $quantity)
+					{
+						$stat[$group][$type] = $quantity;
+					}
+				}
+			}
+
+			$stats[$contact_id] = json_decode(json_encode($stat));
+		}
+
+		return $stats;
+	}
+	
+	
 	public function getStatusOptions() 
 	{
 		$options = [];
