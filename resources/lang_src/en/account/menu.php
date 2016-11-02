@@ -22,6 +22,7 @@
 		'reports.properties' => 'Properties',
 		'reports.agents' => 'Agents',
 		'reports.leads' => 'Leads',
+		'reports.referers' => 'Referers',
 
 		'site' => 'Site',
 		'site.configuration' => 'Configuration',
