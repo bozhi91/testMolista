@@ -3,6 +3,7 @@
 	#cookies-warning .alert { margin-bottom: 0px; }
 </style>
 
+@if (@$current_site)
 <div id="cookies-warning" style="">
 	<div class="alert alert-info" role="alert">
 		<div class="container">
@@ -44,3 +45,4 @@
 		}
 	});
 </script>
+@endif
