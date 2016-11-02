@@ -1,0 +1,1 @@
+<div class="price property-price">{{ price($property->price, $property->infocurrency->toArray()) }}</div>
