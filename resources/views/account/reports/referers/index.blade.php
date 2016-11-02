@@ -67,7 +67,9 @@
 								</tbody>
 							</table>
 						@else
-							<div class="alert alert-info">{{ Lang::get('account/reports.referers.empty') }}</div>
+							<div class="alert alert-info">
+								{{ Lang::get('account/reports.empty') }}
+							</div>
 						@endif
 
 					</div>
