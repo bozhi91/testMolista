@@ -140,7 +140,12 @@ class PropertiesController extends WebController
 		}
 		else
 		{
-			$query->orderBy('properties.highlighted','desc')->orderBy('title');
+			// Fincas Bellamar...
+			if ($this->site->id == env('FINCAS_BELLAMAR_ID')) {
+				$query->orderBy('price','desc');
+			} else {
+				$query->orderBy('properties.highlighted','desc')->orderBy('title');
+			}
 		}
 
 		$properties = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
