@@ -65,7 +65,7 @@ class Site extends TranslatableModel
 	{
 		return $this->hasMany('App\Models\Site\Pricerange')->withTranslations();
 	}
-	
+
 	public function slidergroups()
 	{
 		return $this->hasMany('App\Models\Site\SliderGroup');
@@ -706,7 +706,7 @@ class Site extends TranslatableModel
 								}
 								else
 								{
-									$url_parts = parse_url(\LaravelLocalization::getLocalizedURL($locale,$item->item_url).'?sdfsa=2434321');
+									$url_parts = parse_url(\LaravelLocalization::getLocalizedURL($locale,$item->item_url));
 									$url = implode('?', array_filter([
 										@$url_parts['path'],
 										@$url_parts['query'],
@@ -726,7 +726,7 @@ class Site extends TranslatableModel
 						{
 							$images = $widget->slider->images()
 									->orderBy('position', 'asc')->get();
-							
+
 							foreach ($images as $image)
 							{
 								$w['items'][] = [
