@@ -1,10 +1,11 @@
 <?php
 
-	if (!isset($)) {
+	if (!isset($quickSearchAreaTitleClasses) || !isset($quickSearchTagsClasses) || !isset($recentlyAddedPropertiesClasses)) {
 		$quickSearchAreaTitleClasses = "col-xs-12 col-sm-12 col-md-8";
 		$quickSearchTagsClasses = "col-xs-12 col-sm-6";
 		$recentlyAddedPropertiesClasses = "hidden-xs hidden-sm col-md-4";
 	}
+	
 ?>
 
 <div class="container">
