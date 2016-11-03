@@ -36,4 +36,9 @@
 		'associate.h1' => 'Use existing lead',
 		
 		'dni' => 'DNI',
+		
+		'alerts' => 'Alerts',
+		'alert.bajada' => 'Notify for property\'s price fall',
+		'alert.venta' => 'Notify for property\'s sale',
+		'show.customer.general.button' => 'Save'
 	];

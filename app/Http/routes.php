@@ -216,7 +216,7 @@ Route::group([
 		});
 
 		Route::post('properties/comment/{slug}', 'Account\PropertiesController@postComment');
-
+		
 		Route::group([
 			'middleware' => [
 				'permission:property-create',
@@ -252,6 +252,7 @@ Route::group([
 		Route::resource('customers', 'Account\CustomersController');
 		
 		Route::post('customers/comment/{slug}', 'Account\CustomersController@postComment');
+		Route::post('customers/general/{slug}', 'Account\CustomersController@postGeneral');
 		
 		// Marketplaces
 		Route::group([

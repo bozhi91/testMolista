@@ -28,6 +28,9 @@
 		<div class="tab-content">
 
 			<div role="tabpanel" class="tab-pane tab-main {{$current_tab == 'general' ? 'active' : '' }}" id="tab-general">
+				
+				{!! Form::model($customer, [ 'action'=>['Account\CustomersController@postGeneral',$customer->email], 'method'=>'post', 'id'=>'general-form' ]) !!}
+				
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
@@ -84,6 +87,44 @@
 						</div>
 					</div>
 				</div>
+				
+				<div class="row">
+					<div class="col-xs-12">
+						<label>{{ Lang::get('account/customers.alerts') }}</label>
+					</div>
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<div class="checkbox">
+								<label class="normal">
+									<?php $val = $customer->alert_config === null ? 1 : $customer->alert_config['bajada'] ?>
+									{!! Form::hidden('alerts[bajada]', 0) !!}
+									{!! Form::checkbox('alerts[bajada]', 1, $val) !!}
+									{{ Lang::get('account/customers.alert.bajada') }}
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<div class="checkbox">
+								<label class="normal">
+									<?php $val = $customer->alert_config === null ? 1 : $customer->alert_config['venta'] ?>
+									{!! Form::hidden('alerts[venta]', 0) !!}
+									{!! Form::checkbox('alerts[venta]', 1, $val) !!}
+									{{ Lang::get('account/customers.alert.venta') }}
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<div class="text-right">
+						{!! Form::button(Lang::get('account/customers.show.customer.general.button'), [ 'type'=>'submit', 'class'=>'btn btn-primary', ]) !!}
+					</div>
+				</div>
+				
+				{!! Form::close() !!}
 				
 				{!! Form::model($customer, [ 'action'=>['Account\CustomersController@postComment',$customer->email], 'method'=>'post', 'id'=>'comment-form' ]) !!}
 					<hr />

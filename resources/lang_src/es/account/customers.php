@@ -36,4 +36,8 @@
 		'associate.h1' => 'Usar lead existente',
 		
 		'dni' => 'DNI',
+		'alerts' => 'Alertas',
+		'alert.bajada' => 'Notificar de bajada de precio',
+		'alert.venta' => 'Notificar de venta de propiedad',
+		'show.customer.general.button' => 'Guardar'
 	];

@@ -433,4 +433,19 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		return redirect()->back()->with('success', trans('general.messages.success.saved'));
 	}
 	
+	
+	public function postGeneral($slug)
+	{
+		$customer = $this->site->customers()->where('email', $slug)->first();
+		if ( !$customer )
+		{
+			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
+		}
+
+		$customer->update([
+			'alert_config' => $this->request->input('alerts')
+		]);
+
+		return redirect()->back()->with('success', trans('general.messages.success.saved'));
+	}
 }
