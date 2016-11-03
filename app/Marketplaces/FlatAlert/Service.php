@@ -4,7 +4,6 @@ namespace App\Marketplaces\FlatAlert;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\Exception\RequestException;
 
 class Service extends \App\Marketplaces\Service {
 
@@ -20,36 +19,6 @@ class Service extends \App\Marketplaces\Service {
 			]);
 		}
 		return $this->_client;
-	}
-
-	/**
-	 * @param array $property
-	 * @return Response
-	 */
-	public function publishProperty(array $property) {
-		try {
-			//Check if exists
-			$existResponse = $this->checkPropertyExist($property['customer_property_id']);
-			$existBody = $existResponse->getBody();
-			$decoded = json_decode($existBody, true);
-			$exist = $decoded['code'] && $decoded['message'] == '22'; //22 exists
-
-			$res = $exist ?
-					$this->updateProperty($property) : $this->createProperty($property);
-
-			$body = $res->getBody();
-			$response = json_decode($body, true);
-			if ($response['code']) {
-				return [true, ['messages' => [$response['message']]]];
-			} else {
-				return [false, ['messages' => [$response['message']]]];
-			}
-		} catch (RequestException $e) {
-			$body = $e->getResponse()->getBody();
-			$response = json_decode($body, true);
-			$message = $this->getMessage($response['message']);
-			return [false, ['messages' => [$message]]];
-		}
 	}
 
 	/**
@@ -74,49 +43,54 @@ class Service extends \App\Marketplaces\Service {
 	 */
 	public function updateProperty(array $property) {
 		$res = $this->getClient()->post('updateProperty', [
-					'form_params' => [
-						'access_token' => $this->config['access_token'],
-						'access_token_secret' => $this->config['access_token_secret'],
-						'data' => $property
-					]
+			'form_params' => [
+				'access_token' => $this->config['access_token'],
+				'access_token_secret' => $this->config['access_token_secret'],
+				'data' => $property
+			]
 		]);
 		return $this->formatResponse($res);
 	}
 
 	/**
 	 * @param string $customer_property_id
-	 * @return array
+	 * @return boolean
 	 */
 	public function checkPropertyExist($customer_property_id) {
 		$res = $this->getClient()->post('checkPropertyExist', [
-					'form_params' => [
-						'access_token' => $this->config['access_token'],
-						'access_token_secret' => $this->config['access_token_secret'],
-						'data' => ['customer_property_id' => $customer_property_id]
-					]
+			'form_params' => [
+				'access_token' => $this->config['access_token'],
+				'access_token_secret' => $this->config['access_token_secret'],
+				'data' => ['customer_property_id' => $customer_property_id]
+			]
 		]);
-		return $this->formatResponse($res);
+
+		$existBody = $res->getBody();
+		$decoded = json_decode($existBody, true);
+		return $decoded['code'] && $decoded['message'] == '22'; //22 exists
 	}
 
 	/**
 	 * @param Response $res
 	 * @return array
 	 */
-	public function formatResponse($res){
+	public function formatResponse($res) {
 		$body = $res->getBody();
 		$response = json_decode($body, true);
+		$message = $this->getMessage($response['message']);
+
 		return [
 			$response['code'] ? true : false,
-			['messages' => [$response['message']]]
+			['messages' => [$message]]
 		];
 	}
-	
+
 	/**
 	 * FlatAlert, por favor. No dejan el mensaje en la resputa. Lo dejan en el word.
 	 * @param integer $messageCode
 	 * @return string
 	 */
-	protected function getMessage($messageCode) {
+	public function getMessage($messageCode) {
 		switch ($messageCode) {
 			case 20: return "Credenciales del cliente no válidas";
 			case 21: return "No se ha podido obtener la posición GPS";

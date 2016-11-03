@@ -6,7 +6,7 @@ use App\Jobs\Job;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Marketplaces\Service;
+use App\Marketplaces\API;
 
 class PublishPropertyApi extends Job implements ShouldQueue {
 
@@ -14,23 +14,25 @@ class PublishPropertyApi extends Job implements ShouldQueue {
 	 SerializesModels;
 
 	/**
-	 * @var Service 
+	 * @var API
 	 */
-	private $service;
-	
+	private $handler;
+
 	/**
 	 *
 	 * @var array
 	 */
 	private $property;
-	
+
 	/**
 	 * Create a new job instance.
 	 *
+	 * @param API $handler
+	 * @param array $property
 	 * @return void
 	 */
-	public function __construct(Service $service, array $property) {
-		$this->service = $service;
+	public function __construct(API $handler, array $property) {
+		$this->handler = $handler;
 		$this->property = $property;
 	}
 
@@ -39,10 +41,8 @@ class PublishPropertyApi extends Job implements ShouldQueue {
 	 *
 	 * @return void
 	 */
-	public function handle() {
-		$test = $this->service->publishProperty($this->property);
-		
-		dd($test);
+	public function handle() {		
+		return $this->handler->publishProperty($this->property);
 	}
 
 }

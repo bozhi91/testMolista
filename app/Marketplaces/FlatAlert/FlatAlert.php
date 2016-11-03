@@ -2,6 +2,8 @@
 
 namespace App\Marketplaces\FlatAlert;
 
+use App\Marketplaces\FlatAlert\Service;
+
 class FlatAlert extends \App\Marketplaces\API {
 
 	protected $iso_lang = 'es';
@@ -40,29 +42,26 @@ class FlatAlert extends \App\Marketplaces\API {
 
 	/**
 	 * @param array $property
-	 * @return array
 	 */
 	public function publishProperty(array $property) {
-		$service = new Service($this->config);
-		
-		
-		
-		
-		
-		/*foreach ($properties as $p) {
-			$mapper = static::getMapper($p, $this->iso_lang, $this->config);
-			if ($mapper->valid()) {
-				$mapped = $mapper->map();
-				$service = $this->getService();
+		$mapper = static::getMapper($property, $this->iso_lang, $this->config);		
+		if ($mapper->valid()) {
+			$mapped = $mapper->map();
+			/* @var $service Service */
+			$service = $this->getService();
+			
+			try {
+				$exist = $service->checkPropertyExist($mapped['customer_property_id']);
+				if($exist) {
+					return $service->updateProperty($mapped);
+				}
 				
-				
-				
-				
-				//Execute job
-				(new PublishPropertyApi($service, $mapped))->handle();
+				return $service->createProperty($mapped);
+			} catch (RequestException $e) {
+				$res = $e->getResponse();
+				return $service->formatResponse($res);
 			}
-		}*/
+		}
 	}
 
-	
 }
