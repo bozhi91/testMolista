@@ -364,7 +364,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		}
 
 		if($isPriceFall){
-			if(!empty($this->site->alert_config['bajada']['agentes'])){
+			if($this->site->alert_config === null ||
+					$this->site->alert_config['bajada']['agentes']){
 				$agents = $property->users()->withRole('employee')->get();
 				foreach($agents as $agent){
 					$job = (new \App\Jobs\SendNotificationPriceFall($property, $agent))->onQueue('emails');
@@ -372,7 +373,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 				}
 			}
 			
-			if(!empty($this->site->alert_config['bajada']['customers'])){
+			if($this->site->alert_config === null ||
+					$this->site->alert_config['bajada']['customers']){
 				foreach($property->customers as $customer){
 					$job = (new \App\Jobs\SendNotificationPriceFall($property, null, $customer))->onQueue('emails');
 					$this->dispatch($job);

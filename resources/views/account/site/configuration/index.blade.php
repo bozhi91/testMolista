@@ -250,8 +250,9 @@
 								<div class="form-group">
 									<div class="checkbox">
 										<label class="normal">
+											<?php $val = $site->alert_config === null ? 1 : $site->alert_config['bajada']['agentes'] ?>
 											{!! Form::hidden('alerts[bajada][agentes]', 0) !!}
-											{!! Form::checkbox('alerts[bajada][agentes]', 1, @$site->alert_config['bajada']['agentes']) !!}
+											{!! Form::checkbox('alerts[bajada][agentes]', 1, $val) !!}
 											{{ Lang::get('account/site.configuration.alerts.agents') }}
 										</label>
 									</div>
@@ -261,8 +262,9 @@
 								<div class="form-group">
 									<div class="checkbox">
 										<label class="normal">
+											<?php $val = $site->alert_config === null ? 1 : $site->alert_config['bajada']['customers'] ?>
 											{!! Form::hidden('alerts[bajada][customers]', 0) !!}
-											{!! Form::checkbox('alerts[bajada][customers]', 1, @$site->alert_config['bajada']['customers']) !!}
+											{!! Form::checkbox('alerts[bajada][customers]', 1, $val) !!}
 											{{ Lang::get('account/site.configuration.alerts.customers') }}
 										</label>
 									</div>
