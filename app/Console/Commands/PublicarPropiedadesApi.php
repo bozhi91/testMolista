@@ -85,7 +85,10 @@ class PublicarPropiedadesApi extends Command {
 		
 		$properties = $helper->getMarketplaceProperties();
 		$handler = $helper->getMarketplaceAdm();
-		$handler->publishProperties($properties);
+		foreach($properties as $property){
+			$job = (new \App\Jobs\PublishPropertyApi($handler, $property))->onQueue();
+			$this->dispatch($job);
+		}
 	}
 
 }
