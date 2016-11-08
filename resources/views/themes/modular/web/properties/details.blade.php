@@ -10,15 +10,31 @@
 		<div class="container">
 
 			<div class="header">
-				<div class="price text-bold text-italic pull-right">{{ price($property->price, $property->infocurrency->toArray()) }}</div>
-				<h1 class="text-bold">{{$property->title}}</h1>
-				<div class="location text-italic">
-					<i class="fontello-icon fontello-icon-marker hidden-xs"></i>
-					{{ implode(', ', array_filter([
-						'district' => $property->district,
-						'city' => $property->city->name,
-						'state' => $property->state->name,
-					])) }}
+				<div class="row">
+					<div class="col-xs-12 col-sm-8">
+						<div class="modular-property-title">
+							@include('components.property.property-title')
+						</div>
+						<div class="modular-property-price">
+							@include('components.property.property-price')
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-4">
+						<div class="modular-property-more-info-button">
+							@include('components.property.property-moreinfo-button')
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="content">
+				<div class="row">
+					<div class="col-xs-12 col-sm-8">
+
+					</div>
+					<div class="col-xs-12 col-sm-4">
+						
+					</div>
 				</div>
 			</div>
 
