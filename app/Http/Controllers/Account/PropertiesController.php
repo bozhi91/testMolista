@@ -1060,6 +1060,34 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 		if( $upload_success )
 		{
+			// Resize targets
+			$target_width = 1920;
+			$target_height = 1080;
+
+			// Create thumb
+			$thumb = \Image::make( public_path("{$dir}/{$filename}") );
+
+			// Change extension and encode as jpg
+			if ( preg_match('#\.[^.]+$#', $filename, $matches) )
+			{
+				$ofilename = $filename;
+
+				$filename = preg_replace('#\.[^.]+$#', '.jpg', $filename); // Change extension
+				$thumb->encode('jpg'); // Encode
+
+				// Resize
+				$thumb->resize($target_width, $target_height, function($constraint) {
+					$constraint->aspectRatio();
+					$constraint->upsize();
+				})->save( public_path("{$dir}/{$filename}") );
+
+				if ( $matches[0] != '.jpg' )
+				{
+					@unlink( public_path("{$dir}/{$ofilename}") );
+				}
+			}
+
+			// Define flags
 			@list($w, $h) = @getimagesize( public_path("{$dir}/{$filename}") );
 			$is_vertical = ( $w && $h && $w < $h ) ? true : false;
 			$has_size = ( $w && $w < 1280 ) ? false : true;
