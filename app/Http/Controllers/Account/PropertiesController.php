@@ -326,7 +326,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 	}
 
 	public function update(Request $request, $slug)
-	{						
+	{				
 		// Get property
 		$query = $this->site->properties()
 						->whereTranslation('slug', $slug)
@@ -346,6 +346,10 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			abort(404);
 		}
 
+		$oldPrice = floatval($property->price);
+		$newPrice = floatval($this->request->input('price'));
+		$isPriceFall = $newPrice < $oldPrice;
+				
 		// Validate request
 		$valid = $this->validateRequest($property->id);
 		if ( $valid !== true )
@@ -359,6 +363,29 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
 		}
 
+		if($isPriceFall){
+			if($this->site->alert_config === null ||
+					$this->site->alert_config['bajada']['agentes']){
+				$agents = $property->users()->withRole('employee')->get();
+				foreach($agents as $agent){
+					$job = (new \App\Jobs\SendNotificationPriceFall($property, $agent))->onQueue('emails');
+					$this->dispatch($job);
+				}
+			}
+			
+			if($this->site->alert_config === null ||
+					$this->site->alert_config['bajada']['customers']){
+				foreach($property->customers as $customer){
+					
+					if($customer->alert_config === null ||
+							$customer->alert_config['bajada']){
+						$job = (new \App\Jobs\SendNotificationPriceFall($property, null, $customer))->onQueue('emails');
+						$this->dispatch($job);
+					}
+				}
+			}
+		}
+		
 		// Save marketplaces
 		$this->site->marketplace_helper->savePropertyMarketplaces($property->id, $this->request->input('marketplaces_ids'));
 

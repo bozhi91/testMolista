@@ -19,6 +19,7 @@ class Site extends TranslatableModel
 		'signature' => 'array',
 		'invoicing' => 'array',
 		'country_ids' => 'array',
+		'alert_config' => 'array',
 	];
 
 	protected $data;
