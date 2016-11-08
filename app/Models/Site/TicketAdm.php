@@ -208,7 +208,7 @@ class TicketAdm
 		return true;
 	}
 
-	public function createUser($user) 
+	public function createUser($user)
 	{
 		if ( !$this->site_ready )
 		{
@@ -250,7 +250,7 @@ class TicketAdm
 		return true;
 	}
 
-	public function updateUser($user) 
+	public function updateUser($user)
 	{
 		if ( !$this->site_ready )
 		{
@@ -289,7 +289,7 @@ class TicketAdm
 		return false;
 	}
 
-	public function associateUsers($users) 
+	public function associateUsers($users)
 	{
 		if ( !$this->site_ready )
 		{
@@ -348,7 +348,7 @@ class TicketAdm
 		return false;
 	}
 
-	public function dissociateUsers($users, $reassignee=false) 
+	public function dissociateUsers($users, $reassignee=false)
 	{
 		if ( !$this->site_ready )
 		{
@@ -368,7 +368,7 @@ class TicketAdm
 			$deletes[] = $user->ticket_user_id;
 
 			// Reassign tickets
-			$this->reassignUserTickets($user, $reassignee); 
+			$this->reassignUserTickets($user, $reassignee);
 		}
 
 		if ( count($deletes) < 1 )
@@ -406,7 +406,7 @@ class TicketAdm
 		return false;
 	}
 
-	public function reassignUserTickets($user, $reassignee) 
+	public function reassignUserTickets($user, $reassignee)
 	{
 		if ( !$user || !$user->ticket_user_id )
 		{
@@ -448,7 +448,7 @@ class TicketAdm
 		return false;
 	}
 
-	public function associateContact($contact) 
+	public function associateContact($contact)
 	{
 		if ( !$this->site_ready )
 		{
@@ -540,7 +540,7 @@ class TicketAdm
 		return $body;
 	}
 
-	public function associateItem($item) 
+	public function associateItem($item)
 	{
 		if ( !$this->site_ready )
 		{
@@ -806,6 +806,7 @@ class TicketAdm
 
 		return $ticket;
 	}
+
 	public function updateTicket($ticket_id, $data)
 	{
 		if ( !$this->site_ready )
@@ -838,7 +839,38 @@ class TicketAdm
 		return true;
 	}
 
-	public function postMessage($ticket_id, $data) 
+	public function deleteTicket($ticket_id)
+	{
+		if ( !$this->site_ready )
+		{
+			return false;
+		}
+
+		$response = $this->guzzle_client->request('DELETE', "ticket/{$ticket_id}?site_id={$this->site_id}", [
+			'headers'=> [
+				'Authorization' => $this->getAuthorizationHeader(),
+			],
+		]);
+
+		// Error
+		$body = @json_decode( $response->getBody() );
+
+		if ( $response->getStatusCode() != 204 )
+		{
+			$error_message = "TICKETING -> could not delete ticket with ID {$ticket_id}";
+			if ( @$body->message )
+			{
+				$error_message .= ": {$body->message}";
+			}
+			\Log::error($error_message);
+			return false;
+		}
+
+
+		return true;
+	}
+
+	public function postMessage($ticket_id, $data)
 	{
 		if ( !$this->site_ready )
 		{
@@ -878,7 +910,7 @@ class TicketAdm
 		{
 			$this->setSiteToken($user_token);
 		}
-			
+
 		if ( !$this->site_ready )
 		{
 			return $default;
@@ -922,7 +954,7 @@ class TicketAdm
 		return $body;
 	}
 
-	public function saveEmailAccount($data, $account_id=false) 
+	public function saveEmailAccount($data, $account_id=false)
 	{
 		// Set user id
 		$user_id = @$data['user_id'];
@@ -1003,13 +1035,13 @@ class TicketAdm
 		return $account_id;
 	}
 
-	public function testEmailAccount($account_id,$user_id, $user_token=false) 
+	public function testEmailAccount($account_id,$user_id, $user_token=false)
 	{
 		if ($user_token)
 		{
 			$this->setSiteToken($user_token);
 		}
-			
+
 		if ( !$this->site_ready )
 		{
 			return false;
@@ -1030,14 +1062,14 @@ class TicketAdm
 
 		return false;
 	}
-	
-	public function deleteEmailAccount($account_id,$user_id, $user_token=false) 
+
+	public function deleteEmailAccount($account_id,$user_id, $user_token=false)
 	{
 		if ($user_token)
 		{
 			$this->setSiteToken($user_token);
 		}
-			
+
 		if ( !$this->site_ready )
 		{
 			return false;
@@ -1101,7 +1133,7 @@ class TicketAdm
 		$url = "stats/user/?site_id={$this->site_id}";
 
 		$stats = [];
-		foreach ($user_ids as $id) 
+		foreach ($user_ids as $id)
 		{
 			$url .= "&user_id[]={$id}";
 			$stats[$id] = $stats_default;
@@ -1126,7 +1158,7 @@ class TicketAdm
 			\Log::error($error_message);
 			return false;
 		}
-		
+
 		foreach ($body as $data)
 		{
 			$user_id = @$data->user_id;
@@ -1154,7 +1186,7 @@ class TicketAdm
 		return $stats;
 	}
 
-	
+
 	public function getCustomersStats($customers_ids)
 	{
 		if ( !$this->site_ready || empty($customers_ids) )
@@ -1184,7 +1216,7 @@ class TicketAdm
 		$url = "stats/contact/?site_id={$this->site_id}";
 
 		$stats = [];
-		foreach ($customers_ids as $id) 
+		foreach ($customers_ids as $id)
 		{
 			$url .= "&contact_id[]={$id}";
 			$stats[$id] = $stats_default;
@@ -1195,10 +1227,10 @@ class TicketAdm
 				'Authorization' => $this->getAuthorizationHeader(),
 			],
 		]);
-		
+
 		// Error
 		$body = @json_decode( $response->getBody() );
-				
+
 		if ( $response->getStatusCode() != 200 )
 		{
 			$error_message = "TICKETING -> could not access customers stats";
@@ -1209,9 +1241,9 @@ class TicketAdm
 			\Log::error($error_message);
 			return false;
 		}
-						
+
 		foreach ($body as $data)
-		{			
+		{
 			$contact_id = @$data->contact_id;
 			if ( !$contact_id )
 			{
@@ -1236,13 +1268,13 @@ class TicketAdm
 
 		return $stats;
 	}
-	
-	
-	public function getStatusOptions() 
+
+
+	public function getStatusOptions()
 	{
 		$options = [];
-		
-		foreach ($this->status as $key => $value) 
+
+		foreach ($this->status as $key => $value)
 		{
 			$options[$key] = trans("account/tickets.status.{$key}");
 		}
@@ -1281,7 +1313,7 @@ class TicketAdm
 		return true;
 	}
 
-	public function prepareSiteSignature($user,$site) 
+	public function prepareSiteSignature($user,$site)
 	{
 		if ( !$user || empty($user['name']) )
 		{

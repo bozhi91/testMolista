@@ -14,6 +14,8 @@ class TicketsController extends \App\Http\Controllers\AccountController
 		parent::__initialize();
 		\View::share('submenu_section', 'tickets');
 		\View::share('submenu_subsection', false);
+
+		$this->middleware([ 'permission:ticket-delete' ], [ 'only' => [ 'getDestroy', 'deleteDestroy' ] ]);
 	}
 
 	public function getIndex()
@@ -45,10 +47,10 @@ class TicketsController extends \App\Http\Controllers\AccountController
 		{
 			$clean_filters = true;
 			$params['user_id'] = 'null';
-		} 
+		}
 		elseif ( \Auth::user()->hasRole('employee') )
 		{
-			if ( $this->request->input('user_id') ) 
+			if ( $this->request->input('user_id') )
 			{
 				$clean_filters = true;
 				$params['user_id'] = \Auth::user()->ticket_user_id;
@@ -61,14 +63,14 @@ class TicketsController extends \App\Http\Controllers\AccountController
 				];
 			}
 		}
-		elseif ( $this->request->input('user_id') ) 
+		elseif ( $this->request->input('user_id') )
 		{
 			$clean_filters = true;
 			$tmp = $this->site->users()->find($this->request->input('user_id'));
 			$params['user_id'] = @intval($tmp->ticket_user_id);
 		}
 
-		if ( $this->request->input('customer_id') ) 
+		if ( $this->request->input('customer_id') )
 		{
 			$clean_filters = true;
 			$tmp = $this->site->customers()->find($this->request->input('customer_id'));
@@ -125,7 +127,7 @@ class TicketsController extends \App\Http\Controllers\AccountController
 			'attachment' => 'max:' . \Config::get('app.property_image_maxsize', 2048),
 			'email_account_id' => 'numeric',
 		]);
-		if ( $validator->fails() ) 
+		if ( $validator->fails() )
 		{
 			return redirect()->back()->withInput()->withErrors($validator);
 		}
@@ -185,14 +187,14 @@ class TicketsController extends \App\Http\Controllers\AccountController
 		$validator = \Validator::make($this->request->all(), [
 			'user_id' => 'required|exists:sites_users,user_id,site_id,'.$this->site->id,
 		]);
-		if ( $validator->fails() ) 
+		if ( $validator->fails() )
 		{
 			return redirect()->back()->withInput()->withErrors($validator);
 		}
 
 		$user = $this->site->users()->find($this->request->input('user_id'));
 
-		if ( !$user || !$user->ticket_user_id ) 
+		if ( !$user || !$user->ticket_user_id )
 		{
 			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
 		}
@@ -203,7 +205,7 @@ class TicketsController extends \App\Http\Controllers\AccountController
 		}
 
 		$ticket = $this->_getTicket($ticket_id);
-		if ( !$ticket ) 
+		if ( !$ticket )
 		{
 			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
 		}
@@ -236,13 +238,13 @@ class TicketsController extends \App\Http\Controllers\AccountController
 			'attachment' => 'max:' . \Config::get('app.property_image_maxsize', 2048),
 			'email_account_id' => 'integer',
 		]);
-		if ( $validator->fails() ) 
+		if ( $validator->fails() )
 		{
 			return redirect()->back()->withInput()->withErrors($validator);
 		}
 
 		$ticket = $this->_getTicket($ticket_id);
-		if ( !$ticket ) 
+		if ( !$ticket )
 		{
 			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
 		}
@@ -266,13 +268,13 @@ class TicketsController extends \App\Http\Controllers\AccountController
 		$validator = \Validator::make($this->request->all(), [
 			'status' => 'required|in:'.implode(',',array_keys($this->site->ticket_adm->getStatusOptions())),
 		]);
-		if ( $validator->fails() ) 
+		if ( $validator->fails() )
 		{
 			return redirect()->back()->withInput()->withErrors($validator);
 		}
 
 		$ticket = $this->_getTicket($ticket_id);
-		if ( !$ticket ) 
+		if ( !$ticket )
 		{
 			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
 		}
@@ -284,6 +286,35 @@ class TicketsController extends \App\Http\Controllers\AccountController
 		if ( $result )
 		{
 			return redirect()->back()->with('success', trans('general.messages.success.saved'));
+		}
+
+		return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
+	}
+
+	public function getDestroy($ticket_id)
+	{
+		$ticket = $this->_getTicket($ticket_id);
+		if ( !$ticket )
+		{
+			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
+		}
+
+		return view('account.tickets.destroy', compact('ticket'));
+	}
+
+	public function deleteDestroy($ticket_id)
+	{
+		$ticket = $this->_getTicket($ticket_id);
+		if ( !$ticket )
+		{
+			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
+		}
+
+		$result = $this->site->ticket_adm->deleteTicket($ticket_id);
+
+		if ( $result )
+		{
+			return redirect()->action('Account\TicketsController@getIndex')->with('success', trans('general.messages.success.deleted'));
 		}
 
 		return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
@@ -370,7 +401,7 @@ class TicketsController extends \App\Http\Controllers\AccountController
 			$validator = \Validator::make($data, [
 				'attachment' => 'required|max:' . \Config::get('app.property_image_maxsize', 2048),
 			]);
-			if ( !$validator->fails() ) 
+			if ( !$validator->fails() )
 			{
 				$attach = [
 					'site_id' => $this->site->id,

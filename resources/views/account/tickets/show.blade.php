@@ -12,6 +12,9 @@
 	        @include('common.messages', [ 'dismissible'=>true ])
 
 			<div class="pull-right hidden-xs">
+				@if ( Auth::user()->can('ticket-delete') )
+				<a href="{{ action('Account\TicketsController@getDestroy', $ticket->id) }}" class="btn btn-danger" }}>{{ Lang::get('general.delete') }}</a>
+				@endif
 				{!! print_goback_button( Lang::get('general.back'), [ 'class'=>'btn btn-primary' ]) !!}
 			</div>
 
@@ -100,8 +103,8 @@
 												<div class="error-container">
 													{!! form::file('attachment', [ 'class'=>'form-control' ]) !!}
 												</div>
-												<div class="help-block">{!! Lang::get('account/tickets.attachment.helper', [ 
-													'maxsize'=>Config::get('app.property_image_maxsize', 2048) 
+												<div class="help-block">{!! Lang::get('account/tickets.attachment.helper', [
+													'maxsize'=>Config::get('app.property_image_maxsize', 2048)
 												]) !!}</div>
 											</div>
 										</div>
@@ -244,7 +247,7 @@
 								<div>{{ Lang::get('account/tickets.referer') }}: {{ $ticket->referer }}</div>
 							@endif
 							<div>
-								{{ Lang::get('account/tickets.status') }}: {{ Lang::get("account/tickets.status.{$ticket->status->code}") }} 
+								{{ Lang::get('account/tickets.status') }}: {{ Lang::get("account/tickets.status.{$ticket->status->code}") }}
 								<small class="cursor-pointer status-change-trigger">[{{ Lang::get('account/tickets.status.change') }}]</small>
 							</div>
 							{!! Form::open([ 'id'=>'status-form', 'action'=>[ 'Account\TicketsController@postStatus', $ticket->id ], 'class'=>'form-inline status-form' ]) !!}
@@ -353,7 +356,7 @@
 			if ( cont.find('.alert-success').length ) {
 				if ( typeof window.parent != 'object' ) {
 					return;
-				} 
+				}
 				if ( typeof window.parent.TICKETS != 'object' ) {
 					return;
 				}
@@ -389,8 +392,8 @@
 				add_cont = $(this);
 
 				$.magnificPopup.open({
-					items: { 
-						src: '#cc-bcc-form' 
+					items: {
+						src: '#cc-bcc-form'
 					},
 					modal: true,
 					type: 'inline',
