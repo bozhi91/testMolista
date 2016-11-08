@@ -45,6 +45,16 @@ class User extends Authenticatable
 		return $this->belongsToMany('App\Property', 'properties_users', 'user_id', 'property_id')->withTranslations();
 	}
 
+	public function getCustomers() {
+		$propertyIds = $this->properties()->pluck('id');
+		$customerIds = \DB::table('properties_customers')
+				->whereIn('property_id', $propertyIds)->pluck('customer_id');
+		$customerIds = array_unique($customerIds);
+		
+		$query = Models\Site\Customer::whereIn('id', $customerIds);
+		return $query;
+	}
+	
 	public function translation_locales() {
 		return $this->belongsToMany('App\Models\Locale', 'user_translation_locales', 'user_id', 'locale_id');
 	}
