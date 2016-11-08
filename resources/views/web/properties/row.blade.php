@@ -60,6 +60,9 @@
 								<i class="fontello-icon fontello-icon-coins"></i>
 								{{ @number_format(round($item->price/$item->size),0,',','.') }} {{ $item->infocurrency->symbol }}/m²
 							</li>
+							<li class="text-nowrap">
+								{{ Lang::get('account/properties.ref') }}: {{ $property->ref }}
+							</li>
 						</ul>
 						<div class="services text-italic">
 							{{ $item->services->sortBy('title')->implode('title',', ') }}
