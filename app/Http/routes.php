@@ -283,6 +283,8 @@ Route::group([
 			Route::controller('reports/agents', 'Account\Reports\AgentsController');
 			// Leads
 			Route::controller('reports/leads', 'Account\Reports\LeadsController');
+			// Referers
+			Route::controller('reports/referers', 'Account\Reports\ReferersController');
 		});
 		// Reports home
 		Route::controller('reports', 'Account\ReportsController');
