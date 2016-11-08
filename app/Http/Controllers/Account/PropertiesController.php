@@ -546,6 +546,17 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'enabled' => 0,
 		]);
 
+		//Send notifications on property sell
+		if(in_array($this->request->input('status'), ['sold'])){
+			foreach($item->property->customers() as $customer){
+				if($customer->alert_config === null ||
+						$customer->alert_config['venta']){
+					$job = (new \App\Jobs\SendNotificationOnPropertySale($customer, $item->property))->onQueue('emails');
+					$this->dispatch($job);
+				}
+			}
+		}
+		
 		return [ 'success'=>true ];
 	}
 
