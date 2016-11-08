@@ -49,9 +49,9 @@ class Mapper extends \App\Marketplaces\Mapper {
 			}
         }
 
-        $map['#l_surface'] = $this->convertSize($item['size']);
+        $map['#h_surface'] = $this->convertSize($item['size']);
         if (!empty($item['lot_area'])) {
-			$map['l_surface'] = $this->convertSize($item['lot_area']);
+			$map['#l_surface'] = $this->convertSize($item['lot_area']);
 		}
 
         $map['#n_beds'] = $item['rooms'];
