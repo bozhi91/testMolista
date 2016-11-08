@@ -167,7 +167,7 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
 
     protected function processProperties(){
         $properties = $this->getProperties();
-        if(empty($properties)) die("Properties param is empty");
+        if (empty($properties)) $properties = [];
 
         foreach($properties as $k => $property){
             $this->addProperty($property);
