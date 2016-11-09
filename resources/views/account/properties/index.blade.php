@@ -114,10 +114,6 @@
 									@if ( (($current_site_user->properties->where('id',$property->id)->count() > 0 && Auth::user()->canProperty('delete')) || Auth::user()->canProperty('delete_all')) && Auth::user()->can('property-delete') )
 										<button type="submit" class="btn btn-danger btn-xs">{{ Lang::get('general.delete') }}</button>
 									@endif
-									@if ( (($current_site_user->properties->where('id',$property->id)->count() > 0 && Auth::user()->canProperty('edit')) || Auth::user()->canProperty('edit_all')) && Auth::user()->can('property-edit') )
-										<a href="{{ action('Account\PropertiesController@edit', $property->slug) }}" class="btn btn-primary btn-xs">{{ Lang::get('general.edit') }}</a>
-									@endif
-									<a href="{{ action('Account\PropertiesController@show', $property->slug) }}" class="btn btn-primary btn-xs">{{ Lang::get('general.view') }}</a>
 									
 									<div class="btn-group" style="border:none;" role="group">
 										<button type="button" class="btn btn-primary btn-xs dropdown-toggle"
@@ -133,6 +129,13 @@
 											</li>
 										</ul>
 									</div>
+									
+									@if ( (($current_site_user->properties->where('id',$property->id)->count() > 0 && Auth::user()->canProperty('edit')) || Auth::user()->canProperty('edit_all')) && Auth::user()->can('property-edit') )
+										<a href="{{ action('Account\PropertiesController@edit', $property->slug) }}" class="btn btn-primary btn-xs">{{ Lang::get('general.edit') }}</a>
+									@endif
+									
+									<a href="{{ action('Account\PropertiesController@show', $property->slug) }}" class="btn btn-primary btn-xs">{{ Lang::get('general.view') }}</a>
+
 									{!! Form::close() !!}
 								</td>
 							</tr>

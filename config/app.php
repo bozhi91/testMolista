@@ -236,6 +236,9 @@
 
 			/* https://github.com/prodeveloper/social-share */
 			Chencha\Share\ShareServiceProvider::class,
+			
+			/* https://github.com/chriskonnertz/open-graph */
+			ChrisKonnertz\OpenGraph\OpenGraphServiceProvider::class,
 		],
 
 		/*
@@ -325,6 +328,9 @@
 			
 			/* https://github.com/prodeveloper/social-share */
 			'Share'	=> Chencha\Share\ShareFacade::class,
+			
+			/* https://github.com/chriskonnertz/open-graph */
+			'OpenGraph' => \ChrisKonnertz\OpenGraph\OpenGraph::class,
 		],
 
 	];
