@@ -17,7 +17,7 @@
 		</div>
 
 		<div class="modular-highlight-properties">
-			@include('components.home.home-highlight-properties', ['colperpage' => 3 ])
+			@include('components.home.home-highlight-properties', ['colperpage' => 4 ])
 		</div>
 
 		<div class="modular-home-footer">
