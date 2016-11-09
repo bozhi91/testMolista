@@ -102,6 +102,9 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			case 'title':
 				$query->orderBy('title', $order);
 				break;
+			case 'price':
+				$query->orderBy('price', $order);
+				break;
 			case 'creation':
 			default:
 				$query->orderBy('created_at', $order);

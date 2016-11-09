@@ -26,10 +26,10 @@
 						{!! Form::label('ref', Lang::get('account/properties.ref'), [ 'class'=>'sr-only' ]) !!}
 						{!! Form::text('ref', Input::get('ref'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('account/properties.ref') ]) !!}
 					</div>
-					<div class="form-group">
+<!--					<div class="form-group">
 						{!! Form::label('title', Lang::get('account/properties.title'), [ 'class'=>'sr-only' ]) !!}
 						{!! Form::text('title', Input::get('title'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('account/properties.title') ]) !!}
-					</div>
+					</div>-->
 					<div class="form-group">
 						{!! Form::label('address', Lang::get('account/properties.addres'), [ 'class'=>'sr-only' ]) !!}
 						{!! Form::text('address', Input::get('address'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('account/properties.address') ]) !!}
@@ -62,10 +62,11 @@
 						<tr>
 							{!! drawSortableHeaders(url()->full(), [
 								'reference' => [ 'title' => Lang::get('account/properties.ref') ],
-								'title' => [ 'title' => Lang::get('account/properties.column.title') ],
+								//'title' => [ 'title' => Lang::get('account/properties.column.title') ],
 								'creation' => [ 'title' => Lang::get('account/properties.column.created') ],
 								'location' => [ 'title' => Lang::get('account/properties.column.location') ],
 								'address' => [ 'title' => Lang::get('account/properties.column.address') ],
+								'price' => [ 'title' => Lang::get('account/properties.column.price') ],
 								'lead' => [ 'title' => Lang::get('account/properties.tab.lead'), 'class'=>'text-center text-nowrap' ],
 								'home_slider' => [ 'title' => Lang::get('account/properties.home.slider'), 'sortable'=>false, 'class'=>'text-center text-nowrap' ],
 								'highlighted' => [ 'title' => Lang::get('account/properties.highlighted'), 'sortable'=>false, 'class'=>'text-center text-nowrap' ],
@@ -78,10 +79,11 @@
 						@foreach ($properties as $property)
 							<tr>
 								<td>{{ $property->ref }}</td>
-								<td>{{ $property->title }}</td>
+								<!--<td></td>-->
 								<td>{{  $property->created_at->format('d/m/Y') }}</td>
 								<td>{{ @implode(' / ', array_filter([ $property->city->name, $property->state->name ])) }}</td>
 								<td>{{ $property->address }}</td>
+								<td>{{ $property->price }}</td>
 								<td class="text-center">{{ number_format($property->customers->count(), 0, ',', '.')  }}</td>
 								<td class="text-center">
 									@if ( Auth::user()->can('property-edit') && Auth::user()->canProperty('edit') )
