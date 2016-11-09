@@ -123,11 +123,12 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			return $this->exportCsv($query);
 		}
 
+		$total_properties = $query->get()->count();		
 		$properties = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$this->set_go_back_link();
 
-		return view('account.properties.index', compact('properties','clean_filters'));
+		return view('account.properties.index', compact('properties','clean_filters', 'total_properties'));
 	}
 
 	public function exportCsv($query)

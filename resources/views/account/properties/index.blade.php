@@ -13,7 +13,10 @@
 				</div>
 			@endif
 
-			<h1 class="page-title">{{ Lang::get('account/properties.h1') }}</h1>
+			<h1 class="page-title">
+				{{ Lang::get('account/properties.h1') }}
+				({{ $total_properties }})
+			</h1>
 
 			<div class="search-filters">
 				@if ( !empty($clean_filters) )
