@@ -48,6 +48,10 @@
 		<script src="http://maps.google.com/maps/api/js?key={{ Config::get('app.google_maps_api_key')}}"></script>
 	@endif
 
+	@if (!empty($og)) 
+		{!! $og->renderTags() !!}
+	@endif
+	
 	<script type="text/javascript">
 		var ready_callbacks = [];
 	</script>

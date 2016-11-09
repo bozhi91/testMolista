@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "46d9d9e05100839bb81618f52cd4ff8f",
-    "content-hash": "bfb2b1cf2d0263f5f95bdce5b65ca854",
+    "hash": "fff4b1c02c6349ce79ecfadf3572c0b6",
+    "content-hash": "6a3db5003365d94fc65169e19964128d",
     "packages": [
         {
             "name": "alexpechkarev/google-geocoder",
@@ -195,6 +195,109 @@
                 "pdf"
             ],
             "time": "2015-12-21 19:51:22"
+        },
+        {
+            "name": "chencha/share",
+            "version": "5.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/prodeveloper/social-share.git",
+                "reference": "c25fff7eaac8352df0195ead424de28335464303"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/prodeveloper/social-share/zipball/c25fff7eaac8352df0195ead424de28335464303",
+                "reference": "c25fff7eaac8352df0195ead424de28335464303",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^5.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "guzzlehttp/guzzle": ">=5.3",
+                "mockery/mockery": "^0.9.4",
+                "orchestra/testbench": "~3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Chencha\\Share": "src/"
+                },
+                "classmap": [
+                    "tests/TestCase.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "thujohn",
+                    "email": "jonathan.thuau@gmail.com"
+                },
+                {
+                    "name": "chencha",
+                    "email": "jacob@chenchatech.com"
+                },
+                {
+                    "name": "datashaman",
+                    "email": "marlinf@datashaman.com"
+                }
+            ],
+            "description": "Share links with Laravel 5",
+            "keywords": [
+                "laravel",
+                "laravel5",
+                "share"
+            ],
+            "time": "2016-03-24 08:05:57"
+        },
+        {
+            "name": "chriskonnertz/open-graph",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/chriskonnertz/open-graph.git",
+                "reference": "cbb95125be811acb9ccd0305681092e82d254632"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/chriskonnertz/open-graph/zipball/cbb95125be811acb9ccd0305681092e82d254632",
+                "reference": "cbb95125be811acb9ccd0305681092e82d254632",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.7"
+            },
+            "require-dev": {
+                "nesbot/carbon": "~1.14"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "ChrisKonnertz\\OpenGraph": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chris Konnertz"
+                }
+            ],
+            "description": "Class that assists in building Open Graph meta tags",
+            "keywords": [
+                "laravel",
+                "laravel4",
+                "laravel5",
+                "open graph",
+                "opengraph"
+            ],
+            "time": "2016-05-11 12:16:35"
         },
         {
             "name": "classpreloader/classpreloader",

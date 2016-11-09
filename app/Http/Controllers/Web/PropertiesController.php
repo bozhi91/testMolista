@@ -185,7 +185,15 @@ class PropertiesController extends WebController
 			'description' => $property->description,
 		]);
 
-		return view('web.properties.details', compact('property'));
+		$og = new \ChrisKonnertz\OpenGraph\OpenGraph();
+		
+		$og->title($property->title)
+			->type('article')
+			->image($property->mainImage)
+			->description($property->description)
+			->url($property->full_url);
+			
+		return view('web.properties.details', compact('property', 'og'));
 	}
 
 	public function moreinfo($slug)
