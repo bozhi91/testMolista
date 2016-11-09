@@ -62,6 +62,13 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			$query->where('properties.address', 'LIKE', "%{$this->request->input('address')}%");
 		}
 
+		// Filter by mode
+		if ( $this->request->input('mode') )
+		{
+			$clean_filters = true;
+			$query->where('properties.mode', $this->request->input('mode'));
+		}
+		
 		// Filter by highlighted
 		if ( $this->request->input('highlighted') )
 		{

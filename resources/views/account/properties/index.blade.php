@@ -50,6 +50,10 @@
 							'1' => Lang::get('account/properties.enabled.not'),
 						], Input::get('enabled'), [ 'class'=>'form-control' ]) !!}
 					</div>
+					<div class="form-group">
+						{!! Form::label('mode', Lang::get('account/properties.mode'), [ 'class'=>'sr-only' ]) !!}
+						{!! Form::select('mode', array_merge(['' => ''], \App\Property::getModeOptionsAdmin()), Input::get('mode'), [ 'class'=>'form-control' ]) !!}
+					</div>
 					{!! Form::submit(Lang::get('general.filters.apply'), [ 'class'=>'btn btn-default' ]) !!}
 				{!! Form::close() !!}
 			</div>
