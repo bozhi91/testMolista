@@ -177,6 +177,26 @@ return [
 			'gmaps-circle'	=> '#efb817',
 		],
 
+		'sam' => [
+			'title'			=> 'Sam',
+			'public'		=> true,
+			'custom'		=> false,
+			'extends'	 	=> 'default',
+			'views-path' 	=> 'themes/sam',
+			'asset-path' 	=> 'themes/sam',
+			'gmaps-circle'	=> '#1396e2',
+		],
+
+		'kredikasa' => [
+			'title'			=> 'Kredikasa',
+			'public'		=> false,
+			'custom'		=> true,
+			'extends'	 	=> 'default',
+			'views-path' 	=> 'themes/kredikasa',
+			'asset-path' 	=> 'themes/kredikasa',
+			'gmaps-circle'	=> '#efb817',
+		],
+
 		// Add your themes here...
 
 		/*--------------[ Example Structre ]-------------
