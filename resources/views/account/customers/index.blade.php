@@ -35,10 +35,10 @@
 						{!! Form::label('email', Lang::get('account/customers.email'), [ 'class'=>'sr-only' ]) !!}
 						{!! Form::text('email', Input::get('email'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('account/customers.email') ]) !!}
 					</div>
-					<div class="form-group">
+<!--					<div class="form-group">
 						{!! Form::label('created_at', Lang::get('account/customers.created'), [ 'class'=>'sr-only' ]) !!}
 						{!! Form::text('created_at', Input::get('created_at'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('account/customers.created') ]) !!}
-					</div>
+					</div>-->
 					<div class="form-group">
 						{!! Form::label('origin', Lang::get('account/customers.origin'), [ 'class'=>'sr-only' ]) !!}
 						{!! Form::select('origin', [
@@ -46,10 +46,10 @@
 							'web' => 'Web',
 						], Input::get('origin'), [ 'class'=>'form-control' ]) !!}
 					</div>
-					<div class="form-group">
+<!--					<div class="form-group">
 						{!! Form::label('properties', Lang::get('account/customers.properties'), [ 'class'=>'sr-only' ]) !!}
 						{!! Form::text('properties', Input::get('properties'), [ 'class'=>'form-control', 'id' => 'not-properties', 'placeholder'=>Lang::get('account/customers.properties') ]) !!}
-					</div>
+					</div>-->
 					
 					{!! Form::submit(Lang::get('general.view'), [ 'class'=>'btn btn-default' ]) !!}
 				{!! Form::close() !!}
