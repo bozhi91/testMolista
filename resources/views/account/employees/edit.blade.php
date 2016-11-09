@@ -24,6 +24,7 @@
 					<li role="presentation"><a href="#tab-permissions" aria-controls="tab-permissions" role="tab" data-toggle="tab">{{ Lang::get('account/employees.show.tab.permissions') }}</a></li>
 					<li role="presentation"><a href="#tab-tickets" aria-controls="tab-tickets" role="tab" data-toggle="tab">{{ Lang::get('account/employees.tickets') }}</a></li>
 					<li role="presentation"><a href="#tab-visits" aria-controls="tab-visits" role="tab" data-toggle="tab">{{ Lang::get('account/visits.title') }}</a></li>
+					<li role="presentation"><a href="#tab-leads" aria-controls="tab-leads" role="tab" data-toggle="tab">{{ Lang::get('account/employees.leads') }}</a></li>
 				</ul>
 
 				<div class="tab-content">
@@ -140,6 +141,43 @@
 							'visits_init' => true,
 						])
 					</div>
+					
+					<div role="tabpanel" class="tab-pane tab-main" id="tab-leads">
+						@if ( count($customers->count()) < 1)
+							<div class="alert alert-info">{{ Lang::get('account/customers.empty') }}</div>
+						@else
+							<table class="table table-striped">
+								<thead>
+								<tr>
+									{!! drawSortableHeaders(url()->full(), [
+										'name' => [ 'title' => Lang::get('account/customers.name'), 'sortable'=>false, ],
+										'email' => [ 'title' => Lang::get('account/customers.email'), 'sortable'=>false, ],
+										'origin' => [ 'title' => Lang::get('account/customers.origin'), 'sortable'=>false, ],
+										'properties' => [ 'title' => Lang::get('account/customers.properties'), 'sortable'=>false, 'class'=>'text-center', ],
+										'matches' => [ 'title' => Lang::get('account/customers.matches'), 'sortable'=>false, 'class'=>'text-center', ],
+										'action' => [ 'title' => '', 'sortable'=>false, 'class'=>'text-right text-nowrap', ],
+									]) !!}
+								</tr>
+								</thead>
+								<tbody>
+								@foreach ($customers as $customer)
+									<tr>
+										<td>{{ $customer->full_name }}</td>
+										<td>{{ $customer->email }}</td>
+										<td style="text-transform: capitalize;">{{ $customer->origin }}</td>
+										<td class="text-center">{{ number_format($customer->properties->count(), 0, ',', '.') }}</td>
+										<td class="text-center">{{ number_format($customer->possible_matches->count(), 0, ',', '.') }}</td>
+										<td class="text-right text-nowrap">
+											<a href="{{ action('Account\CustomersController@show', urlencode($customer->email)) }}" 
+											   class="btn btn-primary btn-xs">{{ Lang::get('general.view') }}</a>
+										</td>
+									</tr>
+								@endforeach
+								</tbody>
+							</table>
+							{!! drawPagination($customers, Input::except('page'), url()->full()) !!}
+						@endif
+					</div>
 
 				</div>
 
@@ -164,6 +202,8 @@
 		ready_callbacks.push(function(){
 			var cont = $('#admin-employees');
 			var form = $('#employee-form');
+
+			$('#tab-leads').pjax('.pagination a');
 
 			form.validate({
 				ignore: '',

@@ -257,6 +257,7 @@ Route::group([
 		Route::resource('customers', 'Account\CustomersController');
 
 		Route::post('customers/comment/{slug}', 'Account\CustomersController@postComment');
+		Route::post('customers/general/{slug}', 'Account\CustomersController@postGeneral');
 
 		// Marketplaces
 		Route::group([
@@ -283,6 +284,8 @@ Route::group([
 			Route::controller('reports/agents', 'Account\Reports\AgentsController');
 			// Leads
 			Route::controller('reports/leads', 'Account\Reports\LeadsController');
+			// Referers
+			Route::controller('reports/referers', 'Account\Reports\ReferersController');
 		});
 		// Reports home
 		Route::controller('reports', 'Account\ReportsController');

@@ -81,6 +81,7 @@
 									<li><a href="{{ action('Account\Reports\PropertiesController@getIndex') }}" class="{{ (@$submenu_subsection == 'reports-properties') ? 'current' : '' }}">{{ Lang::get('account/menu.reports.properties') }}</a></li>
 									<li><a href="{{ action('Account\Reports\AgentsController@getIndex') }}" class="{{ (@$submenu_subsection == 'reports-agents') ? 'current' : '' }}">{{ Lang::get('account/menu.reports.agents') }}</a></li>
 									<li><a href="{{ action('Account\Reports\LeadsController@getIndex') }}" class="{{ (@$submenu_subsection == 'reports-leads') ? 'current' : '' }}">{{ Lang::get('account/menu.reports.leads') }}</a></li>
+									<li><a href="{{ action('Account\Reports\ReferersController@getIndex') }}" class="{{ (@$submenu_subsection == 'reports-referers') ? 'current' : '' }}">{{ Lang::get('account/menu.reports.referers') }}</a></li>
 								</ul>
 							</li>
 						@else

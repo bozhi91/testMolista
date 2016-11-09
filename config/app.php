@@ -235,6 +235,11 @@
 			/* https://github.com/incubout/heartbeats */
 			Incubout\Heartbeats\HeartbeatsServiceProvider::class,
 
+			/* https://github.com/prodeveloper/social-share */
+			Chencha\Share\ShareServiceProvider::class,
+			
+			/* https://github.com/chriskonnertz/open-graph */
+			ChrisKonnertz\OpenGraph\OpenGraphServiceProvider::class,
 		],
 
 		/*
@@ -281,7 +286,7 @@
 			'URL'       => Illuminate\Support\Facades\URL::class,
 			'Validator' => Illuminate\Support\Facades\Validator::class,
 			'View'      => Illuminate\Support\Facades\View::class,
-
+			
 			/* Own */
 			'SiteCustomer' => App\Session\SiteCustomer::class,
 
@@ -321,6 +326,12 @@
 
 			/* https://github.com/florianv/laravel-swap */
 			'Swap' => Florianv\LaravelSwap\Facades\Swap::class,
+			
+			/* https://github.com/prodeveloper/social-share */
+			'Share'	=> Chencha\Share\ShareFacade::class,
+			
+			/* https://github.com/chriskonnertz/open-graph */
+			'OpenGraph' => \ChrisKonnertz\OpenGraph\OpenGraph::class,
 		],
 
 	];

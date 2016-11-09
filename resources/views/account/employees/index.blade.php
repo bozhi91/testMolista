@@ -59,7 +59,7 @@
 								<td>{{ $employee->email }}</td>
 								<td class="text-center">{{ number_format($employee->properties->where('site_id', $site_setup['site_id'])->count(), 0, ',', '.') }}</td>
 								<td class="text-center">{{ @number_format(intval( $stats[$employee->ticket_user_id]->tickets->open ), 0, ',', '.') }}</td>
-								<td class="text-center">{{ @number_format(intval( $stats[$employee->ticket_user_id]->contacts->open ), 0, ',', '.') }}</td>
+								<td class="text-center">{{ @number_format(intval( $employee->getCustomers()->count() ), 0, ',', '.') }}</td>
 								<td class="text-right text-nowrap">
 									{!! Form::open([ 'method'=>'DELETE', 'class'=>'delete-form', 'action'=>['Account\EmployeesController@destroy', urlencode($employee->email)] ]) !!}
 										@if ( Auth::user()->can('employee-edit') )
