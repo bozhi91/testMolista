@@ -97,7 +97,7 @@
 									@endif
 								</td>
 								<td class="text-center">
-									<a href="{{ $property->main_image }}" target="_blank" class="property-table-thumb" 
+									<a href="{{ $property->main_image }}" target="_blank" class="property-table-thumb"
 									   style="background-image: url('{{ $property->main_image_thumb }}')"></a>
 								</td>
 								<td class="text-center">
@@ -110,32 +110,32 @@
 									@endif
 								</td>
 								<td class="text-right text-nowrap">
-									{!! Form::open([ 'method'=>'DELETE', 'class'=>'delete-form', 'action'=>['Account\PropertiesController@destroy', $property->slug] ]) !!}
-									@if ( (($current_site_user->properties->where('id',$property->id)->count() > 0 && Auth::user()->canProperty('delete')) || Auth::user()->canProperty('delete_all')) && Auth::user()->can('property-delete') )
-										<button type="submit" class="btn btn-danger btn-xs">{{ Lang::get('general.delete') }}</button>
-									@endif
-									
-									<div class="btn-group" style="border:none;" role="group">
-										<button type="button" class="btn btn-primary btn-xs dropdown-toggle"
-												data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										{{ Lang::get('general.share') }} <span class="caret"></span>
+									<div>
+										{!! Form::open([ 'method'=>'DELETE', 'class'=>'delete-form', 'action'=>['Account\PropertiesController@destroy', $property->slug] ]) !!}
+										@if ( (($current_site_user->properties->where('id',$property->id)->count() > 0 && Auth::user()->canProperty('delete')) || Auth::user()->canProperty('delete_all')) && Auth::user()->can('property-delete') )
+											<button type="submit" class="btn btn-danger btn-xs">{{ Lang::get('general.delete') }}</button>
+										@endif
+
+
+										@if ( (($current_site_user->properties->where('id',$property->id)->count() > 0 && Auth::user()->canProperty('edit')) || Auth::user()->canProperty('edit_all')) && Auth::user()->can('property-edit') )
+											<a href="{{ action('Account\PropertiesController@edit', $property->slug) }}" class="btn btn-primary btn-xs">{{ Lang::get('general.edit') }}</a>
+										@endif
+
+										<a href="{{ action('Account\PropertiesController@show', $property->slug) }}" class="btn btn-primary btn-xs">{{ Lang::get('general.view') }}</a>
+									</div>
+
+									<div class="btn-group" style="border:none; margin-top: 5px;" role="group">
+										<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											{{ Lang::get('general.share') }} <span class="caret"></span>
 										</button>
 										<ul class="dropdown-menu">
 											<li>
-												<a class="share-social-link" 
-												   href="{{Share::load($property->full_url)->facebook() }}">
+												<a class="share-social-link" href="{{Share::load($property->full_url)->facebook() }}">
 													<i class="fa fa-facebook" aria-hidden="true"></i> Facebook
 												</a>
 											</li>
 										</ul>
 									</div>
-									
-									@if ( (($current_site_user->properties->where('id',$property->id)->count() > 0 && Auth::user()->canProperty('edit')) || Auth::user()->canProperty('edit_all')) && Auth::user()->can('property-edit') )
-										<a href="{{ action('Account\PropertiesController@edit', $property->slug) }}" class="btn btn-primary btn-xs">{{ Lang::get('general.edit') }}</a>
-									@endif
-									
-									<a href="{{ action('Account\PropertiesController@show', $property->slug) }}" class="btn btn-primary btn-xs">{{ Lang::get('general.view') }}</a>
-
 									{!! Form::close() !!}
 								</td>
 							</tr>
@@ -168,7 +168,7 @@
 					e.preventDefault();
 				}
 			})
-			
+
 			cont.find('.property-table-thumb').each(function(){
 				$(this).magnificPopup({
 					type: 'image',
