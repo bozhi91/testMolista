@@ -59,7 +59,12 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		if ( $this->request->input('address') )
 		{
 			$clean_filters = true;
-			$query->where('properties.address', 'LIKE', "%{$this->request->input('address')}%");
+			$query->leftJoin('states','properties.state_id','=','states.id');
+			$query->where(function ($query) {
+				$query->where('properties.address', 'LIKE', "%{$this->request->input('address')}%");
+				$query->orWhere('states.name', 'LIKE', "%{$this->request->input('address')}%");
+				$query->orWhere('cities.name', 'LIKE', "%{$this->request->input('address')}%");
+			});
 		}
 
 		// Filter by mode
@@ -68,7 +73,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			$clean_filters = true;
 			$query->where('properties.mode', $this->request->input('mode'));
 		}
-		
+
 		// Filter by highlighted
 		if ( $this->request->input('highlighted') )
 		{
@@ -123,7 +128,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			return $this->exportCsv($query);
 		}
 
-		$total_properties = $query->get()->count();		
+		$total_properties = $query->get()->count();
 		$properties = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$this->set_go_back_link();
@@ -337,7 +342,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 	}
 
 	public function update(Request $request, $slug)
-	{						
+	{
 		// Get property
 		$query = $this->site->properties()
 						->whereTranslation('slug', $slug)
@@ -876,7 +881,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		$preserve = [];
 
 		$rotation = $this->request->input('rotation');
-		
+
 		// Update images position
 		if ( $this->request->input('images') ) {
 			foreach ($this->request->input('images') as $image_id)
@@ -919,16 +924,16 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 					}
 
 					$newlocation = "{$dirpath}/{$filename}";
-					
+
 					// Move image to permanent location
 					rename($filepath, $newlocation);
-										
+
 					//rotate image if necessary
 					if(!empty($rotation[$image_id])){
 						$degree = -(int)$rotation[$image_id];
 						\Image::make($newlocation)->rotate($degree)->save($newlocation);
 					}
-					
+
 					// Preserve
 					$preserve[] = $new_image->id;
 				}
@@ -936,28 +941,28 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 				else
 				{
 					$image = $property->images()->find($image_id);
-								
+
 					$updateFields = [
 						'default' => 0,
 						'position' => $position,
 					];
-					
+
 					//rotate image if necessary
 					if(!empty($rotation[$image_id])){
 						$degree = -(int)$rotation[$image_id];
 						$path = public_path("sites/{$property->site_id}/properties/{$property->id}/{$image->image}");
 						\Image::make($path)->rotate($degree)->save($path);
-						
+
 						//delete thumbnail
 						$thumbPath = public_path("sites/{$property->site_id}/properties/{$property->id}/thumbnail/{$image->image}");
 						\File::delete($thumbPath);
-						
+
 						$updateFields['updated_at'] = new \DateTime();
 					}
-					
+
 					// Update position
 					$image->update($updateFields);
-					
+
 					// Preserve
 					$preserve[] = $image_id;
 

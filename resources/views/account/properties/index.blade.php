@@ -69,9 +69,6 @@
 						<tr>
 							{!! drawSortableHeaders(url()->full(), [
 								'reference' => [ 'title' => Lang::get('account/properties.ref') ],
-								//'title' => [ 'title' => Lang::get('account/properties.column.title') ],
-								'creation' => [ 'title' => Lang::get('account/properties.column.created') ],
-								'location' => [ 'title' => Lang::get('account/properties.column.location') ],
 								'address' => [ 'title' => Lang::get('account/properties.column.address') ],
 								'price' => [ 'title' => Lang::get('account/properties.column.price') ],
 								'lead' => [ 'title' => Lang::get('account/properties.tab.lead'), 'class'=>'text-center text-nowrap' ],
@@ -86,10 +83,10 @@
 						@foreach ($properties as $property)
 							<tr>
 								<td>{{ $property->ref }}</td>
-								<!--<td></td>-->
-								<td>{{  $property->created_at->format('d/m/Y') }}</td>
-								<td>{{ @implode(' / ', array_filter([ $property->city->name, $property->state->name ])) }}</td>
-								<td>{{ $property->address }}</td>
+								<td>{!! implode( [
+									$property->address,
+									@implode(' / ', array_filter([ $property->city->name, $property->state->name ]))
+									], '<br>') !!}</td>
 								<td>{{ $property->price }}</td>
 								<td class="text-center">{{ number_format($property->customers->count(), 0, ',', '.')  }}</td>
 								<td class="text-center">
