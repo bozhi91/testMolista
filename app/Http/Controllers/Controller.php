@@ -47,10 +47,13 @@ class Controller extends BaseController
 
 		$this->__initialize();
 
-		if ($this->site->id == env('VILLAMED_ID')) {
+		if ($this->site && $this->site->id == env('VILLAMED_ID')) {
 			$this->site->header_class = 'header-logo-md';
 		}
-		view()->share('header_class', $this->site->header_class);
+
+		if ($this->site) {
+			view()->share('header_class', $this->site->header_class);
+		}
 	}
 
 	public function __initialize() {}
