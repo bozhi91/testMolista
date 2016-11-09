@@ -174,10 +174,12 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 		{
 			abort(404);
 		}
-
+		
 		$properties = $employee->properties()->ofSite( $this->site->id )->get();
-
-		return view('account.employees.edit', compact('employee','properties'));
+		$customers = $employee->getCustomers()
+				->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
+				
+		return view('account.employees.edit', compact('employee','properties', 'customers'));
 	}
 
 	public function update($email)

@@ -86,7 +86,11 @@
 		'configuration.hide.molista' => 'Ocultar logos de :webname',
 		'configuration.hide.molista.helper' => 'Esta opción sólo está disponible para los planes Plus',
 
-
+		'configuration.tab.alerts' => 'Alertas',
+		'configuration.alerts.price.down' => 'Notificar de bajada de precio',
+		'configuration.alerts.agents' => 'Agentes',
+		'configuration.alerts.customers' => 'Leads',
+		
 		'menus.h1' => 'Menúes',
 
 		'menus.links.title' => 'Opciones de enlaces',

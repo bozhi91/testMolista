@@ -1034,30 +1034,39 @@ class Property extends TranslatableModel
 	static public function getSizeOptions()
 	{
 		return [
-			'less-100' => '< 100 m²',
-			'100-250' => '100 - 250 m²',
-			'250-500' => '250 - 500 m²',
-			'500-1000' => '500 - 1.000 m²',
-			'1000-more' => '> 1.000 m²',
+			'40-more' => '> 40 m²',
+			'60-more' => '> 60 m²',
+			'80-more' => '> 80 m²',
+			'100-more' => '> 100 m²',
+			'120-more' => '> 120 m²',
+			'140-more' => '> 140 m²',
+			'160-more' => '> 160 m²',
+			'180-more' => '> 180 m²',
+			'200-more' => '> 200 m²',
+			'400-more' => '> 400 m²',
+			'600-more' => '> 600 m²',
 		];
 	}
 
 	static public function getRoomOptions()
 	{
 		return [
-			'0-2' => '1 - 2',
-			'3-5' => '3 - 5',
-			'6-10' => '6 - 10',
-			'11-more' => '> 10',
+			'0-more' => '> 1',
+			'2-more' => '> 2',
+			'3-more' => '> 3',
+			'4-more' => '> 4',
+			'5-more' => '> 5',
 		];
 	}
 
 	static public function getBathOptions()
 	{
 		return [
-			'0-2' => '1 - 2',
-			'3-5' => '3- 5',
-			'6-more' => '> 5',
+			'0-more' => '> 1',
+			'2-more' => '> 2',
+			'3-more' => '> 3',
+			'4-more' => '> 4',
+			'5-more' => '> 5',
 		];
 	}
 

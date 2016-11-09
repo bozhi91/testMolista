@@ -53,4 +53,6 @@
 
 		'account' => 'Account',
 		'account.site' => 'Website account',
+
+		'delete' => 'Are you sure you want to remove this ticket?',
 	];

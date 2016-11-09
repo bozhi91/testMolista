@@ -65,20 +65,20 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
     protected function generateXML(){
 
         //Start xml doc
-        $writer = new \Sabre\Xml\Writer();
+        $writer = new Writer();		
         $writer->openMemory();
         $writer->setIndent(true);
         $writer->startDocument('1.0', 'UTF-8');
         /*<?xml version="1.0" encoding="UTF-8"?>*/
 
-
+		
         //Clients start
         $writer->startElement('clients');
         $writer->startElement('client');
 
         //Data client
         $writer->write( $this->getClient() );
-
+		
         //Write secondhandListing
         $writer->startElement('secondhandListing');
         foreach($this->getSecondhandListing() as $k => $data){
@@ -148,7 +148,7 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
         $features_type = $data['type'];
         unset($data['features']);
         unset($data['type']);
-
+				
         $writer->write($data);
 
 
@@ -237,9 +237,9 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
     //Build images format
     protected function processImages($property){
 
-        $images = [];
+        $images['image'] = [];
         foreach($property['images'] as $k => $url){
-            $images[]['image'] = [
+            $images['image'][] = [
                 'code' => 0,
                 'url' => $url
             ];
@@ -252,24 +252,27 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
     //Build descriptions format
     protected function processDescriptions($property){
 
-        $descriptions = [];
+        $descriptions['description'] = [];
+				
         foreach($property['title'] as $locale => $title){
-            $descriptions[]['description'] = [
+            $descriptions['description'][] = [
                 'language' => $this->translateLanguage($locale),
                 'title' => $title,
                 'comment' => substr(@$property['description'][$locale], 0, 2499),
             ];
         }
-
+		
         return $descriptions;
     }
 
     //Build links format
     protected function processLinks($property){
 
-        $links = [];
+        $links['link'] = [];
+		
+		
         foreach($property['url'] as $locale => $link){
-            $links[]['link'] = [
+            $links['link'][] = [
                 'language' => $this->translateLanguage($locale),
                 'comment' => '',
                 'url' => $link,

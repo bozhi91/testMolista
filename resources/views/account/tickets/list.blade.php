@@ -40,6 +40,9 @@
 						<td class="text-center">{{ @number_format(count($ticket->messages), 0, ',', '.') }}</td>
 						<td>{{ @$ticket->status->name }}</td>
 						<td class="text-right">
+							@if ( Auth::user()->can('ticket-delete') )
+							<a href="{{ action('Account\TicketsController@getDestroy', $ticket->id) }}" class="btn btn-danger btn-xs" }}>{{ Lang::get('general.delete') }}</a>
+							@endif
 							<a href="{{ action('Account\TicketsController@getShow', $ticket->id) }}" class="btn btn-primary btn-xs" {{ empty($ticket_list_target) ? '' : "target='{$ticket_list_target}'" }}>{{ Lang::get('general.view') }}</a>
 						</td>
 					</tr>

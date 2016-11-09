@@ -262,4 +262,10 @@
 		'location.zipcode' => 'Código Postal',
 		'location.number' => 'Número calle',
 
+		'email.sold.subject' => 'La propiedad ":title" ":reference" ha sido vendida',
+		'email.sold.intro' => 'Hola, :name',
+		'email.sold.body' => 'Contacte con nosotros para obtener más información de otras propiedades disponibles que puedan ser de su interés.',
+		'email.price.fall.intro' => 'Hola, :name',
+		'email.price.fall' => 'El precio de la propiedad :title ":reference" ha bajado. El precio actual es de :current.',
+		'email.price.fallen.subject' => 'El precio de la propiedad ":reference" ha bajado',
 	];

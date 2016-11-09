@@ -86,7 +86,11 @@
 		'configuration.hide.molista' => 'Hide :webname logos',
 		'configuration.hide.molista.helper' => 'This option is only available for site using the Plus plan',
 
-
+		'configuration.tab.alerts' => 'Alerts',
+		'configuration.alerts.price.down' => 'Notify for property\'s price fall',
+		'configuration.alerts.agents' => 'Agents',
+		'configuration.alerts.customers' => 'Customers',
+		
 		'menus.h1' => 'Menus',
 
 		'menus.links.title' => 'Links options',
