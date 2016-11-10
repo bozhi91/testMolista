@@ -8,45 +8,23 @@
 
 		<div class="search-area">
 			<div class="container">
-				@if ( Input::get('search') )
-					@if ( $properties->total() == 1 )
-						<h2>{{ Lang::get('web/properties.search.results.one') }}</h2>
-					@else
-						<h2>{{ Lang::get('web/properties.search.results.many', [ 'total'=>number_format($properties->total(),0,',','.') ]) }}</h2>
-					@endif
-				@else
-					<h2>{{ Lang::get('web/properties.search.results') }}</h2>
-				@endif
-				<div class="form-area" style="opacity: 0;">
-					@include('web.search.form')
-					<a href="#" class="form-area-minimizer text-center"><span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span></a>
-				</div>
+
+				@include('components.properties.properties-results-label')
+
+				@include('components.properties.properties-form-area')
+
 			</div>
 		</div>
 
 		<div class="results-area">
 			<div class="container">
-				@if ( count($properties) < 1)
-					<div class="alert alert-info">{{ Lang::get('web/properties.empty') }}</div>
 
-				@else
-					@include('web.properties.index-sort')
+				@include('components.properties.properties-list-properties')
 
-					<ul class="list-unstyled property-list">
-						@foreach ($properties as $property)
-							<li>
-								@include('web.properties.row', [ 'item'=>$property ])
-							</li>
-						@endforeach
-					</ul>
-					<div class="pagination-area text-center">
-						{!! $properties->appends( Input::except('page') )->render() !!}
-					</div>
-				@endif
 			</div>
 		</div>
 
-		@include('web.properties.index-bottom')
+		@include('web.properties.index-bottom' , [ 'related_properties'=>$property->related_properties ])
 
 	</div>
 

@@ -1,0 +1,1 @@
+<div class="carousel-caption-subtitle text-nowrap "> {{ price($main_property->price, $main_property->infocurrency->toArray()) }} </div>

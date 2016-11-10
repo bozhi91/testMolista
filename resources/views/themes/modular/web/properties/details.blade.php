@@ -28,256 +28,49 @@
 			</div>
 
 			<div class="content">
+				
 				<div class="row">
 					<div class="col-xs-12 col-sm-8">
-
+						@include('components.property.property-image-slider')
 					</div>
 					<div class="col-xs-12 col-sm-4">
 						
+						@include('components.property.property-metrics')
+
+						@include('components.property.property-services')
+
+						@include('components.property.property-location')
+
+						@include('components.property.property-description')
+
+						@include('components.property.property-energy-certification')
+
+						@include('components.property.property-donwload-pdf')
+
 					</div>
 				</div>
+				
+				<div class="row">
+					<div class="col-xs-12 col-sm-12">
+						@include('components.property.property-map-area')
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-xs-12 col-sm-12">
+						@include('components.property.property-related-properties' , [ 'related_properties'=>$property->related_properties ] )
+					</div>
+				</div>
+
 			</div>
 
-			@if ( $property->images->count() > 0 )
-				<div class="images-gallery">
-					@include('web.properties.discount-label', [ 'item' => $property ])
-					<div class="image-main text-center">
-						<img src="{{ $property->main_image }}" alt="{{$property->title}}" class="img-responsive cursor-pointer trigger-image-thumbs" id="property-main-image" />
-					</div>
-					@if ( $property->images->count() > 1 )
-						<div id="images-carousel" class="images-carousel carousel slide" data-interval="false">
-							<div class="carousel-inner" role="listbox">
-								<div class="item active">
-									<div class="row">
-										@foreach ($property->images->sortBy('position')->values() as $key => $image)
-											@if ( $key > 0 && $key%6 < 1 )
-												</div></div><div class="item"><div class="row">
-											@endif
-											<div class="col-xs-4 col-sm-2">
-												<a href="{{ $image->image_url }}" class="image-thumb" style="background-image: url('{{ $image->image_url_thumb }}');">
-													<img src="{{ $image->image_url_thumb }}" alt="{{$property->title}}" class="hide" />
-												</a>
-											</div>
-										@endforeach
-									</div>
-								</div>
-							</div>
-							<a class="left carousel-control hide" href="#images-carousel" role="button" data-slide="prev">
-								&lsaquo;
-							</a>
-							<a class="right carousel-control hide" href="#images-carousel" role="button" data-slide="next">
-								&rsaquo;
-							</a>
-						</div>
-					@endif
-				</div>
-			@endif
-
-			<div class="details {{ @$property->details['lot_area'] ? 'has-lot-area' : '' }}">
-				<div class="row">
-					<div class="cols-xs-12 col-sm-10">
-						<div class="description text-italic">
-							{!! nl2p($property->description) !!}
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="cols-xs-12 col-sm-9">
-						@if ( @$property->details['lot_area'] )
-							<ul class="list-inline metrics lot-area-metrics">
-								<li class="text-nowrap lot-area-item lot-area-size">
-									<img src="{{ asset('images/properties/icon-size.png') }}" class="lot-area-icon" alt="" />
-									{{ number_format($property->size,0,',','.') }} m²
-								</li>
-								<li class="text-nowrap lot-area-item lot-area-size">
-									<img src="{{ asset('images/properties/icon-area.png') }}" class="lot-area-icon"  alt="" />
-									{{ number_format($property->details['lot_area'],0,',','.') }} m²
-								</li>
-								<li class="lot-area-sep hidden-xs"></li>
-								<li class="text-nowrap text-lowercase">
-									{{ number_format($property->rooms,0,',','.') }}
-									@if ($property->rooms == 1)
-										{{ Lang::get('web/properties.more.room') }}
-									@else
-										{{ Lang::get('web/properties.more.rooms') }}
-									@endif
-								</li>
-								<li class="text-nowrap text-lowercase">
-									{{ number_format($property->baths,0,',','.') }}
-									@if ($property->baths == 1)
-										{{ Lang::get('web/properties.more.bath') }}
-									@else
-										{{ Lang::get('web/properties.more.baths') }}
-									@endif
-								</li>
-								<li class="text-nowrap">
-									{{ @number_format(round($property->price/$property->size),0,',','.') }} {{ $property->infocurrency->symbol }}/m²
-								</li>
-								<li>
-									{{ Lang::get('account/properties.ref') }}: {{ $property->ref }}
-								</li>
-							</ul>
-						@else
-							<ul class="list-inline metrics">
-								<li>
-									<div class="text-nowrap">
-										{{ number_format($property->size,0,',','.') }} m²
-									</div>
-								</li>
-								<li class="text-nowrap text-lowercase has-fontello-icon">
-									<i class="fontello-icon fontello-icon-table hidden-xs"></i>
-									{{ number_format($property->rooms,0,',','.') }}
-									@if ($property->rooms == 1)
-										{{ Lang::get('web/properties.more.room') }}
-									@else
-										{{ Lang::get('web/properties.more.rooms') }}
-									@endif
-								</li>
-								<li class="text-nowrap text-lowercase has-fontello-icon">
-									<i class="fontello-icon fontello-icon-shower hidden-xs"></i>
-									{{ number_format($property->baths,0,',','.') }}
-									@if ($property->baths == 1)
-										{{ Lang::get('web/properties.more.bath') }}
-									@else
-										{{ Lang::get('web/properties.more.baths') }}
-									@endif
-								</li>
-								<li class="text-nowrap has-fontello-icon">
-									<i class="fontello-icon fontello-icon-coins hidden-xs"></i>
-									{{ @number_format(round($property->price/$property->size),0,',','.') }} {{ $property->infocurrency->symbol }}/m²
-								</li>
-								<li>
-									{{ Lang::get('account/properties.ref') }}: {{ $property->ref }}
-								</li>
-							</ul>
-						@endif
-					</div>
-				</div>
-				<div class="row">
-					<div class="cols-xs-12 col-sm-9">
-						<div class="services text-italic">
-							{{ $property->services->sortBy('title')->implode('title',', ') }}
-						</div>
-						@if ( $property->ec || $property->ec_pending )
-							<div class="energy-certification">
-								<span class="energy-certification-popover-trigger text-bold cursor-pointer">
-									<i class="fa fa-info-circle" aria-hidden="true"></i>
-									&nbsp;{{ Lang::get('account/properties.energy.certificate') }}:
-								</span>
-								&nbsp;
-								@if ( $property->ec_pending )
-									{{ Lang::get('account/properties.energy.certificate.pending') }}</span>
-								@else
-									<img src="{{ asset("images/properties/ec-{$property->ec}.png") }}" alt="{{ $property->ec }}" class="energy-certification-icon" />
-								@endif
-							</div>
-							<div class="energy-certification-popover-content hide">
-								<table>
-									<tr>
-										<td class="hidden-xs"><img src="{{ asset("images/properties/ec-all.png") }}" alt="{{ Lang::get('account/properties.energy.certificate') }}" /></td>
-										<td class="text">{!! Lang::get('web/properties.energy.certificate.help') !!}
-									</tr>
-								</table>
-							</div>
-						@endif
-						<br />
-						<a href="{{ action('Web\PropertiesController@downloads', [ $property->slug, LaravelLocalization::getCurrentLocale() ]) }}" class="btn btn-primary hidden-xs" target="_blank">{{ Lang::get('web/properties.download.pdf') }}</a>
-					</div>
-				</div>
-				<a href="#property-moreinfo-form" class="btn btn-primary call-to-action more-info-trigger">{{ Lang::get('web/properties.call.to.action') }}</a>
-			</div>
-
-			<div class="map-area">
-				@if ( $property->show_address )
-					<div class="visible-address">
-						{!! $property->full_address !!}
-					</div>
-				@endif
-				<div id="property-map" class="map"></div>
-			</div>
-
-			@include('web.properties.details-bottom', [ 'related_properties'=>$property->related_properties ])
 
 		</div>
 
 	</div>
 
-	{!! Form::open([ 'action'=>[ 'Web\PropertiesController@moreinfo', $property->slug ], 'method'=>'POST', 'id'=>'property-moreinfo-form', 'class'=>'mfp-hide app-popup-block-white' ]) !!}
-		<h2 class="page-title">{{ Lang::get('web/properties.call.to.action') }}</h2>
-		<div class="alert alert-success form-success hide">
-			{!! Lang::get('web/properties.moreinfo.success') !!}
-			<div class="text-right">
-				<a href="#" class="alert-link popup-modal-dismiss">{{ Lang::get('general.continue') }}</a>
-			</div>
-		</div>
-		<div class="form-content">
-			<div class="row">
-				<div class="cols-xs-12 col-sm-6">
-					<div class="form-group error-container">
-						{!! Form::label('first_name', Lang::get('web/customers.register.name.first') ) !!}
-						{!! Form::text('first_name', old('first_name', SiteCustomer::get('first_name')), [ 'class'=>'form-control required' ] ) !!}
-					</div>
-				</div>
-				<div class="cols-xs-12 col-sm-6">
-					<div class="form-group error-container">
-						{!! Form::label('last_name', Lang::get('web/customers.register.name.last') ) !!}
-						{!! Form::text('last_name', old('first_name', SiteCustomer::get('last_name')), [ 'class'=>'form-control required' ] ) !!}
-					</div>
-				</div>
-			</div>
-			<div class="form-group error-container">
-				{!! Form::label('email', Lang::get('web/customers.register.email') ) !!}
-				{!! Form::text('email', old('email', SiteCustomer::get('email')), [ 'class'=>'form-control required email' ] ) !!}
-			</div>
-			<div class="form-group error-container">
-				{!! Form::label('phone', Lang::get('web/customers.register.phone') ) !!}
-				{!! Form::text('phone', old('phone', SiteCustomer::get('phone')), [ 'class'=>'form-control required' ] ) !!}
-			</div>
-			<div class="form-group error-container">
-				{!! Form::label('message', Lang::get('web/pages.message') ) !!}
-				{!! Form::textarea('message', old('message'), [ 'class'=>'form-control required', 'rows'=>4 ] ) !!}
-			</div>
-			<div class="alert alert-danger alert-dismissible form-error hide">
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<div class="alert-content"></div>
-			</div>
-			<div class="form-group text-right">
-				{!! Form::button(Lang::get('general.cancel'), [ 'class'=>'btn btn-default popup-modal-dismiss pull-left' ] ) !!}
-				{!! Form::button(Lang::get('general.continue'), [ 'type'=>'submit', 'class'=>'btn btn-primary' ] ) !!}
-			</div>
-		</div>
-	{!! Form::close() !!}
-
 	<script type="text/javascript">
-		google.maps.event.addDomListener(window, 'load', function(){
-			var mapLatLng = { lat: {{$property->lat_public}}, lng: {{$property->lng_public}} };
-
-			var property_map = new google.maps.Map(document.getElementById('property-map'), {
-				zoom: 14,
-				center: mapLatLng,
-				styles: {!! Theme::config('gmaps-style') !!}
-			});
-
-			@if ( @$property->show_address )
-				var property_marker = new google.maps.Marker({
-					position: mapLatLng,
-					map: property_map,
-					icon: '{{ asset( Theme::config('gmaps-marker') ) }}'
-				});
-			@else
-				var property_marker = new google.maps.Circle({
-					strokeColor: '{{ Theme::config('gmaps-circle') }}',
-					strokeOpacity: 0.8,
-					strokeWeight: 0,
-					fillColor: '{{ Theme::config('gmaps-circle') }}',
-					fillOpacity: 0.25,
-					map: property_map,
-					center: mapLatLng,
-					radius: 500
-				});
-			@endif
-		});
-
+		
 		ready_callbacks.push(function(){
 			var cont = $('#property');
 

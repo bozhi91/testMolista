@@ -1,24 +1,15 @@
 <div class="carousel-caption">
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-12 col-md-3 hidden-xs hidden-sm">
-				<div class="relative">
-					<div class="slider-quick-search cursor-default">
-						@include('web.search.quick', [ 'no_title'=>1 ])
-					</div>
-				</div>
-			</div>
 			<div class="col-xs-12 col-md-6">
 				<div class="carousel-caption-text">
 					
-					<div class="carousel-caption-title"> {{$main_property->title}} </div>
+					@include('components.home.carousel.home-carousel-caption-title')
+
+					@include('components.home.carousel.home-carousel-caption-subtitle')
+
+					@include('components.home.carousel.home-carousel-caption-button')
 					
-					<div class="carousel-caption-subtitle text-nowrap hidden-xs"> {{ price($main_property->price, $main_property->infocurrency->toArray()) }} </div>
-
-					<div class="carousel-caption-button">
-						<span href="{{ $main_property->full_url }}" class="carousel-button">{{ Lang::get('web/properties.search.results.more') }}</span>
-					</div>
-
 				</div>
 			</div>
 		</div>
