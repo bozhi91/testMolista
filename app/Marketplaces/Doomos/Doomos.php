@@ -7,6 +7,24 @@ use App\Marketplaces\Interfaces\UnifiedXmlInterface;
 
 class Doomos extends Trovit implements UnifiedXmlInterface {
 
+	protected $configuration = [
+		[
+			'block' => 'contact_data',
+			'fields' => [
+				[
+					'name' => 'name',
+					'type' => 'text',
+					'required' => true
+				],
+				[
+					'name' => 'email',
+					'type' => 'text',
+					'required' => true
+				],
+			]
+		]
+	];
+
 	/**
 	 * @param array $files
 	 * @return string
