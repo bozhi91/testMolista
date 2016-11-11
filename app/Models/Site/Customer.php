@@ -56,7 +56,7 @@ class Customer extends Model
 
 	public function getCurrentQueryAttribute()
 	{
-		return $this->queries->where('enabled',1)->first();
+		return $this->queries()->where('enabled',1)->first();
 	}
 
 	public function scopeWithFullName($query, $full_name)
