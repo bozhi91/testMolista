@@ -46,6 +46,11 @@
 							'web' => 'Web',
 						], Input::get('origin'), [ 'class'=>'form-control' ]) !!}
 					</div>
+					<div class="form-group">
+						{!! Form::label('price', Lang::get('account/customers.price'), [ 'class'=>'sr-only' ]) !!}
+						{!! Form::text('price', Input::get('price'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('account/customers.price') ]) !!}
+					</div>
+
 <!--					<div class="form-group">
 						{!! Form::label('properties', Lang::get('account/customers.properties'), [ 'class'=>'sr-only' ]) !!}
 						{!! Form::text('properties', Input::get('properties'), [ 'class'=>'form-control', 'id' => 'not-properties', 'placeholder'=>Lang::get('account/customers.properties') ]) !!}
