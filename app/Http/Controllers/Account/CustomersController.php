@@ -189,7 +189,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		{
 			abort(404);
 		}
-
+		
 		$validator = \Validator::make($this->request->all(), $this->getRequiredFields($customer->id));
 		if ($validator->fails())
 		{
@@ -230,7 +230,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		}
 
 		$customer = $query->first();
-
+		
 		if ( !$customer )
 		{
 			abort(404);
@@ -254,7 +254,9 @@ class CustomersController extends \App\Http\Controllers\AccountController
 
 		$current_tab = session('current_tab', 'general');
 
-		return view('account.customers.show', compact('customer','profile','countries','country_id','states','cities','modes','types','services','current_tab'));
+		$districts = $this->site->districts()->lists('name', 'id')->all();
+		
+		return view('account.customers.show', compact('customer','profile','countries','country_id','states','cities','modes','types','services','current_tab', 'districts'));
 	}
 
 	public function postProfile($email)
@@ -264,7 +266,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		{
 			abort(404);
 		}
-
+				
 		$fields = [
 			'country_id' => 'exists:countries,id',
 			'territory_id' => 'exists:territories,id',
@@ -324,9 +326,28 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		}
 		$profile->update($data);
 
+		$this->saveCustomerDistricts($customer, $this->request->input('district_id'));
+		
 		return redirect()->action('Account\CustomersController@show', urlencode($customer->email))->with('current_tab', $this->request->input('current_tab'))->with('success', trans('general.messages.success.saved'));
 	}
 
+	/**
+	 * @param Customer $customer
+	 * @param array $district_ids
+	 */
+	private function saveCustomerDistricts($customer, $district_ids){
+		\App\Models\Site\CustomerDistrict::where('customer_id', $customer->id)->delete();
+		
+		$data = [];
+		foreach ($district_ids as $districtId) {
+			if ($districtId != 0) {
+				$data[] = ['customer_id' => $customer->id, 'district_id' => $districtId];
+			}
+		}
+		\App\Models\Site\CustomerDistrict::insert($data);
+	}
+	
+	
 	public function getAddPropertyCustomer($slug)
 	{
 		$property = $this->site->properties()

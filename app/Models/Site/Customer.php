@@ -46,6 +46,10 @@ class Customer extends Model
 		return $this->hasMany('App\Models\Site\CustomerQueries')->with('infocurrency');
 	}
 
+	public function customer_districts(){
+		return $this->hasMany('App\Models\Site\CustomerDistrict', 'customer_id');
+	}
+	
 	public function getFullNameAttribute()
 	{
 		return implode(' ', [
