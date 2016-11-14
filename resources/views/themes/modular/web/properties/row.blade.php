@@ -2,6 +2,25 @@
 	<div class="row">
 		<div class="col-xs-12 col-sm-3">
 			<div class="property-column image-column">
+
+				@include('components.properties.row.properties-row-discount-label')
+
+				@include('components.properties.row.properties-row-property-image')
+
+				@include('components.properties.row.properties-row-price')
+
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-9">
+
+		</div>
+	</div>
+</div>
+
+<div class="property-row">
+	<div class="row">
+		<div class="col-xs-12 col-sm-3">
+			<div class="property-column image-column">
 				@include('web.properties.discount-label')
 				<a href="{{ $item->full_url }}" class="image" style="background-image: url('{{ $item->main_image }}');">
 					<img src="{{ $item->main_image }}" alt="{{$item->title}}" class="hide" />
