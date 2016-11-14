@@ -131,6 +131,11 @@ class PropertiesController extends WebController
 			$query->withServices($this->request->input('services'));
 		}
 
+		//Districts
+		if($this->request->input('district')){
+			$query->where('district_id', $this->request->input('district'));
+		}
+		
 		// Sort order
 		$order = $this->request->input('order');
 		if ( $order && array_key_exists($order, \App\Property::getSortOptions()) )
