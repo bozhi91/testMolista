@@ -88,6 +88,8 @@ class Customer extends Model
 
 		$params = $this->current_query;
 
+		$district_ids = $this->customer_districts()->pluck('district_id')->toArray();
+				
 		if ( !$params )
 		{
 			return $query->where('properties.id',0)->get();
@@ -150,13 +152,17 @@ class Customer extends Model
 		{
 			$query->where('city_id', $params->city_id);
 		}
-
+		
 		// District
-		if ( $params->district )
+		/*if ( $params->district )
 		{
 			$query->where('district', 'LIKE', "%{$params->district}%");
-		}
+		}*/
 
+		if(!empty($district_ids)) {
+			$query->whereIn('district_id', $district_ids);
+		}
+		
 		// Zipcode
 		if ( $params->zipcode )
 		{
