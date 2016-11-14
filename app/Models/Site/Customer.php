@@ -50,6 +50,10 @@ class Customer extends Model
 		return $this->hasMany('App\Models\Site\CustomerDistrict', 'customer_id');
 	}
 	
+	public function customer_cities(){
+		return $this->hasMany('App\Models\Site\CustomerCity', 'customer_id');
+	}
+	
 	public function getFullNameAttribute()
 	{
 		return implode(' ', [
@@ -89,6 +93,7 @@ class Customer extends Model
 		$params = $this->current_query;
 
 		$district_ids = $this->customer_districts()->pluck('district_id')->toArray();
+		$city_ids = $this->customer_cities()->pluck('city_id')->toArray();	
 				
 		if ( !$params )
 		{
@@ -147,18 +152,10 @@ class Customer extends Model
 			$query->where('state_id', $params->state_id);
 		}
 
-		// City
-		if ( $params->city_id )
-		{
-			$query->where('city_id', $params->city_id);
+		if(!empty($city_ids)) {
+			$query->whereIn('city_id', $city_ids);
 		}
 		
-		// District
-		/*if ( $params->district )
-		{
-			$query->where('district', 'LIKE', "%{$params->district}%");
-		}*/
-
 		if(!empty($district_ids)) {
 			$query->whereIn('district_id', $district_ids);
 		}
