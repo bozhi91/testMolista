@@ -24,8 +24,6 @@
 			</div>
 		</div>
 
-		@include('web.properties.index-bottom' , [ 'related_properties'=>$property->related_properties ])
-
 	</div>
 
 	<script type="text/javascript">
