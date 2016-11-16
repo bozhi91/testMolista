@@ -51,6 +51,11 @@
 						{!! Form::text('price', Input::get('price'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('account/customers.price') ]) !!}
 					</div>
 
+					<div class="form-group">
+						{!! Form::label('mode', Lang::get('account/properties.mode'), [ 'class'=>'sr-only' ]) !!}
+						{!! Form::select('mode', array_merge(['' => ''], \App\Property::getModeOptionsAdmin()), Input::get('mode'), [ 'class'=>'form-control' ]) !!}
+					</div>
+
 <!--					<div class="form-group">
 						{!! Form::label('properties', Lang::get('account/customers.properties'), [ 'class'=>'sr-only' ]) !!}
 						{!! Form::text('properties', Input::get('properties'), [ 'class'=>'form-control', 'id' => 'not-properties', 'placeholder'=>Lang::get('account/customers.properties') ]) !!}

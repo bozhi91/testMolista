@@ -16,11 +16,25 @@ class CustomersController extends \App\Http\Controllers\AccountController
 
 	public function index()
 	{
-		$query = $this->site->customers()->with(['queries' => function($q){
-			//$q->where('queries.price_min', '>=', $this->request->input('price'));
-			//s$query->where('queries.price_max', '<=', $this->request->input('price'));
-		}]);
+				
+		$query = $this->site->customers()->whereIn('id', function($query){
+			
+			$subquery = $query->select('customer_id')
+					->from('customers_queries');
+			
+			if($this->request->input('price')){
+				$subquery->where('price_min', '<=', $this->request->input('price'));
+				$subquery->where('price_max', '>=', $this->request->input('price'));
+			}
+			
+			if($this->request->input('mode')){
+				$subquery->where('mode', $this->request->input('mode'));
+			}
+			
+			return $subquery;
+		})->with('queries');
 		
+				
 		if ( $this->site_user->hasRole('employee') )
 		{
 			$query->ofUser($this->site_user->id);
