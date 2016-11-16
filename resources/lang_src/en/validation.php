@@ -103,4 +103,6 @@
 		'rent' => 'This property is not for rent',
 		'type' => 'This property type is not publishable',
 		'transfer' => 'Transfer porperties are not allowed',
+		'second_hand' => 'Only second hand properties are allowed',
+		'new' => 'Only new construction properties are allowed',
 	];

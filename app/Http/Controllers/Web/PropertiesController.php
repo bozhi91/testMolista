@@ -140,7 +140,12 @@ class PropertiesController extends WebController
 		}
 		else
 		{
-			$query->orderBy('properties.highlighted','desc')->orderBy('title');
+			// Fincas Bellamar...
+			if ($this->site->id == env('FINCAS_BELLAMAR_ID')) {
+				$query->orderBy('price','desc');
+			} else {
+				$query->orderBy('properties.highlighted','desc')->orderBy('title');
+			}
 		}
 
 		$properties = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
@@ -180,7 +185,15 @@ class PropertiesController extends WebController
 			'description' => $property->description,
 		]);
 
-		return view('web.properties.details', compact('property'));
+		$og = new \ChrisKonnertz\OpenGraph\OpenGraph();
+		
+		$og->title($property->title)
+			->type('article')
+			->image($property->mainImage)
+			->description($property->description)
+			->url($property->full_url);
+			
+		return view('web.properties.details', compact('property', 'og'));
 	}
 
 	public function moreinfo($slug)

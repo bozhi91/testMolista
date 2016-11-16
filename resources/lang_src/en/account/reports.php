@@ -43,4 +43,13 @@
 		'leads.tab.general' => 'General',
 		'leads.period' => 'Lead generation',
 		'leads.current' => 'Current Leads',
+
+		'referers.h1' => 'Reportes - Referers',
+		'referers.tab.general' => 'General',
+		'referers.origin' => 'Origen',
+		'referers.leads' => 'Leads',
+		'referers.sold' => 'Sold',
+		'referers.rent' => 'Rented',
+		'referers.transfer' => 'Transfered',
+		'referers.other' => 'Other',
 	];

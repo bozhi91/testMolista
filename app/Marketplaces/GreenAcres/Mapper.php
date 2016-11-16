@@ -49,6 +49,11 @@ class Mapper extends \App\Marketplaces\Mapper {
 			}
         }
 
+        $map['#h_surface'] = $this->convertSize($item['size']);
+        if (!empty($item['lot_area'])) {
+			$map['#l_surface'] = $this->convertSize($item['lot_area']);
+		}
+
         $map['#n_beds'] = $item['rooms'];
         $map['#n_baths'] = $item['baths'];
         $map['#dpe_type'] = strtoupper($item['ec']);
@@ -139,7 +144,7 @@ class Mapper extends \App\Marketplaces\Mapper {
         return $pictures;
     }
 
-	
+
 	/**
 	 * @param string $language
 	 * @return bool
@@ -149,5 +154,16 @@ class Mapper extends \App\Marketplaces\Mapper {
 			'bg', 'cz', 'de', 'dk', 'en', 'es', 'fi', 'fr', 'gr',
 			'it', 'nl', 'pl', 'pt', 'ro', 'ru', 'se', 'sk', 'vi'
 		]);
+	}
+
+    /**
+	 * @param float $size
+	 * @return int
+	 */
+	protected function convertSize($size) {
+		switch ($this->item['size_unit']) {
+			case 'sqm': return round($size);
+			case 'sqf': return round(($size * 0.092903));
+		}
 	}
 }

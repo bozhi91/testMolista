@@ -19,14 +19,14 @@
 	@endif
 
 	<link href="https://fonts.googleapis.com/css?family=Lato:400,300,700,900,300italic,400italic,700italic|Dosis:400,700,600,500" rel="stylesheet" type="text/css" />
-	<link href="{{ Theme::url('/compiled/css/corporate.css') }}" rel="stylesheet" type='text/css' />
+	<link href="{{ Theme::url('/compiled/css/corporate.css').'?v='.env('CSS_VERSION') }}" rel="stylesheet" type='text/css' />
 
 	@if ( LaravelLocalization::getCurrentLocaleDirection() == 'rtl' )
 		<link href="{{ Theme::url('/compiled/css/rtl.css') }}" rel="stylesheet" type='text/css' />
 	@endif
 
 	@if ( env('WHITELABEL_CSS') )
-		<link href="{{ env('WHITELABEL_CSS') }}" rel="stylesheet" type='text/css' />
+		<link href="{{ env('WHITELABEL_CSS').'?v='.env('CSS_VERSION') }}" rel="stylesheet" type='text/css' />
 	@endif
 
 	<link id="page_favicon" href="{{ asset( env('WHITELABEL_FAVICON','favicon.ico') ) }}" rel="icon" type="image/x-icon" />
@@ -134,7 +134,7 @@
 	@include('common.contact-modal')
 	@include('common.cookies-warning')
 
-	<script src="{{ Theme::url('/compiled/js/corporate.js') }}"></script>
+	<script src="{{ Theme::url('/compiled/js/corporate.js').'?v='.env('JS_VERSION') }}"></script>
 	<script src="{{ Theme::url('/js/jquery.validate/messages_' . LaravelLocalization::getCurrentLocale() . '.min.js') }}"></script>
 	<script src="{{ Theme::url('/js/alertify/messages_' . LaravelLocalization::getCurrentLocale() . '.js') }}"></script>
 

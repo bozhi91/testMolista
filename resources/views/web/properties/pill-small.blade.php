@@ -11,6 +11,6 @@
 			'city' => $item->city->name,
 			'state' => $item->state->name,
 		])) }}</div>
-		<div class="price text-italic">{{ price($item->price, $item->infocurrency->toArray()) }}</div>
+		<div class="price text-italic">{{ price($item->price, $item->infocurrency->toArray()) }} @include('web.properties.discount-price') </div>
 	</div>
 </div>

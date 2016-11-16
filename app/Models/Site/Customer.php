@@ -8,6 +8,10 @@ class Customer extends Model
 {
 	protected $guarded = [];
 
+	protected $casts = [
+		'alert_config' => 'array',
+	];
+	
 	public static function boot()
 	{
 		parent::boot();
@@ -61,7 +65,7 @@ class Customer extends Model
 
 	public function scopeWithFullName($query, $full_name)
 	{
-		$query->whereRaw("CONCAT(customers.`first_name`,' ',customers.`last_name`) LIKE '%" . \DB::connection()->getPdo()->quote($full_name) . "%'");
+		$query->where(\DB::raw("CONCAT(customers.`first_name`,' ',customers.`last_name`)"), 'like', "%$full_name%");
 	}
 
 	public function scopeOfUser($query, $user_id)

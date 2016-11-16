@@ -44,6 +44,8 @@ class TranslationsUpdateCommand extends Command
 
 			foreach ($files as $path)
 			{
+				if (!preg_match('#\.php$#', $path)) continue;
+
 				$file = str_replace("{$locale_path}/", '', $path);
 				$file = preg_replace('#\.php$#', '', $file);
 
