@@ -33,7 +33,7 @@
 					<table width="100%" class="adviser-contact">
 						<tbody>
 							<tr>
-								<td align="right"><img src="/marketplaces/adviser.png"/></td>
+								<td align="right"><img src="/images/account/adviser.png"/></td>
 								<td valign="middle" align="left">
 									<h4>¿Puedo ayudarte?</h4>
 									<p><i class="fa fa-phone" aria-hidden="true"></i> 93 180 70 20</p>
