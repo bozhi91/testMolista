@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Site;
 use Illuminate\Console\Command;
+use App\Models\Site\ApiPublication;
 
 class PublicarPropiedadesApi extends Command {
 
@@ -86,6 +87,17 @@ class PublicarPropiedadesApi extends Command {
 		$properties = $helper->getMarketplaceProperties();
 		$handler = $helper->getMarketplaceAdm();
 		foreach($properties as $property){
+			
+			$log = ApiPublication::where('site_id', $site->id)
+					->where('marketplace_id', $marketplace->id)
+					->where('property_id', $property['id'])
+					->where('created_at', '>', $property['updated_at'])
+					->first();
+									
+			if($log) {
+				continue;
+			}
+			
 			$job = (new \App\Jobs\PublishPropertyApi($handler
 					, $property
 					, $site

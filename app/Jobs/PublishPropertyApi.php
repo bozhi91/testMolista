@@ -64,6 +64,7 @@ class PublishPropertyApi extends Job implements ShouldQueue {
 		$log = new ApiPublication();
 		$log->site_id = $this->site->id;
 		$log->marketplace_id = $this->marketplace->id;
+		$log->property_id = $this->property['id'];
 		$log->property = $this->property;
 		$log->result = $result;
 		$log->save();
