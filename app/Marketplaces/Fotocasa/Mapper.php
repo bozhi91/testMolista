@@ -12,7 +12,7 @@ class Mapper extends \App\Marketplaces\Inmofactory\Mapper {
 
 		$publications[] = [
 			"PublicationId" => 1,
-			"PublicationTypeId" => 4,
+			"PublicationTypeId" => 2,
 		];
 
 		return $publications;
