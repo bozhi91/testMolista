@@ -5,28 +5,46 @@
 	<div id="account-marketplaces">
 
         @include('common.messages', [ 'dismissible'=>true ])
+        <div class="row">
+        	<div class="col-md-8">
+				<h1 class="page-title">{{ Lang::get('account/marketplaces.h1') }}</h1>
 
-		<h1 class="page-title">{{ Lang::get('account/marketplaces.h1') }}</h1>
-
-		<div class="search-filters">
-			@if ( @$clean_filters )
-				<a href="?limit={{ Input::get('limit') }}" class="text-bold pull-right">{{ Lang::get('general.filters.clean') }}</a>
-			@endif
-			<h2>{{ Lang::get('general.filters') }}</h2>
-			{!! Form::open([ 'method'=>'GET', 'class'=>'form-inline', 'id'=>'filters-form' ]) !!}
-				{!! Form::hidden('limit', Input::get('limit')) !!}
-				<div class="form-group">
-					{!! Form::label('title', Lang::get('account/marketplaces.title'), [ 'class'=>'sr-only' ]) !!}
-					{!! Form::text('title', Input::get('title'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('account/marketplaces.title') ]) !!}
+				<div class="search-filters">
+					@if ( @$clean_filters )
+						<a href="?limit={{ Input::get('limit') }}" class="text-bold pull-right">{{ Lang::get('general.filters.clean') }}</a>
+					@endif
+					<h2>{{ Lang::get('general.filters') }}</h2>
+					{!! Form::open([ 'method'=>'GET', 'class'=>'form-inline', 'id'=>'filters-form' ]) !!}
+						{!! Form::hidden('limit', Input::get('limit')) !!}
+						<div class="form-group">
+							{!! Form::label('title', Lang::get('account/marketplaces.title'), [ 'class'=>'sr-only' ]) !!}
+							{!! Form::text('title', Input::get('title'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('account/marketplaces.title') ]) !!}
+						</div>
+						<div class="form-group">
+							{!! Form::label('country', Lang::get('account/marketplaces.country'), [ 'class'=>'sr-only' ]) !!}
+							{!! Form::select('country', [ '' => Lang::get('account/marketplaces.country') ]+$countries, Input::get('country'), [ 'class'=>'form-control' ]) !!}
+						</div>
+						{!! Form::submit(Lang::get('general.filters.apply'), [ 'class'=>'btn btn-default' ]) !!}
+					{!! Form::close() !!}
 				</div>
-				<div class="form-group">
-					{!! Form::label('country', Lang::get('account/marketplaces.country'), [ 'class'=>'sr-only' ]) !!}
-					{!! Form::select('country', [ '' => Lang::get('account/marketplaces.country') ]+$countries, Input::get('country'), [ 'class'=>'form-control' ]) !!}
+			</div>
+			<div class="col-md-4">
+				<div class="right">
+					<table width="100%" class="adviser-contact">
+						<tbody>
+							<tr>
+								<td align="right"><img src="/marketplaces/adviser.png"/></td>
+								<td valign="middle" align="left">
+									<h4>¿Puedo ayudarte?</h4>
+									<p><i class="fa fa-phone" aria-hidden="true"></i> 93 180 70 20</p>
+									<p><i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:xavier@molista.com">xavier@molista.com</a></p>
+								</td>
+							<tr>
+						</tbody>
+					</table>
 				</div>
-				{!! Form::submit(Lang::get('general.filters.apply'), [ 'class'=>'btn btn-default' ]) !!}
-			{!! Form::close() !!}
+			</div>
 		</div>
-
 		@if ( $marketplaces->count() < 1)
 			<div class="alert alert-info">{{ Lang::get('account/marketplaces.empty') }}</div>
 		@else
