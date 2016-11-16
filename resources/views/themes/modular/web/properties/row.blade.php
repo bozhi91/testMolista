@@ -20,8 +20,6 @@
 
 						@include('components.properties.row.properties-row-property-location')
 
-						@include('components.properties.row.properties-row-property-description')
-
 					</div>
 
 					<div class="col-xs-12 col-sm-3">
@@ -31,17 +29,20 @@
 					</div>
 				</div>
 
+				<div class="row">
+					<div class="col-xs-12 col-sm-12">
+
+						@include('components.properties.row.properties-row-property-description')
+
+					</div>
+				</div>
+
 				<div class="row hidden-xs">
-					<div class="col-sm-9">
+					<div class="col-sm-12">
 
 						@include('components.properties.row.properties-row-property-metrics')
 
 						@include('components.properties.row.properties-row-property-services')
-
-					</div>
-					<div class="col-sm-3">
-
-						@include('components.properties.row.properties-row-property-price')
 
 					</div>
 				</div>

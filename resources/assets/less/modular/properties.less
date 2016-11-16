@@ -2,7 +2,7 @@
 
 #properties {
 	.search-area {
-		background-color: @backgroundSearchArea; margin: 120px 0px 50px 0px;
+		background-color: @backgroundSearchArea; margin-top: 120px;
 		
 		h2 { color: @black; position: absolute; top: 0; margin-top: -68px; font-size: 18px; }
 		.container {width: auto !important;}
@@ -32,10 +32,8 @@
 	}
 	.property-list {
 		.property-row {
-			.col-xs-12.col-sm-9 {
-				.text-column {
-					.title { text-decoration: underline; }
-				}
+			.text-column {
+				.title { text-decoration: underline; }
 			}
 		}
 	}
@@ -71,59 +69,50 @@
 	.select2-container--open .select2-dropdown--below { border-color: @allInputBorders; }
 /* End Setting for select in search-area */
 
-/* Change width of property row */
-@media (min-width: 768px) {
-	#properties {
-		.property-row > .row > .col-xs-12.col-sm-3 { width: 33.33333333%; }
-		.property-row > .row > .col-xs-12.col-sm-9 { width: 66.66666667%; }
-	}
-}
-/* End Change width of property row */
-
 /* properties */
 
 @media (min-width: 768px) {
 	#properties {
+		/* To Check it! */
 		.property-list {
 			.property-row {
+					/* to fix row issue */
+				    padding-right: 20px;
+				    /* to fix row issue */
 
-				.col-xs-12.col-sm-3 {
-					.image-column {
-						.image { height: 100%; }
-						.price { 
-							background-color: @propertyListPriceBackground; text-align: left; padding: 5px 0px;
+				.image-column {
+					.property-image {
+				    	height: 80%;
+				    	.image { height: 100%; }
+					}
+					.price { 
+						background-color: @propertyListPriceBackground; text-align: left; padding: 5px 0px; height: 20%;
 
-							a { color: @propertyListPriceTextColor; margin-left: 10px; font-size: 20px; }
-						}
+						a { color: @propertyListPriceTextColor; margin-left: 10px; font-size: 20px; }
 					}
 				}
 
-				.col-xs-12.col-sm-9 {
-					.text-column {
-						padding-bottom: 15px;
+				.text-column {
+					padding-bottom: 15px;
 
-						.col-xs-9 {  }
-						.col-xs-3 {  }
-						.col-xs-12.col-sm-3 {  }
-						.col-xs-12.col-sm-9 { }
-						.title {
-							text-decoration: underline; margin-top: 10px;
-	
-							a { color: @propertyListTitleTextColor; font-weight: bold; }
-						}
-						.location { margin-top: 10px; color: @propertyListLocationTextColor; }
-						.description { margin-top: 10px; color: @propertyListDescriptionTextColor; }
-						.price { color: @propertyListPriceTextColor; }
-						.metrics { color: @propertyListMetricsTextColor; }
-						.btn-more-info { 
-							border-radius: 0px;
+					.title {
+						text-decoration: underline; margin-top: 10px;
 
-							&:hover { opacity: 0.8; }
-						}
+						a { color: @propertyListTitleTextColor; font-weight: bold; }
+					}
+					.location { margin-top: 10px; color: @propertyListLocationTextColor; }
+					.description { margin-top: 10px; color: @propertyListDescriptionTextColor; }
+					.metrics { color: @propertyListMetricsTextColor; }
+					.btn-more-info { 
+  						position: static !important;
+  						float: right;
+
+						&:hover { opacity: 0.8; }
 					}
 				}
 			}
 		}
+		/* To Check it! */
 		.search-area {
 			.form-area.closed .input-line { display: inherit; }
 			.form-area { 
@@ -138,20 +127,16 @@
 	#properties {
 		.property-list {
 			.property-row {
-				.col-xs-12.col-sm-9 {
-					.text-column {
-						.description { margin-top: 10px; padding-bottom: 10px; }
-	    			}
-	    		}
-	    		.col-xs-12.col-sm-3{
-	    			.image-column {
-	    				.price{
-	    					padding-top: 0px; padding-bottom: 5px;
+				.text-column {
+					.description { margin-top: 10px; padding-bottom: 10px; }
+    			}
+    			.image-column {
+    				.price {
+    					padding-top: 0px; padding-bottom: 5px;
 
-	    					a { font-size: 16px; }
-	    				}
-	    			}
-	    		}
+    					a { font-size: 16px; }
+    				}
+    			}
 	    	}
 		}
 		.results-sort-trigger {
@@ -161,8 +146,8 @@
 			margin-top: 154px;
 
 			h2 { margin-top: -100px; }
-
-			.col-xs-12.col-sm-6.input-line {
+			
+			.input-line {
 				.text-right {
 					text-align: center;
 
@@ -176,32 +161,33 @@
 
 @media (max-width: 767px) {
 	#properties {
+		.results-area {
+			padding: 25px 0px 50px 0px;
+		}
 		.property-list {
 			.property-row {
 			    border: 1px solid @gray; background: @white; padding: 0px; margin-bottom: 30px;
 
-				.col-xs-12.col-sm-9 {
-					.text-column {
-						padding: 15px; height: auto !important;
+				.text-column {
+					padding: 15px; height: auto !important;
 
-						.title {
-							text-decoration: underline; margin-top: 0px;
+					.title {
+						text-decoration: underline; margin-top: 0px;
 
-							a { color: @propertyListTitleTextColor; font-weight: bold; }
-						}
-						.location { margin-top: 0px; color: @propertyListLocationTextColor; }
-						.description { margin-top: 0px; color: @propertyListDescriptionTextColor; }
-						.price { display: none; color: @propertyListPriceTextColor; }
-						.metrics { color: @propertyListMetricsTextColor; }
+						a { color: @propertyListTitleTextColor; font-weight: bold; }
 					}
+					.location { margin-top: 0px; color: @propertyListLocationTextColor; }
+					.description { margin-top: 0px; color: @propertyListDescriptionTextColor; }
+					.price { display: none; color: @propertyListPriceTextColor; }
+					.metrics { color: @propertyListMetricsTextColor; }
 				}
-				.col-xs-12.col-sm-3 {
-					.image-column {
-						.price {
-							position: absolute; bottom: 0px; right: 0px; background-color: @propertyListPriceBackground;
 
-						    a { padding-left: 15px; padding-right: 15px; color: @propertyListPriceTextColor; }
-						}
+				.image-column {
+					.image { height: 100%; }
+					.price {
+						position: absolute; bottom: 0px; right: 0px; background-color: @propertyListPriceBackground;
+
+					    a { padding-left: 15px; padding-right: 15px; color: @propertyListPriceTextColor; }
 					}
 				}
 			}
@@ -220,11 +206,5 @@
 			.metrics { font-size: 13px; }
 			.services { font-size: 13px; }
 		}
-	}
-}
-
-@media (min-width: 768px) {
-	.property-image {
-    	height: 100%;
 	}
 }
