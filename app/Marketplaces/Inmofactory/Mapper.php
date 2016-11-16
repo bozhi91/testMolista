@@ -2,7 +2,7 @@
 
 namespace App\Marketplaces\Inmofactory;
 
-class Mapper extends \App\Marketplaces\Mapper {
+abstract class Mapper extends \App\Marketplaces\Mapper {
 
 	/**
 	 * @return array
@@ -176,16 +176,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 	/**
 	 * @return array
 	 */
-	protected function getPropertyPublications() {
-		$publications = [];
-
-		$publications[] = [
-			"PublicationId" => 1,
-			"PublicationTypeId" => 4,
-		];
-
-		return $publications;
-	}
+	abstract protected function getPropertyPublications();
 
 	/**
 	 * @return array

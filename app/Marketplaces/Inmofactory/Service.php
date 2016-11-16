@@ -2,7 +2,7 @@
 
 namespace App\Marketplaces\Inmofactory;
 
-class Service extends \App\Marketplaces\Service {
+abstract class Service extends \App\Marketplaces\Service {
 
 	/**
 	 * @param array $property
