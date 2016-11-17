@@ -76,6 +76,18 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			$query->where('properties.enabled', intval($this->request->input('enabled'))-1);
 		}
 
+		//Filter by mode
+		if($this->request->input('mode')) {
+			$query->where('properties.mode', $this->request->input('mode'));
+		}
+		
+		//Filter by price
+		if($this->request->input('price')) {
+			$query->where('properties.price'
+					, $this->request->input('operation', '=')
+					, $this->request->input('price'));
+		}
+
 		switch ( $this->request->input('order') )
 		{
 			case 'asc':
