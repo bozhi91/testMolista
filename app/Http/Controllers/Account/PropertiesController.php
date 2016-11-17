@@ -59,7 +59,19 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		if ( $this->request->input('address') )
 		{
 			$clean_filters = true;
-			$query->where('properties.address', 'LIKE', "%{$this->request->input('address')}%");
+			$query->leftJoin('states','properties.state_id','=','states.id');
+			$query->where(function ($query) {
+				$query->where('properties.address', 'LIKE', "%{$this->request->input('address')}%");
+				$query->orWhere('states.name', 'LIKE', "%{$this->request->input('address')}%");
+				$query->orWhere('cities.name', 'LIKE', "%{$this->request->input('address')}%");
+			});
+		}
+
+		// Filter by mode
+		if ( $this->request->input('mode') )
+		{
+			$clean_filters = true;
+			$query->where('properties.mode', $this->request->input('mode'));
 		}
 
 		// Filter by highlighted
@@ -114,6 +126,9 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			case 'title':
 				$query->orderBy('title', $order);
 				break;
+			case 'price':
+				$query->orderBy('price', $order);
+				break;
 			case 'creation':
 			default:
 				$query->orderBy('created_at', $order);
@@ -125,11 +140,12 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			return $this->exportCsv($query);
 		}
 
+		$total_properties = $query->get()->count();
 		$properties = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$this->set_go_back_link();
 
-		return view('account.properties.index', compact('properties','clean_filters'));
+		return view('account.properties.index', compact('properties','clean_filters', 'total_properties'));
 	}
 
 	public function exportCsv($query)

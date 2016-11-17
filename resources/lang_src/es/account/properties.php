@@ -10,6 +10,7 @@
 		'column.location' => 'Ubicación',
 		'column.address' => 'Dirección',
 		'column.created' => 'Creación',
+		'column.price' => 'Precio',
 
 		'ref' => 'Referencia',
 		'type' => 'Tipo',

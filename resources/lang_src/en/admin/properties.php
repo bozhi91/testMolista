@@ -25,6 +25,7 @@ return [
     'mode' => 'Modality',
     'mode.sale' => 'Sale',
     'mode.rent' => 'Rent',
+	'mode.transfer' => 'Transfer',
     'price' => 'Price',
     'size' => 'Size',
     'rooms' => 'Rooms',
