@@ -510,3 +510,24 @@
 
 		return $final;
 	}
+
+	function email_render($view, $data = null, $css = null)
+	{
+		$content = view($view, $data)->render();
+
+		if ($css) {
+			$css_path = base_path($css);
+			if ( file_exists($css_path) )
+			{
+				$emogrifier = new \Pelago\Emogrifier($content, file_get_contents($css_path));
+				$content = $emogrifier->emogrify();
+			}
+		}
+
+		return $content;
+	}
+
+	function email_render_corporate($view, $data = null)
+	{
+		return email_render($view, $data, 'resources/assets/css/emails/corporate.css');
+	}
