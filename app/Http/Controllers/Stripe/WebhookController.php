@@ -39,7 +39,7 @@ class WebhookController extends BaseController
 
 		return $this->logWebhook('customer.subscription.deleted', $payload);
 	}
-	
+
 	public function handleCustomerSubscriptionTrialWillEnd(array $payload)
 	{
 		return $this->logWebhook('customer.subscription.trial_will_end', $payload);
@@ -54,9 +54,24 @@ class WebhookController extends BaseController
 	{
 		return $this->logWebhook('invoice.created', $payload);
 	}
-	
+
 	public function handleInvoicePaymentFailed(array $payload)
 	{
+		$site = $this->getUserByStripeId($payload['data']['object']['customer']);
+
+		if ($site)
+		{
+			// Send warning email
+			$subject = trans('admin/emails/stripe.payment_failed.subject');
+			$html = view('emails.admin.inform-stripe-payment-failed', $site)->render();
+			$to = env('EMAIL_PAYMENT_WARNINGS_TO', 'admin@molista.com');
+			\Mail::send('dummy', [ 'content' => $html ], function($message) use ($subject, $to) {
+				$message->from( env('MAIL_FROM_EMAIL'), env('MAIL_FROM_NAME') );
+				$message->subject($subject);
+				$message->to( $to );
+			});
+		}
+
 		return $this->logWebhook('invoice.payment_failed', $payload);
 	}
 
@@ -85,7 +100,7 @@ class WebhookController extends BaseController
 					{
 						foreach ($subscriptions  as $subscription)
 						{
-							if ( $current_subscription->stripe_id == $subscription['id'] ) 
+							if ( $current_subscription->stripe_id == $subscription['id'] )
 							{
 								$paid_from = date('Y-m-d', $subscription['current_period_start']);
 								$paid_until = date('Y-m-d', $subscription['current_period_end']);

@@ -1,0 +1,20 @@
+html, body { padding: 0px; margin: 0px; }
+body { font-family: 'Dosis', Helvetica, Arial, sans-serif; }
+
+a, .link { color: #f2c902; text-decoration: none; }
+
+p, ul { margin: 0px 0px 20px 0px; }
+ul { padding: 0px 0px 0px 17px; }
+
+.text-gray { color: #eaeaea; }
+.text-center { text-align: center; }
+
+.container { max-width: 630px; margin: 0px auto; }
+
+.header { padding-bottom: 65px; background: #1c191d; padding: 20px 50px; }
+
+.content { font-size: 14px; line-height: 1.5em; color: #000; background: #fff; padding: 20px 50px; }
+
+.h1 { font-size: 24px; font-weight: bold; padding-bottom: 25px; }
+
+.footer { border-top: 1px solid #1c191d; text-align: center; padding: 10px 0px; }
