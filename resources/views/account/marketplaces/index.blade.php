@@ -28,6 +28,7 @@
 					{!! Form::close() !!}
 				</div>
 			</div>
+			@if (!env('WHITELABEL_MOLISTA', false))
 			<div class="col-md-4">
 				<div class="right">
 					<table width="100%" class="adviser-contact">
@@ -36,7 +37,7 @@
 								<td align="right"><img src="/images/account/adviser.png"/></td>
 								<td valign="middle" align="left">
 									<h4>¿Puedo ayudarte?</h4>
-									<p><i class="fa fa-phone" aria-hidden="true"></i> 93 180 70 20</p>
+									<p><i class="fa fa-phone" aria-hidden="true"></i> <a href="tel:931807020">93 180 70 20</a></p>
 									<p><i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:xavier@molista.com">xavier@molista.com</a></p>
 								</td>
 							<tr>
@@ -44,6 +45,7 @@
 					</table>
 				</div>
 			</div>
+			@endif
 		</div>
 		@if ( $marketplaces->count() < 1)
 			<div class="alert alert-info">{{ Lang::get('account/marketplaces.empty') }}</div>
