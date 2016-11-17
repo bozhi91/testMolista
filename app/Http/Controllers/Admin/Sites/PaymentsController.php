@@ -69,7 +69,9 @@ class PaymentsController extends Controller
 			'reseller_date' => $this->request->input('reseller_paid') ? $this->request->input('reseller_date') : null,
 		];
 
-		$update['reseller_amount'] = $update['reseller_fixed'] + ( $payment->payment_amount * $update['reseller_variable'] / 100 );
+		$payment_net_amount = $payment->payment_amount / ( ( 100 + $payment->payment_vat ) / 100 );
+
+		$update['reseller_amount'] = $update['reseller_fixed'] + ( $payment_net_amount * $update['reseller_variable'] / 100 );
 
 		$payment->update($update);
 
