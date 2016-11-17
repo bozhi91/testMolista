@@ -28,7 +28,7 @@
 					{!! Form::close() !!}
 				</div>
 			</div>
-			@if (!env('WHITELABEL_MOLISTA', false))
+			@if (env('WHITELABEL_MOLISTA', false))
 			<div class="col-md-4">
 				<div class="right">
 					<table width="100%" class="adviser-contact">
