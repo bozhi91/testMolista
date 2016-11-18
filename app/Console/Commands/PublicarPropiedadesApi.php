@@ -40,13 +40,13 @@ class PublicarPropiedadesApi extends Command {
 		$sites = $this->getSites();
 		foreach ($sites as $site) {
 			$query = $site->marketplaces()->where('upload_type', 'api');
-			
+
 			$marketplaceCodes = $this->argument('marketplaces');
 			if ($marketplaceCodes) {
 				$exploded = explode(',', $marketplaceCodes);
 				$query->whereIn('code', $exploded);
 			}
-			
+
 			$marketplaces = $query->get();
 			foreach ($marketplaces as $marketplace) {
 				$this->handleSingle($site, $marketplace);
@@ -82,28 +82,28 @@ class PublicarPropiedadesApi extends Command {
 	 */
 	private function handleSingle($site, $marketplace) {
 		$helper = new \App\Models\Site\MarketplaceHelper($site);
-		$helper->setMarketplace($marketplace);		
-		
+		$helper->setMarketplace($marketplace);
+
 		$properties = $helper->getMarketplaceProperties();
 		$handler = $helper->getMarketplaceAdm();
 		foreach($properties as $property){
-			
+
 			$log = ApiPublication::where('site_id', $site->id)
 					->where('marketplace_id', $marketplace->id)
 					->where('property_id', $property['id'])
 					->where('created_at', '>', $property['updated_at'])
 					->first();
-									
+
 			if($log) {
 				continue;
 			}
-			
+
 			$job = (new \App\Jobs\PublishPropertyApi($handler
 					, $property
 					, $site
-					, $marketplace))->onQueue();
-			
-			$this->dispatch($job);
+					, $marketplace))->onQueue('publish');
+
+			dispatch($job);
 		}
 	}
 

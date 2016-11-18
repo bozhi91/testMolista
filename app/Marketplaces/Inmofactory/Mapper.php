@@ -12,7 +12,7 @@ abstract class Mapper extends \App\Marketplaces\Mapper {
 
 		$map = [];
 
-		$map['ExternalId'] = $item['id'];
+		$map['ExternalId'] = (string) $item['id'];
 		//$map['ParentId'] = '';//If the property belongs to a promotion, its unique identifier
 		$map['AgencyReference'] = $item['reference'];
 
@@ -22,7 +22,7 @@ abstract class Mapper extends \App\Marketplaces\Mapper {
 			$map['SubTypeId'] = $subtypeId;
 		}
 
-		$map['IsNewConstruction'] = $item['newly_build'];
+		$map['IsNewConstruction'] = (boolean) $item['newly_build'];
 		$map['PropertyStatusId'] = $this->getStatus();
 		//$map['ExpirationCauseId'] = '';
 		$map['ShowSurface'] = true;
@@ -52,7 +52,7 @@ abstract class Mapper extends \App\Marketplaces\Mapper {
 
 	/**
 	 * Identifies the type of the property within the following enumeration
-	 * 
+	 *
 	 * 1	Piso
 	 * 2	Casa
 	 * 3	Local
@@ -63,7 +63,7 @@ abstract class Mapper extends \App\Marketplaces\Mapper {
 	 * 8	Parking
 	 * 10	Hotel
 	 * 12	Trastero
-	 * 
+	 *
 	 * @return array
 	 */
 	protected function getTypeId() {
