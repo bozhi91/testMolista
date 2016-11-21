@@ -38,12 +38,22 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 			$query->where('email', 'like', "%{$this->request->input('email')}%");
 		}
 
+		$order = $this->request->input('order');		
+		switch ($this->request->input('orderby')){
+			case 'name': 
+				$query->orderBy('name', $order); 
+				break;
+			case 'email': 
+				$query->orderBy('email', $order); 
+				break;
+		}
+		
 		if ( $this->request->input('csv') )
 		{
 			return $this->exportCsv($query);
 		}
 
-		$employees = $query->orderBy('name')->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
+		$employees = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		if ( $employees->count() > 0 )
 		{
@@ -164,10 +174,12 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 		{
 			abort(404);
 		}
-
+		
 		$properties = $employee->properties()->ofSite( $this->site->id )->get();
-
-		return view('account.employees.edit', compact('employee','properties'));
+		$customers = $employee->getCustomers()
+				->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
+				
+		return view('account.employees.edit', compact('employee','properties', 'customers'));
 	}
 
 	public function update($email)

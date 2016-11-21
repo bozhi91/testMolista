@@ -53,4 +53,6 @@
 
 		'account' => 'Cuenta',
 		'account.site' => 'Email del sitio',
+
+		'delete' => '¿Confirma que desea eliminar este email?',
 	];

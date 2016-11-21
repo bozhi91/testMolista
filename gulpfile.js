@@ -36,6 +36,7 @@ elixir(function(mix) {
 			'jquery.hideShowPassword.js',
 			'jquery.matchHeight.js',
 			'jquery.cookie.js',
+                        'jquery.pjax.js',
 			'bootstrap-table.js',
 			'bootstrap-datetimepicker.js',
 			'bootstrap-daterangepicker.js',

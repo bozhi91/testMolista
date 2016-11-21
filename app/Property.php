@@ -516,25 +516,26 @@ class Property extends TranslatableModel
 	public function getFullUrlAttribute()
 	{
 		$site_url = rtrim($this->site->main_url, '/');
-		$property_url = action('Web\PropertiesController@details', $this->slug);
+		$property_url = action('Web\PropertiesController@details', [ $this->slug, $this->id ]);
 
-		// Is domain right?
-		if ( preg_match('#^'.$site_url.'#', $property_url) )
-		{
-			return $property_url;
+		// Use always the main domain
+		$parts = parse_url($property_url);
+
+		$url = $site_url;
+
+		if (!empty($parts['path'])) {
+			$url .= $parts['path'];
 		}
 
-		// Fix wrong domain
-		$property_url = str_replace(
-							\Config::get('app.application_url'),
-							'',
-							action('Web\PropertiesController@details', $this->slug)
-						);
+		if (!empty($parts['query'])) {
+			$url .= '?'.$parts['query'];
+		}
 
-		return implode('/', [
-			$site_url,
-			$property_url,
-		]);
+		if (!empty($parts['fragment'])) {
+			$url .= '#'.$parts['fragment'];
+		}
+
+		return $url;
 	}
 
 	public function getContactsAttribute()
@@ -643,7 +644,7 @@ class Property extends TranslatableModel
 		{
 			\App::setLocale($locale);
 			$slug = empty($i18n['slug'][$locale]) ? $i18n['slug'][$fallback_locale] : $i18n['slug'][$locale];
-			$temporal_url = parse_url(\LaravelLocalization::getLocalizedURL($locale, action('Web\PropertiesController@details', $slug)));
+			$temporal_url = parse_url(\LaravelLocalization::getLocalizedURL($locale, action('Web\PropertiesController@details', [ $slug, $this->id ])));
 			$this->marketplace_info['url'][$locale] = $this->site->main_url.@$temporal_url['path'];
 		}
 
@@ -1033,30 +1034,39 @@ class Property extends TranslatableModel
 	static public function getSizeOptions()
 	{
 		return [
-			'less-100' => '< 100 m²',
-			'100-250' => '100 - 250 m²',
-			'250-500' => '250 - 500 m²',
-			'500-1000' => '500 - 1.000 m²',
-			'1000-more' => '> 1.000 m²',
+			'40-more' => '> 40 m²',
+			'60-more' => '> 60 m²',
+			'80-more' => '> 80 m²',
+			'100-more' => '> 100 m²',
+			'120-more' => '> 120 m²',
+			'140-more' => '> 140 m²',
+			'160-more' => '> 160 m²',
+			'180-more' => '> 180 m²',
+			'200-more' => '> 200 m²',
+			'400-more' => '> 400 m²',
+			'600-more' => '> 600 m²',
 		];
 	}
 
 	static public function getRoomOptions()
 	{
 		return [
-			'0-2' => '1 - 2',
-			'3-5' => '3 - 5',
-			'6-10' => '6 - 10',
-			'11-more' => '> 10',
+			'0-more' => '> 1',
+			'2-more' => '> 2',
+			'3-more' => '> 3',
+			'4-more' => '> 4',
+			'5-more' => '> 5',
 		];
 	}
 
 	static public function getBathOptions()
 	{
 		return [
-			'0-2' => '1 - 2',
-			'3-5' => '3- 5',
-			'6-more' => '> 5',
+			'0-more' => '> 1',
+			'2-more' => '> 2',
+			'3-more' => '> 3',
+			'4-more' => '> 4',
+			'5-more' => '> 5',
 		];
 	}
 

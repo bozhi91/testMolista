@@ -19,6 +19,7 @@ class Site extends TranslatableModel
 		'signature' => 'array',
 		'invoicing' => 'array',
 		'country_ids' => 'array',
+		'alert_config' => 'array',
 	];
 
 	protected $data;
@@ -65,7 +66,7 @@ class Site extends TranslatableModel
 	{
 		return $this->hasMany('App\Models\Site\Pricerange')->withTranslations();
 	}
-	
+
 	public function slidergroups()
 	{
 		return $this->hasMany('App\Models\Site\SliderGroup');
@@ -700,9 +701,21 @@ class Site extends TranslatableModel
 						{
 							foreach ($widget->menu->items as $item)
 							{
+								if ( $item->type == 'custom' )
+								{
+									$url = $item->url;
+								}
+								else
+								{
+									$url_parts = parse_url(\LaravelLocalization::getLocalizedURL($locale,$item->item_url));
+									$url = implode('?', array_filter([
+										@$url_parts['path'],
+										@$url_parts['query'],
+									]));
+								}
 								$w['items'][] = [
 									'title' => $item->item_title,
-									'url' => $item->type == 'custom' ? $item->url : \LaravelLocalization::getLocalizedURL($locale,$item->item_url),
+									'url' => $url,
 									'target' => $item->target,
 								];
 							}
@@ -714,7 +727,7 @@ class Site extends TranslatableModel
 						{
 							$images = $widget->slider->images()
 									->orderBy('position', 'asc')->get();
-							
+
 							foreach ($images as $image)
 							{
 								$w['items'][] = [
@@ -1059,6 +1072,57 @@ class Site extends TranslatableModel
 		}
 
 		return false;
+	}
+
+	public function importTicketingCustomers()
+	{
+		// Get ticket customers
+		$contacts = $this->ticket_adm->getContacts();
+
+		if ( !$contacts )
+		{
+			return false;
+		}
+
+		// Get current customers
+		$contact_ids = $this->customers()->where('ticket_contact_id', '!=','')->lists('ticket_contact_id')->all();
+
+		foreach ($contacts as $contact)
+		{
+			if ( in_array($contact->id, $contact_ids) )
+			{
+				continue;
+			}
+
+			$customer = $this->customers()->where('email', $contact->email)->first();
+			if ( $customer )
+			{
+				if ( !$customer->ticket_contact_id )
+				{
+					$customer->update([
+						'ticket_contact_id' => $contact->id,
+					]);
+				}
+			}
+			else
+			{
+				$fullname_parts = explode(' ', $contact->fullname, 2);
+				$first_name = empty($fullname_parts[0]) ? '' : $fullname_parts[0];
+				$last_name = empty($fullname_parts[1]) ? '' : $fullname_parts[1];
+
+				$this->customers()->create([
+					'first_name' => $first_name,
+					'last_name' => $last_name,
+					'email' => $contact->email,
+					'phone' => $contact->phone ? $contact->phone : '',
+					'locale' => config()->get('app.fallback_locale'),
+					'origin' => $contact->referer  ? $contact->referer : 'tickets',
+					'ticket_contact_id' => $contact->id,
+				]);
+			}
+		}
+
+		return true;
 	}
 
 }

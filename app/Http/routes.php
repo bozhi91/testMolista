@@ -34,6 +34,8 @@ Route::group([
 		Route::controller('signup', 'Corporate\SignupController');
 		// Customers area
 		Route::controller('customers', 'Corporate\CustomersController');
+		// Landing
+		Route::controller('starter', 'Corporate\LandingController');
 	});
 
 	// Resellers
@@ -159,11 +161,13 @@ Route::group([
 ], function() {
 	// Web
 	Route::get('/', 'WebController@index');
+	// Info
+	Route::controller('info', 'Web\InfoController');
 	// Properties
 	Route::get('properties', 'Web\PropertiesController@index');
 	Route::get('property/{slug}/property-{locale}.pdf', 'Web\PropertiesController@downloads');
 	Route::post('property/{slug}', 'Web\PropertiesController@moreinfo');
-	Route::get('property/{slug}', 'Web\PropertiesController@details');
+	Route::get('property/{slug}/{id?}', 'Web\PropertiesController@details');
 	// Pages
 	Route::post('pages/{slug}', 'Web\PagesController@post');
 	Route::get('pages/{slug}', 'Web\PagesController@show');
@@ -249,10 +253,12 @@ Route::group([
 		Route::post('customers/properties/{slug}', 'Account\CustomersController@postAddPropertyCustomer');
 		Route::get('customers/properties/{slug}', 'Account\CustomersController@getAddPropertyCustomer');
 		Route::post('customers/profile/{email}', 'Account\CustomersController@postProfile');
+		Route::get('customers/status/{email}', 'Account\CustomersController@getChangeStatus');
 		Route::resource('customers', 'Account\CustomersController');
-		
+
 		Route::post('customers/comment/{slug}', 'Account\CustomersController@postComment');
-		
+		Route::post('customers/general/{slug}', 'Account\CustomersController@postGeneral');
+
 		// Marketplaces
 		Route::group([
 			'middleware' => [
@@ -278,6 +284,8 @@ Route::group([
 			Route::controller('reports/agents', 'Account\Reports\AgentsController');
 			// Leads
 			Route::controller('reports/leads', 'Account\Reports\LeadsController');
+			// Referers
+			Route::controller('reports/referers', 'Account\Reports\ReferersController');
 		});
 		// Reports home
 		Route::controller('reports', 'Account\ReportsController');

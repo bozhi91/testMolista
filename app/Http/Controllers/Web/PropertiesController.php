@@ -140,7 +140,12 @@ class PropertiesController extends WebController
 		}
 		else
 		{
-			$query->orderBy('properties.highlighted','desc')->orderBy('title');
+			// Fincas Bellamar...
+			if ($this->site->id == env('FINCAS_BELLAMAR_ID')) {
+				$query->orderBy('price','desc');
+			} else {
+				$query->orderBy('properties.highlighted','desc')->orderBy('title');
+			}
 		}
 
 		$properties = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
@@ -150,25 +155,29 @@ class PropertiesController extends WebController
 		return view('web.properties.index', compact('properties','hide_advanced_search_modal','search_data_cities'));
 	}
 
-	public function details($slug)
+	public function details($slug, $id = false)
 	{
+		if ( !$id )
+		{
+			if ( $property = $this->site->properties()->enabled()->whereTranslation('slug', $slug)->first() )
+			{
+				return redirect()->to($property->full_url, 301);
+			}
+
+			abort(404);
+		}
+
 		$property = $this->site->properties()->enabled()
 					->with('state')
 					->with('city')
 					->with('services')
 					->with('images')
-					->whereTranslation('slug', $slug)
-					->first();
+					->findOrFail($id);
 
-		if ( !$property )
+		// If slug is from another language
+		if ( $property->slug != $slug )
 		{
-			abort(404);
-		}
-
-		// If slug is from another language, redirect
-		if ( $slug != $property->slug )
-		{
-			return redirect()->to(action('Web\PropertiesController@details', $property->slug), 301);
+			return redirect()->to($property->full_url, 301);
 		}
 
 		$this->set_seo_values([
@@ -176,7 +185,15 @@ class PropertiesController extends WebController
 			'description' => $property->description,
 		]);
 
-		return view('web.properties.details', compact('property'));
+		$og = new \ChrisKonnertz\OpenGraph\OpenGraph();
+		
+		$og->title($property->title)
+			->type('article')
+			->image($property->mainImage)
+			->description($property->description)
+			->url($property->full_url);
+			
+		return view('web.properties.details', compact('property', 'og'));
 	}
 
 	public function moreinfo($slug)

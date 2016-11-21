@@ -37,13 +37,22 @@ class Mapper extends \App\Marketplaces\Mapper {
 
         foreach ($item['title'] as $lang => $title)
         {
-            $map['title_'.$lang] = $title;
+			if($this->isSupportedLanguage($lang)){
+				$map['title_'.$lang] = $title;
+			}
         }
 
         foreach ($item['description'] as $lang => $title)
         {
-            $map['summary_'.$lang] = $title;
+			if($this->isSupportedLanguage($lang)){
+				$map['summary_'.$lang] = $title;
+			}
         }
+
+        $map['#h_surface'] = $this->convertSize($item['size']);
+        if (!empty($item['lot_area'])) {
+			$map['#l_surface'] = $this->convertSize($item['lot_area']);
+		}
 
         $map['#n_beds'] = $item['rooms'];
         $map['#n_baths'] = $item['baths'];
@@ -135,4 +144,26 @@ class Mapper extends \App\Marketplaces\Mapper {
         return $pictures;
     }
 
+
+	/**
+	 * @param string $language
+	 * @return bool
+	 */
+	protected function isSupportedLanguage($language){
+		return in_array($language, [
+			'bg', 'cz', 'de', 'dk', 'en', 'es', 'fi', 'fr', 'gr',
+			'it', 'nl', 'pl', 'pt', 'ro', 'ru', 'se', 'sk', 'vi'
+		]);
+	}
+
+    /**
+	 * @param float $size
+	 * @return int
+	 */
+	protected function convertSize($size) {
+		switch ($this->item['size_unit']) {
+			case 'sqm': return round($size);
+			case 'sqf': return round(($size * 0.092903));
+		}
+	}
 }

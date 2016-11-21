@@ -1,4 +1,4 @@
-<?php namespace App\Marketplaces\PisosAlquiler;
+<?php namespace App\Marketplaces\PisosSegundaMano;
 
 class Mapper extends \App\Marketplaces\Mapper {
 
@@ -15,7 +15,7 @@ class Mapper extends \App\Marketplaces\Mapper {
         $map['IdInmobiliariaExterna'] = $item['site_id']; //  OBLIGATORIO
         $map['IdPisoExterno'] = $item['id']; // OBLIGATORIO
         $map['TipoInmueble'] = $this->tipo_inmueble();    // OLBIGATORIO
-        $map['TipoOperacion'] = 3; // Alquiler
+        $map['TipoOperacion'] = $this->isRent() ? 3 : 4; // Alquiler / Venta
         $map['PrecioEur'] = intval($item['price']);
         $map['OpcionACompra'] = !empty($item['features']['option-to-buy']) ? 1 : 0;
         $map['NombrePoblacion'] = $item['location']['city']; // OBLIGATORIO
@@ -28,6 +28,7 @@ class Mapper extends \App\Marketplaces\Mapper {
         $map['Descripcion'] = $this->translate($item['description'], 'es');
         $map['Fotos'] = $this->fotos();
         $map['NombreCalle'] = $item['location']['address']; // OBLIGATORIO
+        $map['NumeroCalle'] = $this->getAddressNumber(); // OBLIGATORIO
         $map['MostrarCalle'] = empty($item['location']['show_address']) ? 0 : 1;
         $map['Latitud'] = $item['location']['lat'];
         $map['Longitud'] = $item['location']['lng'];
@@ -55,14 +56,20 @@ class Mapper extends \App\Marketplaces\Mapper {
 
     public function valid()
     {
-        if (!$this->isRent())
+        if ($this->isNew())
         {
-            $this->errors []= \Lang::get('validation.rent');
+            $this->errors []= \Lang::get('validation.second_hand');
             return false;
         }
 
+        $this->item['location']['number'] = $this->getAddressNumber();
+
         $rules = [
             'site_id' => 'required',
+            'location.address' => 'required',
+            'location.city' => 'required',
+            'location.zipcode' => 'required',
+            'location.number' => 'required',
         ];
 
         $messages = [];
@@ -151,6 +158,20 @@ class Mapper extends \App\Marketplaces\Mapper {
         ];
 
         return isset($types[$type]) ? $types[$type] : 'Piso';
+    }
+
+    protected function getAddressNumber()
+    {
+        if (!empty($this->item['location']['address_parts']['number'])) {
+            return $this->item['location']['address_parts']['number'];
+        }
+
+        preg_match('#[^\d]+(\d+)[\s]*#msi', $this->item['location']['address'], $match);
+        if (!empty($match[1])) {
+            return $match[1];
+        }
+
+        return null;
     }
 
     protected function categoria_emision()

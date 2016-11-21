@@ -1,4 +1,4 @@
-<?php namespace App\Marketplaces\PisosVenta;
+<?php namespace App\Marketplaces\PisosObraNueva;
 
 class Mapper extends \App\Marketplaces\Mapper {
 
@@ -81,9 +81,9 @@ class Mapper extends \App\Marketplaces\Mapper {
 
     public function valid()
     {
-        if (!$this->isSale())
+        if (!$this->isNew())
         {
-            $this->errors []= \Lang::get('validation.sale');
+            $this->errors []= \Lang::get('validation.new');
             return false;
         }
 

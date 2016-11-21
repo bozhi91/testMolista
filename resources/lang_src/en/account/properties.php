@@ -254,6 +254,14 @@
 		'imports.csv.instructions.required' => 'Required',
 		'imports.csv.instructions.options' => 'Options',
 
-		'attributes.habitaclia-city' => 'City',
 		'attributes.yaencontre-city' => 'City (yaencotre)',
+		'attributes.habitaclia-city' => 'City',
+
+		'email.sold.subject' => 'Property ":title" ":reference" was sold',
+		'email.sold.intro' => 'Hello, :name',
+		'email.sold.body' => 'Contact with us if you want to get more information about other avaiable properties of your interest.',
+
+		'email.price.fall.intro' => 'Hello, :name',
+		'email.price.fall' => 'The price of the property :title ":reference" has dropped. Current price is :current.',
+		'email.price.fallen.subject' => 'The price of the property ":reference" has dropped',
 	];

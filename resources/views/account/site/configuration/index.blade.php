@@ -20,6 +20,7 @@
 					<li role="presentation" class="{{ $current_tab == 'mail' ? 'active' : '' }}"><a href="#tab-site-mail" aria-controls="tab-site-mail" role="tab" data-toggle="tab" data-tab="mail">{{ Lang::get('account/site.configuration.tab.mail') }}</a></li>
 					<li role="presentation" class="{{ $current_tab == 'texts' ? 'active' : '' }}"><a href="#tab-site-texts" aria-controls="tab-site-texts" role="tab" data-toggle="tab" data-tab="texts">{{ Lang::get('account/site.configuration.tab.texts') }}</a></li>
 					<li role="presentation" class="{{ $current_tab == 'social' ? 'active' : '' }}"><a href="#tab-site-social" aria-controls="tab-site-social" role="tab" data-toggle="tab" data-tab="social">{{ Lang::get('account/site.configuration.tab.social') }}</a></li>
+					<li role="presentation" class="{{ $current_tab == 'alerts' ? 'active' : '' }}"><a href="#tab-site-alerts" aria-controls="tab-site-alerts" role="tab" data-toggle="tab" data-tab="alerts">{{ Lang::get('account/site.configuration.tab.alerts') }}</a></li>
 				</ul>
 
 				<div class="tab-content">
@@ -55,7 +56,7 @@
 								<div class="form-group">
 									<div class="error-container">
 										<label>{{ Lang::get('account/site.configuration.favicon') }}</label>
-										{!! Form::file('favicon', [ 'class'=>'form-control', 'accept'=>'image/x-icon' ]) !!}
+										{!! Form::file('favicon', [ 'class'=>'form-control', 'accept'=> 'image/x-icon,image/vnd.microsoft.icon' ]) !!}
 									</div>
 									<div class="help-block">
 										{!! Lang::get('account/site.configuration.favicon.helper', [ 'IMAGE_MAXSIZE'=>Config::get('app.property_image_maxsize', 2048) ]) !!}
@@ -73,7 +74,7 @@
 							<div class="col-xs-12 col-sm-6">
 								<div class="form-group error-container">
 									{!! Form::label('customer_register', Lang::get('account/site.configuration.client.register')) !!}
-									{!! Form::select('customer_register', [ 
+									{!! Form::select('customer_register', [
 										'1' => Lang::get('general.yes'),
 										'0' => Lang::get('general.no'),
 									], null, [ 'class'=>'form-control' ]) !!}
@@ -95,16 +96,16 @@
 									{!! Form::label('hide_molista', Lang::get('account/site.configuration.hide.molista', [ 'webname'=>env('WHITELABEL_WEBNAME','Molista') ])) !!}
 									<div class="error-container">
 										@if ( $current_site->can_hide_molista )
-											{!! Form::select('hide_molista', [ 
+											{!! Form::select('hide_molista', [
 												'1' => Lang::get('general.yes'),
 												'0' => Lang::get('general.no'),
 											], null, [ 'class'=>'form-control' ]) !!}
 										@elseif ( $current_site->hide_molista )
-											{!! Form::select('hide_molista', [ 
+											{!! Form::select('hide_molista', [
 												'1' => Lang::get('general.yes'),
 											], null, [ 'class'=>'form-control' ]) !!}
 										@else
-											{!! Form::select('hide_molista', [ 
+											{!! Form::select('hide_molista', [
 												'0' => Lang::get('general.no'),
 											], null, [ 'class'=>'form-control' ]) !!}
 										@endif
@@ -236,6 +237,36 @@
 								<div class="col-sm-10">
 									<div class="error-container">
 										{!! Form::text('social_array[instagram]', null, [ 'class'=>'form-control url' ]) !!}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'alerts' ? 'active' : '' }}" id="tab-site-alerts">
+						<label>{{  Lang::get('account/site.configuration.alerts.price.down') }}</label>
+						<div class="row">
+							<div class="col-xs-12 col-sm-3">
+								<div class="form-group">
+									<div class="checkbox">
+										<label class="normal">
+											<?php $val = $site->alert_config === null ? 1 : $site->alert_config['bajada']['agentes'] ?>
+											{!! Form::hidden('alerts[bajada][agentes]', 0) !!}
+											{!! Form::checkbox('alerts[bajada][agentes]', 1, $val) !!}
+											{{ Lang::get('account/site.configuration.alerts.agents') }}
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-3">
+								<div class="form-group">
+									<div class="checkbox">
+										<label class="normal">
+											<?php $val = $site->alert_config === null ? 1 : $site->alert_config['bajada']['customers'] ?>
+											{!! Form::hidden('alerts[bajada][customers]', 0) !!}
+											{!! Form::checkbox('alerts[bajada][customers]', 1, $val) !!}
+											{{ Lang::get('account/site.configuration.alerts.customers') }}
+										</label>
 									</div>
 								</div>
 							</div>
@@ -416,7 +447,7 @@
 
 				// No text to translate from
 				if (!text) {
-					alertify.error("{{ print_js_string( Lang::get('general.autotranslate.error.text') ) }}"); 
+					alertify.error("{{ print_js_string( Lang::get('general.autotranslate.error.text') ) }}");
 					return false;
 				}
 

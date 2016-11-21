@@ -98,11 +98,13 @@
 								@else
 									<div class="not-published-rel {{ @$item->export_to_all ? 'hide' : '' }}">
 										{{ Lang::get('account/properties.marketplaces.error') }}<br />
+										@if (is_array($publishable))
 										<ul>
 											@foreach ($publishable as $key => $message)
 												<li>{{ translate_marketplace_error($message) }}</li>
 											@endforeach
 										</ul>
+										@endif
 									</div>
 								@endif
 							</td>

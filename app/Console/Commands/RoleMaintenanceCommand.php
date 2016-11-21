@@ -300,6 +300,13 @@ class RoleMaintenanceCommand extends Command
 				'roles' => [ ],
 			],
 		],
+		'ticket' => [
+			'delete' => [
+				'display_name' => 'Ticket deletion',
+				'description' => '',
+				'roles' => [ 'company' ],
+			],
+		],
 		'reseller' => [
 			'view' => [
 				'display_name' => 'Reseller elements view',
@@ -377,16 +384,16 @@ class RoleMaintenanceCommand extends Command
 		}
 
 		// Delete older roles
-		\App\Models\Role::whereNotIn('id', $role_ids)->delete();		
+		\App\Models\Role::whereNotIn('id', $role_ids)->delete();
 	}
 
 	public function updatePermissions()
 	{
 		$permission_ids = [0];
 
-		foreach ($this->permissions as $group => $values) 
+		foreach ($this->permissions as $group => $values)
 		{
-			foreach ($values as $function => $def) 
+			foreach ($values as $function => $def)
 			{
 				$permission = \App\Models\Permission::firstOrCreate([
 					'name' => "{$group}-{$function}",
@@ -412,9 +419,9 @@ class RoleMaintenanceCommand extends Command
 		\DB::table('permission_role')->where('permission_id','!=',0)->delete();
 
 		// Assign new permissions
-		foreach ($this->permissions as $group => $values) 
+		foreach ($this->permissions as $group => $values)
 		{
-			foreach ($values as $function => $def) 
+			foreach ($values as $function => $def)
 			{
 				// Get permission
 				$permission = \App\Models\Permission::where([
@@ -441,7 +448,7 @@ class RoleMaintenanceCommand extends Command
 					$def['roles'][] = 'admin';
 				}
 
-				foreach ($def['roles'] as $name) 
+				foreach ($def['roles'] as $name)
 				{
 					if ( !isset($roles[$name]) )
 					{

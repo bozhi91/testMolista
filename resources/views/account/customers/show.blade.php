@@ -28,6 +28,9 @@
 		<div class="tab-content">
 
 			<div role="tabpanel" class="tab-pane tab-main {{$current_tab == 'general' ? 'active' : '' }}" id="tab-general">
+				
+				{!! Form::model($customer, [ 'action'=>['Account\CustomersController@postGeneral',$customer->email], 'method'=>'post', 'id'=>'general-form' ]) !!}
+				
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
@@ -84,6 +87,44 @@
 						</div>
 					</div>
 				</div>
+				
+				<div class="row">
+					<div class="col-xs-12">
+						<label>{{ Lang::get('account/customers.alerts') }}</label>
+					</div>
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<div class="checkbox">
+								<label class="normal">
+									<?php $val = $customer->alert_config === null ? 1 : $customer->alert_config['bajada'] ?>
+									{!! Form::hidden('alerts[bajada]', 0) !!}
+									{!! Form::checkbox('alerts[bajada]', 1, $val) !!}
+									{{ Lang::get('account/customers.alert.bajada') }}
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<div class="checkbox">
+								<label class="normal">
+									<?php $val = $customer->alert_config === null ? 1 : $customer->alert_config['venta'] ?>
+									{!! Form::hidden('alerts[venta]', 0) !!}
+									{!! Form::checkbox('alerts[venta]', 1, $val) !!}
+									{{ Lang::get('account/customers.alert.venta') }}
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<div class="text-right">
+						{!! Form::button(Lang::get('account/customers.show.customer.general.button'), [ 'type'=>'submit', 'class'=>'btn btn-primary', ]) !!}
+					</div>
+				</div>
+				
+				{!! Form::close() !!}
 				
 				{!! Form::model($customer, [ 'action'=>['Account\CustomersController@postComment',$customer->email], 'method'=>'post', 'id'=>'comment-form' ]) !!}
 					<hr />
@@ -316,7 +357,7 @@
 											@endif
 											<a href="{{ action('Account\Calendar\BaseController@getCreate') }}?property_ids[]={{$property->id}}&customer_id={{@$customer->id}}" class="btn btn-info btn-xs">{{ Lang::get('account/calendar.button.schedule') }}</a>
 											{!! Form::button(Lang::get('account/customers.discards.action'), [ 'type'=>'submit', 'class'=>'btn btn-danger btn-xs' ]) !!}
-											<a href="{{ action('Web\PropertiesController@details', $property->slug) }}" class="btn btn-default btn-xs" target="_blank">{{ Lang::get('general.view') }}</a>
+											<a href="{{ $property->full_url }}" class="btn btn-default btn-xs" target="_blank">{{ Lang::get('general.view') }}</a>
 										{!! Form::close() !!}
 									</td>
 								</tr>
@@ -347,7 +388,7 @@
 											{!! Form::hidden('customer_id', $customer->id) !!}
 											{!! Form::hidden('current_tab', 'matches') !!}
 											{!! Form::button(Lang::get('account/customers.matches.action'), [ 'type'=>'submit', 'class'=>'btn btn-default btn-xs' ]) !!}
-											<a href="{{ action('Web\PropertiesController@details', $property->slug) }}" class="btn btn-default btn-xs" target="_blank">{{ Lang::get('general.view') }}</a>
+											<a href="{{ $property->full_url }}" class="btn btn-default btn-xs" target="_blank">{{ Lang::get('general.view') }}</a>
 										{!! Form::close() !!}
 									</td>
 								</tr>
@@ -378,7 +419,7 @@
 											{!! Form::hidden('customer_id', $customer->id) !!}
 											{!! Form::hidden('current_tab', 'discards') !!}
 											{!! Form::button(Lang::get('account/customers.discards.undelete'), [ 'type'=>'submit', 'class'=>'btn btn-default btn-xs' ]) !!}
-											<a href="{{ action('Web\PropertiesController@details', $property->slug) }}" class="btn btn-default btn-xs" target="_blank">{{ Lang::get('general.view') }}</a>
+											<a href="{{ $property->full_url }}" class="btn btn-default btn-xs" target="_blank">{{ Lang::get('general.view') }}</a>
 										{!! Form::close() !!}
 									</td>
 								</tr>

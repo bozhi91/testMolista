@@ -54,7 +54,7 @@ class MenuItem extends TranslatableModel
 			case 'custom':
 				return $this->url;
 			case 'property':
-				return action('Web\PropertiesController@details', $this->property->slug);
+				return $this->property->full_url;
 			case 'page':
 				return action('Web\PagesController@show', $this->page->slug);
 		}
