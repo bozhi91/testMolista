@@ -18,6 +18,8 @@ class ServiciosController extends WebController
 	public function postForm()
 	{
 		$validator = \Validator::make($this->request->all(), [
+			'protection' => 'honeypot',
+			'timestamp' => 'required|honeytime:5',
 			'nombre' => 'required',
 			'apellidos' => 'required',
 			'email' => 'required|email',
@@ -40,7 +42,7 @@ class ServiciosController extends WebController
 		}
 
 		$content = "
-			
+
 			<!DOCTYPE html>
 			<html>
 			<head>

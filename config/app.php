@@ -5,7 +5,7 @@
 		'pagination_perpage' => 10,
 		'property_image_maxsize' => env('MAX_PROPERTY_IMAGE_SIZE',2048), //kilobytes
 		'slider_image_maxsize' => env('MAX_SLIDER_IMAGE_SIZE',2048), //kilobytes
-		
+
 		'application_url' => env('APP_URL'),
 		'application_protocol' => env('APP_PROTOCOL'),
 		'application_domain' => env('APP_DOMAIN'),
@@ -237,9 +237,12 @@
 
 			/* https://github.com/prodeveloper/social-share */
 			Chencha\Share\ShareServiceProvider::class,
-			
+
 			/* https://github.com/chriskonnertz/open-graph */
 			ChrisKonnertz\OpenGraph\OpenGraphServiceProvider::class,
+
+			/* https://github.com/msurguy/Honeypot */
+			Msurguy\Honeypot\HoneypotServiceProvider::class,
 		],
 
 		/*
@@ -286,7 +289,7 @@
 			'URL'       => Illuminate\Support\Facades\URL::class,
 			'Validator' => Illuminate\Support\Facades\Validator::class,
 			'View'      => Illuminate\Support\Facades\View::class,
-			
+
 			/* Own */
 			'SiteCustomer' => App\Session\SiteCustomer::class,
 
@@ -326,12 +329,15 @@
 
 			/* https://github.com/florianv/laravel-swap */
 			'Swap' => Florianv\LaravelSwap\Facades\Swap::class,
-			
+
 			/* https://github.com/prodeveloper/social-share */
 			'Share'	=> Chencha\Share\ShareFacade::class,
-			
+
 			/* https://github.com/chriskonnertz/open-graph */
 			'OpenGraph' => \ChrisKonnertz\OpenGraph\OpenGraph::class,
+
+			/* https://github.com/msurguy/Honeypot */
+			'Honeypot' => Msurguy\Honeypot\HoneypotFacade::class
 		],
 
 	];
