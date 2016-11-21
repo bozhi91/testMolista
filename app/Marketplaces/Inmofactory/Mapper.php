@@ -200,7 +200,7 @@ abstract class Mapper extends \App\Marketplaces\Mapper {
 		$users = [];
 
 		$users[] = [
-			"UserId" => $this->config['agent_id'],
+			"UserId" => (int)$this->config['agent_id'],
 			"IsPrincipal" => true
 		];
 
@@ -255,7 +255,7 @@ abstract class Mapper extends \App\Marketplaces\Mapper {
 
 
 		$features[] = $this->genFeature(1, [
-			'DecimalValue' => $item['size']
+			'DecimalValue' => floatval($item['size'])
 		]);
 
 		$features[] = $this->genFeature(3, [
@@ -264,19 +264,19 @@ abstract class Mapper extends \App\Marketplaces\Mapper {
 
 		if (in_array($typeId, [1, 2, 10])) {
 			$features[] = $this->genFeature(11, [
-				'DecimalValue' => $item['rooms']
+				'DecimalValue' => (int)$item['rooms']
 			]);
 		}
 
 		if (in_array($typeId, [1, 2])) {
 			$features[] = $this->genFeature(12, [
-				'DecimalValue' => $item['baths']
+				'DecimalValue' => (int)$item['baths']
 			]);
 		}
 
 		if (in_array($typeId, [1, 2, 3, 4])) {
 			$features[] = $this->genFeature(13, [
-				'DecimalValue' => $item['toilettes']
+				'DecimalValue' => (int)$item['toilettes']
 			]);
 		}
 
@@ -324,13 +324,13 @@ abstract class Mapper extends \App\Marketplaces\Mapper {
 
 		if (in_array($typeId, [1, 2, 3, 4, 5, 6, 7, 8, 10, 12])) {
 			$features[] = $this->genFeature(57, [
-				'DecimalValue' => $item['size_real']
+				'DecimalValue' => floatval($item['size_real'])
 			]);
 		}
 
 		if (in_array($typeId, [1, 2, 3, 4, 5, 6, 7, 8, 10, 12])) {
 			$features[] = $this->genFeature(231, [
-				'DecimalValue' => $item['construction_year']
+				'DecimalValue' => (int)$item['construction_year']
 			]);
 		}
 
