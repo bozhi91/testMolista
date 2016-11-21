@@ -299,6 +299,8 @@
 							<tr>
 								<th>{{ Lang::get('account/properties.ref') }}</th>
 								<th>{{ Lang::get('account/properties.column.title') }}</th>
+								<th>{{ Lang::get('account/properties.column.address') }}</th>
+								<th>{{ Lang::get('account/properties.column.price') }}</th>
 								<th></th>
 							</tr>
 						</thead>
@@ -307,6 +309,8 @@
 								<tr>
 									<td>{{$property->ref}}</td>
 									<td>{{$property->title}}</td>
+									<td>{{$property->address}}</td>
+									<td>{{$property->price}}</td>
 									<td class="text-right text-nowrap">
 										{!! Form::open([ 'action'=>[ 'Account\CustomersController@deleteRemovePropertyCustomer', $property->slug ], 'method'=>'DELETE', 'class'=>'delete-property-form' ]) !!}
 											{!! Form::hidden('customer_id', $customer->id) !!}
@@ -334,6 +338,8 @@
 							<tr>
 								<th>{{ Lang::get('account/properties.ref') }}</th>
 								<th>{{ Lang::get('account/properties.column.title') }}</th>
+								<th>{{ Lang::get('account/properties.column.address') }}</th>
+								<th>{{ Lang::get('account/properties.column.price') }}</th>
 								<th></th>
 							</tr>
 						</thead>
@@ -342,6 +348,8 @@
 								<tr>
 									<td>{{$property->ref}}</td>
 									<td>{{$property->title}}</td>
+									<td>{{$property->address}}</td>
+									<td>{{$property->price}}</td>
 									<td class="text-right text-nowrap">
 										{!! Form::open([ 'action'=>[ 'Account\CustomersController@postAddPropertyCustomer', $property->slug ], 'method'=>'POST', 'class'=>'add-property-form' ]) !!}
 											{!! Form::hidden('customer_id', $customer->id) !!}
