@@ -56,6 +56,14 @@
 						{!! Form::select('mode', array_merge(['' => ''], \App\Property::getModeOptionsAdmin()), Input::get('mode'), [ 'class'=>'form-control' ]) !!}
 					</div>
 
+					<div class="form-group">
+						{!! Form::label('agent_id', Lang::get('account/customers.agent_id'), [ 'class'=>'sr-only' ]) !!}
+						{!! Form::select('agent_id', ['' => ''] + $agents, Input::get('agent_id'), [
+							'class'=>'form-control has-select-2', 'data-allow-clear' => true,
+							'data-placeholder' => Lang::get('account/customers.agent_id') ]) !!}
+					</div>
+
+
 <!--					<div class="form-group">
 						{!! Form::label('properties', Lang::get('account/customers.properties'), [ 'class'=>'sr-only' ]) !!}
 						{!! Form::text('properties', Input::get('properties'), [ 'class'=>'form-control', 'id' => 'not-properties', 'placeholder'=>Lang::get('account/customers.properties') ]) !!}
@@ -115,6 +123,9 @@
 	<script type="text/javascript">
 		ready_callbacks.push(function() {
 			var cont = $('#admin-customers');
+			var form = $('#filters-form');
+			form.find('.has-select-2').select2();
+			
 			/*var form = $('#filters-form');
 			var viewurl = "{{ action('Account\CustomersController@show', 'USEREMAIL') }}";
 

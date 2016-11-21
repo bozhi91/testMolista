@@ -16,6 +16,8 @@
 		'origin' => 'Source',
 		'active' => 'Active',
 		'active.not' => 'Not active',
+		'price' => 'Price',
+		'agent_id' => 'Agent',
 
 		'create.h1' => 'Create lead',
 
