@@ -86,7 +86,7 @@
 								'creation' => [ 'title' => Lang::get('account/customers.created') ],
 								'origin' => [ 'title' => Lang::get('account/customers.origin'), ],
 								'properties' => [ 'title' => Lang::get('account/customers.properties'), 'class'=>'text-center', ],
-								'matches' => [ 'title' => Lang::get('account/customers.matches'), 'sortable'=>false, 'class'=>'text-center', ],
+								'matches' => [ 'title' => Lang::get('account/customers.matches'), 'class'=>'text-center', ],
 								'tickets' => [ 'title' => Lang::get('account/employees.tickets'), 'sortable'=>false, 'class'=>'text-center', ],
 								'action' => [ 'title' => '', 'class'=>'text-right text-nowrap', ],
 							]) !!}
@@ -105,7 +105,7 @@
 								<td>{{  $customer->created_at->format('d/m/Y') }}</td>
 								<td style="text-transform: capitalize;">{{ $customer->origin }}</td>
 								<td class="text-center">{{ number_format($customer->properties->count(), 0, ',', '.') }}</td>
-								<td class="text-center">{{ number_format($customer->possible_matches->count(), 0, ',', '.') }}</td>
+								<td class="text-center">{{ $customer->matches_count }}</td>
 								<td class="text-center">{{ @number_format(intval( $stats[$customer->id]->tickets->open ), 0, ',', '.') }}</td>
 								<td class="text-right text-nowrap">
 									<a href="{{ action('Account\CustomersController@show', urlencode($customer->email)) }}" class="btn btn-primary btn-xs">{{ Lang::get('general.view') }}</a>

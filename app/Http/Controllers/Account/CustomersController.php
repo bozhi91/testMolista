@@ -98,6 +98,9 @@ class CustomersController extends \App\Http\Controllers\AccountController
 			case 'properties':
 				$query->orderBy($propertiesQuery, $order);
 				break;
+			case 'matches':
+				$query->orderBy('matches_count', $order);
+				break;
 			case 'status':
 				$query->orderBy('active', $order);
 				break;
