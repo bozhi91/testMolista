@@ -3,15 +3,6 @@
 	if (!isset($colperpage)) {
 		$colperpage = 4;
 	}
-
-	$widgetSlider = false; //ugly temporal
-	if(!empty($site_setup['widgets']['home'])){
-		foreach ($site_setup['widgets']['home'] as $widget) {
-			if($widget['type'] == 'slider'){
-				$widgetSlider = $widget;
-			}
-		}
-	}
 ?>
 
 @extends('layouts.web')
@@ -22,8 +13,8 @@
 
 	<div id="home">
 
-		@if ($widgetSlider)
-			@include('common.widget-slider', ['widget' => $widgetSlider])
+		@if ($sliders)
+			@include('common.widget-slider', ['widget' => $sliders])
 		@elseif ($main_property)
 			<div class="main-property carousel slide" data-interval="false">
 				<div class="carousel-inner" role="listbox">
