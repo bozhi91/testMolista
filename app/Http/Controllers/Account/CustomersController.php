@@ -34,8 +34,11 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		})->with('queries');
 		
 		
-		if($this->request->input('agent_id')){
-			$agent = \App\User::where('id', $this->request->input('agent_id'))->firstOrFail();			
+		$agent_id = !\Auth::user()->can('lead-view_all') ?
+				\Auth::user()->id : $this->request->input('agent_id');
+				
+		if($agent_id) {
+			$agent = \App\User::where('id', $agent_id)->firstOrFail();			
 			$property_ids = $agent->properties()->pluck('id')->toArray();
 						
 			$customer_ids = !empty($property_ids) ? \DB::table('properties_customers')

@@ -56,13 +56,14 @@
 						{!! Form::select('mode', array_merge(['' => ''], \App\Property::getModeOptionsAdmin()), Input::get('mode'), [ 'class'=>'form-control' ]) !!}
 					</div>
 
-					<div class="form-group">
-						{!! Form::label('agent_id', Lang::get('account/customers.agent_id'), [ 'class'=>'sr-only' ]) !!}
-						{!! Form::select('agent_id', ['' => ''] + $agents, Input::get('agent_id'), [
-							'class'=>'form-control has-select-2', 'data-allow-clear' => true,
-							'data-placeholder' => Lang::get('account/customers.agent_id') ]) !!}
-					</div>
-
+					@if(\Auth::user()->can('lead-view_all'))
+						<div class="form-group">
+							{!! Form::label('agent_id', Lang::get('account/customers.agent_id'), [ 'class'=>'sr-only' ]) !!}
+							{!! Form::select('agent_id', ['' => ''] + $agents, Input::get('agent_id'), [
+								'class'=>'form-control has-select-2', 'data-allow-clear' => true,
+								'data-placeholder' => Lang::get('account/customers.agent_id') ]) !!}
+						</div>
+					@endif
 
 <!--					<div class="form-group">
 						{!! Form::label('properties', Lang::get('account/customers.properties'), [ 'class'=>'sr-only' ]) !!}
