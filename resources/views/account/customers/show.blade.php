@@ -356,6 +356,10 @@
 										{!! Form::open([ 'action'=>[ 'Account\CustomersController@deleteRemovePropertyCustomer', $property->slug ], 'method'=>'DELETE', 'class'=>'delete-property-form' ]) !!}
 											{!! Form::hidden('customer_id', $customer->id) !!}
 											{!! Form::hidden('current_tab', 'properties') !!}
+											
+											<a href="#" data-href="{{ action('Account\PropertiesController@getCatchClose', ['id' => $property->catch_current->id, 'client_id' => $customer->id])}}"
+											   class="btn btn-default btn-xs popup-catch-trigger">{{ Lang::get('account/properties.show.property.catch.actions.close') }}</a>
+											
 											@if ( $event = $property->calendars->where('customer_id', $customer->id)->last() )
 												<a href="{{ action('Account\Calendar\BaseController@getEvent', $event->id) }}"><i class="fa fa-calendar-check-o has-tooltip" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="{{ Lang::get('account/calendar.scheduled') }}"></i></a>
 											@endif
@@ -462,6 +466,18 @@
 			tabs.find('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 				cont.find('input[name="current_tab"]').val( $(this).data('tab') );
 				cont.find('.has-select-2').select2();
+			});
+
+			cont.on('click','.popup-catch-trigger', function(e){
+				var el = $(this);
+				e.preventDefault();
+				$.magnificPopup.open({
+					items: {
+						src: el.data().href
+					},
+					type: 'iframe',
+					modal: true
+				});
 			});
 
 			profile_form.validate({
