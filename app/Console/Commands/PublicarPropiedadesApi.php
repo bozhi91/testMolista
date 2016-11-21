@@ -13,7 +13,7 @@ class PublicarPropiedadesApi extends Command {
 	 *
 	 * @var string
 	 */
-	protected $signature = 'properties:publish {site? : Site id} {marketplaces? : Marketplaces codes}';
+	protected $signature = 'marketplace:api:publish {site? : Site id} {marketplaces? : Marketplaces codes}';
 
 	/**
 	 * The console command description.
