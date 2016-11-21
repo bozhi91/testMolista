@@ -59,7 +59,19 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		if ( $this->request->input('address') )
 		{
 			$clean_filters = true;
-			$query->where('properties.address', 'LIKE', "%{$this->request->input('address')}%");
+			$query->leftJoin('states','properties.state_id','=','states.id');
+			$query->where(function ($query) {
+				$query->where('properties.address', 'LIKE', "%{$this->request->input('address')}%");
+				$query->orWhere('states.name', 'LIKE', "%{$this->request->input('address')}%");
+				$query->orWhere('cities.name', 'LIKE', "%{$this->request->input('address')}%");
+			});
+		}
+
+		// Filter by mode
+		if ( $this->request->input('mode') )
+		{
+			$clean_filters = true;
+			$query->where('properties.mode', $this->request->input('mode'));
 		}
 
 		// Filter by highlighted
@@ -74,6 +86,18 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		{
 			$clean_filters = true;
 			$query->where('properties.enabled', intval($this->request->input('enabled'))-1);
+		}
+
+		//Filter by mode
+		if($this->request->input('mode')) {
+			$query->where('properties.mode', $this->request->input('mode'));
+		}
+		
+		//Filter by price
+		if($this->request->input('price')) {
+			$query->where('properties.price'
+					, $this->request->input('operation', '=')
+					, $this->request->input('price'));
 		}
 
 		switch ( $this->request->input('order') )
@@ -102,6 +126,9 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			case 'title':
 				$query->orderBy('title', $order);
 				break;
+			case 'price':
+				$query->orderBy('price', $order);
+				break;
 			case 'creation':
 			default:
 				$query->orderBy('created_at', $order);
@@ -113,11 +140,12 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			return $this->exportCsv($query);
 		}
 
+		$total_properties = $query->get()->count();
 		$properties = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$this->set_go_back_link();
 
-		return view('account.properties.index', compact('properties','clean_filters'));
+		return view('account.properties.index', compact('properties','clean_filters', 'total_properties'));
 	}
 
 	public function exportCsv($query)
@@ -326,7 +354,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 	}
 
 	public function update(Request $request, $slug)
-	{						
+	{
 		// Get property
 		$query = $this->site->properties()
 						->whereTranslation('slug', $slug)
@@ -346,6 +374,10 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			abort(404);
 		}
 
+		$oldPrice = floatval($property->price);
+		$newPrice = floatval($this->request->input('price'));
+		$isPriceFall = $newPrice < $oldPrice;
+
 		// Validate request
 		$valid = $this->validateRequest($property->id);
 		if ( $valid !== true )
@@ -357,6 +389,29 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		if ( !$this->saveRequest($property,false) )
 		{
 			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
+		}
+
+		if($isPriceFall){
+			if($this->site->alert_config === null ||
+					$this->site->alert_config['bajada']['agentes']){
+				$agents = $property->users()->withRole('employee')->get();
+				foreach($agents as $agent){
+					$job = (new \App\Jobs\SendNotificationPriceFall($property, $agent))->onQueue('emails');
+					$this->dispatch($job);
+				}
+			}
+
+			if($this->site->alert_config === null ||
+					$this->site->alert_config['bajada']['customers']){
+				foreach($property->customers as $customer){
+
+					if($customer->alert_config === null ||
+							$customer->alert_config['bajada']){
+						$job = (new \App\Jobs\SendNotificationPriceFall($property, null, $customer))->onQueue('emails');
+						$this->dispatch($job);
+					}
+				}
+			}
 		}
 
 		// Save marketplaces
@@ -546,6 +601,17 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'enabled' => 0,
 		]);
 
+		//Send notifications on property sell
+		if(in_array($this->request->input('status'), ['sold'])){
+			foreach($item->property->customers() as $customer){
+				if($customer->alert_config === null ||
+						$customer->alert_config['venta']){
+					$job = (new \App\Jobs\SendNotificationOnPropertySale($customer, $item->property))->onQueue('emails');
+					$this->dispatch($job);
+				}
+			}
+		}
+
 		return [ 'success'=>true ];
 	}
 
@@ -706,7 +772,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 	protected function getRequestFields($id=false)
 	{
 		$fields = [
-			'ref' => 'required',
+			'ref' => 'required|unique:properties,ref,'.$id.',id,site_id,'.$this->site->id,
 			'type' => 'required|in:'.implode(',', array_keys(\App\Property::getTypeOptions())),
 			'mode' => 'required|in:'.implode(',', \App\Property::getModes()),
 			'price' => 'required|numeric|min:0',
@@ -865,7 +931,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		$preserve = [];
 
 		$rotation = $this->request->input('rotation');
-		
+
 		// Update images position
 		if ( $this->request->input('images') ) {
 			foreach ($this->request->input('images') as $image_id)
@@ -908,16 +974,16 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 					}
 
 					$newlocation = "{$dirpath}/{$filename}";
-					
+
 					// Move image to permanent location
 					rename($filepath, $newlocation);
-										
+
 					//rotate image if necessary
 					if(!empty($rotation[$image_id])){
 						$degree = -(int)$rotation[$image_id];
 						\Image::make($newlocation)->rotate($degree)->save($newlocation);
 					}
-					
+
 					// Preserve
 					$preserve[] = $new_image->id;
 				}
@@ -925,28 +991,28 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 				else
 				{
 					$image = $property->images()->find($image_id);
-								
+
 					$updateFields = [
 						'default' => 0,
 						'position' => $position,
 					];
-					
+
 					//rotate image if necessary
 					if(!empty($rotation[$image_id])){
 						$degree = -(int)$rotation[$image_id];
 						$path = public_path("sites/{$property->site_id}/properties/{$property->id}/{$image->image}");
 						\Image::make($path)->rotate($degree)->save($path);
-						
+
 						//delete thumbnail
 						$thumbPath = public_path("sites/{$property->site_id}/properties/{$property->id}/thumbnail/{$image->image}");
 						\File::delete($thumbPath);
-						
+
 						$updateFields['updated_at'] = new \DateTime();
 					}
-					
+
 					// Update position
 					$image->update($updateFields);
-					
+
 					// Preserve
 					$preserve[] = $image_id;
 
@@ -1060,6 +1126,34 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 		if( $upload_success )
 		{
+			// Resize targets
+			$target_width = 1920;
+			$target_height = 1080;
+
+			// Create thumb
+			$thumb = \Image::make( public_path("{$dir}/{$filename}") );
+
+			// Change extension and encode as jpg
+			if ( preg_match('#\.[^.]+$#', $filename, $matches) )
+			{
+				$ofilename = $filename;
+
+				$filename = preg_replace('#\.[^.]+$#', '.jpg', $filename); // Change extension
+				$thumb->encode('jpg'); // Encode
+
+				// Resize
+				$thumb->resize($target_width, $target_height, function($constraint) {
+					$constraint->aspectRatio();
+					$constraint->upsize();
+				})->save( public_path("{$dir}/{$filename}") );
+
+				if ( $matches[0] != '.jpg' )
+				{
+					@unlink( public_path("{$dir}/{$ofilename}") );
+				}
+			}
+
+			// Define flags
 			@list($w, $h) = @getimagesize( public_path("{$dir}/{$filename}") );
 			$is_vertical = ( $w && $h && $w < $h ) ? true : false;
 			$has_size = ( $w && $w < 1280 ) ? false : true;

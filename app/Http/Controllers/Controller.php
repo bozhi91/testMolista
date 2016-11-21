@@ -42,15 +42,24 @@ class Controller extends BaseController
 		$this->reseller = $this->request->get('reseller');
 
 		$this->geolocation = $this->request->get('geolocation');
-		
+
 		$this->currency = $this->request->get('currency');
 
 		$this->__initialize();
+
+		$header_class = '';
+		if ($this->site && $this->site->id == env('VILLAMED_ID')) {
+			$header_class = 'header-logo-md';
+		}
+
+		if ($this->site) {
+			view()->share('header_class', $header_class);
+		}
 	}
 
 	public function __initialize() {}
 
-	protected function set_go_back_link() 
+	protected function set_go_back_link()
 	{
 		// Get stored values
 		$nav = session()->get('SmartBackLinks', []);
@@ -66,7 +75,7 @@ class Controller extends BaseController
 		$nav = session()->put('SmartBackLinks', $nav);
 	}
 
-	protected function set_seo_values($seo=false) 
+	protected function set_seo_values($seo=false)
 	{
 		if ( !$seo || !is_array($seo) )
 		{

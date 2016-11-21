@@ -13,7 +13,7 @@
 					
 					<div class="carousel-caption-title"> {{$main_property->title}} </div>
 					
-					<div class="carousel-caption-subtitle text-nowrap hidden-xs"> {{ price($main_property->price, [ 'decimals'=>0 ]) }} </div>
+					<div class="carousel-caption-subtitle text-nowrap hidden-xs"> {{ price($main_property->price, [ 'decimals'=>0 ]) }} @include('web.properties.discount-price', [ 'property' => $main_property ]) </div>
 
 					<div class="carousel-caption-button">
 						<a href="{{ $main_property->full_url }}" class="carousel-button">{{ Lang::get('web/properties.search.results.more') }}</a>

@@ -17,6 +17,7 @@
 
 		'edit' => 'Edit',
 		'view' => 'View',
+		'share' => 'Share',
 		'view.popup' => 'Open in popup',
 		'view.window' => 'New window',
 		'new' => 'New element',

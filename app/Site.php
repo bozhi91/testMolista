@@ -19,6 +19,7 @@ class Site extends TranslatableModel
 		'signature' => 'array',
 		'invoicing' => 'array',
 		'country_ids' => 'array',
+		'alert_config' => 'array',
 	];
 
 	protected $data;
@@ -1042,6 +1043,7 @@ class Site extends TranslatableModel
 			'payment_method' =>  '',
 			'payment_amount' => 0,
 			'payment_currency' => $this->plan->currency,
+			'payment_vat' => $this->vat,
 			'reseller_id' =>  $this->reseller ? $this->reseller->id : null,
 			'reseller_variable' => $this->reseller ? @floatval($this->reseller->plans_commissions[$plan_id]['commission_percentage']) : 0,
 			'reseller_fixed' => $this->reseller ? @floatval($this->reseller->plans_commissions[$plan_id]['commission_fixed']) : 0,
@@ -1051,9 +1053,9 @@ class Site extends TranslatableModel
 		// Provided data
 		$payment = array_merge($payment,$data);
 
-
 		// Reseller payment amount
-		$payment['reseller_amount'] = $payment['reseller_fixed'] + ($payment['payment_amount']*$payment['reseller_variable']/100);
+		$payment_net_amount = $payment['payment_amount'] / ( ( 100 + $payment['payment_vat'] ) / 100 );
+		$payment['reseller_amount'] = $payment['reseller_fixed'] + ( $payment_net_amount * $payment['reseller_variable'] / 100 );
 
 		// Exchange rate
 		$currency_rate = \App\Models\CurrencyConverter::convert(1, $payment['payment_currency'], 'EUR');
@@ -1071,6 +1073,57 @@ class Site extends TranslatableModel
 		}
 
 		return false;
+	}
+
+	public function importTicketingCustomers()
+	{
+		// Get ticket customers
+		$contacts = $this->ticket_adm->getContacts();
+
+		if ( !$contacts )
+		{
+			return false;
+		}
+
+		// Get current customers
+		$contact_ids = $this->customers()->where('ticket_contact_id', '!=','')->lists('ticket_contact_id')->all();
+
+		foreach ($contacts as $contact)
+		{
+			if ( in_array($contact->id, $contact_ids) )
+			{
+				continue;
+			}
+
+			$customer = $this->customers()->where('email', $contact->email)->first();
+			if ( $customer )
+			{
+				if ( !$customer->ticket_contact_id )
+				{
+					$customer->update([
+						'ticket_contact_id' => $contact->id,
+					]);
+				}
+			}
+			else
+			{
+				$fullname_parts = explode(' ', $contact->fullname, 2);
+				$first_name = empty($fullname_parts[0]) ? '' : $fullname_parts[0];
+				$last_name = empty($fullname_parts[1]) ? '' : $fullname_parts[1];
+
+				$this->customers()->create([
+					'first_name' => $first_name,
+					'last_name' => $last_name,
+					'email' => $contact->email,
+					'phone' => $contact->phone ? $contact->phone : '',
+					'locale' => config()->get('app.fallback_locale'),
+					'origin' => $contact->referer  ? $contact->referer : 'tickets',
+					'ticket_contact_id' => $contact->id,
+				]);
+			}
+		}
+
+		return true;
 	}
 
 }

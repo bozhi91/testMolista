@@ -12,7 +12,7 @@ class WebController extends Controller
 
     public function __initialize() {
     	parent::__initialize();
-    	
+
 		$search_data = [
 			'sizes' => \App\Property::getSizeOptions(),
 			'rooms' => \App\Property::getRoomOptions(),
@@ -43,18 +43,34 @@ class WebController extends Controller
 
 	public function index()
 	{
-		$main_property = $this->site->properties()->enabled()->inHome()->with('images')->with('state')->with('city')->orderByRaw("RAND()")->first();
-		if ( !$main_property )
-		{
-			$main_property = $this->site->properties()->enabled()->highlighted()->with('images')->with('state')->with('city')->orderByRaw("RAND()")->first();
-		}
+        $sliders = false;
+    	if(!empty($this->site->site_setup['widgets']['home']))
+        {
+    		foreach ($this->site->site_setup['widgets']['home'] as $widget)
+            {
+    			if ($widget['type'] == 'slider')
+                {
+    				$sliders = $widget;
+    			}
+    		}
+    	}
+
+        $main_property = false;
+        if (!$sliders)
+        {
+            $main_property = $this->site->properties()->enabled()->inHome()->with('images')->with('state')->with('city')->orderByRaw("RAND()")->first();
+            if ( !$main_property )
+            {
+                $main_property = $this->site->properties()->enabled()->highlighted()->with('images')->with('state')->with('city')->orderByRaw("RAND()")->first();
+            }
+        }
 
 		$exclude = $main_property ? $main_property->id : 0;
 		$highlighted = $this->site->properties()->where('properties.id', '!=', $exclude)->enabled()->highlighted()->with('images')->with('state')->with('city')->orderByRaw("RAND()")->get();
 
 		$latest = $this->site->properties()->enabled()->with('images')->with('state')->with('city')->orderBy('created_at','desc')->limit(3)->get();
 
-		return view('web.index', compact('main_property','highlighted','latest'));
+		return view('web.index', compact('main_property','highlighted','latest','sliders'));
 	}
 
 }

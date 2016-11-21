@@ -100,7 +100,8 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 		$this->site->ga_account = $this->request->input('ga_account');
 		$this->site->customer_register = $this->request->input('customer_register') ? 1 : 0;
 		$this->site->mailer = $this->request->input('mailer');
-
+		$this->site->alert_config = $this->request->input('alerts');
+		
 		if ( $this->site->can_hide_molista )
 		{
 			$this->site->hide_molista = $this->request->input('hide_molista') ? 1 : 0;

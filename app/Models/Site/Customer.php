@@ -8,6 +8,10 @@ class Customer extends Model
 {
 	protected $guarded = [];
 
+	protected $casts = [
+		'alert_config' => 'array',
+	];
+	
 	public static function boot()
 	{
 		parent::boot();

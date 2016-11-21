@@ -28,6 +28,7 @@ class Kernel extends ConsoleKernel
 		Commands\GeographyLoadCountryCitiesCommand::class,
 		Commands\InitGlobalStatsCommand::class,
 		Commands\RefreshMatchesCountCommand::class,
+		Commands\TicketsContactsSyncCommand::class,
 	];
 
 	/**
@@ -42,5 +43,6 @@ class Kernel extends ConsoleKernel
 		$schedule->command('stats:process yesterday')->dailyAt('03:00');
 		$schedule->command('parser:process')->hourly();
 		$schedule->command('stats:refresh-matches')->twiceDaily();
+		$schedule->command('tickets:contacts-sync')->dailyAt('02:00');
 	}
 }

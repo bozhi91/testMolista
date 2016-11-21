@@ -49,3 +49,17 @@ label.error { font-size: 0.8em; color: @colorRed; }
 	font-size: 0.8em; 
 	p { margin: 0px; }
 }
+
+.input-group-with-select {
+    > .input-group-select-left {
+        display: table-cell;
+        
+        > select {
+             border-right: 0;
+        }
+    }
+    
+    > input {
+        border-left: 0;
+    }
+}
