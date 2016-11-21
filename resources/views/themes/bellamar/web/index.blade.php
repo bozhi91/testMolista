@@ -9,15 +9,6 @@
 	}
 
 	$slider_breakpoint = ( 12 / $colperpage * 3);
-
-	$widgetSlider = false; //ugly temporal
-	if(!empty($site_setup['widgets']['home'])){
-		foreach ($site_setup['widgets']['home'] as $widget) {
-			if($widget['type'] == 'slider'){
-				$widgetSlider = $widget;
-			}
-		}
-	}
 ?>
 
 @extends('layouts.web')
@@ -28,68 +19,66 @@
 
 	<div id="home">
 
-		@if($widgetSlider)
-			@include('common.widget-slider', ['widget' => $widgetSlider])
+		@if($sliders)
+			@include('common.widget-slider', ['widget' => $sliders])
 		@endif
-		
-		@if ( $main_property )
-		
-			@if(!$widgetSlider)
-				<div class="main-property carousel slide" data-interval="false">
-					<div class="carousel-inner" role="listbox">
-						<div data-href="{{ $main_property->full_url }}" class="item active cursor-pointer">
-							<img src="{{$main_property->main_image}}" alt="{{$main_property->title}}" class="main-image" />
-							@include('web.index-caption')
-						</div>
+
+		@if ( $main_property && !$sliders)
+			<div class="main-property carousel slide" data-interval="false">
+				<div class="carousel-inner" role="listbox">
+					<div data-href="{{ $main_property->full_url }}" class="item active cursor-pointer">
+						<img src="{{$main_property->main_image}}" alt="{{$main_property->title}}" class="main-image" />
+						@include('web.index-caption')
 					</div>
 				</div>
-			@endif
-		
-			@if ( $highlighted->count() > 0 )
-				<div class="container">
-					<div class="properties-slider-area">
-						<h2>{{ Lang::get('web/home.gallery') }}</h2>
-						<div id="properties-slider" class="properties-slider carousel slide">
-							<div class="carousel-inner" role="listbox">
-								<div class="item active">
-									@if ( $showcolrows )
-										<div class="row">
-									@endif
-									@foreach ($highlighted as $key => $property)
-										@if ( $key > 0 && $key%3 == 0 )
-											@if ( $showcolrows )
-												</div>
-											@endif
-											@if ( $key > 0 && $key%$slider_breakpoint == 0 )
-												</div>
-												<div class="item">
-											@endif
-											@if ( $showcolrows )
-												<div class="row">
-											@endif
+			</div>
+		@endif
+
+		@if ( $highlighted->count() > 0 )
+			<div class="container">
+				<div class="properties-slider-area">
+					<h2>{{ Lang::get('web/home.gallery') }}</h2>
+					<div id="properties-slider" class="properties-slider carousel slide">
+						<div class="carousel-inner" role="listbox">
+							<div class="item active">
+								@if ( $showcolrows )
+									<div class="row">
+								@endif
+								@foreach ($highlighted as $key => $property)
+									@if ( $key > 0 && $key%3 == 0 )
+										@if ( $showcolrows )
+											</div>
 										@endif
-										<div class="col-xs-12 col-sm-{{$colperpage}}">
-											@include('web.properties.pill', [ 'item'=>$property])
-										</div>
-									@endforeach
-									@if ( $showcolrows )
-										</div>
+										@if ( $key > 0 && $key%$slider_breakpoint == 0 )
+											</div>
+											<div class="item">
+										@endif
+										@if ( $showcolrows )
+											<div class="row">
+										@endif
 									@endif
-								</div>
+									<div class="col-xs-12 col-sm-{{$colperpage}}">
+										@include('web.properties.pill', [ 'item'=>$property])
+									</div>
+								@endforeach
+								@if ( $showcolrows )
+									</div>
+								@endif
 							</div>
-							@if ( $highlighted->count() > 9 )
-								<ul class="list-inline text-right properties-slider-indicators hidden-xs">
-									@foreach ($highlighted as $key => $property)
-										@if ( $key%9 == 0 )
-											<li data-target="#properties-slider" data-slide-to="{{ $key/9 }}" class="{{ $key ? '' : 'active' }}">{{ ($key/9)+1 }}</li>
-										@endif
-									@endforeach
-								</ul>
-							@endif
 						</div>
+						@if ( $highlighted->count() > 9 )
+							<ul class="list-inline text-right properties-slider-indicators hidden-xs">
+								@foreach ($highlighted as $key => $property)
+									@if ( $key%9 == 0 )
+										<li data-target="#properties-slider" data-slide-to="{{ $key/9 }}" class="{{ $key ? '' : 'active' }}">{{ ($key/9)+1 }}</li>
+									@endif
+								@endforeach
+							</ul>
+						@endif
 					</div>
 				</div>
-			@endif
+			</div>
+		@endif
 
 		<div class="container">
 			<div class="quick-search-area search-area {{ $highlighted->count() ? 'under-properties' : '' }}">
@@ -149,8 +138,6 @@
 				</div>
 			</div>
 		</div>
-
-		@endif
 
 	</div>
 
