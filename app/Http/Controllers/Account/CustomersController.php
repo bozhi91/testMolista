@@ -257,6 +257,24 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		return view('account.customers.show', compact('customer','profile','countries','country_id','states','cities','modes','types','services','current_tab'));
 	}
 
+	public function destroy($email)
+	{
+		$customer = $this->site->customers()->where('email', $email)->first();
+		if ( !$customer )
+		{
+			return redirect()->back()->with('error',trans('general.messages.error'));
+		}
+
+		// Delete customer (molista & tickets)
+		if ( $this->site->ticket_adm->dissociateContact($customer) )
+		{
+			$customer->delete();
+			return redirect()->action('Account\CustomersController@index')->with('success',trans('account/customers.message.deleted'));
+		}
+
+		return redirect()->back()->with('error',trans('general.messages.error'));
+	}
+
 	public function postProfile($email)
 	{
 		$customer = $this->site->customers()->with('queries')->where('email', $email)->first();
@@ -465,20 +483,6 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		];
 
 		return $fields;
-	}
-
-	public function destroy($email)
-	{
-		$customer = $this->site->customers()->where('email', $email)->first();
-		if ( !$customer )
-		{
-			return redirect()->back()->with('error',trans('general.messages.error'));
-		}
-
-		// Delete customer (molista & tickets)
-		
-
-		return redirect()->action('Account\CustomersController@index')->with('success',trans('account/customers.message.deleted'));
 	}
 
 	public function postComment($slug)
