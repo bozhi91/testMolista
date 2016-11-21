@@ -147,6 +147,7 @@
 	        			<div class="form-compraventa">
 	        			<!-- codigo laravel forms. -->
 	        				{!! Form::model(null,['action'=>'Web\Custom\ServiciosController@postForm', 'method'=>'post', 'class'=>'form-custom']) !!}
+							  {!! Honeypot::generate('protection', 'timestamp') !!}
 	        					<input type="hidden" name="tipo" value="venta">
 							  <div class="form-group">
 							    <input type="nombre" class="form-control required" id="nombre" name="nombre" placeholder="Nombre">
@@ -223,6 +224,7 @@
 	        			<div class="form-alquiler">
 	        			<!-- codigo laravel forms. -->
 	        				{!! Form::model(null,['action'=>'Web\Custom\ServiciosController@postForm', 'method'=>'post', 'class'=>'form-custom']) !!}
+							  {!! Honeypot::generate('protection', 'timestamp') !!}
 	        					<input type="hidden" name="tipo" value="alquiler">
 							  <div class="form-group">
 							    <input type="nombre" class="form-control required" id="nombre" name="nombre" placeholder="Nombre">
@@ -286,7 +288,7 @@
         <h4 class="modal-title">Gestión del patrimonio</h4>
       </div>
       <div class="modal-body">
-        
+
         <div class="Patrimonio-title">Presupuesto Administración Integral</div>
 
         <div class="Patrimonio-list">
