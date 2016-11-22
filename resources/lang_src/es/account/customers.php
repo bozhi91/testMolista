@@ -24,7 +24,10 @@
 		'show.customer.comment.title' => 'Comentario',
 		'show.customer.comment.button' => 'Guardar comentario',
 
+		'delete' => '¿Confirma que desea eliminar permanentemente este cliente?',
+
 		'message.saved' => 'El lead se ha guardado correctamente',
+		'message.deleted' => 'El lead se ha eliminado correctamente',
 
 		'profile' => 'Perfil búsqueda',
 		'profile.update' => 'Actualizar perfil',
