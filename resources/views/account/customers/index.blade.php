@@ -47,8 +47,8 @@
 						], Input::get('origin'), [ 'class'=>'form-control' ]) !!}
 					</div>
 					<div class="form-group">
-						{!! Form::label('price', Lang::get('account/customers.price'), [ 'class'=>'sr-only' ]) !!}
-						{!! Form::text('price', Input::get('price'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('account/customers.price') ]) !!}
+						{!! Form::label('price', Lang::get('account/customers.budget'), [ 'class'=>'sr-only' ]) !!}
+						{!! Form::text('price', Input::get('price'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('account/customers.budget') ]) !!}
 					</div>
 
 					<div class="form-group">
@@ -84,8 +84,9 @@
 								'status' => [ 'title' => Lang::get('account/customers.active'), ],
 								'name' => [ 'title' => Lang::get('account/customers.name'), ],
 								'email' => [ 'title' => Lang::get('account/customers.email'), ],
-								'creation' => [ 'title' => Lang::get('account/customers.created') ],
+								//'creation' => [ 'title' => Lang::get('account/customers.created') ],
 								'origin' => [ 'title' => Lang::get('account/customers.origin'), ],
+								'price' => [ 'title' => Lang::get('account/customers.budget'), 'sortable'=>false ],
 								'properties' => [ 'title' => Lang::get('account/customers.properties'), 'class'=>'text-center', ],
 								'matches' => [ 'title' => Lang::get('account/customers.matches'), 'class'=>'text-center', ],
 								'tickets' => [ 'title' => Lang::get('account/employees.tickets'), 'sortable'=>false, 'class'=>'text-center', ],
@@ -103,8 +104,8 @@
 								</td>
 								<td>{{ $customer->full_name }}</td>
 								<td>{{ $customer->email }}</td>
-								<td>{{  $customer->created_at->format('d/m/Y') }}</td>
 								<td style="text-transform: capitalize;">{{ $customer->origin }}</td>
+								<td>{{ $customer->current_query->price_min }} - {{ $customer->current_query->price_max }}</td>
 								<td class="text-center">{{ number_format($customer->properties->count(), 0, ',', '.') }}</td>
 								<td class="text-center">{{ $customer->matches_count }}</td>
 								<td class="text-center">{{ @number_format(intval( $stats[$customer->id]->tickets->open ), 0, ',', '.') }}</td>
