@@ -160,17 +160,30 @@
 						</div>
 						<div class="col-xs-12 col-sm-4">
 							<div class="form-group error-container">
-								<?php $tmp = empty($cities) ? [ ''=>'' ] : [ ''=>'' ] + $cities; ?>
+								<?php 
+									$tmp = $customer->customer_cities()->pluck('city_id')->toArray(); 
+									$currentCities = empty($tmp) ? 0 : $tmp;
+								?>
 								{!! Form::label('city_id', Lang::get('account/properties.city')) !!}
-								{!! Form::select('city_id', $tmp, null, [ 'class'=>'form-control city-input' ]) !!}
+								{!! Form::select('city_id[]', empty($cities) ? [] : $cities, $currentCities, [
+									'class'=>'form-control has-select-2', 
+									'multiple' => 'multiple',
+								]) !!}
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-xs-12 col-sm-4">
+							<?php 
+								$tmp = $customer->customer_districts()->pluck('district_id')->toArray();
+								$currentDistricts = empty($tmp) ? 0 : $tmp;
+							?>
 							<div class="form-group error-container">
-								{!! Form::label('district', Lang::get('account/properties.district')) !!}
-								{!! Form::text('district', null, [ 'class'=>'form-control district-input' ]) !!}
+								{!! Form::label('district_id', Lang::get('account/properties.district')) !!}
+								{!! Form::select('district_id[]', $districts, $currentDistricts, [
+									'class'=>'form-control has-select-2', 
+									'multiple' => 'multiple',
+								]) !!}
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-4">
@@ -455,6 +468,8 @@
 				cont.find('input[name="current_tab"]').val( $(this).data('tab') );
 				cont.find('.has-select-2').select2();
 			});
+
+			cont.find('.has-select-2').select2();
 
 			profile_form.validate({
 				ignore: '',

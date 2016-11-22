@@ -28,6 +28,7 @@ class Kernel extends ConsoleKernel
 		Commands\GeographyLoadCountryCitiesCommand::class,
 		Commands\InitGlobalStatsCommand::class,
 		Commands\TicketsContactsSyncCommand::class,
+		Commands\TransferDistrincts::class,
 	];
 
 	/**

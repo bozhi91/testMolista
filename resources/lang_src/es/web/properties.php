@@ -9,6 +9,8 @@
 		'mode.rent' => 'Propiedades en alquiler',
 		'mode.transfer' => 'Propiedades en traspaso',
 
+		'district' => 'Distrito',
+
 		'state' => 'Provincia',
 		'state.any' => 'Todas las provincias',
 

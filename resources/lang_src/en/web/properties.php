@@ -8,6 +8,8 @@
 		'mode.sale' => 'Properties for sale',
 		'mode.rent' => 'Properties for rent',
 		'mode.transfer' => 'Properties for ownership transfer',
+		
+		'district' => 'District',
 
 		'state' => 'State',
 		'state.any' => 'All states',

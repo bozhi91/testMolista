@@ -227,6 +227,7 @@ Route::group([
 			],
 		], function() {
 			Route::controller('properties/imports', 'Account\Properties\ImportsController');
+			Route::controller('properties/districts', 'Account\Properties\DistrictsController');
 		});
 
 		Route::get('properties/leads/{slug}', 'Account\PropertiesController@getLeads');
