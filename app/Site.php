@@ -691,6 +691,7 @@ class Site extends TranslatableModel
 					'type' => $widget->type,
 					'title' => $widget->title,
 					'content' => $widget->content,
+					'data' => $widget->data,
 				];
 
 				switch ( $widget->type )

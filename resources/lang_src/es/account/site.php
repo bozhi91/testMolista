@@ -134,6 +134,7 @@
 		'widgets.group.header' => 'Page header',
 		'widgets.group.footer' => 'Page footer',
 		'widgets.group.home' => 'Page home',
+		'widgets.group.home-footer' => 'Home footer',
 
 		'widgets.type.menu' => 'Menú personalizado',
 		'widgets.type.menu.info' => 'Añada uno de sus menúes personalizados como widget.',
@@ -145,6 +146,13 @@
 		'widgets.type.slider.info' => 'Añada un slider para tu página de início.',
 		'widgets.type.slider.select' => 'Seleccionar slider',
 
+		'widgets.type.awesome-link' => 'Link personalizado',
+		'widgets.type.awesome-link.info' => 'Añada multiples links personalizados a tu página principal.',
+		'widgets.type.awesome-link.color' => 'Color',
+		'widgets.type.awesome-link.link' => 'Enlace',
+		'widgets.type.awesome-link.file' => 'Imagen',
+		'widgets.type.awesome-link.help' => 'Imagen tiene que tener el tamaño máximo de 100x100 pixels',
+		
 		'widgets.messages.created' => 'El widget se ha creado correctamente',
 		'widgets.messages.updated' => 'El widget se ha guardado correctamente',
 		'widgets.messages.delete.warning' => '¿Confirma que desea eliminar este elemento?',

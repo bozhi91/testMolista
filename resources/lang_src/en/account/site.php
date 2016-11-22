@@ -135,6 +135,7 @@
 		'widgets.group.header' => 'Page header',
 		'widgets.group.footer' => 'Page footer',
 		'widgets.group.home' => 'Page home',
+		'widgets.group.home-footer' => 'Home footer',
 
 		'widgets.type.menu' => 'Custom menu',
 		'widgets.type.menu.info' => 'Add one of your custom menus as a widget.',
@@ -145,6 +146,13 @@
 		'widgets.type.slider' => 'Slider',
 		'widgets.type.slider.info' => 'Add a slider to your home page.',
 		'widgets.type.slider.select' => 'Select slider',
+
+		'widgets.type.awesome-link' => 'Custom link',
+		'widgets.type.awesome-link.info' => 'Add multiples custom links to your home page.',
+		'widgets.type.awesome-link.color' => 'Color',
+		'widgets.type.awesome-link.link' => 'Link',
+		'widgets.type.awesome-link.file' => 'Image',
+		'widgets.type.awesome-link.help' => 'Image must have 100x100 pixels max size',
 		
 		
 		'widgets.messages.created' => 'The widget was successfully created',

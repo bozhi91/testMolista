@@ -3,6 +3,28 @@
 	if (!isset($colperpage)) {
 		$colperpage = 4;
 	}
+<<<<<<< HEAD
+=======
+
+	$widgetSlider = false;
+	if(!empty($site_setup['widgets']['home'])){
+		foreach ($site_setup['widgets']['home'] as $widget) {
+			if($widget['type'] == 'slider'){
+				$widgetSlider = $widget;
+			}
+		}
+	}
+
+	$awesomeLinks = [];
+	if(!empty($site_setup['widgets']['home-footer'])){
+		foreach ($site_setup['widgets']['home-footer'] as $widget) {
+			if($widget['type'] == 'awesome-link'){
+				$awesomeLinks[] = $widget;
+			}
+		}
+	}
+
+>>>>>>> feature/widget-category-links
 ?>
 
 @extends('layouts.web')
@@ -77,38 +99,48 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-xs-12 col-sm-4 hidden-xs">
-						<a href="{{ action('Web\PropertiesController@index', [ 'newly_build'=>1 ]) }}" class="quick-link quick-link-new">
-							<div class="image"></div>
-							<div class="text">{{ Lang::get('web/home.link.new') }}</div>
-							<div class="arrow">
-								<span>&rsaquo;</span>
+					@if ($awesomeLinks)
+					<div class="col-xs-12 col-sm-8">
+						@foreach ($awesomeLinks as $linkWidget)
+							<div class="col-xs-12 col-sm-6 hidden-xs">
+							@include('common.widget-awesome-link', ['widget' => $linkWidget])
 							</div>
-						</a>
-						<a href="{{ action('Web\PropertiesController@index', [ 'mode'=>'rent' ]) }}" class="quick-link quick-link-rent">
-							<div class="image"></div>
-							<div class="text">{{ Lang::get('web/home.link.rent') }}</div>
-							<div class="arrow">
-								<span>&rsaquo;</span>
-							</div>
-						</a>
+						@endforeach
 					</div>
-					<div class="col-xs-12 col-sm-4 hidden-xs">
-						<a href="{{ action('Web\PropertiesController@index', [ 'second_hand'=>1 ]) }}" class="quick-link quick-link-used">
-							<div class="image"></div>
-							<div class="text">{{ Lang::get('web/home.link.used') }}</div>
-							<div class="arrow">
-								<span>&rsaquo;</span>
-							</div>
-						</a>
-						<a href="{{ action('Web\PropertiesController@index', [ 'type'=>'house' ]) }}" class="quick-link quick-link-houses">
-							<div class="image"></div>
-							<div class="text">{{ Lang::get('web/home.link.houses') }}</div>
-							<div class="arrow">
-								<span>&rsaquo;</span>
-							</div>
-						</a>
-					</div>
+					@else
+						<div class="col-xs-12 col-sm-4 hidden-xs">
+							<a href="{{ action('Web\PropertiesController@index', [ 'newly_build'=>1 ]) }}" class="quick-link quick-link-new">
+								<div class="image"></div>
+								<div class="text">{{ Lang::get('web/home.link.new') }}</div>
+								<div class="arrow">
+									<span>&rsaquo;</span>
+								</div>
+							</a>
+							<a href="{{ action('Web\PropertiesController@index', [ 'mode'=>'rent' ]) }}" class="quick-link quick-link-rent">
+								<div class="image"></div>
+								<div class="text">{{ Lang::get('web/home.link.rent') }}</div>
+								<div class="arrow">
+									<span>&rsaquo;</span>
+								</div>
+							</a>
+						</div>
+						<div class="col-xs-12 col-sm-4 hidden-xs">
+							<a href="{{ action('Web\PropertiesController@index', [ 'second_hand'=>1 ]) }}" class="quick-link quick-link-used">
+								<div class="image"></div>
+								<div class="text">{{ Lang::get('web/home.link.used') }}</div>
+								<div class="arrow">
+									<span>&rsaquo;</span>
+								</div>
+							</a>
+							<a href="{{ action('Web\PropertiesController@index', [ 'type'=>'house' ]) }}" class="quick-link quick-link-houses">
+								<div class="image"></div>
+								<div class="text">{{ Lang::get('web/home.link.houses') }}</div>
+								<div class="arrow">
+									<span>&rsaquo;</span>
+								</div>
+							</a>
+						</div>
+					@endif
 					<div class="col-xs-12 col-sm-3 col-sm-offset-1">
 						@include('web.search.quick', [ 'no_title'=>1 ])
 					</div>
