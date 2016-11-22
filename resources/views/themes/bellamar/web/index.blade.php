@@ -96,7 +96,6 @@
 					@endif
 				</div>
 			</div>
-		</div>
 		@endif
 
 		<div class="container">
