@@ -224,7 +224,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		{
 			return redirect()->back()->withInput()->withErrors($valid);
 		}
-
+		
 		// Create element
 		$property = $this->site->properties()->create([
 			'enabled' => 0,
@@ -328,7 +328,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 	}
 
 	public function update(Request $request, $slug)
-	{						
+	{					
 		// Get property
 		$query = $this->site->properties()
 						->whereTranslation('slug', $slug)
@@ -825,7 +825,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			{
 				$property->$field = $this->request->input($field) ? 1 : 0;
 			}
-			elseif ( in_array($field, [ 'country_id','territory_id','state_id','city_id','construction_year','details', 'marketplace_attributes', 'district_id' ]) )
+			elseif ( in_array($field, [ 'country_id','territory_id','state_id','city_id','construction_year','details', 'marketplace_attributes' ]) )
 			{
 				$property->$field = $this->request->input($field) ? $this->request->input($field) : null;
 			}
@@ -835,6 +835,27 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			}
 		}
 
+		//District data
+		if($this->request->input('new_district') == 'true'){
+			if(!$this->request->input('district')) {
+				$property->district_id = null;
+			} else {
+				$district = $this->site->districts()
+						->where('name', $this->request->input('district'))->first();
+				
+				if(!$district) {
+					$district = $this->site->districts()->create([
+						'name' => $this->request->input('district'),
+					]);
+				}
+				
+				$property->district_id = $district->id;
+			}
+		} else {
+			$property->district_id = $this->request->input('district_id') ?
+					$this->request->input('district_id') : null;
+		}
+				
 		// Translatable fields
 		foreach (\App\Session\Site::get('locales_tabs') as $locale => $locale_name)
 		{
