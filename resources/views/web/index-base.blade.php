@@ -3,17 +3,6 @@
 	if (!isset($colperpage)) {
 		$colperpage = 4;
 	}
-<<<<<<< HEAD
-=======
-
-	$widgetSlider = false;
-	if(!empty($site_setup['widgets']['home'])){
-		foreach ($site_setup['widgets']['home'] as $widget) {
-			if($widget['type'] == 'slider'){
-				$widgetSlider = $widget;
-			}
-		}
-	}
 
 	$awesomeLinks = [];
 	if(!empty($site_setup['widgets']['home-footer'])){
@@ -23,8 +12,6 @@
 			}
 		}
 	}
-
->>>>>>> feature/widget-category-links
 ?>
 
 @extends('layouts.web')
