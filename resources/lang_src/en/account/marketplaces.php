@@ -56,7 +56,13 @@
 		'configuration.fields.account.title' => 'Account',
 		'configuration.fields.account_id' => 'Account ID',
 		'configuration.fields.code' => 'Customer code',
-
+		'configuration.fields.access_token' => 'Access token',
+		'configuration.fields.access_token_secret' => 'Secret access token',
+		'configuration.fields.access_data.title' => 'Token data',
+		'configuration.fields.username' => 'Username',
+		'configuration.fields.password' => 'Password',
+		'configuration.fields.agent_id' => 'Agent ID',
+		
 		'properties' => 'Properties',
 		'properties.published' => 'Enabled in export',
 		'properties.enabled' => 'Enabled in web',
