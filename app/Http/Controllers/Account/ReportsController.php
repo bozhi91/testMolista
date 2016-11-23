@@ -72,11 +72,12 @@ class ReportsController extends \App\Http\Controllers\AccountController
 	
 	
 	
-	public function getTransactions($mode){
-		return view('account.reports.agents.transaction');
+	public function getTransactions($mode, $period, $agent = null){
+		
+		
+		
+		
+		return view('account.reports.agents.transaction', compact('mode', 'period','agent'));
 	}
 	
-	
-	
-
 }

@@ -3,7 +3,7 @@
 		'captured' => true,
 		'visited' => true,
 		'closed' => true,
-	];
+	];	
 ?>
 
 {!! Form::open([ 'action'=>'Account\Reports\AgentsController@getIndex', 'method'=>'get', 'id'=>'filters-form', 'class'=>'form-inline text-right' ]) !!}
@@ -103,11 +103,12 @@
 				<div class="panel panel-default panel-stats">
 					<div class="panel-heading">{{ Lang::get('account/reports.sale') }}</div>
 					<div class="panel-body">
-						{{ number_format($stats->total_sold, 0, ',', '.') }}
 						
-						
-						<a href="#" data-href="{{ action('Account\ReportsController@getTransactions', 1)}}"
-						   class="popup-catch-trigger">{{ Lang::get('account/properties.show.property.catch.actions.close') }}</a>
+						<a href="#" data-href="{{ action('Account\ReportsController@getTransactions', [
+							'mode' => 'sold', 
+							'period' => Input::get('period','7-days'), 
+							'agent' => Input::get('agent')])}}"
+						   class="popup-catch-trigger">{{ number_format($stats->total_sold, 0, ',', '.') }}</a>
 						
 					</div>
 				</div>
