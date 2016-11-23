@@ -55,7 +55,13 @@
 		'configuration.fields.lastname' => 'Apellidos',
 		'configuration.fields.oficina' => 'Código de cliente',
 		'configuration.fields.code' => 'Identificador de cliente',
-
+		'configuration.fields.access_token' => 'Token de acceso',
+		'configuration.fields.access_token_secret' => 'Token secreto de acceso',
+		'configuration.fields.access_data.title' => 'Datos de token',
+		'configuration.fields.username' => 'Usuario',
+		'configuration.fields.password' => 'Contraseña',
+		'configuration.fields.agent_id' => 'Id de agente',
+		
 		'properties' => 'Propiedades',
 		'properties.published' => 'Activa en export',
 		'properties.enabled' => 'Activa en web',

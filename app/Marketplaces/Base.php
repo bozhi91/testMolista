@@ -30,6 +30,30 @@ abstract class Base implements MarketplaceInterface {
     {
         return $this->currency;
     }
+	
+	public function validateProperty(array $property)
+    {
+        $mapper = static::getMapper($property, $this->iso_lang, $this->config);
+        if ($mapper->valid())
+        {
+            return true;
+        }
+
+        return $mapper->errors();
+    }
+	
+	protected static function getMapper(array $property, $lang, array $config = [])
+    {
+        $class = static::getClassName().'\Mapper';
+        return new $class($property, $lang, $config);
+    }
+
+    protected static function getClassName()
+    {
+        $parts = explode('\\', static::class);
+        array_pop($parts);
+        return implode('\\', $parts);
+    }
 
 	public function getAttributes(){
 		return [];

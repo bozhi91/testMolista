@@ -28,9 +28,9 @@
 		<div class="tab-content">
 
 			<div role="tabpanel" class="tab-pane tab-main {{$current_tab == 'general' ? 'active' : '' }}" id="tab-general">
-				
+
 				{!! Form::model($customer, [ 'action'=>['Account\CustomersController@postGeneral',$customer->email], 'method'=>'post', 'id'=>'general-form' ]) !!}
-				
+
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
@@ -87,7 +87,7 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="row">
 					<div class="col-xs-12">
 						<label>{{ Lang::get('account/customers.alerts') }}</label>
@@ -117,15 +117,15 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="form-group">
 					<div class="text-right">
 						{!! Form::button(Lang::get('account/customers.show.customer.general.button'), [ 'type'=>'submit', 'class'=>'btn btn-primary', ]) !!}
 					</div>
 				</div>
-				
+
 				{!! Form::close() !!}
-				
+
 				{!! Form::model($customer, [ 'action'=>['Account\CustomersController@postComment',$customer->email], 'method'=>'post', 'id'=>'comment-form' ]) !!}
 					<hr />
 					<h3 class="page-title">{{ Lang::get('account/customers.show.customer.comment.title') }}</h3>
@@ -138,7 +138,7 @@
 						</div>
 					</div>
 				{!! Form::close() !!}
-				
+
 			</div>
 
 			<div role="tabpanel" class="tab-pane tab-main {{$current_tab == 'profile' ? 'active' : '' }}" id="tab-profile">
@@ -160,17 +160,30 @@
 						</div>
 						<div class="col-xs-12 col-sm-4">
 							<div class="form-group error-container">
-								<?php $tmp = empty($cities) ? [ ''=>'' ] : [ ''=>'' ] + $cities; ?>
+								<?php
+									$tmp = $customer->customer_cities()->pluck('city_id')->toArray();
+									$currentCities = empty($tmp) ? 0 : $tmp;
+								?>
 								{!! Form::label('city_id', Lang::get('account/properties.city')) !!}
-								{!! Form::select('city_id', $tmp, null, [ 'class'=>'form-control city-input' ]) !!}
+								{!! Form::select('city_id[]', empty($cities) ? [] : $cities, $currentCities, [
+									'class'=>'form-control city-input has-select-2',
+									'multiple' => 'multiple',
+								]) !!}
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-xs-12 col-sm-4">
+							<?php
+								$tmp = $customer->customer_districts()->pluck('district_id')->toArray();
+								$currentDistricts = empty($tmp) ? 0 : $tmp;
+							?>
 							<div class="form-group error-container">
-								{!! Form::label('district', Lang::get('account/properties.district')) !!}
-								{!! Form::text('district', null, [ 'class'=>'form-control district-input' ]) !!}
+								{!! Form::label('district_id', Lang::get('account/properties.district')) !!}
+								{!! Form::select('district_id[]', $districts, $currentDistricts, [
+									'class'=>'form-control has-select-2',
+									'multiple' => 'multiple',
+								]) !!}
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-4">
@@ -340,6 +353,8 @@
 							<tr>
 								<th>{{ Lang::get('account/properties.ref') }}</th>
 								<th>{{ Lang::get('account/properties.column.title') }}</th>
+								<th>{{ Lang::get('account/properties.column.address') }}</th>
+								<th>{{ Lang::get('account/properties.column.price') }}</th>
 								<th></th>
 							</tr>
 						</thead>
@@ -348,10 +363,16 @@
 								<tr>
 									<td>{{$property->ref}}</td>
 									<td>{{$property->title}}</td>
+									<td>{{$property->address}}</td>
+									<td>{{$property->price}}</td>
 									<td class="text-right text-nowrap">
 										{!! Form::open([ 'action'=>[ 'Account\CustomersController@deleteRemovePropertyCustomer', $property->slug ], 'method'=>'DELETE', 'class'=>'delete-property-form' ]) !!}
 											{!! Form::hidden('customer_id', $customer->id) !!}
 											{!! Form::hidden('current_tab', 'properties') !!}
+
+											<a href="#" data-href="{{ action('Account\PropertiesController@getCatchClose', ['id' => $property->catch_current->id, 'client_id' => $customer->id])}}"
+											   class="btn btn-default btn-xs popup-catch-trigger">{{ Lang::get('account/properties.show.property.catch.actions.close') }}</a>
+
 											@if ( $event = $property->calendars->where('customer_id', $customer->id)->last() )
 												<a href="{{ action('Account\Calendar\BaseController@getEvent', $event->id) }}"><i class="fa fa-calendar-check-o has-tooltip" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="{{ Lang::get('account/calendar.scheduled') }}"></i></a>
 											@endif
@@ -375,6 +396,8 @@
 							<tr>
 								<th>{{ Lang::get('account/properties.ref') }}</th>
 								<th>{{ Lang::get('account/properties.column.title') }}</th>
+								<th>{{ Lang::get('account/properties.column.address') }}</th>
+								<th>{{ Lang::get('account/properties.column.price') }}</th>
 								<th></th>
 							</tr>
 						</thead>
@@ -383,6 +406,8 @@
 								<tr>
 									<td>{{$property->ref}}</td>
 									<td>{{$property->title}}</td>
+									<td>{{$property->address}}</td>
+									<td>{{$property->price}}</td>
 									<td class="text-right text-nowrap">
 										{!! Form::open([ 'action'=>[ 'Account\CustomersController@postAddPropertyCustomer', $property->slug ], 'method'=>'POST', 'class'=>'add-property-form' ]) !!}
 											{!! Form::hidden('customer_id', $customer->id) !!}
@@ -454,6 +479,20 @@
 			tabs.find('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 				cont.find('input[name="current_tab"]').val( $(this).data('tab') );
 				cont.find('.has-select-2').select2();
+			});
+
+			cont.find('.has-select-2').select2();
+
+			cont.on('click','.popup-catch-trigger', function(e){
+				var el = $(this);
+				e.preventDefault();
+				$.magnificPopup.open({
+					items: {
+						src: el.data().href
+					},
+					type: 'iframe',
+					modal: true
+				});
 			});
 
 			profile_form.validate({

@@ -10,6 +10,7 @@
 			<div class="row">
 				<div class="col-xs-12 col-sm-6">
 					<div class="form-group error-container">
+						<?php $status = $item->property->mode == 'sale' ? 'sold' : $item->property->mode; ?>
 						{!! Form::label('status', Lang::get('account/properties.show.property.catch.status') ) !!}
 						{!! Form::select('status', [
 							'' => '&nbsp;',
@@ -17,7 +18,7 @@
 							'rent' => Lang::get('account/properties.show.property.catch.status.rent'),
 							'transfer' => Lang::get('account/properties.show.property.catch.status.transfer'),
 							'other' => Lang::get('account/properties.show.property.catch.status.other'),
-						], null, [ 'class'=>'form-control required', ]) !!}
+						], $status, [ 'class'=>'form-control required', ]) !!}
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6">
@@ -35,11 +36,11 @@
 					</div>
 				</div>
 			</div>
-			<div class="row hide status-rel status-rel-sold status-rel-rent status-rel-transfer">
+			<div class="row <?= $status ? '' : 'hide' ?> status-rel status-rel-sold status-rel-rent status-rel-transfer">
 				<div class="col-xs-12 col-sm-6">
 					<div class="form-group error-container">
 						{!! Form::label('buyer_id', Lang::get('account/properties.show.transactions.buyer') ) !!}
-						{!! Form::select('buyer_id', [''=>'&nbsp;']+$customers, null, [ 'class'=>'has-select-2 form-control required', ]) !!}
+						{!! Form::select('buyer_id', [''=>'&nbsp;']+$customers, (int)$client_id, [ 'class'=>'has-select-2 form-control required', ]) !!}
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6">

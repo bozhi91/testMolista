@@ -16,8 +16,37 @@ class CustomersController extends \App\Http\Controllers\AccountController
 
 	public function index()
 	{
-		$query = $this->site->customers()->with('queries');
-
+		$query = $this->site->customers()->whereIn('id', function($query){
+			
+			$subquery = $query->select('customer_id')
+					->from('customers_queries');
+			
+			if($this->request->input('price')){
+				$subquery->where('price_min', '<=', $this->request->input('price'));
+				$subquery->where('price_max', '>=', $this->request->input('price'));
+			}
+			
+			if($this->request->input('mode')){
+				$subquery->where('mode', $this->request->input('mode'));
+			}
+			
+			return $subquery;
+		})->with('queries');
+		
+		
+		$agent_id = !\Auth::user()->can('lead-view_all') ?
+				\Auth::user()->id : $this->request->input('agent_id');
+				
+		if($agent_id) {
+			$agent = \App\User::where('id', $agent_id)->firstOrFail();			
+			$property_ids = $agent->properties()->pluck('id')->toArray();
+						
+			$customer_ids = !empty($property_ids) ? \DB::table('properties_customers')
+				->whereIn('property_id', $property_ids)->pluck('customer_id') : [];
+			
+			$query->whereIn('id', $customer_ids);
+		}
+		
 		if ( $this->site_user->hasRole('employee') )
 		{
 			$query->ofUser($this->site_user->id);
@@ -72,6 +101,9 @@ class CustomersController extends \App\Http\Controllers\AccountController
 			case 'properties':
 				$query->orderBy($propertiesQuery, $order);
 				break;
+			case 'matches':
+				$query->orderBy('matches_count', $order);
+				break;
 			case 'status':
 				$query->orderBy('active', $order);
 				break;
@@ -96,7 +128,9 @@ class CustomersController extends \App\Http\Controllers\AccountController
 
 		$this->set_go_back_link();
 
-		return view('account.customers.index', compact('customers', 'stats'));
+		$agents = $this->site->users()->withRole('employee')->with('properties')->lists('name', 'id')->toArray();
+		
+		return view('account.customers.index', compact('customers', 'stats', 'agents'));
 	}
 
 	public function exportCsv($query)
@@ -189,7 +223,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		{
 			abort(404);
 		}
-
+		
 		$validator = \Validator::make($this->request->all(), $this->getRequiredFields($customer->id));
 		if ($validator->fails())
 		{
@@ -230,7 +264,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		}
 
 		$customer = $query->first();
-
+		
 		if ( !$customer )
 		{
 			abort(404);
@@ -254,7 +288,27 @@ class CustomersController extends \App\Http\Controllers\AccountController
 
 		$current_tab = session('current_tab', 'general');
 
-		return view('account.customers.show', compact('customer','profile','countries','country_id','states','cities','modes','types','services','current_tab'));
+		$districts = $this->site->districts()->lists('name', 'id')->all();
+		
+		return view('account.customers.show', compact('customer','profile','countries','country_id','states','cities','modes','types','services','current_tab', 'districts'));
+	}
+
+	public function destroy($email)
+	{
+		$customer = $this->site->customers()->where('email', $email)->first();
+		if ( !$customer )
+		{
+			return redirect()->back()->with('error',trans('general.messages.error'));
+		}
+
+		// Delete customer (molista & tickets)
+		if ( $this->site->ticket_adm->dissociateContact($customer) )
+		{
+			$customer->delete();
+			return redirect()->action('Account\CustomersController@index')->with('success',trans('account/customers.message.deleted'));
+		}
+
+		return redirect()->back()->with('error',trans('general.messages.error'));
 	}
 
 	public function postProfile($email)
@@ -264,12 +318,11 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		{
 			abort(404);
 		}
-
+				
 		$fields = [
 			'country_id' => 'exists:countries,id',
 			'territory_id' => 'exists:territories,id',
 			'state_id' => 'exists:states,id',
-			'city_id' => 'exists:cities,id',
 			'district' => '',
 			'zipcode' => '',
 			'mode' => 'in:'.implode(',', \App\Property::getModes()),
@@ -311,7 +364,6 @@ class CustomersController extends \App\Http\Controllers\AccountController
 				case 'country_id':
 				case 'territory_id':
 				case 'state_id':
-				case 'city_id':
 				case 'price_min':
 				case 'price_max':
 				case 'size_min':
@@ -324,9 +376,52 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		}
 		$profile->update($data);
 
+		$this->saveCustomerDistricts($customer, $this->request->input('district_id'));
+		$this->saveCustomerCities($customer, $this->request->input('city_id'));
+		
 		return redirect()->action('Account\CustomersController@show', urlencode($customer->email))->with('current_tab', $this->request->input('current_tab'))->with('success', trans('general.messages.success.saved'));
 	}
 
+	/**
+	 * @param Customer $customer
+	 * @param array $district_ids
+	 */
+	private function saveCustomerDistricts($customer, $district_ids){		
+		\App\Models\Site\CustomerDistrict::where('customer_id', $customer->id)->delete();
+		
+		if(empty($district_ids)){
+			return;
+		}
+		
+		$data = [];
+		foreach ($district_ids as $districtId) {
+			if ($districtId != 0) {
+				$data[] = ['customer_id' => $customer->id, 'district_id' => $districtId];
+			}
+		}
+		\App\Models\Site\CustomerDistrict::insert($data);
+	}
+	
+	/**
+	 * @param Customer $customer
+	 * @param array $city_ids
+	 */
+	private function saveCustomerCities($customer, $city_ids){
+		\App\Models\Site\CustomerCity::where('customer_id', $customer->id)->delete();
+		
+		if(empty($city_ids)){
+			return;
+		}
+				
+		$data = [];
+		foreach ($city_ids as $cityId) {
+			if ($cityId != 0) {
+				$data[] = ['customer_id' => $customer->id, 'city_id' => $cityId];
+			}
+		}
+		\App\Models\Site\CustomerCity::insert($data);
+	}
+	
 	public function getAddPropertyCustomer($slug)
 	{
 		$property = $this->site->properties()

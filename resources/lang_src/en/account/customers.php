@@ -16,6 +16,9 @@
 		'origin' => 'Source',
 		'active' => 'Active',
 		'active.not' => 'Not active',
+		'price' => 'Price',
+		'budget' => 'Budget',
+		'agent_id' => 'Agent',
 
 		'create.h1' => 'Create lead',
 
@@ -24,7 +27,10 @@
 		'show.customer.comment.title' => 'Comment',
 		'show.customer.comment.button' => 'Save comment',
 
+		'delete' => 'Are you sure you want to remove this lead?',
+
 		'message.saved' => 'The lead has been successfully saved',
+		'message.deleted' => 'The lead has been successfully deleted',
 
 		'profile' => 'Search profile',
 		'profile.update' => 'Update profile',

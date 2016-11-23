@@ -9,6 +9,15 @@
 	}
 
 	$slider_breakpoint = ( 12 / $colperpage * 3);
+
+	$awesomeLinks = [];
+	if(!empty($site_setup['widgets']['home-footer'])){
+		foreach ($site_setup['widgets']['home-footer'] as $widget) {
+			if($widget['type'] == 'awesome-link'){
+				$awesomeLinks[] = $widget;
+			}
+		}
+	}
 ?>
 
 @extends('layouts.web')
@@ -76,6 +85,15 @@
 							</ul>
 						@endif
 					</div>
+					@if ( $highlighted->count() > 9 )
+						<ul class="list-inline text-right properties-slider-indicators hidden-xs">
+							@foreach ($highlighted as $key => $property)
+								@if ( $key%9 == 0 )
+									<li data-target="#properties-slider" data-slide-to="{{ $key/9 }}" class="{{ $key ? '' : 'active' }}">{{ ($key/9)+1 }}</li>
+								@endif
+							@endforeach
+						</ul>
+					@endif
 				</div>
 			</div>
 		@endif
@@ -84,8 +102,18 @@
 			<div class="quick-search-area search-area {{ $highlighted->count() ? 'under-properties' : '' }}">
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 col-md-8">
+						@if (!$awesomeLinks)
 						<h2>{{ Lang::get('web/home.categories') }}</h2>
+						@endif
 						<div class="row">
+							@if ($awesomeLinks)
+								@foreach ($awesomeLinks as $linkWidget)
+									<div class="col-xs-12 col-sm-6">
+										@include('common.widget-awesome-link', ['widget' => $linkWidget])
+									</div>
+								@endforeach
+							@else
+
 							<div class="col-xs-12 col-md-6">
 								<a href="{{ action('Web\PropertiesController@index', [ 'newly_build'=>1 ]) }}" class="quick-link quick-link-new">
 									<div class="image"></div>
@@ -118,6 +146,7 @@
 									</div>
 								</a>
 							</div>
+							@endif
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-12 col-md-4">
@@ -138,7 +167,6 @@
 				</div>
 			</div>
 		</div>
-
 	</div>
 
 	<script type="text/javascript">
