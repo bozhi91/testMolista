@@ -8,6 +8,8 @@ class CustomerCity extends Model {
 
 	protected $table = 'customers_cities';
 	protected $guarded = [];
+	
+	public $timestamps = false;
 
 	public function customer() {
 		return $this->belongsTo('App\Models\Site\Customer');
