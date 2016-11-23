@@ -31,6 +31,7 @@ class Kernel extends ConsoleKernel
 		Commands\TicketsContactsSyncCommand::class,
 		Commands\TransferDistrincts::class,
 		Commands\PublicarPropiedadesApi::class,
+		Commands\TransferCities::class,
 	];
 
 	/**
