@@ -28,6 +28,7 @@ class Kernel extends ConsoleKernel
 		Commands\GeographyLoadCountryCitiesCommand::class,
 		Commands\InitGlobalStatsCommand::class,
 		Commands\TransferDistrincts::class,
+		Commands\TransferCities::class,
 	];
 
 	/**
