@@ -237,6 +237,13 @@ class RoleMaintenanceCommand extends Command
 				'roles' => [ 'company' ],
 			],
 		],
+		'lead' => [
+			'view_all' => [
+				'display_name' => 'View all leads',
+				'description' => '',
+				'roles' => [ 'company' ],
+			],
+		],
 		'marketplace' => [
 			'view' => [
 				'display_name' => 'Marketplace elements view',

@@ -20,7 +20,7 @@
 				{!! Lang::get("account/site.widgets.type.{$type}.info") !!}
 			</div>
 		@else
-			{!! Form::open([ 'method'=>'POST', 'action'=>[ 'Account\Site\WidgetsController@postUpdate', $item->id], 'class'=>'widget-form' ]) !!}
+			{!! Form::open([ 'method'=>'POST', 'action'=>[ 'Account\Site\WidgetsController@postUpdate', $item->id], 'files'=>true, 'class'=>'widget-form' ]) !!}
 				<div class="widget-configuration">
 					<ul class="nav nav-tabs nav-tabs-small locale-tabs" role="tablist">
 						<li role="presentation" class="active"><a href="#menu-item-locale-tab-{{$type}}-{{fallback_lang()}}-{{$item_id}}" aria-controls="menu-item-locale-tab-{{$type}}-{{fallback_lang()}}-{{$item_id}}" role="tab" data-toggle="tab" class="text-uppercase">{{fallback_lang()}}</a></li>
@@ -43,6 +43,15 @@
 										{!! Form::textarea("{$item_key}[content][{$locale}]", @$item->i18n['content'][$locale], [ 'class'=>'form-control', 'rows'=>4, 'dir'=>lang_dir($locale) ]) !!}
 									</div>
 								@endif
+								
+								
+								@if($type == 'awesome-link')
+									<div class="form-group error-container">
+										{!! Form::label("{$item_key}[content][{$locale}]", Lang::get("account/site.widgets.type.awesome-link.link")) !!}
+										{!! Form::text("{$item_key}[content][{$locale}]", @$item->i18n['content'][$locale], [ 'class'=>'form-control '.(($type == 'custom' && $locale == fallback_lang()) ? 'required' : '') ]) !!}
+									</div>
+								@endif
+								
 							</div>
 						@endforeach
 					</div>
@@ -61,13 +70,35 @@
 						</div>
 					@endif
 					
+					@if($type == 'awesome-link')
+						<div class="form-group error-container">
+							{!! Form::label("{$item_key}[color]", Lang::get("account/site.widgets.type.awesome-link.color")) !!}
+							{!! Form::text("{$item_key}[color]", $item->data['color'] ? $item->data['color'] : '#7e1f31' , [ 'class'=>'form-control label-color-input' ]) !!}
+							{!! Form::hidden("{$item_key}[label_color]", $item->data['color'] ? $item->data['color'] : '#7e1f31', ['class' => 'label-color-hidden']) !!}
+						</div>
+
+						<div class="form-group error-container awesome-link-image-container">
+							{!! Form::label("{$item_key}[file]", Lang::get("account/site.widgets.type.awesome-link.file")) !!}
+							{!! Form::file("{$item_key}[file]", "", [ 'class'=>'form-control' ]) !!}
+							
+							@if(isset($item->data['image']))
+								<a href="{{ $item->data['image'] }}" class="awesome-link-image-link">
+									<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+								</a>
+							@endif
+							
+							<div class="help-block">
+								{{ Lang::get("account/site.widgets.type.awesome-link.help") }}
+							</div>
+						</div>
+					@endif
 				</div>
 				<div class="text-right">
 					<div class="pull-left">
 						<a href="#" data-href="{{ action('Account\Site\WidgetsController@postDelete', $item->id) }}" class="btn btn-sm btn-link btn-widget-delete">{{ Lang::get('general.delete') }}</a>
 						|
 						<a href="#" class="btn btn-sm btn-link btn-widget-close">{{ Lang::get('general.cancel') }}</a>
-					</div>
+					</div>					
 					{!! Form::submit(Lang::get('general.save'), [ 'class'=>'btn btn-primary btn-sm' ]) !!}
 				</div>
 			{!! Form::close() !!}

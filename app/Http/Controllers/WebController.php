@@ -29,6 +29,7 @@ class WebController extends Controller
 			$search_data['prices'] = \App\Property::getPriceOptions($this->site->id);
 			$search_data['types'] = \App\Property::getTypeOptions($this->site->id);
 			$search_data['modes'] = \App\Property::getModeOptions($this->site->id);
+			$search_data['districts'] = $this->site->districts()->orderBy('name')->lists('name', 'id')->all();
 		}
 		else
 		{

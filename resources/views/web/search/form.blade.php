@@ -22,6 +22,15 @@
 				@endif
 			</div>
 		</div>
+		
+		@if ( !empty($search_data['districts']) )
+			<div class="col-xs-12 col-sm-4 col-md-3 input-line">
+				<div class="form-group error-container">
+					{!! Form::select('district', [''=>Lang::get('web/properties.district')]+$search_data['districts'], Input::get('district'), [ 'class'=>'form-control has-placeholder' ]) !!}
+				</div>
+			</div>
+		@endif
+		
 	</div>
 	<div class="row">
 		@if ( !empty($search_data['modes']) )

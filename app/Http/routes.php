@@ -227,10 +227,11 @@ Route::group([
 			],
 		], function() {
 			Route::controller('properties/imports', 'Account\Properties\ImportsController');
+			Route::controller('properties/districts', 'Account\Properties\DistrictsController');
 		});
 
 		Route::get('properties/leads/{slug}', 'Account\PropertiesController@getLeads');
-		Route::get('properties/catch/close/{id}', 'Account\PropertiesController@getCatchClose');
+		Route::get('properties/catch/close/{id}/{client_id?}', 'Account\PropertiesController@getCatchClose');
 		Route::post('properties/catch/close/{id}', 'Account\PropertiesController@postCatchClose');
 		Route::get('properties/catch/{property_id}/{id?}', 'Account\PropertiesController@getCatch');
 		Route::post('properties/catch/{property_id}/{id?}', 'Account\PropertiesController@postCatch');

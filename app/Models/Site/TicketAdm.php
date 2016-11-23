@@ -510,6 +510,39 @@ class TicketAdm
 		return true;
 	}
 
+	public function dissociateContact($contact)
+	{
+		if ( !$this->site_ready )
+		{
+			return false;
+		}
+
+		$data = [
+			'headers'=> [
+				'Authorization' => $this->getAuthorizationHeader(),
+			],
+		];
+
+		$response = $this->guzzle_client->request('DELETE', "contact/{$contact->ticket_contact_id}?site_id={$this->site_id}", $data);
+
+		// Get body
+		$body = @json_decode( $response->getBody() );
+
+		// Error?
+		if ( $response->getStatusCode() != 204 )
+		{
+			$error_message = "TICKETING -> could not delete contact {$contact->id}";
+			if ( @$body->message )
+			{
+				$error_message .= ": {$body->message}";
+			}
+			\Log::error($error_message);
+			return false;
+		}
+
+		return true;
+	}
+
 	public function getContacts()
 	{
 		if ( !$this->site_ready )

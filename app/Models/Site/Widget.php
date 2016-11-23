@@ -10,6 +10,10 @@ class Widget extends TranslatableModel
 
 	protected $guarded = [];
 
+    protected $casts = [
+        'data' => 'array',
+    ];
+	
 	public function menu()
 	{
 		return $this->belongsTo('App\Models\Site\Menu');
@@ -42,6 +46,7 @@ class Widget extends TranslatableModel
 			'menu',
 			'text',
 			'slider',
+			'awesome-link',
 		];
 	}
 

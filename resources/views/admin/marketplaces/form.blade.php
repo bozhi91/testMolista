@@ -143,6 +143,7 @@
 							'url' => 'URL',
 							'url_single' => 'Unified URL',
 							'ftp' => 'FTP',
+							'api' => 'API',
 						], null, [ 'class'=>'form-control' ]) !!}
 					</div>
 				</div>

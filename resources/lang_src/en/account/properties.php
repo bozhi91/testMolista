@@ -267,4 +267,15 @@
 		'email.price.fall.intro' => 'Hello, :name',
 		'email.price.fall' => 'The price of the property :title ":reference" has dropped. Current price is :current.',
 		'email.price.fallen.subject' => 'The price of the property ":reference" has dropped',
+
+		'districts.h1' => 'Districts',
+		'districts.create' => 'New district',
+		'districts.deleted' => 'The district was successfully deleted',
+		'districts.name' => 'Name',
+		'districts.create.title' => 'Create district',
+		'districts.edit.title' => 'Edit district',
+		'districts.general' => 'General',
+		'districts.message.saved' => 'The district was successfully saved',
+		'districts.delete' => 'Are you sure you want to remove this district?',
+		'districts.empty' => 'No distrincts created'
 	];

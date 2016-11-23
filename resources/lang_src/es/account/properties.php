@@ -271,4 +271,15 @@
 		'email.price.fall.intro' => 'Hola, :name',
 		'email.price.fall' => 'El precio de la propiedad :title ":reference" ha bajado. El precio actual es de :current.',
 		'email.price.fallen.subject' => 'El precio de la propiedad ":reference" ha bajado',
+
+		'districts.h1' => 'Distritos',
+		'districts.create' => 'Nuevo distrito',
+		'districts.deleted' => 'El distrito se ha eliminado correctamente',
+		'districts.name' => 'Nombre',
+		'districts.create.title' => 'Crear distrito',
+		'districts.edit.title' => 'Editar distrito',
+		'districts.general' => 'General',
+		'districts.message.saved' => 'El distrito se ha guardado correctamente',
+		'districts.delete' => '¿Confirma que desea eliminar permanentemente este distrito?',
+		'districts.empty' => 'No hay distritos creados',
 	];
