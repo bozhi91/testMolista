@@ -125,7 +125,7 @@
 								?>
 								{!! Form::label('city_id', Lang::get('account/properties.city')) !!}
 								{!! Form::select('city_id[]', empty($cities) ? [] : $cities, $currentCities, [
-									'class'=>'form-control has-select-2', 
+									'class'=>'form-control city-input has-select-2', 
 									'multiple' => 'multiple',
 								]) !!}
 							</div>
