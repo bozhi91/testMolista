@@ -27,7 +27,7 @@
 				<div class="panel panel-default panel-stats">
 					<div class="panel-heading">{{ Lang::get('account/reports.sale') }}</div>
 					<div class="panel-body">
-						{{ number_format($stats->published_sale, 0, ',', '.') }}
+						{{ number_format($stats->published_sale, 0, ',', '.') }} 
 					</div>
 				</div>
 			</div>
@@ -104,6 +104,11 @@
 					<div class="panel-heading">{{ Lang::get('account/reports.sale') }}</div>
 					<div class="panel-body">
 						{{ number_format($stats->total_sold, 0, ',', '.') }}
+						
+						
+						<a href="#" data-href="{{ action('Account\ReportsController@getTransactions', 1)}}"
+						   class="popup-catch-trigger">{{ Lang::get('account/properties.show.property.catch.actions.close') }}</a>
+						
 					</div>
 				</div>
 			</div>
@@ -139,10 +144,23 @@
 <script type="text/javascript">
 	ready_callbacks.push(function(){
 		var form = $('#filters-form');
+		var cont = $('.stats-area');
 
 		form.on('change','select[name="agent"]', function(){
 			LOADING.show();
 			form.submit();
+		});
+
+		cont.on('click','.popup-catch-trigger', function(e){
+			var el = $(this);
+			e.preventDefault();
+			$.magnificPopup.open({
+				items: {
+					src: el.data().href
+				},
+				type: 'iframe',
+				modal: true
+			});
 		});
 
 		form.on('click','.btn-period', function(){
