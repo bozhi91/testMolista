@@ -3,7 +3,7 @@
 		'captured' => true,
 		'visited' => true,
 		'closed' => true,
-	];	
+	];		
 ?>
 
 {!! Form::open([ 'action'=>'Account\Reports\AgentsController@getIndex', 'method'=>'get', 'id'=>'filters-form', 'class'=>'form-inline text-right' ]) !!}
@@ -104,7 +104,7 @@
 					<div class="panel-heading">{{ Lang::get('account/reports.sale') }}</div>
 					<div class="panel-body">
 						
-						<a href="#" data-href="{{ action('Account\ReportsController@getTransactions', [
+						<a href="#" data-href="{{ action('Account\Reports\AgentsController@getTransactions', [
 							'mode' => 'sold', 
 							'period' => Input::get('period','7-days'), 
 							'agent' => Input::get('agent')])}}"
@@ -117,7 +117,13 @@
 				<div class="panel panel-default panel-stats">
 					<div class="panel-heading">{{ Lang::get('account/reports.rent') }}</div>
 					<div class="panel-body">
-						{{ number_format($stats->total_rented, 0, ',', '.') }}
+						
+						<a href="#" data-href="{{ action('Account\Reports\AgentsController@getTransactions', [
+							'mode' => 'rent', 
+							'period' => Input::get('period','7-days'), 
+							'agent' => Input::get('agent')])}}"
+						   class="popup-catch-trigger">{{ number_format($stats->total_rented, 0, ',', '.') }}</a>
+						
 					</div>
 				</div>
 			</div>
@@ -125,7 +131,13 @@
 				<div class="panel panel-default panel-stats">
 					<div class="panel-heading">{{ Lang::get('account/reports.transfer') }}</div>
 					<div class="panel-body">
-						{{ number_format($stats->total_transfered, 0, ',', '.') }}
+						
+						<a href="#" data-href="{{ action('Account\Reports\AgentsController@getTransactions', [
+							'mode' => 'transfer', 
+							'period' => Input::get('period','7-days'), 
+							'agent' => Input::get('agent')])}}"
+						   class="popup-catch-trigger">{{ number_format($stats->total_transfered, 0, ',', '.') }}</a>
+						
 					</div>
 				</div>
 			</div>
@@ -133,7 +145,15 @@
 				<div class="panel panel-default panel-stats">
 					<div class="panel-heading">{{ Lang::get('account/reports.total') }}</div>
 					<div class="panel-body">
-						{{ number_format($stats->total_sold+$stats->total_rented, 0, ',', '.') }}
+						
+						<a href="#" data-href="{{ action('Account\Reports\AgentsController@getTransactions', [
+							'mode' => 'total', 
+							'period' => Input::get('period','7-days'), 
+							'agent' => Input::get('agent')])}}"
+						   class="popup-catch-trigger">
+							{{ number_format($stats->total_sold+$stats->total_rented+$stats->total_transfered, 0, ',', '.') }}
+						</a>
+			
 					</div>
 				</div>
 			</div>
@@ -160,7 +180,14 @@
 					src: el.data().href
 				},
 				type: 'iframe',
-				modal: true
+				modal: true,
+				iframe: {
+				markup: '<div style="'+400+'px; height:'+620+'px;">'+
+					'<div class="mfp-iframe-scaler" >'+
+					 '<div class="mfp-close">x</div>'+
+					'<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>'+
+					'</div></div>'
+				}
 			});
 		});
 
