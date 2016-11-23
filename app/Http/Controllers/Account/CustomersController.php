@@ -16,8 +16,37 @@ class CustomersController extends \App\Http\Controllers\AccountController
 
 	public function index()
 	{
-		$query = $this->site->customers()->with('queries');
-
+		$query = $this->site->customers()->whereIn('id', function($query){
+			
+			$subquery = $query->select('customer_id')
+					->from('customers_queries');
+			
+			if($this->request->input('price')){
+				$subquery->where('price_min', '<=', $this->request->input('price'));
+				$subquery->where('price_max', '>=', $this->request->input('price'));
+			}
+			
+			if($this->request->input('mode')){
+				$subquery->where('mode', $this->request->input('mode'));
+			}
+			
+			return $subquery;
+		})->with('queries');
+		
+		
+		$agent_id = !\Auth::user()->can('lead-view_all') ?
+				\Auth::user()->id : $this->request->input('agent_id');
+				
+		if($agent_id) {
+			$agent = \App\User::where('id', $agent_id)->firstOrFail();			
+			$property_ids = $agent->properties()->pluck('id')->toArray();
+						
+			$customer_ids = !empty($property_ids) ? \DB::table('properties_customers')
+				->whereIn('property_id', $property_ids)->pluck('customer_id') : [];
+			
+			$query->whereIn('id', $customer_ids);
+		}
+		
 		if ( $this->site_user->hasRole('employee') )
 		{
 			$query->ofUser($this->site_user->id);
@@ -72,6 +101,9 @@ class CustomersController extends \App\Http\Controllers\AccountController
 			case 'properties':
 				$query->orderBy($propertiesQuery, $order);
 				break;
+			case 'matches':
+				$query->orderBy('matches_count', $order);
+				break;
 			case 'status':
 				$query->orderBy('active', $order);
 				break;
@@ -96,7 +128,9 @@ class CustomersController extends \App\Http\Controllers\AccountController
 
 		$this->set_go_back_link();
 
-		return view('account.customers.index', compact('customers', 'stats'));
+		$agents = $this->site->users()->withRole('employee')->with('properties')->lists('name', 'id')->toArray();
+		
+		return view('account.customers.index', compact('customers', 'stats', 'agents'));
 	}
 
 	public function exportCsv($query)

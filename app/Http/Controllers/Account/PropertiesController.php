@@ -527,7 +527,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		return [ 'success'=>true ];
 	}
 
-	public function getCatchClose($id)
+	public function getCatchClose($id, $client_id = null)
 	{
 		if ( $id )
 		{
@@ -542,7 +542,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			$customers[$customer->id] = $customer->fullname;
 		}
 
-		return view('account.properties.catch-close', compact('item','managers','customers'));
+		return view('account.properties.catch-close', compact('item','managers','customers', 'client_id'));
 	}
 	public function postCatchClose($id)
 	{
