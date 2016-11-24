@@ -16,23 +16,29 @@ class CustomersController extends \App\Http\Controllers\AccountController
 
 	public function index()
 	{
-		$query = $this->site->customers()->whereIn('id', function($query){
+		$price = $this->request->input('price');
+		$mode = $this->request->input('mode');
+		
+		if($price || $mode) {
+			$query = $this->site->customers()->whereIn('id', function($query) use($price, $mode){
 			
-			$subquery = $query->select('customer_id')
+				$subquery = $query->select('customer_id')
 					->from('customers_queries');
 			
-			if($this->request->input('price')){
-				$subquery->where('price_min', '<=', $this->request->input('price'));
-				$subquery->where('price_max', '>=', $this->request->input('price'));
-			}
+				if($price){
+					$subquery->where('price_min', '<=', $price);
+					$subquery->where('price_max', '>=', $price);
+				}
 			
-			if($this->request->input('mode')){
-				$subquery->where('mode', $this->request->input('mode'));
-			}
+				if($mode){
+					$subquery->where('mode', $mode);
+				}
 			
-			return $subquery;
-		})->with('queries');
-		
+				return $subquery;
+			})->with('queries');
+		} else {
+			$query = $this->site->customers()->with('queries');
+		}
 		
 		$agent_id = !\Auth::user()->can('lead-view_all') ?
 				\Auth::user()->id : $this->request->input('agent_id');
