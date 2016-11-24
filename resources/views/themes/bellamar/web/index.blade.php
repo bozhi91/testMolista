@@ -75,15 +75,6 @@
 								@endif
 							</div>
 						</div>
-						@if ( $highlighted->count() > 9 )
-							<ul class="list-inline text-right properties-slider-indicators hidden-xs">
-								@foreach ($highlighted as $key => $property)
-									@if ( $key%9 == 0 )
-										<li data-target="#properties-slider" data-slide-to="{{ $key/9 }}" class="{{ $key ? '' : 'active' }}">{{ ($key/9)+1 }}</li>
-									@endif
-								@endforeach
-							</ul>
-						@endif
 					</div>
 					@if ( $highlighted->count() > 9 )
 						<ul class="list-inline text-right properties-slider-indicators hidden-xs">

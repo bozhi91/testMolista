@@ -50,14 +50,6 @@
 										<div class="col-xs-12 col-sm-{{$colperpage}}">
 											<div class="relative">
 												@include('web.properties.pill', [ 'item'=>$property])
-											<a class="left carousel-control hide visible-xs" href="#properties-slider" role="button" data-slide="prev">
-													&lsaquo;
-													<span class="sr-only">{{ Lang::get('pagination.previous') }}</span>
-												</a>
-												<a class="right carousel-control hide visible-xs" href="#properties-slider" role="button" data-slide="next">
-													&rsaquo;
-													<span class="sr-only">{{ Lang::get('pagination.next') }}</span>
-												</a>
 											</div>
 										</div>
 									@endforeach
