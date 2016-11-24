@@ -105,7 +105,11 @@
 								<td>{{ $customer->full_name }}</td>
 								<td>{{ $customer->email }}</td>
 								<td style="text-transform: capitalize;">{{ $customer->origin }}</td>
-								<td>{{ $customer->current_query->price_min }} - {{ $customer->current_query->price_max }}</td>
+								<td>
+									@if($customer->current_query)
+										{{ $customer->current_query->price_min }} - {{ $customer->current_query->price_max }}
+									@endif
+								</td>
 								<td class="text-center">{{ number_format($customer->properties->count(), 0, ',', '.') }}</td>
 								<td class="text-center">{{ $customer->matches_count }}</td>
 								<td class="text-center">{{ @number_format(intval( $stats[$customer->id]->tickets->open ), 0, ',', '.') }}</td>
