@@ -175,13 +175,40 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 			abort(404);
 		}
 		
-		$properties = $employee->properties()->ofSite( $this->site->id )->get();
 		$customers = $employee->getCustomers()
 				->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 				
-		return view('account.employees.edit', compact('employee','properties', 'customers'));
+		$assigned_properties = $employee->properties()->ofSite( $this->site->id )->pluck('id')->toArray();
+		
+		$properties = $this->site->properties()
+				->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
+		
+	
+		
+		return view('account.employees.edit', compact('employee','properties', 'customers', 'assigned_properties'));
 	}
 
+	
+	public function getChangeRelation($email, $property_id){
+		$property = $this->site->properties()->find($property_id);
+		$employee = $this->site->users()->where('email', $email)->first();
+
+		if ( !$property || !$employee )
+		{
+			return [ 'error'=>1 ];
+		}
+
+		$user_assigned = $property->users()->where('id', $employee->id)->first();
+		
+		if($user_assigned) {
+			$property->users()->detach($employee->id);
+			return [ 'success'=>1, 'active' => false];
+		} else {
+			$property->users()->attach($employee->id);
+			return [ 'success'=>1, 'active' => true];
+		}
+	}
+	
 	public function update($email)
 	{
 		$employee = $this->site->users()->withRole('employee')->where('email', $email)->withPivot('can_create','can_edit','can_delete','can_view_all','can_edit_all','can_delete_all')->first();

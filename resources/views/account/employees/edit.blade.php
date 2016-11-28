@@ -42,30 +42,36 @@
 							<div style="font-weight: bold; padding-top: 10px;">{{ Lang::get('account/employees.show.tab.permissions.delete_all.warning') }}</div>
 							<hr />
 						@endif
-						<div class="alert alert-info properties-empty {{ ( count($properties) > 0 ) ? 'hide' : '' }}">{{ Lang::get('account/employees.show.tab.properties.empty') }}</div>
-						@if ( count($properties) > 0 )
-							<div class="properties-list {{ ( count($properties) < 1 ) ? 'hide' : '' }}">
-								<table class="table table-hover">
-									<thead>
-										<tr>
-											<th>{{ Lang::get('account/employees.show.tab.properties.title') }}</th>
-											<th></th>
-										</tr>
-									</thead>
-									<tbody>
-										@foreach ($properties as $property)
-											<tr class="property-line">
-												<td>{{ $property->title }}</td>
-												<td class="text-right text-nowrap">
-													@if ( Auth::user()->can('property-edit') && Auth::user()->can('employee-edit'))
-														{!! Form::button( Lang::get('account/employees.button.dissociate'), [ 'class'=>'btn btn-default btn-xs dissociate-trigger', 'data-url'=>action('Account\EmployeesController@getDissociate', [ $employee->id, $property->id ]) ]) !!}
-													@endif
-												</td>
-											</tr>
-										@endforeach
-									</tbody>
-								</table>
+						
+						@if ( $properties->count() < 1)
+							<div class="alert alert-info properties-empty">
+								{{ Lang::get('account/employees.show.tab.properties.empty') }}
 							</div>
+						@else
+							<table class="table table-striped">
+							<thead>
+								<tr>
+									{!! drawSortableHeaders(url()->full(), [
+										'assigned' => [ 'title' => Lang::get('account/employees.show.tab.properties.assigned'), 'sortable'=>false, 'class'=>'text-center' ],
+										'title' => [ 'title' => Lang::get('account/employees.show.tab.properties.title'), 'sortable'=>false],
+									]) !!}
+								</tr>
+							</thead>
+							<tbody>
+								@foreach ($properties as $property)
+								<tr>
+									<td class="text-center">
+										<a href="#" data-url="{{ action('Account\EmployeesController@getChangeRelation', [
+											'email' => $employee->email, 'property_id' => $property->id]) }}" class="change-status-trigger">
+											<span class="glyphicon glyphicon-{{ in_array($property->id, $assigned_properties) ? 'ok' : 'remove' }}" aria-hidden="true"></span>
+										</a>
+									</td>
+									<td>{{ $property->title }}</td>
+								</tr>
+								@endforeach
+							</tbody>
+							</table>
+							{!! drawPagination($properties, Input::except('page')) !!}
 						@endif
 					</div>
 
@@ -225,37 +231,34 @@
 				}
 			});
 
-			cont.on('click','.dissociate-trigger',function(e){
-				var el = $(this);
+			cont.on('click', '.change-status-trigger', function(e){
 				e.preventDefault();
-				SITECOMMON.confirm("{{ print_js_string( Lang::get('account/employees.show.tab.properties.dissociate') ) }}", function (e) {
-					if (e) {
-						LOADING.show();
 
-						$.ajax({
-							dataType: 'json',
-							url: el.data().url,
-							success: function(data) {
-								LOADING.hide();
-								if ( data.success ) {
-									el.closest('.property-line').remove();
-									if ( cont.find('.properties-list .property-line').length < 1 ) {
-										cont.find('.properties-list').addClass('hide');
-										cont.find('.properties-empty').removeClass('hide');
-									}
-									alertify.success("{{ print_js_string( Lang::get('account/employees.message.dissociated') ) }}");
-								} else {
-									alertify.error("{{ print_js_string( Lang::get('general.messages.error') ) }}");
-								}
-							},
-							error: function() {
-								LOADING.hide();
-								alertify.error("{{ print_js_string( Lang::get('general.messages.error') ) }}");
+				LOADING.show();
+
+				var el = $(this);
+
+				$.ajax({
+					dataType: 'json',
+					url: el.data().url,
+					success: function(data) {
+						LOADING.hide();
+						if (data.success) {
+							if (data.active) {
+								el.find('.glyphicon').removeClass('glyphicon-remove').addClass('glyphicon-ok');
+							} else {
+								el.find('.glyphicon').removeClass('glyphicon-ok').addClass('glyphicon-remove');
 							}
-						});
-
+						} else {
+							alertify.error("{{ print_js_string( Lang::get('general.messages.error') ) }}");
+						}
+					},
+					error: function() {
+						LOADING.hide();
+						alertify.error("{{ print_js_string( Lang::get('general.messages.error') ) }}");
 					}
 				});
+
 			});
 
 			TICKETS.init('#tab-tickets');
