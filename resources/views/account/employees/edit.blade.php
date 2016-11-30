@@ -42,7 +42,7 @@
 							<div style="font-weight: bold; padding-top: 10px;">{{ Lang::get('account/employees.show.tab.permissions.delete_all.warning') }}</div>
 							<hr />
 						@endif
-						
+
 						@if ( $properties->count() < 1)
 							<div class="alert alert-info properties-empty">
 								{{ Lang::get('account/employees.show.tab.properties.empty') }}
@@ -53,7 +53,10 @@
 								<tr>
 									{!! drawSortableHeaders(url()->full(), [
 										'assigned' => [ 'title' => Lang::get('account/employees.show.tab.properties.assigned'), 'sortable'=>false, 'class'=>'text-center' ],
-										'title' => [ 'title' => Lang::get('account/employees.show.tab.properties.title'), 'sortable'=>false],
+										'reference' => [ 'title' => Lang::get('account/properties.ref'), 'sortable'=>false, ],
+										'address' => [ 'title' => Lang::get('account/properties.column.address'), 'sortable'=>false, ],
+										'price' => [ 'title' => Lang::get('account/properties.column.price'), 'sortable'=>false, ],
+										'action' => [ 'title' => '', 'sortable'=>false ],
 									]) !!}
 								</tr>
 							</thead>
@@ -66,7 +69,15 @@
 											<span class="glyphicon glyphicon-{{ in_array($property->id, $assigned_properties) ? 'ok' : 'remove' }}" aria-hidden="true"></span>
 										</a>
 									</td>
-									<td>{{ $property->title }}</td>
+									<td>{{ $property->ref }}</td>
+									<td>{!! implode( [
+										$property->address,
+										@implode(' / ', array_filter([ $property->city->name, $property->state->name ]))
+										], '<br>') !!}</td>
+									<td>{{ $property->price }}</td>
+									<td class="text-right text-nowrap">
+										<a href="{{ action('Account\PropertiesController@show', $property->slug) }}" class="btn btn-primary btn-xs">{{ Lang::get('general.view') }}</a>
+									</td>
 								</tr>
 								@endforeach
 							</tbody>
@@ -147,7 +158,7 @@
 							'visits_init' => true,
 						])
 					</div>
-					
+
 					<div role="tabpanel" class="tab-pane tab-main" id="tab-leads">
 						@if ( count($customers->count()) < 1)
 							<div class="alert alert-info">{{ Lang::get('account/customers.empty') }}</div>
@@ -174,7 +185,7 @@
 										<td class="text-center">{{ number_format($customer->properties->count(), 0, ',', '.') }}</td>
 										<td class="text-center">{{ number_format($customer->possible_matches->count(), 0, ',', '.') }}</td>
 										<td class="text-right text-nowrap">
-											<a href="{{ action('Account\CustomersController@show', urlencode($customer->email)) }}" 
+											<a href="{{ action('Account\CustomersController@show', urlencode($customer->email)) }}"
 											   class="btn btn-primary btn-xs">{{ Lang::get('general.view') }}</a>
 										</td>
 									</tr>
