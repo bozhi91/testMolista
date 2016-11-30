@@ -446,7 +446,9 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			abort(404);
 		}
 
-		return view('account.properties.show', compact('property'));
+		$current_tab = session('current_tab', old('current_tab', 'tab-general'));
+				
+		return view('account.properties.show', compact('property', 'current_tab'));
 	}
 
 	public function getLeads($slug)

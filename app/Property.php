@@ -1131,7 +1131,7 @@ class Property extends TranslatableModel
 		$query = $this->site->customers()->whereIn('id', function($query){
 			$subquery = $query->select('customer_id')->from('customers_queries');
 			
-			if($this->mode) {
+			/*if($this->mode) {
 				$subquery->where('mode', $this->mode);
 			}
 
@@ -1171,7 +1171,7 @@ class Property extends TranslatableModel
 			
 			if($this->zipcode) {
 				$subquery->where('zipcode', $this->zipcode);
-			}
+			}*/
 			
 			return $subquery;
 		})->with('queries');
