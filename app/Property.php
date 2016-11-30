@@ -1126,4 +1126,116 @@ class Property extends TranslatableModel
 		];
 	}
 
+	
+	public function getPossibleMatchesAttribute() {
+		$query = $this->site->customers()->whereIn('id', function($query){
+			$subquery = $query->select('customer_id')->from('customers_queries');
+			
+			if($this->mode) {
+				$subquery->where('mode', $this->mode);
+			}
+
+			if($this->type) {
+				$subquery->where('type', $this->type);
+			}
+			
+			if($this->price){
+				$subquery->where('price_min', '<=', $this->price);
+				$subquery->where('price_max', '>=', $this->price);	
+			}
+			
+			if($this->size) {
+				$subquery->where('size_min', '<=', $this->size);
+				$subquery->where('size_max', '>=', $this->size);
+			}
+			
+			if($this->rooms) {
+				$subquery->where('rooms', $this->rooms);
+			}
+			
+			if($this->baths) {
+				$subquery->where('baths', $this->baths);
+			}
+						
+			if($this->country_id) {
+				$subquery->where('country_id', $this->country_id);
+			}
+			
+			if($this->territory_id ){
+				$subquery->where('territory_id', $this->territory_id);
+			}
+			
+			if($this->state_id){
+				$subquery->where('state_id', $this->state_id);
+			}
+			
+			if($this->zipcode) {
+				$subquery->where('zipcode', $this->zipcode);
+			}
+			
+			return $subquery;
+		})->with('queries');
+		
+		//Not current leads
+		$query->whereNotIn('id', function($query){
+			$query->select('customer_id')->from('properties_customers')->where('property_id', $this->id);
+		});
+		
+		// Not discarded
+		$query->whereNotIn('id', function($query){
+			$query->select('customer_id')->from('properties_customers_discards')->where('property_id', $this->id);
+		});
+		
+		
+		if($this->city_id){
+			$query->whereIn('id', function($query){
+				$subquery = $query->select('customer_id')->from('customers_cities');
+				$subquery->where('city_id', $this->city_id);
+			});
+		}
+				
+		if($this->district_id){
+			$query->whereIn('id', function($query){
+				$subquery = $query->select('customer_id')->from('customers_districts');
+				$subquery->where('district_id', $this->district_id);
+			});
+		}
+		
+		$collection =  $query->get();
+				
+		$filtered = $collection->reject(function ($value, $key) {
+			$query = $value->current_query;
+			$attr = $query->more_attributes;
+			
+			if (@$attr['newly_build'] && $this->newly_build !== 1){
+				return true;
+			}
+			
+			if (@$attr['second_hand'] && $this->second_hand !== 1){
+				return true;
+			}
+
+			if (@$attr['bank_owned'] && $this->bank_owned !== 1){
+				return true;
+			}
+
+			if (@$attr['private_owned'] && $this->private_owned !== 1){
+				return true;
+			}
+
+			if(@$attr['services']) {
+				$serviceSlugs = !is_array($attr['services']) ?
+						[$attr['services']] : $attr['services'];
+				
+				$required_service_ids = \App\Models\Property\ServiceTranslation::whereIn('slug',$serviceSlugs)->lists('service_id')->all();
+				$property_service_ids = $this->services->pluck('id')->toArray();
+				$intersected = array_intersect($required_service_ids, $property_service_ids);
+				
+				return count($required_service_ids) != count($intersected);
+			}
+		});
+				
+		return $filtered;
+	}
+	
 }

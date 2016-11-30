@@ -434,7 +434,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 	}
 
 	public function postAddPropertyCustomer($slug)
-	{
+	{				
 		$property = $this->site->properties()
 						->whereTranslation('slug', $slug)
 						->first();
@@ -444,7 +444,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		}
 
 		$customer_id = $this->request->input('customer_id');
-
+		
 		if ( !$customer_id ) {
 			$validator = \Validator::make($this->request->all(), $this->getRequiredFields());
 			if ($validator->fails())
@@ -480,7 +480,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		{
 			$property->customers()->attach( $customer_id );
 		}
-
+		
 		// Redirect back with current tab ?
 		if ( $this->request->input('current_tab') )
 		{

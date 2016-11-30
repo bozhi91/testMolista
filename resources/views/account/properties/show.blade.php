@@ -176,6 +176,13 @@
 				<div id="leads-list">
 					@include('account.properties.show-leads', [ 'customers'=>$property->customers->sortBy('full_name') ])
 				</div>
+				
+				<hr>
+				
+				<div id="leads-matches">
+					<h3 class="page-title">{{ Lang::get('account/properties.show.property.matches.title') }}</h3>
+					@include('account.properties.show-matches', [ 'customers'=>$property->possible_matches, 'property' => $property ])
+				</div>
 			</div>
 
 			<div role="tabpanel" class="tab-pane tab-main {{ (old('current_tab') == 'tab-appraisal') ? 'active' : '' }}" id="tab-appraisal">
