@@ -48,7 +48,7 @@ class Controller extends BaseController
 		$this->__initialize();
 
 		$header_class = '';
-		if ($this->site && $this->site->id == env('VILLAMED_ID')) {
+		if ($this->site && ($this->site->id == env('VILLAMED_ID') || $this->site->id == env('NOUHABITAT_ID'))) {
 			$header_class = 'header-logo-md';
 		}
 
