@@ -255,11 +255,15 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
         $descriptions['description'] = [];
 				
         foreach($property['title'] as $locale => $title){
-            $descriptions['description'][] = [
-                'language' => $this->translateLanguage($locale),
-                'title' => $title,
-                'comment' => substr(@$property['description'][$locale], 0, 2499),
-            ];
+			$language = $this->translateLanguage($locale);
+			
+			if($language) {
+				$descriptions['description'][] = [
+					'language' => $language,
+					'title' => $title,
+					'comment' => mb_substr(@$property['description'][$locale], 0, 2499),
+				];
+			}
         }
 		
         return $descriptions;
@@ -272,47 +276,36 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
 		
 		
         foreach($property['url'] as $locale => $link){
-            $links['link'][] = [
-                'language' => $this->translateLanguage($locale),
-                'comment' => '',
-                'url' => $link,
-            ];
+			$language = $this->translateLanguage($locale);
+			
+			if($language) {
+				$links['link'][] = [
+					'language' => $language,
+					'comment' => '',
+					'url' => $link,
+				];
+			}
         }
 
         return $links;
     }
 
-    //Translate lang codes
+    /**
+	 * @param string $locale
+	 * @return int|null
+	 */
     protected function translateLanguage($locale){
-        $code = 1;
         switch($locale){
-            case 'es':
-                $code = 1;
-            break;
-            case 'en':
-                $code = 2;
-            break;
-            case 'fr':
-                $code = 3;
-            break;
-            case 'de':
-                $code = 4;
-            break;
-            case 'pt':
-                $code = 5;
-            break;
-            case 'it':
-                $code = 6;
-            break;
-            case 'ca':
-                $code = 7;
-            break;
-            case 'ru':
-                $code = 8;
-            break;
+			case 'es': return 1;
+			case 'en': return 2;
+			case 'fr': return 3;
+			case 'de': return 4;
+			case 'pt': return 5;
+			case 'it': return 6;
+			case 'ca': return 7;
+			case 'ru': return 8;
+			default: return null;
         }
-
-        return $code;
     }
 
     //Build operation format
