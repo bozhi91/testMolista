@@ -90,7 +90,7 @@
 		@endif
 
 		<div class="container">
-			<div class="quick-search-area search-area {{ $highlighted->count() ? 'under-properties' : '' }}">
+			<div class="quick-search-area search-area {{ ($highlighted->count() && !$awesomeLinks) ? 'under-properties' : '' }}">
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 col-md-8">
 						@if (!$awesomeLinks)
