@@ -774,7 +774,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 	protected function getRequestFields($id=false)
 	{
 		$fields = [
-			'ref' => 'required|unique:properties,ref,'.$id.',id,site_id,'.$this->site->id,
+			'ref' => 'required|unique:properties,ref,'.$id.',id,site_id,'.$this->site->id.',deleted_at,NULL',
 			'type' => 'required|in:'.implode(',', array_keys(\App\Property::getTypeOptions())),
 			'mode' => 'required|in:'.implode(',', \App\Property::getModes()),
 			'price' => 'required|numeric|min:0',
