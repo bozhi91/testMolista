@@ -1,4 +1,7 @@
 <?php
+
+use App\Models\Utils\VideoHelper;
+
 	$infocurrency = empty($property->currency) ? $current_site->infocurrency : $property->infocurrency;
 
 	// Priorizar países
@@ -39,6 +42,7 @@
 			<li role="presentation" class="{{ $current_tab == 'location' ? 'active' : '' }}"><a href="#tab-location" aria-controls="tab-location" role="tab" data-toggle="tab" data-tab="location">{{ Lang::get('account/properties.tab.location') }}</a></li>
 			<li role="presentation" class="{{ $current_tab == 'text' ? 'active' : '' }}"><a href="#tab-text" aria-controls="tab-text" role="tab" data-toggle="tab" data-tab="text">{{ Lang::get('account/properties.tab.text') }}</a></li>
 			<li role="presentation" class="{{ $current_tab == 'images' ? 'active' : '' }}"><a href="#tab-images" aria-controls="tab-images" role="tab" data-toggle="tab" data-tab="images">{{ Lang::get('account/properties.tab.images') }}</a></li>
+			<li role="presentation" class="{{ $current_tab == 'videos' ? 'active' : '' }}"><a href="#tab-videos" aria-controls="tab-videos" role="tab" data-toggle="tab" data-tab="videos">{{ Lang::get('account/properties.tab.videos') }}</a></li>
 			@if ( $item )
 				<li role="presentation" class="{{ $current_tab == 'employees' ? 'active' : '' }}"><a href="#tab-employees" aria-controls="tab-employees" role="tab" data-toggle="tab" data-tab="employees">{{ Lang::get('account/properties.tab.employees') }}</a></li>
 				@if ( $marketplaces->count() > 0 )
@@ -620,6 +624,41 @@
 				</div>
 			</div>
 
+			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'videos' ? 'active' : '' }}" id="tab-videos">				
+				<div class="row">
+					<div class="col-xs-12 col-sm-7">
+						<h4>{{ Lang::get('account/properties.video.title') }}</h4>
+						<hr>
+						<div class="form-group error-container">
+							{!! Form::label('video_link', Lang::get('account/properties.video_link')) !!}
+							{!! Form::text('video_link', null, [ 'class'=>'form-control', 'placeholder' => 'https://www.youtube.com/watch?v=xxxxxxxx' ]) !!}
+							<div class="help-block">
+								<label>{{ Lang::get('account/properties.video.help') }}</label>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-5">
+						<h4>{{ Lang::get('account/properties.video.preview') }}</h4>
+						<hr>
+						
+						@if(empty($property->video_link))
+							<div class="alert alert-info video-empty">
+								{{ Lang::get('account/properties.video.empty') }}
+							</div>
+						@elseif(VideoHelper::isVideoVimeo($property->video_link))
+							@include('video.vimeo', ['video' => $property->video_link])
+						@elseif(VideoHelper::isVideoYoutube($property->video_link))
+							@include('video.youtube', ['video' => $property->video_link])
+						@else
+							<div class="alert alert-danger video-error">
+								{{ Lang::get('account/properties.video.error') }}
+							</div>
+						@endif
+					</div>
+				</div>
+			</div>
+			
+			
 			@if ( $item )
 				<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'employees' ? 'active' : '' }}" id="tab-employees">
 					@include('account.properties.tab-managers', [

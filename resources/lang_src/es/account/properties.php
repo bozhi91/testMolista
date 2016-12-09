@@ -11,6 +11,13 @@
 		'column.address' => 'Dirección',
 		'column.created' => 'Creación',
 		'column.price' => 'Precio',
+		
+		'video.title' => 'Subir vídeos',
+		'video.empty' => 'Esta propiedad no tiene vídeo',
+		'video.preview' => 'Preview',
+		'video_link' => 'Enlace de vídeo',
+		'video.help' => 'Solo se acceptan los enlaces de Youtube y Vimeo',
+		'video.error' => 'Enlace de vídeo no es correcto',
 
 		'ref' => 'Referencia',
 		'type' => 'Tipo',
@@ -65,6 +72,7 @@
 		'tab.logs' => 'Logs',
 		'tab.seller' => 'Vendedor',
 		'tab.pdf' => 'PDF',
+		'tab.videos' => 'Vídeo',
 
 		'country' => 'País',
 		'state' => 'Provincia',

@@ -11,6 +11,13 @@
 		'column.address' => 'Address',
 		'column.created' => 'Created',
 		'column.price' => 'Price',
+		
+		'video.title' => 'Video upload',
+		'video.empty' => 'This property has no video',
+		'video.preview' => 'Preview',
+		'video_link' => 'Video link',
+		'video.help' => 'Only Youtube and Vimeo links accepted',
+		'video.error' => 'Video link is incorrect',
 
 		'ref' => 'Reference',
 		'type' => 'Type',
@@ -65,6 +72,7 @@
 		'tab.logs' => 'Logs',
 		'tab.seller' => 'Seller',
 		'tab.pdf' => 'PDF',
+		'tab.videos' => 'Video',
 
 		'country' => 'Country',
 		'state' => 'State',

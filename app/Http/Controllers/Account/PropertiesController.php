@@ -803,6 +803,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'city_id' => 'required|exists:cities,id',
 			'district_id' => '',
 			'address' => '',
+			'video_link' => '',
 			'address_parts' => 'array',
 			'show_address' => 'boolean',
 			'zipcode' => '',
