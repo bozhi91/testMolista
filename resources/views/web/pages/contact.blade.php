@@ -16,6 +16,7 @@
 						{!! $page->body !!}
 					</div>
 				</div>
+
 				<div class="cols-xs-12 col-sm-6">
 					{!! Form::model(null, [ 'method'=>'POST', 'action'=>[ 'Web\PagesController@post', $page->slug ], 'id'=>'contact-form' ]) !!}
 						<div class="form-group error-container">
@@ -36,7 +37,11 @@
 						</div>
 						<div class="form-group error-container">
 							{!! Form::label('phone', Lang::get('web/pages.phone')) !!}
-							{!! Form::text('phone', null, [ 'class'=>'form-control', 'placeholder'=>Lang::get('web/pages.phone.placeholder') ]) !!}
+							@if ( @$page->configuration['contact']['phone_required'] )
+								{!! Form::text('phone', null, [ 'class'=>'form-control required', 'placeholder'=>Lang::get('web/pages.phone.placeholder') ]) !!}
+							@else
+								{!! Form::text('phone', null, [ 'class'=>'form-control', 'placeholder'=>Lang::get('web/pages.phone.placeholder') ]) !!}
+							@endif
 						</div>
 						<div class="form-group error-container">
 							{!! Form::label('body', Lang::get('web/pages.message').' *') !!}

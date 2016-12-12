@@ -34,6 +34,17 @@
 										<div class="help-block">{{ Lang::get('account/site.pages.configuration.contact.email.helper') }}</div>
 									</div>
 								</div>
+								<div class="col-xs-12 col-xs-6">
+									<div class="form-group">
+										<div class="error-container">
+											{!! Form::label("configuration[contact][phone_required]", Lang::get('account/site.pages.configuration.contact.phone.required')) !!}
+											{!! Form::select('configuration[contact][phone_required]', [
+												0 => Lang::get('general.no'),
+												1 => Lang::get('general.yes'),
+											], null, [ 'class'=>'form-control' ]) !!}
+										</div>
+									</div>
+								</div>
 							</div>
 							<p>&nbsp</p>
 						@elseif ( $page->type == 'map' )
