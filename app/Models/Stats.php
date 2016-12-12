@@ -43,6 +43,11 @@ class Stats extends Model
 					->addSelect( \DB::raw("COUNT(*) as total_sites") )
 					->addSelect(  \DB::raw("SUM(`monthly_fee`) as total_revenues"))
 					->whereNotIn('site_id', explode(',', env('EXCLUDE_SITES_FROM_STATS')))
+					->whereIn('site_id', function($q){
+						$subquery = $q->select('id')->from('sites');
+						$subquery->where('enabled', 1);
+						return $subquery;
+					})
 					->groupBy('plan_level')
 					->get()->keyBy('plan_level');
 
