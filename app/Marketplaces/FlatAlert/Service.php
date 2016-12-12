@@ -15,14 +15,14 @@ class Service extends \App\Marketplaces\Service {
 	public function getClient() {
 		if ($this->_client === null) {
 			$this->_client = new Client([
-				'base_uri' => 'http://178.62.118.66:5008/api/v1/priv/'
+				'base_uri' => 'http://dev.flatalert.es:5008/api/v1/priv/'
 			]);
 		}
 		return $this->_client;
 	}
 
 	/**
-	 * 
+	 *
 	 * @param array $property
 	 * @return array
 	 */
