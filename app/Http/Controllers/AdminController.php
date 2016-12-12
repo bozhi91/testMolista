@@ -20,13 +20,20 @@ class AdminController extends Controller
 
 		$query = \App\Models\Stats::with('site')->with('plan')->withDateRange( $this->request->input('daterange') );
 		$query->whereNotIn('site_id', explode(',', env('EXCLUDE_SITES_FROM_STATS')));
-
+		
+		$query->whereIn('site_id', function($query){
+			$subquery = $query->select('id')->from('sites');
+			$subquery->where('enabled', 1);
+			return $subquery;
+		});
+		
+		
 		$items = $query->get();
-
+				
 		$stats = \App\Models\Stats::getConsolidatedStats();
-
+		
 		$use_google_maps = 1;
-
+		
 		return view('admin.index', compact('stats','items','use_google_maps'));
 	}
 
