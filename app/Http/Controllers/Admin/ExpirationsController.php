@@ -12,6 +12,8 @@ class ExpirationsController extends Controller
 	{
 		$query = \App\Site::with('plan')->whereNotNull('paid_until');
 
+		$query->where('enabled', 1);
+		
 		// Filter by domain
 		if ( $this->request->input('domain') )
 		{
