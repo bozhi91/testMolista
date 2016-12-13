@@ -204,10 +204,10 @@ Route::group([
 				'role:company',
 			],
 		], function() {
+			Route::controller('profile/plan', 'Account\Profile\PlanController');
+			Route::controller('profile/invoices', 'Account\Profile\InvoicesController');
 			// Plans & payment
 			Route::controller('payment', 'Account\PaymentController');
-			// Invoices
-			Route::controller('invoices', 'Account\InvoicesController');
 		});
 
 		// Properties
