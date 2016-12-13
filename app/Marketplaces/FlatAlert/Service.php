@@ -111,6 +111,7 @@ class Service extends \App\Marketplaces\Service {
 			case 62: return "Datos incorrectos";
 			case 63: return "URLS en energy_certification no es un array válido";
 			case 64: return "Ya existe un inmueble en esa ubicación";
+			case "ok": return 'Ok';
 			default: return "Unknown error: $messageCode";
 		}
 	}
