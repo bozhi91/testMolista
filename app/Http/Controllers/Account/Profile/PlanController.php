@@ -16,22 +16,38 @@ class PlanController extends \App\Http\Controllers\AccountController
 
 	public function getIndex()
 	{
-		// Pending request
-		$pending_request = $this->site->planchanges()->pending()->first();
+		$data = [
+			'current_tab' => 'plan',
+			'pending_request' => $this->site->planchanges()->pending()->first(),
+			'plans' => \App\Models\Plan::getEnabled( $this->site->payment_currency ),
+			'plan_options' => 0,
+			'current_plan' => $this->site->planchanges()->active()->first(),
+			'paid_until' => \App\Session\Site::get('plan.paid_until'),
+			'past_due' => false,
+			'payment_method' => \App\Session\Site::get('plan.payment_method'),
+			'card_brand' => \App\Session\Site::get('plan.card_brand'),
+			'card_last_four' => \App\Session\Site::get('plan.card_last_four'),
+			'iban_account' => \App\Session\Site::get('plan.iban_account'),
+		];
 
-		$plans = \App\Models\Plan::getEnabled( $this->site->payment_currency );
+		// Available plans counter
+		if ( $data['plans'] )
+		{
+			$data['plan_options'] = $data['plans']->filter(function($value,$key) {
+				return ($value->level > @intval($this->site->plan->level));
+			})->count();
+		}
 
-		// Current plan level && available plans
-		$current_plan_level = @intval( $this->site->plan->level );
-		$plan_options = $plans ? $plans->filter(function($value,$key) use ($current_plan_level) {
-			return ($value->level > $current_plan_level);
-		})->count() : 0;
+		// Paid until
+		if ( $data['paid_until'] )
+		{
+			if ( $data['paid_until'] < \Carbon\Carbon::now()->format('Y-m-d 00:00:00') )
+			{
+				$data['past_due'] = true;
+			}
+		}
 
-		// Current planchange
-		$current_plan = $this->site->planchanges()->active()->first();
-
-		$current_tab = 'plan';
-		return view('account.index', compact('pending_request','plans','plan_options','current_plan','current_tab'));
+		return view('account.index', $data);
 	}
 
 }

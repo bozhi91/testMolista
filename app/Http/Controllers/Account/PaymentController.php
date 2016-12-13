@@ -237,4 +237,47 @@ class PaymentController extends \App\Http\Controllers\AccountController
 		return redirect()->action('AccountController@index')->with('current_tab','plans')->with('success', trans('account/payment.plans.cancel.success'));
 	}
 
+	public function getUpdateCreditCard()
+	{
+		$stripe_customer = $this->site->asStripeCustomer();
+		if ( !$stripe_customer )
+		{
+			abort(404);
+		}
+
+		$user_email = $stripe_customer->email ? $stripe_customer->email : $this->site_user->email;
+
+		return view('account.payment.update-credit-card', compact('user_email'));
+	}
+	public function postUpdateCreditCard()
+	{
+		$stripe_customer = $this->site->asStripeCustomer();
+		if ( !$stripe_customer )
+		{
+			abort(404);
+		}
+
+		if ( !$this->request->input('stripeToken') )
+		{
+			return redirect()->back()->with('error', trans('general.messages.error'));
+		}
+
+		$this->site->updateCard($this->request->input('stripeToken'));
+		$this->site->updateSiteSetup();
+
+		return redirect()->action('Account\Profile\PlanController@getIndex')->with('success', trans('account/payment.cc.update.success'));
+	}
+
+	public function getRetryPayment()
+	{
+		return view('account.payment.retry-payment');
+	}
+	public function postRetryPayment()
+	{
+echo "<pre>";
+print_r($this->request->all());
+echo "</pre>";
+die;
+	}
+
 }
