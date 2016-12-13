@@ -154,20 +154,18 @@ class PaymentController extends \App\Http\Controllers\AccountController
 			return redirect()->action('AccountController@index')->with('current_tab','plans');
 		}
 
-		// If paymthod is stripe
-		if ( $planchange->new_data['payment_method'] == 'stripe' )
+		// If paymethod is stripe && site has stripe ID
+		if ( $planchange->new_data['payment_method'] == 'stripe' && $this->site->stripe_id )
 		{
-			// Site has stripe ID
-			if ( $this->site->stripe_id )
+			if ( $current_subscription = $this->site->subscription('main') )
 			{
 				// Attempt to switch
-				$response = $this->site->subscription('main')->swap($planchange->stripe_plan_id);
+				$response = $current_subscription->swap($planchange->stripe_plan_id);
 				if ( !$response )
 				{
 					\Log::error("Account\PaymentController getPay: Error switching plan for site ID {$this->site->id}");
 					\Log::error($response);
 					abort(404);
-
 				}
 
 				$planchange->update([
@@ -239,7 +237,7 @@ class PaymentController extends \App\Http\Controllers\AccountController
 
 	public function getUpdateCreditCard()
 	{
-		$stripe_customer = $this->site->asStripeCustomer();
+		$stripe_customer = $this->site->stripe_customer;
 		if ( !$stripe_customer )
 		{
 			abort(404);
@@ -251,7 +249,7 @@ class PaymentController extends \App\Http\Controllers\AccountController
 	}
 	public function postUpdateCreditCard()
 	{
-		$stripe_customer = $this->site->asStripeCustomer();
+		$stripe_customer = $this->site->stripe_customer;
 		if ( !$stripe_customer )
 		{
 			abort(404);
@@ -270,14 +268,62 @@ class PaymentController extends \App\Http\Controllers\AccountController
 
 	public function getRetryPayment()
 	{
-		return view('account.payment.retry-payment');
+		$last_invoice = $this->site->stripe_invoice_last;
+
+		if ( $last_invoice && !$last_invoice->paid )
+		{
+			\Stripe\Stripe::setApiKey( env('STRIPE_SECRET') );
+			$invoice = \Stripe\Invoice::retrieve( $last_invoice->id );
+
+			try {
+				$payment_response = @$invoice->pay();
+			// Card errors (declined, etc)
+			} catch(\Stripe\Error\Card $e) {
+				$response_error = $this->translateApiResponseError($e);
+			// Too many requests made to the API too quickly
+			} catch (\Stripe\Error\RateLimit $e) {
+				$response_error = $this->translateApiResponseError($e);
+			// Invalid parameters were supplied to Stripe's API
+			} catch (\Stripe\Error\InvalidRequest $e) {
+				$response_error = $this->translateApiResponseError($e);
+			// Authentication with Stripe's API failed
+			} catch (\Stripe\Error\Authentication $e) {
+				$response_error = $this->translateApiResponseError($e);
+			// Network communication with Stripe failed
+			} catch (\Stripe\Error\ApiConnection $e) {
+				$response_error = $this->translateApiResponseError($e);
+			// Display a very generic error to the user, and maybe send yourself an email
+			} catch (\Stripe\Error\Base $e) {
+				$response_error = $this->translateApiResponseError($e);
+			// Something else happened, completely unrelated to Stripe
+			} catch (Exception $e) {
+				$response_error = $this->translateApiResponseError($e);
+			}
+		}
+
+		return view('account.payment.retry-payment', compact('last_invoice','payment_response','response_error'));
 	}
-	public function postRetryPayment()
+
+	public function translateApiResponseError($e)
 	{
-echo "<pre>";
-print_r($this->request->all());
-echo "</pre>";
-die;
+		$body = @$e->getJsonBody();
+		$error = @$body['error'];
+
+		$response = [
+			'status' => @$e->getHttpStatus(),
+			'error' => $error,
+			'type' => @$error['type'],
+			'code' => @$error['code'],
+			'param' => @$error['param'],
+			'message' => @$error['message'],
+		];
+
+		if ( !$response['message'] )
+		{
+			$response['message'] = trans('general.messages.error');
+		}
+
+		return (object) $response;
 	}
 
 }

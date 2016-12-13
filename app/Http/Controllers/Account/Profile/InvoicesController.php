@@ -16,7 +16,7 @@ class InvoicesController extends \App\Http\Controllers\AccountController
 
 	public function getIndex()
 	{
-		$invoices = $this->site->invoices()->orderBy('uploaded_at','desc')->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
+		$invoices = $this->site->documents()->orderBy('uploaded_at','desc')->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$current_tab = 'invoices';
 
@@ -25,7 +25,7 @@ class InvoicesController extends \App\Http\Controllers\AccountController
 
 	public function getInvoice($invoice_id,$filename)
 	{
-		$invoice = $this->site->invoices()->findOrFail($invoice_id);
+		$invoice = $this->site->documents()->findOrFail($invoice_id);
 
 		if ( !$invoice->document )
 		{

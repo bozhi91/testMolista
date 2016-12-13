@@ -62,4 +62,10 @@
 		'cc.update.button' => 'Continuar',
 		'cc.update.label' => 'Actualizar tarjeta',
 		'cc.update.success' => 'Tu tarjeta de crédito se actualizó correctamente',
+
+		'retry.title' => 'Reintentar pago última factura',
+		'retry.paid' => 'La última factura ya se encuentra pagada',
+		'retry.success' => 'La última factura ya ha pagado con éxito',
+		'retry.error' => 'Ocurrió un error al pagar la última factura',
+		'retry.empty' => 'No se encontró ninguna factura asociada a esta cuenta',
 	];

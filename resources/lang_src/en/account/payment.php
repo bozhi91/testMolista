@@ -62,4 +62,10 @@
 		'cc.update.button' => 'Continue',
 		'cc.update.label' => 'Update card details',
 		'cc.update.success' => 'Your credit card details were successfully updated',
+
+		'retry.title' => 'Retry latest invoice payment',
+		'retry.paid' => 'The latest invoice is already paid',
+		'retry.success' => 'The latest invoice was successfully paid',
+		'retry.error' => 'There was an error when paying the latest invoice',
+		'retry.empty' => 'We were unable to find any invoices associated to this account',
 	];

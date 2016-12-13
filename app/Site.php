@@ -87,7 +87,7 @@ class Site extends TranslatableModel
 		return $this->hasMany('App\Models\Site\Webhook');
 	}
 
-	public function invoices()
+	public function documents()
 	{
 		return $this->hasMany('App\Models\Site\Invoice');
 	}
@@ -1079,6 +1079,43 @@ class Site extends TranslatableModel
 		}
 
 		return false;
+	}
+
+	public function getStripeCustomerAttribute()
+	{
+		if ( !$this->stripe_id )
+		{
+			return false;
+		}
+
+		return $this->asStripeCustomer();
+	}
+
+	public function getStripeInvoiceLastAttribute()
+	{
+		$last_invoice = false;
+
+		if ( !$this->stripe_id )
+		{
+			return $last_invoice;
+		}
+
+		$invoices = $this->invoicesIncludingPending();
+
+		if ( !$invoices )
+		{
+			return $last_invoice;
+		}
+
+		foreach ($invoices as $invoice)
+		{
+			if ( !$last_invoice || $last_invoice->date < $invoice->date )
+			{
+				$last_invoice = $invoice;
+			}
+		}
+
+		return $last_invoice;
 	}
 
 	public function importTicketingCustomers()

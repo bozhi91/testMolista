@@ -231,7 +231,7 @@ class SitesController extends Controller
 		$companies = \App\User::withRole('company')->whereNotIn('id', $site->owners_ids)->orderBy('name')->lists('name','id')->all();
 		$resellers = \App\Models\Reseller::orderBy('name')->lists('name','id')->toArray();
 
-		$invoices = $site->invoices()->orderBy('uploaded_at','desc')->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
+		$invoices = $site->documents()->orderBy('uploaded_at','desc')->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$payment_tab = app('App\Http\Controllers\Admin\Sites\PaymentsController')->getList($id, false)->render();
 
