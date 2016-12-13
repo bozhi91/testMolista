@@ -18,14 +18,14 @@ class PaymentController extends \App\Http\Controllers\AccountController
 		// Check if pending request
 		if ( $this->site->has_pending_plan_request )
 		{
-			return redirect()->action('AccountController@index')->with('current_tab','plans');
+			return redirect()->action('Account\Profile\PlanController@getIndex');
 		}
 
 		$current_plan_level = @intval( $this->site->plan->level );
 
 		if ( \App\Models\Plan::enabled()->where('plans.currency',$this->site->payment_currency)->where('level','>', $current_plan_level)->count() < 1 )
 		{
-			return redirect()->action('AccountController@index')->with('current_tab','plans');
+			return redirect()->action('Account\Profile\PlanController@getIndex');
 		}
 
 		$plans = \App\Models\Plan::getEnabled( $this->site->payment_currency );
@@ -47,7 +47,7 @@ class PaymentController extends \App\Http\Controllers\AccountController
 		// Check if pending request
 		if ( $this->site->has_pending_plan_request )
 		{
-			return redirect()->action('AccountController@index')->with('current_tab','plans');
+			return redirect()->action('Account\Profile\PlanController@getIndex');
 		}
 
 		$current_plan_level = @intval( $this->site->plan->level );
@@ -143,7 +143,7 @@ class PaymentController extends \App\Http\Controllers\AccountController
 			return redirect()->action('Account\PaymentController@getPay');
 		}
 
-		return redirect()->action('AccountController@index')->with('current_tab','plans')->with('success', trans('account/payment.invoicing.transfer.created'));
+		return redirect()->action('Account\Profile\PlanController@getIndex')->with('success', trans('account/payment.invoicing.transfer.created'));
 	}
 
 	public function getPay()
@@ -151,7 +151,7 @@ class PaymentController extends \App\Http\Controllers\AccountController
 		$planchange = $this->site->planchanges()->pending()->first();
 		if ( !$planchange )
 		{
-			return redirect()->action('AccountController@index')->with('current_tab','plans');
+			return redirect()->action('Account\Profile\PlanController@getIndex');
 		}
 
 		// If paymethod is stripe && site has stripe ID
@@ -174,7 +174,7 @@ class PaymentController extends \App\Http\Controllers\AccountController
 
 				$this->site->updatePlan($planchange->id);
 
-				return redirect()->action('AccountController@index')->with('current_tab','plans')->with('success', trans('account/payment.invoicing.updated'));
+				return redirect()->action('Account\Profile\PlanController@getIndex')->with('success', trans('account/payment.invoicing.updated'));
 			}
 		}
 
@@ -216,7 +216,7 @@ class PaymentController extends \App\Http\Controllers\AccountController
 		// Update site
 		$this->site->updatePlan($planchange->id);
 
-		return redirect()->action('AccountController@index')->with('current_tab','plans')->with('success', trans('account/payment.invoicing.updated'));
+		return redirect()->action('Account\Profile\PlanController@getIndex')->with('success', trans('account/payment.invoicing.updated'));
 	}
 
 	public function postCancel()
@@ -225,14 +225,14 @@ class PaymentController extends \App\Http\Controllers\AccountController
 
 		if ( !$pending_request )
 		{
-			return redirect()->action('AccountController@index')->with('current_tab','plans')->with('error', trans('general.messages.error'));
+			return redirect()->action('Account\Profile\PlanController@getIndex')->with('error', trans('general.messages.error'));
 		}
 
 		$pending_request->status = 'canceled';
 		$pending_request->save();
 		$pending_request->delete();
 
-		return redirect()->action('AccountController@index')->with('current_tab','plans')->with('success', trans('account/payment.plans.cancel.success'));
+		return redirect()->action('Account\Profile\PlanController@getIndex')->with('success', trans('account/payment.plans.cancel.success'));
 	}
 
 	public function getUpdateCreditCard()
