@@ -5,6 +5,11 @@
 	#tab-plan .account-block .list-inline { margin-right: -5px; }
 	#tab-plan .pay-now-area { max-width: 350px; }
 		#tab-plan .pay-now-area ul { margin-bottom: 10px; }
+
+		@for ($i=0; $i<=$current_plan_level; $i++)
+			#plans-modal .plan-{{ $i }} .plan-button { visibility: hidden; }
+		@endfor
+
 </style>
 
 <div role="tabpanel" class="tab-pane tab-main active" id="tab-plan">

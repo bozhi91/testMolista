@@ -22,6 +22,7 @@ class PlanController extends \App\Http\Controllers\AccountController
 			'plans' => \App\Models\Plan::getEnabled( $this->site->payment_currency ),
 			'plan_options' => 0,
 			'current_plan' => $this->site->planchanges()->active()->first(),
+			'current_plan_level' => \App\Session\Site::get('plan.level', 0),
 			'paid_until' => \App\Session\Site::get('plan.paid_until'),
 			'past_due' => false,
 			'payment_method' => \App\Session\Site::get('plan.payment_method'),
