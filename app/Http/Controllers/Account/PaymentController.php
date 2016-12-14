@@ -157,10 +157,10 @@ class PaymentController extends \App\Http\Controllers\AccountController
 		// If paymethod is stripe && site has stripe ID
 		if ( $planchange->new_data['payment_method'] == 'stripe' && $this->site->stripe_id )
 		{
-			if ( $current_subscription = $this->site->subscription('main') )
+			if ( $this->site->subscribed('main') )
 			{
 				// Attempt to switch
-				$response = $current_subscription->swap($planchange->stripe_plan_id);
+				$response =  $this->site->subscription('main')->swap($planchange->stripe_plan_id);
 				if ( !$response )
 				{
 					\Log::error("Account\PaymentController getPay: Error switching plan for site ID {$this->site->id}");

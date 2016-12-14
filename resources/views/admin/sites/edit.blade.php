@@ -137,9 +137,13 @@
 									{{ Lang::get('admin/sites.goto.admin') }}
 								</a>
 							@endif
-							<a href="{{$site->main_url}}" class="btn btn-sm btn-default" target="_blank">
+							<a href="{{$site->main_url}}" class="btn btn-sm hidden-xs btn-default" target="_blank">
 								<span class="glyphicon glyphicon-link" aria-hidden="true"></span>
 								{{ Lang::get('admin/sites.goto.site') }}
+							</a>
+							<a href="{{ action('Admin\SitesController@getUpdateSetup', $site->id) }}" class="btn btn-sm btn-default hidden-sm hidden-xs setup-reload-trigger">
+								<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+								{{ Lang::get('admin/sites.setup.reload') }}
 							</a>
 						</div>
 					</div>
@@ -279,6 +283,29 @@
 						<div class="form-group error-container">
 							{!! Form::label(null, Lang::get('admin/sites.currency')) !!}
 							{!! Form::text(null, $site->payment_currency, [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+						</div>
+					</div>
+				</div>
+
+				<hr />
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
+						@if ( $site->stripe_id )
+							<div class="form-group error-container">
+								{!! Form::label(null, 'Stripe customer ID') !!}
+								{!! Form::text(null, $site->stripe_id, [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+							</div>
+						@endif
+					</div>
+					<div class="col-xs-12 col-sm-6">
+						@if ( $site->stripe_id )
+							<label>&nbsp;</label>
+						@endif
+						<div class="text-right">
+							<a href="{{ action('Admin\SitesController@getDowngrade', $site->id) }}" class="btn btn-default {{ $site->plan->is_free ? 'disabled' : 'plan-downgrade-trigger' }}">
+								<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+								{{ Lang::get('admin/sites.downgrade.button') }}
+							</a>
 						</div>
 					</div>
 				</div>
@@ -531,6 +558,24 @@
 					},
 					type: 'iframe',
 					modal: true
+				});
+			});
+
+			cont.on('click', '.setup-reload-trigger', function(e){
+				LOADING.show();
+				return true;
+			});
+
+			cont.on('click', '.plan-downgrade-trigger', function(e){
+				e.preventDefault();
+
+				var el = $(this);
+
+				SITECOMMON.confirm("{{ print_js_string( Lang::get('admin/sites.downgrade.confirm') ) }}", function (e) {
+					if (e) {
+						LOADING.show();
+						document.location.href = el.attr('href');
+					}
 				});
 			});
 

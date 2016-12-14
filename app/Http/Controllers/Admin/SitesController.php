@@ -25,6 +25,8 @@ class SitesController extends Controller
 							->with('country')
 							->with('properties')
 							->with('users')
+							->with('plan')
+							->with('domains')
 							;
 
 		// Filter by title
@@ -422,6 +424,27 @@ class SitesController extends Controller
 		}
 
 		return response()->download($invoice->invoice_path, $filename);
+	}
+
+	public function getUpdateSetup($id)
+	{
+		$site = \App\Site::findOrFail($id);
+
+		$site->updateSiteSetup();
+
+		return redirect()->back()->with('success', trans('admin/sites.setup.reloaded'));
+	}
+
+	public function getDowngrade($id)
+	{
+		$site = \App\Site::with('plan')->findOrFail($id);
+
+		if ( $site->downgradeToFree() )
+		{
+			return redirect()->back()->with('current_tab','plan')->with('success', trans('admin/sites.downgrade.success'));
+		}
+
+		return redirect()->back()->with('current_tab','plan')->with('error', trans('admin/sites.downgrade.error'));
 	}
 
 }

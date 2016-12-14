@@ -37,6 +37,7 @@
 								{!! drawSortableHeaders(url()->full(), [
 									'id' => [ 'title' => '#' ],
 									'domain' => [ 'title' => Lang::get('admin/sites.domain'), 'sortable'=>false ],
+									'plan' => [ 'title' => Lang::get('admin/sites.tab.plan'), 'sortable'=>false ],
 									'country' => [ 'title' => Lang::get('admin/sites.country'), 'sortable'=>false ],
 									'theme' => [ 'title' => Lang::get('admin/sites.theme') ],
 									'properties' => [ 'title' => Lang::get('admin/sites.properties'), 'class'=>'text-center' ],
@@ -52,6 +53,7 @@
 								<tr>
 									<td>{{ $site->id }}</td>
 									<td>{{ $site->main_url }}</td>
+									<td>{{ @$site->plan->name }}</td>
 									<td>{{ $site->country->name }}</td>
 									<td>{{ @$themes[$site->theme] }}</td>
 									<td class="text-center">{{ number_format($site->properties->count(),0,',','.') }}</td>

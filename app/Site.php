@@ -1169,4 +1169,47 @@ class Site extends TranslatableModel
 		return true;
 	}
 
+	public function downgradeToFree()
+	{
+		// Check if already free
+		if ( $this->plan->is_free )
+		{
+			return false;
+		}
+
+		// Get free plan 
+		$free_plan = \App\Models\Plan::where('is_free', 1)->first();
+		if ( !$free_plan )
+		{
+			return false;
+		}
+
+		// If there's a current subscription
+		if ( $current_subscription = $this->subscription('main') )
+		{
+			// Cancel it
+			$current_subscription->cancelNow();
+		}
+
+		// Set free plan
+		$this->update([
+			'plan_id' => $free_plan->id,
+			'payment_interval' => null,
+			'payment_method' => null,
+			'iban_account' => null,
+			'card_brand' => null,
+			'card_last_four' => null,
+			'trial_ends_at' => null,
+			'paid_until' => null,
+		]);
+
+		// Delete all planchanges
+		$this->planchanges()->update([
+			'status' => 'canceled',
+		]);
+		$this->planchanges()->delete();
+
+		return true;
+	}
+
 }
