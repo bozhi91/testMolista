@@ -48,17 +48,17 @@
 		<script src="http://maps.google.com/maps/api/js?key={{ Config::get('app.google_maps_api_key')}}"></script>
 	@endif
 
-	@if (!empty($og)) 
+	@if (!empty($og))
 		{!! $og->renderTags() !!}
 	@endif
-	
+
 	<script type="text/javascript">
 		var ready_callbacks = [];
 	</script>
 
 </head>
 
-<body id="{{ @$body_id }}" class="dir-{{ LaravelLocalization::getCurrentLocaleDirection() }} theme-{{ Theme::get() }}">
+<body id="{{ @$body_id }}" class="dir-{{ LaravelLocalization::getCurrentLocaleDirection() }} theme-{{ Theme::get() }} site-id-{{ $current_site->id }} site-{{ $current_site->subdomain }}">
 
 	<?php $ga_account = isset($google_analitics_account) ? $google_analitics_account : @$current_site->ga_account; ?>
 	@if ( $ga_account )
