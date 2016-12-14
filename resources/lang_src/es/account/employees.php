@@ -45,6 +45,7 @@
 		'show.tab.properties' => 'Propiedades',
 		'show.tab.properties.empty' => 'No existen propiedades asociadas',
 		'show.tab.properties.title' => 'Propiedad',
+		'show.tab.properties.assigned' => 'Asignado',
 		'show.tab.properties.dissociate' => '¿Confirma que desea disociar esta propiedad?',
 
 		'associate.title' => 'Asociar empleado',

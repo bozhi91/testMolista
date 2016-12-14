@@ -22,11 +22,11 @@ class Mapper extends \App\Marketplaces\Mapper {
 
         if ($this->isRent())
         {
-            $map['price@period=monthly'] = $this->decimal($item['price']);
+            $map['price@period=monthly@currency=' . $item['currency']] = $this->decimal($item['price']);
         }
         else
         {
-            $map['price'] = $this->decimal($item['price']);
+            $map['price@currency=' . $item['currency']] = $this->decimal($item['price']);
         }
 
         $map['property_type'] = $this->property_type();

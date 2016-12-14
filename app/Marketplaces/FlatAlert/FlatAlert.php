@@ -29,7 +29,7 @@ class FlatAlert extends \App\Marketplaces\API {
 				[
 					'name' => 'email',
 					'type' => 'text',
-					'required' => false
+					'required' => true
 				],
 				[
 					'name' => 'phone',
@@ -44,18 +44,18 @@ class FlatAlert extends \App\Marketplaces\API {
 	 * @param array $property
 	 */
 	public function publishProperty(array $property) {
-		$mapper = static::getMapper($property, $this->iso_lang, $this->config);		
+		$mapper = static::getMapper($property, $this->iso_lang, $this->config);
 		if ($mapper->valid()) {
 			$mapped = $mapper->map();
 			/* @var $service Service */
 			$service = $this->getService();
-			
+
 			try {
 				$exist = $service->checkPropertyExist($mapped['customer_property_id']);
 				if($exist) {
 					return $service->updateProperty($mapped);
 				}
-				
+
 				return $service->createProperty($mapped);
 			} catch (RequestException $e) {
 				$res = $e->getResponse();
