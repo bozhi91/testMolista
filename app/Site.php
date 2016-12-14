@@ -898,6 +898,41 @@ class Site extends TranslatableModel
 		]));
 	}
 
+	public function getContactLocaleAttribute()
+	{
+		return 'es';
+	}
+
+	public function getContactEmailAttribute()
+	{
+		if ( @$this->invoicing['email'] )
+		{
+			return $this->invoicing['email'];
+		}
+
+		if ( $owner = $this->site->users()->withRole('company')->first() )
+		{
+			return $owner->email;
+		}
+
+		return false;
+	}
+
+	public function getContactNameAttribute()
+	{
+		if ( @$this->invoicing['first_name'] )
+		{
+			return $this->invoicing['first_name'];
+		}
+
+		if ( $owner = $this->site->users()->withRole('company')->first() )
+		{
+			return $owner->name;
+		}
+
+		return false;
+	}
+
 	public function getSignupInfo($locale=false)
 	{
 		$current_locale = \App::getLocale();
