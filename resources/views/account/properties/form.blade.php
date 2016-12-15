@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\Utils\VideoHelper;
-
 	$infocurrency = empty($property->currency) ? $current_site->infocurrency : $property->infocurrency;
 
 	// Priorizar países
@@ -627,6 +625,25 @@ use App\Models\Utils\VideoHelper;
 			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'videos' ? 'active' : '' }}" id="tab-videos">				
 				<div class="row">
 					<div class="col-xs-12 col-sm-7">
+						<h4>{{ Lang::get('account/properties.video.preview') }}</h4>
+						<hr>
+						
+						@if(count($property->videos) <= 0)
+							<div class="alert alert-info video-empty">
+								{{ Lang::get('account/properties.video.empty') }}
+							</div>
+						@else							
+							<ul class="video-gallery sortable-video-gallery">
+								@foreach ($property->videos->sortBy('position_video') as $video)
+									@include('account.properties.form-video-thumb',[
+										'video' => $video, 
+										'property_id' => $property->id
+									])
+								@endforeach
+							</ul>
+						@endif
+					</div>
+					<div class="col-xs-12 col-sm-5">
 						<h4>{{ Lang::get('account/properties.video.title') }}</h4>
 						<hr>
 						<div class="form-group error-container">
@@ -636,24 +653,6 @@ use App\Models\Utils\VideoHelper;
 								<label>{{ Lang::get('account/properties.video.help') }}</label>
 							</div>
 						</div>
-					</div>
-					<div class="col-xs-12 col-sm-5">
-						<h4>{{ Lang::get('account/properties.video.preview') }}</h4>
-						<hr>
-						
-						@if(empty($property->video_link))
-							<div class="alert alert-info video-empty">
-								{{ Lang::get('account/properties.video.empty') }}
-							</div>
-						@elseif(VideoHelper::isVideoVimeo($property->video_link))
-							@include('video.vimeo', ['video' => $property->video_link])
-						@elseif(VideoHelper::isVideoYoutube($property->video_link))
-							@include('video.youtube', ['video' => $property->video_link])
-						@else
-							<div class="alert alert-danger video-error">
-								{{ Lang::get('account/properties.video.error') }}
-							</div>
-						@endif
 					</div>
 				</div>
 			</div>
@@ -907,6 +906,7 @@ use App\Models\Utils\VideoHelper;
 		form.find('.image-gallery').sortable({
 			stop: initImageWarnings
 		});
+		
 		form.find('.image-gallery .thumb').each(function(){
 			$(this).magnificPopup({
 				type: 'image',
@@ -917,6 +917,7 @@ use App\Models\Utils\VideoHelper;
 				}
 			});
 		});
+		
 		form.on('click', '.image-delete-trigger', function(e){
 			var el = $(this);
 			e.preventDefault();
@@ -924,6 +925,45 @@ use App\Models\Utils\VideoHelper;
 				if (e) {
 					el.closest('.handler').remove();
 					initImageWarnings();
+				}
+			});
+		});
+		
+		// Video gallery
+		//form.find('.video-gallery').sortable();
+		
+		form.find('.video-gallery .thumb').each(function(){
+			var link = $(this).data('link');
+			
+			$(this).magnificPopup({
+				items: { src: link },
+				type: 'iframe',
+				mainClass: 'mfp-img-mobile',
+				closeOnContentClick: false,
+			});
+		});
+				
+		form.on('click', '.video-delete-trigger', function(e){
+			var el = $(this);
+			e.preventDefault();
+			
+			SITECOMMON.confirm("{{ print_js_string( Lang::get('account/properties.video.delete') ) }}", function (e) {
+				if (e) {
+					$.ajax({
+						url: el.data('action'),
+						method: 'DELETE',
+						data: {
+							"_token": "{{ csrf_token() }}",
+						},
+						dataType: 'json',
+						success: function(data) {
+							if(data.success){								
+								el.closest('.handler').remove();
+							} else {
+								alertify.error("{{ print_js_string( Lang::get('account/properties.video.delete.error') ) }}");
+							}
+						},
+					});
 				}
 			});
 		});

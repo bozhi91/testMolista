@@ -13,12 +13,14 @@
 		'column.price' => 'Precio',
 		
 		'video.title' => 'Subir vídeos',
-		'video.empty' => 'Esta propiedad no tiene vídeo',
-		'video.preview' => 'Preview',
+		'video.empty' => 'Esta propiedad no tiene vídeos',
+		'video.preview' => 'Vídeos',
 		'video_link' => 'Enlace de vídeo',
 		'video.help' => 'Solo se acceptan los enlaces de Youtube y Vimeo',
 		'video.error' => 'Enlace de vídeo no es correcto',
-
+		'video.delete' => '¿Confirma que desea eliminar permanentemente este vídeo?',
+		'video.delete.error' => 'Error: El vídeo no se ha eliminado',
+		
 		'ref' => 'Referencia',
 		'type' => 'Tipo',
 		'mode' => 'Modalidad',
@@ -72,7 +74,7 @@
 		'tab.logs' => 'Logs',
 		'tab.seller' => 'Vendedor',
 		'tab.pdf' => 'PDF',
-		'tab.videos' => 'Vídeo',
+		'tab.videos' => 'Vídeos',
 
 		'country' => 'País',
 		'state' => 'Provincia',

@@ -13,12 +13,14 @@
 		'column.price' => 'Price',
 		
 		'video.title' => 'Video upload',
-		'video.empty' => 'This property has no video',
-		'video.preview' => 'Preview',
+		'video.empty' => 'This property has no videos',
+		'video.preview' => 'Videos',
 		'video_link' => 'Video link',
 		'video.help' => 'Only Youtube and Vimeo links accepted',
 		'video.error' => 'Video link is incorrect',
-
+		'video.delete' => 'Are you sure you want to permanently delete this video?',
+		'video.delete.error' => 'Error: Video wasn\'t deleted',
+		
 		'ref' => 'Reference',
 		'type' => 'Type',
 		'mode' => 'Mode',
@@ -72,7 +74,7 @@
 		'tab.logs' => 'Logs',
 		'tab.seller' => 'Seller',
 		'tab.pdf' => 'PDF',
-		'tab.videos' => 'Video',
+		'tab.videos' => 'Videos',
 
 		'country' => 'Country',
 		'state' => 'State',

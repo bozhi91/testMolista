@@ -147,6 +147,10 @@ class Property extends TranslatableModel
 		return $this->hasMany('App\Models\Property\Images');
 	}
 
+	public function videos() {
+		return $this->hasMany('App\Models\Property\Videos');
+	}
+	
 	public function catches() {
 		return $this->hasMany('App\Models\Property\Catches');
 	}
@@ -402,6 +406,18 @@ class Property extends TranslatableModel
 
 		return $dirpath;
 	}
+	
+	public function getVideoPathAttribute(){
+		$dirpath = public_path("sites/{$this->site_id}/properties/{$this->id}/video");
+		
+		if ( !is_dir($dirpath))
+		{
+			\File::makeDirectory($dirpath, 0777, true, true);
+		}
+		
+		return $dirpath;
+	}
+	
 	public function getMainImageAttribute()
 	{
 		foreach ($this->images->sortByDesc('default') as $image)

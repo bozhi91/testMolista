@@ -11,8 +11,20 @@ class AddVideoProperties extends Migration
 	 * @return void
 	 */
 	public function up() {
-		Schema::table('properties', function (Blueprint $table) {
-			$table->string('video_link')->after('comment');
+		Schema::create('properties_videos', function (Blueprint $table) {
+			$table->bigIncrements('id');
+			$table->bigInteger('property_id')->unsigned()->index();
+			$table->string('link');
+			$table->string('thumbnail')->nullable();
+			$table->integer('position_video')->nullable();
+			$table->integer('position_media')->nullable();
+			$table->timestamps();
+			
+			$table->foreign('property_id')
+					->references('id')
+					->on('properties')
+					->onUpdate('cascade')
+					->onDelete('cascade');
 		});
 	}
 
@@ -22,8 +34,6 @@ class AddVideoProperties extends Migration
 	 * @return void
 	 */
 	public function down() {
-		Schema::table('properties', function (Blueprint $table) {
-			$table->dropColumn('video_link');
-		});
+		Schema::drop('properties_videos');
 	}
 }
