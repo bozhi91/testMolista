@@ -68,5 +68,5 @@ class ReportsController extends \App\Http\Controllers\AccountController
 
 		return view('account.reports.index', compact('stats'));
 	}
-
+	
 }

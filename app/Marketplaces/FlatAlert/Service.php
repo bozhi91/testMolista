@@ -15,14 +15,14 @@ class Service extends \App\Marketplaces\Service {
 	public function getClient() {
 		if ($this->_client === null) {
 			$this->_client = new Client([
-				'base_uri' => 'http://178.62.118.66:5008/api/v1/priv/'
+				'base_uri' => env('FLATALERT_API_URL', 'http://dev.flatalert.es:5008/api/v1/priv/'),
 			]);
 		}
 		return $this->_client;
 	}
 
 	/**
-	 * 
+	 *
 	 * @param array $property
 	 * @return array
 	 */
@@ -111,6 +111,7 @@ class Service extends \App\Marketplaces\Service {
 			case 62: return "Datos incorrectos";
 			case 63: return "URLS en energy_certification no es un array válido";
 			case 64: return "Ya existe un inmueble en esa ubicación";
+			case "ok": return 'Ok';
 			default: return "Unknown error: $messageCode";
 		}
 	}

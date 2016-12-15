@@ -152,14 +152,14 @@
 						<div class="col-xs-12 col-sm-6">
 							<div class="form-group error-container">
 								{!! Form::label(null, 'Type') !!}
-								{!! Form::text(null, Lang::get("corporate/signup.invoicing.type.{$plan_details->invoicing['type']}"), [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								{!! Form::text(null, Lang::get("corporate/signup.invoicing.type.{$plan_details->invoicing['type']}"), [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 							</div>
 						</div>
 						@if ( $plan_details->invoicing['type'] == 'company' )
 							<div class="col-xs-12 col-sm-6">
 								<div class="form-group error-container">
 									{!! Form::label(null, Lang::get('corporate/signup.invoicing.company')) !!}
-									{!! Form::text(null, @$plan_details->invoicing['company'], [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+									{!! Form::text(null, @$plan_details->invoicing['company'], [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 								</div>
 							</div>
 						@endif
@@ -168,49 +168,49 @@
 						<div class="col-xs-12 col-sm-6">
 							<div class="form-group error-container">
 								{!! Form::label(null, Lang::get('corporate/signup.invoicing.first_name')) !!}
-								{!! Form::text(null, @$plan_details->invoicing['first_name'], [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								{!! Form::text(null, @$plan_details->invoicing['first_name'], [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-6">
 							<div class="form-group error-container">
 								{!! Form::label(null, Lang::get('corporate/signup.invoicing.last_name')) !!}
-								{!! Form::text(null, @$plan_details->invoicing['last_name'], [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								{!! Form::text(null, @$plan_details->invoicing['last_name'], [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-6">
 							<div class="form-group error-container">
 								{!! Form::label(null, Lang::get('corporate/signup.invoicing.email')) !!}
-								{!! Form::text(null, @$plan_details->invoicing['email'], [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								{!! Form::text(null, @$plan_details->invoicing['email'], [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-6">
 							<div class="form-group error-container">
 								{!! Form::label(null, Lang::get('corporate/signup.invoicing.tax_id')) !!}
-								{!! Form::text(null, @$plan_details->invoicing['tax_id'], [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								{!! Form::text(null, @$plan_details->invoicing['tax_id'], [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-6">
 							<div class="form-group error-container">
 								{!! Form::label(null, Lang::get('corporate/signup.invoicing.street')) !!}
-								{!! Form::text(null, @$plan_details->invoicing['street'], [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								{!! Form::text(null, @$plan_details->invoicing['street'], [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-6">
 							<div class="form-group error-container">
 								{!! Form::label(null, Lang::get('corporate/signup.invoicing.zipcode')) !!}
-								{!! Form::text(null, @$plan_details->invoicing['zipcode'], [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								{!! Form::text(null, @$plan_details->invoicing['zipcode'], [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-6">
 							<div class="form-group error-container">
 								{!! Form::label(null, Lang::get('corporate/signup.invoicing.city')) !!}
-								{!! Form::text(null, @$plan_details->invoicing['city'], [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								{!! Form::text(null, @$plan_details->invoicing['city'], [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-6">
 							<div class="form-group error-container">
 								{!! Form::label(null, Lang::get('corporate/signup.invoicing.country')) !!}
-								{!! Form::text(null, @$plan_details->invoicing['country'], [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								{!! Form::text(null, @$plan_details->invoicing['country'], [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 							</div>
 						</div>
 					</div>
@@ -222,16 +222,16 @@
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
 							{!! Form::label(null, Lang::get('admin/expirations.plan')) !!}
-							{!! Form::text(null, $site->plan->name, [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+							{!! Form::text(null, $site->plan->name, [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
 							{!! Form::label(null, Lang::get('admin/expirations.payment.method')) !!}
 							@if ( $site->payment_interval )
-								{!! Form::text(null, Lang::get("web/plans.price.{$site->payment_interval}"), [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								{!! Form::text(null, Lang::get("web/plans.price.{$site->payment_interval}"), [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 							@else
-								{!! Form::text(null, null, [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								{!! Form::text(null, null, [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 							@endif
 						</div>
 					</div>
@@ -239,9 +239,9 @@
 						<div class="form-group error-container">
 							{!! Form::label(null, Lang::get('admin/expirations.payment.interval')) !!}
 							@if ( $site->payment_method )
-								{!! Form::text(null, Lang::get("account/payment.method.{$site->payment_method}"), [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								{!! Form::text(null, Lang::get("account/payment.method.{$site->payment_method}"), [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 							@else
-								{!! Form::text(null, null, [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								{!! Form::text(null, null, [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 							@endif
 						</div>
 					</div>
@@ -250,7 +250,7 @@
 							<div class="col-xs-12 col-sm-6">
 								<div class="form-group error-container">
 									{!! Form::label(null, Lang::get('corporate/signup.payment.iban')) !!}
-									{!! Form::text(null, $site->iban_account, [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+									{!! Form::text(null, $site->iban_account, [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 								</div>
 							</div>
 						</div>
@@ -259,9 +259,9 @@
 						<div class="form-group error-container">
 							{!! Form::label(null, Lang::get('admin/expirations.paid.until')) !!}
 							@if ( $site->paid_until )
-								{!! Form::text(null, date("d/m/Y", strtotime($site->paid_until)), [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								{!! Form::text(null, date("d/m/Y", strtotime($site->paid_until)), [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 							@else
-								{!! Form::text(null, null, [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								{!! Form::text(null, null, [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 							@endif
 						</div>
 					</div>
@@ -269,16 +269,16 @@
 						<div class="form-group error-container">
 							{!! Form::label(null, Lang::get('admin/sites.transfer')) !!}
 							@if ( $site->web_transfer_requested )
-								{!! Form::text(null, Lang::get('general.yes'), [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								{!! Form::text(null, Lang::get('general.yes'), [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 							@else
-								{!! Form::text(null, Lang::get('general.no'), [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								{!! Form::text(null, Lang::get('general.no'), [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 							@endif
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
 							{!! Form::label(null, Lang::get('admin/sites.currency')) !!}
-							{!! Form::text(null, $site->payment_currency, [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+							{!! Form::text(null, $site->payment_currency, [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 						</div>
 					</div>
 				</div>

@@ -151,6 +151,8 @@
 
 		'show.property.comment.title' => 'Comment',
 		'show.property.comment.button' => 'Save comment',
+		
+		'show.property.matches.title' => 'Possible matches',
 
 		'show.transactions.none' => 'There are no transactions',
 		'show.transactions.date' => 'Date',

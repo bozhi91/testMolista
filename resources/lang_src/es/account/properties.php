@@ -152,6 +152,8 @@
 		'show.property.comment.title' => 'Comentario',
 		'show.property.comment.button' => 'Guardar comentario',
 
+		'show.property.matches.title' => 'Posibles coincidencias',
+		
 		'show.transactions.none' => 'No hay transacciones',
 		'show.transactions.date' => 'Fecha',
 		'show.transactions.seller' => 'Vendedor',
