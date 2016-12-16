@@ -45,7 +45,9 @@ class Videos extends Model {
 	 * @return bool
 	 */
 	public static function isVideoYoutube($link) {
-		return strpos($link, 'youtube') > 0 ? true : false;
+		
+		
+		return strpos($link, 'youtu') > 0 ? true : false;
 	}
 
 	/**
