@@ -16,7 +16,38 @@
 		margin-bottom: 20px;
 		.item { padding: 0px 30px; }
 	}
-	.image-thumb { display: block; height: 165px; background: center center no-repeat; background-size: cover; height: 90px; }
+        
+	.image-thumb { 
+            display: block; 
+            height: 165px; 
+            background: center center no-repeat; 
+            background-size: cover;
+            height: 90px; 
+            
+            >.image-thumb-overlay {
+                height: 90px;
+                background:rgba(0,0,0,.75);
+                text-align:center;
+                opacity:0;
+                -webkit-transition: opacity .25s ease;
+                
+                > .image-thumb-overlay-icon-container {
+                    height: 100%;
+                    color: white;
+                    text-align: center;
+                    
+                    > i {
+                        padding-top: 15px;
+                    }
+                }
+            }
+            
+            &:hover {
+                >.image-thumb-overlay {
+                    opacity: 1;
+                }
+            }            
+        }
 
 	.details {
 		margin-bottom: 20px; padding: 20px 0px; border: 1px solid @borderColor; border-width: @borderWidth 0px; color: @colorGrey; font-size: 16px;
