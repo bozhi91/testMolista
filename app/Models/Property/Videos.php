@@ -54,8 +54,8 @@ class Videos extends Model {
 	 * @return string|null YouTube code or false
 	 */
 	public static function getYouTubeCode($link) {
-		preg_match("#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#", $link, $matches);
-		return isset($matches[0]) ? $matches[0] : null;
+		preg_match("/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/", $link, $matches);
+		return isset($matches[7]) ? $matches[7] : null;
 	}
 
 	/**
