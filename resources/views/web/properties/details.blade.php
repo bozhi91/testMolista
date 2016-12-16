@@ -62,7 +62,8 @@ $media = $images->merge($videos);
 														
 														<div class="image-thumb-overlay">
 															<div class="image-thumb-overlay-icon-container">
-																<i class="fa fa-camera fa-3x" aria-hidden="true"></i>
+																
+																<i class="berlanga-icon-photo"></i>
 															</div>															
 														</div>
 														
@@ -76,7 +77,7 @@ $media = $images->merge($videos);
 														
 														<div class="image-thumb-overlay">
 															<div class="image-thumb-overlay-icon-container">
-																<i class="fa fa-youtube-play fa-3x" aria-hidden="true"></i>
+																<i class="berlanga-icon-video"></i>
 															</div>															
 														</div>
 														

@@ -35,9 +35,24 @@
                     height: 100%;
                     color: white;
                     text-align: center;
+                    position: relative;
                     
                     > i {
-                        padding-top: 15px;
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        width: 60px;
+                        height: 60px;
+                        background-size: 60px 60px;
+                        margin: -30px 0 0 -30px;
+                        
+                        
+                        &.berlanga-icon-photo {
+                            width: 46px;
+                            height: 46px;
+                            background-size: 46px 46px;
+                            margin: -24px 0 0 -24px;
+                        }
                     }
                 }
             }
@@ -121,4 +136,17 @@
 			}
 		}
 	}
+}
+
+
+.berlanga-icon-photo {
+    display: block;
+    background-image: url('/images/properties/camera.svg');
+    background-repeat: no-repeat;
+}
+
+.berlanga-icon-video {
+    display: block;
+    background-image: url('/images/properties/play.svg');
+    background-repeat: no-repeat;
 }
