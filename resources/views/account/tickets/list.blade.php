@@ -30,7 +30,7 @@
 							@if ( @$ticket->contact->email )
 								<a href="{{ action('Account\CustomersController@show', urlencode($ticket->contact->email)) }}" target="_blank">{{ $ticket->contact->fullname }}</a>
 							@else
-								{{ $ticket->contact->fullname }}
+								{{ @$ticket->contact->fullname }}
 							@endif
 						</td>
 						<td>{{ @$ticket->contact->email }}</td>

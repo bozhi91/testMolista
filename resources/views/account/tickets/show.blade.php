@@ -136,7 +136,7 @@
 									@if ( $message->user )
 										<img src="{{ $message->user->image }}" class="pull-left author-icon" title="{{ $message->user->name }}" />
 									@else
-										<img src="{{ asset('images/tickets/customer.png') }}" class="pull-left author-icon" title="{{ $ticket->contact->fullname }}" />
+										<img src="{{ asset('images/tickets/customer.png') }}" class="pull-left author-icon" title="{{ @$ticket->contact->fullname }}" />
 									@endif
 									<div>
 										<strong>{{ $message->subject }}</strong>
@@ -152,7 +152,7 @@
 										@if ( $message->user )
 											<strong>{{ $message->user->name }}</strong>
 										@else
-											<strong>{{ $ticket->contact->fullname }}</strong>
+											<strong>{{ @$ticket->contact->fullname }}</strong>
 										@endif
 										-
 										{{ since_text($message->created_at) }}
