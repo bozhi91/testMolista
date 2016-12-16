@@ -31,6 +31,19 @@ class Videos extends Model {
 	}
 	
 	/**
+	 * @return string
+	 */
+	public function getLinkAttribute($value){
+		if(self::isVideoYoutu($value)){
+			//convert to youtu.be to youtube.com format
+			$code = self::getYouTubeCode($value);
+			return "https://www.youtube.com/watch?v=$code";
+		}
+		
+		return $value;
+	}
+	
+	/**
 	 * Check if video is vimeo
 	 * @param string $link
 	 * @return bool
@@ -45,11 +58,22 @@ class Videos extends Model {
 	 * @return bool
 	 */
 	public static function isVideoYoutube($link) {
+		if(self::isVideoYoutu($link)){
+			return true;
+		}
 		
-		
-		return strpos($link, 'youtu') > 0 ? true : false;
+		return strpos($link, 'youtube') > 0 ? true : false;
 	}
 
+	/**
+	 * Check if video has youtu.be/xxx format
+	 * @param string $link
+	 * @return bool
+	 */
+	public static function isVideoYoutu($link){
+		return strpos($link, 'youtu') > 0 ? true : false;
+	}
+	
 	/**
 	 * Get YouTube code from YouTube link
 	 * @param string link
