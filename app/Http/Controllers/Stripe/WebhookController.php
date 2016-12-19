@@ -66,7 +66,6 @@ class WebhookController extends BaseController
 
 	public function handleInvoicePaymentFailed(array $payload)
 	{
-$payload['data']['object']['customer'] = 'cus_8qIfkGytvv1cHr';
 
 		// Get site
 		if ( $site = $this->getUserByStripeId($payload['data']['object']['customer']) )
