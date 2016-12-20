@@ -70,14 +70,28 @@ class WebhookController extends BaseController
 		// Get site
 		if ( $site = $this->getUserByStripeId($payload['data']['object']['customer']) )
 		{
+			// Get next payment
+			$next_payment_attempt = @$payload['data']['object']['next_payment_attempt'];
+
+			// Update site paid_until
+			if ( $next_payment_attempt && $next_payment_attempt > time() )
+			{
+				$site->update([
+					'paid_until' => date('Y-m-d', $next_payment_attempt),
+				]);
+			}
+			else
+			{
+				$site->update([
+					'paid_until' => date("Y-m-d 00:00:00", (time()-86400)),
+				]);
+			}
+
 			// Send customer email with bcc
-			if ( false && $contact_email = $site->contact_email )
+			if ( $contact_email = $site->contact_email )
 			{
 				$locale_backup = \App::getLocale();
 				\App::setLocale( $site->contact_locale );
-
-				// Get next payment
-				$next_payment_attempt = @$payload['data']['object']['next_payment_attempt'];
 
 				if ( $next_payment_attempt && $next_payment_attempt > time() )
 				{
@@ -87,10 +101,6 @@ class WebhookController extends BaseController
 						'site' => $site,
 						'next_payment_attempt' => $next_payment_attempt,
 					])->render();
-					// Update site
-					$site->update([
-						'paid_until' => date('Y-m-d', $next_payment_attempt),
-					]);
 				}
 				else
 				{
@@ -100,10 +110,6 @@ class WebhookController extends BaseController
 						'site' => $site,
 						'next_payment_attempt' => $next_payment_attempt,
 					])->render();
-					// Update site
-					$site->update([
-						'paid_until' => date("Y-m-d 00:00:00", (time()-86400)),
-					]);
 				}
 
 				$to = $contact_email;
@@ -116,7 +122,7 @@ class WebhookController extends BaseController
 
 				\App::setLocale( $locale_backup );
 			}
-			// Send admin warning email
+			// Fallback admin warning email
 			else
 			{
 				// Send warning email
