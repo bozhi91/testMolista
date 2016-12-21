@@ -51,21 +51,32 @@
 
 @media (min-width: 768px) {
 	#home {
+		.slider-quick-search {
+			opacity: 1; position: absolute; bottom: 0px; left: 0px; right: 0px; background: @colorPurple; padding: 30px 20px;
+			.form-control { border-color: @colorGreyLight; color: @colorGreyLight; background: @colorPurple; }
+			.form-control::-webkit-input-placeholder { color: @colorGreyLight; }
+			.form-control:-moz-placeholder { color: @colorGreyLight; }
+			.form-control::-moz-placeholder { color: @colorGreyLight; }
+			.form-control:-ms-input-placeholder { color: @colorGreyLight; }
+			.btn-primary { background-color: @colorGreyLight; color: @colorPurple; }
+			.more-options { color: @colorGreyLight; font-size: 13px; font-weight: 500; padding-top: 10px; }
+		}
+
 		.main-property {
 			.item { min-height: 540px; }
 			.carousel-caption { padding-bottom: 30px; left: 0px; right: 0px; }
 			.carousel-caption-text { padding: 10px  30px; }
 			.slider-quick-search {
-				opacity: 0; position: absolute; bottom: 0px; left: 0px; right: 0px; background: @colorPurple; padding: 30px 20px;
-				.form-control { border-color: @colorGreyLight; color: @colorGreyLight; background: @colorPurple; }
-				.form-control::-webkit-input-placeholder { color: @colorGreyLight; }
-				.form-control:-moz-placeholder { color: @colorGreyLight; }
-				.form-control::-moz-placeholder { color: @colorGreyLight; }
-				.form-control:-ms-input-placeholder { color: @colorGreyLight; }
-				.btn-primary { background-color: @colorGreyLight; color: @colorPurple; }
-				.more-options { color: @colorGreyLight; font-size: 13px; font-weight: 500; padding-top: 10px; }
+				.slider-quick-search;
 			}
 		}
+
+		.slider-quick-search-container {
+			position: absolute;
+			top: 20px;
+			width: 13%;
+		}
+
 	}
 }
 
@@ -90,6 +101,10 @@ body.theme-bellamar {
 				.slider-quick-search {
 					opacity: 1; top: 0px !important; bottom: auto;
 				}
+			}
+
+			.slider-quick-search {
+				opacity: 1; top: 0px !important; bottom: auto;
 			}
 		}
 	}
