@@ -11,5 +11,3 @@ Add to deploy script:
 
 First time, execute
 - php artisan geography:init
-
-Enjoy!
