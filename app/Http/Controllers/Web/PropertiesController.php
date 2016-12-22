@@ -177,6 +177,7 @@ class PropertiesController extends WebController
 					->with('city')
 					->with('services')
 					->with('images')
+					->with('videos')
 					->findOrFail($id);
 
 		// If slug is from another language
