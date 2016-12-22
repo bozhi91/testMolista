@@ -1,5 +1,4 @@
 <?php
-
 	$infocurrency = empty($property->currency) ? $current_site->infocurrency : $property->infocurrency;
 
 	// Priorizar países
@@ -40,7 +39,6 @@
 			<li role="presentation" class="{{ $current_tab == 'location' ? 'active' : '' }}"><a href="#tab-location" aria-controls="tab-location" role="tab" data-toggle="tab" data-tab="location">{{ Lang::get('account/properties.tab.location') }}</a></li>
 			<li role="presentation" class="{{ $current_tab == 'text' ? 'active' : '' }}"><a href="#tab-text" aria-controls="tab-text" role="tab" data-toggle="tab" data-tab="text">{{ Lang::get('account/properties.tab.text') }}</a></li>
 			<li role="presentation" class="{{ $current_tab == 'images' ? 'active' : '' }}"><a href="#tab-images" aria-controls="tab-images" role="tab" data-toggle="tab" data-tab="images">{{ Lang::get('account/properties.tab.images') }}</a></li>
-			<li role="presentation" class="{{ $current_tab == 'videos' ? 'active' : '' }}"><a href="#tab-videos" aria-controls="tab-videos" role="tab" data-toggle="tab" data-tab="videos">{{ Lang::get('account/properties.tab.videos') }}</a></li>
 			@if ( $item )
 				<li role="presentation" class="{{ $current_tab == 'employees' ? 'active' : '' }}"><a href="#tab-employees" aria-controls="tab-employees" role="tab" data-toggle="tab" data-tab="employees">{{ Lang::get('account/properties.tab.employees') }}</a></li>
 				@if ( $marketplaces->count() > 0 )
@@ -622,42 +620,6 @@
 				</div>
 			</div>
 
-			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'videos' ? 'active' : '' }}" id="tab-videos">				
-				<div class="row">
-					<div class="col-xs-12 col-sm-7">
-						<h4>{{ Lang::get('account/properties.video.preview') }}</h4>
-						<hr>
-						
-						@if(count($property->videos) <= 0)
-							<div class="alert alert-info video-empty">
-								{{ Lang::get('account/properties.video.empty') }}
-							</div>
-						@else							
-							<ul class="video-gallery sortable-video-gallery">
-								@foreach ($property->videos->sortBy('position_video') as $video)
-									@include('account.properties.form-video-thumb',[
-										'video' => $video, 
-										'property_id' => $property->id
-									])
-								@endforeach
-							</ul>
-						@endif
-					</div>
-					<div class="col-xs-12 col-sm-5">
-						<h4>{{ Lang::get('account/properties.video.title') }}</h4>
-						<hr>
-						<div class="form-group error-container">
-							{!! Form::label('video_link', Lang::get('account/properties.video_link')) !!}
-							{!! Form::text('video_link', null, [ 'class'=>'form-control', 'placeholder' => 'https://www.youtube.com/watch?v=xxxxxxxx' ]) !!}
-							<div class="help-block">
-								<label>{{ Lang::get('account/properties.video.help') }}</label>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			
 			@if ( $item )
 				<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'employees' ? 'active' : '' }}" id="tab-employees">
 					@include('account.properties.tab-managers', [
@@ -906,7 +868,6 @@
 		form.find('.image-gallery').sortable({
 			stop: initImageWarnings
 		});
-		
 		form.find('.image-gallery .thumb').each(function(){
 			$(this).magnificPopup({
 				type: 'image',
@@ -917,7 +878,6 @@
 				}
 			});
 		});
-		
 		form.on('click', '.image-delete-trigger', function(e){
 			var el = $(this);
 			e.preventDefault();
@@ -925,45 +885,6 @@
 				if (e) {
 					el.closest('.handler').remove();
 					initImageWarnings();
-				}
-			});
-		});
-		
-		// Video gallery
-		//form.find('.video-gallery').sortable();
-		
-		form.find('.video-gallery .thumb').each(function(){
-			var link = $(this).data('link');
-			
-			$(this).magnificPopup({
-				items: { src: link },
-				type: 'iframe',
-				mainClass: 'mfp-img-mobile',
-				closeOnContentClick: false,
-			});
-		});
-				
-		form.on('click', '.video-delete-trigger', function(e){
-			var el = $(this);
-			e.preventDefault();
-			
-			SITECOMMON.confirm("{{ print_js_string( Lang::get('account/properties.video.delete') ) }}", function (e) {
-				if (e) {
-					$.ajax({
-						url: el.data('action'),
-						method: 'DELETE',
-						data: {
-							"_token": "{{ csrf_token() }}",
-						},
-						dataType: 'json',
-						success: function(data) {
-							if(data.success){								
-								el.closest('.handler').remove();
-							} else {
-								alertify.error("{{ print_js_string( Lang::get('account/properties.video.delete.error') ) }}");
-							}
-						},
-					});
 				}
 			});
 		});

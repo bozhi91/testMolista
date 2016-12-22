@@ -1,10 +1,3 @@
-<?php
-
-$videos = $property->videos->sortBy('position_video')->values();
-$images = $property->images->sortBy('position')->values();
-$media = $images->merge($videos);
-?>
-
 @extends('layouts.web', [
 	'menu_section' => 'properties',
 	'use_google_maps' => true,
@@ -29,62 +22,26 @@ $media = $images->merge($videos);
 				</div>
 			</div>
 
-			@if ( $media->count() > 0 )
+			@if ( $property->images->count() > 0 )
 				<div class="images-gallery">
 					@include('web.properties.discount-label', [ 'item' => $property ])
-					
-					@if($property->main_image) 
-						<div class="image-main text-center">
-							<img src="{{ $property->main_image }}" alt="{{$property->title}}"
-								 class="img-responsive cursor-pointer trigger-image-thumbs" id="property-main-image" />
-						</div>
-					@else
-						<div class="image-main text-center">
-							@include('web.properties.video', [ 'video'=> $media->first() ])
-						</div>
-					@endif
-					
-					@if ( $media->count() > 1 )
+					<div class="image-main text-center">
+						<img src="{{ $property->main_image }}" alt="{{$property->title}}" class="img-responsive cursor-pointer trigger-image-thumbs" id="property-main-image" />
+					</div>
+					@if ( $property->images->count() > 1 )
 						<div id="images-carousel" class="images-carousel carousel slide" data-interval="false">
 							<div class="carousel-inner" role="listbox">
 								<div class="item active">
 									<div class="row">
-										@foreach ($media as $key => $media_item)
+										@foreach ($property->images->sortBy('position')->values() as $key => $image)
 											@if ( $key > 0 && $key%6 < 1 )
 												</div></div><div class="item"><div class="row">
 											@endif
-											
-											@if($media_item instanceof App\Models\Property\Images)
-												<div class="col-xs-4 col-sm-2">
-													<a href="{{ $media_item->image_url }}" 
-													   class="image-thumb mfp-image"
-													   style="background-image: url('{{ $media_item->image_url_thumb }}');">
-														
-														<div class="image-thumb-overlay">
-															<div class="image-thumb-overlay-icon-container">
-																
-																<i class="berlanga-icon-photo"></i>
-															</div>															
-														</div>
-														
-														<img src="{{ $media_item->image_url_thumb }}" alt="{{$property->title}}" class="hide" />
-													</a>
-												</div>
-											@elseif($media_item instanceof App\Models\Property\Videos)
-												<div class="col-xs-4 col-sm-2">
-													<a href="{{ $media_item->link }}" 
-													   class="image-thumb mfp-iframe" style="background-image: url('{{ $media_item->image_url }}');">
-														
-														<div class="image-thumb-overlay">
-															<div class="image-thumb-overlay-icon-container">
-																<i class="berlanga-icon-video"></i>
-															</div>															
-														</div>
-														
-														<img src="{{ $media_item->image_url }}" alt="{{$property->title}}" class="hide" />
-													</a>
-												</div>
-											@endif
+											<div class="col-xs-4 col-sm-2">
+												<a href="{{ $image->image_url }}" class="image-thumb" style="background-image: url('{{ $image->image_url_thumb }}');">
+													<img src="{{ $image->image_url_thumb }}" alt="{{$property->title}}" class="hide" />
+												</a>
+											</div>
 										@endforeach
 									</div>
 								</div>
@@ -318,14 +275,14 @@ $media = $images->merge($videos);
 				cont.find('.images-carousel .carousel-control').removeClass('hide');
 			}
 
-			cont.find('.images-carousel').magnificPopup({
-				delegate: '.image-thumb',
+			cont.find('.image-thumb').magnificPopup({
+				type: 'image',
 				gallery:{
 					enabled: true,
 					navigateByImgClick: false,
 					arrowMarkup: 	'<a href="javascript:;" class="btn-nav btn-nav-%dir%">'+
 										'<span class="glyphicon glyphicon-chevron-%dir%" aria-hidden="true"></span>'+
-									'</a>',				
+									'</a>',
 				},
 				callbacks: {
 					buildControls: function() {
@@ -333,7 +290,7 @@ $media = $images->merge($videos);
 					},
 					open: function() {
 						$('.if-overlay-then-blurred').addClass('blurred');
-						$('body').find('.mfp-content').addClass('image-gallery-popup');						
+						$('body').find('.mfp-content').addClass('image-gallery-popup');
 						if ( window.stButtons ){
 							stButtons.locateElements();
 						}
@@ -371,21 +328,6 @@ $media = $images->merge($videos);
 							'</div>',
 					cursor: ''
 				},
-				iframe: {
-					markup: '<div class="mfp-figure">'+
-								'<div class="image-gallery-header">'+
-									'<ul class="list-inline clearfix">'+
-										'<li class="social-link"><span class="st_facebook" displayText=""><i class="fa fa-facebook" aria-hidden="true"></i></span></li>'+
-										'<li class="social-link"><span class="st_twitter" displayText=""><i class="fa fa-twitter" aria-hidden="true"></i></span></li>'+
-										'<li class="close-area pull-right"><a href="#" class="btn-close popup-modal-dismiss"><i class="fa fa-close" aria-hidden="true"></i></a></li>'+
-										'<li class="btn-area pull-right"><a href="#" class="btn btn-primary btn-get-more-info">{{ print_js_string( Lang::get('web/properties.call.to.action') ) }}</a></li>'+
-									'</ul>'+
-								'</div>'+
-								'<div class="mfp-iframe-scaler">' +
-									'<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>'+
-								'</div>' +
-							'</div>',
-				},					
 				closeOnBgClick: false
 			});
 
