@@ -39,7 +39,7 @@
 			<li role="presentation" class="{{ $current_tab == 'location' ? 'active' : '' }}"><a href="#tab-location" aria-controls="tab-location" role="tab" data-toggle="tab" data-tab="location">{{ Lang::get('account/properties.tab.location') }}</a></li>
 			<li role="presentation" class="{{ $current_tab == 'text' ? 'active' : '' }}"><a href="#tab-text" aria-controls="tab-text" role="tab" data-toggle="tab" data-tab="text">{{ Lang::get('account/properties.tab.text') }}</a></li>
 			<li role="presentation" class="{{ $current_tab == 'images' ? 'active' : '' }}"><a href="#tab-images" aria-controls="tab-images" role="tab" data-toggle="tab" data-tab="images">{{ Lang::get('account/properties.tab.images') }}</a></li>
-			@if ( $item )
+			@if ( $item && !$isCreate)
 				<li role="presentation" class="{{ $current_tab == 'employees' ? 'active' : '' }}"><a href="#tab-employees" aria-controls="tab-employees" role="tab" data-toggle="tab" data-tab="employees">{{ Lang::get('account/properties.tab.employees') }}</a></li>
 				@if ( $marketplaces->count() > 0 )
 					<li role="presentation" class="{{ $current_tab == 'marketplaces' ? 'active' : '' }}"><a href="#tab-marketplaces" aria-controls="tab-marketplaces" role="tab" data-toggle="tab" data-tab="marketplaces">{{ Lang::get('account/menu.marketplaces') }}</a></li>
@@ -620,7 +620,7 @@
 				</div>
 			</div>
 
-			@if ( $item )
+			@if ( $item && !$isCreate)
 				<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'employees' ? 'active' : '' }}" id="tab-employees">
 					@include('account.properties.tab-managers', [
 						'item' => $item,
@@ -652,7 +652,7 @@
 					</div>
 					<hr />
 					@include('account.properties.catch-form', [
-						'item' => null,
+						'item' => isset($item->catches) ? $item->catches->first() : null,
 						'price_symbol' => $current_site->infocurrency->symbol,
 						'price_position' => $current_site->infocurrency->position,
 					])

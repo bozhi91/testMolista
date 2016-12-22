@@ -200,7 +200,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		exit;
 	}
 
-	public function create()
+	public function create($slug = null)
 	{
 		$modes = \App\Property::getModeOptions();
 		$types = \App\Property::getTypeOptions();
@@ -221,12 +221,31 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		$districts = $this->site->districts()->orderBy('name')->lists('name','id');
 
 		$current_tab = session('current_tab', 'general');
-
-		return view('account.properties.create', compact('modes','types','energy_types','services','countries','states','cities','country_id','managers','current_tab', 'districts'));
+		
+		if($slug) {
+			$property = $this->site->properties()->whereTranslation('slug', $slug)
+					->with([ 'catches' => function($query){
+							$query->with('buyer');
+					}])->first();
+							
+			$property->ref = '';		
+			$marketplaces = $this->site->marketplaces()
+							->wherePivot('marketplace_enabled','=',1)
+							->withSiteProperties($this->site->id)
+							->enabled()->orderBy('name')->get();
+			
+			
+			$states = \App\Models\Geography\State::enabled()->where('country_id', $property->country_id)->lists('name','id');
+			$cities = \App\Models\Geography\City::enabled()->where('state_id', $property->state_id)->lists('name','id');
+			$districts = $this->site->districts()->orderBy('name')->lists('name','id');
+		}
+		
+		return view('account.properties.create', compact('modes','types','energy_types',
+				'services','countries','states','cities','country_id','managers','current_tab', 'districts', 'property', 'marketplaces'));
 	}
 
 	public function store()
-	{
+	{		
 		// Validate request
 		$valid = $this->validateRequest();
 		if ( $valid !== true )
@@ -252,7 +271,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		{
 			return redirect()->back()->withInput()->withErrors($valid);
 		}
-
+		
 		// Create element
 		$property = $this->site->properties()->create([
 			'enabled' => 0,
@@ -1016,7 +1035,27 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 				else
 				{
 					$image = $property->images()->find($image_id);
-
+					
+					if(!$image && $is_new) {//duplicate image
+						$imageToCopy = \App\Models\Property\Images::find($image_id);
+						$parentImagePath = $imageToCopy->property->image_path . '/' . $imageToCopy->image;
+						
+						$newImageName = $property->id."_{$imageToCopy->image}";
+						$newImagepPath = $property->image_path . '/' . $newImageName;
+						
+						if(file_exists($parentImagePath)) {
+							copy($parentImagePath, $newImagepPath);
+						}
+						
+						//save image object even if copy failed. or file do not exist.
+						$image = $property->images()->create([
+							'image' => $newImageName,
+							'position' => $position,
+							'created_at' => new \DateTime(),
+							'updated_at' => new \DateTime(),
+						]);						
+					}
+					
 					$updateFields = [
 						'default' => 0,
 						'position' => $position,
@@ -1051,7 +1090,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		// Deleted images
 		foreach ($property->images as $image)
 		{
-			if ( !in_array($image->id, $preserve) )
+			if ( !in_array($image->id, $preserve) && !$is_new)
 			{
 				@unlink( public_path("sites/{$property->site_id}/properties/{$property->id}/{$image->image}") );
 				$image->delete();

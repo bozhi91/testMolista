@@ -149,6 +149,11 @@
 										<a href="{{ action('Account\PropertiesController@show', $property->slug) }}" class="btn btn-primary btn-xs">{{ Lang::get('general.view') }}</a>
 									</div>
 
+									@if ( Auth::user()->can('property-create') && Auth::user()->canProperty('create') )
+										<a href="{{ action('Account\PropertiesController@create', ['slug' => $property->slug]) }}" 
+										   class="btn btn-primary btn-xs" style="margin-top: 5px;">{{ Lang::get('general.copy') }}</a>
+									@endif
+									
 									<div class="btn-group" style="border:none; margin-top: 5px;" role="group">
 										<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 											{{ Lang::get('general.share') }} <span class="caret"></span>

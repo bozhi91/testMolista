@@ -15,6 +15,7 @@
 	            'item' => $property,
 	            'method' => 'PATCH',
 	            'action' => [ 'Account\PropertiesController@update', $property->slug ],
+				'isCreate' => false,
 	        ])
 
 		</div>

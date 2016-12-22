@@ -12,9 +12,10 @@
 			<h1 class="page-title">{{ Lang::get('account/properties.create.title') }}</h1>
 
 	        @include('account.properties.form', [ 
-	            'item' => null,
+	            'item' => isset($property) ? $property : null,
 	            'method' => 'POST',
 	            'action' => 'Account\PropertiesController@store',
+				'isCreate' => true,
 	        ])
 
 		</div>
