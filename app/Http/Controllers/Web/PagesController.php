@@ -52,13 +52,20 @@ class PagesController extends WebController
 
 	protected function postContact($page)
 	{
-		$validator = \Validator::make($this->request->all(), [
+		$fields = [
 			'name' => 'required|string',
 			'email' => 'required|email',
 			'phone' => 'string',
 			'interest' => 'required|in:buy,rent,sell',
 			'body' => 'required|string',
-		]);
+		];
+
+		if ( @$page->configuration['contact']['phone_required'] )
+		{
+			$fields['phone'] = 'required|string';
+		}
+
+		$validator = \Validator::make($this->request->all(), $fields);
 		if ($validator->fails())
 		{
 			return redirect()->back()->withInput()->withErrors($validator);

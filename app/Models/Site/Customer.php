@@ -11,7 +11,7 @@ class Customer extends Model
 	protected $casts = [
 		'alert_config' => 'array',
 	];
-	
+
 	public static function boot()
 	{
 		parent::boot();
@@ -53,11 +53,11 @@ class Customer extends Model
 	public function customer_districts(){
 		return $this->hasMany('App\Models\Site\CustomerDistrict', 'customer_id');
 	}
-	
+
 	public function customer_cities(){
 		return $this->hasMany('App\Models\Site\CustomerCity', 'customer_id');
 	}
-	
+
 	public function getFullNameAttribute()
 	{
 		return implode(' ', [
@@ -92,13 +92,13 @@ class Customer extends Model
 	}
 
 	public function getPossibleMatchesAttribute() {
-		$query = $this->site->properties();
+		$query = $this->site->properties()->enabled();
 
 		$params = $this->current_query;
 
 		$district_ids = $this->customer_districts()->pluck('district_id')->toArray();
-		$city_ids = $this->customer_cities()->pluck('city_id')->toArray();	
-				
+		$city_ids = $this->customer_cities()->pluck('city_id')->toArray();
+
 		if ( !$params )
 		{
 			return $query->where('properties.id',0)->get();
@@ -126,7 +126,7 @@ class Customer extends Model
 			$query->where('type', $params->type);
 		}
 
-		// Price 
+		// Price
 		$query->withPriceBetween($params->price_range, $params->currency);
 
 		// Size
@@ -159,11 +159,11 @@ class Customer extends Model
 		if(!empty($city_ids)) {
 			$query->whereIn('city_id', $city_ids);
 		}
-		
+
 		if(!empty($district_ids)) {
 			$query->whereIn('district_id', $district_ids);
 		}
-		
+
 		// Zipcode
 		if ( $params->zipcode )
 		{

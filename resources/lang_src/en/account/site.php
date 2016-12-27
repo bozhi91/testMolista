@@ -190,6 +190,7 @@
 
 		'pages.configuration.contact.email' => 'Contact email',
 		'pages.configuration.contact.email.helper' => 'Contact forms will be sent to this email address',
+		'pages.configuration.contact.phone.required' => 'Phone is mandatory',
 
 		'pages.configuration.map.lat' => 'Latitude',
 		'pages.configuration.map.lng' => 'Longitude',

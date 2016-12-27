@@ -3,7 +3,7 @@
 #properties {
 	.search-area {
 		background-color: @backgroundSearchArea; margin: 120px 0px 50px 0px;
-		
+
 		h2 { color: @black; position: absolute; top: 0; margin-top: -68px; font-size: 18px; }
 		.container {width: auto !important;}
 		.form-area {
@@ -92,7 +92,7 @@
 				.col-xs-12.col-sm-3 {
 					.image-column {
 						.image { height: 100%; }
-						.price { 
+						.price {
 							position: absolute; bottom: 0px; width: 100%; background-color: @yellow; text-align: left; padding: 5px 0px;
 
 							a { color: @white; margin-left: 10px; font-size: 20px; }
@@ -104,20 +104,19 @@
 					.text-column {
 						padding-bottom: 45px;
 
-						.col-xs-9 { position: absolute; top: 80px; width: 100%; }
+						.col-xs-9 { position: relative; top: 0; }
 						.col-xs-3 { width: 0%; min-height: 1px; padding-left: 15px; padding-right: 0px; }
 						.col-xs-12.col-sm-3 { display: none; width: 0%; }
 						.col-xs-12.col-sm-9 { width: 100%; }
 						.title {
 							text-decoration: underline; margin-top: 10px;
-	
+
 							a { color: @gray; font-weight: bold; }
 						}
 						.location { margin-top: 10px; }
-						.description { margin-top: 60px; }
 						.price { }
 						.metrics { }
-						.btn-more-info { 
+						.btn-more-info {
 							position: absolute; bottom: 0px; right: auto; border-radius: 0px;
 
 							&:hover { color: @black !important; text-decoration: underline; }
@@ -128,7 +127,7 @@
 		}
 		.search-area {
 			.form-area.closed .input-line { display: inherit; }
-			.form-area { 
+			.form-area {
 				.col-xs-12.col-sm-6.input-line { .text-right { text-align: center; } }
 				.form-area-minimizer { display: none; }
 			}

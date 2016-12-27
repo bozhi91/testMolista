@@ -1126,4 +1126,156 @@ class Property extends TranslatableModel
 		];
 	}
 
+	
+	public function getPossibleMatchesAttribute() {
+		$query = $this->site->customers()->whereIn('id', function($query){
+			$subquery = $query->select('customer_id')->from('customers_queries');
+			
+			if($this->mode) {
+				$subquery->where(function($subquery){					
+					$subquery->where('mode', $this->mode);
+					$subquery->orWhere('mode', '');
+				});
+			}
+
+			if($this->type) {
+				$subquery->where(function($subquery){					
+					$subquery->where('type', $this->type);
+					$subquery->orWhere('type', '');
+				});
+			}
+			
+			if($this->price){
+				$subquery->where(function($subquery){
+					$subquery->where('price_min', '<=', $this->price);
+					$subquery->orWhereNull('price_min');
+				});
+				
+				$subquery->where(function($subquery){
+					$subquery->where('price_max', '>=', $this->price);
+					$subquery->orWhereNull('price_max');
+				});
+			}
+			
+			if($this->size) {
+				$subquery->where(function($subquery){
+					$subquery->where('size_min', '<=', $this->size);
+					$subquery->orWhereNull('size_min');
+				});
+				
+				$subquery->where(function($subquery){
+					$subquery->where('size_max', '>=', $this->size);
+					$subquery->orWhereNull('size_max');
+				});
+			}
+						
+			if($this->rooms) {
+				$subquery->where(function($subquery){					
+					$subquery->where('rooms', '<=', $this->rooms);
+					$subquery->orWhere('rooms', '');
+					$subquery->orWhereNull('rooms');
+				});
+			}
+						
+			if($this->baths) {
+				$subquery->where(function($subquery){					
+					$subquery->where('baths', '<=', $this->baths);
+					$subquery->orWhere('baths', '');
+					$subquery->orWhereNull('baths');
+				});
+			}
+			
+			if($this->country_id) {
+				$subquery->where(function($subquery){					
+					$subquery->where('country_id', $this->country_id);
+					$subquery->orWhereNull('country_id');
+				});				
+			}
+			
+			if($this->territory_id ){
+				$subquery->where(function($subquery){					
+					$subquery->where('territory_id', $this->territory);
+					$subquery->orWhereNull('territory_id');
+				});					
+			}
+			
+			if($this->state_id) {
+				$subquery->where(function($subquery){					
+					$subquery->where('state_id', $this->state_id);
+					$subquery->orWhereNull('state_id');
+				});	
+			}
+			
+			if($this->zipcode) {
+				$subquery->where(function($subquery){					
+					$subquery->where('zipcode', $this->zipcode);
+					$subquery->orWhere('zipcode', '');
+				});
+			}
+				
+			return $subquery;
+		})->with('queries');
+		
+		//Not current leads
+		$query->whereNotIn('id', function($query){
+			$query->select('customer_id')->from('properties_customers')
+					->where('property_id', $this->id);
+		});
+		
+		// Not discarded
+		$query->whereNotIn('id', function($query){
+			$query->select('customer_id')->from('properties_customers_discards')
+					->where('property_id', $this->id);
+		});
+		
+		$collection =  $query->get();
+						
+		$filtered = $collection->reject(function ($value, $key) {
+			$query = $value->current_query;
+			$attr = $query->more_attributes;
+			
+			$customerCities = $value->customer_cities()
+					->pluck('city_id')->toArray();
+			$customerDistricts = $value->customer_districts()
+					->pluck('district_id')->toArray();
+			
+			if($this->city_id && !empty($customerCities)){
+				return !in_array($this->city_id, $customerCities);
+			}
+			
+			if($this->district_id && !empty($customerDistricts)){
+				return !in_array($this->district_id, $customerDistricts);
+			}
+			
+			if (@$attr['newly_build'] && $this->newly_build !== 1){
+				return true;
+			}
+			
+			if (@$attr['second_hand'] && $this->second_hand !== 1){
+				return true;
+			}
+
+			if (@$attr['bank_owned'] && $this->bank_owned !== 1){
+				return true;
+			}
+
+			if (@$attr['private_owned'] && $this->private_owned !== 1){
+				return true;
+			}
+
+			if(@$attr['services']) {
+				$serviceSlugs = !is_array($attr['services']) ?
+						[$attr['services']] : $attr['services'];
+				
+				$required_service_ids = \App\Models\Property\ServiceTranslation::whereIn('slug',$serviceSlugs)->lists('service_id')->all();
+				$property_service_ids = $this->services->pluck('id')->toArray();
+				$intersected = array_intersect($required_service_ids, $property_service_ids);
+				
+				return count($required_service_ids) != count($intersected);
+			}
+		});
+				
+		return $filtered;
+	}
+	
 }

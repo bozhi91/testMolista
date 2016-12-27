@@ -45,6 +45,7 @@
 		'show.tab.properties' => 'Properties',
 		'show.tab.properties.empty' => 'No properties asociated',
 		'show.tab.properties.title' => 'Property',
+		'show.tab.properties.assigned' => 'Assigned',
 		'show.tab.properties.dissociate' => 'Are you sure you want to dissociate this property?',
 
 		'associate.title' => 'Associate user',

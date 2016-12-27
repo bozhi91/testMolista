@@ -12,7 +12,7 @@
 				<a href="{{$item['link']}}" class="item <?= $key == 0 ? 'active' : '' ?>">
 					<div class="image-div" style="background: url({{ $item['image'] }});"></div>
 				</a>
-			@else 
+			@else
 				<div class="item <?= $key == 0 ? 'active' : '' ?>">
 					<div class="image-div" style="background: url({{ $item['image'] }});"></div>
 				</div>
@@ -28,4 +28,14 @@
 	<a class="right carousel-control slider-control" href="#home-slider" role="button" data-slide="next">
 		<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 	</a>
+
+	<div class="container">
+		<div class="row">
+			<div class="slider-quick-search-container col-xs-12 col-md-3 hidden-xs hidden-sm">
+				<div class="slider-quick-search cursor-default">
+					@include('web.search.quick', [ 'no_title'=>1 ])
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

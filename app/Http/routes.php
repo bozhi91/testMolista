@@ -249,6 +249,7 @@ Route::group([
 		Route::get('employees/associate/{email}', 'Account\EmployeesController@getAssociate');
 		Route::post('employees/associate/{email}', 'Account\EmployeesController@postAssociate');
 		Route::get('employees/disssociate/{user_id}/{property_id}', 'Account\EmployeesController@getDissociate');
+		Route::get('employees/relation/{email}/{property_id}', 'Account\EmployeesController@getChangeRelation');
 		Route::resource('employees', 'Account\EmployeesController');
 		// Customers
 		Route::delete('customers/properties/{slug}', 'Account\CustomersController@deleteRemovePropertyCustomer');

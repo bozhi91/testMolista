@@ -76,5 +76,30 @@
 	#header {
 		position: fixed; right: 0; left: 0; z-index: 1030; top: 0; border-width: 0 0 1px;
 		.navbar-brand { max-width: 50%; margin-left: 15px; }
+
+		&.header-logo-md, &.header-logo-lg {
+			.header-container { padding-top: 0; }
+			.navbar-brand { height: 70px; }
+		}
+	}
+}
+
+@media (min-width: 1200px) {
+	.site-nouhabitat {
+		#header.header-logo-md .navbar-brand {
+			width: 180px;
+			position: absolute;
+		}
+		#header #app-navbar-collapse {
+			margin-top: 58px;
+		}
+	}
+}
+
+@media (max-width: 767px) {
+	#header {
+		.navbar-collapse {
+			max-height: 80vh;
+		}
 	}
 }

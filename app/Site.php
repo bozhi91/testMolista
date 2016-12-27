@@ -172,6 +172,12 @@ class Site extends TranslatableModel
 		return $this->hasMany('App\Property')->with('infocurrency')->withTranslations();
 	}
 
+	public function getTransactions()
+	{
+		$property_ids = $this->properties()->pluck('id')->toArray();
+		return Models\Property\Catches::whereIn('property_id', $property_ids);
+	}
+	
 	public function api_keys()
 	{
 		return $this->hasMany('App\Models\ApiKey');
