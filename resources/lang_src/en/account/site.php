@@ -154,7 +154,6 @@
 		'widgets.type.awesome-link.file' => 'Image',
 		'widgets.type.awesome-link.help' => 'Image must have 100x100 pixels max size',
 		
-		
 		'widgets.messages.created' => 'The widget was successfully created',
 		'widgets.messages.updated' => 'The widget was successfully updated',
 		'widgets.messages.delete.warning' => 'Are you sure you want to remove this element?',
