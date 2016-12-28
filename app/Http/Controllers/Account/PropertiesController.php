@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Account;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Models\Property\Videos;
 
 class PropertiesController extends \App\Http\Controllers\AccountController
 {
@@ -375,7 +376,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 	}
 
 	public function update(Request $request, $slug)
-	{
+	{	
 		// Get property
 		$query = $this->site->properties()
 						->whereTranslation('slug', $slug)
@@ -404,8 +405,17 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		if ( $valid !== true )
 		{
 			return redirect()->back()->withInput()->withErrors($valid);
+		}		
+		
+		//Save video
+		if($this->request->input('video_link')) {
+			$saved = $this->saveVideoLink($property);
+			if(!$saved) {
+				return redirect()->back()->withInput()
+					->with('error', trans('account/properties.video.error'));
+			}
 		}
-
+		
 		// Save
 		if ( !$this->saveRequest($property,false) )
 		{
@@ -444,6 +454,40 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		return redirect()->action('Account\PropertiesController@edit', $property->slug)->with('current_tab', $this->request->input('current_tab'))->with('success', trans('account/properties.saved'));
 	}
 
+	/**
+	 * 
+	 * @param Property $property
+	 * @return boolean|null
+	 */
+	private function saveVideoLink($property){
+		$link = $this->request->input('video_link');		
+		$isVimeo = Videos::isVideoVimeo($link);
+		$isYoutube = Videos::isVideoYoutube($link);
+			
+		if(!$isVimeo && !$isYoutube){
+			return false;
+		}
+		
+		$remoteThumbnail = $isVimeo ? Videos::getVimeoThumbnail($link) :
+			Videos::getYoutubeThumbnail($link);
+				
+		if($remoteThumbnail) {
+			$imageName = $isVimeo ? Videos::getVimeoCode($link) :
+				Videos::getYouTubeCode($link);
+			
+			$localName = $property->video_path . '/' . $imageName . '.jpg';			
+			$thumbUploaded = copy($remoteThumbnail, $localName);
+			
+			if($thumbUploaded) {
+				$video = new Videos();
+				$video->property_id = $property->id;
+				$video->link = $link;
+				$video->thumbnail = $imageName . '.jpg';
+				return $video->save();
+			}
+		}			
+	}
+	
 	public function show($slug)
 	{
 		// Get property
@@ -667,6 +711,19 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		return redirect()->action('Account\PropertiesController@index')->with('success', trans('account/properties.deleted'));
 	}
 
+	
+	public function deleteVideo($property_id, $video_id){
+		$property = $this->site->properties()->findOrFail( $property_id );
+		$video = $property->videos()->findOrFail($video_id);
+		
+		$deleted = $video->delete();
+		
+		return response()->json([
+			'success' => $deleted ? true : false
+		]);
+	}
+	
+	
 	public function getAssociate($slug)
 	{
 		if ( !$this->request->input('id') )
