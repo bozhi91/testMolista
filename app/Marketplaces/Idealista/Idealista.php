@@ -27,14 +27,13 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
 		//Set config params
 		$this->setAggregator($config['aggregator']);
 		$this->setCode(@$config['code']);
-		$this->setReference(@$config['reference']);
 		$this->newly_build = !empty($config['newly_build']);
 
 		//Generate client node
 		$this->setClient([
 			'aggregator' => $this->getAggregator(),
 			'code' => $this->getCode(),
-			'reference' => $this->getReference()
+			'reference' => null
 		]);
 	}
 
@@ -367,7 +366,7 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
 		if (!empty($oFeatures['heating'])) {
 			$features['heatingType'] = 0;
 		}
-		
+
 		return $features;
 	}
 
@@ -402,11 +401,11 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
 		if (!empty($oFeatures['heating'])) {
 			$features['heatingType'] = 0;
 		}
-		
+
 		return $features;
 	}
-	
-	
+
+
 	/**
 	 * @param array $property
 	 * @return array
@@ -438,10 +437,10 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
 		if (!empty($oFeatures['heating'])) {
 			$features['heatingType'] = 0;
 		}
-		
+
 		return $features;
 	}
-	
+
 	/**
 	 * @param array $property
 	 * @return array
@@ -459,18 +458,18 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
 		if (!empty($property['rooms'])) {
 			$features['rooms'] = $property['rooms'];
 		}
-		
+
 		if(!empty($property['baths'])){
 			$features['bathrooms'] = $property['baths'];
 		}
-		
+
 		if (!empty($oFeatures['heating'])) {
 			$features['heatingType'] = 0;
 		}
-		
+
 		return $features;
 	}
-	
+
 	/**
 	 * @param array $property
 	 * @return array
@@ -485,7 +484,7 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
 
 		return $features;
 	}
-	
+
 	//Build address format
 	protected function processAddress(array $property) {
 

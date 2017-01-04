@@ -18,10 +18,6 @@ class Wrapper extends Idealista implements \App\Marketplaces\Interfaces\PublishB
     public function __construct(array $config = [])
     {
         $config['aggregator'] = env('IDEALISTA_AGGREGATOR');
-        if (!isset($config['reference'])) {
-            $config['reference'] = null;
-        }
-
         parent::__construct($config);
     }
 
@@ -39,7 +35,7 @@ class Wrapper extends Idealista implements \App\Marketplaces\Interfaces\PublishB
 			$this->errors []= \Lang::get('validation.transfer');
             return false;
 		}
-		
+
         $rules = [
             'id' => 'required',
 			'type' => 'required',
