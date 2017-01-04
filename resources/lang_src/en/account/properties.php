@@ -92,6 +92,7 @@
 		'images.gallery' => 'Image gallery',
 		'images.upload' => 'Image upload',
 		'images.empty' => 'This property has no images',
+		'images.empty.error' => 'You must include at least one image',
 		'images.helper' => "<p>We support JPG, PNG and GIF formats.</p><p>Images bigger than :IMAGE_MAXSIZE kilobytes will not be uploaded.</p>",
 		'images.delete' => 'Are you sure you want to permanently delete this image?',
 		'images.dropzone.helper' => 'Drop files or click to upload',

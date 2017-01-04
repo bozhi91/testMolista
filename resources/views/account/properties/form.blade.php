@@ -1,5 +1,5 @@
 <?php
-	$infocurrency = empty($property->currency) ? $current_site->infocurrency : $property->infocurrency;
+	$infocurrency = $item ? $item->infocurrency : $current_site->infocurrency;
 
 	// Priorizar países
 	if ( empty($current_site->country_ids) )
@@ -449,7 +449,7 @@
 							<div class="form-group">
 								<div class="checkbox error-container">
 									<label>
-										{!! Form::checkbox('services[]', $service->id, empty($property) ? null : $property->hasService($service->id) ) !!}
+										{!! Form::checkbox('services[]', $service->id, $item ? $item->hasService($service->id) : null ) !!}
 										{{ $service->title }}
 									</label>
 								</div>
@@ -484,7 +484,7 @@
 							
 							<div id="district-select-container">
 								<?php $tmp = empty($districts) ? [ ''=>'' ] : [ ''=>'' ] + $districts->toArray(); ?>
-								{!! Form::select('district_id', $tmp, @$property->district_id, [ 'class'=>'form-control district-input' ]) !!}
+								{!! Form::select('district_id', $tmp, @$item->district_id, [ 'class'=>'form-control district-input' ]) !!}
 							</div>
 							
 							<div id="district-input-container" style="display: none;">
@@ -596,8 +596,8 @@
 						</div>
 
 						<ul class="image-gallery sortable-image-gallery property-image-gallery">
-							@if ( !empty($property) && count($property->images) > 0 )
-								@foreach ($property->images->sortBy('position') as $image)
+							@if ( $item && $item->images->count() > 0 )
+								@foreach ($item->images->sortBy('position') as $image)
 									@include('account.properties.form-image-thumb',[
 										'image_url' => $image->image_url,
 										'image_id' => $image->id,
@@ -607,6 +607,9 @@
 								@endforeach
 							@endif
 						</ul>
+						<div class="form-group error-container">
+							<input type="hidden" name="total_images" value="{{ $item ? $item->images->count() : 0 }}" class="required digits" min="1" />
+						</div>
 						<div class="visible-xs-block">
 							<p>&nbsp;</p>
 						</div>
@@ -690,6 +693,8 @@
 		var property_geocoder;
 		var property_zoom = {{ $item ? '14' : '6' }};
 
+		var total_images_input = form.find('input[name="total_images"]');
+
 		// Enable first language tab
 		form.find('.locale-tabs a').eq(0).trigger('click');
 
@@ -715,6 +720,14 @@
 					if ( el.closest('.tab-locale').length ) {
 						form.find('.locale-tabs a[href="#' + el.closest(".tab-locale").attr('id') + '"]').tab('show');
 					}
+				}
+			},
+			messages:
+			{
+				total_images: {
+					required: "{{ print_js_string( Lang::get('account/properties.images.empty.error') ) }}",
+					digits: "{{ print_js_string( Lang::get('account/properties.images.empty.error') ) }}",
+					min: "{{ print_js_string( Lang::get('account/properties.images.empty.error') ) }}"
 				}
 			},
 			submitHandler: function(f) {
@@ -1181,7 +1194,9 @@
 		function initImageWarnings() {
 			form.find('.images-warning-size, .images-warning-orientation').addClass('hide');
 
-			if ( form.find('.image-gallery .thumb').length < 1 ) {
+			total_images_input.val( form.find('.image-gallery .thumb').length );
+
+			if ( total_images_input.val() < 1 ) {
 				form.find('.images-empty').show();
 			} else {
 				form.find('.images-empty').hide();
@@ -1192,6 +1207,8 @@
 					form.find('.images-warning-orientation').removeClass('hide');
 				}
 			}
+
+			total_images_input.valid();
 		}
 		function initImageTooltips() {
 			form.find('.thumb-has-tooltip').removeClass('thumb-has-tooltip').tooltip();

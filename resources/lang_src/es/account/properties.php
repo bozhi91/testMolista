@@ -92,6 +92,7 @@
 		'images.gallery' => 'Galería de imágenes',
 		'images.upload' => 'Subir imágenes',
 		'images.empty' => 'Esta propiedad no tiene imágenes',
+		'images.empty.error' => 'Debes incluir al menos una imagen de la propiedad',
 		'images.helper' => '<p>Aceptamos imagenes en formato JPG, PNG y GIF.</p><p>No se subirán imágenes con peso superior a :IMAGE_MAXSIZE kilobytes.</p>',
 		'images.delete' => '¿Confirma que desea eliminar permanentemente esta images?',
 		'images.dropzone.helper' => 'Arrastre las imágenes o haga click',
