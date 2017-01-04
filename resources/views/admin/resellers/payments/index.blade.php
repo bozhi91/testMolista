@@ -17,7 +17,7 @@
 					{!! Form::hidden('limit', Input::get('limit', Config::get('app.pagination_perpage', 10)) ) !!}
 					<h4>{{ Lang::get('general.filters') }}</h4>
 					<p>{!! Form::text('reseller', Input::get('reseller'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('admin/resellers.payments.reseller') ]) !!}</p>
-					<p>{!! Form::text('site', Input::get('site'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('admin/resellers.payments.site') ]) !!}</p>
+					<p>{!! Form::text('website', Input::get('website'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('admin/resellers.payments.site') ]) !!}</p>
 					<p>{!! Form::select('paid', [
 						0 => Lang::get('admin/resellers.payments.paid'),
 						1 => Lang::get('general.no'),
@@ -41,12 +41,12 @@
 							<tr>
 								<th><input type="checkbox" class="check-all" /></th>
 								{!! drawSortableHeaders(url()->full(), [
-									'reseller' => [ 'title' => Lang::get('admin/resellers.payments.reseller'), 'sortable'=>false, ],
-									'created' => [ 'title' => Lang::get('admin/resellers.payments.created'), 'sortable'=>false, ],
-									'site' => [ 'title' => Lang::get('admin/resellers.payments.site'), 'sortable'=>false, ],
-									'amount_pending' => [ 'title' => Lang::get('admin/resellers.payments.amount_pending'), 'sortable'=>false, ],
-									'amount_paid' => [ 'title' => Lang::get('admin/resellers.payments.amount_paid'), 'sortable'=>false, ],
-									'paid' => [ 'title' => Lang::get('admin/resellers.payments.paid'), 'class'=>'text-center', 'sortable'=>false, ],
+									'reseller' => [ 'title' => Lang::get('admin/resellers.payments.reseller'), ],
+									'created' => [ 'title' => Lang::get('admin/resellers.payments.created'), ],
+									'website' => [ 'title' => Lang::get('admin/resellers.payments.site'), 'sortable'=>false, ],
+									'amount_pending' => [ 'title' => Lang::get('admin/resellers.payments.amount_pending'), ],
+									'amount_paid' => [ 'title' => Lang::get('admin/resellers.payments.amount_paid'), ],
+									'paid' => [ 'title' => Lang::get('admin/resellers.payments.paid'), 'class'=>'text-center', ],
 									'action' => [ 'title' => '', 'sortable'=>false, ],
 								]) !!}
 							</tr>
