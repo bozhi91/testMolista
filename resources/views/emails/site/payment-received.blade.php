@@ -9,4 +9,6 @@
 		'end' => date('d/m/Y', strtotime($paid_until)),
 	]) !!}
 
+	<p>Site: {{ $site->main_url }}</p>
+
 @endsection
