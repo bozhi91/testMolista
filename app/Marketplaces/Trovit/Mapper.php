@@ -33,7 +33,7 @@ class Mapper extends \App\Marketplaces\Mapper {
         //$map['foreclosure_type'] = '';
 
         $map['city'] = $item['location']['city'];
-        $map['region'] = $item['location']['territory'];
+        $map['region'] = $item['location']['state'];
         $map['postcode'] = $item['location']['zipcode'];
         $map['city_area'] = $item['location']['district'];
 

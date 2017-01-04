@@ -5,11 +5,15 @@ namespace App\Marketplaces\Doomos;
 class Mapper extends \App\Marketplaces\Trovit\Mapper {
 
 	public function map() {
+		$item = $this->item;
+		
 		$mapped = parent::map();
 
 		$mapped['contact_name'] = $this->config['name'];
 		$mapped['contact_email'] = $this->config['email'];
 
+		$mapped['country_code'] = $item['location']['country'];
+		
 		return $mapped;
 	}
 
@@ -25,6 +29,8 @@ class Mapper extends \App\Marketplaces\Trovit\Mapper {
 			'construction_year' => 'regex:#\d{4}#',
 			'name' => 'required',
 			'email' => 'required',
+			'location.state' => 'required',
+			'location.country' => 'required',
 		];
 
 		$messages = [
