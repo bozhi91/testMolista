@@ -9,4 +9,6 @@
 		'webname' => env('WHITELABEL_WEBNAME', 'Molista'),
 	]) !!}
 
+	<p>Site: {{ $site->main_url }}</p>
+
 @endsection
