@@ -1,301 +1,297 @@
-<?php namespace App\Marketplaces\Idealista;
+<?php
+
+namespace App\Marketplaces\Idealista;
 
 use App\Marketplaces\Base;
 use App\Marketplaces\Interfaces\PublishPropertyXmlInterface;
 
 class Idealista extends Base implements PublishPropertyXmlInterface {
 
-    protected $iso_lang = 'es';
+	protected $iso_lang = 'es';
+	protected $aggregator;
+	protected $code;
+	protected $reference;
+	protected $newly_build;
+	//Original properties data
+	protected $properties = [];
+	//Data client
+	protected $client = [];
+	//Formated secondhand data
+	protected $secondhandListing = [];
+	//Formated newbuild data
+	protected $newbuildListing = [];
 
-    protected $aggregator;
-    protected $code;
-    protected $reference;
-    protected $newly_build;
+	public function __construct(array $config = []) {
+		parent::__construct($config);
 
-    //Original properties data
-    protected $properties = [];
-    //Data client
-    protected $client = [];
-    //Formated secondhand data
-    protected $secondhandListing = [];
-    //Formated newbuild data
-    protected $newbuildListing = [];
+		//Set config params
+		$this->setAggregator($config['aggregator']);
+		$this->setCode(@$config['code']);
+		$this->setReference(@$config['reference']);
+		$this->newly_build = !empty($config['newly_build']);
 
-    public function __construct(array $config = [])
-    {
-        parent::__construct($config);
+		//Generate client node
+		$this->setClient([
+			'aggregator' => $this->getAggregator(),
+			'code' => $this->getCode(),
+			'reference' => $this->getReference()
+		]);
+	}
 
-        //Set config params
-        $this->setAggregator($config['aggregator']);
-        $this->setCode(@$config['code']);
-        $this->setReference(@$config['reference']);
-        $this->newly_build = !empty($config['newly_build']);
+	public function validateProperty(array $property) {
+		return true;
+	}
 
-        //Generate client node
-        $this->setClient([
-            'aggregator' => $this->getAggregator(),
-            'code' => $this->getCode(),
-            'reference' => $this->getReference()
-        ]);
-    }
+	//Process all data and generate XML
+	public function getPropertiesXML(array $properties) {
 
-    public function validateProperty(array $property)
-    {
-        return true;
-    }
+		$this->load($properties);
+		return $this->generateXML();
+	}
 
-    //Process all data and generate XML
-    public function getPropertiesXML(array $properties){
+	//Load and process all data
+	public function load(array $properties) {
 
-        $this->load($properties);
-        return $this->generateXML();
-    }
+		//Set properties param
+		$this->setProperties($properties);
 
-    //Load and process all data
-    public function load(array $properties){
+		//Process properties array
+		$this->processProperties();
+	}
 
-        //Set properties param
-        $this->setProperties($properties);
+	//Generate XML string
+	protected function generateXML() {
 
-        //Process properties array
-        $this->processProperties();
-    }
-
-    //Generate XML string
-    protected function generateXML(){
-
-        //Start xml doc
-        $writer = new Writer();		
-        $writer->openMemory();
-        $writer->setIndent(true);
-        $writer->startDocument('1.0', 'UTF-8');
-        /*<?xml version="1.0" encoding="UTF-8"?>*/
-
-		
-        //Clients start
-        $writer->startElement('clients');
-        $writer->startElement('client');
-
-        //Data client
-        $writer->write( $this->getClient() );
-		
-        //Write secondhandListing
-        $writer->startElement('secondhandListing');
-        foreach($this->getSecondhandListing() as $k => $data){
-            $writer->startElement('property');
-            $this->writeXmlProperty($data, $writer);
-            $writer->endElement();
-        }
-        $writer->endElement();
-
-        //Write newbuildListing
-        if (!empty($this->newly_build)) {
-            $writer->startElement('newbuildListing');
-            foreach($this->getNewbuildListing() as $k => $data){
-                //Start newDevelopment path
-                $writer->startElement('newDevelopment');
-
-                //Code
-                $writer->startElement('code');
-                $writer->write($data['promo_code']);
-                $writer->endElement();
-
-                //Address
-                $writer->startElement('address');
-                $writer->write($data['address']);
-                $writer->endElement();
-
-                //Features path
-                $writer->startElement('features');
-                $writer->writeAttribute('type', 'promo');
-                $writer->endElement();
-
-                //Typologies path
-                $writer->startElement('typologies');
-                //Add property
-                $writer->startElement('property');
-                $this->writeXmlProperty($data, $writer);
-                $writer->endElement();
-                //End typologies path
-                $writer->endElement();
-
-                //End newDevelopment path
-                $writer->endElement();
-            }
-            $writer->endElement();
-        }
-
-        //Clients end
-        $writer->endElement();
-        $writer->endElement();
+		//Start xml doc
+		$writer = new Writer();
+		$writer->openMemory();
+		$writer->setIndent(true);
+		$writer->startDocument('1.0', 'UTF-8');
+		/* <?xml version="1.0" encoding="UTF-8"?> */
 
 
-        $request = $writer->outputMemory();
-        return $request;
+		//Clients start
+		$writer->startElement('clients');
+		$writer->startElement('client');
 
-    }
+		//Data client
+		$writer->write($this->getClient());
 
-    //Write XML property
-    protected function writeXmlProperty($data, &$writer){
-        //Separate operation
-        $operation = $data['operation_type'];
-        $operation_type = $data['mode'];
-        unset($data['operation_type']);
-        unset($data['mode']);
+		//Write secondhandListing
+		$writer->startElement('secondhandListing');
+		foreach ($this->getSecondhandListing() as $k => $data) {
+			$writer->startElement('property');
+			$this->writeXmlProperty($data, $writer);
+			$writer->endElement();
+		}
+		$writer->endElement();
 
-        //Separate features
-        $features = $data['features'];
-        $features_type = $data['type'];
-        unset($data['features']);
-        unset($data['type']);
-				
-        $writer->write($data);
+		//Write newbuildListing
+		if (!empty($this->newly_build)) {
+			$writer->startElement('newbuildListing');
+			foreach ($this->getNewbuildListing() as $k => $data) {
+				//Start newDevelopment path
+				$writer->startElement('newDevelopment');
 
+				//Code
+				$writer->startElement('code');
+				$writer->write($data['promo_code']);
+				$writer->endElement();
 
-        //Write operation
-        $writer->startElement('operation');
-        $writer->writeAttribute('type', $operation_type);
-        $writer->write($operation);
-        $writer->endElement();
+				//Address
+				$writer->startElement('address');
+				$writer->write($data['address']);
+				$writer->endElement();
 
-        //Write features
-        $writer->startElement('features');
-        $writer->writeAttribute('type', $features_type);
-        $writer->write($features);
-        $writer->endElement();
-    }
+				//Features path
+				$writer->startElement('features');
+				$writer->writeAttribute('type', 'promo');
+				$writer->endElement();
 
-    protected function processProperties(){
-        $properties = $this->getProperties();
-        if (empty($properties)) $properties = [];
+				//Typologies path
+				$writer->startElement('typologies');
+				//Add property
+				$writer->startElement('property');
+				$this->writeXmlProperty($data, $writer);
+				$writer->endElement();
+				//End typologies path
+				$writer->endElement();
 
-        foreach($properties as $k => $property){
-            $this->addProperty($property);
-        }
+				//End newDevelopment path
+				$writer->endElement();
+			}
+			$writer->endElement();
+		}
 
-    }
-
-
-    //Add property to secondhandListing or newbuildListing props
-    protected function addProperty(array $property){
-
-        $propertyIdealista = [
-            'code' => $property['id'],
-            'reference' => $property['reference'],
-            'scope' => 1, //Idealista & Microsite
-            'address' => $this->processAddress($property),
-            'features' => $this->processFeatures($property),
-            'operation_type' => $this->processOperation($property),
-            'descriptions' => $this->processDescriptions($property),
-            'links' => $this->processLinks($property),
-            'images' => $this->processImages($property),
-            'mode' => $property['mode'],
-            'type' => $this->translateType($property['type'])
-        ];
+		//Clients end
+		$writer->endElement();
+		$writer->endElement();
 
 
-        if(empty($property['newly_build'])){
-            $this->secondhandListing[] = $propertyIdealista;
-        } else {
-            $propertyIdealista['promo_code'] = $property['site_id'].'_'.$property['id'];
-            $this->newbuildListing[] = $propertyIdealista;
-        }
-    }
+		$request = $writer->outputMemory();
+		return $request;
+	}
+
+	//Write XML property
+	protected function writeXmlProperty($data, &$writer) {
+		//Separate operation
+		$operation = $data['operation_type'];
+		$operation_type = $data['mode'];
+		unset($data['operation_type']);
+		unset($data['mode']);
+
+		//Separate features
+		$features = $data['features'];
+		$features_type = $data['type'];
+		unset($data['features']);
+		unset($data['type']);
+
+		$writer->write($data);
 
 
-    //Property type translate format
-    protected function translateType($type){
+		//Write operation
+		$writer->startElement('operation');
+		$writer->writeAttribute('type', $operation_type);
+		$writer->write($operation);
+		$writer->endElement();
 
-        switch($type){
-            case 'chalet':
-            case 'house':
-            case 'villa':
-                $idealista_type = 'house';
-            break;
-            case 'farmhouse':
-                $idealista_type = 'countryHouse';
-            break;
-            case 'industrial':
-                $idealista_type = 'premise';
-            break;
-            case 'lot':
-            case 'state':
-                $idealista_type = 'land';
-            break;
-            case 'apartment':
-            case 'duplex':
-            case 'lot':
-            case 'penthouse':
-            default:
-                $idealista_type = 'flat';
-            break;
-        }
+		//Write features
+		$writer->startElement('features');
+		$writer->writeAttribute('type', $features_type);
+		$writer->write($features);
+		$writer->endElement();
+	}
 
-        return $idealista_type;
-    }
+	protected function processProperties() {
+		$properties = $this->getProperties();
+		if (empty($properties))
+			$properties = [];
 
-    //Build images format
-    protected function processImages($property){
+		foreach ($properties as $k => $property) {
+			$this->addProperty($property);
+		}
+	}
 
-        $images['image'] = [];
-        foreach($property['images'] as $k => $url){
-            $images['image'][] = [
-                'code' => 0,
-                'url' => $url
-            ];
-        }
+	//Add property to secondhandListing or newbuildListing props
+	protected function addProperty(array $property) {
 
-        return $images;
+		$type = $this->translateType($property['type']);
 
-    }
+		$propertyIdealista = [
+			'code' => $property['id'],
+			'reference' => $property['reference'],
+			'scope' => 1, //Idealista & Microsite
+			'address' => $this->processAddress($property),
+			'features' => $this->processFeatures($property, $type),
+			'operation_type' => $this->processOperation($property),
+			'descriptions' => $this->processDescriptions($property),
+			'links' => $this->processLinks($property),
+			'images' => $this->processImages($property),
+			'mode' => $property['mode'],
+			'type' => $type,
+		];
 
-    //Build descriptions format
-    protected function processDescriptions($property){
 
-        $descriptions['description'] = [];
-				
-        foreach($property['title'] as $locale => $title){
+		if (empty($property['newly_build'])) {
+			$this->secondhandListing[] = $propertyIdealista;
+		} else {
+			$propertyIdealista['promo_code'] = $property['site_id'] . '_' . $property['id'];
+			$this->newbuildListing[] = $propertyIdealista;
+		}
+	}
+
+	//Property type translate format
+	protected function translateType($type) {
+
+		switch ($type) {
+			case 'chalet':
+			case 'house':
+			case 'villa':
+				$idealista_type = 'house';
+				break;
+			case 'farmhouse':
+				$idealista_type = 'countryHouse';
+				break;
+			case 'store':
+			case 'industrial':
+				$idealista_type = 'premise';
+				break;
+			case 'lot':
+			case 'state':
+				$idealista_type = 'land';
+				break;
+			case 'apartment':
+			case 'duplex':
+			case 'penthouse':
+			default:
+				$idealista_type = 'flat';
+				break;
+		}
+
+		return $idealista_type;
+	}
+
+	//Build images format
+	protected function processImages($property) {
+
+		$images['image'] = [];
+		foreach ($property['images'] as $k => $url) {
+			$images['image'][] = [
+				'code' => 0,
+				'url' => $url
+			];
+		}
+
+		return $images;
+	}
+
+	//Build descriptions format
+	protected function processDescriptions($property) {
+
+		$descriptions['description'] = [];
+
+		foreach ($property['title'] as $locale => $title) {
 			$language = $this->translateLanguage($locale);
-			
-			if($language) {
+
+			if ($language) {
 				$descriptions['description'][] = [
 					'language' => $language,
 					'title' => $title,
 					'comment' => mb_substr(@$property['description'][$locale], 0, 2499),
 				];
 			}
-        }
-		
-        return $descriptions;
-    }
+		}
 
-    //Build links format
-    protected function processLinks($property){
+		return $descriptions;
+	}
 
-        $links['link'] = [];
-		
-		
-        foreach($property['url'] as $locale => $link){
+	//Build links format
+	protected function processLinks($property) {
+
+		$links['link'] = [];
+
+
+		foreach ($property['url'] as $locale => $link) {
 			$language = $this->translateLanguage($locale);
-			
-			if($language) {
+
+			if ($language) {
 				$links['link'][] = [
 					'language' => $language,
 					'comment' => '',
 					'url' => $link,
 				];
 			}
-        }
+		}
 
-        return $links;
-    }
+		return $links;
+	}
 
-    /**
+	/**
 	 * @param string $locale
 	 * @return int|null
 	 */
-    protected function translateLanguage($locale){
-        switch($locale){
+	protected function translateLanguage($locale) {
+		switch ($locale) {
 			case 'es': return 1;
 			case 'en': return 2;
 			case 'fr': return 3;
@@ -305,190 +301,310 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
 			case 'ca': return 7;
 			case 'ru': return 8;
 			default: return null;
-        }
-    }
+		}
+	}
 
-    //Build operation format
-    protected function processOperation(array $property){
+	//Build operation format
+	protected function processOperation(array $property) {
 
-        $operationType = [
-            'price' => $property['price'],
-        ];
+		$operationType = [
+			'price' => $property['price'],
+		];
 
-        return $operationType;
-    }
+		return $operationType;
+	}
 
-    //Build features format
-    protected function processFeatures(array $property){
+	/**
+	 * @param array $property
+	 * @param string $type
+	 * @return array
+	 */
+	protected function processFeatures(array $property, $type) {
+		if ($type == 'flat') {
+			return $this->getFlatFeatures($property);
+		}elseif($type == 'house'){
+			return $this->getHouseFeauters($property);
+		}elseif($type == 'countryHouse'){
+			return $this->getCountryHouseFeauters($property);
+		}elseif($type == 'premise'){
+			return $this->getPremiseFeauters($property);
+		}elseif($type == 'land'){
+			return $this->getLandFeauters($property);
+		}
+	}
 
-        $oFeatures = $property['features'];
+	/**
+	 * @param array $property
+	 * @return array
+	 */
+	private function getFlatFeatures(array $property) {
+		$oFeatures = $property['features'];
 
-        $features = [
-            'rooms' => $property['rooms'],
-            'bathrooms' => $property['baths'],
-            //'energyCertification' => $property['ec'],
-            'constructedArea' => $property['size'],
-            'constructedArea' => $property['size'],
-            'conditionedAir' => empty($oFeatures['air-conditioning']) ? 1 : 2,
-            'alarm' => (empty($oFeatures['alarm'])) ? 'false' : 'true',
-            'balconyNumber' => empty($oFeatures['balcony']) ? 'false' : 'true',
-            'elevator' => empty($oFeatures['elevator']) ? 'false' : 'true',
-            'furniture' => (empty($oFeatures['furnished'])) ? 1 : 3,
-            'garden' => empty($oFeatures['garden']) ? 'false' : 'true',
-            'parkingSpacesInPrice' => (empty($oFeatures['parking']) && empty($oFeatures['garage'])) ? 'false' : 'true',
-            'pool' => empty($oFeatures['pool']) ? 'false' : 'true',
-            'lastFloor' => empty($oFeatures['atic']) ? 'false' : 'true',
-            'windowsLocation' => (empty($oFeatures['exterior'])) ? 2 : 1
-        ];
+		$features = [
+			'bathrooms' => $property['baths'],
+			'bedrooms' => $property['bedrooms'],
+			'constructedArea' => $property['size'],
+			//'energyCertification' => $property['ec'],
+			'conditionedAir' => empty($oFeatures['air-conditioning']) ? 1 : 2,
+			'alarm' => (empty($oFeatures['alarm'])) ? 'false' : 'true',
+			'balconyNumber' => empty($oFeatures['balcony']) ? 'false' : 'true',
+			'elevator' => empty($oFeatures['elevator']) ? 'false' : 'true',
+			'furniture' => (empty($oFeatures['furnished'])) ? 1 : 3,
+			'garden' => empty($oFeatures['garden']) ? 'false' : 'true',
+			'parkingSpacesInPrice' => (empty($oFeatures['parking']) && empty($oFeatures['garage'])) ? 'false' : 'true',
+			'pool' => empty($oFeatures['pool']) ? 'false' : 'true',
+			//'lastFloor' => empty($oFeatures['atic']) ? 'false' : 'true',
+			'windowsLocation' => (empty($oFeatures['exterior'])) ? 2 : 1
+		];
 
-        //Special fields if don't have don't appear
-        if(!empty($oFeatures['terrase'])){
-            $features['terraceType'] = 0;
-        }
-        if(!empty($oFeatures['heating'])){
-            $features['heating'] = 0;
-        }
+		if (!empty($property['rooms'])) {
+			$features['rooms'] = $property['rooms'];
+		}
+		//Special fields if don't have don't appear
+		if (!empty($oFeatures['terrase'])) {
+			$features['terraceType'] = 0;
+		}
+		if (!empty($oFeatures['heating'])) {
+			$features['heatingType'] = 0;
+		}
+		
+		return $features;
+	}
 
+	/**
+	 * @param array $property
+	 * @return array
+	 */
+	private function getHouseFeauters(array $property){
+		$oFeatures = $property['features'];
 
-        return $features;
-    }
+		$features = [
+			'bathrooms' => $property['baths'],
+			'bedrooms' => $property['bedrooms'],
+			'constructedArea' => $property['size'],
+			//'energyCertification' => $property['ec'],
+			'conditionedAir' => empty($oFeatures['air-conditioning']) ? 1 : 2,
+			'alarm' => (empty($oFeatures['alarm'])) ? 'false' : 'true',
+			'balconyNumber' => empty($oFeatures['balcony']) ? 'false' : 'true',
+			'furniture' => (empty($oFeatures['furnished'])) ? 1 : 3,
+			'garden' => empty($oFeatures['garden']) ? 'false' : 'true',
+			'parkingSpacesInPrice' => (empty($oFeatures['parking']) && empty($oFeatures['garage'])) ? 'false' : 'true',
+			'pool' => empty($oFeatures['pool']) ? 'false' : 'true',
+		];
 
-    //Build address format
-    protected function processAddress(array $property){
+		if (!empty($property['rooms'])) {
+			$features['rooms'] = $property['rooms'];
+		}
+		//Special fields if don't have don't appear
+		if (!empty($oFeatures['terrase'])) {
+			$features['terraceType'] = 0;
+		}
+		if (!empty($oFeatures['heating'])) {
+			$features['heatingType'] = 0;
+		}
+		
+		return $features;
+	}
+	
+	
+	/**
+	 * @param array $property
+	 * @return array
+	 */
+	private function getCountryHouseFeauters(array $property){
+		$oFeatures = $property['features'];
 
-        $location = $property['location'];
+		$features = [
+			'bathrooms' => $property['baths'],
+			'bedrooms' => $property['bedrooms'],
+			'constructedArea' => $property['size'],
+			//'energyCertification' => $property['ec'],
+			'conditionedAir' => empty($oFeatures['air-conditioning']) ? 1 : 2,
+			'alarm' => (empty($oFeatures['alarm'])) ? 'false' : 'true',
+			'balconyNumber' => empty($oFeatures['balcony']) ? 'false' : 'true',
+			'furniture' => (empty($oFeatures['furnished'])) ? 1 : 3,
+			'garden' => empty($oFeatures['garden']) ? 'false' : 'true',
+			'parkingSpacesInPrice' => (empty($oFeatures['parking']) && empty($oFeatures['garage'])) ? 'false' : 'true',
+			'pool' => empty($oFeatures['pool']) ? 'false' : 'true',
+		];
 
-        $address = [
-            'visibility' => empty($location['show_address']) ? 3 : 1,
-            'country' => $location['country'],
-            'streetName' => empty($location['address_parts']['street']) ? $location['address'] : $location['address_parts']['street'],
-            'streetNumber' => empty($location['address_parts']['number']) ? '' : $location['address_parts']['number'],
-            'cityName' => $location['city'],
-            'postalcode' => $location['zipcode'],
-            'floor' => '',
-            'coordinates' => [
-                'precision' => 1,
-                'latitude' => $location['lat'],
-                'longitude' => $location['lng'],
-            ]
-        ];
+		if (!empty($property['rooms'])) {
+			$features['rooms'] = $property['rooms'];
+		}
+		//Special fields if don't have don't appear
+		if (!empty($oFeatures['terrase'])) {
+			$features['terraceType'] = 0;
+		}
+		if (!empty($oFeatures['heating'])) {
+			$features['heatingType'] = 0;
+		}
+		
+		return $features;
+	}
+	
+	/**
+	 * @param array $property
+	 * @return array
+	 */
+	private function getPremiseFeauters(array $property){
+		$oFeatures = $property['features'];
 
-        return $address;
-    }
+		$features = [
+			'constructedArea' => $property['size'],
+			//'energyCertification' => $property['ec'],
+			'conditionedAir' => empty($oFeatures['air-conditioning']) ? 1 : 2,
+			'alarm' => (empty($oFeatures['alarm'])) ? 'false' : 'true',
+		];
 
+		if (!empty($property['rooms'])) {
+			$features['rooms'] = $property['rooms'];
+		}
+		
+		if(!empty($property['baths'])){
+			$features['bathrooms'] = $property['baths'];
+		}
+		
+		if (!empty($oFeatures['heating'])) {
+			$features['heatingType'] = 0;
+		}
+		
+		return $features;
+	}
+	
+	/**
+	 * @param array $property
+	 * @return array
+	 */
+	private function getLandFeauters(array $property){
+		$oFeatures = $property['features'];
 
-    /**
-     * @return mixed
-     */
-    public function getAggregator()
-    {
-        return $this->aggregator;
-    }
+		$features = [
+			'plotArea' => $property['size'],
+			'landType' => 0,
+		];
 
-    /**
-     * @param mixed $aggregator
-     */
-    public function setAggregator($aggregator)
-    {
-        $this->aggregator = $aggregator;
-    }
+		return $features;
+	}
+	
+	//Build address format
+	protected function processAddress(array $property) {
 
-    /**
-     * @return mixed
-     */
-    public function getCode()
-    {
-        return $this->code;
-    }
+		$location = $property['location'];
 
-    /**
-     * @param mixed $code
-     */
-    public function setCode($code)
-    {
-        $this->code = $code;
-    }
+		$address = [
+			'visibility' => empty($location['show_address']) ? 3 : 1,
+			'country' => $location['country'],
+			'streetName' => empty($location['address_parts']['street']) ? $location['address'] : $location['address_parts']['street'],
+			'streetNumber' => empty($location['address_parts']['number']) ? '' : $location['address_parts']['number'],
+			'cityName' => $location['city'],
+			'postalcode' => $location['zipcode'],
+			'floor' => '',
+			'coordinates' => [
+				'precision' => 1,
+				'latitude' => $location['lat'],
+				'longitude' => $location['lng'],
+			]
+		];
 
-    /**
-     * @return mixed
-     */
-    public function getReference()
-    {
-        return $this->reference;
-    }
+		return $address;
+	}
 
-    /**
-     * @param mixed $reference
-     */
-    public function setReference($reference)
-    {
-        $this->reference = $reference;
-    }
+	/**
+	 * @return mixed
+	 */
+	public function getAggregator() {
+		return $this->aggregator;
+	}
 
-    /**
-     * @return array
-     */
-    public function getProperties()
-    {
-        return $this->properties;
-    }
+	/**
+	 * @param mixed $aggregator
+	 */
+	public function setAggregator($aggregator) {
+		$this->aggregator = $aggregator;
+	}
 
-    /**
-     * @param array $properties
-     */
-    public function setProperties($properties)
-    {
-        $this->properties = $properties;
-    }
+	/**
+	 * @return mixed
+	 */
+	public function getCode() {
+		return $this->code;
+	}
 
-    /**
-     * @return array
-     */
-    public function getClient()
-    {
-        return $this->client;
-    }
+	/**
+	 * @param mixed $code
+	 */
+	public function setCode($code) {
+		$this->code = $code;
+	}
 
-    /**
-     * @param array $client
-     */
-    public function setClient($client)
-    {
-        $this->client = $client;
-    }
+	/**
+	 * @return mixed
+	 */
+	public function getReference() {
+		return $this->reference;
+	}
 
-    /**
-     * @return array
-     */
-    public function getSecondhandListing()
-    {
-        return $this->secondhandListing;
-    }
+	/**
+	 * @param mixed $reference
+	 */
+	public function setReference($reference) {
+		$this->reference = $reference;
+	}
 
-    /**
-     * @param array $secondhandListing
-     */
-    public function setSecondhandListing($secondhandListing)
-    {
-        $this->secondhandListing = $secondhandListing;
-    }
+	/**
+	 * @return array
+	 */
+	public function getProperties() {
+		return $this->properties;
+	}
 
-    /**
-     * @return array
-     */
-    public function getNewbuildListing()
-    {
-        return $this->newbuildListing;
-    }
+	/**
+	 * @param array $properties
+	 */
+	public function setProperties($properties) {
+		$this->properties = $properties;
+	}
 
-    /**
-     * @param array $newbuildListing
-     */
-    public function setNewbuildListing($newbuildListing)
-    {
-        $this->newbuildListing = $newbuildListing;
-    }
+	/**
+	 * @return array
+	 */
+	public function getClient() {
+		return $this->client;
+	}
 
+	/**
+	 * @param array $client
+	 */
+	public function setClient($client) {
+		$this->client = $client;
+	}
 
+	/**
+	 * @return array
+	 */
+	public function getSecondhandListing() {
+		return $this->secondhandListing;
+	}
+
+	/**
+	 * @param array $secondhandListing
+	 */
+	public function setSecondhandListing($secondhandListing) {
+		$this->secondhandListing = $secondhandListing;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getNewbuildListing() {
+		return $this->newbuildListing;
+	}
+
+	/**
+	 * @param array $newbuildListing
+	 */
+	public function setNewbuildListing($newbuildListing) {
+		$this->newbuildListing = $newbuildListing;
+	}
 
 }

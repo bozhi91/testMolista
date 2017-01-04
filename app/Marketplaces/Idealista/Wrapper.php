@@ -35,12 +35,25 @@ class Wrapper extends Idealista implements \App\Marketplaces\Interfaces\PublishB
             return false;
         }
 
+		if ($property['mode'] == 'transfer') { //Solo hay compra, renta y opcion de compra
+			$this->errors []= \Lang::get('validation.transfer');
+            return false;
+		}
+		
         $rules = [
             'id' => 'required',
+			'type' => 'required',
+			'mode' => 'required',
+			'reference' => 'required',
+			'price' => 'required',
             'title' => 'required',
             'code' => 'required',
-            'location.lat' => 'required',
-            'location.lng' => 'required',
+            'location.lat' => 'required', //not really required
+            'location.lng' => 'required', //not really required
+			//Flat/House features required
+			'bathrooms' => 'required_if:type,apartment,duplex,penthouse,chalet,house,villa,farmhouse',
+			'bedrooms' => 'required_if:type,apartment,duplex,penthouse,chalet,house,villa,farmhouse',
+			'size' => 'required',
         ];
 
         $messages = [];
