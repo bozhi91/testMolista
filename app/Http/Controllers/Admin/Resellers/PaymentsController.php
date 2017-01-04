@@ -15,31 +15,31 @@ class PaymentsController extends Controller
 
     public function getIndex()
 	{
-		$query = \App\Models\Site\Payment::whereNotNull('reseller_id')
+		$query = \App\Models\Site\Payment::whereNotNull('sites_payments.reseller_id')
 						->with('site')
 						->with('reseller')
 						->with('infocurrency')
 						;
 
 		// Filter by site
-		if ( $this->request->input('site') )
+		if ( $this->request->input('website') )
 		{
-			$query->whereIn('site_id', function($query) {
+			$query->whereIn('sites_payments.site_id', function($query) {
 				$query->select('id')
 					->from('sites')
 					->whereIn('id', function($query){
 						$query->select('site_id')
 							->from('sites_domains')
-							->where('domain', 'like', "%{$this->request->input('site')}%");
+							->where('domain', 'like', "%{$this->request->input('website')}%");
 					})
-					->orWhere('subdomain', 'like', "%{$this->request->input('site')}%");
+					->orWhere('subdomain', 'like', "%{$this->request->input('website')}%");
 			});
 		}
 
 		// Filter by reseller
 		if ( $this->request->input('reseller') )
 		{
-			$query->whereIn('reseller_id', function($query) {
+			$query->whereIn('sites_payments.reseller_id', function($query) {
 				$query->select('id')
 					->from('resellers')
 					->where('name', 'like', "%{$this->request->input('reseller')}%");
@@ -49,7 +49,7 @@ class PaymentsController extends Controller
 		// Filter by payment
 		if ( $this->request->input('paid') )
 		{
-			$query->where('reseller_paid', intval($this->request->input('paid')-1));
+			$query->where('sites_payments.reseller_paid', intval($this->request->input('paid')-1));
 		}
 
 		switch ( $this->request->input('order') )
@@ -63,10 +63,23 @@ class PaymentsController extends Controller
 
 		switch ( $this->request->input('orderby') )
 		{
+			case 'reseller':
+				$query
+					->join('resellers', 'sites_payments.reseller_id', '=', 'resellers.id')
+					->orderBy('resellers.name', $order);
+				break;
+			case 'amount_pending':
+				$query->orderByRaw("IF (sites_payments.`reseller_paid`=1, 0, (sites_payments.`reseller_amount` * sites_payments.`reseller_rate`)) {$order}");
+				break;
+			case 'amount_paid':
+				$query->orderByRaw("IF (sites_payments.`reseller_paid`=1, (sites_payments.`reseller_amount` * sites_payments.`reseller_rate`), 0) {$order}");
+				break;
+			case 'paid':
+				$query->orderByRaw("IF (sites_payments.`reseller_paid`=1, sites_payments.`reseller_date`, '1970-01-01 00:00:00') {$order}");
+				break;
 			case 'created':
 			default:
 				$query->orderBy('created_at', $order);
-				break;
 		}
 
 		$payments = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
