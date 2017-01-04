@@ -632,12 +632,17 @@
 							<div class="alert alert-info video-empty">
 								{{ Lang::get('account/properties.video.empty') }}
 							</div>
-						@else							
+						@else	
+							<div class="alert alert-info video-empty" style="display: none">
+								{{ Lang::get('account/properties.video.empty') }}
+							</div>
+
 							<ul class="video-gallery sortable-video-gallery">
 								@foreach ($property->videos->sortBy('position_video') as $video)
 									@include('account.properties.form-video-thumb',[
 										'video' => $video, 
-										'property_id' => $property->id
+										'property_id' => $property->id,
+										'isCreate' => $isCreate
 									])
 								@endforeach
 							</ul>
@@ -949,21 +954,8 @@
 			
 			SITECOMMON.confirm("{{ print_js_string( Lang::get('account/properties.video.delete') ) }}", function (e) {
 				if (e) {
-					$.ajax({
-						url: el.data('action'),
-						method: 'DELETE',
-						data: {
-							"_token": "{{ csrf_token() }}",
-						},
-						dataType: 'json',
-						success: function(data) {
-							if(data.success){								
-								el.closest('.handler').remove();
-							} else {
-								alertify.error("{{ print_js_string( Lang::get('account/properties.video.delete.error') ) }}");
-							}
-						},
-					});
+					el.closest('.handler').remove();
+					initVideoWarnings();
 				}
 			});
 		});
@@ -1272,6 +1264,16 @@
 				}
 			}
 		}
+		
+		
+		function initVideoWarnings() {
+			if ( form.find('.video-gallery .thumb').length < 1 ) {
+				form.find('.video-empty').show();
+			} else {				
+				form.find('.video-empty').hide();
+			}
+		}
+		
 		function initImageTooltips() {
 			form.find('.thumb-has-tooltip').removeClass('thumb-has-tooltip').tooltip();
 		}

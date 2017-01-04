@@ -240,7 +240,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			$cities = \App\Models\Geography\City::enabled()->where('state_id', $property->state_id)->lists('name','id');
 			$districts = $this->site->districts()->orderBy('name')->lists('name','id');
 		}
-		
+			
 		return view('account.properties.create', compact('modes','types','energy_types',
 				'services','countries','states','cities','country_id','managers','current_tab', 'districts', 'property', 'marketplaces'));
 	}
@@ -312,6 +312,26 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		}
 		$catch->update($data);
 
+		//New video
+		if($this->request->input('video_link')) {
+			$link = $this->request->input('video_link');
+			$saved = $this->saveVideoLink($property, $link);
+			if(!$saved) {
+				return redirect()->back()->withInput()
+					->with('error', trans('account/properties.video.error'));
+			}
+		}
+		
+		//Duplicate videos
+		$duplicateVideoIds = $this->request->input('duplicate_videos', []);		
+		foreach($duplicateVideoIds as $duplicateVideoId){
+			$video = Videos::where('id', $duplicateVideoId)->first();
+			if(!$video) {
+				continue;
+			}
+			$this->saveVideoLink($property, $video->link);
+		}
+		
 		$property = $this->site->properties()->find($property->id);
 
 		return redirect()->action('Account\PropertiesController@edit', $property->slug)->with('current_tab', $this->request->input('current_tab'))->with('success', trans('account/properties.created'));
@@ -407,21 +427,22 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			return redirect()->back()->withInput()->withErrors($valid);
 		}		
 		
-		//Save video
-		if($this->request->input('video_link')) {
-			$saved = $this->saveVideoLink($property);
-			if(!$saved) {
-				return redirect()->back()->withInput()
-					->with('error', trans('account/properties.video.error'));
-			}
-		}
-		
 		// Save
 		if ( !$this->saveRequest($property,false) )
 		{
 			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
 		}
 
+		//New video
+		if($this->request->input('video_link')) {
+			$link = $this->request->input('video_link');
+			$saved = $this->saveVideoLink($property, $link);
+			if(!$saved) {
+				return redirect()->back()->withInput()
+					->with('error', trans('account/properties.video.error'));
+			}
+		}
+		
 		if($isPriceFall){
 			if($this->site->alert_config === null ||
 					$this->site->alert_config['bajada']['agentes']){
@@ -455,12 +476,11 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 	}
 
 	/**
-	 * 
 	 * @param Property $property
+	 * @param string $link
 	 * @return boolean|null
 	 */
-	private function saveVideoLink($property){
-		$link = $this->request->input('video_link');		
+	private function saveVideoLink($property, $link){
 		$isVimeo = Videos::isVideoVimeo($link);
 		$isYoutube = Videos::isVideoYoutube($link);
 			
@@ -711,19 +731,6 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		return redirect()->action('Account\PropertiesController@index')->with('success', trans('account/properties.deleted'));
 	}
 
-	
-	public function deleteVideo($property_id, $video_id){
-		$property = $this->site->properties()->findOrFail( $property_id );
-		$video = $property->videos()->findOrFail($video_id);
-		
-		$deleted = $video->delete();
-		
-		return response()->json([
-			'success' => $deleted ? true : false
-		]);
-	}
-	
-	
 	public function getAssociate($slug)
 	{
 		if ( !$this->request->input('id') )
@@ -1143,7 +1150,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 				$position++;
 			}
 		}
-
+		
 		// Deleted images
 		foreach ($property->images as $image)
 		{
@@ -1194,6 +1201,16 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			$default_image->update([ 'default'=>1 ]);
 		}
 
+		$videoIds = $this->request->input('videos', []);
+		
+		foreach($property->videos as $video) {
+			if(!in_array($video->id, $videoIds)){
+				$videoThumbPath = $property->video_path . '/' . $video->thumbnail;
+				@unlink( $videoThumbPath );
+				$video->delete();
+			}
+		}
+		
 		return true;
 	}
 

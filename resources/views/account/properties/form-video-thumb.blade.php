@@ -4,9 +4,11 @@
 		   style="background-image: url('{{ $video->image_url }}')"></a>
 	</div>
 	<div class="options text-right">
-		<a href="#" class="video-delete-trigger" data-action="{{ action('Account\PropertiesController@deleteVideo', [
-				'property_id' => $property_id, 'video_id' => $video->id]) }}">
-			<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-		</a>
+		@if($isCreate)
+			<input name="duplicate_videos[]" type="hidden" value="{{ $video->id }}">
+		@else
+			<input name="videos[]" type="hidden" value="{{ $video->id }}">
+		@endif		
+		<a href="#" class="video-delete-trigger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
 	</div>
 </li>
