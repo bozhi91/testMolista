@@ -70,12 +70,14 @@
 							{{ Lang::get('account/payment.method.stripe') }}
 						</label>
 					</div>
-					<div class="checkbox">
-						<label>
-							{!! Form::checkbox('pay_methods[]', 'transfer', null, [ 'class'=>'' ]) !!}
-							{{ Lang::get('account/payment.method.transfer') }}
-						</label>
-					</div>
+					@if ( env('TRANSFER_PAYMENTS_ENABLED', false) )
+						<div class="checkbox">
+							<label>
+								{!! Form::checkbox('pay_methods[]', 'transfer', null, [ 'class'=>'' ]) !!}
+								{{ Lang::get('account/payment.method.transfer') }}
+							</label>
+						</div>
+					@endif
 				</div>
 			</div>
 		</div>

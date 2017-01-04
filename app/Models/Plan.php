@@ -133,8 +133,12 @@ class Plan extends Model
 	{
 		$options = [
 			'stripe' => trans('account/payment.method.stripe'),
-			'transfer' => trans('account/payment.method.transfer'),
 		];
+
+		if ( env('TRANSFER_PAYMENTS_ENABLED', false) )
+		{
+			$options['transfer'] = trans('account/payment.method.transfer');
+		}
 
 		if ( is_array($valid_options) )
 		{

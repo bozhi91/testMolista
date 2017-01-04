@@ -34,6 +34,9 @@ return [
 	'goto.site' => 'Go to site',
 	'goto.admin' => 'Go to admin',
 
+	'setup.reload' => 'Refrescar cache',
+	'setup.reloaded' => 'La cache del sitio se ha refrescado correctamente',
+
 	'messages.created' => 'The site was successfully created',
 	'messages.updated' => 'The site was successfully updated',
 
@@ -56,4 +59,9 @@ return [
 	'payments.paid' => 'Pagada',
 	'payments.reseller' => 'Reseller',
 	'payments.button' => 'Modificar reseller',
+
+	'downgrade.button' => 'Bajar a plan free',
+	'downgrade.confirm' => '¿Confirma que desea bajar el plan de este sitio? Esta acción no se puede deshacer.',
+	'downgrade.error' => 'Ha ocurrido un error al bajar el plan',
+	'downgrade.success' => 'El sitio tiene ahora un plan free',
 ];

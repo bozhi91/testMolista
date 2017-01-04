@@ -67,6 +67,8 @@ Route::group([
 		// Sites
 		Route::controller('sites/payments', 'Admin\Sites\PaymentsController');
 		Route::get('sites/invoice/{id}/{file?}', 'Admin\SitesController@getInvoice');
+		Route::get('sites/downgrade/{id}', 'Admin\SitesController@getDowngrade');
+		Route::get('sites/update-setup/{id}', 'Admin\SitesController@getUpdateSetup');
 		Route::post('sites/invoice/{id}', 'Admin\SitesController@postInvoice');
 		Route::delete('sites/invoice/{id}', 'Admin\SitesController@deleteInvoice');
 		Route::resource('sites', 'Admin\SitesController');
@@ -204,10 +206,10 @@ Route::group([
 				'role:company',
 			],
 		], function() {
+			Route::controller('profile/plan', 'Account\Profile\PlanController');
+			Route::controller('profile/invoices', 'Account\Profile\InvoicesController');
 			// Plans & payment
 			Route::controller('payment', 'Account\PaymentController');
-			// Invoices
-			Route::controller('invoices', 'Account\InvoicesController');
 		});
 
 		// Properties

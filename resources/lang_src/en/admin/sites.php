@@ -34,6 +34,9 @@ return [
 	'goto.site' => 'Go to site',
 	'goto.admin' => 'Go to admin',
 
+	'setup.reload' => 'Refresh cache',
+	'setup.reloaded' => 'The site cache was successfully refreshed',
+
 	'messages.created' => 'The site was successfully created',
 	'messages.updated' => 'The site was successfully updated',
 
@@ -56,4 +59,9 @@ return [
 	'payments.paid' => 'Paid',
 	'payments.reseller' => 'Reseller',
 	'payments.button' => 'Change reseller',
+
+	'downgrade.button' => 'Downgrade to free plan',
+	'downgrade.confirm' => 'Are you sure you wish to downgrade this site? This action cannot be undone.',
+	'downgrade.error' => 'An error occurred while downgrading this site plan',
+	'downgrade.success' => 'The site has been successfully downgraded',
 ];

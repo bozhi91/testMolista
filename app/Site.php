@@ -87,7 +87,7 @@ class Site extends TranslatableModel
 		return $this->hasMany('App\Models\Site\Webhook');
 	}
 
-	public function invoices()
+	public function documents()
 	{
 		return $this->hasMany('App\Models\Site\Invoice');
 	}
@@ -904,6 +904,41 @@ class Site extends TranslatableModel
 		]));
 	}
 
+	public function getContactLocaleAttribute()
+	{
+		return 'es';
+	}
+
+	public function getContactEmailAttribute()
+	{
+		if ( @$this->invoicing['email'] )
+		{
+			return $this->invoicing['email'];
+		}
+
+		if ( $owner = $this->site->users()->withRole('company')->first() )
+		{
+			return $owner->email;
+		}
+
+		return false;
+	}
+
+	public function getContactNameAttribute()
+	{
+		if ( @$this->invoicing['first_name'] )
+		{
+			return $this->invoicing['first_name'];
+		}
+
+		if ( $owner = $this->site->users()->withRole('company')->first() )
+		{
+			return $owner->name;
+		}
+
+		return false;
+	}
+
 	public function getSignupInfo($locale=false)
 	{
 		$current_locale = \App::getLocale();
@@ -1087,6 +1122,43 @@ class Site extends TranslatableModel
 		return false;
 	}
 
+	public function getStripeCustomerAttribute()
+	{
+		if ( !$this->stripe_id )
+		{
+			return false;
+		}
+
+		return $this->asStripeCustomer();
+	}
+
+	public function getStripeInvoiceLastAttribute()
+	{
+		$last_invoice = false;
+
+		if ( !$this->stripe_id )
+		{
+			return $last_invoice;
+		}
+
+		$invoices = $this->invoicesIncludingPending();
+
+		if ( !$invoices )
+		{
+			return $last_invoice;
+		}
+
+		foreach ($invoices as $invoice)
+		{
+			if ( !$last_invoice || $last_invoice->date < $invoice->date )
+			{
+				$last_invoice = $invoice;
+			}
+		}
+
+		return $last_invoice;
+	}
+
 	public function importTicketingCustomers()
 	{
 		// Get ticket customers
@@ -1134,6 +1206,49 @@ class Site extends TranslatableModel
 				]);
 			}
 		}
+
+		return true;
+	}
+
+	public function downgradeToFree()
+	{
+		// Check if already free
+		if ( $this->plan->is_free )
+		{
+			return false;
+		}
+
+		// Get free plan 
+		$free_plan = \App\Models\Plan::where('is_free', 1)->first();
+		if ( !$free_plan )
+		{
+			return false;
+		}
+
+		// If there's a current subscription
+		if ( $current_subscription = $this->subscription('main') )
+		{
+			// Cancel it
+			$current_subscription->cancelNow();
+		}
+
+		// Set free plan
+		$this->update([
+			'plan_id' => $free_plan->id,
+			'payment_interval' => null,
+			'payment_method' => null,
+			'iban_account' => null,
+			'card_brand' => null,
+			'card_last_four' => null,
+			'trial_ends_at' => null,
+			'paid_until' => null,
+		]);
+
+		// Delete all planchanges
+		$this->planchanges()->update([
+			'status' => 'canceled',
+		]);
+		$this->planchanges()->delete();
 
 		return true;
 	}

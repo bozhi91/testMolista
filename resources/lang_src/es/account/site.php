@@ -104,6 +104,7 @@
 		'menus.create.name' => 'Nombre',
 		'menus.create.intro' => '<p>Para crear un menú, dele un nombre y haga click en Crear menú. Luego podrá seleccionar los items que desea añadir desde la columna de la izquierda.</p>
 								<p>Cuando haya finalizado la construcción del menú, asegúrese de hacer click en el botón Guardar menú.</p>',
+
 		'menus.create.button' => 'Crear menú',
 		'menus.create.success' => 'El menú se ha creado correctamemte',
 
