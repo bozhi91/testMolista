@@ -343,7 +343,9 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
 			'bathrooms' => $property['baths'],
 			'bedrooms' => $property['bedrooms'],
 			'constructedArea' => $property['size'],
-			//'energyCertification' => $property['ec'],
+			'energyCertification' => [
+			    'rating' => $this->getEnergyCertificationRating($property)
+			],
 			'conditionedAir' => empty($oFeatures['air-conditioning']) ? 1 : 2,
 			'alarm' => (empty($oFeatures['alarm'])) ? 'false' : 'true',
 			'balconyNumber' => empty($oFeatures['balcony']) ? 'false' : 'true',
@@ -381,7 +383,9 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
 			'bathrooms' => $property['baths'],
 			'bedrooms' => $property['bedrooms'],
 			'constructedArea' => $property['size'],
-			//'energyCertification' => $property['ec'],
+			'energyCertification' => [
+			    'rating' => $this->getEnergyCertificationRating($property)
+			],
 			'conditionedAir' => empty($oFeatures['air-conditioning']) ? 1 : 2,
 			'alarm' => (empty($oFeatures['alarm'])) ? 'false' : 'true',
 			'balconyNumber' => empty($oFeatures['balcony']) ? 'false' : 'true',
@@ -417,7 +421,9 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
 			'bathrooms' => $property['baths'],
 			'bedrooms' => $property['bedrooms'],
 			'constructedArea' => $property['size'],
-			//'energyCertification' => $property['ec'],
+			'energyCertification' => [
+			    'rating' => $this->getEnergyCertificationRating($property)
+			],
 			'conditionedAir' => empty($oFeatures['air-conditioning']) ? 1 : 2,
 			'alarm' => (empty($oFeatures['alarm'])) ? 'false' : 'true',
 			'balconyNumber' => empty($oFeatures['balcony']) ? 'false' : 'true',
@@ -450,7 +456,9 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
 
 		$features = [
 			'constructedArea' => $property['size'],
-			//'energyCertification' => $property['ec'],
+			'energyCertification' => [
+			    'rating' => $this->getEnergyCertificationRating($property)
+			],
 			'conditionedAir' => empty($oFeatures['air-conditioning']) ? 1 : 2,
 			'alarm' => (empty($oFeatures['alarm'])) ? 'false' : 'true',
 		];
@@ -604,6 +612,17 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
 	 */
 	public function setNewbuildListing($newbuildListing) {
 		$this->newbuildListing = $newbuildListing;
+	}
+
+	/**
+	 * @param array $property
+	 * @return integer
+	 */
+	protected function getEnergyCertificationRating(array $property){
+	    if($property['ec_pending']){
+	        return 10;//tramite
+	    }
+	    return !empty($property['ec']) ? $property['ec'] : 0;
 	}
 
 }
