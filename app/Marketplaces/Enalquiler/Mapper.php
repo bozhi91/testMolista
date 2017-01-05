@@ -122,6 +122,7 @@ class Mapper extends \App\Marketplaces\Mapper {
     {
         switch ($this->item['type']) {
             case 'house':
+			case 'terraced_house':
             case 'villa':
             case 'farmhouse':
             case 'chalet':

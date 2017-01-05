@@ -103,6 +103,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 	protected function getCategory() {
 		switch ($this->item['type']) {
 			case 'house':
+			case 'terraced_house':
 			case 'penthouse':
 			case 'villa':
 			case 'duplex':

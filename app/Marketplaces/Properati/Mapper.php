@@ -214,6 +214,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 			case 'lot': return 'lot';
 			case 'duplex':
 			case 'house':
+			case 'terraced_house':
 			case 'penthouse':
 			case 'villa':
 				return 'house';

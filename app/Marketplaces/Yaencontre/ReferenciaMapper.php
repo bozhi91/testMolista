@@ -129,6 +129,7 @@ class ReferenciaMapper extends BaseMapper {
 			case 'apartment': return [7, 'apartamento'];
 			case 'duplex': return [9, 'duplex'];
 			case 'house': return [16, 'casa'];
+			case 'terraced_house': return [18, 'casa adosada'];	
 			case 'penthouse': return [8, 'ático'];
 			case 'villa': return [24, 'villa'];
 			case 'aparthotel': return [48, 'aparta-hotel'];
@@ -143,6 +144,7 @@ class ReferenciaMapper extends BaseMapper {
 			case 'industrial': return [45, 'nave industrial'];
 			case 'state': return [26, 'finca rústica'];
 			case 'farmhouse': return [17, 'masía'];
+			default: return [11, 'piso'];
 		}
 	}
 

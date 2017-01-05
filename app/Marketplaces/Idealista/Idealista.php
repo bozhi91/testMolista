@@ -206,6 +206,7 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
 			case 'chalet':
 			case 'house':
 			case 'villa':
+			case 'terraced_house':
 				$idealista_type = 'house';
 				break;
 			case 'farmhouse':
