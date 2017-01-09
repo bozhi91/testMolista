@@ -1,5 +1,5 @@
 <?php
-	$infocurrency = $item ? $item->infocurrency : $current_site->infocurrency;
+	$infocurrency = ($item && $item->infocurrency) ? $item->infocurrency : $current_site->infocurrency;
 
 	// Priorizar países
 	if ( empty($current_site->country_ids) )
@@ -479,20 +479,20 @@
 						<div class="form-group error-container">
 							<a href="#add-district" class="add-district-trigger btn btn-default btn-xs pull-right"
 							   title="{{ Lang::get('account/properties.districts.create') }}">+</a>
-							
+
 							{!! Form::label('district_id', Lang::get('account/properties.district')) !!}
-							
+
 							<div id="district-select-container">
 								<?php $tmp = empty($districts) ? [ ''=>'' ] : [ ''=>'' ] + $districts->toArray(); ?>
 								{!! Form::select('district_id', $tmp, @$item->district_id, [ 'class'=>'form-control district-input' ]) !!}
 							</div>
-							
+
 							<div id="district-input-container" style="display: none;">
 								{!! Form::text('district', null, [ 'class'=>'form-control district-input' ]) !!}
 							</div>
-							
+
 							{!! Form::hidden('new_district', false) !!}
-							
+
 						</div>
 						@include('account/properties/form-address')
 					</div>
@@ -701,7 +701,7 @@
 		form.find('.add-district-trigger').on('click', function(e){
 			$('#district-select-container').slideToggle();
 			$('#district-input-container').slideToggle();
-			
+
 			var $hidden = form.find('[name="new_district"]');
 			var val = $hidden.val();
 			$hidden.val(val === "true" ? "false" : "true");
@@ -904,12 +904,12 @@
 
 		form.on('click', '.image-rotate-trigger', function(e){
 			e.preventDefault();
-			
+
 			var el = $(this);
 			var thumb = el.closest('.handler').find('.thumb');
 			var input = el.parent().find('.rotation-hidden-input');
 			var degree = input.val();
-			
+
 			if(!degree) {
 				thumb.addClass('rotated-90');
 				input.val('90');
