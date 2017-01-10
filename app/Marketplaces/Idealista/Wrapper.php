@@ -47,7 +47,7 @@ class Wrapper extends Idealista implements \App\Marketplaces\Interfaces\PublishB
             'location.lat' => 'required', //not really required
             'location.lng' => 'required', //not really required
 			//Flat/House features required
-			'bathrooms' => 'required_if:type,apartment,duplex,penthouse,chalet,house,villa,farmhouse',
+			'baths' => 'required_if:type,apartment,duplex,penthouse,chalet,house,villa,farmhouse',
 			'bedrooms' => 'required_if:type,apartment,duplex,penthouse,chalet,house,villa,farmhouse',
 			'size' => 'required',
         ];
