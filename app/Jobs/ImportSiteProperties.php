@@ -74,7 +74,7 @@ class ImportSiteProperties extends Job implements ShouldQueue
 
 		if ( !$this->version || !in_array($this->version, \App\Models\Site\Import::versionOptions()) )
 		{
-			return $import->error("Error reading the file (version could not be detected)");
+			return $import->error("Error reading the file (version could not be detected). Make sure that the dilimiter for the CSV file is ;");
 		}
 
 		// Update version
@@ -360,7 +360,7 @@ class ImportSiteProperties extends Job implements ShouldQueue
 	{
 		// Data
 		$data = [];
-		foreach ($this->column_keys as $key => $field) 
+		foreach ($this->column_keys as $key => $field)
 		{
 			switch ($key)
 			{
@@ -395,6 +395,15 @@ class ImportSiteProperties extends Job implements ShouldQueue
 			unset($item[$field]);
 		}
 
+		// Fix case
+		foreach (['type', 'mode'] as $f)
+		{
+			if (!empty($item[$f]))
+			{
+				$item[$f] = strtolower($item[$f]);
+			}
+		}
+
 		$this->item = $item;
 	}
 
@@ -403,7 +412,7 @@ class ImportSiteProperties extends Job implements ShouldQueue
 		$this->version_def = \App\Models\Site\Import::getColumns($this->version);
 
 		// Unset invalid columns
-		foreach ($this->column_keys  as $key => $field) 
+		foreach ($this->column_keys  as $key => $field)
 		{
 			if ( array_key_exists($field, $this->version_def) )
 			{
@@ -415,7 +424,7 @@ class ImportSiteProperties extends Job implements ShouldQueue
 
 		// Set validator_fields
 		$this->validator_fields = [];
-		foreach ($this->version_def as $field => $def) 
+		foreach ($this->version_def as $field => $def)
 		{
 			if ( preg_match('#^service-(\d+)$#', $field, $matches) )
 			{
