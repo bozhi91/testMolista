@@ -1134,13 +1134,10 @@
 
 		form.on('change', 'select[name="export_to_all"]', function(){
 			if ( $(this).val() == '1' ) {
-				form.find('.marketplace-input').prop('checked',true);
-				form.find('.not-published-rel').addClass('hide');
-				form.find('.marketplaces-overlay').removeClass('hide');
+				form.find('.marketplace-input').prop('checked',true).prop('disabled', true);
 			} else {
+				form.find('.marketplace-input').prop('disabled', false);
 				form.find('.marketplace-input-unpublished').prop('checked',false);
-				form.find('.not-published-rel').removeClass('hide');
-				form.find('.marketplaces-overlay').addClass('hide');
 			}
 		});
 

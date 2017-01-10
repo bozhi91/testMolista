@@ -53,6 +53,7 @@
 							if ( @$item->export_to_all )
 							{
 								$marketplace_published = true;
+								$marketplace_checkbox_attr['disabled'] = 'disabled';
 							}
 
 							// Get marketplace attributes
@@ -96,7 +97,7 @@
 										{{ Lang::get('account/marketplaces.export_all.warning') }}
 									@endif
 								@else
-									<div class="not-published-rel {{ @$item->export_to_all ? 'hide' : '' }}">
+									<div class="not-published-rel">
 										{{ Lang::get('account/properties.marketplaces.error') }}<br />
 										@if (is_array($publishable))
 										<ul>
@@ -114,7 +115,7 @@
 			</table>
 		</div>
 
-		<div class="marketplaces-overlay {{ @$item->export_to_all ? '' : 'hide' }}" style="position: absolute; top: 0px; left: 0px; height: 100%; width: 100%; background: #fff; opacity: 0.5;"></div>
+		<div class="marketplaces-overlay hide" style="position: absolute; top: 0px; left: 0px; height: 100%; width: 100%; background: #fff; opacity: 0.5;"></div>
 
 	</div>
 

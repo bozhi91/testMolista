@@ -152,7 +152,7 @@
 
 		'show.property.comment.title' => 'Comment',
 		'show.property.comment.button' => 'Save comment',
-		
+
 		'show.property.matches.title' => 'Possible matches',
 
 		'show.transactions.none' => 'There are no transactions',
@@ -262,6 +262,8 @@
 
 		'attributes.yaencontre-city' => 'City (yaencotre)',
 		'attributes.habitaclia-city' => 'City',
+
+		'location.district' => 'District',
 
 		'email.sold.subject' => 'Property ":title" ":reference" was sold',
 		'email.sold.intro' => 'Hello, :name',

@@ -154,7 +154,7 @@
 		'show.property.comment.button' => 'Guardar comentario',
 
 		'show.property.matches.title' => 'Posibles coincidencias',
-		
+
 		'show.transactions.none' => 'No hay transacciones',
 		'show.transactions.date' => 'Fecha',
 		'show.transactions.seller' => 'Vendedor',
@@ -266,6 +266,7 @@
 		'location.address' => 'Dirección',
 		'location.city' => 'Ciudad',
 		'location.zipcode' => 'Código Postal',
+		'location.district' => 'Distrito/Barrio',
 		'location.number' => 'Número calle',
 
 		'email.sold.subject' => 'La propiedad ":title" ":reference" ha sido vendida',
