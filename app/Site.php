@@ -61,7 +61,7 @@ class Site extends TranslatableModel
 	{
 		return $this->hasMany('App\Models\Site\District');
 	}
-	
+
 	public function planchanges()
 	{
 		return $this->hasMany('App\Models\Site\Planchange');
@@ -177,7 +177,7 @@ class Site extends TranslatableModel
 		$property_ids = $this->properties()->pluck('id')->toArray();
 		return Models\Property\Catches::whereIn('property_id', $property_ids);
 	}
-	
+
 	public function api_keys()
 	{
 		return $this->hasMany('App\Models\ApiKey');
@@ -1218,7 +1218,7 @@ class Site extends TranslatableModel
 			return false;
 		}
 
-		// Get free plan 
+		// Get free plan
 		$free_plan = \App\Models\Plan::where('is_free', 1)->first();
 		if ( !$free_plan )
 		{
