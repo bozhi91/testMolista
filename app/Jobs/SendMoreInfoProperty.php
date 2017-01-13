@@ -66,6 +66,12 @@ class SendMoreInfoProperty extends Job implements ShouldQueue
 			\Log::error($e);
 		}
 
+		// Send email to manager
+		if ($this->property->site->notify_info_request)
+		{
+			$this->sendManagerEmail();
+		}
+
 		return true;
 	}
 
@@ -174,7 +180,7 @@ class SendMoreInfoProperty extends Job implements ShouldQueue
 					'data' => $this->data,
 				])->render()
 			]);
-				
+
 			if ( !$res )
 			{
 				\Log::warning("SendMoreInfoProperty: error sending email to manager/owner with email {$contact->email}");
