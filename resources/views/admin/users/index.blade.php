@@ -11,6 +11,7 @@
 					<h4>{{ Lang::get('general.filters') }}</h4>
 					<p>{!! Form::text('name', Input::get('name'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('admin/users.name') ]) !!}</p>
 					<p>{!! Form::text('email', Input::get('email'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('admin/users.email') ]) !!}</p>
+					<p>{!! Form::text('domain', Input::get('domain'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('admin/users.site') ]) !!}</p>
 					<p>{!! Form::select('role', [ ''=>Lang::get('admin/users.role')]+$roles->toArray(), Input::get('role'), [ 'class'=>'form-control' ]) !!}</p>
 					<p>{!! Form::submit( Lang::get('general.filters.apply'), [ 'class'=>'btn btn-default btn-block']) !!}</p>
 				{{ Form::close() }}

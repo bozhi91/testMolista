@@ -34,6 +34,12 @@ class UsersController extends Controller
 			$query->where('email', 'LIKE', "%{$this->request->input('email')}%");
 		}
 
+		// Filter by domain
+		if ( $this->request->input('domain') )
+		{
+			$query->withDomainOrSubdomain($this->request->input('domain'));
+		}
+
 		// Filter by role
 		if ( $this->request->input('role') )
 		{
