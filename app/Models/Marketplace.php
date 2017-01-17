@@ -65,6 +65,8 @@ class Marketplace extends \App\TranslatableModel
     {
         $instance = new \App\Property;
         $query = $instance->newQuery();
+        $query->select('properties.*');
+        $query->groupBy('properties.id');
 
         return new \App\Relations\BelongsToManyOrToAll($query, $this, 'properties_marketplaces', 'marketplace_id', 'property_id', 'export_to_all', 1);
     }
