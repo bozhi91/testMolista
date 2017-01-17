@@ -32,6 +32,7 @@ class Kernel extends ConsoleKernel
 		Commands\TransferDistrincts::class,
 		Commands\PublicarPropiedadesApi::class,
 		Commands\TransferCities::class,
+		Commands\TranslationsImportCommand::class,
 	];
 
 	/**
