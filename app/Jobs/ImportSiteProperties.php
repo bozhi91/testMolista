@@ -191,6 +191,9 @@ class ImportSiteProperties extends Job implements ShouldQueue
 			}
 		}
 
+		// Add currency
+		$property->currency = $this->site->site_currency;
+
 		$property->save();
 
 		// Image
