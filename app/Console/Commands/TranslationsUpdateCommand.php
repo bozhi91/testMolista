@@ -59,16 +59,15 @@ class TranslationsUpdateCommand extends Command
 		}
 
 		// Create language files
-		$files_langs = [];
+		$files_langs = \App\Models\Locale::groupBy('locale')->lists('locale')->all();
 		$files = \DB::table('translations')
 							->selectRaw("DISTINCT(file) as file")
 							->orderBy('file')
 							->get();
 		foreach ($files as $item)
 		{
-			foreach ($languages as $locale)
+			foreach ($files_langs as $locale)
 			{
-				$files_langs[$locale] = $locale;
 				\App\Models\Translation::compileTranslation($item->file,$locale);
 			}
 		}

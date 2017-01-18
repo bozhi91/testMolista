@@ -14,7 +14,7 @@
 
 						<div class="col-sm-3">
 							<div class="block-trigger-modal">
-								<a href="#advanced-search-modal" id="advanced-search-opener"> <span class="block-trigger-modal-icon"><i class="fa fa-plus" aria-hidden="true"></i></span> <span class="block-trigger-modal-text">Más opciones</span> </a>
+								<a href="#advanced-search-modal" id="advanced-search-opener"> <span class="block-trigger-modal-icon"><i class="fa fa-plus" aria-hidden="true"></i></span> <span class="block-trigger-modal-text">{{ Lang::get('web/search.quick.more') }}</span> </a>
 							</div>
 						</div>
 
@@ -39,7 +39,7 @@
 						</div>
 
 						<div class="col-sm-2 block-submit">
-							{!! Form::submit('Buscar', [ 'class'=>'form-control home-top-search-submit' ]) !!}
+							{!! Form::submit(Lang::get('web/search.button'), [ 'class'=>'form-control home-top-search-submit' ]) !!}
 						</div>
 
 					</div>
