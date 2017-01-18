@@ -40,7 +40,7 @@
 				</li>
 			</ul>
 			<div class="button hide">
-				<a href="{{ $item->full_url }}">Ver Detalles</a>
+				<a href="{{ $item->full_url }}">{{ Lang::get('web/properties.search.results.more') }}</a>
 			</div>
 		</div>
 	</div>
