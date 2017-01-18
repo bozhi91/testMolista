@@ -80,6 +80,24 @@
 	}
 }
 
+.home-search-area {
+	background: @colorGreyLight; padding-top: 30px; position: relative;
+	h2 { margin: 0px 0px 20px 0px; }
+	.form-area {
+		padding-bottom: 35px;
+		.form-area-minimizer {
+			position: absolute; left: 0px; right: 0px; bottom: 0px; display: block; background: @colorGrey; opacity: 0.4; color: @colorBlack;
+			&:hover { opacity: 0.5; }
+		}
+		&.closed {
+			padding-bottom: 0;
+			.input-line { display: none; }
+			.first-input-line { display: block; }
+			.form-area-minimizer { display: none; }
+		}
+	}
+}
+
 
 body.theme-bellamar {
 
