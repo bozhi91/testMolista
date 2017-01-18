@@ -172,7 +172,7 @@ class TranslationsImportCommand extends Command
 							->get();
 		foreach ($files as $item)
 		{
-			foreach ($locales as $locale)
+			foreach ($locales as $locale => $locale_name)
 			{
 				\App\Models\Translation::compileTranslation($item->file,$locale);
 			}
