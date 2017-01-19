@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2846">
+        <name><![CDATA[Casablanca]]></name>
+    </zone>
+    
+    <zone id="2847">
+        <name><![CDATA[Gallipont]]></name>
+    </zone>
+    
+    <zone id="2848">
+        <name><![CDATA[La Conarda]]></name>
+    </zone>
+    
+    <zone id="2849">
+        <name><![CDATA[Pla dels Aljubs]]></name>
+    </zone>
+    
+    <zone id="2850">
+        <name><![CDATA[Rascanya]]></name>
+    </zone>
+    
+    <zone id="2851">
+        <name><![CDATA[Urb. Montecolorado]]></name>
+    </zone>
+    
+    <zone id="2852">
+        <name><![CDATA[Los Rincones]]></name>
+    </zone>
+    
+    <zone id="2853">
+        <name><![CDATA[Loma Larga I y II]]></name>
+    </zone>
+    
+    <zone id="2854">
+        <name><![CDATA[Maquiva]]></name>
+    </zone>
+    
+    <zone id="2855">
+        <name><![CDATA[Urb. Campo del Turia]]></name>
+    </zone>
+    
+    <zone id="2856">
+        <name><![CDATA[Urb. Maravisa]]></name>
+    </zone>
+    
+    <zone id="2857">
+        <name><![CDATA[Urb. El Cerrao]]></name>
+    </zone>
+    
+</zones>

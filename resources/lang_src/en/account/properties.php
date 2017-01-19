@@ -82,6 +82,8 @@
 		'lng' => 'Longitude',
 		'geolocate' => 'Geolocate',
 		'geolocate.missing' => 'Address could not be geolocated',
+		'geolocate.error' => 'Address could not be geolocated',
+		'geolocate.no_results' => 'Address could not be geolocated, please provide more detail on the address information.',
 
 		'title' => 'Title',
 		'subtitle' => 'Subtitle',

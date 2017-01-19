@@ -2,66 +2,58 @@
 
 namespace App\Marketplaces\Yaencontre;
 
+use App\Marketplaces\Yaencontre\BaseMapper;
+
 class Mapper extends \App\Marketplaces\Mapper {
 
-	protected $mapper;
+	private $_mapper;
 
 	/**
-	 * Maps a Molista item to Yaencontre format according to
 	 * @return array
 	 */
 	public function map() {
-		if ($this->isPropertyReferencia()) {
-			$mapper = new ReferenciaMapper(
-					$this->item
-					, $this->iso_lang
-					, $this->config);
-			return $mapper->map();
-		}
-
-		$mapper = new PromocionMapper(
-				$this->item
-				, $this->iso_lang
-				, $this->config);
-
-		return $mapper->map();
+		return $this->getMapper()->map();
 	}
 
 	/**
 	 * @return boolean
 	 */
 	public function valid() {
-		if ($this->isPropertyReferencia()) {
-			$this->mapper = new ReferenciaMapper(
-					$this->item
-					, $this->iso_lang
-					, $this->config);
-		} else {
-			$this->mapper = new PromocionMapper($this->item
-			, $this->iso_lang
-			, $this->config);
-		}
-
-		return $this->mapper->valid();
+		return $this->getMapper()->valid();
 	}
 
 	/**
-	 * @return bool
+	 * @return array
+	 */
+	public function errors() {
+		return $this->getMapper()->errors;
+	}
+
+	/**
+	 * @return BaseMapper
+	 */
+	protected function getMapper() {
+		if($this->_mapper === null) {
+			if ($this->isPropertyReferencia()) {
+				$this->_mapper = new ReferenciaMapper(
+					$this->item
+					, $this->iso_lang
+					, $this->config);
+			} else {
+				$this->_mapper = new PromocionMapper(
+					$this->item
+					, $this->iso_lang
+					, $this->config);
+			}
+		}
+		return $this->_mapper;
+	}
+	
+	/**
+	 * @return bool  Property is Promosion if it's new
 	 */
 	public function isPropertyReferencia() {
 		$property = $this->item;
-
-		if (!$property['newly_build'] || $property['second_hand']) {
-			return true;
-		}
-
-		//property is promocion if it's new
-		return false;
+		return !$property['newly_build'] || $property['second_hand'];
 	}
-
-	public function errors()
-    {
-        return $this->mapper->errors;
-    }
-
 }

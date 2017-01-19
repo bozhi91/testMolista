@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3529">
+        <name><![CDATA[El Secano]]></name>
+    </zone>
+    
+    <zone id="3530">
+        <name><![CDATA[La Huerta]]></name>
+    </zone>
+    
+    <zone id="3531">
+        <name><![CDATA[La Playa]]></name>
+    </zone>
+    
+    <zone id="3532">
+        <name><![CDATA[Poligono Industrial]]></name>
+    </zone>
+    
+</zones>

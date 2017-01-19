@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="22495">
+        <name><![CDATA[Nucle Urbano]]></name>
+    </zone>
+    
+    <zone id="22496">
+        <name><![CDATA[Parque Las Castillas]]></name>
+    </zone>
+    
+    <zone id="22497">
+        <name><![CDATA[Señorio de Muriel]]></name>
+    </zone>
+    
+    <zone id="22498">
+        <name><![CDATA[Eras de San Sebastian]]></name>
+    </zone>
+    
+    <zone id="22499">
+        <name><![CDATA[El Ensanche]]></name>
+    </zone>
+    
+</zones>

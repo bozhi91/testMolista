@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2114">
+        <name><![CDATA[Centre Ciutat]]></name>
+    </zone>
+    
+    <zone id="2115">
+        <name><![CDATA[El Forti]]></name>
+    </zone>
+    
+    <zone id="2116">
+        <name><![CDATA[Raco d´en Portes]]></name>
+    </zone>
+    
+    <zone id="2117">
+        <name><![CDATA[Els Pins]]></name>
+    </zone>
+    
+    <zone id="2118">
+        <name><![CDATA[S´abanel]]></name>
+    </zone>
+    
+    <zone id="2119">
+        <name><![CDATA[Quatre Vents]]></name>
+    </zone>
+    
+    <zone id="2120">
+        <name><![CDATA[Els Olivers]]></name>
+    </zone>
+    
+    <zone id="2121">
+        <name><![CDATA[Raco Blau]]></name>
+    </zone>
+    
+    <zone id="2122">
+        <name><![CDATA[Els Pavos]]></name>
+    </zone>
+    
+    <zone id="2123">
+        <name><![CDATA[Mas Borrell]]></name>
+    </zone>
+    
+    <zone id="2124">
+        <name><![CDATA[Mas Moixa]]></name>
+    </zone>
+    
+    <zone id="2125">
+        <name><![CDATA[Mas Florit]]></name>
+    </zone>
+    
+    <zone id="2126">
+        <name><![CDATA[Mas Cremat]]></name>
+    </zone>
+    
+    <zone id="2127">
+        <name><![CDATA[Mas Carolet]]></name>
+    </zone>
+    
+    <zone id="2128">
+        <name><![CDATA[Ca la Guido]]></name>
+    </zone>
+    
+    <zone id="2129">
+        <name><![CDATA[Mas Enlaire]]></name>
+    </zone>
+    
+    <zone id="2130">
+        <name><![CDATA[Mas Terrats]]></name>
+    </zone>
+    
+    <zone id="2131">
+        <name><![CDATA[Sant Joan Sud]]></name>
+    </zone>
+    
+    <zone id="2132">
+        <name><![CDATA[Cala de Sant Francesc]]></name>
+    </zone>
+    
+    <zone id="2133">
+        <name><![CDATA[Corona Sta Cristina]]></name>
+    </zone>
+    
+    <zone id="2134">
+        <name><![CDATA[Mont-Ferrant]]></name>
+    </zone>
+    
+    <zone id="2135">
+        <name><![CDATA[Ca N´illes]]></name>
+    </zone>
+    
+    <zone id="2136">
+        <name><![CDATA[Mas Borinot]]></name>
+    </zone>
+    
+    <zone id="2137">
+        <name><![CDATA[Blanes Vistamar]]></name>
+    </zone>
+    
+    <zone id="2138">
+        <name><![CDATA[Residencial Blanes]]></name>
+    </zone>
+    
+    <zone id="2139">
+        <name><![CDATA[Serrallarga]]></name>
+    </zone>
+    
+    <zone id="2140">
+        <name><![CDATA[Residencial Sta Cristina]]></name>
+    </zone>
+    
+    <zone id="2141">
+        <name><![CDATA[Valldolig 1]]></name>
+    </zone>
+    
+    <zone id="2142">
+        <name><![CDATA[Valldolig 2]]></name>
+    </zone>
+    
+    <zone id="2143">
+        <name><![CDATA[Valldolig 3]]></name>
+    </zone>
+    
+</zones>

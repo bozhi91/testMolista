@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3489">
+        <name><![CDATA[San Antonio de la Mar]]></name>
+    </zone>
+    
+    <zone id="3490">
+        <name><![CDATA[El Faro]]></name>
+    </zone>
+    
+    <zone id="3491">
+        <name><![CDATA[El Dossel]]></name>
+    </zone>
+    
+    <zone id="3492">
+        <name><![CDATA[El Brosquil]]></name>
+    </zone>
+    
+    <zone id="3493">
+        <name><![CDATA[El Mareny de San Llorenzo]]></name>
+    </zone>
+    
+    <zone id="3494">
+        <name><![CDATA[El Mareñet]]></name>
+    </zone>
+    
+    <zone id="3495">
+        <name><![CDATA[L´Estany]]></name>
+    </zone>
+    
+    <zone id="3496">
+        <name><![CDATA[El Racó]]></name>
+    </zone>
+    
+    <zone id="3497">
+        <name><![CDATA[La Bega]]></name>
+    </zone>
+    
+    <zone id="3498">
+        <name><![CDATA[El Puerto]]></name>
+    </zone>
+    
+    <zone id="3499">
+        <name><![CDATA[La Raval de San Agustín]]></name>
+    </zone>
+    
+    <zone id="3500">
+        <name><![CDATA[La Villa]]></name>
+    </zone>
+    
+</zones>

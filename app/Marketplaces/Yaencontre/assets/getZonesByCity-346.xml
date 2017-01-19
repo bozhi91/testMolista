@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="22522">
+        <name><![CDATA[Nucli Urba]]></name>
+    </zone>
+    
+    <zone id="22523">
+        <name><![CDATA[Urb. Roca Rosa]]></name>
+    </zone>
+    
+    <zone id="22524">
+        <name><![CDATA[Urb. Can Domenech]]></name>
+    </zone>
+    
+    <zone id="22525">
+        <name><![CDATA[Urb. Agora Parc]]></name>
+    </zone>
+    
+    <zone id="22526">
+        <name><![CDATA[Urb. Les Ferreres]]></name>
+    </zone>
+    
+    <zone id="22527">
+        <name><![CDATA[Urb. Niagara Parc]]></name>
+    </zone>
+    
+    <zone id="22528">
+        <name><![CDATA[Urb. Mas Reixach]]></name>
+    </zone>
+    
+    <zone id="22529">
+        <name><![CDATA[Urb. Terra Brava]]></name>
+    </zone>
+    
+    <zone id="22530">
+        <name><![CDATA[Urb. Sant Daniel]]></name>
+    </zone>
+    
+    <zone id="22531">
+        <name><![CDATA[Urb. Tordera Parc]]></name>
+    </zone>
+    
+    <zone id="22532">
+        <name><![CDATA[Urb. Mas Mora]]></name>
+    </zone>
+    
+    <zone id="34324">
+        <name><![CDATA[Sant Pere]]></name>
+    </zone>
+    
+</zones>

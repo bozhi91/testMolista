@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1568">
+        <name><![CDATA[Casco Antiguo]]></name>
+    </zone>
+    
+    <zone id="1569">
+        <name><![CDATA[Triana]]></name>
+    </zone>
+    
+    <zone id="1570">
+        <name><![CDATA[Los Remedios]]></name>
+    </zone>
+    
+    <zone id="1571">
+        <name><![CDATA[Macarena]]></name>
+    </zone>
+    
+    <zone id="1572">
+        <name><![CDATA[Este - Alcosa - Torreblanca]]></name>
+    </zone>
+    
+    <zone id="1573">
+        <name><![CDATA[Distrito Sur]]></name>
+    </zone>
+    
+    <zone id="33693">
+        <name><![CDATA[Bellavista – La Palmera]]></name>
+    </zone>
+    
+    <zone id="33694">
+        <name><![CDATA[Cerro - Amate]]></name>
+    </zone>
+    
+    <zone id="33695">
+        <name><![CDATA[Macarena Norte ]]></name>
+    </zone>
+    
+    <zone id="33885">
+        <name><![CDATA[El Cano]]></name>
+    </zone>
+    
+    <zone id="33889">
+        <name><![CDATA[Heliópolis]]></name>
+    </zone>
+    
+    <zone id="33890">
+        <name><![CDATA[La Palmera]]></name>
+    </zone>
+    
+    <zone id="33892">
+        <name><![CDATA[Pineda]]></name>
+    </zone>
+    
+    <zone id="33894">
+        <name><![CDATA[Los Bermejales]]></name>
+    </zone>
+    
+    <zone id="33898">
+        <name><![CDATA[Reina Mercedes]]></name>
+    </zone>
+    
+    <zone id="33899">
+        <name><![CDATA[Pedro Salvador]]></name>
+    </zone>
+    
+    <zone id="33919">
+        <name><![CDATA[Alfalfa]]></name>
+    </zone>
+    
+    <zone id="33920">
+        <name><![CDATA[Arenal]]></name>
+    </zone>
+    
+    <zone id="33921">
+        <name><![CDATA[Encarnación-Regina]]></name>
+    </zone>
+    
+    <zone id="33923">
+        <name><![CDATA[Feria-Alameda]]></name>
+    </zone>
+    
+    <zone id="33924">
+        <name><![CDATA[Museo]]></name>
+    </zone>
+    
+    <zone id="33925">
+        <name><![CDATA[San Bartolomé-Judería]]></name>
+    </zone>
+    
+    <zone id="33926">
+        <name><![CDATA[San Gil]]></name>
+    </zone>
+    
+    <zone id="33927">
+        <name><![CDATA[San Julián]]></name>
+    </zone>
+    
+    <zone id="33943">
+        <name><![CDATA[San Lorenzo]]></name>
+    </zone>
+    
+    <zone id="33944">
+        <name><![CDATA[San Vicente]]></name>
+    </zone>
+    
+    <zone id="33945">
+        <name><![CDATA[Santa Catalina]]></name>
+    </zone>
+    
+    <zone id="33946">
+        <name><![CDATA[Santa Cruz]]></name>
+    </zone>
+    
+    <zone id="33948">
+        <name><![CDATA[El Cerro del Águila]]></name>
+    </zone>
+    
+    <zone id="33949">
+        <name><![CDATA[Juan XXIII]]></name>
+    </zone>
+    
+    <zone id="33950">
+        <name><![CDATA[Rochelambert]]></name>
+    </zone>
+    
+    <zone id="33951">
+        <name><![CDATA[La Plata]]></name>
+    </zone>
+    
+    <zone id="33952">
+        <name><![CDATA[Palmete]]></name>
+    </zone>
+    
+    <zone id="33953">
+        <name><![CDATA[Parque Amate]]></name>
+    </zone>
+    
+    <zone id="33954">
+        <name><![CDATA[Santa Aurelia]]></name>
+    </zone>
+    
+    <zone id="33955">
+        <name><![CDATA[Distrito Norte]]></name>
+    </zone>
+    
+    <zone id="33956">
+        <name><![CDATA[Parque Atlántico]]></name>
+    </zone>
+    
+    <zone id="33957">
+        <name><![CDATA[Las Naciones]]></name>
+    </zone>
+    
+    <zone id="33958">
+        <name><![CDATA[Los Arcos]]></name>
+    </zone>
+    
+    <zone id="33959">
+        <name><![CDATA[Pino Montano]]></name>
+    </zone>
+    
+    <zone id="33960">
+        <name><![CDATA[San Diego]]></name>
+    </zone>
+    
+    <zone id="33961">
+        <name><![CDATA[Las Almenas]]></name>
+    </zone>
+    
+    <zone id="33962">
+        <name><![CDATA[San Jerónimo]]></name>
+    </zone>
+    
+    <zone id="33963">
+        <name><![CDATA[La Bachillera]]></name>
+    </zone>
+    
+    <zone id="33964">
+        <name><![CDATA[Valdezorras]]></name>
+    </zone>
+    
+    <zone id="33965">
+        <name><![CDATA[El Gordillo]]></name>
+    </zone>
+    
+    <zone id="33966">
+        <name><![CDATA[El Plantinar]]></name>
+    </zone>
+    
+    <zone id="33967">
+        <name><![CDATA[El Juncal]]></name>
+    </zone>
+    
+    <zone id="33968">
+        <name><![CDATA[Av. de la Paz]]></name>
+    </zone>
+    
+    <zone id="33969">
+        <name><![CDATA[El Porvenir]]></name>
+    </zone>
+    
+    <zone id="33970">
+        <name><![CDATA[La Oliva]]></name>
+    </zone>
+    
+    <zone id="33971">
+        <name><![CDATA[Polígono Sur]]></name>
+    </zone>
+    
+    <zone id="33972">
+        <name><![CDATA[Prado de San Sebastián]]></name>
+    </zone>
+    
+    <zone id="33973">
+        <name><![CDATA[Tabladilla]]></name>
+    </zone>
+    
+    <zone id="33974">
+        <name><![CDATA[Bami]]></name>
+    </zone>
+    
+    <zone id="33975">
+        <name><![CDATA[Tiro de Línea]]></name>
+    </zone>
+    
+    <zone id="33977">
+        <name><![CDATA[Av. Ciencias-Emilio Lemos]]></name>
+    </zone>
+    
+    <zone id="33978">
+        <name><![CDATA[Parque Alcosa]]></name>
+    </zone>
+    
+    <zone id="33979">
+        <name><![CDATA[Jardines del Edén]]></name>
+    </zone>
+    
+    <zone id="33980">
+        <name><![CDATA[Torreblanca]]></name>
+    </zone>
+    
+    <zone id="33981">
+        <name><![CDATA[Urbadiez]]></name>
+    </zone>
+    
+    <zone id="33982">
+        <name><![CDATA[Entrepuentes]]></name>
+    </zone>
+    
+    <zone id="33983">
+        <name><![CDATA[Los Remedios]]></name>
+    </zone>
+    
+    <zone id="33984">
+        <name><![CDATA[Tablada]]></name>
+    </zone>
+    
+    <zone id="33985">
+        <name><![CDATA[Nervión]]></name>
+    </zone>
+    
+    <zone id="33986">
+        <name><![CDATA[Ciudad Jardín]]></name>
+    </zone>
+    
+    <zone id="33987">
+        <name><![CDATA[La Buhaira]]></name>
+    </zone>
+    
+    <zone id="33988">
+        <name><![CDATA[San Bernardo]]></name>
+    </zone>
+    
+    <zone id="33989">
+        <name><![CDATA[La Florida]]></name>
+    </zone>
+    
+    <zone id="33990">
+        <name><![CDATA[Huerta del Pilar]]></name>
+    </zone>
+    
+    <zone id="33991">
+        <name><![CDATA[Nervión]]></name>
+    </zone>
+    
+    <zone id="33992">
+        <name><![CDATA[San Roque]]></name>
+    </zone>
+    
+    <zone id="33993">
+        <name><![CDATA[La Calzada]]></name>
+    </zone>
+    
+    <zone id="33994">
+        <name><![CDATA[San Pablo-Santa Justa]]></name>
+    </zone>
+    
+    <zone id="33995">
+        <name><![CDATA[San José]]></name>
+    </zone>
+    
+    <zone id="33996">
+        <name><![CDATA[San Carlos]]></name>
+    </zone>
+    
+    <zone id="33997">
+        <name><![CDATA[Fontanal]]></name>
+    </zone>
+    
+    <zone id="33998">
+        <name><![CDATA[San Pablo]]></name>
+    </zone>
+    
+    <zone id="33999">
+        <name><![CDATA[Santa Clara]]></name>
+    </zone>
+    
+    <zone id="34000">
+        <name><![CDATA[Barrio León]]></name>
+    </zone>
+    
+    <zone id="34001">
+        <name><![CDATA[El Tardón]]></name>
+    </zone>
+    
+    <zone id="34002">
+        <name><![CDATA[Blas Infante]]></name>
+    </zone>
+    
+    <zone id="34003">
+        <name><![CDATA[Triana Casco Antiguo]]></name>
+    </zone>
+    
+    <zone id="34004">
+        <name><![CDATA[Zona Esperanza de Triana]]></name>
+    </zone>
+    
+    <zone id="34005">
+        <name><![CDATA[Zona Ronda de Triana]]></name>
+    </zone>
+    
+    <zone id="34006">
+        <name><![CDATA[Cartuja]]></name>
+    </zone>
+    
+    <zone id="34363">
+        <name><![CDATA[Doctor Barraquer - G. Renfe - Policlínico]]></name>
+    </zone>
+    
+    <zone id="34366">
+        <name><![CDATA[Pío XII ]]></name>
+    </zone>
+    
+    <zone id="34369">
+        <name><![CDATA[Villegas]]></name>
+    </zone>
+    
+    <zone id="34372">
+        <name><![CDATA[Cruz Roja - Capuchinos]]></name>
+    </zone>
+    
+    <zone id="34374">
+        <name><![CDATA[El Torrejón - El Cerezo]]></name>
+    </zone>
+    
+    <zone id="34487">
+        <name><![CDATA[Polígono Industrial Store]]></name>
+    </zone>
+    
+    <zone id="34488">
+        <name><![CDATA[Polígono Industrial Calonge]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3765">
+        <name><![CDATA[Casco Viejo]]></name>
+    </zone>
+    
+    <zone id="3766">
+        <name><![CDATA[Las Castañeras]]></name>
+    </zone>
+    
+    <zone id="3767">
+        <name><![CDATA[Ciudad Jardin]]></name>
+    </zone>
+    
+    <zone id="3768">
+        <name><![CDATA[Barrio Zarzalejo]]></name>
+    </zone>
+    
+    <zone id="3769">
+        <name><![CDATA[Urb. El Bosque]]></name>
+    </zone>
+    
+</zones>

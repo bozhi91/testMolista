@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="34463">
+        <name><![CDATA[Parc Empresarial]]></name>
+    </zone>
+    
+    <zone id="35004">
+        <name><![CDATA[El Ginestar]]></name>
+    </zone>
+    
+    <zone id="35007">
+        <name><![CDATA[La Torre Roja - Campreciós]]></name>
+    </zone>
+    
+    <zone id="35009">
+        <name><![CDATA[Barri de Sales]]></name>
+    </zone>
+    
+    <zone id="35011">
+        <name><![CDATA[Grup Sant Jordi]]></name>
+    </zone>
+    
+    <zone id="35013">
+        <name><![CDATA[Can Sellarès]]></name>
+    </zone>
+    
+    <zone id="35014">
+        <name><![CDATA[El Poblat Roca]]></name>
+    </zone>
+    
+    <zone id="35016">
+        <name><![CDATA[Can Palmer – Can Batllori]]></name>
+    </zone>
+    
+    <zone id="35017">
+        <name><![CDATA[L’Alba-rosa – Can Guardiola]]></name>
+    </zone>
+    
+    <zone id="35020">
+        <name><![CDATA[El Torrent Ballester]]></name>
+    </zone>
+    
+    <zone id="35022">
+        <name><![CDATA[El Mas Ratés]]></name>
+    </zone>
+    
+</zones>

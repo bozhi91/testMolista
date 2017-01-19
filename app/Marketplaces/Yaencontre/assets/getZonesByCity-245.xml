@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="400">
+        <name><![CDATA[Avda barcelona]]></name>
+    </zone>
+    
+    <zone id="401">
+        <name><![CDATA[Avda vallès]]></name>
+    </zone>
+    
+    <zone id="402">
+        <name><![CDATA[Can anglada]]></name>
+    </zone>
+    
+    <zone id="403">
+        <name><![CDATA[Can aurell]]></name>
+    </zone>
+    
+    <zone id="404">
+        <name><![CDATA[Can boada]]></name>
+    </zone>
+    
+    <zone id="405">
+        <name><![CDATA[Can boada del pi]]></name>
+    </zone>
+    
+    <zone id="406">
+        <name><![CDATA[Can jofresa]]></name>
+    </zone>
+    
+    <zone id="407">
+        <name><![CDATA[Can palet]]></name>
+    </zone>
+    
+    <zone id="408">
+        <name><![CDATA[Can palet de vistalegre]]></name>
+    </zone>
+    
+    <zone id="409">
+        <name><![CDATA[Can parellada]]></name>
+    </zone>
+    
+    <zone id="410">
+        <name><![CDATA[Can roca]]></name>
+    </zone>
+    
+    <zone id="411">
+        <name><![CDATA[Can tusell]]></name>
+    </zone>
+    
+    <zone id="412">
+        <name><![CDATA[Cementerio viejo]]></name>
+    </zone>
+    
+    <zone id="413">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="414">
+        <name><![CDATA[Egara]]></name>
+    </zone>
+    
+    <zone id="415">
+        <name><![CDATA[El sosiego]]></name>
+    </zone>
+    
+    <zone id="416">
+        <name><![CDATA[Escoles]]></name>
+    </zone>
+    
+    <zone id="417">
+        <name><![CDATA[Guadalhorce]]></name>
+    </zone>
+    
+    <zone id="418">
+        <name><![CDATA[Guadiana]]></name>
+    </zone>
+    
+    <zone id="419">
+        <name><![CDATA[Josep tarradellas]]></name>
+    </zone>
+    
+    <zone id="420">
+        <name><![CDATA[Jucar]]></name>
+    </zone>
+    
+    <zone id="421">
+        <name><![CDATA[La coguillada]]></name>
+    </zone>
+    
+    <zone id="422">
+        <name><![CDATA[La gripia]]></name>
+    </zone>
+    
+    <zone id="423">
+        <name><![CDATA[La maurina]]></name>
+    </zone>
+    
+    <zone id="424">
+        <name><![CDATA[Les arenes]]></name>
+    </zone>
+    
+    <zone id="425">
+        <name><![CDATA[La rambleta]]></name>
+    </zone>
+    
+    <zone id="426">
+        <name><![CDATA[Les fonts]]></name>
+    </zone>
+    
+    <zone id="427">
+        <name><![CDATA[Les martinas]]></name>
+    </zone>
+    
+    <zone id="428">
+        <name><![CDATA[Montserrat]]></name>
+    </zone>
+    
+    <zone id="429">
+        <name><![CDATA[Pº 22 de julio]]></name>
+    </zone>
+    
+    <zone id="430">
+        <name><![CDATA[Pere parres]]></name>
+    </zone>
+    
+    <zone id="431">
+        <name><![CDATA[Pla de bonaire]]></name>
+    </zone>
+    
+    <zone id="432">
+        <name><![CDATA[Poble nou]]></name>
+    </zone>
+    
+    <zone id="433">
+        <name><![CDATA[Roc blanc]]></name>
+    </zone>
+    
+    <zone id="434">
+        <name><![CDATA[Sant eloi]]></name>
+    </zone>
+    
+    <zone id="435">
+        <name><![CDATA[Sant llorenç]]></name>
+    </zone>
+    
+    <zone id="436">
+        <name><![CDATA[Sant pere]]></name>
+    </zone>
+    
+    <zone id="437">
+        <name><![CDATA[Sant pere (nord)]]></name>
+    </zone>
+    
+    <zone id="438">
+        <name><![CDATA[Segle xx]]></name>
+    </zone>
+    
+    <zone id="439">
+        <name><![CDATA[Torresana]]></name>
+    </zone>
+    
+    <zone id="440">
+        <name><![CDATA[Vallparadis]]></name>
+    </zone>
+    
+    <zone id="441">
+        <name><![CDATA[Zona olimpica]]></name>
+    </zone>
+    
+    <zone id="442">
+        <name><![CDATA[Sant miquel de gonteras]]></name>
+    </zone>
+    
+    <zone id="704">
+        <name><![CDATA[Zona_temp olimpica]]></name>
+    </zone>
+    
+    <zone id="712">
+        <name><![CDATA[Abad marcet]]></name>
+    </zone>
+    
+</zones>

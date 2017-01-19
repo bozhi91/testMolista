@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2725">
+        <name><![CDATA[Casco Urbano]]></name>
+    </zone>
+    
+    <zone id="2726">
+        <name><![CDATA[Playa Mucha Vista]]></name>
+    </zone>
+    
+    <zone id="2727">
+        <name><![CDATA[Diseminado]]></name>
+    </zone>
+    
+    <zone id="2728">
+        <name><![CDATA[La Almadraba]]></name>
+    </zone>
+    
+    <zone id="2729">
+        <name><![CDATA[Amerador]]></name>
+    </zone>
+    
+    <zone id="2730">
+        <name><![CDATA[Els Banyers]]></name>
+    </zone>
+    
+    <zone id="2731">
+        <name><![CDATA[Barrio Bonny]]></name>
+    </zone>
+    
+    <zone id="2732">
+        <name><![CDATA[Cala d´or]]></name>
+    </zone>
+    
+    <zone id="2733">
+        <name><![CDATA[Coveta Fuma]]></name>
+    </zone>
+    
+    <zone id="2734">
+        <name><![CDATA[La Merced]]></name>
+    </zone>
+    
+    <zone id="2735">
+        <name><![CDATA[La Porcha]]></name>
+    </zone>
+    
+    <zone id="2736">
+        <name><![CDATA[Pueblo Español]]></name>
+    </zone>
+    
+    <zone id="2737">
+        <name><![CDATA[Urbanizacion Bonanza]]></name>
+    </zone>
+    
+    <zone id="2738">
+        <name><![CDATA[Venta Lanuza]]></name>
+    </zone>
+    
+</zones>

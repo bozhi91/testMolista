@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2790">
+        <name><![CDATA[El Tremolar]]></name>
+    </zone>
+    
+    <zone id="2791">
+        <name><![CDATA[El Barrio Orba-Parque Alcosa]]></name>
+    </zone>
+    
+    <zone id="2792">
+        <name><![CDATA[Los Alfalares]]></name>
+    </zone>
+    
+    <zone id="2793">
+        <name><![CDATA[El Rajolar]]></name>
+    </zone>
+    
+</zones>

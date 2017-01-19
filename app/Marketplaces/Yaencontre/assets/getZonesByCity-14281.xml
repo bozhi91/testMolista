@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2873">
+        <name><![CDATA[Centro-Casco Antiguo]]></name>
+    </zone>
+    
+    <zone id="2874">
+        <name><![CDATA[San Jose-Valderas-Parque Lisboa]]></name>
+    </zone>
+    
+    <zone id="2875">
+        <name><![CDATA[Ondarreta-Las Retamas-Parque Oeste]]></name>
+    </zone>
+    
+</zones>

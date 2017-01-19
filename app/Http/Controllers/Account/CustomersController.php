@@ -64,10 +64,13 @@ class CustomersController extends \App\Http\Controllers\AccountController
 			$query->withFullName( $this->request->input('name') );
 		}
 
-		// Filter by email
+		// Filter by email and phone
 		if ( $this->request->input('email') )
 		{
-			$query->where('customers.email', 'like', "%{$this->request->input('email')}%");
+			$query->where(function($q) {
+				return $q->where('customers.email', 'like', "%{$this->request->input('email')}%")
+						->orWhere('customers.phone', 'like', "%{$this->request->input('email')}%");
+			});
 		}
 
 		//Filter by active

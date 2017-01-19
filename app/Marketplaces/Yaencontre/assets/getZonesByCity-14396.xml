@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1902">
+        <name><![CDATA[Casco Urbano]]></name>
+    </zone>
+    
+    <zone id="1903">
+        <name><![CDATA[El Abajon]]></name>
+    </zone>
+    
+    <zone id="1904">
+        <name><![CDATA[Yucatan]]></name>
+    </zone>
+    
+    <zone id="1905">
+        <name><![CDATA[La Cornisa]]></name>
+    </zone>
+    
+    <zone id="1906">
+        <name><![CDATA[El Torreon]]></name>
+    </zone>
+    
+    <zone id="1907">
+        <name><![CDATA[La Marazuela]]></name>
+    </zone>
+    
+    <zone id="1908">
+        <name><![CDATA[El Montecillo]]></name>
+    </zone>
+    
+    <zone id="1909">
+        <name><![CDATA[Poligono Industrial Europolis]]></name>
+    </zone>
+    
+    <zone id="1910">
+        <name><![CDATA[Sector V]]></name>
+    </zone>
+    
+    <zone id="1911">
+        <name><![CDATA[La Chopera]]></name>
+    </zone>
+    
+    <zone id="1912">
+        <name><![CDATA[Dehesa de Navalcarbon]]></name>
+    </zone>
+    
+    <zone id="1913">
+        <name><![CDATA[Coruña 21]]></name>
+    </zone>
+    
+    <zone id="1914">
+        <name><![CDATA[El Mirador]]></name>
+    </zone>
+    
+    <zone id="1915">
+        <name><![CDATA[Monterozas]]></name>
+    </zone>
+    
+    <zone id="1916">
+        <name><![CDATA[Parque Empresarial]]></name>
+    </zone>
+    
+    <zone id="1917">
+        <name><![CDATA[Villarozas]]></name>
+    </zone>
+    
+    <zone id="1918">
+        <name><![CDATA[Parque Matas]]></name>
+    </zone>
+    
+    <zone id="1919">
+        <name><![CDATA[El Cantizal]]></name>
+    </zone>
+    
+    <zone id="1920">
+        <name><![CDATA[El Pinar]]></name>
+    </zone>
+    
+    <zone id="1921">
+        <name><![CDATA[Parque Rozas]]></name>
+    </zone>
+    
+    <zone id="1922">
+        <name><![CDATA[Punta Galea]]></name>
+    </zone>
+    
+    <zone id="1923">
+        <name><![CDATA[Secorix]]></name>
+    </zone>
+    
+    <zone id="1924">
+        <name><![CDATA[Barrio de Renfe]]></name>
+    </zone>
+    
+    <zone id="1925">
+        <name><![CDATA[Molino de la Hoz]]></name>
+    </zone>
+    
+    <zone id="1926">
+        <name><![CDATA[Club de Golf]]></name>
+    </zone>
+    
+    <zone id="1927">
+        <name><![CDATA[Los Jardines del Cesar]]></name>
+    </zone>
+    
+    <zone id="1928">
+        <name><![CDATA[El Garzo]]></name>
+    </zone>
+    
+    <zone id="1929">
+        <name><![CDATA[Monte Verde]]></name>
+    </zone>
+    
+    <zone id="1930">
+        <name><![CDATA[Buenos Aires]]></name>
+    </zone>
+    
+    <zone id="1931">
+        <name><![CDATA[El Encinar]]></name>
+    </zone>
+    
+    <zone id="1932">
+        <name><![CDATA[El Pedrosillo]]></name>
+    </zone>
+    
+    <zone id="1933">
+        <name><![CDATA[Las Matas]]></name>
+    </zone>
+    
+    <zone id="1934">
+        <name><![CDATA[Los Peñascales]]></name>
+    </zone>
+    
+    <zone id="34497">
+        <name><![CDATA[El Caño - Maracaibo]]></name>
+    </zone>
+    
+</zones>

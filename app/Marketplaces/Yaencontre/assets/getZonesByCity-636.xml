@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1240">
+        <name><![CDATA[Castell de San Ferran]]></name>
+    </zone>
+    
+    <zone id="1241">
+        <name><![CDATA[Serra Floreta]]></name>
+    </zone>
+    
+    <zone id="1242">
+        <name><![CDATA[Horta Capallera]]></name>
+    </zone>
+    
+    <zone id="1243">
+        <name><![CDATA[Eixample]]></name>
+    </zone>
+    
+    <zone id="1244">
+        <name><![CDATA[Par Sol]]></name>
+    </zone>
+    
+    <zone id="1245">
+        <name><![CDATA[Marca de l´Ham]]></name>
+    </zone>
+    
+    <zone id="1246">
+        <name><![CDATA[Culubret]]></name>
+    </zone>
+    
+    <zone id="1247">
+        <name><![CDATA[Turó Baix]]></name>
+    </zone>
+    
+    <zone id="1248">
+        <name><![CDATA[Poble Nou]]></name>
+    </zone>
+    
+    <zone id="1249">
+        <name><![CDATA[Recinte Firal]]></name>
+    </zone>
+    
+    <zone id="1250">
+        <name><![CDATA[San Isidre]]></name>
+    </zone>
+    
+    <zone id="1251">
+        <name><![CDATA[Creu de la Mà]]></name>
+    </zone>
+    
+    <zone id="1252">
+        <name><![CDATA[L´Olivar gran]]></name>
+    </zone>
+    
+    <zone id="1253">
+        <name><![CDATA[Rally Sud]]></name>
+    </zone>
+    
+    <zone id="1254">
+        <name><![CDATA[Vilatenim]]></name>
+    </zone>
+    
+    <zone id="1255">
+        <name><![CDATA[Els Baladers]]></name>
+    </zone>
+    
+    <zone id="34474">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="28997">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="28998">
+        <name><![CDATA[Sureste]]></name>
+    </zone>
+    
+    <zone id="28999">
+        <name><![CDATA[Levante]]></name>
+    </zone>
+    
+    <zone id="29000">
+        <name><![CDATA[Norte Sierra]]></name>
+    </zone>
+    
+    <zone id="29001">
+        <name><![CDATA[Noroeste]]></name>
+    </zone>
+    
+    <zone id="29002">
+        <name><![CDATA[Sur]]></name>
+    </zone>
+    
+    <zone id="29003">
+        <name><![CDATA[Poniente Norte]]></name>
+    </zone>
+    
+    <zone id="29004">
+        <name><![CDATA[Poniente Sur]]></name>
+    </zone>
+    
+    <zone id="29005">
+        <name><![CDATA[Periurbano Oeste-Sierra]]></name>
+    </zone>
+    
+    <zone id="29006">
+        <name><![CDATA[Periurbano Este-Campiña]]></name>
+    </zone>
+    
+</zones>

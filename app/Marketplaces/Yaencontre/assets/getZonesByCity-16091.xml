@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1959">
+        <name><![CDATA[Montequinto]]></name>
+    </zone>
+    
+    <zone id="1960">
+        <name><![CDATA[Nucleo Urbano]]></name>
+    </zone>
+    
+    <zone id="1961">
+        <name><![CDATA[Poligono la Isla]]></name>
+    </zone>
+    
+    <zone id="1962">
+        <name><![CDATA[Fuente del Rey]]></name>
+    </zone>
+    
+    <zone id="1963">
+        <name><![CDATA[Adriano]]></name>
+    </zone>
+    
+    <zone id="34334">
+        <name><![CDATA[Arco Norte]]></name>
+    </zone>
+    
+</zones>

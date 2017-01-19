@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="247">
+        <name><![CDATA[Bellvitge]]></name>
+    </zone>
+    
+    <zone id="248">
+        <name><![CDATA[Can Serra]]></name>
+    </zone>
+    
+    <zone id="249">
+        <name><![CDATA[Can Vidalet]]></name>
+    </zone>
+    
+    <zone id="250">
+        <name><![CDATA[Centre]]></name>
+    </zone>
+    
+    <zone id="251">
+        <name><![CDATA[Collblanc]]></name>
+    </zone>
+    
+    <zone id="252">
+        <name><![CDATA[La Florida]]></name>
+    </zone>
+    
+    <zone id="253">
+        <name><![CDATA[Pubilla cases]]></name>
+    </zone>
+    
+    <zone id="254">
+        <name><![CDATA[Sant Josep]]></name>
+    </zone>
+    
+    <zone id="255">
+        <name><![CDATA[Santa Eulàlia]]></name>
+    </zone>
+    
+    <zone id="256">
+        <name><![CDATA[La Torrassa]]></name>
+    </zone>
+    
+    <zone id="34466">
+        <name><![CDATA[Gran Via LH]]></name>
+    </zone>
+    
+    <zone id="34694">
+        <name><![CDATA[El Gornal]]></name>
+    </zone>
+    
+    <zone id="34697">
+        <name><![CDATA[Sant Feliu]]></name>
+    </zone>
+    
+    <zone id="34700">
+        <name><![CDATA[Les Planes]]></name>
+    </zone>
+    
+</zones>

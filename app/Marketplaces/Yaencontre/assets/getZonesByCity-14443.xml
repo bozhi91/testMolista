@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2808">
+        <name><![CDATA[Zona Centro]]></name>
+    </zone>
+    
+    <zone id="2809">
+        <name><![CDATA[Zona Universidad]]></name>
+    </zone>
+    
+    <zone id="2810">
+        <name><![CDATA[Villafranca del Castillo-Mochachica]]></name>
+    </zone>
+    
+    <zone id="2811">
+        <name><![CDATA[La Raya del Palancar]]></name>
+    </zone>
+    
+    <zone id="2812">
+        <name><![CDATA[Guadamonte]]></name>
+    </zone>
+    
+</zones>

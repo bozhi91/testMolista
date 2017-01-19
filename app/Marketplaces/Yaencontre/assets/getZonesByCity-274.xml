@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2743">
+        <name><![CDATA[Centre]]></name>
+    </zone>
+    
+    <zone id="2744">
+        <name><![CDATA[La Prua]]></name>
+    </zone>
+    
+    <zone id="2745">
+        <name><![CDATA[Els Piells]]></name>
+    </zone>
+    
+    <zone id="2746">
+        <name><![CDATA[Can Catessus]]></name>
+    </zone>
+    
+</zones>

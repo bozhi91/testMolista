@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="443">
+        <name><![CDATA[Els munts]]></name>
+    </zone>
+    
+    <zone id="444">
+        <name><![CDATA[Sant jordi]]></name>
+    </zone>
+    
+    <zone id="445">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="446">
+        <name><![CDATA[Babilonia]]></name>
+    </zone>
+    
+    <zone id="447">
+        <name><![CDATA[Clarà]]></name>
+    </zone>
+    
+    <zone id="448">
+        <name><![CDATA[Rincón romano]]></name>
+    </zone>
+    
+    <zone id="449">
+        <name><![CDATA[Baix a mar]]></name>
+    </zone>
+    
+    <zone id="451">
+        <name><![CDATA[Les àmfores]]></name>
+    </zone>
+    
+    <zone id="452">
+        <name><![CDATA[Sadolla]]></name>
+    </zone>
+    
+    <zone id="453">
+        <name><![CDATA[Marítima residencial]]></name>
+    </zone>
+    
+    <zone id="454">
+        <name><![CDATA[Pol. ind. roques planes]]></name>
+    </zone>
+    
+    <zone id="455">
+        <name><![CDATA[Urb. clarà sol]]></name>
+    </zone>
+    
+    <zone id="456">
+        <name><![CDATA[Urb.bizanci]]></name>
+    </zone>
+    
+    <zone id="457">
+        <name><![CDATA[Urb. clarà mar]]></name>
+    </zone>
+    
+    <zone id="1163">
+        <name><![CDATA[Hort d´en xanans]]></name>
+    </zone>
+    
+</zones>

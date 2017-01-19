@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1470">
+        <name><![CDATA[Barri del Rei]]></name>
+    </zone>
+    
+    <zone id="1471">
+        <name><![CDATA[Sant Nicolau]]></name>
+    </zone>
+    
+    <zone id="1472">
+        <name><![CDATA[Nucli Antic]]></name>
+    </zone>
+    
+    <zone id="1473">
+        <name><![CDATA[Santa Llúcia]]></name>
+    </zone>
+    
+    <zone id="1474">
+        <name><![CDATA[Eixample]]></name>
+    </zone>
+    
+    <zone id="1475">
+        <name><![CDATA[Bonavista]]></name>
+    </zone>
+    
+    <zone id="1476">
+        <name><![CDATA[La Pau]]></name>
+    </zone>
+    
+    <zone id="1477">
+        <name><![CDATA[Barri de la Llum]]></name>
+    </zone>
+    
+</zones>

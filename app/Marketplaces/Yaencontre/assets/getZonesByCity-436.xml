@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="241">
+        <name><![CDATA[Les planes]]></name>
+    </zone>
+    
+    <zone id="242">
+        <name><![CDATA[Can clota]]></name>
+    </zone>
+    
+    <zone id="243">
+        <name><![CDATA[Can vidalet]]></name>
+    </zone>
+    
+    <zone id="244">
+        <name><![CDATA[Centre]]></name>
+    </zone>
+    
+    <zone id="245">
+        <name><![CDATA[Can peregrí]]></name>
+    </zone>
+    
+    <zone id="246">
+        <name><![CDATA[El gall]]></name>
+    </zone>
+    
+    <zone id="1233">
+        <name><![CDATA[Can oliveres]]></name>
+    </zone>
+    
+    <zone id="1234">
+        <name><![CDATA[Maiola]]></name>
+    </zone>
+    
+    <zone id="1235">
+        <name><![CDATA[Finestrelles]]></name>
+    </zone>
+    
+    <zone id="1236">
+        <name><![CDATA[La miranda]]></name>
+    </zone>
+    
+    <zone id="1237">
+        <name><![CDATA[Ciutat diagonal]]></name>
+    </zone>
+    
+    <zone id="1238">
+        <name><![CDATA[Montesa]]></name>
+    </zone>
+    
+</zones>

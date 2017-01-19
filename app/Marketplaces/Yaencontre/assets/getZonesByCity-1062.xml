@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="260">
+        <name><![CDATA[Urb. entrepins]]></name>
+    </zone>
+    
+    <zone id="261">
+        <name><![CDATA[L¸escorpí]]></name>
+    </zone>
+    
+</zones>

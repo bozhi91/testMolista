@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1108">
+        <name><![CDATA[Vives platja]]></name>
+    </zone>
+    
+    <zone id="1109">
+        <name><![CDATA[Casc antic]]></name>
+    </zone>
+    
+    <zone id="1110">
+        <name><![CDATA[Merymar]]></name>
+    </zone>
+    
+    <zone id="1111">
+        <name><![CDATA[Costa daurada]]></name>
+    </zone>
+    
+    <zone id="1112">
+        <name><![CDATA[Mas roig]]></name>
+    </zone>
+    
+    <zone id="1113">
+        <name><![CDATA[Les torres]]></name>
+    </zone>
+    
+    <zone id="1114">
+        <name><![CDATA[Marysol]]></name>
+    </zone>
+    
+    <zone id="1115">
+        <name><![CDATA[Bará mar]]></name>
+    </zone>
+    
+    <zone id="1116">
+        <name><![CDATA[Bará]]></name>
+    </zone>
+    
+    <zone id="1117">
+        <name><![CDATA[Roc de sant gaieta]]></name>
+    </zone>
+    
+    <zone id="1118">
+        <name><![CDATA[Eixample residencial]]></name>
+    </zone>
+    
+    <zone id="1119">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="1120">
+        <name><![CDATA[La barquera]]></name>
+    </zone>
+    
+    <zone id="1749">
+        <name><![CDATA[El Francaset]]></name>
+    </zone>
+    
+</zones>

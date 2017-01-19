@@ -33,7 +33,7 @@
 					</div>
 					<div class="form-group">
 						{!! Form::label('email', Lang::get('account/customers.email'), [ 'class'=>'sr-only' ]) !!}
-						{!! Form::text('email', Input::get('email'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('account/customers.email') ]) !!}
+						{!! Form::text('email', Input::get('email'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('account/customers.emailorphone') ]) !!}
 					</div>
 <!--					<div class="form-group">
 						{!! Form::label('created_at', Lang::get('account/customers.created'), [ 'class'=>'sr-only' ]) !!}
@@ -103,7 +103,7 @@
 									</a>
 								</td>
 								<td>{{ $customer->full_name }}</td>
-								<td>{{ $customer->email }}</td>
+								<td>{{ $customer->email }} <br> {{$customer->phone}}</td>
 								<td style="text-transform: capitalize;">{{ $customer->origin }}</td>
 								<td>
 									@if($customer->current_query)

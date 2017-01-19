@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1413">
+        <name><![CDATA[Almeda]]></name>
+    </zone>
+    
+    <zone id="1414">
+        <name><![CDATA[Centre]]></name>
+    </zone>
+    
+    <zone id="1415">
+        <name><![CDATA[Fontsanta]]></name>
+    </zone>
+    
+    <zone id="1416">
+        <name><![CDATA[Gavarra]]></name>
+    </zone>
+    
+    <zone id="1417">
+        <name><![CDATA[Padró]]></name>
+    </zone>
+    
+    <zone id="1418">
+        <name><![CDATA[Riera]]></name>
+    </zone>
+    
+    <zone id="1419">
+        <name><![CDATA[Sant Ildefons]]></name>
+    </zone>
+    
+</zones>

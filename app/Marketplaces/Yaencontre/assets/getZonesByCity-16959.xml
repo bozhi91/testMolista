@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2719">
+        <name><![CDATA[Casco Urbano]]></name>
+    </zone>
+    
+    <zone id="2720">
+        <name><![CDATA[Pradillos 1]]></name>
+    </zone>
+    
+    <zone id="2721">
+        <name><![CDATA[Pradillos 2]]></name>
+    </zone>
+    
+    <zone id="2722">
+        <name><![CDATA[Camino de Yuncos]]></name>
+    </zone>
+    
+    <zone id="2723">
+        <name><![CDATA[Barrio de la Estacion]]></name>
+    </zone>
+    
+    <zone id="22555">
+        <name><![CDATA[Cisneros, Los]]></name>
+    </zone>
+    
+</zones>

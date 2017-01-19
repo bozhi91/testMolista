@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2389">
+        <name><![CDATA[Centro-Catedral]]></name>
+    </zone>
+    
+    <zone id="2390">
+        <name><![CDATA[La Puebla-Centro]]></name>
+    </zone>
+    
+    <zone id="2391">
+        <name><![CDATA[Salon de Isabel II]]></name>
+    </zone>
+    
+    <zone id="2392">
+        <name><![CDATA[El Carmen]]></name>
+    </zone>
+    
+    <zone id="2393">
+        <name><![CDATA[Madrid]]></name>
+    </zone>
+    
+    <zone id="2394">
+        <name><![CDATA[San Pablo]]></name>
+    </zone>
+    
+    <zone id="2395">
+        <name><![CDATA[San Telmo]]></name>
+    </zone>
+    
+    <zone id="2396">
+        <name><![CDATA[Campo de la Juvenud]]></name>
+    </zone>
+    
+    <zone id="2397">
+        <name><![CDATA[Pan y Guindas]]></name>
+    </zone>
+    
+    <zone id="2398">
+        <name><![CDATA[San Juanillo]]></name>
+    </zone>
+    
+    <zone id="2399">
+        <name><![CDATA[Ave Maria]]></name>
+    </zone>
+    
+    <zone id="2400">
+        <name><![CDATA[Cristo del Otero]]></name>
+    </zone>
+    
+    <zone id="2401">
+        <name><![CDATA[San Antonio]]></name>
+    </zone>
+    
+    <zone id="2402">
+        <name><![CDATA[Allende del Rio]]></name>
+    </zone>
+    
+    <zone id="2403">
+        <name><![CDATA[Eras del Bosque]]></name>
+    </zone>
+    
+    <zone id="2404">
+        <name><![CDATA[Eletrolisis]]></name>
+    </zone>
+    
+    <zone id="2405">
+        <name><![CDATA[Nuestra Sra. De los Angeles]]></name>
+    </zone>
+    
+    <zone id="2406">
+        <name><![CDATA[Santa Marina]]></name>
+    </zone>
+    
+    <zone id="2407">
+        <name><![CDATA[Prado de la lana]]></name>
+    </zone>
+    
+    <zone id="2408">
+        <name><![CDATA[Nueva Balastera-Sector 8]]></name>
+    </zone>
+    
+</zones>

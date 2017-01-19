@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="458">
+        <name><![CDATA[Sant vicenç]]></name>
+    </zone>
+    
+    <zone id="459">
+        <name><![CDATA[Torreblanca]]></name>
+    </zone>
+    
+    <zone id="460">
+        <name><![CDATA[El tancat]]></name>
+    </zone>
+    
+    <zone id="461">
+        <name><![CDATA[Mas d´en gual]]></name>
+    </zone>
+    
+    <zone id="462">
+        <name><![CDATA[Barri de frança]]></name>
+    </zone>
+    
+    <zone id="463">
+        <name><![CDATA[Mas levi]]></name>
+    </zone>
+    
+    <zone id="464">
+        <name><![CDATA[Jané parera]]></name>
+    </zone>
+    
+    <zone id="465">
+        <name><![CDATA[Plaça nova i barceloneta]]></name>
+    </zone>
+    
+    <zone id="466">
+        <name><![CDATA[Plaça vella]]></name>
+    </zone>
+    
+    <zone id="467">
+        <name><![CDATA[Carretera]]></name>
+    </zone>
+    
+    <zone id="468">
+        <name><![CDATA[Serrallo i font de la menya]]></name>
+    </zone>
+    
+    <zone id="469">
+        <name><![CDATA[Oasi]]></name>
+    </zone>
+    
+    <zone id="470">
+        <name><![CDATA[L´eixample]]></name>
+    </zone>
+    
+    <zone id="471">
+        <name><![CDATA[Edèn parc]]></name>
+    </zone>
+    
+    <zone id="472">
+        <name><![CDATA[El pèlag]]></name>
+    </zone>
+    
+    <zone id="473">
+        <name><![CDATA[El puig]]></name>
+    </zone>
+    
+    <zone id="474">
+        <name><![CDATA[La muntanyeta]]></name>
+    </zone>
+    
+    <zone id="475">
+        <name><![CDATA[El nou vendrell]]></name>
+    </zone>
+    
+    <zone id="476">
+        <name><![CDATA[Sant salvador]]></name>
+    </zone>
+    
+    <zone id="477">
+        <name><![CDATA[Coma-ruga]]></name>
+    </zone>
+    
+    <zone id="478">
+        <name><![CDATA[El francàs]]></name>
+    </zone>
+    
+    <zone id="479">
+        <name><![CDATA[La masia blanca]]></name>
+    </zone>
+    
+    <zone id="480">
+        <name><![CDATA[Els masos]]></name>
+    </zone>
+    
+    <zone id="481">
+        <name><![CDATA[Nirvana]]></name>
+    </zone>
+    
+    <zone id="482">
+        <name><![CDATA[Els garrofers]]></name>
+    </zone>
+    
+    <zone id="483">
+        <name><![CDATA[El romaní]]></name>
+    </zone>
+    
+    <zone id="484">
+        <name><![CDATA[Mas Astó]]></name>
+    </zone>
+    
+    <zone id="485">
+        <name><![CDATA[Mas borràs]]></name>
+    </zone>
+    
+    <zone id="486">
+        <name><![CDATA[La creu]]></name>
+    </zone>
+    
+    <zone id="487">
+        <name><![CDATA[Bonavista]]></name>
+    </zone>
+    
+    <zone id="488">
+        <name><![CDATA[Bon lloc]]></name>
+    </zone>
+    
+</zones>

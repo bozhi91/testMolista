@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1941">
+        <name><![CDATA[Casco Viejo]]></name>
+    </zone>
+    
+    <zone id="1942">
+        <name><![CDATA[La Fuente]]></name>
+    </zone>
+    
+    <zone id="1943">
+        <name><![CDATA[La Granja]]></name>
+    </zone>
+    
+    <zone id="1944">
+        <name><![CDATA[La Laguna (Laguna Park)]]></name>
+    </zone>
+    
+    <zone id="1945">
+        <name><![CDATA[El Nido]]></name>
+    </zone>
+    
+    <zone id="1946">
+        <name><![CDATA[Villayuventus]]></name>
+    </zone>
+    
+    <zone id="1947">
+        <name><![CDATA[Barrio 84]]></name>
+    </zone>
+    
+    <zone id="1948">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="1949">
+        <name><![CDATA[San Ramon]]></name>
+    </zone>
+    
+    <zone id="1950">
+        <name><![CDATA[Villayuventus II]]></name>
+    </zone>
+    
+    <zone id="1951">
+        <name><![CDATA[Fuentebella]]></name>
+    </zone>
+    
+    <zone id="1952">
+        <name><![CDATA[La Ermita]]></name>
+    </zone>
+    
+    <zone id="1953">
+        <name><![CDATA[Leguario Norte]]></name>
+    </zone>
+    
+    <zone id="1954">
+        <name><![CDATA[Leguario Sur]]></name>
+    </zone>
+    
+    <zone id="1955">
+        <name><![CDATA[Parque Inlasa]]></name>
+    </zone>
+    
+    <zone id="1956">
+        <name><![CDATA[Las Americas]]></name>
+    </zone>
+    
+    <zone id="1957">
+        <name><![CDATA[Pryconsa]]></name>
+    </zone>
+    
+    <zone id="1958">
+        <name><![CDATA[Parla Este]]></name>
+    </zone>
+    
+</zones>

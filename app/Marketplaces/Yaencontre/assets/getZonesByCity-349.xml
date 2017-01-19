@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="22618">
+        <name><![CDATA[Santa Agnès de Malanyanes]]></name>
+    </zone>
+    
+    <zone id="22619">
+        <name><![CDATA[Roca Centre]]></name>
+    </zone>
+    
+    <zone id="22620">
+        <name><![CDATA[La Torreta]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1667">
+        <name><![CDATA[Sur]]></name>
+    </zone>
+    
+    <zone id="1668">
+        <name><![CDATA[Norte]]></name>
+    </zone>
+    
+    <zone id="1669">
+        <name><![CDATA[San Nicasio]]></name>
+    </zone>
+    
+    <zone id="1670">
+        <name><![CDATA[Zarzaquemada]]></name>
+    </zone>
+    
+    <zone id="1671">
+        <name><![CDATA[Carrascal]]></name>
+    </zone>
+    
+    <zone id="1672">
+        <name><![CDATA[Fortuna]]></name>
+    </zone>
+    
+    <zone id="33676">
+        <name><![CDATA[Zona Centro]]></name>
+    </zone>
+    
+    <zone id="33677">
+        <name><![CDATA[Valdepelayo-Arroyo Culebro]]></name>
+    </zone>
+    
+    <zone id="33678">
+        <name><![CDATA[Vereda de Estudiantes-Derechos Humanos]]></name>
+    </zone>
+    
+    <zone id="33679">
+        <name><![CDATA[Quinto Centenario-Solagua-Campo de Tiro]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2773">
+        <name><![CDATA[Los Faroles]]></name>
+    </zone>
+    
+    <zone id="2774">
+        <name><![CDATA[El Carmen]]></name>
+    </zone>
+    
+</zones>

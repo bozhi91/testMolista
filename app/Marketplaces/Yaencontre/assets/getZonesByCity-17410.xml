@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1778">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="1779">
+        <name><![CDATA[Semicentro-Circular-San Juan-Batalla]]></name>
+    </zone>
+    
+    <zone id="1780">
+        <name><![CDATA[Covaresa-Parque Alameda-Las Villas-Santa Ana]]></name>
+    </zone>
+    
+    <zone id="1781">
+        <name><![CDATA[Zorrilla-Cuatro de marzo]]></name>
+    </zone>
+    
+    <zone id="1782">
+        <name><![CDATA[Huerta Rey]]></name>
+    </zone>
+    
+    <zone id="1783">
+        <name><![CDATA[Victoria - Puente Jardín]]></name>
+    </zone>
+    
+    <zone id="1784">
+        <name><![CDATA[Parquesol]]></name>
+    </zone>
+    
+    <zone id="1785">
+        <name><![CDATA[Rondilla-Pilarica-Vadillos-Bº España-Santa Clara]]></name>
+    </zone>
+    
+    <zone id="1786">
+        <name><![CDATA[Delicias - Pajarillos - Flores]]></name>
+    </zone>
+    
+    <zone id="35116">
+        <name><![CDATA[Arturo Eyries-La Rubia]]></name>
+    </zone>
+    
+    <zone id="35119">
+        <name><![CDATA[Campo Grande-Arco Ladrillo]]></name>
+    </zone>
+    
+    <zone id="35122">
+        <name><![CDATA[Girón-Villa del Prado]]></name>
+    </zone>
+    
+    <zone id="35125">
+        <name><![CDATA[Hospital]]></name>
+    </zone>
+    
+    <zone id="35128">
+        <name><![CDATA[Caño Argales]]></name>
+    </zone>
+    
+    <zone id="35131">
+        <name><![CDATA[San Pablo-San Nicolás-Universidad]]></name>
+    </zone>
+    
+    <zone id="35146">
+        <name><![CDATA[Fuente Berrocal-La Overuela]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2884">
+        <name><![CDATA[Cruz del Cordero]]></name>
+    </zone>
+    
+    <zone id="2885">
+        <name><![CDATA[Barrio del Pilar]]></name>
+    </zone>
+    
+    <zone id="2886">
+        <name><![CDATA[Reñidero]]></name>
+    </zone>
+    
+    <zone id="2887">
+        <name><![CDATA[Floridablanca]]></name>
+    </zone>
+    
+    <zone id="2888">
+        <name><![CDATA[La Villa]]></name>
+    </zone>
+    
+    <zone id="2889">
+        <name><![CDATA[La Fortaleza]]></name>
+    </zone>
+    
+    <zone id="2890">
+        <name><![CDATA[La Gloria]]></name>
+    </zone>
+    
+    <zone id="2891">
+        <name><![CDATA[Arroyo de San Sebastian]]></name>
+    </zone>
+    
+    <zone id="2892">
+        <name><![CDATA[San Francisco]]></name>
+    </zone>
+    
+    <zone id="2893">
+        <name><![CDATA[Carretera de Arenas]]></name>
+    </zone>
+    
+    <zone id="2894">
+        <name><![CDATA[Camino de Algarrobo]]></name>
+    </zone>
+    
+    <zone id="2895">
+        <name><![CDATA[El Limonar]]></name>
+    </zone>
+    
+    <zone id="2896">
+        <name><![CDATA[Pueblo Nuevo de la Axarquia "Carabanchel"]]></name>
+    </zone>
+    
+    <zone id="2897">
+        <name><![CDATA[La Mata-El Limonar]]></name>
+    </zone>
+    
+    <zone id="2898">
+        <name><![CDATA[Real Bajo]]></name>
+    </zone>
+    
+    <zone id="2899">
+        <name><![CDATA[Las Carmelitas]]></name>
+    </zone>
+    
+    <zone id="2900">
+        <name><![CDATA[El Carmen]]></name>
+    </zone>
+    
+    <zone id="2901">
+        <name><![CDATA[Calle Las Tiendas-Acera Fina-Salvador Rueda]]></name>
+    </zone>
+    
+    <zone id="2902">
+        <name><![CDATA[Las Monjas-Compas]]></name>
+    </zone>
+    
+    <zone id="2903">
+        <name><![CDATA[Barrio de la Legion]]></name>
+    </zone>
+    
+    <zone id="2904">
+        <name><![CDATA[Capuchinos]]></name>
+    </zone>
+    
+    <zone id="2905">
+        <name><![CDATA[Camino viejo de Malaga]]></name>
+    </zone>
+    
+    <zone id="2906">
+        <name><![CDATA[Molino de velasco]]></name>
+    </zone>
+    
+    <zone id="2907">
+        <name><![CDATA[Los Olivos]]></name>
+    </zone>
+    
+</zones>

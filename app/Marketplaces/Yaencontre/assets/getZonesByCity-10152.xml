@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1605">
+        <name><![CDATA[Albufereta]]></name>
+    </zone>
+    
+    <zone id="1606">
+        <name><![CDATA[Alipark]]></name>
+    </zone>
+    
+    <zone id="1607">
+        <name><![CDATA[Altozano - Conde Lumiares]]></name>
+    </zone>
+    
+    <zone id="1608">
+        <name><![CDATA[Benalúa]]></name>
+    </zone>
+    
+    <zone id="1609">
+        <name><![CDATA[Cabo de las Huertas]]></name>
+    </zone>
+    
+    <zone id="1610">
+        <name><![CDATA[Campoamor]]></name>
+    </zone>
+    
+    <zone id="1611">
+        <name><![CDATA[Carolinas Altas]]></name>
+    </zone>
+    
+    <zone id="1612">
+        <name><![CDATA[Carolinas Bajas]]></name>
+    </zone>
+    
+    <zone id="1613">
+        <name><![CDATA[Casco Antiguo - Santa Cruz]]></name>
+    </zone>
+    
+    <zone id="1614">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="1615">
+        <name><![CDATA[Ciudad de Asis]]></name>
+    </zone>
+    
+    <zone id="1616">
+        <name><![CDATA[Ciudad Jardin]]></name>
+    </zone>
+    
+    <zone id="1617">
+        <name><![CDATA[Colonia Requena]]></name>
+    </zone>
+    
+    <zone id="1618">
+        <name><![CDATA[Cuatrocientas Viviendas]]></name>
+    </zone>
+    
+    <zone id="1619">
+        <name><![CDATA[Disperso Partidas]]></name>
+    </zone>
+    
+    <zone id="1620">
+        <name><![CDATA[Divina Pastora]]></name>
+    </zone>
+    
+    <zone id="1621">
+        <name><![CDATA[El Palmeral - Urbanova - Tabarca]]></name>
+    </zone>
+    
+    <zone id="1622">
+        <name><![CDATA[Ensanche Diputacion]]></name>
+    </zone>
+    
+    <zone id="1623">
+        <name><![CDATA[Florida Alta]]></name>
+    </zone>
+    
+    <zone id="1624">
+        <name><![CDATA[Florida Baja]]></name>
+    </zone>
+    
+    <zone id="1625">
+        <name><![CDATA[Garbinet]]></name>
+    </zone>
+    
+    <zone id="1626">
+        <name><![CDATA[Juan XXIII]]></name>
+    </zone>
+    
+    <zone id="1627">
+        <name><![CDATA[Lo Morant - San Nicolas de Bari]]></name>
+    </zone>
+    
+    <zone id="1628">
+        <name><![CDATA[Los Angeles]]></name>
+    </zone>
+    
+    <zone id="1629">
+        <name><![CDATA[Mercado]]></name>
+    </zone>
+    
+    <zone id="1630">
+        <name><![CDATA[Pla del Bon Repos]]></name>
+    </zone>
+    
+    <zone id="1631">
+        <name><![CDATA[Playa de San Juan]]></name>
+    </zone>
+    
+    <zone id="1632">
+        <name><![CDATA[Poligono Babel]]></name>
+    </zone>
+    
+    <zone id="1633">
+        <name><![CDATA[Paus - Polígono San Blas]]></name>
+    </zone>
+    
+    <zone id="1634">
+        <name><![CDATA[Rabasa]]></name>
+    </zone>
+    
+    <zone id="1635">
+        <name><![CDATA[Raval Roig - Virgen del Socorro]]></name>
+    </zone>
+    
+    <zone id="1636">
+        <name><![CDATA[San Agustin]]></name>
+    </zone>
+    
+    <zone id="1637">
+        <name><![CDATA[San Anton]]></name>
+    </zone>
+    
+    <zone id="1638">
+        <name><![CDATA[San Blas - Santo Domingo]]></name>
+    </zone>
+    
+    <zone id="1639">
+        <name><![CDATA[San Fernando - Princesa Mercedes]]></name>
+    </zone>
+    
+    <zone id="1640">
+        <name><![CDATA[San Gabriel]]></name>
+    </zone>
+    
+    <zone id="1641">
+        <name><![CDATA[Sidi Ifni - Nou Alacant]]></name>
+    </zone>
+    
+    <zone id="1642">
+        <name><![CDATA[Tombola]]></name>
+    </zone>
+    
+    <zone id="1643">
+        <name><![CDATA[Villafranqueza - Santa Faz]]></name>
+    </zone>
+    
+    <zone id="1644">
+        <name><![CDATA[Virgen del Carmen]]></name>
+    </zone>
+    
+    <zone id="1645">
+        <name><![CDATA[Virgen del Remedio]]></name>
+    </zone>
+    
+    <zone id="1646">
+        <name><![CDATA[Vistahermosa]]></name>
+    </zone>
+    
+    <zone id="2220">
+        <name><![CDATA[Parque de las Avenidas]]></name>
+    </zone>
+    
+    <zone id="22625">
+        <name><![CDATA[Babel]]></name>
+    </zone>
+    
+    <zone id="34317">
+        <name><![CDATA[Urbanova]]></name>
+    </zone>
+    
+</zones>

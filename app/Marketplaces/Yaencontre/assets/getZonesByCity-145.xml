@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="575">
+        <name><![CDATA[Maritim]]></name>
+    </zone>
+    
+    <zone id="576">
+        <name><![CDATA[Mas d¸en pedro]]></name>
+    </zone>
+    
+    <zone id="577">
+        <name><![CDATA[Les estoreres]]></name>
+    </zone>
+    
+    <zone id="578">
+        <name><![CDATA[Sud sumella]]></name>
+    </zone>
+    
+    <zone id="579">
+        <name><![CDATA[Bardaji]]></name>
+    </zone>
+    
+    <zone id="580">
+        <name><![CDATA[Urb. la solana]]></name>
+    </zone>
+    
+    <zone id="581">
+        <name><![CDATA[Ricreu]]></name>
+    </zone>
+    
+    <zone id="582">
+        <name><![CDATA[Costa cunit-cubelles]]></name>
+    </zone>
+    
+    <zone id="583">
+        <name><![CDATA[Molí de baix]]></name>
+    </zone>
+    
+    <zone id="584">
+        <name><![CDATA[Clot del basso]]></name>
+    </zone>
+    
+    <zone id="585">
+        <name><![CDATA[Corral d¸en tort]]></name>
+    </zone>
+    
+    <zone id="586">
+        <name><![CDATA[Urb.mas trader ii]]></name>
+    </zone>
+    
+    <zone id="587">
+        <name><![CDATA[Urb.sta.maria]]></name>
+    </zone>
+    
+    <zone id="588">
+        <name><![CDATA[Mota sant pere]]></name>
+    </zone>
+    
+    <zone id="589">
+        <name><![CDATA[Urb. corral d¸en cona]]></name>
+    </zone>
+    
+    <zone id="590">
+        <name><![CDATA[Urb. la gaviota]]></name>
+    </zone>
+    
+    <zone id="591">
+        <name><![CDATA[Urb.mas trader i]]></name>
+    </zone>
+    
+    <zone id="592">
+        <name><![CDATA[Eixample]]></name>
+    </zone>
+    
+    <zone id="33673">
+        <name><![CDATA[Les Salines]]></name>
+    </zone>
+    
+    <zone id="33674">
+        <name><![CDATA[Nucli Antic]]></name>
+    </zone>
+    
+</zones>

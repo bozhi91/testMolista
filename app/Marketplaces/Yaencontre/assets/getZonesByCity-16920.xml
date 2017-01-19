@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2359">
+        <name><![CDATA[Seseña Nuevo]]></name>
+    </zone>
+    
+    <zone id="2360">
+        <name><![CDATA[Barrio de la Estacion]]></name>
+    </zone>
+    
+    <zone id="2361">
+        <name><![CDATA[Valle Grande]]></name>
+    </zone>
+    
+    <zone id="2362">
+        <name><![CDATA[Quiñon]]></name>
+    </zone>
+    
+</zones>

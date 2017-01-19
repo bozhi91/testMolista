@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="33743">
+        <name><![CDATA[Casco Antiguo]]></name>
+    </zone>
+    
+    <zone id="33744">
+        <name><![CDATA[Pardaleras]]></name>
+    </zone>
+    
+    <zone id="33745">
+        <name><![CDATA[San Roque]]></name>
+    </zone>
+    
+    <zone id="33746">
+        <name><![CDATA[Cerro de Reyes]]></name>
+    </zone>
+    
+    <zone id="33747">
+        <name><![CDATA[Valdepasillas]]></name>
+    </zone>
+    
+    <zone id="33748">
+        <name><![CDATA[Las Vaguadas]]></name>
+    </zone>
+    
+    <zone id="33749">
+        <name><![CDATA[Santa Marina]]></name>
+    </zone>
+    
+    <zone id="33750">
+        <name><![CDATA[Cerro del Viento]]></name>
+    </zone>
+    
+    <zone id="33751">
+        <name><![CDATA[La Paz]]></name>
+    </zone>
+    
+    <zone id="33752">
+        <name><![CDATA[Jardines del Guadiana]]></name>
+    </zone>
+    
+    <zone id="33753">
+        <name><![CDATA[Ronda Norte]]></name>
+    </zone>
+    
+    <zone id="33754">
+        <name><![CDATA[María Auxiliadora]]></name>
+    </zone>
+    
+    <zone id="33755">
+        <name><![CDATA[San Fernando]]></name>
+    </zone>
+    
+    <zone id="33756">
+        <name><![CDATA[Ciudad Jardín]]></name>
+    </zone>
+    
+    <zone id="33757">
+        <name><![CDATA[Barriada de Llera]]></name>
+    </zone>
+    
+    <zone id="33758">
+        <name><![CDATA[El Gurugú]]></name>
+    </zone>
+    
+    <zone id="33759">
+        <name><![CDATA[Huerta Rosales]]></name>
+    </zone>
+    
+    <zone id="33760">
+        <name><![CDATA[Suerte de Saavedra]]></name>
+    </zone>
+    
+    <zone id="33761">
+        <name><![CDATA[Los Montitos]]></name>
+    </zone>
+    
+    <zone id="33762">
+        <name><![CDATA[Margen Derecha]]></name>
+    </zone>
+    
+    <zone id="33763">
+        <name><![CDATA[Altozano]]></name>
+    </zone>
+    
+    <zone id="33764">
+        <name><![CDATA[Antonio Domínguez]]></name>
+    </zone>
+    
+</zones>

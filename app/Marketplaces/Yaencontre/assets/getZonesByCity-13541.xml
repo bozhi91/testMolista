@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2650">
+        <name><![CDATA[La Alcantarilla]]></name>
+    </zone>
+    
+    <zone id="2651">
+        <name><![CDATA[Egido de Belén]]></name>
+    </zone>
+    
+    <zone id="2652">
+        <name><![CDATA[Expansión Norte]]></name>
+    </zone>
+    
+    <zone id="2653">
+        <name><![CDATA[Fuentezuelas]]></name>
+    </zone>
+    
+    <zone id="2654">
+        <name><![CDATA[La Gloria]]></name>
+    </zone>
+    
+    <zone id="2655">
+        <name><![CDATA[La Granja]]></name>
+    </zone>
+    
+    <zone id="2656">
+        <name><![CDATA[Las Infantas]]></name>
+    </zone>
+    
+    <zone id="2657">
+        <name><![CDATA[La Magdalena]]></name>
+    </zone>
+    
+    <zone id="2658">
+        <name><![CDATA[La Merced]]></name>
+    </zone>
+    
+    <zone id="2659">
+        <name><![CDATA[Nuevo Mundo]]></name>
+    </zone>
+    
+    <zone id="2660">
+        <name><![CDATA[Peñamefecit]]></name>
+    </zone>
+    
+    <zone id="2661">
+        <name><![CDATA[El Recinto]]></name>
+    </zone>
+    
+    <zone id="2662">
+        <name><![CDATA[Sagrario]]></name>
+    </zone>
+    
+    <zone id="2663">
+        <name><![CDATA[San Bartolomé]]></name>
+    </zone>
+    
+    <zone id="2664">
+        <name><![CDATA[San Felipe]]></name>
+    </zone>
+    
+    <zone id="2665">
+        <name><![CDATA[San Félix]]></name>
+    </zone>
+    
+    <zone id="2666">
+        <name><![CDATA[San Ildefonso]]></name>
+    </zone>
+    
+    <zone id="2667">
+        <name><![CDATA[San Juan]]></name>
+    </zone>
+    
+    <zone id="2668">
+        <name><![CDATA[San Roque]]></name>
+    </zone>
+    
+    <zone id="2672">
+        <name><![CDATA[San Vicente de Paúl]]></name>
+    </zone>
+    
+    <zone id="2673">
+        <name><![CDATA[Santa Isabel]]></name>
+    </zone>
+    
+    <zone id="2674">
+        <name><![CDATA[Santa María del Valle]]></name>
+    </zone>
+    
+    <zone id="2675">
+        <name><![CDATA[Tiro Nacional]]></name>
+    </zone>
+    
+    <zone id="2676">
+        <name><![CDATA[El Tomillo]]></name>
+    </zone>
+    
+    <zone id="2677">
+        <name><![CDATA[Valparaíso]]></name>
+    </zone>
+    
+    <zone id="2678">
+        <name><![CDATA[La Victoria]]></name>
+    </zone>
+    
+    <zone id="2679">
+        <name><![CDATA[El Almendral]]></name>
+    </zone>
+    
+    <zone id="34482">
+        <name><![CDATA[El Bulevar]]></name>
+    </zone>
+    
+</zones>

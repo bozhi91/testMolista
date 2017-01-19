@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3371">
+        <name><![CDATA[Casco Antiguo]]></name>
+    </zone>
+    
+    <zone id="3372">
+        <name><![CDATA[Primer Ensanche]]></name>
+    </zone>
+    
+    <zone id="3373">
+        <name><![CDATA[Segundo Ensanche]]></name>
+    </zone>
+    
+    <zone id="3374">
+        <name><![CDATA[San Juan]]></name>
+    </zone>
+    
+    <zone id="3375">
+        <name><![CDATA[Iturrama]]></name>
+    </zone>
+    
+    <zone id="3376">
+        <name><![CDATA[Echavacoiz]]></name>
+    </zone>
+    
+    <zone id="3377">
+        <name><![CDATA[Rochapea]]></name>
+    </zone>
+    
+    <zone id="3378">
+        <name><![CDATA[Ermitagaña-Mendebaldea]]></name>
+    </zone>
+    
+    <zone id="3379">
+        <name><![CDATA[Chantrea]]></name>
+    </zone>
+    
+    <zone id="3380">
+        <name><![CDATA[San Jorge]]></name>
+    </zone>
+    
+    <zone id="3381">
+        <name><![CDATA[Milagrosa]]></name>
+    </zone>
+    
+    <zone id="3382">
+        <name><![CDATA[Mendillorri]]></name>
+    </zone>
+    
+    <zone id="3383">
+        <name><![CDATA[Buztintxuri]]></name>
+    </zone>
+    
+    <zone id="3384">
+        <name><![CDATA[Azpilagaña]]></name>
+    </zone>
+    
+    <zone id="3385">
+        <name><![CDATA[Ansoain]]></name>
+    </zone>
+    
+    <zone id="33707">
+        <name><![CDATA[Orvina-Ezkaba]]></name>
+    </zone>
+    
+    <zone id="33708">
+        <name><![CDATA[Entremutilvas]]></name>
+    </zone>
+    
+</zones>

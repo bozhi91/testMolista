@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2858">
+        <name><![CDATA[El Casco]]></name>
+    </zone>
+    
+    <zone id="2859">
+        <name><![CDATA[Barrio del Puerto]]></name>
+    </zone>
+    
+    <zone id="2860">
+        <name><![CDATA[El Esparragal]]></name>
+    </zone>
+    
+    <zone id="2861">
+        <name><![CDATA[La Colina]]></name>
+    </zone>
+    
+    <zone id="2862">
+        <name><![CDATA[Las Conejeras]]></name>
+    </zone>
+    
+    <zone id="2863">
+        <name><![CDATA[La Espinilla]]></name>
+    </zone>
+    
+    <zone id="2864">
+        <name><![CDATA[Ciudad 70]]></name>
+    </zone>
+    
+    <zone id="2865">
+        <name><![CDATA[Valleaguado Sur]]></name>
+    </zone>
+    
+    <zone id="2866">
+        <name><![CDATA[Barrio Jarama]]></name>
+    </zone>
+    
+    <zone id="2867">
+        <name><![CDATA[Valleaguado Norte]]></name>
+    </zone>
+    
+    <zone id="2868">
+        <name><![CDATA[La Cañada]]></name>
+    </zone>
+    
+    <zone id="2869">
+        <name><![CDATA[Barrio de la Estacion]]></name>
+    </zone>
+    
+</zones>

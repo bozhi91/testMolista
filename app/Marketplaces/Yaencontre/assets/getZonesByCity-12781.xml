@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="22556">
+        <name><![CDATA[Motril Pueblo]]></name>
+    </zone>
+    
+    <zone id="22557">
+        <name><![CDATA[Carchuna]]></name>
+    </zone>
+    
+    <zone id="22558">
+        <name><![CDATA[Calahonda]]></name>
+    </zone>
+    
+    <zone id="22559">
+        <name><![CDATA[Torrenueva]]></name>
+    </zone>
+    
+    <zone id="22560">
+        <name><![CDATA[Varadero]]></name>
+    </zone>
+    
+    <zone id="22561">
+        <name><![CDATA[Santa Adela]]></name>
+    </zone>
+    
+    <zone id="22562">
+        <name><![CDATA[Puntalon]]></name>
+    </zone>
+    
+    <zone id="22563">
+        <name><![CDATA[Ventilla]]></name>
+    </zone>
+    
+    <zone id="22564">
+        <name><![CDATA[Garnatilla]]></name>
+    </zone>
+    
+    <zone id="22565">
+        <name><![CDATA[Los Tablones]]></name>
+    </zone>
+    
+    <zone id="33731">
+        <name><![CDATA[Playa Granada]]></name>
+    </zone>
+    
+</zones>

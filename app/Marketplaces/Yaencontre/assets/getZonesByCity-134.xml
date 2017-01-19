@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2813">
+        <name><![CDATA[Casco Urbano]]></name>
+    </zone>
+    
+    <zone id="2814">
+        <name><![CDATA[El Sector Grab]]></name>
+    </zone>
+    
+    <zone id="2815">
+        <name><![CDATA[Can Guitart Vell]]></name>
+    </zone>
+    
+    <zone id="2816">
+        <name><![CDATA[Mas de Can Pi]]></name>
+    </zone>
+    
+    <zone id="2817">
+        <name><![CDATA[Can Paulet]]></name>
+    </zone>
+    
+    <zone id="2818">
+        <name><![CDATA[Interclub]]></name>
+    </zone>
+    
+    <zone id="2819">
+        <name><![CDATA[Can Rafel]]></name>
+    </zone>
+    
+    <zone id="2820">
+        <name><![CDATA[Costa de la Perdiu]]></name>
+    </zone>
+    
+    <zone id="2821">
+        <name><![CDATA[Les Rovires]]></name>
+    </zone>
+    
+    <zone id="2822">
+        <name><![CDATA[Can Castany]]></name>
+    </zone>
+    
+    <zone id="2823">
+        <name><![CDATA[El Mirador]]></name>
+    </zone>
+    
+    <zone id="2824">
+        <name><![CDATA[Santa Rosa]]></name>
+    </zone>
+    
+    <zone id="2825">
+        <name><![CDATA[Torre Vileta]]></name>
+    </zone>
+    
+    <zone id="2826">
+        <name><![CDATA[Ciutat del Remei]]></name>
+    </zone>
+    
+    <zone id="2827">
+        <name><![CDATA[Granja Garcia]]></name>
+    </zone>
+    
+    <zone id="2828">
+        <name><![CDATA[Poligon Industrial Can Raimat]]></name>
+    </zone>
+    
+</zones>

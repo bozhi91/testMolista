@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2753">
+        <name><![CDATA[Mijas Pueblo]]></name>
+    </zone>
+    
+    <zone id="2754">
+        <name><![CDATA[Las Lagunas de Mijas]]></name>
+    </zone>
+    
+    <zone id="2755">
+        <name><![CDATA[La Cala de Mijas]]></name>
+    </zone>
+    
+    <zone id="34247">
+        <name><![CDATA[Las Lagunas]]></name>
+    </zone>
+    
+    <zone id="34249">
+        <name><![CDATA[el juncal]]></name>
+    </zone>
+    
+    <zone id="34252">
+        <name><![CDATA[las cañadas]]></name>
+    </zone>
+    
+    <zone id="34253">
+        <name><![CDATA[el albero]]></name>
+    </zone>
+    
+    <zone id="34255">
+        <name><![CDATA[urbanizacion el coto]]></name>
+    </zone>
+    
+    <zone id="34258">
+        <name><![CDATA[urbanización la sierrezuela]]></name>
+    </zone>
+    
+    <zone id="34259">
+        <name><![CDATA[urbanización el lagarejo]]></name>
+    </zone>
+    
+    <zone id="34261">
+        <name><![CDATA[campo mijas]]></name>
+    </zone>
+    
+    <zone id="34262">
+        <name><![CDATA[doña ermita]]></name>
+    </zone>
+    
+    <zone id="34263">
+        <name><![CDATA[campo de golf]]></name>
+    </zone>
+    
+    <zone id="34265">
+        <name><![CDATA[el faro]]></name>
+    </zone>
+    
+    <zone id="34267">
+        <name><![CDATA[cala de mijas]]></name>
+    </zone>
+    
+    <zone id="34268">
+        <name><![CDATA[calahonda]]></name>
+    </zone>
+    
+    <zone id="34271">
+        <name><![CDATA[riviera del sol]]></name>
+    </zone>
+    
+    <zone id="34273">
+        <name><![CDATA[zona de care]]></name>
+    </zone>
+    
+    <zone id="34276">
+        <name><![CDATA[zona avenida de mijas]]></name>
+    </zone>
+    
+</zones>

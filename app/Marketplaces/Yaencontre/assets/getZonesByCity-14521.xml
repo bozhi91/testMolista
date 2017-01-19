@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2435">
+        <name><![CDATA[Manilva]]></name>
+    </zone>
+    
+    <zone id="2436">
+        <name><![CDATA[Sabinillas]]></name>
+    </zone>
+    
+    <zone id="2437">
+        <name><![CDATA[El Castillo]]></name>
+    </zone>
+    
+</zones>

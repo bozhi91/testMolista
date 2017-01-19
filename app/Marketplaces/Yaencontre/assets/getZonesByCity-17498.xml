@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="33718">
+        <name><![CDATA[Las Arenas]]></name>
+    </zone>
+    
+    <zone id="33719">
+        <name><![CDATA[Algorta]]></name>
+    </zone>
+    
+    <zone id="33720">
+        <name><![CDATA[Romo]]></name>
+    </zone>
+    
+    <zone id="33721">
+        <name><![CDATA[Neguri]]></name>
+    </zone>
+    
+    <zone id="33722">
+        <name><![CDATA[Santa María de Guecho]]></name>
+    </zone>
+    
+</zones>

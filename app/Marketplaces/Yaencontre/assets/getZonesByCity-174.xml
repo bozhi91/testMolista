@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3723">
+        <name><![CDATA[Masquefa Pueblo]]></name>
+    </zone>
+    
+    <zone id="3724">
+        <name><![CDATA[Can Parellada]]></name>
+    </zone>
+    
+    <zone id="3725">
+        <name><![CDATA[El Maset]]></name>
+    </zone>
+    
+    <zone id="3726">
+        <name><![CDATA[Can Quisero]]></name>
+    </zone>
+    
+    <zone id="3727">
+        <name><![CDATA[La Beguda Alta]]></name>
+    </zone>
+    
+    <zone id="3728">
+        <name><![CDATA[Can Valls]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2775">
+        <name><![CDATA[Zona Centro]]></name>
+    </zone>
+    
+    <zone id="2776">
+        <name><![CDATA[Barrio Covadonga]]></name>
+    </zone>
+    
+    <zone id="2777">
+        <name><![CDATA[Barrio la Inmobiliaria]]></name>
+    </zone>
+    
+    <zone id="2778">
+        <name><![CDATA[Barrio Nueva Ciudad]]></name>
+    </zone>
+    
+    <zone id="2779">
+        <name><![CDATA[Barrio la Verger]]></name>
+    </zone>
+    
+    <zone id="2780">
+        <name><![CDATA[Sierrapando]]></name>
+    </zone>
+    
+    <zone id="2781">
+        <name><![CDATA[La Montaña]]></name>
+    </zone>
+    
+    <zone id="2782">
+        <name><![CDATA[Viernoles]]></name>
+    </zone>
+    
+    <zone id="2783">
+        <name><![CDATA[Tanos]]></name>
+    </zone>
+    
+    <zone id="2784">
+        <name><![CDATA[San Ramon]]></name>
+    </zone>
+    
+    <zone id="2785">
+        <name><![CDATA[Barreda]]></name>
+    </zone>
+    
+    <zone id="2786">
+        <name><![CDATA[Torres]]></name>
+    </zone>
+    
+    <zone id="2787">
+        <name><![CDATA[Ganzo]]></name>
+    </zone>
+    
+    <zone id="2788">
+        <name><![CDATA[Santiago de Cartes]]></name>
+    </zone>
+    
+    <zone id="2789">
+        <name><![CDATA[Campuzano]]></name>
+    </zone>
+    
+</zones>

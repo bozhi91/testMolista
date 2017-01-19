@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1684">
+        <name><![CDATA[Camps Blancs]]></name>
+    </zone>
+    
+    <zone id="1685">
+        <name><![CDATA[C.Cooperativa - Molí Nou]]></name>
+    </zone>
+    
+    <zone id="1686">
+        <name><![CDATA[Marianao, Can Paulet]]></name>
+    </zone>
+    
+    <zone id="1687">
+        <name><![CDATA[Vinyets - Molí Vell]]></name>
+    </zone>
+    
+    <zone id="1688">
+        <name><![CDATA[Casablanca]]></name>
+    </zone>
+    
+    <zone id="1689">
+        <name><![CDATA[Centre]]></name>
+    </zone>
+    
+</zones>

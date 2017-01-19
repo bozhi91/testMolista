@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2540">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="2541">
+        <name><![CDATA[Alborgi]]></name>
+    </zone>
+    
+    <zone id="2542">
+        <name><![CDATA[Nueva Paterna]]></name>
+    </zone>
+    
+    <zone id="2543">
+        <name><![CDATA[Campamento]]></name>
+    </zone>
+    
+    <zone id="2544">
+        <name><![CDATA[La Cañada]]></name>
+    </zone>
+    
+    <zone id="2545">
+        <name><![CDATA[La Coma]]></name>
+    </zone>
+    
+    <zone id="2546">
+        <name><![CDATA[Santa Gemma]]></name>
+    </zone>
+    
+    <zone id="2547">
+        <name><![CDATA[Santa Rita]]></name>
+    </zone>
+    
+    <zone id="2548">
+        <name><![CDATA[Terramelar]]></name>
+    </zone>
+    
+    <zone id="2549">
+        <name><![CDATA[Valterna]]></name>
+    </zone>
+    
+    <zone id="2550">
+        <name><![CDATA[El Platino]]></name>
+    </zone>
+    
+    <zone id="2551">
+        <name><![CDATA[Cumbres de San Antonio]]></name>
+    </zone>
+    
+    <zone id="2552">
+        <name><![CDATA[Cruz de Gracia]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1695">
+        <name><![CDATA[Perales del Río]]></name>
+    </zone>
+    
+    <zone id="1696">
+        <name><![CDATA[Sector III]]></name>
+    </zone>
+    
+    <zone id="1697">
+        <name><![CDATA[San Isidro]]></name>
+    </zone>
+    
+    <zone id="1698">
+        <name><![CDATA[Las Margaritas]]></name>
+    </zone>
+    
+    <zone id="1699">
+        <name><![CDATA[La Alhóndiga]]></name>
+    </zone>
+    
+    <zone id="1700">
+        <name><![CDATA[Juan de la Cierva]]></name>
+    </zone>
+    
+    <zone id="1701">
+        <name><![CDATA[Getafe Norte]]></name>
+    </zone>
+    
+    <zone id="1702">
+        <name><![CDATA[El Bercial]]></name>
+    </zone>
+    
+    <zone id="1703">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="34035">
+        <name><![CDATA[Los Molinos]]></name>
+    </zone>
+    
+    <zone id="34038">
+        <name><![CDATA[Buenavista]]></name>
+    </zone>
+    
+</zones>

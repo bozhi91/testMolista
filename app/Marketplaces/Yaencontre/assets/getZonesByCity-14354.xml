@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3544">
+        <name><![CDATA[Urb. Molinos y Palacios]]></name>
+    </zone>
+    
+    <zone id="3545">
+        <name><![CDATA[Urb. Peña el Gato Castillo Real]]></name>
+    </zone>
+    
+    <zone id="3546">
+        <name><![CDATA[Urb. Las Rocas]]></name>
+    </zone>
+    
+    <zone id="3547">
+        <name><![CDATA[Urb. Pedriza 1]]></name>
+    </zone>
+    
+    <zone id="3548">
+        <name><![CDATA[Urb. Ponderosa de la Sierra]]></name>
+    </zone>
+    
+</zones>

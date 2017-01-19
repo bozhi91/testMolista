@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2293">
+        <name><![CDATA[Nucleo urbano]]></name>
+    </zone>
+    
+    <zone id="2294">
+        <name><![CDATA[El Magistrado-La alegria]]></name>
+    </zone>
+    
+    <zone id="2295">
+        <name><![CDATA[El Eucaliptal]]></name>
+    </zone>
+    
+    <zone id="2296">
+        <name><![CDATA[Torrequinto]]></name>
+    </zone>
+    
+    <zone id="2297">
+        <name><![CDATA[El Regidor]]></name>
+    </zone>
+    
+    <zone id="2298">
+        <name><![CDATA[Las Encinas]]></name>
+    </zone>
+    
+    <zone id="2299">
+        <name><![CDATA[San Rafael]]></name>
+    </zone>
+    
+    <zone id="2300">
+        <name><![CDATA[La Liebre]]></name>
+    </zone>
+    
+    <zone id="2301">
+        <name><![CDATA[Huerta del Cura]]></name>
+    </zone>
+    
+    <zone id="2302">
+        <name><![CDATA[Santa Genoveva]]></name>
+    </zone>
+    
+    <zone id="2303">
+        <name><![CDATA[La Galbana]]></name>
+    </zone>
+    
+    <zone id="2304">
+        <name><![CDATA[Residencial Sevilla Golf]]></name>
+    </zone>
+    
+    <zone id="2305">
+        <name><![CDATA[Huerto de San Vicente-Huerto de San Antonio]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="605">
+        <name><![CDATA[Pol. ind. clot de moja]]></name>
+    </zone>
+    
+    <zone id="606">
+        <name><![CDATA[La rectoria]]></name>
+    </zone>
+    
+    <zone id="607">
+        <name><![CDATA[Sant sepulcre]]></name>
+    </zone>
+    
+    <zone id="608">
+        <name><![CDATA[La muntanyeta]]></name>
+    </zone>
+    
+    <zone id="609">
+        <name><![CDATA[Viladellops]]></name>
+    </zone>
+    
+    <zone id="610">
+        <name><![CDATA[Castell d¸olèrdola]]></name>
+    </zone>
+    
+    <zone id="611">
+        <name><![CDATA[Sant Miquel d´Olerdola]]></name>
+    </zone>
+    
+    <zone id="612">
+        <name><![CDATA[Pol. ind.sant pere molanta]]></name>
+    </zone>
+    
+    <zone id="613">
+        <name><![CDATA[Urb. daltmar]]></name>
+    </zone>
+    
+    <zone id="614">
+        <name><![CDATA[Moja]]></name>
+    </zone>
+    
+    <zone id="615">
+        <name><![CDATA[Sant pere molanta]]></name>
+    </zone>
+    
+    <zone id="616">
+        <name><![CDATA[Urb. can trabal]]></name>
+    </zone>
+    
+</zones>

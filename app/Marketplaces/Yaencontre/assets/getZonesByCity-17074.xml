@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3505">
+        <name><![CDATA[Barrio de San Ramon]]></name>
+    </zone>
+    
+    <zone id="3506">
+        <name><![CDATA[Monte de Piedad]]></name>
+    </zone>
+    
+    <zone id="3507">
+        <name><![CDATA[Barriod e la Luz]]></name>
+    </zone>
+    
+    <zone id="34332">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="34983">
+        <name><![CDATA[Ayuntamiento - Catedral]]></name>
+    </zone>
+    
+    <zone id="34984">
+        <name><![CDATA[Centro Histórico - Plaza España]]></name>
+    </zone>
+    
+    <zone id="34985">
+        <name><![CDATA[Cortadura - Zona Franca ]]></name>
+    </zone>
+    
+    <zone id="34986">
+        <name><![CDATA[La Caleta - La Viña]]></name>
+    </zone>
+    
+    <zone id="34988">
+        <name><![CDATA[La Paz - Segunda Aguada - Loreto]]></name>
+    </zone>
+    
+    <zone id="34991">
+        <name><![CDATA[Mentidero - Teatro Falla - Alameda]]></name>
+    </zone>
+    
+    <zone id="34993">
+        <name><![CDATA[Playa Stª Mª del Mar - Playa Victoria]]></name>
+    </zone>
+    
+    <zone id="34995">
+        <name><![CDATA[Zona Bahía Blanca]]></name>
+    </zone>
+    
+    <zone id="34998">
+        <name><![CDATA[San José - Varela]]></name>
+    </zone>
+    
+    <zone id="35001">
+        <name><![CDATA[La Laguna]]></name>
+    </zone>
+    
+</zones>

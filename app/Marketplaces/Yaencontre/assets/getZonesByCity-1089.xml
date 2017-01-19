@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="263">
+        <name><![CDATA[Av. maria fortuny]]></name>
+    </zone>
+    
+    <zone id="264">
+        <name><![CDATA[Barri argentera]]></name>
+    </zone>
+    
+    <zone id="265">
+        <name><![CDATA[Barri carrilet]]></name>
+    </zone>
+    
+    <zone id="266">
+        <name><![CDATA[Barri dels poetes]]></name>
+    </zone>
+    
+    <zone id="267">
+        <name><![CDATA[Barri fortuny]]></name>
+    </zone>
+    
+    <zone id="268">
+        <name><![CDATA[Barri gaudí]]></name>
+    </zone>
+    
+    <zone id="269">
+        <name><![CDATA[Barri greco]]></name>
+    </zone>
+    
+    <zone id="270">
+        <name><![CDATA[Barri inmaculada]]></name>
+    </zone>
+    
+    <zone id="271">
+        <name><![CDATA[Barri juroca]]></name>
+    </zone>
+    
+    <zone id="272">
+        <name><![CDATA[Barri montserrat]]></name>
+    </zone>
+    
+    <zone id="273">
+        <name><![CDATA[Barri niloga]]></name>
+    </zone>
+    
+    <zone id="274">
+        <name><![CDATA[Barri sant joan]]></name>
+    </zone>
+    
+    <zone id="275">
+        <name><![CDATA[Barri st. josep obrer]]></name>
+    </zone>
+    
+    <zone id="276">
+        <name><![CDATA[Centre]]></name>
+    </zone>
+    
+    <zone id="277">
+        <name><![CDATA[Horts de miró]]></name>
+    </zone>
+    
+    <zone id="278">
+        <name><![CDATA[Jardins de reus]]></name>
+    </zone>
+    
+    <zone id="279">
+        <name><![CDATA[Mercado central]]></name>
+    </zone>
+    
+    <zone id="280">
+        <name><![CDATA[Misericordia]]></name>
+    </zone>
+    
+    <zone id="281">
+        <name><![CDATA[Parc sant jordi]]></name>
+    </zone>
+    
+    <zone id="282">
+        <name><![CDATA[Parcel.les casas]]></name>
+    </zone>
+    
+    <zone id="283">
+        <name><![CDATA[Passeig prim]]></name>
+    </zone>
+    
+    <zone id="284">
+        <name><![CDATA[Passeig sunyer]]></name>
+    </zone>
+    
+    <zone id="285">
+        <name><![CDATA[Percel.les sol i vista]]></name>
+    </zone>
+    
+    <zone id="286">
+        <name><![CDATA[Plaça del mercadal]]></name>
+    </zone>
+    
+    <zone id="287">
+        <name><![CDATA[Plaça les oques]]></name>
+    </zone>
+    
+    <zone id="288">
+        <name><![CDATA[Plaça pastoreta]]></name>
+    </zone>
+    
+    <zone id="289">
+        <name><![CDATA[Poligon agro-reus]]></name>
+    </zone>
+    
+    <zone id="290">
+        <name><![CDATA[Poligon bellisens]]></name>
+    </zone>
+    
+    <zone id="291">
+        <name><![CDATA[Poligon mas de les animes]]></name>
+    </zone>
+    
+    <zone id="292">
+        <name><![CDATA[Poligon mas ferrer]]></name>
+    </zone>
+    
+    <zone id="293">
+        <name><![CDATA[Riera aragó]]></name>
+    </zone>
+    
+    <zone id="294">
+        <name><![CDATA[Urb. bellisens]]></name>
+    </zone>
+    
+    <zone id="295">
+        <name><![CDATA[Urb. bescos]]></name>
+    </zone>
+    
+    <zone id="296">
+        <name><![CDATA[Urb. boleda]]></name>
+    </zone>
+    
+    <zone id="297">
+        <name><![CDATA[Urb. clarassó]]></name>
+    </zone>
+    
+    <zone id="298">
+        <name><![CDATA[Urb. el pinar]]></name>
+    </zone>
+    
+    <zone id="299">
+        <name><![CDATA[Urb. gaudí mar]]></name>
+    </zone>
+    
+    <zone id="300">
+        <name><![CDATA[Urb. juncosa]]></name>
+    </zone>
+    
+    <zone id="301">
+        <name><![CDATA[Urb. mas abelló]]></name>
+    </zone>
+    
+    <zone id="302">
+        <name><![CDATA[Urb. mas carpa]]></name>
+    </zone>
+    
+    <zone id="303">
+        <name><![CDATA[Urb. mas iglesias]]></name>
+    </zone>
+    
+    <zone id="304">
+        <name><![CDATA[Urb. mas pellicer]]></name>
+    </zone>
+    
+    <zone id="305">
+        <name><![CDATA[Urb. mas vilanova]]></name>
+    </zone>
+    
+    <zone id="306">
+        <name><![CDATA[Urb. massó]]></name>
+    </zone>
+    
+    <zone id="307">
+        <name><![CDATA[Urb. mercader]]></name>
+    </zone>
+    
+    <zone id="308">
+        <name><![CDATA[Urb. muixi]]></name>
+    </zone>
+    
+    <zone id="309">
+        <name><![CDATA[Urb. pamies]]></name>
+    </zone>
+    
+    <zone id="310">
+        <name><![CDATA[Urb. pelayo]]></name>
+    </zone>
+    
+    <zone id="311">
+        <name><![CDATA[Urb. quintana]]></name>
+    </zone>
+    
+    <zone id="312">
+        <name><![CDATA[Urb. sant joan]]></name>
+    </zone>
+    
+    <zone id="313">
+        <name><![CDATA[Urb. sidós]]></name>
+    </zone>
+    
+    <zone id="314">
+        <name><![CDATA[Urb. sol i vista]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3677">
+        <name><![CDATA[Villa del Prado Pueblo]]></name>
+    </zone>
+    
+    <zone id="3678">
+        <name><![CDATA[Urb. Encinar del Alberche]]></name>
+    </zone>
+    
+</zones>

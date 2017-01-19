@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="28987">
+        <name><![CDATA[Platges Nord]]></name>
+    </zone>
+    
+    <zone id="28988">
+        <name><![CDATA[Platges Sud]]></name>
+    </zone>
+    
+    <zone id="28989">
+        <name><![CDATA[Cala en Porter]]></name>
+    </zone>
+    
+    <zone id="28990">
+        <name><![CDATA[Cales Coves]]></name>
+    </zone>
+    
+    <zone id="28991">
+        <name><![CDATA[Taula de Torralba]]></name>
+    </zone>
+    
+</zones>

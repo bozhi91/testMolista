@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="33770">
+        <name><![CDATA[Radazul]]></name>
+    </zone>
+    
+    <zone id="33771">
+        <name><![CDATA[Tabaiba]]></name>
+    </zone>
+    
+    <zone id="33772">
+        <name><![CDATA[Machado]]></name>
+    </zone>
+    
+    <zone id="33773">
+        <name><![CDATA[Lomo Pelado]]></name>
+    </zone>
+    
+    <zone id="33775">
+        <name><![CDATA[Las Barreras]]></name>
+    </zone>
+    
+    <zone id="33776">
+        <name><![CDATA[Barranco Hondo]]></name>
+    </zone>
+    
+    <zone id="33777">
+        <name><![CDATA[San Isidro]]></name>
+    </zone>
+    
+    <zone id="33778">
+        <name><![CDATA[Boca Cangrejo]]></name>
+    </zone>
+    
+    <zone id="33779">
+        <name><![CDATA[El Rosarito]]></name>
+    </zone>
+    
+    <zone id="33780">
+        <name><![CDATA[La Esperanza]]></name>
+    </zone>
+    
+</zones>

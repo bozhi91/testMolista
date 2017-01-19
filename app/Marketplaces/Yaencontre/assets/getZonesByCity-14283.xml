@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2747">
+        <name><![CDATA[Casco Antiguo]]></name>
+    </zone>
+    
+    <zone id="2748">
+        <name><![CDATA[Covicha]]></name>
+    </zone>
+    
+    <zone id="2749">
+        <name><![CDATA[Valderey-Montealbillo]]></name>
+    </zone>
+    
+    <zone id="2750">
+        <name><![CDATA[Los Poligonos Industriales]]></name>
+    </zone>
+    
+    <zone id="2751">
+        <name><![CDATA[Malatones-Sector 5-Prado Norte]]></name>
+    </zone>
+    
+    <zone id="2752">
+        <name><![CDATA[Urbanizacion Santo Domingo]]></name>
+    </zone>
+    
+</zones>

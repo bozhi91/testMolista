@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3549">
+        <name><![CDATA[Loma del Castillo]]></name>
+    </zone>
+    
+    <zone id="3550">
+        <name><![CDATA[Vista Alegre]]></name>
+    </zone>
+    
+    <zone id="3551">
+        <name><![CDATA[Urb. Atalaya de Levante]]></name>
+    </zone>
+    
+    <zone id="3552">
+        <name><![CDATA[Urb. Sierra Perenchiza]]></name>
+    </zone>
+    
+    <zone id="3553">
+        <name><![CDATA[Urb. El Bosque]]></name>
+    </zone>
+    
+    <zone id="3554">
+        <name><![CDATA[Urb. La Esmeralda]]></name>
+    </zone>
+    
+    <zone id="3555">
+        <name><![CDATA[Urb. Los Carambolos]]></name>
+    </zone>
+    
+    <zone id="3556">
+        <name><![CDATA[Urb. Santo Domingo]]></name>
+    </zone>
+    
+    <zone id="3557">
+        <name><![CDATA[Urb. San Miguel]]></name>
+    </zone>
+    
+    <zone id="3558">
+        <name><![CDATA[Urb. Loma de Miralcampo]]></name>
+    </zone>
+    
+    <zone id="3559">
+        <name><![CDATA[Urb. Las Pedrizas]]></name>
+    </zone>
+    
+    <zone id="3560">
+        <name><![CDATA[Urb. Pilo-Gros]]></name>
+    </zone>
+    
+    <zone id="3561">
+        <name><![CDATA[Urb. Agricola la Loma]]></name>
+    </zone>
+    
+    <zone id="3562">
+        <name><![CDATA[Urb. Olimar]]></name>
+    </zone>
+    
+</zones>

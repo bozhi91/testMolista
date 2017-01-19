@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2004">
+        <name><![CDATA[Deusto]]></name>
+    </zone>
+    
+    <zone id="2005">
+        <name><![CDATA[Uribarri]]></name>
+    </zone>
+    
+    <zone id="2006">
+        <name><![CDATA[Otxarkoaga-Txurdinaga]]></name>
+    </zone>
+    
+    <zone id="2007">
+        <name><![CDATA[Begoña]]></name>
+    </zone>
+    
+    <zone id="2008">
+        <name><![CDATA[Ibaiondo]]></name>
+    </zone>
+    
+    <zone id="2009">
+        <name><![CDATA[Abando]]></name>
+    </zone>
+    
+    <zone id="2010">
+        <name><![CDATA[Rekalde]]></name>
+    </zone>
+    
+    <zone id="2011">
+        <name><![CDATA[Basurto-Zorroza]]></name>
+    </zone>
+    
+    <zone id="34014">
+        <name><![CDATA[Indautxu]]></name>
+    </zone>
+    
+    <zone id="34015">
+        <name><![CDATA[San Ignacio-Elorrieta]]></name>
+    </zone>
+    
+    <zone id="35317">
+        <name><![CDATA[Barrio de Abando]]></name>
+    </zone>
+    
+    <zone id="35320">
+        <name><![CDATA[Altamira]]></name>
+    </zone>
+    
+    <zone id="35323">
+        <name><![CDATA[Basurtu]]></name>
+    </zone>
+    
+    <zone id="35326">
+        <name><![CDATA[Zorroza]]></name>
+    </zone>
+    
+    <zone id="35329">
+        <name><![CDATA[Olabeaga]]></name>
+    </zone>
+    
+    <zone id="35332">
+        <name><![CDATA[Masustegui-Monte Caramelo]]></name>
+    </zone>
+    
+    <zone id="35335">
+        <name><![CDATA[Begoña]]></name>
+    </zone>
+    
+    <zone id="35338">
+        <name><![CDATA[Bolueta]]></name>
+    </zone>
+    
+    <zone id="35341">
+        <name><![CDATA[Santutxu]]></name>
+    </zone>
+    
+    <zone id="35344">
+        <name><![CDATA[Arangoiti]]></name>
+    </zone>
+    
+    <zone id="35347">
+        <name><![CDATA[Ibarrekolanda]]></name>
+    </zone>
+    
+    <zone id="35350">
+        <name><![CDATA[San Pedro de Deusto-La Ribera]]></name>
+    </zone>
+    
+    <zone id="35353">
+        <name><![CDATA[Ametzola]]></name>
+    </zone>
+    
+    <zone id="35356">
+        <name><![CDATA[Errekaldeberri - Larraskitu]]></name>
+    </zone>
+    
+    <zone id="35359">
+        <name><![CDATA[Iralabarri]]></name>
+    </zone>
+    
+    <zone id="35362">
+        <name><![CDATA[Iturrigorri-Peñascal]]></name>
+    </zone>
+    
+    <zone id="35365">
+        <name><![CDATA[Uretamendi]]></name>
+    </zone>
+    
+    <zone id="35368">
+        <name><![CDATA[Atxuri]]></name>
+    </zone>
+    
+    <zone id="35371">
+        <name><![CDATA[Bilbao la Vieja]]></name>
+    </zone>
+    
+    <zone id="35374">
+        <name><![CDATA[Casco Viejo]]></name>
+    </zone>
+    
+    <zone id="35377">
+        <name><![CDATA[Iturralde]]></name>
+    </zone>
+    
+    <zone id="35380">
+        <name><![CDATA[La Peña]]></name>
+    </zone>
+    
+    <zone id="35383">
+        <name><![CDATA[Miribilla]]></name>
+    </zone>
+    
+    <zone id="35386">
+        <name><![CDATA[San Adrián]]></name>
+    </zone>
+    
+    <zone id="35389">
+        <name><![CDATA[San Francisco]]></name>
+    </zone>
+    
+    <zone id="35392">
+        <name><![CDATA[Solokoetxe]]></name>
+    </zone>
+    
+    <zone id="35395">
+        <name><![CDATA[Zabala]]></name>
+    </zone>
+    
+    <zone id="35398">
+        <name><![CDATA[Buia]]></name>
+    </zone>
+    
+    <zone id="35401">
+        <name><![CDATA[Otxarkoaga]]></name>
+    </zone>
+    
+    <zone id="35404">
+        <name><![CDATA[Txurdinaga]]></name>
+    </zone>
+    
+    <zone id="35407">
+        <name><![CDATA[Barrio de Uribarri]]></name>
+    </zone>
+    
+    <zone id="35410">
+        <name><![CDATA[Castaños]]></name>
+    </zone>
+    
+    <zone id="35413">
+        <name><![CDATA[Matiko-Ciudad Jardín]]></name>
+    </zone>
+    
+    <zone id="35416">
+        <name><![CDATA[Zurbarán-Arabella]]></name>
+    </zone>
+    
+</zones>
