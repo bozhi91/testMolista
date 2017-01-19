@@ -73,7 +73,6 @@ class PromocionMapper extends BaseMapper {
 			'baths' => 'required',
 			'title.es' => 'required',
 			'description.es' => 'required',
-			'oficina' => 'required'
 		];
 
 		$validator = \Validator::make($data, $rules, []);
@@ -140,13 +139,13 @@ class PromocionMapper extends BaseMapper {
 		$ubicacion['poblacion@id=' . $poblacionId] = $poblacionLabel;
 
 		list($zoneId, $zoneLabel) = $this->getZoneData();
-		
+
 		if($zoneId && $zoneLabel) {
 			$ubicacion['zona@id=' .$zoneId] = $zoneLabel;
 		} else {
 			$ubicacion['zona@id='] = ''; //tag required
 		}
-		
+
 		//Opcionales
 		$ubicacion['zona_libre'] = '';
 		$ubicacion['cod_postal'] = !empty($l['zipcode']) ? $l['zipcode'] : '';
