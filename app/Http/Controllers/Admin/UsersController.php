@@ -99,7 +99,7 @@ class UsersController extends Controller
 			'password' => 'required|min:6',
 			'locale' => 'required|string|in:'.implode(',',\LaravelLocalization::getSupportedLanguagesKeys()),
 		]);
-		if ($validator->fails()) 
+		if ($validator->fails())
 		{
 			return redirect()->back()->withInput()->withErrors($validator);
 		}
@@ -154,7 +154,7 @@ class UsersController extends Controller
 			'locales' => 'array',
 		];
 		$validator = \Validator::make($this->request->all(), $fields);
-		if ($validator->fails()) 
+		if ($validator->fails())
 		{
 			return redirect()->action('Admin\UsersController@edit', $id)->withInput()->withErrors($validator);
 		}
@@ -187,7 +187,7 @@ class UsersController extends Controller
 
 		// Update roles
 		$user->detachRoles();
-		foreach ($this->request->input('roles') as $role_name) 
+		foreach ($this->request->input('roles') as $role_name)
 		{
 			$role = \App\Models\Role::where('name', $role_name)->first();
 			if ( !$role )
@@ -198,13 +198,13 @@ class UsersController extends Controller
 		}
 
 		// Update translation locales
-		foreach ($user->translation_locales as $translation_locale) 
+		foreach ($user->translation_locales as $translation_locale)
 		{
 			$user->translation_locales()->detach($translation_locale->id);
 		}
 		if ( $user->hasRole('translator') && $this->request->input('locales') && !in_array('all', $this->request->input('locales')) )
 		{
-			foreach ($this->request->input('locales') as $locale_id) 
+			foreach ($this->request->input('locales') as $locale_id)
 			{
 				$user->translation_locales()->attach($locale_id);
 			}
