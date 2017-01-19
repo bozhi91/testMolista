@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="554">
+        <name><![CDATA[La figuerola]]></name>
+    </zone>
+    
+    <zone id="555">
+        <name><![CDATA[Pinedes]]></name>
+    </zone>
+    
+    <zone id="556">
+        <name><![CDATA[El serrat]]></name>
+    </zone>
+    
+</zones>

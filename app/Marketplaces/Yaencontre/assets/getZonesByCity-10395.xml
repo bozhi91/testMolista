@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2680">
+        <name><![CDATA[Las Vacas-Sur]]></name>
+    </zone>
+    
+    <zone id="2681">
+        <name><![CDATA[La Toledana]]></name>
+    </zone>
+    
+    <zone id="2682">
+        <name><![CDATA[San Nicolas]]></name>
+    </zone>
+    
+    <zone id="2683">
+        <name><![CDATA[La Encarnacion]]></name>
+    </zone>
+    
+    <zone id="2684">
+        <name><![CDATA[El Seminario-San Antonio]]></name>
+    </zone>
+    
+    <zone id="2685">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="2686">
+        <name><![CDATA[Arturo Duperier-Sónsoles]]></name>
+    </zone>
+    
+    <zone id="2687">
+        <name><![CDATA[El Dolmen-Bernuy Salinero]]></name>
+    </zone>
+    
+    <zone id="2688">
+        <name><![CDATA[San Leonardo]]></name>
+    </zone>
+    
+    <zone id="2689">
+        <name><![CDATA[Vicolozano-Brieva-Polígono Carrefour]]></name>
+    </zone>
+    
+    <zone id="2690">
+        <name><![CDATA[La Alamedilla]]></name>
+    </zone>
+    
+    <zone id="2691">
+        <name><![CDATA[San Esteban-Murallas]]></name>
+    </zone>
+    
+    <zone id="2692">
+        <name><![CDATA[Urraca-Miguel Real]]></name>
+    </zone>
+    
+    <zone id="2694">
+        <name><![CDATA[Valle Ambles]]></name>
+    </zone>
+    
+    <zone id="34510">
+        <name><![CDATA[Las Hervencias]]></name>
+    </zone>
+    
+    <zone id="35086">
+        <name><![CDATA[Universidad]]></name>
+    </zone>
+    
+    <zone id="35089">
+        <name><![CDATA[San Roque]]></name>
+    </zone>
+    
+    <zone id="35092">
+        <name><![CDATA[Estación]]></name>
+    </zone>
+    
+    <zone id="35095">
+        <name><![CDATA[Santo Tomás]]></name>
+    </zone>
+    
+</zones>

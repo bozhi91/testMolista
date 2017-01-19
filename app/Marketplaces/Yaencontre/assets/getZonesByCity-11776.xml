@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2316">
+        <name><![CDATA[El Lugar]]></name>
+    </zone>
+    
+    <zone id="2317">
+        <name><![CDATA[La Banda]]></name>
+    </zone>
+    
+    <zone id="2318">
+        <name><![CDATA[Sancti Petri]]></name>
+    </zone>
+    
+    <zone id="2319">
+        <name><![CDATA[La Barrosa]]></name>
+    </zone>
+    
+</zones>

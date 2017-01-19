@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3424">
+        <name><![CDATA[Nucleo Urbano]]></name>
+    </zone>
+    
+    <zone id="3425">
+        <name><![CDATA[Zona de los Poligonos]]></name>
+    </zone>
+    
+    <zone id="3426">
+        <name><![CDATA[La Poveda]]></name>
+    </zone>
+    
+    <zone id="3427">
+        <name><![CDATA[Los Villares]]></name>
+    </zone>
+    
+</zones>

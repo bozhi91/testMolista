@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2553">
+        <name><![CDATA[Centre]]></name>
+    </zone>
+    
+    <zone id="2554">
+        <name><![CDATA[Pinetons]]></name>
+    </zone>
+    
+    <zone id="2555">
+        <name><![CDATA[Sant Lluis]]></name>
+    </zone>
+    
+    <zone id="2556">
+        <name><![CDATA[Moli d´en Rata]]></name>
+    </zone>
+    
+    <zone id="2557">
+        <name><![CDATA[Gasso Vargas]]></name>
+    </zone>
+    
+    <zone id="2558">
+        <name><![CDATA[Sant Andreu]]></name>
+    </zone>
+    
+    <zone id="2559">
+        <name><![CDATA[Can Mas]]></name>
+    </zone>
+    
+    <zone id="2560">
+        <name><![CDATA[Maragall]]></name>
+    </zone>
+    
+    <zone id="2561">
+        <name><![CDATA[Can Tiana-Pont Vell]]></name>
+    </zone>
+    
+    <zone id="34491">
+        <name><![CDATA[Zona Industrial]]></name>
+    </zone>
+    
+</zones>

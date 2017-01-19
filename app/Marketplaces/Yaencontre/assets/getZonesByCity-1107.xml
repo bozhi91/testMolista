@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1377">
+        <name><![CDATA[Urb. Montecarlo]]></name>
+    </zone>
+    
+    <zone id="1378">
+        <name><![CDATA[Urb. Sotamontsià]]></name>
+    </zone>
+    
+    <zone id="1379">
+        <name><![CDATA[Urb. Serramar]]></name>
+    </zone>
+    
+    <zone id="1380">
+        <name><![CDATA[Urb. La Unió]]></name>
+    </zone>
+    
+    <zone id="1381">
+        <name><![CDATA[Urb. La Pau]]></name>
+    </zone>
+    
+    <zone id="1382">
+        <name><![CDATA[Urb. La Martinenca]]></name>
+    </zone>
+    
+    <zone id="1383">
+        <name><![CDATA[Urb. Sol i Mar]]></name>
+    </zone>
+    
+    <zone id="1384">
+        <name><![CDATA[Zona La Cros]]></name>
+    </zone>
+    
+    <zone id="1385">
+        <name><![CDATA[Zona Ordre de Malta]]></name>
+    </zone>
+    
+    <zone id="1386">
+        <name><![CDATA[Zona El barrio]]></name>
+    </zone>
+    
+    <zone id="1387">
+        <name><![CDATA[Zona Caprabo]]></name>
+    </zone>
+    
+    <zone id="1388">
+        <name><![CDATA[Zona Pisos Pepo]]></name>
+    </zone>
+    
+    <zone id="1389">
+        <name><![CDATA[Zona Aparthotel]]></name>
+    </zone>
+    
+    <zone id="1390">
+        <name><![CDATA[Zona Pisos Torné]]></name>
+    </zone>
+    
+    <zone id="1391">
+        <name><![CDATA[Zona Escuelas]]></name>
+    </zone>
+    
+    <zone id="1392">
+        <name><![CDATA[Zona Casas pescadores]]></name>
+    </zone>
+    
+    <zone id="1393">
+        <name><![CDATA[Zona Centro]]></name>
+    </zone>
+    
+    <zone id="1394">
+        <name><![CDATA[Zona Antigua]]></name>
+    </zone>
+    
+    <zone id="1395">
+        <name><![CDATA[Urb. Las Delicias]]></name>
+    </zone>
+    
+    <zone id="1396">
+        <name><![CDATA[Urb. L´Aldea Blanca]]></name>
+    </zone>
+    
+    <zone id="1397">
+        <name><![CDATA[Urb. Hortets]]></name>
+    </zone>
+    
+    <zone id="1398">
+        <name><![CDATA[Zona Varadero]]></name>
+    </zone>
+    
+    <zone id="1399">
+        <name><![CDATA[Zona Pescadores]]></name>
+    </zone>
+    
+    <zone id="1400">
+        <name><![CDATA[Zona Campo de Fútbol]]></name>
+    </zone>
+    
+    <zone id="1412">
+        <name><![CDATA[Puerto]]></name>
+    </zone>
+    
+</zones>

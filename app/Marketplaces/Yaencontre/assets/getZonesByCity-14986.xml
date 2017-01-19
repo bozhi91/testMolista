@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="33794">
+        <name><![CDATA[La Calzada-Jove]]></name>
+    </zone>
+    
+    <zone id="33795">
+        <name><![CDATA[Ceares]]></name>
+    </zone>
+    
+    <zone id="33796">
+        <name><![CDATA[Cimadevilla]]></name>
+    </zone>
+    
+    <zone id="33797">
+        <name><![CDATA[Contrueces-Montevil-Roces]]></name>
+    </zone>
+    
+    <zone id="33798">
+        <name><![CDATA[El Llano]]></name>
+    </zone>
+    
+    <zone id="33799">
+        <name><![CDATA[La Arena]]></name>
+    </zone>
+    
+    <zone id="33800">
+        <name><![CDATA[Laviada]]></name>
+    </zone>
+    
+    <zone id="33802">
+        <name><![CDATA[Natahoyo]]></name>
+    </zone>
+    
+    <zone id="33804">
+        <name><![CDATA[Pumarín]]></name>
+    </zone>
+    
+    <zone id="33805">
+        <name><![CDATA[El Coto]]></name>
+    </zone>
+    
+    <zone id="33807">
+        <name><![CDATA[Les Mestes-El Bibio]]></name>
+    </zone>
+    
+    <zone id="33808">
+        <name><![CDATA[Viesques]]></name>
+    </zone>
+    
+    <zone id="33810">
+        <name><![CDATA[Polígono-Nuevo Gijón]]></name>
+    </zone>
+    
+    <zone id="33811">
+        <name><![CDATA[Santa Bárbara]]></name>
+    </zone>
+    
+    <zone id="33812">
+        <name><![CDATA[Perchera-La Braña]]></name>
+    </zone>
+    
+    <zone id="33815">
+        <name><![CDATA[Tremañes]]></name>
+    </zone>
+    
+    <zone id="33816">
+        <name><![CDATA[Veriña-Moreda]]></name>
+    </zone>
+    
+    <zone id="33817">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="35185">
+        <name><![CDATA[Oeste]]></name>
+    </zone>
+    
+    <zone id="35188">
+        <name><![CDATA[Sur]]></name>
+    </zone>
+    
+    <zone id="35191">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="35194">
+        <name><![CDATA[Este]]></name>
+    </zone>
+    
+    <zone id="35197">
+        <name><![CDATA[Rural]]></name>
+    </zone>
+    
+    <zone id="35200">
+        <name><![CDATA[Baldornón]]></name>
+    </zone>
+    
+    <zone id="35203">
+        <name><![CDATA[Bernueces]]></name>
+    </zone>
+    
+    <zone id="35206">
+        <name><![CDATA[Cabueñes]]></name>
+    </zone>
+    
+    <zone id="35209">
+        <name><![CDATA[Caldones]]></name>
+    </zone>
+    
+    <zone id="35212">
+        <name><![CDATA[Cenero]]></name>
+    </zone>
+    
+    <zone id="35215">
+        <name><![CDATA[Deva]]></name>
+    </zone>
+    
+    <zone id="35218">
+        <name><![CDATA[Fano]]></name>
+    </zone>
+    
+    <zone id="35221">
+        <name><![CDATA[Fresno]]></name>
+    </zone>
+    
+    <zone id="35224">
+        <name><![CDATA[Granda]]></name>
+    </zone>
+    
+    <zone id="35227">
+        <name><![CDATA[Huerces]]></name>
+    </zone>
+    
+    <zone id="35230">
+        <name><![CDATA[La Pedrera]]></name>
+    </zone>
+    
+    <zone id="35233">
+        <name><![CDATA[Lavandera]]></name>
+    </zone>
+    
+    <zone id="35236">
+        <name><![CDATA[Leorio]]></name>
+    </zone>
+    
+    <zone id="35239">
+        <name><![CDATA[Poago]]></name>
+    </zone>
+    
+    <zone id="35242">
+        <name><![CDATA[Porceyo]]></name>
+    </zone>
+    
+    <zone id="35245">
+        <name><![CDATA[Ruedes]]></name>
+    </zone>
+    
+    <zone id="35248">
+        <name><![CDATA[San Andrés de los Tacones]]></name>
+    </zone>
+    
+    <zone id="35251">
+        <name><![CDATA[Santurio]]></name>
+    </zone>
+    
+    <zone id="35254">
+        <name><![CDATA[Serín]]></name>
+    </zone>
+    
+    <zone id="35257">
+        <name><![CDATA[Somió]]></name>
+    </zone>
+    
+    <zone id="35260">
+        <name><![CDATA[Vega]]></name>
+    </zone>
+    
+    <zone id="35308">
+        <name><![CDATA[El Llano]]></name>
+    </zone>
+    
+</zones>

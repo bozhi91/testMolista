@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1596">
+        <name><![CDATA[L´Hostal]]></name>
+    </zone>
+    
+    <zone id="1597">
+        <name><![CDATA[La Carronya]]></name>
+    </zone>
+    
+    <zone id="1598">
+        <name><![CDATA[Urb. Els Arquets]]></name>
+    </zone>
+    
+    <zone id="1599">
+        <name><![CDATA[L´Arquet]]></name>
+    </zone>
+    
+    <zone id="1600">
+        <name><![CDATA[El Papagai]]></name>
+    </zone>
+    
+    <zone id="1601">
+        <name><![CDATA[Torregassa]]></name>
+    </zone>
+    
+    <zone id="1602">
+        <name><![CDATA[Cornudella]]></name>
+    </zone>
+    
+    <zone id="1603">
+        <name><![CDATA[El Papiolet]]></name>
+    </zone>
+    
+    <zone id="1604">
+        <name><![CDATA[Lletger]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="33675">
+        <name><![CDATA[Olloki]]></name>
+    </zone>
+    
+    <zone id="33706">
+        <name><![CDATA[Agorreta]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="29016">
+        <name><![CDATA[Torrelamata - La Mata]]></name>
+    </zone>
+    
+    <zone id="34350">
+        <name><![CDATA[Los Balcones - Los Altos del Edén]]></name>
+    </zone>
+    
+    <zone id="34351">
+        <name><![CDATA[Playa del Cura]]></name>
+    </zone>
+    
+    <zone id="34353">
+        <name><![CDATA[Playa de los Locos]]></name>
+    </zone>
+    
+    <zone id="34354">
+        <name><![CDATA[ El Acequión - Los Naúfragos]]></name>
+    </zone>
+    
+    <zone id="34356">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="34358">
+        <name><![CDATA[Nueva Torrevieja - Aguas Nuevas]]></name>
+    </zone>
+    
+    <zone id="34359">
+        <name><![CDATA[La Siesta - El Salado - Torreta]]></name>
+    </zone>
+    
+</zones>

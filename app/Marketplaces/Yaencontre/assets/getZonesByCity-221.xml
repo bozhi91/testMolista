@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="361">
+        <name><![CDATA[Mas duran]]></name>
+    </zone>
+    
+    <zone id="362">
+        <name><![CDATA[Can pallars]]></name>
+    </zone>
+    
+    <zone id="363">
+        <name><![CDATA[Sant quirze park]]></name>
+    </zone>
+    
+    <zone id="364">
+        <name><![CDATA[Sant quirze jardi]]></name>
+    </zone>
+    
+    <zone id="365">
+        <name><![CDATA[Vall suau]]></name>
+    </zone>
+    
+    <zone id="366">
+        <name><![CDATA[Vall suau ponent]]></name>
+    </zone>
+    
+    <zone id="367">
+        <name><![CDATA[Centre]]></name>
+    </zone>
+    
+    <zone id="368">
+        <name><![CDATA[Can casablanques]]></name>
+    </zone>
+    
+    <zone id="369">
+        <name><![CDATA[Poble sec]]></name>
+    </zone>
+    
+</zones>

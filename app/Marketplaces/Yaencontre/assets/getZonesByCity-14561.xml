@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3633">
+        <name><![CDATA[El Berro]]></name>
+    </zone>
+    
+    <zone id="3634">
+        <name><![CDATA[Gebas]]></name>
+    </zone>
+    
+    <zone id="3635">
+        <name><![CDATA[Las Cañadas]]></name>
+    </zone>
+    
+    <zone id="3636">
+        <name><![CDATA[La Costera]]></name>
+    </zone>
+    
+    <zone id="3637">
+        <name><![CDATA[El Cañarico]]></name>
+    </zone>
+    
+</zones>

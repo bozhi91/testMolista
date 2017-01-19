@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="121">
+        <name><![CDATA[Priorato de banyeres]]></name>
+    </zone>
+    
+    <zone id="122">
+        <name><![CDATA[L´albornar]]></name>
+    </zone>
+    
+    <zone id="123">
+        <name><![CDATA[Ortigós]]></name>
+    </zone>
+    
+    <zone id="124">
+        <name><![CDATA[Papagayo]]></name>
+    </zone>
+    
+    <zone id="125">
+        <name><![CDATA[El papiolet]]></name>
+    </zone>
+    
+    <zone id="126">
+        <name><![CDATA[Torregassa]]></name>
+    </zone>
+    
+    <zone id="127">
+        <name><![CDATA[Urb. els boscos]]></name>
+    </zone>
+    
+    <zone id="128">
+        <name><![CDATA[Les masies de sant miquel]]></name>
+    </zone>
+    
+    <zone id="129">
+        <name><![CDATA[Urb. casa roja]]></name>
+    </zone>
+    
+    <zone id="130">
+        <name><![CDATA[Saifores]]></name>
+    </zone>
+    
+    <zone id="131">
+        <name><![CDATA[Forn d´obra]]></name>
+    </zone>
+    
+    <zone id="132">
+        <name><![CDATA[Nucli urbà]]></name>
+    </zone>
+    
+</zones>

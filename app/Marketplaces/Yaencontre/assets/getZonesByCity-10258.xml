@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2409">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="2410">
+        <name><![CDATA[Boqueres]]></name>
+    </zone>
+    
+    <zone id="2411">
+        <name><![CDATA[Raspeig]]></name>
+    </zone>
+    
+    <zone id="2412">
+        <name><![CDATA[Torregroses]]></name>
+    </zone>
+    
+    <zone id="2413">
+        <name><![CDATA[Canastell]]></name>
+    </zone>
+    
+    <zone id="2414">
+        <name><![CDATA[Inmediaciones]]></name>
+    </zone>
+    
+</zones>

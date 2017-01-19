@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="34776">
+        <name><![CDATA[La Barquera]]></name>
+    </zone>
+    
+    <zone id="34779">
+        <name><![CDATA[El Pueblo]]></name>
+    </zone>
+    
+    <zone id="34781">
+        <name><![CDATA[La Barrera]]></name>
+    </zone>
+    
+    <zone id="34784">
+        <name><![CDATA[El castillo]]></name>
+    </zone>
+    
+    <zone id="34786">
+        <name><![CDATA[La playa]]></name>
+    </zone>
+    
+    <zone id="34789">
+        <name><![CDATA[Las calzadas]]></name>
+    </zone>
+    
+</zones>

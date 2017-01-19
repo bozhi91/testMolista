@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="763">
+        <name><![CDATA[Els molins]]></name>
+    </zone>
+    
+    <zone id="764">
+        <name><![CDATA[La llantia]]></name>
+    </zone>
+    
+    <zone id="765">
+        <name><![CDATA[Eixample]]></name>
+    </zone>
+    
+    <zone id="766">
+        <name><![CDATA[Rocafonda]]></name>
+    </zone>
+    
+    <zone id="767">
+        <name><![CDATA[Cerdanyola]]></name>
+    </zone>
+    
+    <zone id="768">
+        <name><![CDATA[Pla boet]]></name>
+    </zone>
+    
+    <zone id="769">
+        <name><![CDATA[El palau]]></name>
+    </zone>
+    
+    <zone id="770">
+        <name><![CDATA[Cirera]]></name>
+    </zone>
+    
+    <zone id="771">
+        <name><![CDATA[Peramas]]></name>
+    </zone>
+    
+    <zone id="772">
+        <name><![CDATA[Escorxador]]></name>
+    </zone>
+    
+    <zone id="773">
+        <name><![CDATA[Vista alegre]]></name>
+    </zone>
+    
+    <zone id="774">
+        <name><![CDATA[Centre]]></name>
+    </zone>
+    
+    <zone id="33681">
+        <name><![CDATA[l´Havana]]></name>
+    </zone>
+    
+    <zone id="33682">
+        <name><![CDATA[Via Europa]]></name>
+    </zone>
+    
+</zones>

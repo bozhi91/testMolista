@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3759">
+        <name><![CDATA[La Barraca d´Aigües Vives]]></name>
+    </zone>
+    
+    <zone id="3760">
+        <name><![CDATA[El Torretxo]]></name>
+    </zone>
+    
+    <zone id="3761">
+        <name><![CDATA[La Garrofera]]></name>
+    </zone>
+    
+    <zone id="3762">
+        <name><![CDATA[El Pla de Corbera]]></name>
+    </zone>
+    
+    <zone id="3763">
+        <name><![CDATA[San Bernat]]></name>
+    </zone>
+    
+    <zone id="3764">
+        <name><![CDATA[Vilella]]></name>
+    </zone>
+    
+    <zone id="34717">
+        <name><![CDATA[Alquenència, L']]></name>
+    </zone>
+    
+</zones>

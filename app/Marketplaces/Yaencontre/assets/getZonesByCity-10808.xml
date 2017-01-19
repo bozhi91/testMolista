@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2794">
+        <name><![CDATA[Urb. Cala Blanca]]></name>
+    </zone>
+    
+    <zone id="2795">
+        <name><![CDATA[Urb. Cala Blanes]]></name>
+    </zone>
+    
+    <zone id="2796">
+        <name><![CDATA[Urb. Cala Bruch]]></name>
+    </zone>
+    
+    <zone id="2797">
+        <name><![CDATA[Urb. Cala en Blanes]]></name>
+    </zone>
+    
+    <zone id="2798">
+        <name><![CDATA[Urb. Cala en Forcat]]></name>
+    </zone>
+    
+    <zone id="2799">
+        <name><![CDATA[Urb. Cala´n Bosch]]></name>
+    </zone>
+    
+    <zone id="2800">
+        <name><![CDATA[Urb. Cala´n Busquets]]></name>
+    </zone>
+    
+    <zone id="2801">
+        <name><![CDATA[Urb. Cala´n Morell]]></name>
+    </zone>
+    
+    <zone id="2802">
+        <name><![CDATA[Urb. Caleta d´en Gorries]]></name>
+    </zone>
+    
+    <zone id="2803">
+        <name><![CDATA[Urb. Cap d´Artruix]]></name>
+    </zone>
+    
+    <zone id="2804">
+        <name><![CDATA[Urb. Los Delfines]]></name>
+    </zone>
+    
+    <zone id="2805">
+        <name><![CDATA[Urb. Santandria (Platja)]]></name>
+    </zone>
+    
+    <zone id="2806">
+        <name><![CDATA[Urb. Son Blanc]]></name>
+    </zone>
+    
+    <zone id="2807">
+        <name><![CDATA[Urb. Torre del Ram]]></name>
+    </zone>
+    
+    <zone id="34360">
+        <name><![CDATA[Núcleo urbano]]></name>
+    </zone>
+    
+</zones>

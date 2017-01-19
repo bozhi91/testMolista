@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3686">
+        <name><![CDATA[San Pedro del Pinatar Pueblo]]></name>
+    </zone>
+    
+    <zone id="3687">
+        <name><![CDATA[Los Antolinos]]></name>
+    </zone>
+    
+    <zone id="3688">
+        <name><![CDATA[Diseminado]]></name>
+    </zone>
+    
+    <zone id="3689">
+        <name><![CDATA[Las Beatas]]></name>
+    </zone>
+    
+    <zone id="3690">
+        <name><![CDATA[Los Cuarteros]]></name>
+    </zone>
+    
+    <zone id="3691">
+        <name><![CDATA[Villa Nanitos]]></name>
+    </zone>
+    
+    <zone id="3692">
+        <name><![CDATA[Las Esperanzas]]></name>
+    </zone>
+    
+    <zone id="3693">
+        <name><![CDATA[Los Angeles]]></name>
+    </zone>
+    
+    <zone id="3694">
+        <name><![CDATA[San Juan]]></name>
+    </zone>
+    
+    <zone id="3695">
+        <name><![CDATA[Los Gomez]]></name>
+    </zone>
+    
+    <zone id="3696">
+        <name><![CDATA[Los Plazas]]></name>
+    </zone>
+    
+    <zone id="3697">
+        <name><![CDATA[Los Imbernones]]></name>
+    </zone>
+    
+    <zone id="3698">
+        <name><![CDATA[Loma de Abajo]]></name>
+    </zone>
+    
+    <zone id="3699">
+        <name><![CDATA[Loma de Arriba]]></name>
+    </zone>
+    
+    <zone id="3700">
+        <name><![CDATA[Molino Chirrete]]></name>
+    </zone>
+    
+    <zone id="3701">
+        <name><![CDATA[El Mojon]]></name>
+    </zone>
+    
+    <zone id="3702">
+        <name><![CDATA[Las Pachecas]]></name>
+    </zone>
+    
+    <zone id="3703">
+        <name><![CDATA[Lo Romero]]></name>
+    </zone>
+    
+    <zone id="3704">
+        <name><![CDATA[Lo Pagan]]></name>
+    </zone>
+    
+    <zone id="3705">
+        <name><![CDATA[Los Peñascos]]></name>
+    </zone>
+    
+    <zone id="3706">
+        <name><![CDATA[Los Saez]]></name>
+    </zone>
+    
+    <zone id="3707">
+        <name><![CDATA[El Salero]]></name>
+    </zone>
+    
+    <zone id="3708">
+        <name><![CDATA[Las Salinas]]></name>
+    </zone>
+    
+    <zone id="3709">
+        <name><![CDATA[Los Tarragas]]></name>
+    </zone>
+    
+    <zone id="3710">
+        <name><![CDATA[Los Veras]]></name>
+    </zone>
+    
+</zones>

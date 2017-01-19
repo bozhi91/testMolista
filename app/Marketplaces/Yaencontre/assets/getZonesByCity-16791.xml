@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="22447">
+        <name><![CDATA[Nucleo Urbano]]></name>
+    </zone>
+    
+    <zone id="22448">
+        <name><![CDATA[Monte Viejo I]]></name>
+    </zone>
+    
+    <zone id="22449">
+        <name><![CDATA[Monte Viejo II]]></name>
+    </zone>
+    
+</zones>

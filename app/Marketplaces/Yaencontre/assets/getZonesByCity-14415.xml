@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2336">
+        <name><![CDATA[Distrito1-Noreste]]></name>
+    </zone>
+    
+    <zone id="2337">
+        <name><![CDATA[Distrito2-Sureste]]></name>
+    </zone>
+    
+    <zone id="2338">
+        <name><![CDATA[Distrito3-Suroeste]]></name>
+    </zone>
+    
+    <zone id="2339">
+        <name><![CDATA[Distrito4-Noroeste]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2908">
+        <name><![CDATA[Sa Cabaneta]]></name>
+    </zone>
+    
+    <zone id="2909">
+        <name><![CDATA[Portol]]></name>
+    </zone>
+    
+    <zone id="2910">
+        <name><![CDATA[Pont d´Inca]]></name>
+    </zone>
+    
+    <zone id="2911">
+        <name><![CDATA[Pla de Natesa]]></name>
+    </zone>
+    
+    <zone id="2912">
+        <name><![CDATA[Marratxinet]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1729">
+        <name><![CDATA[Centre Històric]]></name>
+    </zone>
+    
+    <zone id="1730">
+        <name><![CDATA[Rambla Ferran - Estació]]></name>
+    </zone>
+    
+    <zone id="1731">
+        <name><![CDATA[Universitat]]></name>
+    </zone>
+    
+    <zone id="1732">
+        <name><![CDATA[Príncep de Viana - Clot]]></name>
+    </zone>
+    
+    <zone id="1733">
+        <name><![CDATA[Instituts - Templers]]></name>
+    </zone>
+    
+    <zone id="1734">
+        <name><![CDATA[Xalets - Humbert Torres]]></name>
+    </zone>
+    
+    <zone id="1735">
+        <name><![CDATA[Camp d´Esports]]></name>
+    </zone>
+    
+    <zone id="1736">
+        <name><![CDATA[Joc de la Bola]]></name>
+    </zone>
+    
+    <zone id="1737">
+        <name><![CDATA[La Mariola]]></name>
+    </zone>
+    
+    <zone id="1738">
+        <name><![CDATA[Balàfia]]></name>
+    </zone>
+    
+    <zone id="1739">
+        <name><![CDATA[Secà de sant Pere]]></name>
+    </zone>
+    
+    <zone id="1740">
+        <name><![CDATA[Pardinyes]]></name>
+    </zone>
+    
+    <zone id="1741">
+        <name><![CDATA[Cap Pont]]></name>
+    </zone>
+    
+    <zone id="1742">
+        <name><![CDATA[La Bordeta]]></name>
+    </zone>
+    
+    <zone id="1743">
+        <name><![CDATA[Els Magraners]]></name>
+    </zone>
+    
+    <zone id="1744">
+        <name><![CDATA[Polígon - Vilanoveta]]></name>
+    </zone>
+    
+    <zone id="1745">
+        <name><![CDATA[Butsènit]]></name>
+    </zone>
+    
+    <zone id="1746">
+        <name><![CDATA[Torres de Sanui]]></name>
+    </zone>
+    
+    <zone id="1747">
+        <name><![CDATA[Basses d´Aplicat]]></name>
+    </zone>
+    
+    <zone id="1748">
+        <name><![CDATA[Llívia]]></name>
+    </zone>
+    
+    <zone id="1823">
+        <name><![CDATA[Raïmat]]></name>
+    </zone>
+    
+</zones>

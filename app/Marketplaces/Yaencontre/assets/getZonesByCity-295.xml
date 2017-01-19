@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="737">
+        <name><![CDATA[Torroella de baix]]></name>
+    </zone>
+    
+    <zone id="738">
+        <name><![CDATA[Pol.ind.sant isidre iii]]></name>
+    </zone>
+    
+    <zone id="739">
+        <name><![CDATA[La rosaleda]]></name>
+    </zone>
+    
+    <zone id="740">
+        <name><![CDATA[Pol.ind.del llobregat]]></name>
+    </zone>
+    
+    <zone id="741">
+        <name><![CDATA[Pol.ind.pla de santa anna]]></name>
+    </zone>
+    
+    <zone id="742">
+        <name><![CDATA[Pol.ind.riu d¸or]]></name>
+    </zone>
+    
+    <zone id="743">
+        <name><![CDATA[Pol.ind. casa nova]]></name>
+    </zone>
+    
+    <zone id="744">
+        <name><![CDATA[Nucli urba]]></name>
+    </zone>
+    
+    <zone id="745">
+        <name><![CDATA[Pol.ind.la serreta]]></name>
+    </zone>
+    
+    <zone id="746">
+        <name><![CDATA[Pineda de bages]]></name>
+    </zone>
+    
+    <zone id="747">
+        <name><![CDATA[Pol.ind.sant isidre i]]></name>
+    </zone>
+    
+    <zone id="748">
+        <name><![CDATA[Les brucardes]]></name>
+    </zone>
+    
+    <zone id="749">
+        <name><![CDATA[Pol.ind.crta d¸artes]]></name>
+    </zone>
+    
+    <zone id="750">
+        <name><![CDATA[Pol.ind.sant isidre ii]]></name>
+    </zone>
+    
+    <zone id="751">
+        <name><![CDATA[Pol.ind. el grau]]></name>
+    </zone>
+    
+</zones>

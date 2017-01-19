@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1553">
+        <name><![CDATA[Arrabal]]></name>
+    </zone>
+    
+    <zone id="1554">
+        <name><![CDATA[Barrio Latino]]></name>
+    </zone>
+    
+    <zone id="1555">
+        <name><![CDATA[Can  Franquesa]]></name>
+    </zone>
+    
+    <zone id="1556">
+        <name><![CDATA[Can Mariné]]></name>
+    </zone>
+    
+    <zone id="1557">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="1558">
+        <name><![CDATA[Fondo]]></name>
+    </zone>
+    
+    <zone id="1559">
+        <name><![CDATA[Guinardera]]></name>
+    </zone>
+    
+    <zone id="1560">
+        <name><![CDATA[Iglesia Mayor]]></name>
+    </zone>
+    
+    <zone id="1561">
+        <name><![CDATA[Oliveras]]></name>
+    </zone>
+    
+    <zone id="1562">
+        <name><![CDATA[Pallaressa]]></name>
+    </zone>
+    
+    <zone id="1563">
+        <name><![CDATA[Rio Norte]]></name>
+    </zone>
+    
+    <zone id="1564">
+        <name><![CDATA[Rio Sur]]></name>
+    </zone>
+    
+    <zone id="1565">
+        <name><![CDATA[Santa Rosa]]></name>
+    </zone>
+    
+    <zone id="1566">
+        <name><![CDATA[Singuerlín]]></name>
+    </zone>
+    
+    <zone id="1567">
+        <name><![CDATA[Xafareixos]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3661">
+        <name><![CDATA[Cervera Pueblo]]></name>
+    </zone>
+    
+    <zone id="3662">
+        <name><![CDATA[Castell d´Oluges]]></name>
+    </zone>
+    
+    <zone id="3663">
+        <name><![CDATA[Vergos]]></name>
+    </zone>
+    
+    <zone id="3664">
+        <name><![CDATA[La Prenyanosa]]></name>
+    </zone>
+    
+    <zone id="3665">
+        <name><![CDATA[Malgrat]]></name>
+    </zone>
+    
+    <zone id="3666">
+        <name><![CDATA[La Cardosa]]></name>
+    </zone>
+    
+</zones>

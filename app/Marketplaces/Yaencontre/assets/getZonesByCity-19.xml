@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2714">
+        <name><![CDATA[Centro Urbano]]></name>
+    </zone>
+    
+    <zone id="2715">
+        <name><![CDATA[Barceloneta]]></name>
+    </zone>
+    
+    <zone id="2716">
+        <name><![CDATA[Las Palmeras]]></name>
+    </zone>
+    
+    <zone id="2717">
+        <name><![CDATA[Sant Cosme]]></name>
+    </zone>
+    
+    <zone id="2718">
+        <name><![CDATA[Sant Jordi]]></name>
+    </zone>
+    
+    <zone id="34462">
+        <name><![CDATA[Polígono Industrial Mas Blau II]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3752">
+        <name><![CDATA[Almuñecar]]></name>
+    </zone>
+    
+    <zone id="3753">
+        <name><![CDATA[La Herradura]]></name>
+    </zone>
+    
+    <zone id="3754">
+        <name><![CDATA[Velilla-Taramay]]></name>
+    </zone>
+    
+</zones>

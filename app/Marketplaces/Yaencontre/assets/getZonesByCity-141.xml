@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="529">
+        <name><![CDATA[Pol. industrial llevant]]></name>
+    </zone>
+    
+    <zone id="557">
+        <name><![CDATA[Parc agroalimentari àgora]]></name>
+    </zone>
+    
+    <zone id="558">
+        <name><![CDATA[Zona_temp industrial av. tarragona]]></name>
+    </zone>
+    
+    <zone id="559">
+        <name><![CDATA[La girada]]></name>
+    </zone>
+    
+    <zone id="560">
+        <name><![CDATA[Centre vila]]></name>
+    </zone>
+    
+    <zone id="561">
+        <name><![CDATA[Pla del diable]]></name>
+    </zone>
+    
+    <zone id="562">
+        <name><![CDATA[Espirall]]></name>
+    </zone>
+    
+    <zone id="563">
+        <name><![CDATA[Pol. industrial domenys ii]]></name>
+    </zone>
+    
+    <zone id="564">
+        <name><![CDATA[Zona_temp industrial rocallisa]]></name>
+    </zone>
+    
+    <zone id="565">
+        <name><![CDATA[Sant julià]]></name>
+    </zone>
+    
+    <zone id="567">
+        <name><![CDATA[Pol. industrial estació de mercaderies]]></name>
+    </zone>
+    
+    <zone id="568">
+        <name><![CDATA[Zona_temp esportiva i fira]]></name>
+    </zone>
+    
+    <zone id="569">
+        <name><![CDATA[Poble nou]]></name>
+    </zone>
+    
+    <zone id="570">
+        <name><![CDATA[Barri pere pau]]></name>
+    </zone>
+    
+    <zone id="571">
+        <name><![CDATA[Barri les salines]]></name>
+    </zone>
+    
+    <zone id="572">
+        <name><![CDATA[Pol. industrial domenys i]]></name>
+    </zone>
+    
+    <zone id="573">
+        <name><![CDATA[Molí d´en rovira]]></name>
+    </zone>
+    
+    <zone id="574">
+        <name><![CDATA[Les clotes]]></name>
+    </zone>
+    
+</zones>

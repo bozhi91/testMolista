@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2149">
+        <name><![CDATA[Xenillet]]></name>
+    </zone>
+    
+    <zone id="2150">
+        <name><![CDATA[Casco Antiguo]]></name>
+    </zone>
+    
+    <zone id="2151">
+        <name><![CDATA[San Gregorio]]></name>
+    </zone>
+    
+    <zone id="2152">
+        <name><![CDATA[El Vedat]]></name>
+    </zone>
+    
+    <zone id="2153">
+        <name><![CDATA[Poble Nou]]></name>
+    </zone>
+    
+    <zone id="2154">
+        <name><![CDATA[Los Caracoles]]></name>
+    </zone>
+    
+    <zone id="2155">
+        <name><![CDATA[El Moli]]></name>
+    </zone>
+    
+    <zone id="34428">
+        <name><![CDATA[Camí Reial]]></name>
+    </zone>
+    
+    <zone id="34431">
+        <name><![CDATA[Avenida Alta - Auditorio]]></name>
+    </zone>
+    
+    <zone id="34434">
+        <name><![CDATA[Parc Central]]></name>
+    </zone>
+    
+    <zone id="34435">
+        <name><![CDATA[Polígono Mas del Jutge]]></name>
+    </zone>
+    
+    <zone id="34484">
+        <name><![CDATA[Avenida del Vedat]]></name>
+    </zone>
+    
+    <zone id="34704">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+</zones>

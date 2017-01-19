@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2342">
+        <name><![CDATA[La barriada de San Pedro]]></name>
+    </zone>
+    
+    <zone id="2343">
+        <name><![CDATA[El Trocadero]]></name>
+    </zone>
+    
+    <zone id="2345">
+        <name><![CDATA[Poligono Industrial 3 Caminos]]></name>
+    </zone>
+    
+    <zone id="2346">
+        <name><![CDATA[La barriada Rio San Pedro]]></name>
+    </zone>
+    
+    <zone id="2347">
+        <name><![CDATA[Zona Centro]]></name>
+    </zone>
+    
+    <zone id="2348">
+        <name><![CDATA[Marina de la Bahia]]></name>
+    </zone>
+    
+    <zone id="2349">
+        <name><![CDATA[512 viviendas]]></name>
+    </zone>
+    
+    <zone id="2350">
+        <name><![CDATA[Casines]]></name>
+    </zone>
+    
+    <zone id="2351">
+        <name><![CDATA[Barrio de Jarana]]></name>
+    </zone>
+    
+    <zone id="2352">
+        <name><![CDATA[Meadero de la Reina]]></name>
+    </zone>
+    
+    <zone id="2353">
+        <name><![CDATA[Villanueva Golf]]></name>
+    </zone>
+    
+    <zone id="2354">
+        <name><![CDATA[La Ceferina]]></name>
+    </zone>
+    
+    <zone id="2355">
+        <name><![CDATA[Barriada nuestra Señora del Consuelo]]></name>
+    </zone>
+    
+    <zone id="2356">
+        <name><![CDATA[Ciudad Jardin]]></name>
+    </zone>
+    
+</zones>

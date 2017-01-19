@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2967">
+        <name><![CDATA[Centro Urbano]]></name>
+    </zone>
+    
+    <zone id="2968">
+        <name><![CDATA[Santa Clara]]></name>
+    </zone>
+    
+    <zone id="2969">
+        <name><![CDATA[Las Perdices]]></name>
+    </zone>
+    
+    <zone id="2970">
+        <name><![CDATA[Valdelagua]]></name>
+    </zone>
+    
+    <zone id="2971">
+        <name><![CDATA[Los Cantos]]></name>
+    </zone>
+    
+    <zone id="2972">
+        <name><![CDATA[Los Nogales]]></name>
+    </zone>
+    
+    <zone id="2973">
+        <name><![CDATA[Los Altos de Bargas]]></name>
+    </zone>
+    
+</zones>

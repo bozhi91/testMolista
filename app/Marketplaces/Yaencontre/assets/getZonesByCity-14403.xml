@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2273">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="2274">
+        <name><![CDATA[La Granjilla]]></name>
+    </zone>
+    
+    <zone id="2275">
+        <name><![CDATA[Fuente Fresno]]></name>
+    </zone>
+    
+    <zone id="2276">
+        <name><![CDATA[Club de Campo]]></name>
+    </zone>
+    
+    <zone id="2277">
+        <name><![CDATA[Ciudalcampo]]></name>
+    </zone>
+    
+    <zone id="2278">
+        <name><![CDATA[Sacramento]]></name>
+    </zone>
+    
+    <zone id="2279">
+        <name><![CDATA[El Chaparral]]></name>
+    </zone>
+    
+    <zone id="2280">
+        <name><![CDATA[La Zaporra]]></name>
+    </zone>
+    
+    <zone id="2281">
+        <name><![CDATA[Santa Barbara-Baunatal]]></name>
+    </zone>
+    
+    <zone id="2282">
+        <name><![CDATA[Rosa Luxemburgo]]></name>
+    </zone>
+    
+    <zone id="2283">
+        <name><![CDATA[Los Sectores-Los Arroyos]]></name>
+    </zone>
+    
+    <zone id="2284">
+        <name><![CDATA[Dehesa Vieja]]></name>
+    </zone>
+    
+    <zone id="2285">
+        <name><![CDATA[El Praderón-La Hoya]]></name>
+    </zone>
+    
+    <zone id="33680">
+        <name><![CDATA[Ciudad Santo Domingo]]></name>
+    </zone>
+    
+</zones>

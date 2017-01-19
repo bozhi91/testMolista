@@ -139,8 +139,15 @@ class PromocionMapper extends BaseMapper {
 		list($poblacionId, $poblacionLabel) = $this->getPoblacionData();
 		$ubicacion['poblacion@id=' . $poblacionId] = $poblacionLabel;
 
+		list($zoneId, $zoneLabel) = $this->getZoneData();
+		
+		if($zoneId && $zoneLabel) {
+			$ubicacion['zona@id=' .$zoneId] = $zoneLabel;
+		} else {
+			$ubicacion['zona@id='] = ''; //tag required
+		}
+		
 		//Opcionales
-		$ubicacion['zona@id='] = ''; //$ubicacion['zona@id=1'] = ''; API ATLAS
 		$ubicacion['zona_libre'] = '';
 		$ubicacion['cod_postal'] = !empty($l['zipcode']) ? $l['zipcode'] : '';
 		$ubicacion['latitud'] = !empty($l['lat']) ? $l['lat'] : '';

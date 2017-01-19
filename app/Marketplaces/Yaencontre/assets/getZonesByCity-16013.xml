@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="22601">
+        <name><![CDATA[Zona Centro-Barrio Amurallado]]></name>
+    </zone>
+    
+    <zone id="22602">
+        <name><![CDATA[Barrio Fuentecilla]]></name>
+    </zone>
+    
+    <zone id="22603">
+        <name><![CDATA[San Lorenzo]]></name>
+    </zone>
+    
+    <zone id="22605">
+        <name><![CDATA[Nueva Segovia]]></name>
+    </zone>
+    
+    <zone id="22606">
+        <name><![CDATA[San Jose]]></name>
+    </zone>
+    
+    <zone id="22607">
+        <name><![CDATA[El Palo-Mirasierra]]></name>
+    </zone>
+    
+    <zone id="22608">
+        <name><![CDATA[Santo Tomas]]></name>
+    </zone>
+    
+    <zone id="22609">
+        <name><![CDATA[San Millan]]></name>
+    </zone>
+    
+    <zone id="22610">
+        <name><![CDATA[San Esteban]]></name>
+    </zone>
+    
+    <zone id="22611">
+        <name><![CDATA[San Andres]]></name>
+    </zone>
+    
+    <zone id="22612">
+        <name><![CDATA[Santa Eulalia]]></name>
+    </zone>
+    
+    <zone id="22613">
+        <name><![CDATA[Barrio Puente Hierro]]></name>
+    </zone>
+    
+    <zone id="22614">
+        <name><![CDATA[San Marcos]]></name>
+    </zone>
+    
+</zones>

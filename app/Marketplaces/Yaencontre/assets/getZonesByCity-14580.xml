@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1709">
+        <name><![CDATA[Altorreal]]></name>
+    </zone>
+    
+    <zone id="34511">
+        <name><![CDATA[Molina de Segura ciudad]]></name>
+    </zone>
+    
+</zones>

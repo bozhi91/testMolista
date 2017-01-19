@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1794">
+        <name><![CDATA[Aiete]]></name>
+    </zone>
+    
+    <zone id="1795">
+        <name><![CDATA[Alza]]></name>
+    </zone>
+    
+    <zone id="1796">
+        <name><![CDATA[Amara Nuevo]]></name>
+    </zone>
+    
+    <zone id="1797">
+        <name><![CDATA[Amara Viejo]]></name>
+    </zone>
+    
+    <zone id="1798">
+        <name><![CDATA[Antiguo]]></name>
+    </zone>
+    
+    <zone id="1799">
+        <name><![CDATA[Añorga]]></name>
+    </zone>
+    
+    <zone id="1800">
+        <name><![CDATA[Bidebieta]]></name>
+    </zone>
+    
+    <zone id="1801">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="1802">
+        <name><![CDATA[Egia]]></name>
+    </zone>
+    
+    <zone id="1803">
+        <name><![CDATA[Gros]]></name>
+    </zone>
+    
+    <zone id="1804">
+        <name><![CDATA[Ategorrieta-Ulia]]></name>
+    </zone>
+    
+    <zone id="1805">
+        <name><![CDATA[Ibaeta]]></name>
+    </zone>
+    
+    <zone id="1806">
+        <name><![CDATA[Igeldo]]></name>
+    </zone>
+    
+    <zone id="1807">
+        <name><![CDATA[Intxaurrondo]]></name>
+    </zone>
+    
+    <zone id="1808">
+        <name><![CDATA[Loiola]]></name>
+    </zone>
+    
+    <zone id="1809">
+        <name><![CDATA[Martutene]]></name>
+    </zone>
+    
+    <zone id="1810">
+        <name><![CDATA[Miraconcha]]></name>
+    </zone>
+    
+    <zone id="1811">
+        <name><![CDATA[Parte Vieja]]></name>
+    </zone>
+    
+    <zone id="1812">
+        <name><![CDATA[Zubieta]]></name>
+    </zone>
+    
+</zones>

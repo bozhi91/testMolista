@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2144">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="2145">
+        <name><![CDATA[Norte-Universidad]]></name>
+    </zone>
+    
+    <zone id="2146">
+        <name><![CDATA[Sur-Este]]></name>
+    </zone>
+    
+    <zone id="2147">
+        <name><![CDATA[Oeste]]></name>
+    </zone>
+    
+    <zone id="2148">
+        <name><![CDATA[Coimbra-Guadarrama]]></name>
+    </zone>
+    
+    <zone id="34472">
+        <name><![CDATA[Juan de Borbón]]></name>
+    </zone>
+    
+</zones>

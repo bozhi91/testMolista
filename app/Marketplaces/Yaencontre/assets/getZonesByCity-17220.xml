@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2485">
+        <name><![CDATA[La Balsilla]]></name>
+    </zone>
+    
+    <zone id="2486">
+        <name><![CDATA[Les Creules]]></name>
+    </zone>
+    
+    <zone id="2487">
+        <name><![CDATA[Els Creves]]></name>
+    </zone>
+    
+    <zone id="2488">
+        <name><![CDATA[La Horquera]]></name>
+    </zone>
+    
+    <zone id="2489">
+        <name><![CDATA[La Rodana]]></name>
+    </zone>
+    
+    <zone id="2490">
+        <name><![CDATA[La Pedrera]]></name>
+    </zone>
+    
+    <zone id="2491">
+        <name><![CDATA[Les Plantades]]></name>
+    </zone>
+    
+    <zone id="2492">
+        <name><![CDATA[Mullo Crussa]]></name>
+    </zone>
+    
+    <zone id="2493">
+        <name><![CDATA[Mas del Moro]]></name>
+    </zone>
+    
+    <zone id="34521">
+        <name><![CDATA[Casco Urbano]]></name>
+    </zone>
+    
+</zones>

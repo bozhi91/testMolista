@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1976">
+        <name><![CDATA[Centro Urbano]]></name>
+    </zone>
+    
+    <zone id="1977">
+        <name><![CDATA[Monte Blanco]]></name>
+    </zone>
+    
+    <zone id="1978">
+        <name><![CDATA[San Gerardo]]></name>
+    </zone>
+    
+    <zone id="1979">
+        <name><![CDATA[Canyada de Tello]]></name>
+    </zone>
+    
+    <zone id="1980">
+        <name><![CDATA[Xerlado]]></name>
+    </zone>
+    
+    <zone id="1981">
+        <name><![CDATA[Mont-Jarque]]></name>
+    </zone>
+    
+    <zone id="1982">
+        <name><![CDATA[Sant Vicent]]></name>
+    </zone>
+    
+    <zone id="1983">
+        <name><![CDATA[Oasis de Sant Vicent]]></name>
+    </zone>
+    
+    <zone id="1984">
+        <name><![CDATA[Corral de la Marquesa]]></name>
+    </zone>
+    
+    <zone id="1985">
+        <name><![CDATA[Formidable]]></name>
+    </zone>
+    
+    <zone id="1986">
+        <name><![CDATA[El Regalon]]></name>
+    </zone>
+    
+    <zone id="1987">
+        <name><![CDATA[Jardin de Lauro]]></name>
+    </zone>
+    
+    <zone id="1988">
+        <name><![CDATA[Maimona Corral]]></name>
+    </zone>
+    
+    <zone id="1989">
+        <name><![CDATA[D´albert]]></name>
+    </zone>
+    
+    <zone id="1990">
+        <name><![CDATA[Puig i Lis]]></name>
+    </zone>
+    
+    <zone id="1991">
+        <name><![CDATA[Montecollado]]></name>
+    </zone>
+    
+    <zone id="1992">
+        <name><![CDATA[El Caramelo]]></name>
+    </zone>
+    
+    <zone id="1993">
+        <name><![CDATA[Clotxa del Cosi]]></name>
+    </zone>
+    
+    <zone id="1994">
+        <name><![CDATA[Monteblanco Sant Gerard]]></name>
+    </zone>
+    
+    <zone id="1995">
+        <name><![CDATA[La Xelvaneta]]></name>
+    </zone>
+    
+    <zone id="1996">
+        <name><![CDATA[Vall de Lliria]]></name>
+    </zone>
+    
+    <zone id="1997">
+        <name><![CDATA[Edeta]]></name>
+    </zone>
+    
+    <zone id="1998">
+        <name><![CDATA[Alt de Botigueta]]></name>
+    </zone>
+    
+    <zone id="1999">
+        <name><![CDATA[El Secament]]></name>
+    </zone>
+    
+    <zone id="2000">
+        <name><![CDATA[La Sima]]></name>
+    </zone>
+    
+    <zone id="2001">
+        <name><![CDATA[Canyada de Confites]]></name>
+    </zone>
+    
+    <zone id="2002">
+        <name><![CDATA[Safareig]]></name>
+    </zone>
+    
+    <zone id="2003">
+        <name><![CDATA[Verger de Sant Miquel]]></name>
+    </zone>
+    
+</zones>

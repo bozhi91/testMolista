@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2430">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="2431">
+        <name><![CDATA[Barrio del Cristo]]></name>
+    </zone>
+    
+    <zone id="2432">
+        <name><![CDATA[La Saleta]]></name>
+    </zone>
+    
+    <zone id="2433">
+        <name><![CDATA[La Colonia]]></name>
+    </zone>
+    
+    <zone id="2434">
+        <name><![CDATA[El Pilar]]></name>
+    </zone>
+    
+</zones>

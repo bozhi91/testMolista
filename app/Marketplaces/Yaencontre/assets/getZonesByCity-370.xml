@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1420">
+        <name><![CDATA[Casc Urbà]]></name>
+    </zone>
+    
+    <zone id="1421">
+        <name><![CDATA[Barri les Bòviles]]></name>
+    </zone>
+    
+    <zone id="1422">
+        <name><![CDATA[Can Tries]]></name>
+    </zone>
+    
+    <zone id="1424">
+        <name><![CDATA[Can Badosa]]></name>
+    </zone>
+    
+    <zone id="1425">
+        <name><![CDATA[Polígon La Post]]></name>
+    </zone>
+    
+    <zone id="1426">
+        <name><![CDATA[Les Mossotes]]></name>
+    </zone>
+    
+    <zone id="1427">
+        <name><![CDATA[Les Parets]]></name>
+    </zone>
+    
+    <zone id="1428">
+        <name><![CDATA[Polígon El regàs]]></name>
+    </zone>
+    
+    <zone id="1429">
+        <name><![CDATA[Camí Ral]]></name>
+    </zone>
+    
+    <zone id="1430">
+        <name><![CDATA[Gavà Mar]]></name>
+    </zone>
+    
+    <zone id="1431">
+        <name><![CDATA[La Sentiu]]></name>
+    </zone>
+    
+    <zone id="1432">
+        <name><![CDATA[Mas borguers]]></name>
+    </zone>
+    
+    <zone id="1433">
+        <name><![CDATA[Ca n´Espinós]]></name>
+    </zone>
+    
+</zones>

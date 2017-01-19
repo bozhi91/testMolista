@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3729">
+        <name><![CDATA[Casco antiguo]]></name>
+    </zone>
+    
+    <zone id="3730">
+        <name><![CDATA[Barrio de la OTAN]]></name>
+    </zone>
+    
+    <zone id="3731">
+        <name><![CDATA[Copasa]]></name>
+    </zone>
+    
+    <zone id="3732">
+        <name><![CDATA[La Fragua]]></name>
+    </zone>
+    
+    <zone id="3733">
+        <name><![CDATA[Fuencasa]]></name>
+    </zone>
+    
+    <zone id="3734">
+        <name><![CDATA[Huerta Chica]]></name>
+    </zone>
+    
+    <zone id="3735">
+        <name><![CDATA[El Olivar]]></name>
+    </zone>
+    
+    <zone id="3736">
+        <name><![CDATA[Montserrat]]></name>
+    </zone>
+    
+    <zone id="3737">
+        <name><![CDATA[Parque General]]></name>
+    </zone>
+    
+    <zone id="3738">
+        <name><![CDATA[Parque Henares]]></name>
+    </zone>
+    
+    <zone id="3739">
+        <name><![CDATA[Parque Henares (Sector II)]]></name>
+    </zone>
+    
+    <zone id="3740">
+        <name><![CDATA[Polideportivo]]></name>
+    </zone>
+    
+    <zone id="3741">
+        <name><![CDATA[La Presa]]></name>
+    </zone>
+    
+    <zone id="3742">
+        <name><![CDATA[Sector I]]></name>
+    </zone>
+    
+    <zone id="3743">
+        <name><![CDATA[Sector III]]></name>
+    </zone>
+    
+    <zone id="3744">
+        <name><![CDATA[Sector IV]]></name>
+    </zone>
+    
+    <zone id="3745">
+        <name><![CDATA[Coronas]]></name>
+    </zone>
+    
+</zones>

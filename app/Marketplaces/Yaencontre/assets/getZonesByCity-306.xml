@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3667">
+        <name><![CDATA[Torrelles de Foix Pueblo]]></name>
+    </zone>
+    
+    <zone id="3668">
+        <name><![CDATA[Can Coral]]></name>
+    </zone>
+    
+    <zone id="3669">
+        <name><![CDATA[La Plana de les Torres]]></name>
+    </zone>
+    
+    <zone id="3670">
+        <name><![CDATA[La Berma]]></name>
+    </zone>
+    
+    <zone id="3671">
+        <name><![CDATA[El Mas Bertran]]></name>
+    </zone>
+    
+    <zone id="3672">
+        <name><![CDATA[El Cosconar]]></name>
+    </zone>
+    
+    <zone id="3673">
+        <name><![CDATA[Les Llambardes]]></name>
+    </zone>
+    
+    <zone id="3674">
+        <name><![CDATA[Cal Via]]></name>
+    </zone>
+    
+    <zone id="3675">
+        <name><![CDATA[Can Croset]]></name>
+    </zone>
+    
+    <zone id="3676">
+        <name><![CDATA[El Pany]]></name>
+    </zone>
+    
+</zones>

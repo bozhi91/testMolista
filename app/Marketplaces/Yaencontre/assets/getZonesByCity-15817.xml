@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2094">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="2095">
+        <name><![CDATA[Cazoña]]></name>
+    </zone>
+    
+    <zone id="2096">
+        <name><![CDATA[El Sardinero]]></name>
+    </zone>
+    
+    <zone id="2097">
+        <name><![CDATA[Barrio Pesquero]]></name>
+    </zone>
+    
+    <zone id="2098">
+        <name><![CDATA[El Alisal]]></name>
+    </zone>
+    
+    <zone id="2099">
+        <name><![CDATA[Cabildo de Arriba]]></name>
+    </zone>
+    
+    <zone id="2100">
+        <name><![CDATA[Castilla-Hermida]]></name>
+    </zone>
+    
+    <zone id="2101">
+        <name><![CDATA[Puertochico]]></name>
+    </zone>
+    
+    <zone id="2102">
+        <name><![CDATA[La Albericia]]></name>
+    </zone>
+    
+    <zone id="2103">
+        <name><![CDATA[Calle Alta]]></name>
+    </zone>
+    
+    <zone id="2104">
+        <name><![CDATA[Cuatro Caminos]]></name>
+    </zone>
+    
+    <zone id="2105">
+        <name><![CDATA[General Davila]]></name>
+    </zone>
+    
+    <zone id="2106">
+        <name><![CDATA[Tetuan]]></name>
+    </zone>
+    
+    <zone id="2107">
+        <name><![CDATA[Canalejas]]></name>
+    </zone>
+    
+    <zone id="2108">
+        <name><![CDATA[San Fernando]]></name>
+    </zone>
+    
+    <zone id="22621">
+        <name><![CDATA[Los Castros-Gral Davila]]></name>
+    </zone>
+    
+    <zone id="22622">
+        <name><![CDATA[Valdenoja-La Pereda]]></name>
+    </zone>
+    
+    <zone id="22623">
+        <name><![CDATA[San Roman]]></name>
+    </zone>
+    
+    <zone id="22624">
+        <name><![CDATA[Peñacastillo - Nueva Montaña]]></name>
+    </zone>
+    
+</zones>

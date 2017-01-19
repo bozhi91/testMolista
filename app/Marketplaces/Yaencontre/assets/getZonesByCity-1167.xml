@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1176">
+        <name><![CDATA[Garrofers]]></name>
+    </zone>
+    
+    <zone id="1177">
+        <name><![CDATA[Bonavista]]></name>
+    </zone>
+    
+    <zone id="1178">
+        <name><![CDATA[Coma-ruga park]]></name>
+    </zone>
+    
+    <zone id="1179">
+        <name><![CDATA[Sant vicenç de calders]]></name>
+    </zone>
+    
+    <zone id="1180">
+        <name><![CDATA[Nirvana]]></name>
+    </zone>
+    
+    <zone id="1181">
+        <name><![CDATA[El romaní]]></name>
+    </zone>
+    
+    <zone id="1182">
+        <name><![CDATA[Masia blanca]]></name>
+    </zone>
+    
+    <zone id="1183">
+        <name><![CDATA[Els masos ii]]></name>
+    </zone>
+    
+    <zone id="1184">
+        <name><![CDATA[La creu]]></name>
+    </zone>
+    
+    <zone id="1185">
+        <name><![CDATA[Masia blanca ii]]></name>
+    </zone>
+    
+    <zone id="1186">
+        <name><![CDATA[Els masos]]></name>
+    </zone>
+    
+    <zone id="1187">
+        <name><![CDATA[Els masos iii]]></name>
+    </zone>
+    
+    <zone id="1188">
+        <name><![CDATA[Les clotes]]></name>
+    </zone>
+    
+    <zone id="1189">
+        <name><![CDATA[Sant salvador]]></name>
+    </zone>
+    
+    <zone id="1190">
+        <name><![CDATA[El francás]]></name>
+    </zone>
+    
+    <zone id="1191">
+        <name><![CDATA[Torreblanca]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3658">
+        <name><![CDATA[Casco Antiguo]]></name>
+    </zone>
+    
+    <zone id="3659">
+        <name><![CDATA[Puerto]]></name>
+    </zone>
+    
+    <zone id="3660">
+        <name><![CDATA[Arenal]]></name>
+    </zone>
+    
+    <zone id="35047">
+        <name><![CDATA[Balcón al Mar-Cap Martí]]></name>
+    </zone>
+    
+    <zone id="35048">
+        <name><![CDATA[Montgó - Partida Tosal]]></name>
+    </zone>
+    
+    <zone id="35049">
+        <name><![CDATA[Partides comunes - Adsubia]]></name>
+    </zone>
+    
+</zones>

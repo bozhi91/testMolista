@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="133">
+        <name><![CDATA[La miralba]]></name>
+    </zone>
+    
+    <zone id="135">
+        <name><![CDATA[El xalet blanc]]></name>
+    </zone>
+    
+    <zone id="136">
+        <name><![CDATA[Priorato de la bisbal]]></name>
+    </zone>
+    
+    <zone id="137">
+        <name><![CDATA[La pineda de santa cristina]]></name>
+    </zone>
+    
+    <zone id="138">
+        <name><![CDATA[La masieta]]></name>
+    </zone>
+    
+    <zone id="139">
+        <name><![CDATA[Can gordei]]></name>
+    </zone>
+    
+    <zone id="140">
+        <name><![CDATA[L´esplai del penedès]]></name>
+    </zone>
+    
+    <zone id="141">
+        <name><![CDATA[L´ortigós]]></name>
+    </zone>
+    
+    <zone id="142">
+        <name><![CDATA[El papagai]]></name>
+    </zone>
+    
+    <zone id="1842">
+        <name><![CDATA[Casc Urbà]]></name>
+    </zone>
+    
+</zones>

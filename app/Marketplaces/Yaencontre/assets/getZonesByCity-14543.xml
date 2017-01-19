@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3474">
+        <name><![CDATA[Torrox Pueblo]]></name>
+    </zone>
+    
+    <zone id="3475">
+        <name><![CDATA[Torrox-Costa]]></name>
+    </zone>
+    
+    <zone id="3476">
+        <name><![CDATA[El Morche]]></name>
+    </zone>
+    
+    <zone id="3477">
+        <name><![CDATA[La Rabitilla]]></name>
+    </zone>
+    
+    <zone id="3478">
+        <name><![CDATA[El Peñoncillo]]></name>
+    </zone>
+    
+    <zone id="3479">
+        <name><![CDATA[Torrox-Park]]></name>
+    </zone>
+    
+</zones>

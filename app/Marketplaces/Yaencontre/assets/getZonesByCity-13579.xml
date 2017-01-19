@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3516">
+        <name><![CDATA[Barrio de San Pedro]]></name>
+    </zone>
+    
+    <zone id="3517">
+        <name><![CDATA[Barrio de las Canteras]]></name>
+    </zone>
+    
+    <zone id="3518">
+        <name><![CDATA[Barrio de La Puerta del Sol]]></name>
+    </zone>
+    
+    <zone id="3519">
+        <name><![CDATA[Barrio de La Alameda]]></name>
+    </zone>
+    
+    <zone id="3520">
+        <name><![CDATA[Barrio de El Alamillo]]></name>
+    </zone>
+    
+    <zone id="3521">
+        <name><![CDATA[Barrio de El Comendador]]></name>
+    </zone>
+    
+    <zone id="3522">
+        <name><![CDATA[Barrio de Avilas Rojas]]></name>
+    </zone>
+    
+    <zone id="3523">
+        <name><![CDATA[Barrio de la Atalaya]]></name>
+    </zone>
+    
+    <zone id="3524">
+        <name><![CDATA[Parque Norte]]></name>
+    </zone>
+    
+    <zone id="3525">
+        <name><![CDATA[Barriada Federico García Lorca ]]></name>
+    </zone>
+    
+    <zone id="3526">
+        <name><![CDATA[Barrio de San Millan]]></name>
+    </zone>
+    
+    <zone id="3527">
+        <name><![CDATA[Barriada de El Alcazar]]></name>
+    </zone>
+    
+    <zone id="3528">
+        <name><![CDATA[Barrio de San Nicolas]]></name>
+    </zone>
+    
+    <zone id="34701">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+</zones>

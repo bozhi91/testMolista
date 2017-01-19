@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="22500">
+        <name><![CDATA[Sanxenxo]]></name>
+    </zone>
+    
+    <zone id="22501">
+        <name><![CDATA[Portonovo]]></name>
+    </zone>
+    
+    <zone id="22502">
+        <name><![CDATA[Dorron]]></name>
+    </zone>
+    
+    <zone id="22503">
+        <name><![CDATA[Bordons]]></name>
+    </zone>
+    
+    <zone id="22504">
+        <name><![CDATA[Padriñan]]></name>
+    </zone>
+    
+    <zone id="22505">
+        <name><![CDATA[Nantes]]></name>
+    </zone>
+    
+    <zone id="22506">
+        <name><![CDATA[Adina]]></name>
+    </zone>
+    
+    <zone id="22507">
+        <name><![CDATA[Villalonga]]></name>
+    </zone>
+    
+    <zone id="22508">
+        <name><![CDATA[Noalla]]></name>
+    </zone>
+    
+</zones>

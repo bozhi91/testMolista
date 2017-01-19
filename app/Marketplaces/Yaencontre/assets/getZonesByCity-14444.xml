@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3682">
+        <name><![CDATA[Zona Urbana]]></name>
+    </zone>
+    
+    <zone id="3683">
+        <name><![CDATA[Urb. Las Cuestas]]></name>
+    </zone>
+    
+    <zone id="3684">
+        <name><![CDATA[Santa Maria]]></name>
+    </zone>
+    
+    <zone id="3685">
+        <name><![CDATA[Las Vegas]]></name>
+    </zone>
+    
+</zones>

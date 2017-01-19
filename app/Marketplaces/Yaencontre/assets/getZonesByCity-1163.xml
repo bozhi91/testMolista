@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="351">
+        <name><![CDATA[Parque central]]></name>
+    </zone>
+    
+    <zone id="353">
+        <name><![CDATA[Nova]]></name>
+    </zone>
+    
+    <zone id="1165">
+        <name><![CDATA[Covamar]]></name>
+    </zone>
+    
+    <zone id="1166">
+        <name><![CDATA[Poble]]></name>
+    </zone>
+    
+    <zone id="1167">
+        <name><![CDATA[Capellans o acantilados]]></name>
+    </zone>
+    
+    <zone id="1169">
+        <name><![CDATA[Paseig jaume]]></name>
+    </zone>
+    
+    <zone id="1170">
+        <name><![CDATA[Plaça europa]]></name>
+    </zone>
+    
+    <zone id="1171">
+        <name><![CDATA[Paseig miramar]]></name>
+    </zone>
+    
+    <zone id="1172">
+        <name><![CDATA[Torre vella]]></name>
+    </zone>
+    
+    <zone id="1173">
+        <name><![CDATA[C/ nord]]></name>
+    </zone>
+    
+    <zone id="1175">
+        <name><![CDATA[Cap salou]]></name>
+    </zone>
+    
+</zones>

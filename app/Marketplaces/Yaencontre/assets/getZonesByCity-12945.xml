@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="22450">
+        <name><![CDATA[Casco Antiguo]]></name>
+    </zone>
+    
+    <zone id="22451">
+        <name><![CDATA[Barrio del Balconcillo ]]></name>
+    </zone>
+    
+    <zone id="22452">
+        <name><![CDATA[Aguas Vivas]]></name>
+    </zone>
+    
+    <zone id="22453">
+        <name><![CDATA[Los Valles ]]></name>
+    </zone>
+    
+    <zone id="22454">
+        <name><![CDATA[Las Cumbres ]]></name>
+    </zone>
+    
+    <zone id="22455">
+        <name><![CDATA[Los Manantiales ]]></name>
+    </zone>
+    
+    <zone id="22456">
+        <name><![CDATA[Barrio de la Constitucion]]></name>
+    </zone>
+    
+    <zone id="22457">
+        <name><![CDATA[Casas del Rey]]></name>
+    </zone>
+    
+</zones>

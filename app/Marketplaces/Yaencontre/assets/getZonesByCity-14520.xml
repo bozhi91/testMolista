@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1675">
+        <name><![CDATA[Ciudad Jardín]]></name>
+    </zone>
+    
+    <zone id="1676">
+        <name><![CDATA[Bailén - Miraflores]]></name>
+    </zone>
+    
+    <zone id="1678">
+        <name><![CDATA[Cruz de Humilladero]]></name>
+    </zone>
+    
+    <zone id="1681">
+        <name><![CDATA[Campanillas]]></name>
+    </zone>
+    
+    <zone id="34790">
+        <name><![CDATA[Centro histórico]]></name>
+    </zone>
+    
+    <zone id="34801">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="34806">
+        <name><![CDATA[Gamarra - La Trinidad]]></name>
+    </zone>
+    
+    <zone id="34814">
+        <name><![CDATA[Campanillas]]></name>
+    </zone>
+    
+    <zone id="34819">
+        <name><![CDATA[Carlos Haya]]></name>
+    </zone>
+    
+    <zone id="34823">
+        <name><![CDATA[Parque Victoria Eugenia]]></name>
+    </zone>
+    
+    <zone id="34824">
+        <name><![CDATA[San Alberto-Tejar de Salyt]]></name>
+    </zone>
+    
+    <zone id="34842">
+        <name><![CDATA[Este]]></name>
+    </zone>
+    
+    <zone id="34848">
+        <name><![CDATA[Suárez]]></name>
+    </zone>
+    
+    <zone id="34854">
+        <name><![CDATA[Conde de Ureña-Monte Gibralfaro]]></name>
+    </zone>
+    
+    <zone id="34871">
+        <name><![CDATA[El Ejido-La Merced-La Victoria]]></name>
+    </zone>
+    
+    <zone id="34873">
+        <name><![CDATA[El Molinillo-Capuchinos (Alameda de Barcelo)]]></name>
+    </zone>
+    
+    <zone id="34876">
+        <name><![CDATA[Ensanche Centro-Puerto]]></name>
+    </zone>
+    
+    <zone id="34879">
+        <name><![CDATA[La Goleta-San Felipe Neri]]></name>
+    </zone>
+    
+    <zone id="34881">
+        <name><![CDATA[La Malagueta-La Caleta]]></name>
+    </zone>
+    
+    <zone id="34884">
+        <name><![CDATA[Olletas-Sierra Blanquilla]]></name>
+    </zone>
+    
+    <zone id="34887">
+        <name><![CDATA[Perchel Norte-La Trinidad]]></name>
+    </zone>
+    
+    <zone id="34890">
+        <name><![CDATA[Cristo de la Epidemia]]></name>
+    </zone>
+    
+    <zone id="34891">
+        <name><![CDATA[Perchel Sur-Plaza de Toros Vieja]]></name>
+    </zone>
+    
+    <zone id="34892">
+        <name><![CDATA[Cerrado Calderón-El Morlaco]]></name>
+    </zone>
+    
+    <zone id="34893">
+        <name><![CDATA[El Candado-El Palo]]></name>
+    </zone>
+    
+    <zone id="34895">
+        <name><![CDATA[El Mayorazgo-El Limonar]]></name>
+    </zone>
+    
+    <zone id="34897">
+        <name><![CDATA[Pedregalejo]]></name>
+    </zone>
+    
+    <zone id="34900">
+        <name><![CDATA[Camino de Colmenar]]></name>
+    </zone>
+    
+    <zone id="34902">
+        <name><![CDATA[Pinares de San Antón]]></name>
+    </zone>
+    
+    <zone id="34905">
+        <name><![CDATA[Churriana]]></name>
+    </zone>
+    
+    <zone id="34908">
+        <name><![CDATA[Teatinos-Universidad]]></name>
+    </zone>
+    
+    <zone id="34909">
+        <name><![CDATA[Churriana]]></name>
+    </zone>
+    
+    <zone id="34911">
+        <name><![CDATA[Alegría de la Huerta-Jardín de Málaga]]></name>
+    </zone>
+    
+    <zone id="34913">
+        <name><![CDATA[Ciudad Jardín]]></name>
+    </zone>
+    
+    <zone id="34916">
+        <name><![CDATA[Mangas Verdes-Las Flores-Parque del Sur]]></name>
+    </zone>
+    
+    <zone id="34919">
+        <name><![CDATA[La Barriguilla]]></name>
+    </zone>
+    
+    <zone id="34923">
+        <name><![CDATA[Polígonos-Recinto Ferial Cortijo de Torres]]></name>
+    </zone>
+    
+    <zone id="34926">
+        <name><![CDATA[Portada Alta-Pol. Crta. De Cártama]]></name>
+    </zone>
+    
+    <zone id="34929">
+        <name><![CDATA[Santa Cristina-San Rafael]]></name>
+    </zone>
+    
+    <zone id="34931">
+        <name><![CDATA[Palma-Palmilla]]></name>
+    </zone>
+    
+    <zone id="34933">
+        <name><![CDATA[Palma-Palmilla]]></name>
+    </zone>
+    
+    <zone id="34935">
+        <name><![CDATA[Puerto de la Torre-Atabal]]></name>
+    </zone>
+    
+    <zone id="34939">
+        <name><![CDATA[Residencial Jardín Botánico]]></name>
+    </zone>
+    
+    <zone id="34942">
+        <name><![CDATA[Residencial Jardín Botánico]]></name>
+    </zone>
+    
+    <zone id="34944">
+        <name><![CDATA[Puerto de la Torre]]></name>
+    </zone>
+    
+    <zone id="34946">
+        <name><![CDATA[El Cónsul-Ciudad Universitaria]]></name>
+    </zone>
+    
+    <zone id="34949">
+        <name><![CDATA[Odos]]></name>
+    </zone>
+    
+    <zone id="34958">
+        <name><![CDATA[Teatinos]]></name>
+    </zone>
+    
+    <zone id="34961">
+        <name><![CDATA[Carretera de Cádiz]]></name>
+    </zone>
+    
+    <zone id="34963">
+        <name><![CDATA[Dos Hermanas-Nuevo San Andrés]]></name>
+    </zone>
+    
+    <zone id="34965">
+        <name><![CDATA[Girón-Las Delicias-Tabacalera]]></name>
+    </zone>
+    
+    <zone id="34968">
+        <name><![CDATA[La Luz-El Torcal]]></name>
+    </zone>
+    
+    <zone id="34970">
+        <name><![CDATA[Martín Carpena-Torre del Río]]></name>
+    </zone>
+    
+    <zone id="34971">
+        <name><![CDATA[Parque Ayala-Jardín de la Abadía-Huelín]]></name>
+    </zone>
+    
+    <zone id="34974">
+        <name><![CDATA[Parque Mediterráneo-Santa Paula]]></name>
+    </zone>
+    
+    <zone id="34977">
+        <name><![CDATA[Puerta Blanca]]></name>
+    </zone>
+    
+    <zone id="34980">
+        <name><![CDATA[La Unión-Cruz de Humiladero-Los Tilos]]></name>
+    </zone>
+    
+</zones>

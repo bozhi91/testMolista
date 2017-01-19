@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="22542">
+        <name><![CDATA[Pedralba Nucleo]]></name>
+    </zone>
+    
+    <zone id="22543">
+        <name><![CDATA[Urb. Les Mallaes]]></name>
+    </zone>
+    
+    <zone id="22544">
+        <name><![CDATA[Partida Chucheve]]></name>
+    </zone>
+    
+    <zone id="22545">
+        <name><![CDATA[Partida El Barranquillo]]></name>
+    </zone>
+    
+    <zone id="22546">
+        <name><![CDATA[Carretera de Cheste]]></name>
+    </zone>
+    
+</zones>

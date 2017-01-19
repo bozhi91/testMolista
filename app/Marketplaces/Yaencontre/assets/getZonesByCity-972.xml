@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="33784">
+        <name><![CDATA[Calafat]]></name>
+    </zone>
+    
+    <zone id="33785">
+        <name><![CDATA[Sant Jordi d´Alfama]]></name>
+    </zone>
+    
+    <zone id="33786">
+        <name><![CDATA[Les Tres Cales]]></name>
+    </zone>
+    
+    <zone id="33787">
+        <name><![CDATA[Roques Daurades]]></name>
+    </zone>
+    
+    <zone id="33788">
+        <name><![CDATA[Urbanitzación Marina Sant Jordi]]></name>
+    </zone>
+    
+    <zone id="34530">
+        <name><![CDATA[L'Ametlla de Mar]]></name>
+    </zone>
+    
+</zones>

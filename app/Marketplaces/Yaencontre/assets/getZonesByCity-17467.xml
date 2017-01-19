@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1401">
+        <name><![CDATA[Zubileta]]></name>
+    </zone>
+    
+    <zone id="1402">
+        <name><![CDATA[Beurko]]></name>
+    </zone>
+    
+    <zone id="1403">
+        <name><![CDATA[San Vicente]]></name>
+    </zone>
+    
+    <zone id="1404">
+        <name><![CDATA[Arteagabeitia]]></name>
+    </zone>
+    
+    <zone id="1405">
+        <name><![CDATA[Lutxana]]></name>
+    </zone>
+    
+    <zone id="1406">
+        <name><![CDATA[Kareaga]]></name>
+    </zone>
+    
+    <zone id="1407">
+        <name><![CDATA[Retuerto]]></name>
+    </zone>
+    
+    <zone id="1408">
+        <name><![CDATA[Llano]]></name>
+    </zone>
+    
+    <zone id="1409">
+        <name><![CDATA[Cruces]]></name>
+    </zone>
+    
+    <zone id="1410">
+        <name><![CDATA[Burtzeña]]></name>
+    </zone>
+    
+    <zone id="1411">
+        <name><![CDATA[El Regato]]></name>
+    </zone>
+    
+    <zone id="34279">
+        <name><![CDATA[Santa Teresa]]></name>
+    </zone>
+    
+    <zone id="34282">
+        <name><![CDATA[Zuazo]]></name>
+    </zone>
+    
+    <zone id="34285">
+        <name><![CDATA[Lasarre]]></name>
+    </zone>
+    
+    <zone id="34287">
+        <name><![CDATA[Larrea]]></name>
+    </zone>
+    
+    <zone id="34290">
+        <name><![CDATA[Rontegui]]></name>
+    </zone>
+    
+</zones>

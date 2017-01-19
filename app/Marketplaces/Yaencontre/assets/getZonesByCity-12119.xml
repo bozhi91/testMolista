@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="34020">
+        <name><![CDATA[O Milladoiro]]></name>
+    </zone>
+    
+    <zone id="34023">
+        <name><![CDATA[Bertamiráns]]></name>
+    </zone>
+    
+</zones>

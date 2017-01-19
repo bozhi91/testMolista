@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3746">
+        <name><![CDATA[Suances Pueblo]]></name>
+    </zone>
+    
+    <zone id="3747">
+        <name><![CDATA[Hinojedo]]></name>
+    </zone>
+    
+    <zone id="3748">
+        <name><![CDATA[Cortiguera]]></name>
+    </zone>
+    
+    <zone id="3749">
+        <name><![CDATA[Tagle]]></name>
+    </zone>
+    
+    <zone id="3750">
+        <name><![CDATA[Puente Avios]]></name>
+    </zone>
+    
+    <zone id="3751">
+        <name><![CDATA[Ongayo]]></name>
+    </zone>
+    
+</zones>

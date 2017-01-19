@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3448">
+        <name><![CDATA[La Ardila]]></name>
+    </zone>
+    
+    <zone id="3449">
+        <name><![CDATA[Casería de Ossio]]></name>
+    </zone>
+    
+    <zone id="3450">
+        <name><![CDATA[La Pastora]]></name>
+    </zone>
+    
+    <zone id="3451">
+        <name><![CDATA[Población militar de San Carlos]]></name>
+    </zone>
+    
+    <zone id="3452">
+        <name><![CDATA[Gallineras]]></name>
+    </zone>
+    
+    <zone id="3453">
+        <name><![CDATA[Los Olivos]]></name>
+    </zone>
+    
+    <zone id="3454">
+        <name><![CDATA[Camposoto]]></name>
+    </zone>
+    
+    <zone id="3455">
+        <name><![CDATA[El Parque]]></name>
+    </zone>
+    
+    <zone id="3456">
+        <name><![CDATA[Sacramento]]></name>
+    </zone>
+    
+    <zone id="3459">
+        <name><![CDATA[Carlos III]]></name>
+    </zone>
+    
+    <zone id="3460">
+        <name><![CDATA[Bazán]]></name>
+    </zone>
+    
+    <zone id="3461">
+        <name><![CDATA[San José]]></name>
+    </zone>
+    
+    <zone id="3462">
+        <name><![CDATA[El Boquete (Bda. Diputación)]]></name>
+    </zone>
+    
+    <zone id="3463">
+        <name><![CDATA[El Cristo Nuevo y Viejo]]></name>
+    </zone>
+    
+    <zone id="3464">
+        <name><![CDATA[El Carmen]]></name>
+    </zone>
+    
+    <zone id="3465">
+        <name><![CDATA[Bda. Andalucía]]></name>
+    </zone>
+    
+    <zone id="3466">
+        <name><![CDATA[El Merendero]]></name>
+    </zone>
+    
+</zones>

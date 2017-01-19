@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2242">
+        <name><![CDATA[Arenales del Sol]]></name>
+    </zone>
+    
+    <zone id="2243">
+        <name><![CDATA[Centro (Corazón de Jesus - Plaza Crevillente)]]></name>
+    </zone>
+    
+    <zone id="2245">
+        <name><![CDATA[El Altet - Arenales del Sol]]></name>
+    </zone>
+    
+    <zone id="2247">
+        <name><![CDATA[Jubalcoi]]></name>
+    </zone>
+    
+    <zone id="2248">
+        <name><![CDATA[Carrús]]></name>
+    </zone>
+    
+    <zone id="2251">
+        <name><![CDATA[La Galia]]></name>
+    </zone>
+    
+    <zone id="2252">
+        <name><![CDATA[La Hoya - La Foia]]></name>
+    </zone>
+    
+    <zone id="2254">
+        <name><![CDATA[Las Bayas - La Baia]]></name>
+    </zone>
+    
+    <zone id="2255">
+        <name><![CDATA[Los Balsares]]></name>
+    </zone>
+    
+    <zone id="2257">
+        <name><![CDATA[Llano de San Jose]]></name>
+    </zone>
+    
+    <zone id="2258">
+        <name><![CDATA[Maitino]]></name>
+    </zone>
+    
+    <zone id="2259">
+        <name><![CDATA[Matola]]></name>
+    </zone>
+    
+    <zone id="2260">
+        <name><![CDATA[Montesol]]></name>
+    </zone>
+    
+    <zone id="2262">
+        <name><![CDATA[Peña las Aguilas]]></name>
+    </zone>
+    
+    <zone id="2263">
+        <name><![CDATA[Perleta]]></name>
+    </zone>
+    
+    <zone id="2265">
+        <name><![CDATA[Torrellano]]></name>
+    </zone>
+    
+    <zone id="2266">
+        <name><![CDATA[Valverde]]></name>
+    </zone>
+    
+    <zone id="28958">
+        <name><![CDATA[El Toscar]]></name>
+    </zone>
+    
+    <zone id="28963">
+        <name><![CDATA[Centro (Paseo Germanías - Asilo - Pla)]]></name>
+    </zone>
+    
+    <zone id="28964">
+        <name><![CDATA[El Raval - Centro]]></name>
+    </zone>
+    
+    <zone id="28965">
+        <name><![CDATA[Sector V]]></name>
+    </zone>
+    
+    <zone id="28983">
+        <name><![CDATA[Altabix]]></name>
+    </zone>
+    
+</zones>

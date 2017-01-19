@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3638">
+        <name><![CDATA[Guardamar Pueblo]]></name>
+    </zone>
+    
+    <zone id="3639">
+        <name><![CDATA[El Campo]]></name>
+    </zone>
+    
+    <zone id="3640">
+        <name><![CDATA[Urb. El Estany]]></name>
+    </zone>
+    
+    <zone id="3641">
+        <name><![CDATA[Urb. Bonavista]]></name>
+    </zone>
+    
+    <zone id="3642">
+        <name><![CDATA[Urb. Costabella]]></name>
+    </zone>
+    
+    <zone id="3643">
+        <name><![CDATA[Urb. El Ras]]></name>
+    </zone>
+    
+    <zone id="3644">
+        <name><![CDATA[Urb. El Montcaio]]></name>
+    </zone>
+    
+    <zone id="3645">
+        <name><![CDATA[Urb. Portic Mediterrani]]></name>
+    </zone>
+    
+    <zone id="3646">
+        <name><![CDATA[Urb. Pinomar]]></name>
+    </zone>
+    
+    <zone id="3647">
+        <name><![CDATA[Urb. Portic Platja]]></name>
+    </zone>
+    
+</zones>

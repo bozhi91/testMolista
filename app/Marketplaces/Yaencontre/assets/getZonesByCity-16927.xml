@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1256">
+        <name><![CDATA[Azucaica]]></name>
+    </zone>
+    
+    <zone id="1257">
+        <name><![CDATA[Cigarrales]]></name>
+    </zone>
+    
+    <zone id="1258">
+        <name><![CDATA[Antequeruela]]></name>
+    </zone>
+    
+    <zone id="1259">
+        <name><![CDATA[Buenavista - Portugal]]></name>
+    </zone>
+    
+    <zone id="1260">
+        <name><![CDATA[Casco Histórico]]></name>
+    </zone>
+    
+    <zone id="1261">
+        <name><![CDATA[Covachuelas]]></name>
+    </zone>
+    
+    <zone id="1262">
+        <name><![CDATA[Santa Bárbara]]></name>
+    </zone>
+    
+    <zone id="1264">
+        <name><![CDATA[Santa Teresa]]></name>
+    </zone>
+    
+    <zone id="1265">
+        <name><![CDATA[Palomarejos]]></name>
+    </zone>
+    
+    <zone id="1266">
+        <name><![CDATA[Polígono]]></name>
+    </zone>
+    
+    <zone id="1267">
+        <name><![CDATA[San Antón - Europa]]></name>
+    </zone>
+    
+    <zone id="1268">
+        <name><![CDATA[Reconquista (Bloques)]]></name>
+    </zone>
+    
+    <zone id="1815">
+        <name><![CDATA[Valparaiso]]></name>
+    </zone>
+    
+    <zone id="1844">
+        <name><![CDATA[Santa María de Benquerencia]]></name>
+    </zone>
+    
+    <zone id="1845">
+        <name><![CDATA[Centro-Norte]]></name>
+    </zone>
+    
+</zones>

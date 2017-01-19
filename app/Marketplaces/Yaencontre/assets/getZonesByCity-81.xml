@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="550">
+        <name><![CDATA[Artés]]></name>
+    </zone>
+    
+    <zone id="551">
+        <name><![CDATA[Vista pirineu]]></name>
+    </zone>
+    
+</zones>

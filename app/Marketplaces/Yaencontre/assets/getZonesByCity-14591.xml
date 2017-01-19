@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="22474">
+        <name><![CDATA[Casco Antiguo]]></name>
+    </zone>
+    
+    <zone id="22475">
+        <name><![CDATA[Barrio del Carmen]]></name>
+    </zone>
+    
+    <zone id="22476">
+        <name><![CDATA[Barrio del Pulpites]]></name>
+    </zone>
+    
+    <zone id="22477">
+        <name><![CDATA[Barrio de Fuensanta]]></name>
+    </zone>
+    
+    <zone id="22478">
+        <name><![CDATA[San Jose]]></name>
+    </zone>
+    
+    <zone id="22479">
+        <name><![CDATA[La Florida]]></name>
+    </zone>
+    
+    <zone id="22480">
+        <name><![CDATA[La Condomina]]></name>
+    </zone>
+    
+    <zone id="22481">
+        <name><![CDATA[San Pedro]]></name>
+    </zone>
+    
+    <zone id="22482">
+        <name><![CDATA[La Loma]]></name>
+    </zone>
+    
+    <zone id="22483">
+        <name><![CDATA[La Media Legua]]></name>
+    </zone>
+    
+    <zone id="22484">
+        <name><![CDATA[Los Romeros]]></name>
+    </zone>
+    
+    <zone id="22485">
+        <name><![CDATA[El Coto]]></name>
+    </zone>
+    
+    <zone id="22486">
+        <name><![CDATA[Parque las Palmeras]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="22568">
+        <name><![CDATA[Vigo Casco Urbano]]></name>
+    </zone>
+    
+    <zone id="22569">
+        <name><![CDATA[Santiago de Vigo]]></name>
+    </zone>
+    
+    <zone id="22570">
+        <name><![CDATA[Freixeiro-Lavadores]]></name>
+    </zone>
+    
+    <zone id="22572">
+        <name><![CDATA[Bouzas-Coia]]></name>
+    </zone>
+    
+    <zone id="22573">
+        <name><![CDATA[Teis]]></name>
+    </zone>
+    
+    <zone id="22575">
+        <name><![CDATA[Calvario-Santa Rita-Casablanca]]></name>
+    </zone>
+    
+    <zone id="22576">
+        <name><![CDATA[Alcabre-Navia-Comesaña]]></name>
+    </zone>
+    
+    <zone id="22579">
+        <name><![CDATA[Matamá-Beade-Valadares]]></name>
+    </zone>
+    
+    <zone id="22580">
+        <name><![CDATA[Castrelos-Sardoma]]></name>
+    </zone>
+    
+    <zone id="22583">
+        <name><![CDATA[Coruxo-Oia-Saians]]></name>
+    </zone>
+    
+    <zone id="22586">
+        <name><![CDATA[Bembrive-Zamans]]></name>
+    </zone>
+    
+    <zone id="22588">
+        <name><![CDATA[Cabral-Candeán]]></name>
+    </zone>
+    
+    <zone id="35152">
+        <name><![CDATA[Areal-Zona Centro]]></name>
+    </zone>
+    
+    <zone id="35155">
+        <name><![CDATA[Casco Vello]]></name>
+    </zone>
+    
+    <zone id="35158">
+        <name><![CDATA[Praza España-Corte Inglés]]></name>
+    </zone>
+    
+    <zone id="35161">
+        <name><![CDATA[As Travesas-Balaídos]]></name>
+    </zone>
+    
+    <zone id="35164">
+        <name><![CDATA[O Berbés-Peniche-Peritos]]></name>
+    </zone>
+    
+    <zone id="35167">
+        <name><![CDATA[Praza Independencia]]></name>
+    </zone>
+    
+    <zone id="35170">
+        <name><![CDATA[O Castro]]></name>
+    </zone>
+    
+    <zone id="35173">
+        <name><![CDATA[Salgueira-O Castaño]]></name>
+    </zone>
+    
+    <zone id="35176">
+        <name><![CDATA[Travesía de Vigo-San Xoán]]></name>
+    </zone>
+    
+    <zone id="35179">
+        <name><![CDATA[Fátima]]></name>
+    </zone>
+    
+    <zone id="35182">
+        <name><![CDATA[Camelias]]></name>
+    </zone>
+    
+    <zone id="35419">
+        <name><![CDATA[Alcabre-Navia-Comesaña]]></name>
+    </zone>
+    
+    <zone id="35422">
+        <name><![CDATA[Cabral-Candeán]]></name>
+    </zone>
+    
+    <zone id="35425">
+        <name><![CDATA[Castrelos-Sardoma]]></name>
+    </zone>
+    
+    <zone id="35428">
+        <name><![CDATA[Coruxo-Oia-Saians]]></name>
+    </zone>
+    
+    <zone id="35431">
+        <name><![CDATA[Freixeiro-Lavadores]]></name>
+    </zone>
+    
+    <zone id="35434">
+        <name><![CDATA[Matamá-Beade-Valadares]]></name>
+    </zone>
+    
+    <zone id="35437">
+        <name><![CDATA[Bembrive-Zamans]]></name>
+    </zone>
+    
+    <zone id="35440">
+        <name><![CDATA[Teis]]></name>
+    </zone>
+    
+</zones>

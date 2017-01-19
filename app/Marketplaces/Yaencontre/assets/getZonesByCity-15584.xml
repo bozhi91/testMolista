@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2156">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="2157">
+        <name><![CDATA[San Juan]]></name>
+    </zone>
+    
+    <zone id="2158">
+        <name><![CDATA[Santi Spiritus]]></name>
+    </zone>
+    
+    <zone id="2159">
+        <name><![CDATA[San Cristobal]]></name>
+    </zone>
+    
+    <zone id="2160">
+        <name><![CDATA[San Esteban]]></name>
+    </zone>
+    
+    <zone id="2161">
+        <name><![CDATA[Universidad]]></name>
+    </zone>
+    
+    <zone id="2162">
+        <name><![CDATA[San Vicente]]></name>
+    </zone>
+    
+    <zone id="2163">
+        <name><![CDATA[Ursula-San Marcos]]></name>
+    </zone>
+    
+    <zone id="2164">
+        <name><![CDATA[Tenerias]]></name>
+    </zone>
+    
+    <zone id="2165">
+        <name><![CDATA[Alamedilla]]></name>
+    </zone>
+    
+    <zone id="2166">
+        <name><![CDATA[Delicias]]></name>
+    </zone>
+    
+    <zone id="2167">
+        <name><![CDATA[San Isidro]]></name>
+    </zone>
+    
+    <zone id="2168">
+        <name><![CDATA[Properidad]]></name>
+    </zone>
+    
+    <zone id="2169">
+        <name><![CDATA[Santo Tomas]]></name>
+    </zone>
+    
+    <zone id="2170">
+        <name><![CDATA[Fontana]]></name>
+    </zone>
+    
+    <zone id="2171">
+        <name><![CDATA[Puenteladrillo]]></name>
+    </zone>
+    
+    <zone id="2172">
+        <name><![CDATA[El Rollo]]></name>
+    </zone>
+    
+    <zone id="2173">
+        <name><![CDATA[Hospital]]></name>
+    </zone>
+    
+    <zone id="2174">
+        <name><![CDATA[San Bernardo]]></name>
+    </zone>
+    
+    <zone id="2175">
+        <name><![CDATA[Carmelitas Oeste]]></name>
+    </zone>
+    
+    <zone id="2176">
+        <name><![CDATA[La Platina]]></name>
+    </zone>
+    
+    <zone id="2177">
+        <name><![CDATA[El Carmen]]></name>
+    </zone>
+    
+    <zone id="2184">
+        <name><![CDATA[Pizarrales]]></name>
+    </zone>
+    
+    <zone id="2185">
+        <name><![CDATA[Blanco]]></name>
+    </zone>
+    
+    <zone id="2186">
+        <name><![CDATA[Vidal]]></name>
+    </zone>
+    
+    <zone id="2187">
+        <name><![CDATA[Capuchinos]]></name>
+    </zone>
+    
+    <zone id="2188">
+        <name><![CDATA[Labradores]]></name>
+    </zone>
+    
+    <zone id="2189">
+        <name><![CDATA[Salesas]]></name>
+    </zone>
+    
+    <zone id="2190">
+        <name><![CDATA[Garrido-Sur]]></name>
+    </zone>
+    
+    <zone id="2191">
+        <name><![CDATA[Glorieta-Ciudad Jardin]]></name>
+    </zone>
+    
+    <zone id="2192">
+        <name><![CDATA[Chinchibarra]]></name>
+    </zone>
+    
+    <zone id="2193">
+        <name><![CDATA[Garrido-Norte]]></name>
+    </zone>
+    
+    <zone id="2194">
+        <name><![CDATA[Estacion]]></name>
+    </zone>
+    
+    <zone id="2195">
+        <name><![CDATA[El Tormes]]></name>
+    </zone>
+    
+    <zone id="2196">
+        <name><![CDATA[San Jose]]></name>
+    </zone>
+    
+    <zone id="2197">
+        <name><![CDATA[La Vega]]></name>
+    </zone>
+    
+    <zone id="2198">
+        <name><![CDATA[Chamberi]]></name>
+    </zone>
+    
+    <zone id="2199">
+        <name><![CDATA[Tejares]]></name>
+    </zone>
+    
+    <zone id="2200">
+        <name><![CDATA[Buenos Aires]]></name>
+    </zone>
+    
+    <zone id="2201">
+        <name><![CDATA[El Zurguen]]></name>
+    </zone>
+    
+    <zone id="2202">
+        <name><![CDATA[Teso de la Feria]]></name>
+    </zone>
+    
+    <zone id="2203">
+        <name><![CDATA[Arrabal]]></name>
+    </zone>
+    
+    <zone id="2204">
+        <name><![CDATA[Vistahermosa]]></name>
+    </zone>
+    
+    <zone id="2205">
+        <name><![CDATA[El Montalvo]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2739">
+        <name><![CDATA[Zona Centro]]></name>
+    </zone>
+    
+    <zone id="2740">
+        <name><![CDATA[Carlos V]]></name>
+    </zone>
+    
+    <zone id="2741">
+        <name><![CDATA[El Puntal]]></name>
+    </zone>
+    
+    <zone id="2742">
+        <name><![CDATA[El Ensanche]]></name>
+    </zone>
+    
+</zones>

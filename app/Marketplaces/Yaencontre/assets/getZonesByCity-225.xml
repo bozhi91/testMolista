@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="315">
+        <name><![CDATA[Creu alta]]></name>
+    </zone>
+    
+    <zone id="316">
+        <name><![CDATA[Ca n¸oriach]]></name>
+    </zone>
+    
+    <zone id="317">
+        <name><![CDATA[Concordia]]></name>
+    </zone>
+    
+    <zone id="318">
+        <name><![CDATA[Eix macia]]></name>
+    </zone>
+    
+    <zone id="319">
+        <name><![CDATA[Centre]]></name>
+    </zone>
+    
+    <zone id="320">
+        <name><![CDATA[Gracia]]></name>
+    </zone>
+    
+    <zone id="321">
+        <name><![CDATA[Eixample]]></name>
+    </zone>
+    
+    <zone id="323">
+        <name><![CDATA[Campoamor]]></name>
+    </zone>
+    
+    <zone id="324">
+        <name><![CDATA[Sol i padris]]></name>
+    </zone>
+    
+    <zone id="325">
+        <name><![CDATA[La romànica]]></name>
+    </zone>
+    
+    <zone id="326">
+        <name><![CDATA[Creu de barbera]]></name>
+    </zone>
+    
+    <zone id="327">
+        <name><![CDATA[Merinals]]></name>
+    </zone>
+    
+    <zone id="328">
+        <name><![CDATA[Can rull]]></name>
+    </zone>
+    
+    <zone id="329">
+        <name><![CDATA[Cifuentes]]></name>
+    </zone>
+    
+    <zone id="330">
+        <name><![CDATA[Via alexandra]]></name>
+    </zone>
+    
+    <zone id="331">
+        <name><![CDATA[Can deu]]></name>
+    </zone>
+    
+    <zone id="332">
+        <name><![CDATA[Sant julia]]></name>
+    </zone>
+    
+    <zone id="333">
+        <name><![CDATA[Hostafrancs]]></name>
+    </zone>
+    
+    <zone id="334">
+        <name><![CDATA[Serra d´en camaro]]></name>
+    </zone>
+    
+    <zone id="335">
+        <name><![CDATA[Can puiggener]]></name>
+    </zone>
+    
+    <zone id="336">
+        <name><![CDATA[Torre guitard]]></name>
+    </zone>
+    
+    <zone id="337">
+        <name><![CDATA[Can llonch]]></name>
+    </zone>
+    
+    <zone id="338">
+        <name><![CDATA[Castellarnau]]></name>
+    </zone>
+    
+    <zone id="339">
+        <name><![CDATA[Plana del pintor]]></name>
+    </zone>
+    
+    <zone id="340">
+        <name><![CDATA[Can feu]]></name>
+    </zone>
+    
+    <zone id="341">
+        <name><![CDATA[Sant oleguer]]></name>
+    </zone>
+    
+    <zone id="342">
+        <name><![CDATA[Poligon espronceda]]></name>
+    </zone>
+    
+    <zone id="343">
+        <name><![CDATA[Les termes]]></name>
+    </zone>
+    
+    <zone id="344">
+        <name><![CDATA[Poble nou]]></name>
+    </zone>
+    
+    <zone id="345">
+        <name><![CDATA[Torre romeu]]></name>
+    </zone>
+    
+    <zone id="28947">
+        <name><![CDATA[Covadonga]]></name>
+    </zone>
+    
+    <zone id="34494">
+        <name><![CDATA[Polígon Sud-Oest]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2379">
+        <name><![CDATA[Marbella Centro]]></name>
+    </zone>
+    
+    <zone id="2380">
+        <name><![CDATA[San Pedro Centro]]></name>
+    </zone>
+    
+    <zone id="2381">
+        <name><![CDATA[Urbanizaciones]]></name>
+    </zone>
+    
+    <zone id="33714">
+        <name><![CDATA[Marbella Norte]]></name>
+    </zone>
+    
+    <zone id="33715">
+        <name><![CDATA[Marbella Este]]></name>
+    </zone>
+    
+    <zone id="33716">
+        <name><![CDATA[Nueva Andalucía]]></name>
+    </zone>
+    
+    <zone id="33717">
+        <name><![CDATA[San Pedro Sur]]></name>
+    </zone>
+    
+</zones>

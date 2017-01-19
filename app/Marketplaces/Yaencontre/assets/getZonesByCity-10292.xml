@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2583">
+        <name><![CDATA[Castell del Rey]]></name>
+    </zone>
+    
+    <zone id="2584">
+        <name><![CDATA[La Chanca]]></name>
+    </zone>
+    
+    <zone id="2585">
+        <name><![CDATA[Pescaderia-La Almedina]]></name>
+    </zone>
+    
+    <zone id="2586">
+        <name><![CDATA[Centro Historico]]></name>
+    </zone>
+    
+    <zone id="2588">
+        <name><![CDATA[La Caridad]]></name>
+    </zone>
+    
+    <zone id="2589">
+        <name><![CDATA[Plaza de Toros]]></name>
+    </zone>
+    
+    <zone id="2590">
+        <name><![CDATA[Colonia Los Angeles]]></name>
+    </zone>
+    
+    <zone id="2591">
+        <name><![CDATA[Cruz de Caravaca]]></name>
+    </zone>
+    
+    <zone id="2592">
+        <name><![CDATA[Barrio Araceli]]></name>
+    </zone>
+    
+    <zone id="2593">
+        <name><![CDATA[Piedras Redondas]]></name>
+    </zone>
+    
+    <zone id="2595">
+        <name><![CDATA[Barrio Alto]]></name>
+    </zone>
+    
+    <zone id="2596">
+        <name><![CDATA[San Luis]]></name>
+    </zone>
+    
+    <zone id="2598">
+        <name><![CDATA[Rambla]]></name>
+    </zone>
+    
+    <zone id="2599">
+        <name><![CDATA[Oliveros]]></name>
+    </zone>
+    
+    <zone id="2600">
+        <name><![CDATA[Ciudad Jardin]]></name>
+    </zone>
+    
+    <zone id="2602">
+        <name><![CDATA[500 Viviendas]]></name>
+    </zone>
+    
+    <zone id="2604">
+        <name><![CDATA[Villa Blanca]]></name>
+    </zone>
+    
+    <zone id="2605">
+        <name><![CDATA[Nueva Andalucia]]></name>
+    </zone>
+    
+    <zone id="2606">
+        <name><![CDATA[El Diezmo]]></name>
+    </zone>
+    
+    <zone id="2607">
+        <name><![CDATA[Los Molinos]]></name>
+    </zone>
+    
+    <zone id="2609">
+        <name><![CDATA[La Vega de Aca]]></name>
+    </zone>
+    
+    <zone id="2610">
+        <name><![CDATA[Nueva Almeria]]></name>
+    </zone>
+    
+    <zone id="2611">
+        <name><![CDATA[Costacabana]]></name>
+    </zone>
+    
+    <zone id="2612">
+        <name><![CDATA[La Cañada de San Urbano]]></name>
+    </zone>
+    
+    <zone id="2614">
+        <name><![CDATA[El Alquian]]></name>
+    </zone>
+    
+    <zone id="2615">
+        <name><![CDATA[Villa Olimpica de El Toyo]]></name>
+    </zone>
+    
+    <zone id="2616">
+        <name><![CDATA[Retamar]]></name>
+    </zone>
+    
+    <zone id="33880">
+        <name><![CDATA[Regiones]]></name>
+    </zone>
+    
+    <zone id="33881">
+        <name><![CDATA[Zapillo]]></name>
+    </zone>
+    
+    <zone id="33882">
+        <name><![CDATA[Tagarete]]></name>
+    </zone>
+    
+    <zone id="33884">
+        <name><![CDATA[Fuentecita-Quemadero]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="371">
+        <name><![CDATA[Part Alta]]></name>
+    </zone>
+    
+    <zone id="372">
+        <name><![CDATA[Barris Marítims]]></name>
+    </zone>
+    
+    <zone id="373">
+        <name><![CDATA[Bonavista]]></name>
+    </zone>
+    
+    <zone id="375">
+        <name><![CDATA[Torreforta]]></name>
+    </zone>
+    
+    <zone id="378">
+        <name><![CDATA[Campclar]]></name>
+    </zone>
+    
+    <zone id="384">
+        <name><![CDATA[Sant Salvador]]></name>
+    </zone>
+    
+    <zone id="385">
+        <name><![CDATA[Sant Pere i Sant Pau]]></name>
+    </zone>
+    
+    <zone id="386">
+        <name><![CDATA[Urbanitzacions Llevant]]></name>
+    </zone>
+    
+    <zone id="394">
+        <name><![CDATA[Els Boscos de Tarragona]]></name>
+    </zone>
+    
+    <zone id="1239">
+        <name><![CDATA[La Mora]]></name>
+    </zone>
+    
+    <zone id="35055">
+        <name><![CDATA[Eixample Tarragona]]></name>
+    </zone>
+    
+    <zone id="35056">
+        <name><![CDATA[Nou Eixample Nord]]></name>
+    </zone>
+    
+    <zone id="35058">
+        <name><![CDATA[Nou Eixample Sud]]></name>
+    </zone>
+    
+</zones>

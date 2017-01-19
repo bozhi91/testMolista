@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2325">
+        <name><![CDATA[Can Cuias]]></name>
+    </zone>
+    
+    <zone id="2326">
+        <name><![CDATA[Can Sant Joan]]></name>
+    </zone>
+    
+    <zone id="2327">
+        <name><![CDATA[La Ribera]]></name>
+    </zone>
+    
+    <zone id="2328">
+        <name><![CDATA[Montcada Centre]]></name>
+    </zone>
+    
+    <zone id="2329">
+        <name><![CDATA[Font Pudenta]]></name>
+    </zone>
+    
+    <zone id="2330">
+        <name><![CDATA[Terra Nostra]]></name>
+    </zone>
+    
+    <zone id="2331">
+        <name><![CDATA[Mas Duran]]></name>
+    </zone>
+    
+    <zone id="2332">
+        <name><![CDATA[Can Pomada]]></name>
+    </zone>
+    
+    <zone id="2333">
+        <name><![CDATA[Mas Rampinyo]]></name>
+    </zone>
+    
+    <zone id="2334">
+        <name><![CDATA[Carrerada]]></name>
+    </zone>
+    
+    <zone id="2335">
+        <name><![CDATA[Pla d´en Coll]]></name>
+    </zone>
+    
+</zones>

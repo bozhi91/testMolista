@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3755">
+        <name><![CDATA[Casco Antiguo]]></name>
+    </zone>
+    
+    <zone id="3756">
+        <name><![CDATA[Barrio San Roque]]></name>
+    </zone>
+    
+    <zone id="3757">
+        <name><![CDATA[Urb. Los Palacios]]></name>
+    </zone>
+    
+    <zone id="3758">
+        <name><![CDATA[Urb. Ajalpinos]]></name>
+    </zone>
+    
+</zones>

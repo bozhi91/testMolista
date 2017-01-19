@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="546">
+        <name><![CDATA[Rocafort]]></name>
+    </zone>
+    
+    <zone id="547">
+        <name><![CDATA[El pont]]></name>
+    </zone>
+    
+    <zone id="548">
+        <name><![CDATA[River park]]></name>
+    </zone>
+    
+    <zone id="549">
+        <name><![CDATA[Marquet paradis]]></name>
+    </zone>
+    
+</zones>

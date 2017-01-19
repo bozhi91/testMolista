@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1935">
+        <name><![CDATA[El Calvario]]></name>
+    </zone>
+    
+    <zone id="1936">
+        <name><![CDATA[Bajondillo]]></name>
+    </zone>
+    
+    <zone id="1937">
+        <name><![CDATA[La Carihuela]]></name>
+    </zone>
+    
+    <zone id="1938">
+        <name><![CDATA[Playamar]]></name>
+    </zone>
+    
+    <zone id="1939">
+        <name><![CDATA[El Pinar]]></name>
+    </zone>
+    
+    <zone id="1940">
+        <name><![CDATA[La Colina]]></name>
+    </zone>
+    
+    <zone id="34291">
+        <name><![CDATA[Montemar]]></name>
+    </zone>
+    
+    <zone id="34292">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="34718">
+        <name><![CDATA[El Pinillo]]></name>
+    </zone>
+    
+</zones>

@@ -95,13 +95,13 @@ class Yaencontre extends \App\Marketplaces\XML {
 		return (new AttributesHandler())->getAttributes();
 	}
 
-	public function getFeedUrl()
-	{
+	/**
+	 * @return string|null
+	 */
+	public function getFeedUrl() {
 		if (!empty($this->config['oficina'])) {
-			return $this->config['oficina'].'.xml';
+			return $this->config['oficina'] . '.xml';
 		}
-
-		return null;
 	}
 
 }
