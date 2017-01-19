@@ -82,6 +82,8 @@
 		'lng' => 'Longitud',
 		'geolocate' => 'Posicionar',
 		'geolocate.missing' => 'La localización no puedo ser geolocalizada',
+		'geolocate.error' => 'La localización no puedo ser geolocalizada',
+		'geolocate.no_results' => 'La localización no puedo ser geolocalizada. Por favor, añada más detalles a la dirección.',
 
 		'title' => 'Título',
 		'subtitle' => 'Subtítulo',
