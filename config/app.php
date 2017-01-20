@@ -4,6 +4,7 @@
 
 		'pagination_perpage' => 10,
 		'property_image_maxsize' => env('MAX_PROPERTY_IMAGE_SIZE',2048), //kilobytes
+		'slider_image_maxsize' => env('MAX_SLIDER_IMAGE_SIZE',2048), //kilobytes
 
 		'application_url' => env('APP_URL'),
 		'application_protocol' => env('APP_PROTOCOL'),
@@ -14,7 +15,11 @@
 
 		'ticketing_system_url' => env('TICKETING_SYSTEM_URL'),
 
-		'phone_support' => '93 180 70 20',
+		'phone_support' => env('WHITELABEL_SUPPORT_PHONE','93 180 70 20'),
+
+		'lat_default' => '40.4636670',
+		'lng_default' => '-3.7492200',
+
 
 		/*
 		|--------------------------------------------------------------------------
@@ -79,7 +84,7 @@
 		|
 		*/
 
-		'locale' => 'es',
+		'locale' => env('LOCALE_DEFAULT','es'),
 
 		/*
 		|--------------------------------------------------------------------------
@@ -92,7 +97,7 @@
 		|
 		*/
 
-		'fallback_locale' => 'es',
+		'fallback_locale' => env('LOCALE_FALLBACK_DEFAULT','es'),
 
 		/*
 		|--------------------------------------------------------------------------
@@ -223,6 +228,21 @@
 
 			/* https://github.com/tremby/laravel-queue-monitor */
 			Tremby\QueueMonitor\ServiceProvider::class,
+
+			/* https://github.com/alexpechkarev/google-geocoder */
+			Alexpechkarev\GoogleGeocoder\GoogleGeocoderServiceProvider::class,
+
+			/* https://github.com/incubout/heartbeats */
+			Incubout\Heartbeats\HeartbeatsServiceProvider::class,
+
+			/* https://github.com/prodeveloper/social-share */
+			Chencha\Share\ShareServiceProvider::class,
+
+			/* https://github.com/chriskonnertz/open-graph */
+			ChrisKonnertz\OpenGraph\OpenGraphServiceProvider::class,
+
+			/* https://github.com/msurguy/Honeypot */
+			Msurguy\Honeypot\HoneypotServiceProvider::class,
 		],
 
 		/*
@@ -309,6 +329,15 @@
 
 			/* https://github.com/florianv/laravel-swap */
 			'Swap' => Florianv\LaravelSwap\Facades\Swap::class,
+
+			/* https://github.com/prodeveloper/social-share */
+			'Share'	=> Chencha\Share\ShareFacade::class,
+
+			/* https://github.com/chriskonnertz/open-graph */
+			'OpenGraph' => \ChrisKonnertz\OpenGraph\OpenGraph::class,
+
+			/* https://github.com/msurguy/Honeypot */
+			'Honeypot' => Msurguy\Honeypot\HoneypotFacade::class
 		],
 
 	];

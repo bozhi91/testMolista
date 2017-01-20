@@ -393,16 +393,38 @@ class Property extends TranslatableModel
 	}
 	public function getImagePathAttribute()
 	{
-		return public_path("sites/{$this->site_id}/properties/{$this->id}");
+		$dirpath = public_path("sites/{$this->site_id}/properties/{$this->id}");
+
+		if ( !is_dir($dirpath))
+		{
+			\File::makeDirectory($dirpath, 0777, true, true);
+		}
+
+		return $dirpath;
 	}
 	public function getMainImageAttribute()
 	{
 		foreach ($this->images->sortByDesc('default') as $image)
 		{
-			return "{$this->image_folder}/{$image->image}";
+			return $image->image_url;
 		}
 
 		return false;
+	}
+	public function getMainImageThumbAttribute()
+	{
+		if ( !$this->main_image )
+		{
+			return false;
+		}
+
+		$tmp = pathinfo($this->main_image);
+
+		return implode('/', [
+					$tmp['dirname'],
+					'thumbnail',
+					$tmp['basename'],
+				]);
 	}
 
 	public function getCatchCurrentAttribute()
@@ -494,25 +516,26 @@ class Property extends TranslatableModel
 	public function getFullUrlAttribute()
 	{
 		$site_url = rtrim($this->site->main_url, '/');
-		$property_url = action('Web\PropertiesController@details', $this->slug);
+		$property_url = action('Web\PropertiesController@details', [ $this->slug, $this->id ]);
 
-		// Is domain right?
-		if ( preg_match('#^'.$site_url.'#', $property_url) )
-		{
-			return $property_url;
+		// Use always the main domain
+		$parts = parse_url($property_url);
+
+		$url = $site_url;
+
+		if (!empty($parts['path'])) {
+			$url .= $parts['path'];
 		}
 
-		// Fix wrong domain
-		$property_url = str_replace(
-							\Config::get('app.application_url'),
-							'',
-							action('Web\PropertiesController@details', $this->slug)
-						);
+		if (!empty($parts['query'])) {
+			$url .= '?'.$parts['query'];
+		}
 
-		return implode('/', [
-			$site_url,
-			$property_url,
-		]);
+		if (!empty($parts['fragment'])) {
+			$url .= '#'.$parts['fragment'];
+		}
+
+		return $url;
 	}
 
 	public function getContactsAttribute()
@@ -621,13 +644,23 @@ class Property extends TranslatableModel
 		{
 			\App::setLocale($locale);
 			$slug = empty($i18n['slug'][$locale]) ? $i18n['slug'][$fallback_locale] : $i18n['slug'][$locale];
-			$this->marketplace_info['url'][$locale] = \LaravelLocalization::getLocalizedURL($locale, action('Web\PropertiesController@details', $slug));
+			$temporal_url = parse_url(\LaravelLocalization::getLocalizedURL($locale, action('Web\PropertiesController@details', [ $slug, $this->id ])));
+			$this->marketplace_info['url'][$locale] = $this->site->main_url.@$temporal_url['path'];
 		}
 
 		// Images
 		foreach ($this->images->sortBy('position') as $image)
 		{
-			$this->marketplace_info['images'][] = $image->image_url;
+			$image_url = $image->image_url;
+
+			// Remove version from image url
+			$query = parse_url($image_url, PHP_URL_QUERY);
+			if ( $query )
+			{
+				$image_url = str_replace("?{$query}", '', $image_url);
+			}
+
+			$this->marketplace_info['images'][] = $image_url;
 		}
 
 		// Features
@@ -653,6 +686,11 @@ class Property extends TranslatableModel
 		\App::setLocale($current_locale);
 
 		return $this->marketplace_info;
+	}
+
+	public function scopeInHome($query)
+	{
+		return $query->where('properties.home_slider', 1);
 	}
 
 	public function scopeEnabled($query)
@@ -820,6 +858,31 @@ class Property extends TranslatableModel
 				->where('properties.country_id', $property->country_id);
 	}
 
+	public function scopeWithTermLike($query, $term)
+	{
+			$query->where(function($query) use ($term) {
+				$query
+					// Title
+					->whereTranslationLike('title', "%{$term}%")
+					// Ref
+					->orWhere('ref', 'like', "%{$term}%")
+					// show_address == 1
+					->orWhere(function($query) use ($term) {
+						$query->where('show_address', 1)
+							->where(function($query) use ($term) {
+								$query
+									// Address
+									->where('address', 'like', "%{$term}%")
+									// District
+									->orWhere('district', 'like', "%{$term}%")
+									// Zipcode
+									->orWhere('zipcode', 'like', "%{$term}%");
+							});
+					});
+			});
+
+	}
+
 	public function scopeWithEverything($query)
 	{
 		return $query
@@ -841,7 +904,7 @@ class Property extends TranslatableModel
 			'transfer',
 		];
 	}
-	static public function getModeOptions()
+	static public function getModeOptions($site_id=false)
 	{
 		$options = [];
 
@@ -849,6 +912,20 @@ class Property extends TranslatableModel
 		{
 			$options[$key] = trans("web/properties.mode.{$key}");
 		}
+
+		if ( $site_id )
+		{
+			$assigned = \App\Property::distinct()->select('mode')->where('site_id',$site_id)->lists('mode')->all();
+			foreach ($options as $key => $value)
+			{
+				if ( !in_array($key, $assigned) )
+				{
+					unset($options[$key]);
+				}
+			}
+		}
+
+		asort($options);
 
 		return $options;
 	}
@@ -885,10 +962,6 @@ class Property extends TranslatableModel
 			'state' => trans('web/properties.type.state'),
 			'farmhouse' => trans('web/properties.type.farmhouse'),
 		];
-
-
-
-
 
 		if ( $site_id )
 		{
@@ -932,19 +1005,23 @@ class Property extends TranslatableModel
 		];
 
 		// Get custom ranges
-		$priceranges = \App\Site::find($site_id)->getGroupedPriceranges();
-		foreach ($ranges as $type => $data )
-		{
-			if ( $priceranges->$type->count() > 0 )
+		$site = \App\Site::find($site_id);
+
+		if ($site) {
+			$priceranges = $site->getGroupedPriceranges();
+			foreach ($ranges as $type => $data )
 			{
-				$ranges[$type] = [];
-				foreach ($priceranges->$type as $pricerange)
+				if ( $priceranges->$type->count() > 0 )
 				{
-					$key = implode('-', [
-						$pricerange->from ? $pricerange->from : 'less',
-						$pricerange->till ? $pricerange->till : 'more',
-					]);
-					$ranges[$type][$key] = $pricerange->title;
+					$ranges[$type] = [];
+					foreach ($priceranges->$type as $pricerange)
+					{
+						$key = implode('-', [
+							$pricerange->from ? $pricerange->from : 'less',
+							$pricerange->till ? $pricerange->till : 'more',
+						]);
+						$ranges[$type][$key] = $pricerange->title;
+					}
 				}
 			}
 		}
@@ -957,30 +1034,39 @@ class Property extends TranslatableModel
 	static public function getSizeOptions()
 	{
 		return [
-			'less-100' => '< 100 m²',
-			'100-250' => '100 - 250 m²',
-			'250-500' => '250 - 500 m²',
-			'500-1000' => '500 - 1.000 m²',
-			'1000-more' => '> 1.000 m²',
+			'40-more' => '> 40 m²',
+			'60-more' => '> 60 m²',
+			'80-more' => '> 80 m²',
+			'100-more' => '> 100 m²',
+			'120-more' => '> 120 m²',
+			'140-more' => '> 140 m²',
+			'160-more' => '> 160 m²',
+			'180-more' => '> 180 m²',
+			'200-more' => '> 200 m²',
+			'400-more' => '> 400 m²',
+			'600-more' => '> 600 m²',
 		];
 	}
 
 	static public function getRoomOptions()
 	{
 		return [
-			'0-2' => '1 - 2',
-			'3-5' => '3 - 5',
-			'6-10' => '6 - 10',
-			'11-more' => '> 10',
+			'0-more' => '> 1',
+			'2-more' => '> 2',
+			'3-more' => '> 3',
+			'4-more' => '> 4',
+			'5-more' => '> 5',
 		];
 	}
 
 	static public function getBathOptions()
 	{
 		return [
-			'0-2' => '1 - 2',
-			'3-5' => '3- 5',
-			'6-more' => '> 5',
+			'0-more' => '> 1',
+			'2-more' => '> 2',
+			'3-more' => '> 3',
+			'4-more' => '> 4',
+			'5-more' => '> 5',
 		];
 	}
 
@@ -1038,6 +1124,168 @@ class Property extends TranslatableModel
 			'title-asc' => trans('web/search.title.asc'),
 			'title-desc' => trans('web/search.title.desc'),
 		];
+	}
+
+
+	public function getPossibleMatchesAttribute() {
+		$query = $this->site->customers()->whereIn('id', function($query){
+			$subquery = $query->select('customer_id')->from('customers_queries');
+
+			if($this->mode) {
+				$subquery->where(function($subquery){
+					$subquery->where('mode', $this->mode);
+					$subquery->orWhere('mode', '');
+				});
+			}
+
+			if($this->type) {
+				$subquery->where(function($subquery){
+					$subquery->where('type', $this->type);
+					$subquery->orWhere('type', '');
+				});
+			}
+
+			if($this->price){
+				$subquery->where(function($subquery){
+					$subquery->where('price_min', '<=', $this->price);
+					$subquery->orWhereNull('price_min');
+				});
+
+				$subquery->where(function($subquery){
+					$subquery->where('price_max', '>=', $this->price);
+					$subquery->orWhereNull('price_max');
+				});
+			}
+
+			if($this->size) {
+				$subquery->where(function($subquery){
+					$subquery->where('size_min', '<=', $this->size);
+					$subquery->orWhereNull('size_min');
+				});
+
+				$subquery->where(function($subquery){
+					$subquery->where('size_max', '>=', $this->size);
+					$subquery->orWhereNull('size_max');
+				});
+			}
+
+			if($this->rooms) {
+				$subquery->where(function($subquery){
+					$subquery->where('rooms', '<=', $this->rooms);
+					$subquery->orWhere('rooms', '');
+					$subquery->orWhereNull('rooms');
+				});
+			}
+
+			if($this->baths) {
+				$subquery->where(function($subquery){
+					$subquery->where('baths', '<=', $this->baths);
+					$subquery->orWhere('baths', '');
+					$subquery->orWhereNull('baths');
+				});
+			}
+
+			if($this->country_id) {
+				$subquery->where(function($subquery){
+					$subquery->where('country_id', $this->country_id);
+					$subquery->orWhereNull('country_id');
+				});
+			}
+
+			if($this->territory_id ){
+				$subquery->where(function($subquery){
+					$subquery->where('territory_id', $this->territory);
+					$subquery->orWhereNull('territory_id');
+				});
+			}
+
+			if($this->state_id) {
+				$subquery->where(function($subquery){
+					$subquery->where('state_id', $this->state_id);
+					$subquery->orWhereNull('state_id');
+				});
+			}
+
+			if($this->zipcode) {
+				$subquery->where(function($subquery){
+					$subquery->where('zipcode', $this->zipcode);
+					$subquery->orWhere('zipcode', '');
+				});
+			}
+
+			return $subquery;
+		})->with('queries');
+
+		//Not current leads
+		$query->whereNotIn('id', function($query){
+			$query->select('customer_id')->from('properties_customers')
+					->where('property_id', $this->id);
+		});
+
+		// Not discarded
+		$query->whereNotIn('id', function($query){
+			$query->select('customer_id')->from('properties_customers_discards')
+					->where('property_id', $this->id);
+		});
+
+		$collection =  $query->get();
+
+		$filtered = $collection->reject(function ($value, $key) {
+			$query = $value->current_query;
+			$attr = $query->more_attributes;
+
+			$customerCities = $value->customer_cities()
+					->pluck('city_id')->toArray();
+			$customerDistricts = $value->customer_districts()
+					->pluck('district_id')->toArray();
+
+			if($this->city_id && !empty($customerCities)){
+				return !in_array($this->city_id, $customerCities);
+			}
+
+			if($this->district_id && !empty($customerDistricts)){
+				return !in_array($this->district_id, $customerDistricts);
+			}
+
+			if (@$attr['newly_build'] && $this->newly_build !== 1){
+				return true;
+			}
+
+			if (@$attr['second_hand'] && $this->second_hand !== 1){
+				return true;
+			}
+
+			if (@$attr['bank_owned'] && $this->bank_owned !== 1){
+				return true;
+			}
+
+			if (@$attr['private_owned'] && $this->private_owned !== 1){
+				return true;
+			}
+
+			if(@$attr['services']) {
+				$serviceSlugs = !is_array($attr['services']) ?
+						[$attr['services']] : $attr['services'];
+
+				$required_service_ids = \App\Models\Property\ServiceTranslation::whereIn('slug',$serviceSlugs)->lists('service_id')->all();
+				$property_service_ids = $this->services->pluck('id')->toArray();
+				$intersected = array_intersect($required_service_ids, $property_service_ids);
+
+				return count($required_service_ids) != count($intersected);
+			}
+		});
+
+		return $filtered;
+	}
+
+	public function getDistrictAttribute()
+	{
+		if (!$this->district_id) return '';
+
+		$district = $this->site ? $this->site->districts()->find($this->district_id) : false;
+		if (!$district) return '';
+
+		return $district->name;
 	}
 
 }

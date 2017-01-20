@@ -6,13 +6,17 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>{{ empty($page_title) ? 'Molista' : $page_title }}</title>
 
-	<link href="{{ Theme::url('/compiled/css/admin.css') }}" rel="stylesheet" type='text/css' />
+	<link href="{{ Theme::url('/compiled/css/admin.css').'?v='.env('CSS_VERSION') }}" rel="stylesheet" type='text/css' />
 
 	@if ( LaravelLocalization::getCurrentLocaleDirection() == 'rtl' )
 		<link href="{{ Theme::url('/compiled/css/rtl.css') }}" rel="stylesheet" type='text/css' />
 	@endif
 
 	<link id="page_favicon" href="{{ Theme::url('/favicon.ico') }}" rel="icon" type="image/x-icon" />
+
+	@if ( @$use_google_maps )
+		<script src="http://maps.google.com/maps/api/js?key={{ Config::get('app.google_maps_api_key')}}"></script>
+	@endif
 
 	<script type="text/javascript">
 		var ready_callbacks = [];
@@ -70,7 +74,24 @@
 						</ul>
 					</li>
 				@endpermission
-				@if ( Auth::user()->can('locale-*') || Auth::user()->can('translation-*') )
+				@permission('reseller-*')
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Lang::get('admin/menu.resellers') }} <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="{{ action('Admin\ResellersController@index') }}">{{ Lang::get('admin/menu.list') }}</a></li>
+							<li><a href="{{ action('Admin\Resellers\PaymentsController@getIndex') }}">{{ Lang::get('admin/menu.resellers.payments') }}</a></li>
+						</ul>
+					</li>
+				@endpermission
+				@permission('reports-*')
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Lang::get('admin/menu.reports') }} <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="{{ action('Admin\Reports\ThemesController@getIndex') }}">{{ Lang::get('admin/menu.reports.themes') }}</a></li>
+						</ul>
+					</li>
+				@endpermission
+				@if ( Auth::user()->can('translation-*') || Auth::user()->can('locale-*') || Auth::user()->can('pack-*') || Auth::user()->can('geography-*') || Auth::user()->can('currency-*') )
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Lang::get('admin/menu.configuration') }} <span class="caret"></span></a>
 						<ul class="dropdown-menu">
@@ -136,7 +157,7 @@
 
 @yield('content')
 
-<script src="{{ Theme::url('/compiled/js/admin.js') }}"></script>
+<script src="{{ Theme::url('/compiled/js/admin.js').'?v='.env('JS_VERSION') }}"></script>
 <script src="{{ Theme::url('/js/jquery.validate/messages_' . LaravelLocalization::getCurrentLocale() . '.min.js') }}"></script>
 <script src="{{ Theme::url('/js/alertify/messages_' . LaravelLocalization::getCurrentLocale() . '.js') }}"></script>
 <script src="{{ Theme::url('/js/select2/' . LaravelLocalization::getCurrentLocale() . '.js') }}"></script>

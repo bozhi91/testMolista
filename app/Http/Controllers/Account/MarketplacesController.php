@@ -51,7 +51,7 @@ class MarketplacesController extends \App\Http\Controllers\AccountController
 
 		$marketplaces = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
-		$total_properties = $this->site->properties->count();
+		$total_properties = $this->site->properties()->enabled()->count();
 
 		$countries = \App\Models\Geography\Country::withTranslations()->withMarketplaces()->orderBy('name')->lists('name','code')->all();
 
@@ -226,7 +226,7 @@ class MarketplacesController extends \App\Http\Controllers\AccountController
 
 		\File::deleteDirectory($this->site->xml_path, true);
 
-		return [ 
+		return [
 			'success' => true,
 			'status' => $status,
 		];

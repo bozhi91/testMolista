@@ -15,6 +15,7 @@ class Kernel extends HttpKernel
 	*/
 	protected $middleware = [
 		\Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
+		\Spatie\Pjax\Middleware\FilterIfPjax::class,
 	];
 
 	/**
@@ -47,6 +48,7 @@ class Kernel extends HttpKernel
 		'auth' => \App\Http\Middleware\Authenticate::class,
 		'auth.admin' => \App\Http\Middleware\AuthenticateAdmin::class,
 		'auth.account' => \App\Http\Middleware\AuthenticateAccount::class,
+		'auth.reseller' => \App\Http\Middleware\AuthenticateResellers::class,
 		'auth.api' => \App\Http\Middleware\AuthenticateApi::class,
 		'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
 		'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,

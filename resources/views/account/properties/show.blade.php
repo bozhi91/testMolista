@@ -14,20 +14,21 @@
 		<h3 class="page-title">{{ $property->ref }} | {{ $property->title }}</h3>
 
 		<ul class="nav nav-tabs main-tabs" role="tablist">
-			<li role="presentation" class="{{ (old('current_tab','tab-general') == 'tab-general') ? 'active' : '' }}"><a href="#tab-general" aria-controls="tab-general" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.general') }}</a></li>
-			<li role="presentation" class="{{ (old('current_tab') == 'tab-lead') ? 'active' : '' }}"><a href="#tab-lead" aria-controls="tab-lead" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.lead') }}</a></li>
-			<li role="presentation" class="{{ (old('current_tab') == 'tab-appraisal') ? 'active' : '' }}"><a href="#tab-appraisal" aria-controls="tab-appraisal" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.appraisal') }}</a></li>
-			<li role="presentation" class="{{ (old('current_tab') == 'tab-transaction') ? 'active' : '' }}"><a href="#tab-transaction" aria-controls="tab-transaction" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.transaction') }}</a></li>
-			<li role="presentation" class="{{ (old('current_tab') == 'tab-documents') ? 'active' : '' }}"><a href="#tab-documents" aria-controls="tab-documents" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.documents') }}</a></li>
-			<li role="presentation" class="{{ (old('current_tab') == 'tab-reports') ? 'active' : '' }}"><a href="#tab-reports" aria-controls="tab-reports" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.reports') }}</a></li>
-			<li role="presentation" class="{{ (old('current_tab') == 'tab-logs') ? 'active' : '' }}"><a href="#tab-logs" aria-controls="tab-logs" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.logs') }}</a></li>
-			<li role="presentation" class="{{ (old('current_tab') == 'tab-employees') ? 'active' : '' }}"><a href="#tab-employees" aria-controls="tab-employees" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.employees') }}</a></li>
-			<li role="presentation" class="{{ (old('current_tab') == 'tab-visits') ? 'active' : '' }}"><a href="#tab-visits" aria-controls="tab-visits" role="tab" data-toggle="tab">{{ Lang::get('account/visits.title') }}</a></li>
+			<li role="presentation" class="{{ $current_tab == 'tab-general' ? 'active' : '' }}"><a href="#tab-general" aria-controls="tab-general" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.general') }}</a></li>
+			<li role="presentation" class="{{ $current_tab == 'tab-lead' ? 'active' : '' }}"><a href="#tab-lead" aria-controls="tab-lead" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.lead') }}</a></li>
+			<li role="presentation" class="{{ $current_tab == 'tab-appraisal' ? 'active' : '' }}"><a href="#tab-appraisal" aria-controls="tab-appraisal" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.appraisal') }}</a></li>
+			<li role="presentation" class="{{ $current_tab == 'tab-transaction' ? 'active' : '' }}"><a href="#tab-transaction" aria-controls="tab-transaction" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.transaction') }}</a></li>
+			<li role="presentation" class="{{ $current_tab == 'tab-documents' ? 'active' : '' }}"><a href="#tab-documents" aria-controls="tab-documents" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.documents') }}</a></li>
+			<li role="presentation" class="{{ $current_tab == 'tab-reports' ? 'active' : '' }}"><a href="#tab-reports" aria-controls="tab-reports" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.reports') }}</a></li>
+			<li role="presentation" class="{{ $current_tab == 'tab-logs' ? 'active' : '' }}"><a href="#tab-logs" aria-controls="tab-logs" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.logs') }}</a></li>
+			<li role="presentation" class="{{ $current_tab == 'tab-employees' ? 'active' : '' }}"><a href="#tab-employees" aria-controls="tab-employees" role="tab" data-toggle="tab">{{ Lang::get('account/properties.tab.employees') }}</a></li>
+			<li role="presentation" class="{{ $current_tab == 'tab-visits' ? 'active' : '' }}"><a href="#tab-visits" aria-controls="tab-visits" role="tab" data-toggle="tab">{{ Lang::get('account/visits.title') }}</a></li>
+			<li role="presentation"><a href="{{ action('Account\PropertiesController@download', [ $property->slug, LaravelLocalization::getCurrentLocale() ]) }}" target="_blank">{{ Lang::get('account/properties.tab.pdf') }}</a></li>
 		</ul>
 
 		<div class="tab-content">
 
-			<div role="tabpanel" class="tab-pane tab-main presentation {{ (old('current_tab','tab-general') == 'tab-general') ? 'active' : '' }}" id="tab-general">
+			<div role="tabpanel" class="tab-pane tab-main presentation {{ $current_tab == 'tab-general' ? 'active' : '' }}" id="tab-general">
 				@if ( $property->catch_current )
 					<div class="row">
 						<div class="col-xs-12 col-sm-6">
@@ -88,27 +89,47 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-xs-12 col-sm-4">
+						<div class="col-xs-12 col-sm-3">
+							<div class="form-group">
+								<div class="error-placement">
+									{!! Form::label(null, Lang::get('account/properties.show.property.price.min') ) !!}
+									<div class="input-group">
+										@if ( @$property->infocurrency->position == 'before' )
+											<div class="input-group-addon">{{ $property->infocurrency->symbol }}</div>
+										@endif
+										{!! Form::text(null, $property->catch_current->price_min, [ 'class'=>'form-control', 'readonly'=>'readonly', ]) !!}
+										@if ( @$property->infocurrency->position == 'after' )
+											<div class="input-group-addon">{{ $property->infocurrency->symbol }}</div>
+										@endif
+									</div>
+								</div>
+								<div class="help-block">{{ Lang::get('account/properties.show.property.price.min.help') }}</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-3">
 							<div class="form-group error-placement">
-								{!! Form::label(null, Lang::get('account/properties.show.property.price.min') ) !!}
+								{!! Form::label(null, Lang::get('account/properties.show.property.commission.fixed') ) !!}
 								<div class="input-group">
 									@if ( @$property->infocurrency->position == 'before' )
 										<div class="input-group-addon">{{ $property->infocurrency->symbol }}</div>
 									@endif
-									{!! Form::text(null, $property->catch_current->price_min, [ 'class'=>'form-control', 'readonly'=>'readonly', ]) !!}
+									{!! Form::text(null, $property->catch_current->commission_fixed, [ 'class'=>'form-control', 'readonly'=>'readonly', ]) !!}
 									@if ( @$property->infocurrency->position == 'after' )
 										<div class="input-group-addon">{{ $property->infocurrency->symbol }}</div>
 									@endif
 								</div>
 							</div>
 						</div>
-						<div class="col-xs-12 col-sm-2">
+						<div class="col-xs-12 col-sm-3">
 							<div class="form-group error-placement">
-								{!! Form::label(null, Lang::get('account/properties.show.property.commission') ) !!}
-								{!! Form::text(null, "{$property->catch_current->commission}%", [ 'class'=>'form-control', 'readonly'=>'readonly', ]) !!}
+								{!! Form::label(null, Lang::get('account/properties.show.property.commission.variable') ) !!}
+								<div class="input-group">
+									{!! Form::text(null, "{$property->catch_current->commission}", [ 'class'=>'form-control', 'readonly'=>'readonly', ]) !!}
+									<div class="input-group-addon">%</div>
+								</div>
 							</div>
 						</div>
-						<div class="col-xs-12 col-sm-6">
+						<div class="col-xs-12 col-sm-3">
 							<label class="hidden-xs">&nbsp;</label>
 							<div class="text-right">
 								<div class="btn-group dropup" role="group">
@@ -130,9 +151,23 @@
 						<a href="#" data-href="{{ action('Account\PropertiesController@getCatch', $property->id)}}" class="btn btn-primary popup-catch-trigger">{{ Lang::get('account/properties.show.property.catch.actions.create') }}</a>
 					</div>
 				@endif
+
+				{!! Form::model($property, [ 'action'=>['Account\PropertiesController@postComment',$property->slug], 'method'=>'post', 'id'=>'comment-form' ]) !!}
+					<hr />
+					<h3 class="page-title">{{ Lang::get('account/properties.show.property.comment.title') }}</h3>
+					<div class="form-group error-placement">
+						{!! Form::textarea('comment', null, [ 'class'=>'form-control', ]) !!}
+					</div>
+					<div class="form-group">
+						<div class="text-right">
+							{!! Form::button(Lang::get('account/properties.show.property.comment.button'), [ 'type'=>'submit', 'class'=>'btn btn-primary', ]) !!}
+						</div>
+					</div>
+				{!! Form::close() !!}
+
 			</div>
 
-			<div role="tabpanel" class="tab-pane tab-main {{ (old('current_tab') == 'tab-lead') ? 'active' : '' }}" id="tab-lead">
+			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'tab-lead' ? 'active' : '' }}" id="tab-lead">
 				@if ( !$property->deleted_at )
 					<div class="text-right" style="{{ ($property->customers->count() < 1) ? 'margin-bottom: 20px;' : '' }}">
 						<a href="#" class="btn btn-default btn-sm add-lead-trigger">{{ Lang::get('account/properties.show.leads.add') }}</a>
@@ -141,15 +176,22 @@
 				<div id="leads-list">
 					@include('account.properties.show-leads', [ 'customers'=>$property->customers->sortBy('full_name') ])
 				</div>
+				
+				<hr>
+				
+				<div id="leads-matches">
+					<h3 class="page-title">{{ Lang::get('account/properties.show.property.matches.title') }}</h3>
+					@include('account.properties.show-matches', [ 'customers'=>$property->possible_matches, 'property' => $property ])
+				</div>
 			</div>
 
-			<div role="tabpanel" class="tab-pane tab-main {{ (old('current_tab') == 'tab-appraisal') ? 'active' : '' }}" id="tab-appraisal">
+			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'tab-appraisal' ? 'active' : '' }}" id="tab-appraisal">
 				@include('account.properties.show-appraisal', [
 					'documents' => $property->documents->where('type','appraisal'),
 				])
 			</div>
 
-			<div role="tabpanel" class="tab-pane tab-main {{ (old('current_tab') == 'tab-transaction') ? 'active' : '' }}" id="tab-transaction">
+			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'tab-transaction' ? 'active' : '' }}" id="tab-transaction">
 				@if ( $property->catch_transactions->count() < 1 )
 					<p>{{ Lang::get('account/properties.show.transactions.none') }}</p>
 				@else
@@ -237,13 +279,36 @@
 									</td>
 									<td class="text-right">
 										@if ( $catch->status == 'sold' || $catch->status == 'rent' || $catch->status == 'transfer' )
-											{{ price($catch->commission_earned, $property->infocurrency->toArray()) }}
-											({{ number_format($catch->commission, 2, ',', '.') }}%)
+											{{ price($catch->commission_earned, $property->infocurrency) }}
+											<sup>
+												<a href="#commission-modal-{{$catch->id}}" class="transaction-modal-trigger">
+													<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+												</a>
+											</sup>
+											<div id="commission-modal-{{$catch->id}}" class="mfp-white-popup mfp-hide">
+												<h4 class="page-title">{{ Lang::get('account/properties.show.property.commission') }}</h4>
+												<table class="table">
+													<tbody>
+														<tr>
+															<td>{{ Lang::get('account/properties.show.property.commission.variable') }} ({{$catch->commission}}%)</td>
+															<td class="text-right">{{ price($catch->commission_variable, $property->infocurrency) }}</td>
+														</tr>
+														<tr>
+															<td>{{ Lang::get('account/properties.show.property.commission.fixed') }}</td>
+															<td class="text-right">{{ price($catch->commission_fixed, $property->infocurrency) }}</td>
+														</tr>
+														<tr>
+															<th>{{ Lang::get('account/properties.show.property.commission.total') }}</th>
+															<th class="text-right">{{ price($catch->commission_earned, $property->infocurrency) }}</th>
+														</tr>
+													</tbody>
+												</table>
+											</div>
 										@endif
 									</td>
 									<td class="text-right">
 										@if ( $catch->status == 'sold' || $catch->status == 'rent' || $catch->status == 'transfer' )
-											{{ price($catch->price_sold, $property->infocurrency->toArray()) }}
+											{{ price($catch->price_sold, $property->infocurrency) }}
 										@endif
 									</td>
 								</tr>
@@ -253,7 +318,7 @@
 				@endif
 			</div>
 
-			<div role="tabpanel" class="tab-pane tab-main {{ (old('current_tab') == 'tab-documents') ? 'active' : '' }}" id="tab-documents">
+			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'tab-documents' ? 'active' : '' }}" id="tab-documents">
 				@include('account.properties.show-documents', [
 					'documents' => $property->documents->filter(function ($value, $key) {
 						return ($value->type == 'appraisal') ? false : true;
@@ -261,7 +326,7 @@
 				])
 			</div>
 
-			<div role="tabpanel" class="tab-pane tab-main {{ (old('current_tab') == 'tab-reports') ? 'active' : '' }}" id="tab-reports">
+			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'tab-reports' ? 'active' : '' }}" id="tab-reports">
 				@if ( $property->catch_kpis )
 					<div class="row">
 						<div class="col-xs-12 col-sm-4">
@@ -316,7 +381,7 @@
 				@endif
 			</div>
 
-			<div role="tabpanel" class="tab-pane tab-main {{ (old('current_tab') == 'tab-logs') ? 'active' : '' }}" id="tab-logs">
+			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'tab-logs' ? 'active' : '' }}" id="tab-logs">
 				<div class="alert logs-empty hide">
 					{{ Lang::get('account/properties.logs.empty') }}
 				</div>
@@ -341,14 +406,14 @@
 				</table>
 			</div>
 
-			<div role="tabpanel" class="tab-pane tab-main {{ (old('current_tab') == 'tab-employees') ? 'active' : '' }}" id="tab-employees">
+			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'tab-employees' ? 'active' : '' }}" id="tab-employees">
 				@include('account.properties.tab-managers', [
 					'item' => $property,
 					'employees' => $property->users()->withRole('employee')->get(),
 				])
 			</div>
 
-			<div role="tabpanel" class="tab-pane tab-main {{old('current_tab') == 'tab-visits' ? 'active' : '' }}" id="tab-visits">
+			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'tab-visits' ? 'active' : '' }}" id="tab-visits">
 				@include('account.visits.ajax-tab', [
 					'visits_init' => true,
 				])
@@ -453,6 +518,13 @@
 				},
 				error: function() {
 						$('#account-visits-ajax-tab').html('<div class="alert alert-danger">{{ print_js_string( Lang::get('general.messages.error') ) }}</div>')
+				}
+			});
+
+			$('#comment-form').validate({
+				submitHandler: function(f) {
+					LOADING.show();
+					f.submit();
 				}
 			});
 

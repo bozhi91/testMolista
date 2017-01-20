@@ -19,6 +19,7 @@ class Site extends TranslatableModel
 		'signature' => 'array',
 		'invoicing' => 'array',
 		'country_ids' => 'array',
+		'alert_config' => 'array',
 	];
 
 	protected $data;
@@ -41,9 +42,24 @@ class Site extends TranslatableModel
 		return $this->belongsTo('App\Models\Plan');
 	}
 
+	public function reseller()
+	{
+		return $this->belongsTo('App\Models\Reseller')->with('plans');
+	}
+
 	public function country()
 	{
 		return $this->hasOne('App\Models\Geography\Country','code','country_code')->withTranslations();
+	}
+
+	public function imports()
+	{
+		return $this->hasMany('App\Models\Site\Import');
+	}
+
+	public function districts()
+	{
+		return $this->hasMany('App\Models\Site\District');
 	}
 
 	public function planchanges()
@@ -56,6 +72,11 @@ class Site extends TranslatableModel
 		return $this->hasMany('App\Models\Site\Pricerange')->withTranslations();
 	}
 
+	public function slidergroups()
+	{
+		return $this->hasMany('App\Models\Site\SliderGroup');
+	}
+
     public function subscriptions()
     {
         return $this->hasMany(Subscription::class, 'site_id')->orderBy('created_at', 'desc');
@@ -66,9 +87,14 @@ class Site extends TranslatableModel
 		return $this->hasMany('App\Models\Site\Webhook');
 	}
 
-	public function invoices()
+	public function documents()
 	{
 		return $this->hasMany('App\Models\Site\Invoice');
+	}
+
+	public function payments()
+	{
+		return $this->hasMany('App\Models\Site\Payment');
 	}
 
 	public function stats()
@@ -109,6 +135,10 @@ class Site extends TranslatableModel
 		return $this->hasMany('\App\Models\Site\UserSignature');
 	}
 
+	public function users_since() {
+		return $this->hasMany('\App\Models\Site\UserSince');
+	}
+
 	public function customers() {
 		return $this->hasMany('App\Models\Site\Customer');
 	}
@@ -140,6 +170,12 @@ class Site extends TranslatableModel
 	public function properties()
 	{
 		return $this->hasMany('App\Property')->with('infocurrency')->withTranslations();
+	}
+
+	public function getTransactions()
+	{
+		$property_ids = $this->properties()->pluck('id')->toArray();
+		return Models\Property\Catches::whereIn('property_id', $property_ids);
 	}
 
 	public function api_keys()
@@ -286,9 +322,17 @@ class Site extends TranslatableModel
 		$autologin_token = $owner->getUpdatedAutologinToken();
 
 		// Return autologin url
-		$url = action('AccountController@index', [ 'autologin_token' =>$autologin_token ]);
+		$url = action('Account\ReportsController@getIndex', [ 'autologin_token' =>$autologin_token ]);
 
-		return $this->getSiteFullUrl( $url );
+		// Subdomain url
+		return str_replace(
+					rtrim(\Config::get('app.application_url'),'/'), //replaces current url
+					\Config::get('app.application_protocol') . "://{$this->subdomain}." . \Config::get('app.application_domain'), // with website url
+					$url
+				);
+
+		// Domain/subdomain
+		//return $this->getSiteFullUrl( $url );
 	}
 
 	public function getRememberPasswordUrlAttribute()
@@ -433,10 +477,21 @@ class Site extends TranslatableModel
 		return $query->where("{$this->getTable()}.enabled", 1);
 	}
 
+	public function scopeWithDomain($query,$domain)
+	{
+		return $query->where(function ($query) use ($domain) {
+			$query->whereIn('sites.id', function($query) use ($domain) {
+				$query->select('site_id')
+					->from('sites_domains')
+					->where('domain', 'like', "%{$domain}%");
+			})->orWhere('subdomain', 'like', "%{$domain}%");
+		});
+	}
+
 	public function scopeCurrent($query)
 	{
 		// Parse url
-		$parts = parse_url( url()->current() );
+		$parts = parse_url( url_current() );
 
 		// No host, no results
 		if ( empty($parts['host']) )
@@ -647,6 +702,7 @@ class Site extends TranslatableModel
 					'type' => $widget->type,
 					'title' => $widget->title,
 					'content' => $widget->content,
+					'data' => $widget->data,
 				];
 
 				switch ( $widget->type )
@@ -657,10 +713,38 @@ class Site extends TranslatableModel
 						{
 							foreach ($widget->menu->items as $item)
 							{
+								if ( $item->type == 'custom' )
+								{
+									$url = $item->url;
+								}
+								else
+								{
+									$url_parts = parse_url(\LaravelLocalization::getLocalizedURL($locale,$item->item_url));
+									$url = implode('?', array_filter([
+										@$url_parts['path'],
+										@$url_parts['query'],
+									]));
+								}
 								$w['items'][] = [
 									'title' => $item->item_title,
-									'url' => $item->item_url,
+									'url' => $url,
 									'target' => $item->target,
+								];
+							}
+						}
+						break;
+					case 'slider':
+						$w['items'] = [];
+						if ( $widget->slider )
+						{
+							$images = $widget->slider->images()
+									->orderBy('position', 'asc')->get();
+
+							foreach ($images as $image)
+							{
+								$w['items'][] = [
+									'image' => $image->image,
+									'link' => $image->link,
 								];
 							}
 						}
@@ -745,25 +829,31 @@ class Site extends TranslatableModel
 		}
 
 		// Send email
-		$res = \Mail::send('dummy', [ 'content' => $params['content'] ], function ($message) use ($params) {
-			$message->from($params['from_email'], $params['from_name']);
-			$message->replyTo($params['reply_email'], @$params['reply_name']);
+        try {
+            $res = \Mail::send('dummy', [ 'content' => $params['content'] ], function ($message) use ($params) {
+                $message->from($params['from_email'], $params['from_name']);
+                $message->replyTo($params['reply_email'], @$params['reply_name']);
 
-			$message->to($params['to'])->subject($params['subject']);
+                $message->to($params['to'])->subject($params['subject']);
 
-			if ( !empty($params['attachments']) )
-			{
-				if ( !is_array($params['attachments']) )
-				{
-					$params['attachments'] = [ $params['attachments']=>[] ];
-				}
+                if ( !empty($params['attachments']) )
+                {
+                    if ( !is_array($params['attachments']) )
+                    {
+                        $params['attachments'] = [ $params['attachments']=>[] ];
+                    }
 
-				foreach ($params['attachments'] as $attachment => $definition)
-				{
-					$message->attach($attachment,$definition);
-				}
-			}
-		});
+                    foreach ($params['attachments'] as $attachment => $definition)
+                    {
+                        $message->attach($attachment,$definition);
+                    }
+                }
+            });
+        }
+        catch (\Exception $e) {
+            \Log::error($e, $params);
+            $res = false;
+        }
 
 		// Restore mail configuration
 		if ( $params['backup_required'] )
@@ -812,6 +902,41 @@ class Site extends TranslatableModel
 			$this->id,
 			$this->subdomain,
 		]));
+	}
+
+	public function getContactLocaleAttribute()
+	{
+		return 'es';
+	}
+
+	public function getContactEmailAttribute()
+	{
+		if ( @$this->invoicing['email'] )
+		{
+			return $this->invoicing['email'];
+		}
+
+		if ( $owner = $this->site->users()->withRole('company')->first() )
+		{
+			return $owner->email;
+		}
+
+		return false;
+	}
+
+	public function getContactNameAttribute()
+	{
+		if ( @$this->invoicing['first_name'] )
+		{
+			return $this->invoicing['first_name'];
+		}
+
+		if ( $owner = $this->site->users()->withRole('company')->first() )
+		{
+			return $owner->name;
+		}
+
+		return false;
 	}
 
 	public function getSignupInfo($locale=false)
@@ -950,4 +1075,182 @@ class Site extends TranslatableModel
 
 		return $timezones;
 	}
+
+	public function preparePaymentData($data)
+	{
+		$plan_id = empty($data['plan_id']) ? $this->plan_id : $data['plan_id'];
+
+		// Site data
+		$payment = [
+			'site_id' => $this->id,
+			'plan_id' => $plan_id,
+			'trigger' => '',
+			'paid_from' => null,
+			'paid_until' => null,
+			'payment_method' =>  '',
+			'payment_amount' => 0,
+			'payment_currency' => $this->plan->currency,
+			'payment_vat' => $this->vat,
+			'reseller_id' =>  $this->reseller ? $this->reseller->id : null,
+			'reseller_variable' => $this->reseller ? @floatval($this->reseller->plans_commissions[$plan_id]['commission_percentage']) : 0,
+			'reseller_fixed' => $this->reseller ? @floatval($this->reseller->plans_commissions[$plan_id]['commission_fixed']) : 0,
+			'data' => $data,
+		];
+
+		// Provided data
+		$payment = array_merge($payment,$data);
+
+		// Reseller payment amount
+		$payment_net_amount = $payment['payment_amount'] / ( ( 100 + $payment['payment_vat'] ) / 100 );
+		$payment['reseller_amount'] = $payment['reseller_fixed'] + ( $payment_net_amount * $payment['reseller_variable'] / 100 );
+
+		// Exchange rate
+		$currency_rate = \App\Models\CurrencyConverter::convert(1, $payment['payment_currency'], 'EUR');
+		$payment['payment_rate'] = $currency_rate;
+		$payment['reseller_rate'] = $currency_rate;
+
+		return $payment;
+	}
+
+	public function getCanHideMolistaAttribute()
+	{
+		if ( @$this->plan->level >= 2 )
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	public function getStripeCustomerAttribute()
+	{
+		if ( !$this->stripe_id )
+		{
+			return false;
+		}
+
+		return $this->asStripeCustomer();
+	}
+
+	public function getStripeInvoiceLastAttribute()
+	{
+		$last_invoice = false;
+
+		if ( !$this->stripe_id )
+		{
+			return $last_invoice;
+		}
+
+		$invoices = $this->invoicesIncludingPending();
+
+		if ( !$invoices )
+		{
+			return $last_invoice;
+		}
+
+		foreach ($invoices as $invoice)
+		{
+			if ( !$last_invoice || $last_invoice->date < $invoice->date )
+			{
+				$last_invoice = $invoice;
+			}
+		}
+
+		return $last_invoice;
+	}
+
+	public function importTicketingCustomers()
+	{
+		// Get ticket customers
+		$contacts = $this->ticket_adm->getContacts();
+
+		if ( !$contacts )
+		{
+			return false;
+		}
+
+		// Get current customers
+		$contact_ids = $this->customers()->where('ticket_contact_id', '!=','')->lists('ticket_contact_id')->all();
+
+		foreach ($contacts as $contact)
+		{
+			if ( in_array($contact->id, $contact_ids) )
+			{
+				continue;
+			}
+
+			$customer = $this->customers()->where('email', $contact->email)->first();
+			if ( $customer )
+			{
+				if ( !$customer->ticket_contact_id )
+				{
+					$customer->update([
+						'ticket_contact_id' => $contact->id,
+					]);
+				}
+			}
+			else
+			{
+				$fullname_parts = explode(' ', $contact->fullname, 2);
+				$first_name = empty($fullname_parts[0]) ? '' : $fullname_parts[0];
+				$last_name = empty($fullname_parts[1]) ? '' : $fullname_parts[1];
+
+				$this->customers()->create([
+					'first_name' => $first_name,
+					'last_name' => $last_name,
+					'email' => $contact->email,
+					'phone' => $contact->phone ? $contact->phone : '',
+					'locale' => config()->get('app.fallback_locale'),
+					'origin' => $contact->referer  ? $contact->referer : 'tickets',
+					'ticket_contact_id' => $contact->id,
+				]);
+			}
+		}
+
+		return true;
+	}
+
+	public function downgradeToFree()
+	{
+		// Check if already free
+		if ( $this->plan->is_free )
+		{
+			return false;
+		}
+
+		// Get free plan
+		$free_plan = \App\Models\Plan::where('is_free', 1)->first();
+		if ( !$free_plan )
+		{
+			return false;
+		}
+
+		// If there's a current subscription
+		if ( $current_subscription = $this->subscription('main') )
+		{
+			// Cancel it
+			$current_subscription->cancelNow();
+		}
+
+		// Set free plan
+		$this->update([
+			'plan_id' => $free_plan->id,
+			'payment_interval' => null,
+			'payment_method' => null,
+			'iban_account' => null,
+			'card_brand' => null,
+			'card_last_four' => null,
+			'trial_ends_at' => null,
+			'paid_until' => null,
+		]);
+
+		// Delete all planchanges
+		$this->planchanges()->update([
+			'status' => 'canceled',
+		]);
+		$this->planchanges()->delete();
+
+		return true;
+	}
+
 }

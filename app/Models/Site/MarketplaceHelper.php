@@ -160,60 +160,7 @@ class MarketplaceHelper
 			}
 
 			// Get properties
-			$properties = [];
-
-			$query = $this->site->properties();
-
-			// Export all properties to marketplace
-			if ( @$this->marketplace->pivot->marketplace_export_all )
-			{
-			}
-			// Only enabled for this marketplace
-			else
-			{
-				$query->ofMarketplace($this->marketplace->id);
-			}
-
-			$source = $query->withEverything()
-							->orderBy('highlighted','desc')
-							->orderBy('updated_at','desc')
-							->get();
-
-			// Site limitation
-			$total_allowed = intval($this->marketplace->pivot->marketplace_maxproperties);
-			// Plan limitation
-			if ( $this->site->plan_property_limit > 0 )
-			{
-				// Only if no site limitation or bigger that site limitation
-				if ( !$total_allowed || $total_allowed > $this->site->plan_property_limit )
-				{
-					$total_allowed = $this->site->plan_property_limit;
-				}
-			}
-
-			$total_properties = $source->count();
-			$check_limit = ( $total_allowed > 0 && $total_allowed < $total_properties );
-
-			foreach ($source as $key => $property)
-			{
-				// Prepare property
-				$this->setProperty($property);
-
-				// If check_limit, validate property
-				if ( $check_limit && !$this->marketplace_adm->validateProperty($this->property_marketplace) )
-				{
-					continue;
-				}
-
-				// Add property to feed
-				$properties[] = $this->property_marketplace;
-
-				// If check_limit and total allowed has been reached
-				if ( $check_limit && count($properties) >= $total_allowed )
-				{
-					break;
-				}
-			}
+			$properties = $this->getMarketplaceProperties();
 
 			$content = $this->marketplace_adm->getPropertiesXML($properties);
 
@@ -221,6 +168,70 @@ class MarketplaceHelper
 		}
 
 		return $content;
+	}
+
+	public function getMarketplaceProperties()
+	{
+		// Get properties
+		$properties = [];
+
+		$query = $this->site->properties();
+
+		// Export all properties to marketplace
+		if ( @$this->marketplace->pivot->marketplace_export_all )
+		{
+			// Just enabled for web properties
+			$query->enabled();
+		}
+		// Only enabled for this marketplace
+		else
+		{
+			$query->ofMarketplace($this->marketplace->id);
+		}
+
+		$source = $query->withEverything()
+					->orderBy('highlighted','desc')
+					->orderBy('updated_at','desc')
+					->get();
+
+		// Site limitation
+		$total_allowed = intval($this->marketplace->pivot->marketplace_maxproperties);
+
+		// Plan limitation
+		if ( $this->site->plan_property_limit > 0 )
+		{
+			// Only if no site limitation or bigger that site limitation
+			if ( !$total_allowed || $total_allowed > $this->site->plan_property_limit )
+			{
+				$total_allowed = $this->site->plan_property_limit;
+			}
+		}
+
+		$total_properties = $source->count();
+		$check_limit = ( $total_allowed > 0 && $total_allowed < $total_properties );
+
+		foreach ($source as $key => $property)
+		{
+			// Prepare property
+			$this->setProperty($property);
+
+			// If check_limit, validate property
+			if ( $this->marketplace_adm->validateProperty($this->property_marketplace) !== true )
+			{
+				continue;
+			}
+
+			// Add property to feed
+			$properties[] = $this->property_marketplace;
+
+			// If check_limit and total allowed has been reached
+			if ( $check_limit && count($properties) >= $total_allowed )
+			{
+				break;
+			}
+		}
+
+		return $properties;
 	}
 
 	public function getMarketplaceXmlOwners()
@@ -278,7 +289,10 @@ class MarketplaceHelper
 		if ( !isset($marketplace->pivot->marketplace_configuration) )
 		{
 			// Create marketplace from site
-			$marketplace = $this->site->marketplaces()->find($marketplace->id);
+			$marketplace_site = $this->site->marketplaces()->find($marketplace->id);
+			if ($marketplace_site) {
+				$marketplace = $marketplace_site;
+			}
 		}
 
 		$config = isset($marketplace->pivot->marketplace_configuration)
@@ -302,6 +316,7 @@ class MarketplaceHelper
 			switch ( $this->marketplace->configuration['thumb_flag'] )
 			{
 				case 'greenacres':
+				case 'idealista':
 					$add_extension = '.jpg';
 					break;
 				default:

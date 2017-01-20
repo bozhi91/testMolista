@@ -22,26 +22,27 @@ class Mapper extends \App\Marketplaces\Mapper {
 
         if ($this->isRent())
         {
-            $map['price@period=monthly'] = $this->decimal($item['price']);
+            $map['price@period=monthly@currency=' . $item['currency']] = $this->decimal($item['price']);
         }
         else
         {
-            $map['price'] = $this->decimal($item['price']);
+            $map['price@currency=' . $item['currency']] = $this->decimal($item['price']);
         }
 
         $map['property_type'] = $this->property_type();
         //$map['foreclosure_type'] = '';
+
+        $map['city'] = $item['location']['city'];
+        $map['region'] = $item['location']['state'];
+        $map['postcode'] = $item['location']['zipcode'];
+        $map['city_area'] = $item['location']['district'];
 
         if (!empty($item['location']['show_address']))
         {
             $map['address'] = $item['location']['address'];
             //$map['floor_number'] = '';
             //$map['neighborhood'] = '';
-            $map['city_area'] = $item['location']['district'];
-            $map['city'] = $item['location']['city'];
-            $map['region'] = $item['location']['territory'];
             //$map['country'] = '';
-            $map['postcode'] = $item['location']['zipcode'];
             $map['latitude'] = $this->decimal($item['location']['lat'], 8);
             $map['longitude'] = $this->decimal($item['location']['lng'], 8);
         }

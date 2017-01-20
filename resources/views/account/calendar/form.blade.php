@@ -149,25 +149,37 @@
 			}
 		});
 
-        form.find('.datetimepicker-start').datetimepicker({
-        	format: 'YYYY-MM-DD HH:mm'
-        });
-        form.find('.datetimepicker-end').datetimepicker({
-        	format: 'YYYY-MM-DD HH:mm',
-            useCurrent: false //Important! See issue #1075
-        });
-        form.find('.datetimepicker-start').on("dp.change", function (e) {
-            form.find('.datetimepicker-end').data("DateTimePicker").minDate(e.date);
-        });
-        form.find('.datetimepicker-end').on("dp.change", function (e) {
-            form.find('.datetimepicker-start').data("DateTimePicker").maxDate(e.date);
-        });
+		form.find('.datetimepicker-start').datetimepicker({
+			locale: '{{moment_lang()}}',
+			format: 'YYYY-MM-DD HH:mm'
+		});
+		form.find('.datetimepicker-end').datetimepicker({
+			locale: '{{moment_lang()}}',
+			format: 'YYYY-MM-DD HH:mm',
+			useCurrent: false //Important! See issue #1075
+		});
+		form.find('.datetimepicker-start').on("dp.change", function (e, sel) {
+			form.find('.datetimepicker-end').data("DateTimePicker").minDate(e.date);
+		});
+		form.find('.datetimepicker-end').on("dp.change", function (e) {
+			form.find('.datetimepicker-start').data("DateTimePicker").maxDate(e.date);
+		});
 
-        if ( form.find('.datetimepicker-start').val() ) {
-        	form.find('.datetimepicker-start').trigger('dp.change');
-        }
+		if ( form.find('.datetimepicker-start').val() ) {
+		form.find('.datetimepicker-start').trigger('dp.change');
+		}
 
-		form.find('.has-select-2').select2();
+		form.find('.has-select-2').select2().on("select2:unselecting", function(e) {
+			$(this).data('state', 'unselected');
+		}).on("select2:open", function(e) {
+			var el = $(this);
+			if ( el.data('state') === 'unselected' ) {
+				el.removeData('state'); 
+				setTimeout(function() {
+					el.select2('close');
+				}, 1);
+			}
+		});
 
 		form.find('.property-select').on('change', function(){
 			var opt = $(this).find('option:selected');

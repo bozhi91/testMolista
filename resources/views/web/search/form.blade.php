@@ -22,6 +22,15 @@
 				@endif
 			</div>
 		</div>
+		
+		@if ( !empty($search_data['districts']) )
+			<div class="col-xs-12 col-sm-4 col-md-3 input-line">
+				<div class="form-group error-container">
+					{!! Form::select('district', [''=>Lang::get('web/properties.district')]+$search_data['districts'], Input::get('district'), [ 'class'=>'form-control has-placeholder' ]) !!}
+				</div>
+			</div>
+		@endif
+		
 	</div>
 	<div class="row">
 		@if ( !empty($search_data['modes']) )
@@ -192,33 +201,36 @@
 		form.on('change', 'select[name="state"]', function(){
 			var state = $(this).val();
 			var target = form.find('select[name="city"]');
+			var target_html = '<option value="" class="is-placeholder">' + target.find('option[value=""]').eq(0).text() + '</option>';
 
-			target.html('<option value="">' + target.find('option[value=""]').eq(0).text() + '</option>').addClass('is-placeholder');
 			if ( !state ) {
-				return;
+			    target.html(target_html);
+			    return;
 			}
 
 			if ( cities.hasOwnProperty(state) ) {
-				$.each(cities[state], function(k,v) {
-					target.append('<option value="' + v.code + '">' + v.label + '</option>');
-				});
+			    $.each(cities[state], function(k,v) {
+			        target_html += '<option value="' + v.code + '">' + v.label + '</option>';
+			    });
+			    target.html(target_html);
 			} else {
-				$.ajax({
-					dataType: 'json',
-					url: '{{ action('Ajax\GeographyController@getSuggest', 'city') }}',
-					data: { 
-						state_slug: state,
-						site_id: {{ @intval($site_setup['site_id']) }}
-					},
-					success: function(data) {
-						if ( data ) {
-							cities[state] = data;
-							$.each(cities[state], function(k,v) {
-								target.append('<option value="' + v.code + '">' + v.label + '</option>');
-							});
-						}
-					}
-				});
+			    $.ajax({
+			        dataType: 'json',
+			        url: '{{ action('Ajax\GeographyController@getSuggest', 'city') }}',
+			        data: {
+			            state_slug: state,
+			            site_id: {{ @intval($site_setup['site_id']) }}
+			        },
+			        success: function(data) {
+			            if ( data ) {
+			                cities[state] = data;
+			                $.each(cities[state], function(k,v) {
+			                    target_html += '<option value="' + v.code + '">' + v.label + '</option>';
+			                });
+			                target.html(target_html);
+			            }
+			        }
+			    });
 			}
 		});
 

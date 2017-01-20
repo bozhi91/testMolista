@@ -21,14 +21,14 @@ class TranslationsUpdateCommand extends Command
 			\DB::statement('ALTER TABLE `translations` AUTO_INCREMENT=1;');
 		}
 
-		$input_path = storage_path('lang');
+		$input_path = resource_path('lang_src');
 
 		$languages = [];
 
 		$this->info( "Generate new translations" );
 
 		// Process languages
-		foreach (scandir($input_path) as $locale) 
+		foreach (scandir($input_path) as $locale)
 		{
 			if ( $locale === '.' ) continue;
 			if ( $locale === '..' ) continue;
@@ -44,10 +44,13 @@ class TranslationsUpdateCommand extends Command
 
 			foreach ($files as $path)
 			{
+				if (!preg_match('#\.php$#', $path)) continue;
+
 				$file = str_replace("{$locale_path}/", '', $path);
 				$file = preg_replace('#\.php$#', '', $file);
 
 				$tags = include($path);
+
 				if ( empty($tags) ) continue;
 				if ( !is_array($tags) ) continue;
 
@@ -56,16 +59,15 @@ class TranslationsUpdateCommand extends Command
 		}
 
 		// Create language files
-		$files_langs = [];
+		$files_langs = \App\Models\Locale::groupBy('locale')->lists('locale')->all();
 		$files = \DB::table('translations')
 							->selectRaw("DISTINCT(file) as file")
 							->orderBy('file')
 							->get();
 		foreach ($files as $item)
 		{
-			foreach ($languages as $locale) 
+			foreach ($files_langs as $locale)
 			{
-				$files_langs[$locale] = $locale;
 				\App\Models\Translation::compileTranslation($item->file,$locale);
 			}
 		}
@@ -85,12 +87,14 @@ class TranslationsUpdateCommand extends Command
 
 			$path = "{$dir}/{$file}";
 
-			if (is_dir($path)) 
+			if (is_dir($path))
 			{
 				$this->listFolderFiles($path, $files);
 			}
 			else
 			{
+				if (!preg_match('#\.php$#', $file)) continue;
+
 				$files[] = $path;
 			}
 		}

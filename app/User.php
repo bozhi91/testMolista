@@ -37,10 +37,24 @@ class User extends Authenticatable
 		return $this->hasMany('\App\Models\Site\UserSignature');
 	}
 
+	public function sites_since() {
+		return $this->hasMany('\App\Models\Site\UserSince');
+	}
+
 	public function properties() {
 		return $this->belongsToMany('App\Property', 'properties_users', 'user_id', 'property_id')->withTranslations();
 	}
 
+	public function getCustomers() {
+		$propertyIds = $this->properties()->pluck('id');
+		$customerIds = \DB::table('properties_customers')
+				->whereIn('property_id', $propertyIds)->pluck('customer_id');
+		$customerIds = array_unique($customerIds);
+		
+		$query = Models\Site\Customer::whereIn('id', $customerIds);
+		return $query;
+	}
+	
 	public function translation_locales() {
 		return $this->belongsToMany('App\Models\Locale', 'user_translation_locales', 'user_id', 'locale_id');
 	}
@@ -132,6 +146,21 @@ class User extends Authenticatable
 		];
 	}
 
+	public function getRoleLevelAttribute()
+	{
+		$level = 1000;
+
+		foreach ($this->roles as $role) 
+		{
+			if ( $level > $role->level )
+			{
+				$level = $role->level;
+			}
+		}
+
+		return $level;
+	}
+
 	public function scopeofSite($query, $site_id)
 	{
 		$query->whereIn('id', function($query) use ($site_id) {
@@ -139,6 +168,30 @@ class User extends Authenticatable
 					->from('sites_users')
 					->where('site_id', $site_id);
 			});
+	}
+
+	public function scopeWithDomainOrSubdomain($query, $domain)
+	{
+		$parts = parse_url($domain);
+		$subdomain = @$parts['host'] ? preg_replace('#(.' . env('APP_DOMAIN') . '$)#', '', $parts['host']) : $domain;
+
+		$query->whereIn('id', function($query) use ($domain, $subdomain) {
+			$query->select('user_id')
+				->from('sites_users')
+				->whereIn('site_id', function($query) use ($subdomain) {
+					$query->select('id')
+						->from('sites')
+						->where('subdomain', 'like', "%{$subdomain}%")
+						;
+				})
+				->orWhereIn('site_id', function($query) use ($domain) {
+					$query->select('site_id')
+						->from('sites_domains')
+						->where('domain', 'like', "%{$domain}%")
+						;
+				})
+				;
+		});
 	}
 
 	public function scopeWithRole($query, $roles)
@@ -175,6 +228,16 @@ class User extends Authenticatable
 			$query->select('user_id')
 					->from('sites_users')
 					->where('site_id', '!=', $site_id);
+			});
+	}
+
+	public function scopeWithMinLevel($query, $min_level)
+	{
+		return $query->whereIn('id', function($query) use ($min_level) {
+			$query->select('role_user.user_id')
+					->from('role_user')
+					->join('roles', 'role_user.role_id', '=', 'roles.id')
+					->where('roles.level', '>=', $min_level);
 			});
 	}
 

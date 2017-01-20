@@ -39,7 +39,7 @@ class PagesController extends \App\Http\Controllers\AccountController
 			'i18n.title.'.fallback_lang() => 'required',
 			'type' => 'required|in:'.implode(',', array_keys(\App\Models\Site\Page::getTypeOptions())),
 		]);
-		if ($validator->fails()) 
+		if ($validator->fails())
 		{
 			return redirect()->back()->withInput()->withErrors($validator);
 		}
@@ -107,14 +107,14 @@ class PagesController extends \App\Http\Controllers\AccountController
 
 		// Validate
 		$validator = \Validator::make($this->request->all(), $fields);
-		if ($validator->fails()) 
+		if ($validator->fails())
 		{
 			return redirect()->back()->withInput()->withErrors($validator);
 		}
 
 		$page->enabled = 1;
-		$page->configuration = [ 
-			$page->type => $this->request->input("configuration.{$page->type}") 
+		$page->configuration = [
+			$page->type => $this->request->input("configuration.{$page->type}")
 		];
 
 		$this->savePageTranslations($page, $this->request->input('i18n'));
@@ -165,7 +165,7 @@ class PagesController extends \App\Http\Controllers\AccountController
 		}
 
 		// Images maitenance
-		foreach( glob( public_path("{$page->image_folder}/*") ) as $file ) 
+		foreach( glob( public_path("{$page->image_folder}/*") ) as $file )
 		{
 			if ( in_array(basename($file), $this->preserve_images) )
 			{
@@ -217,22 +217,23 @@ class PagesController extends \App\Http\Controllers\AccountController
 				$img->removeAttribute('class');
 				$img->setAttribute('class', implode(' ', $classes));
 			}
-			
+
 			// If img source is 'data-url'
 			if( preg_match('/data:image/', $src) )
 			{
 				// Get mimetype
 				preg_match('/data:image\/(?<mime>.*?)\;/', $src, $groups);
 				$mimetype = $groups['mime'];
-				
+
 				// Get file path
 				if ( $img->getAttribute('data-filename') )
 				{
 					$img_name = pathinfo($img->getAttribute('data-filename'), PATHINFO_FILENAME);
-					$filepath = "{$image_dir}/{$img_name}.{$mimetype}";
+					$img_base = str_slug($img_name).".{$mimetype}";
+					$filepath = "{$image_dir}/{$img_base}";
 					while ( file_exists( public_path( $filepath ) ) )
 					{
-						$filepath = "{$image_dir}/" . uniqid() . "_{$img_name}.{$mimetype}";
+						$filepath = "{$image_dir}/" . uniqid() . "_{$img_base}";
 					}
 					$img->removeAttribute('data-filename');
 				}
@@ -248,7 +249,7 @@ class PagesController extends \App\Http\Controllers\AccountController
 					})
 					->encode($mimetype, 100) 	// encode file to the specified mimetype
 					->save( public_path( $filepath )	);
-			
+
 				$img->removeAttribute('src');
 				$img->setAttribute('src', "/{$filepath}");
 

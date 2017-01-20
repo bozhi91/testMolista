@@ -26,7 +26,7 @@
 			position: relative;
 
 			.home-top-inner {
-				position: absolute; z-index: 1050; width: 100%; background: rgba(0,0,0,0.4); padding-top: 10px; padding-bottom: 10px;
+				position: absolute; z-index: 1; width: 100%; background: rgba(0,0,0,0.4); padding-top: 10px; padding-bottom: 10px;
 
 				.nav.navbar-nav {
 					float: none; text-align: center;
@@ -47,6 +47,10 @@
 
 							i {font-size: 19px;}
 							&:hover { background-color: @yellowHover;}
+						}
+
+						select.form-control.has-placeholder {
+						    max-width: 130px;
 						}
 
 						.form-control:focus { border-color: @yellow; }

@@ -1,6 +1,6 @@
 <?php namespace App\Marketplaces\Idealista;
 
-class Wrapper extends Idealista {
+class Wrapper extends Idealista implements \App\Marketplaces\Interfaces\PublishByFtpInterface {
 
     protected $configuration = [
         [
@@ -18,10 +18,6 @@ class Wrapper extends Idealista {
     public function __construct(array $config = [])
     {
         $config['aggregator'] = env('IDEALISTA_AGGREGATOR');
-        if (!isset($config['reference'])) {
-            $config['reference'] = null;
-        }
-
         parent::__construct($config);
     }
 
@@ -35,12 +31,25 @@ class Wrapper extends Idealista {
             return false;
         }
 
+		if ($property['mode'] == 'transfer') { //Solo hay compra, renta y opcion de compra
+			$this->errors []= \Lang::get('validation.transfer');
+            return false;
+		}
+
         $rules = [
             'id' => 'required',
+			'type' => 'required',
+			'mode' => 'required',
+			'reference' => 'required',
+			'price' => 'required',
             'title' => 'required',
             'code' => 'required',
-            'location.lat' => 'required',
-            'location.lng' => 'required',
+            'location.lat' => 'required', //not really required
+            'location.lng' => 'required', //not really required
+			//Flat/House features required
+			'baths' => 'required_if:type,apartment,duplex,penthouse,chalet,house,villa,farmhouse',
+			'bedrooms' => 'required_if:type,apartment,duplex,penthouse,chalet,house,villa,farmhouse',
+			'size' => 'required',
         ];
 
         $messages = [];
@@ -52,6 +61,11 @@ class Wrapper extends Idealista {
         }
 
         return true;
+    }
+
+    public function getFeedRemoteFilename(\App\Site $site)
+    {
+        return (empty($this->config['code']) ? $site->id : $this->config['code']).'.xml';
     }
 
 }

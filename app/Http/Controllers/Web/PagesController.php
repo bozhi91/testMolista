@@ -21,7 +21,7 @@ class PagesController extends WebController
 		// If slug is from another language, redirect
 		if ( $slug != $page->slug )
 		{
-			return redirect()->to(action('Web\PagesController@show', $page->slug), 301); 
+			return redirect()->to(action('Web\PagesController@show', $page->slug), 301);
 		}
 
 		$this->set_seo_values([
@@ -52,16 +52,32 @@ class PagesController extends WebController
 
 	protected function postContact($page)
 	{
-		$validator = \Validator::make($this->request->all(), [
+		$fields = [
 			'name' => 'required|string',
 			'email' => 'required|email',
 			'phone' => 'string',
 			'interest' => 'required|in:buy,rent,sell',
 			'body' => 'required|string',
-		]);
-		if ($validator->fails()) 
+		];
+
+		if ( @$page->configuration['contact']['phone_required'] )
+		{
+			$fields['phone'] = 'required|string';
+		}
+
+		$validator = \Validator::make($this->request->all(), $fields);
+		if ($validator->fails())
 		{
 			return redirect()->back()->withInput()->withErrors($validator);
+		}
+
+		// Send the email?
+		if (!empty($page->configuration['contact']['email'])) {
+			$data = $this->request->all();
+			$data['subject'] = \Lang::get('web/pages.contact.email.subject');
+
+			$job = (new \App\Jobs\SendSiteContactEmail($page->configuration['contact']['email'], $data))->onQueue('emails');
+			$this->dispatch($job);
 		}
 
 		$customer = $this->site->customers()->where('email',$this->request->input('email'))->first();

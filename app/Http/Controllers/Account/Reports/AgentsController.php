@@ -65,4 +65,49 @@ class AgentsController extends \App\Http\Controllers\AccountController
 		return view('account.reports.agents.index', compact('stats','managers','current_tab'));
 	}
 
+	
+	public function getTransactions($mode, $period, $agent = null){
+		
+		$query = $this->site->getTransactions();
+		
+		if ($agent){
+			$query->where('employee_id',$agent);
+		}
+		
+		switch ($period){
+			case 'year-to-date':
+				$query->whereDate('catch_date', '>=', date('Y').'-01-01') ;
+				break;
+			case '90-days':
+				$query->whereDate('catch_date', '>=', date('Y-m-d', time() - (60*60*24*90) ) );
+				break;
+			case '60-days':
+				$query->whereDate('catch_date', '>=', date('Y-m-d', time() - (60*60*24*60) ) );
+				break;
+			case '30-days':
+				$query->whereDate('catch_date', '>=', date('Y-m-d', time() - (60*60*24*30) ) );
+				break;
+			case '7-days':
+			default:
+				$query->whereDate('catch_date', '>=', date('Y-m-d', time() - (60*60*24*7) ) );
+				break;
+		}
+		
+		switch($mode) {
+			case 'sold':
+			case 'rent':
+			case 'transfer':
+				$query->where('status', $mode);
+				break;
+			case 'total':
+				$query->whereIn('status', ['sold', 'rent', 'transfer']);
+				break;
+		}
+		
+		
+		$transactions = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
+				
+		return view('account.reports.agents.transaction', compact('transactions'));
+	}
+	
 }

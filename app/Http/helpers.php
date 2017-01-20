@@ -9,6 +9,11 @@
 
 	function price($price, $params=false)
 	{
+		if ( is_object($params) && method_exists($params,'toArray') )
+		{
+			$params = $params->toArray();
+		}
+
 		if ( !is_array($params) )
 		{
 			$params = [];
@@ -16,7 +21,7 @@
 
 		$iso = isset($params['iso']) ? $params['iso'] : \App\Session\Currency::get('iso', 'EUR');
 		$symbol = isset($params['symbol']) ? $params['symbol'] : \App\Session\Currency::get('symbol', '€');
-		$decimals = isset($params['decimals']) ? $params['decimals'] : \App\Session\Currency::get('decimals', 2);
+		$decimals = isset($params['decimals']) ? $params['decimals'] : \App\Session\Currency::get('decimals', 0);
 		$position = isset($params['position']) ? $params['position'] : \App\Session\Currency::get('position', 'after');
 
 		$currency = [];
@@ -49,7 +54,7 @@
 
     	foreach ($nav as $url => $prev)
     	{
-    		if ( strpos(url()->current(), $url) === false )
+    		if ( strpos(url_current(), $url) === false )
     		{
     			continue;
     		}
@@ -366,7 +371,7 @@
 
 	function sort_link($field)
 	{
-		return url()->current() . '?' . http_build_query(Input::except('sort')) . '&sort=' . $field;
+		return url_current() . '?' . http_build_query(Input::except('sort')) . '&sort=' . $field;
 	}
 
 	function fallback_lang()
@@ -461,4 +466,68 @@
 		}
 
 		return $message;
+	}
+
+	function url_current()
+	{
+		$full = url()->full();
+		$parts = explode('?', $full);
+		return $parts[0];
+	}
+
+	function moment_lang()
+	{
+		switch ( strtolower(LaravelLocalization::getCurrentLocaleScript()) )
+		{
+			case 'arab':
+				return 'en';
+
+		}
+
+		return LaravelLocalization::getCurrentLocale();
+	}
+
+	function site_url($url, \App\Site $site = null)
+	{
+		if (!$site) return $url;
+
+		// Use always the main domain
+		$parts = parse_url($url);
+
+		$final = trim($site->main_url);
+
+		if (!empty($parts['path'])) {
+			$final .= $parts['path'];
+		}
+
+		if (!empty($parts['query'])) {
+			$final .= '?'.$parts['query'];
+		}
+
+		if (!empty($parts['fragment'])) {
+			$final .= '#'.$parts['fragment'];
+		}
+
+		return $final;
+	}
+
+	function email_render($view, $data = null, $css = null)
+	{
+		$content = view($view, $data)->render();
+
+		if ($css) {
+			$css_path = base_path($css);
+			if ( file_exists($css_path) )
+			{
+				$emogrifier = new \Pelago\Emogrifier($content, file_get_contents($css_path));
+				$content = $emogrifier->emogrify();
+			}
+		}
+
+		return $content;
+	}
+
+	function email_render_corporate($view, $data = null)
+	{
+		return email_render($view, $data, 'resources/assets/css/emails/corporate.css');
 	}

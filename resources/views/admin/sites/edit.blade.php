@@ -2,7 +2,12 @@
 
 @section('content')
 
-	<div class="container">
+	<style type="text/css">
+		#tab-site-payments .pagination-limit { display: none; }
+		.mfp-iframe-scaler iframe { background: #fff; }
+	</style>
+
+	<div id="admin-sites" class="container">
 
 		@include('common.messages', [ 'dismissible'=>true ])
 
@@ -12,6 +17,7 @@
 		<ul class="nav nav-tabs main-tabs" role="tablist">
 			<li role="presentation" class="{{ $current_tab == 'site' ? 'active' : '' }}"><a href="#tab-site-config" aria-controls="tab-site-config" role="tab" data-toggle="tab">{{ Lang::get('admin/sites.tab.config') }}</a></li>
 			<li role="presentation" class="{{ $current_tab == 'plan' ? 'active' : '' }}"><a href="#tab-site-plan" aria-controls="tab-site-plan" role="tab" data-toggle="tab">{{ Lang::get('admin/sites.tab.plan') }}</a></li>
+			<li role="presentation" class="{{ $current_tab == 'payments' ? 'active' : '' }}"><a href="#tab-site-payments" aria-controls="tab-site-payments" role="tab" data-toggle="tab">{{ Lang::get('admin/sites.tab.payments') }}</a></li>
 			<li role="presentation" class="{{ $current_tab == 'invoices' ? 'active' : '' }}"><a href="#tab-site-invoices" aria-controls="tab-site-invoices" role="tab" data-toggle="tab">{{ Lang::get('admin/sites.tab.invoices') }}</a></li>
 		</ul>
 
@@ -91,21 +97,25 @@
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-6">
-							<label>&nbsp;</label>
-							<div class="text-right">
-								@if ( count($site->owners_ids) > 0 && Auth::user()->can('user-login') )
-									<a href="{{action('Admin\SitesController@show', $site->id)}}" class="btn btn-sm btn-default" target="_blank">
-										<span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
-										{{ Lang::get('admin/sites.goto.admin') }}
-									</a>
-								@endif
-								<a href="{{$site->main_url}}" class="btn btn-sm btn-default" target="_blank">
-									<span class="glyphicon glyphicon-link" aria-hidden="true"></span>
-									{{ Lang::get('admin/sites.goto.site') }}
-								</a>
+							<div class="form-group error-container">
+								{!! Form::label('reseller_id', Lang::get('admin/sites.reseller')) !!}
+								{!! Form::select('reseller_id', [ ''=>'' ]+$resellers, null, [ 'class'=>'form-control' ]) !!}
 							</div>
 						</div>
 					</div>
+
+					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group error-container">
+								{!! Form::label('hide_molista', Lang::get('admin/sites.hide.molista')) !!}
+								{!! Form::select('hide_molista', [
+									0 => Lang::get('general.no'),
+									1 => Lang::get('general.yes'),
+								], null, [ 'class'=>'form-control' ]) !!}
+							</div>
+						</div>
+					</div>
+
 					<div class="row">
 						<div class="col-xs-12 col-sm-6">
 							<div class="form-group error-container">
@@ -117,9 +127,25 @@
 								</div>
 							</div>
 						</div>
-					</div>
-					<div class="text-right">
-						{!! Form::button( Lang::get('general.continue'), [ 'type'=>'submit', 'class'=>'btn btn-default hide' ]) !!}
+						<div class="col-xs-12 col-sm-6">
+							<div class="pull-right">
+								{!! Form::button( Lang::get('general.save'), [ 'type'=>'submit', 'class'=>'btn btn-default' ]) !!}
+							</div>
+							@if ( count($site->owners_ids) > 0 && Auth::user()->can('user-login') )
+								<a href="{{action('Admin\SitesController@show', $site->id)}}" class="btn btn-sm btn-default" target="_blank">
+									<span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+									{{ Lang::get('admin/sites.goto.admin') }}
+								</a>
+							@endif
+							<a href="{{$site->main_url}}" class="btn btn-sm hidden-xs btn-default" target="_blank">
+								<span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+								{{ Lang::get('admin/sites.goto.site') }}
+							</a>
+							<a href="{{ action('Admin\SitesController@getUpdateSetup', $site->id) }}" class="btn btn-sm btn-default hidden-sm hidden-xs setup-reload-trigger">
+								<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+								{{ Lang::get('admin/sites.setup.reload') }}
+							</a>
+						</div>
 					</div>
 				{!! Form::close() !!}
 
@@ -130,14 +156,14 @@
 						<div class="col-xs-12 col-sm-6">
 							<div class="form-group error-container">
 								{!! Form::label(null, 'Type') !!}
-								{!! Form::text(null, Lang::get("corporate/signup.invoicing.type.{$plan_details->invoicing['type']}"), [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								{!! Form::text(null, Lang::get("corporate/signup.invoicing.type.{$plan_details->invoicing['type']}"), [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 							</div>
 						</div>
 						@if ( $plan_details->invoicing['type'] == 'company' )
 							<div class="col-xs-12 col-sm-6">
 								<div class="form-group error-container">
 									{!! Form::label(null, Lang::get('corporate/signup.invoicing.company')) !!}
-									{!! Form::text(null, @$plan_details->invoicing['company'], [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+									{!! Form::text(null, @$plan_details->invoicing['company'], [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 								</div>
 							</div>
 						@endif
@@ -146,49 +172,49 @@
 						<div class="col-xs-12 col-sm-6">
 							<div class="form-group error-container">
 								{!! Form::label(null, Lang::get('corporate/signup.invoicing.first_name')) !!}
-								{!! Form::text(null, @$plan_details->invoicing['first_name'], [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								{!! Form::text(null, @$plan_details->invoicing['first_name'], [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-6">
 							<div class="form-group error-container">
 								{!! Form::label(null, Lang::get('corporate/signup.invoicing.last_name')) !!}
-								{!! Form::text(null, @$plan_details->invoicing['last_name'], [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								{!! Form::text(null, @$plan_details->invoicing['last_name'], [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-6">
 							<div class="form-group error-container">
 								{!! Form::label(null, Lang::get('corporate/signup.invoicing.email')) !!}
-								{!! Form::text(null, @$plan_details->invoicing['email'], [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								{!! Form::text(null, @$plan_details->invoicing['email'], [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-6">
 							<div class="form-group error-container">
 								{!! Form::label(null, Lang::get('corporate/signup.invoicing.tax_id')) !!}
-								{!! Form::text(null, @$plan_details->invoicing['tax_id'], [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								{!! Form::text(null, @$plan_details->invoicing['tax_id'], [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-6">
 							<div class="form-group error-container">
 								{!! Form::label(null, Lang::get('corporate/signup.invoicing.street')) !!}
-								{!! Form::text(null, @$plan_details->invoicing['street'], [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								{!! Form::text(null, @$plan_details->invoicing['street'], [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-6">
 							<div class="form-group error-container">
 								{!! Form::label(null, Lang::get('corporate/signup.invoicing.zipcode')) !!}
-								{!! Form::text(null, @$plan_details->invoicing['zipcode'], [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								{!! Form::text(null, @$plan_details->invoicing['zipcode'], [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-6">
 							<div class="form-group error-container">
 								{!! Form::label(null, Lang::get('corporate/signup.invoicing.city')) !!}
-								{!! Form::text(null, @$plan_details->invoicing['city'], [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								{!! Form::text(null, @$plan_details->invoicing['city'], [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-6">
 							<div class="form-group error-container">
 								{!! Form::label(null, Lang::get('corporate/signup.invoicing.country')) !!}
-								{!! Form::text(null, @$plan_details->invoicing['country'], [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								{!! Form::text(null, @$plan_details->invoicing['country'], [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 							</div>
 						</div>
 					</div>
@@ -200,16 +226,16 @@
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
 							{!! Form::label(null, Lang::get('admin/expirations.plan')) !!}
-							{!! Form::text(null, $site->plan->name, [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+							{!! Form::text(null, $site->plan->name, [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
 							{!! Form::label(null, Lang::get('admin/expirations.payment.method')) !!}
 							@if ( $site->payment_interval )
-								{!! Form::text(null, Lang::get("web/plans.price.{$site->payment_interval}"), [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								{!! Form::text(null, Lang::get("web/plans.price.{$site->payment_interval}"), [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 							@else
-								{!! Form::text(null, null, [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								{!! Form::text(null, null, [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 							@endif
 						</div>
 					</div>
@@ -217,9 +243,9 @@
 						<div class="form-group error-container">
 							{!! Form::label(null, Lang::get('admin/expirations.payment.interval')) !!}
 							@if ( $site->payment_method )
-								{!! Form::text(null, Lang::get("account/payment.method.{$site->payment_method}"), [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								{!! Form::text(null, Lang::get("account/payment.method.{$site->payment_method}"), [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 							@else
-								{!! Form::text(null, null, [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								{!! Form::text(null, null, [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 							@endif
 						</div>
 					</div>
@@ -228,7 +254,7 @@
 							<div class="col-xs-12 col-sm-6">
 								<div class="form-group error-container">
 									{!! Form::label(null, Lang::get('corporate/signup.payment.iban')) !!}
-									{!! Form::text(null, $site->iban_account, [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+									{!! Form::text(null, $site->iban_account, [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 								</div>
 							</div>
 						</div>
@@ -237,9 +263,9 @@
 						<div class="form-group error-container">
 							{!! Form::label(null, Lang::get('admin/expirations.paid.until')) !!}
 							@if ( $site->paid_until )
-								{!! Form::text(null, date("d/m/Y", strtotime($site->paid_until)), [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								{!! Form::text(null, date("d/m/Y", strtotime($site->paid_until)), [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 							@else
-								{!! Form::text(null, null, [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								{!! Form::text(null, null, [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 							@endif
 						</div>
 					</div>
@@ -247,16 +273,39 @@
 						<div class="form-group error-container">
 							{!! Form::label(null, Lang::get('admin/sites.transfer')) !!}
 							@if ( $site->web_transfer_requested )
-								{!! Form::text(null, Lang::get('general.yes'), [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								{!! Form::text(null, Lang::get('general.yes'), [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 							@else
-								{!! Form::text(null, Lang::get('general.no'), [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+								{!! Form::text(null, Lang::get('general.no'), [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 							@endif
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
 							{!! Form::label(null, Lang::get('admin/sites.currency')) !!}
-							{!! Form::text(null, $site->payment_currency, [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+							{!! Form::text(null, $site->payment_currency, [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
+						</div>
+					</div>
+				</div>
+
+				<hr />
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
+						@if ( $site->stripe_id )
+							<div class="form-group error-container">
+								{!! Form::label(null, 'Stripe customer ID') !!}
+								{!! Form::text(null, $site->stripe_id, [ 'class'=>'form-control', 'disabled'=>'disabled' ]) !!}
+							</div>
+						@endif
+					</div>
+					<div class="col-xs-12 col-sm-6">
+						@if ( $site->stripe_id )
+							<label>&nbsp;</label>
+						@endif
+						<div class="text-right">
+							<a href="{{ action('Admin\SitesController@getDowngrade', $site->id) }}" class="btn btn-default {{ $site->plan->is_free ? 'disabled' : 'plan-downgrade-trigger' }}">
+								<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+								{{ Lang::get('admin/sites.downgrade.button') }}
+							</a>
 						</div>
 					</div>
 				</div>
@@ -360,6 +409,10 @@
 				@endif
 			</div>
 
+			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'payments' ? 'active' : '' }}" id="tab-site-payments">
+				{!! $payment_tab !!}
+			</div>
+
 		</div>
 
 		<div class="text-right">
@@ -370,7 +423,17 @@
 	</div>
 
 	<script type="text/javascript">
+		var payments_url = "{{ action('Admin\Sites\PaymentsController@getList', $site->id) }}";
+		function payments_reload() {
+			LOADING.show();
+			$.magnificPopup.close();
+			$('#tab-site-payments').load(payments_url, function(){
+				LOADING.hide();
+			});
+		}
+
 		ready_callbacks.push(function(){
+			var cont = $('#admin-sites');
 			var form = $('#site-form');
 
 			form.validate({
@@ -456,6 +519,63 @@
 			$('#tab-site-plan .webhook-detail-trigger').each(function(){
 				$(this).magnificPopup({
 					type: 'inline',
+				});
+			});
+
+
+			cont.on('shown.bs.tab', '.main-tabs a[data-toggle="tab"]', function (e) {
+				var sel = $(e.target).attr('href');
+				$(sel).find('.has-select-2').select2();
+			});
+
+			// Tab payments
+			function loadPayments(url) {
+				tab_payments.data('url', url)
+				tab_payments.load(url, function(){
+					LOADING.hide();
+				});
+			}
+
+			var tab_payments = $('#tab-site-payments');
+
+			tab_payments.on('click', '.pagination a', function(e){
+				e.preventDefault();
+
+				LOADING.show();
+
+				payments_url = $(this).attr('href');
+
+				tab_payments.load(payments_url, function(){
+					LOADING.hide();
+				});
+			});
+			tab_payments.on('click', '.edit-payment-trigger', function(e){
+				e.preventDefault();
+				var el = $(this);
+				$.magnificPopup.open({
+					items: {
+						src: el.data().href + '?ajax=1'
+					},
+					type: 'iframe',
+					modal: true
+				});
+			});
+
+			cont.on('click', '.setup-reload-trigger', function(e){
+				LOADING.show();
+				return true;
+			});
+
+			cont.on('click', '.plan-downgrade-trigger', function(e){
+				e.preventDefault();
+
+				var el = $(this);
+
+				SITECOMMON.confirm("{{ print_js_string( Lang::get('admin/sites.downgrade.confirm') ) }}", function (e) {
+					if (e) {
+						LOADING.show();
+						document.location.href = el.attr('href');
+					}
 				});
 			});
 

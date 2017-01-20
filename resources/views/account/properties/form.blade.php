@@ -1,5 +1,5 @@
 <?php
-	$infocurrency = empty($property->currency) ? $current_site->infocurrency : $property->infocurrency;
+	$infocurrency = ($item && $item->infocurrency) ? $item->infocurrency : $current_site->infocurrency;
 
 	// Priorizar países
 	if ( empty($current_site->country_ids) )
@@ -89,6 +89,36 @@
 									<div class="input-group-addon">{{ $infocurrency->symbol }}</div>
 								@endif
 							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group error-container">
+							{!! Form::hidden('currency', $infocurrency->code) !!}
+							{!! Form::label('price_before', Lang::get('account/properties.price_before')) !!}
+							<div class="input-group">
+								@if ( $infocurrency->position == 'before' )
+									<div class="input-group-addon">{{ $infocurrency->symbol }}</div>
+								@endif
+								{!! Form::text('price_before', null, [ 'class'=>'form-control number', 'min'=>'0' ]) !!}
+								@if ( $infocurrency->position == 'after' )
+									<div class="input-group-addon">{{ $infocurrency->symbol }}</div>
+								@endif
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-3">
+						<div class="form-group error-container">
+							{!! Form::label('discount', Lang::get('account/properties.discount')) !!}
+							<div class="input-group">
+								{!! Form::text('discount', null, [ 'class'=>'form-control', 'readonly' => 'readonly', 'max'=>'0' ]) !!}
+								<div class="input-group-addon">%</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-3">
+						<div class="form-group error-container">
+							{!! Form::label('discount_show', Lang::get('account/properties.discount_show')) !!}
+							{!! Form::select('discount_show', [ '' => '','0'=>Lang::get('general.no'), '1'=>Lang::get('general.yes') ], null, [ 'class'=>'form-control' ]) !!}
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6">
@@ -332,6 +362,16 @@
 						<div class="form-group">
 							<div class="checkbox error-container">
 								<label>
+									{!! Form::checkbox('home_slider', 1, null) !!}
+									{{ Lang::get('account/properties.home.slider') }}
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-3">
+						<div class="form-group">
+							<div class="checkbox error-container">
+								<label>
 									{!! Form::checkbox('highlighted', 1, null) !!}
 									{{ Lang::get('account/properties.highlighted') }}
 								</label>
@@ -409,7 +449,7 @@
 							<div class="form-group">
 								<div class="checkbox error-container">
 									<label>
-										{!! Form::checkbox('services[]', $service->id, empty($property) ? null : $property->hasService($service->id) ) !!}
+										{!! Form::checkbox('services[]', $service->id, $item ? $item->hasService($service->id) : null ) !!}
 										{{ $service->title }}
 									</label>
 								</div>
@@ -437,8 +477,22 @@
 							{!! Form::select('city_id', $tmp, null, [ 'class'=>'form-control required city-input' ]) !!}
 						</div>
 						<div class="form-group error-container">
-							{!! Form::label('district', Lang::get('account/properties.district')) !!}
-							{!! Form::text('district', null, [ 'class'=>'form-control district-input' ]) !!}
+							<a href="#add-district" class="add-district-trigger btn btn-default btn-xs pull-right"
+							   title="{{ Lang::get('account/properties.districts.create') }}">+</a>
+
+							{!! Form::label('district_id', Lang::get('account/properties.district')) !!}
+
+							<div id="district-select-container">
+								<?php $tmp = empty($districts) ? [ ''=>'' ] : [ ''=>'' ] + $districts->toArray(); ?>
+								{!! Form::select('district_id', $tmp, @$item->district_id, [ 'class'=>'form-control district-input' ]) !!}
+							</div>
+
+							<div id="district-input-container" style="display: none;">
+								{!! Form::text('district', null, [ 'class'=>'form-control district-input' ]) !!}
+							</div>
+
+							{!! Form::hidden('new_district', false) !!}
+
 						</div>
 						@include('account/properties/form-address')
 					</div>
@@ -542,8 +596,8 @@
 						</div>
 
 						<ul class="image-gallery sortable-image-gallery property-image-gallery">
-							@if ( !empty($property) && count($property->images) > 0 )
-								@foreach ($property->images->sortBy('position') as $image)
+							@if ( $item && $item->images->count() > 0 )
+								@foreach ($item->images->sortBy('position') as $image)
 									@include('account.properties.form-image-thumb',[
 										'image_url' => $image->image_url,
 										'image_id' => $image->id,
@@ -553,6 +607,9 @@
 								@endforeach
 							@endif
 						</ul>
+						<div class="form-group error-container">
+							<input type="hidden" name="total_images" value="{{ $item ? $item->images->count() : 0 }}" class="required digits" min="1" />
+						</div>
 						<div class="visible-xs-block">
 							<p>&nbsp;</p>
 						</div>
@@ -636,8 +693,19 @@
 		var property_geocoder;
 		var property_zoom = {{ $item ? '14' : '6' }};
 
+		var total_images_input = form.find('input[name="total_images"]');
+
 		// Enable first language tab
 		form.find('.locale-tabs a').eq(0).trigger('click');
+
+		form.find('.add-district-trigger').on('click', function(e){
+			$('#district-select-container').slideToggle();
+			$('#district-input-container').slideToggle();
+
+			var $hidden = form.find('[name="new_district"]');
+			var val = $hidden.val();
+			$hidden.val(val === "true" ? "false" : "true");
+		});
 
 		// Form validation
 		form.validate({
@@ -654,6 +722,14 @@
 					}
 				}
 			},
+			messages:
+			{
+				total_images: {
+					required: "{{ print_js_string( Lang::get('account/properties.images.empty.error') ) }}",
+					digits: "{{ print_js_string( Lang::get('account/properties.images.empty.error') ) }}",
+					min: "{{ print_js_string( Lang::get('account/properties.images.empty.error') ) }}"
+				}
+			},
 			submitHandler: function(f) {
 				LOADING.show();
 				f.submit();
@@ -661,6 +737,19 @@
 		});
 
 		property_geocoder = new google.maps.Geocoder();
+
+		// Discount
+		form.find('[name="price"],[name="price_before"]').keyup(function(){
+			var price = form.find('[name="price"]').val();
+			if (isNaN(price)) price = 0;
+			var price_before = form.find('[name="price_before"]').val();
+			if (isNaN(price_before)) price_before = 0;
+			var discount  = 0;
+			if (price_before > 0)  discount = (price_before - price) * 100 / price_before;
+			if (isNaN(discount)) discount = 0;
+
+			form.find('[name="discount"]').val(Math.ceil(discount) * -1);
+		}).keyup();
 
 		// Enable map when opening tab
 		form.find('.main-tabs a[href="#tab-location"]').on('shown.bs.tab', function (e) {
@@ -731,7 +820,6 @@
 			}
 
 			LOADING.show();
-console.log( address.join(', ') );
 			property_geocoder.geocode({
 				'address': address.join(', ')
 			}, function(results, status) {
@@ -742,7 +830,13 @@ console.log( address.join(', ') );
 					form.find('.input-lat').val( results[0].geometry.location.lat() );
 					form.find('.input-lng').val( results[0].geometry.location.lng() );
 				} else {
-					alertify.error("{{ print_js_string( Lang::get('account/properties.geolocate.error') ) }}"+status);
+					var message = "{{ print_js_string( Lang::get('account/properties.geolocate.error') ) }}: "+status;
+					switch (status) {
+						case 'ZERO_RESULTS':
+							message = "{{ print_js_string( Lang::get('account/properties.geolocate.no_results') ) }}";
+							break;
+					}
+					alertify.error(message);
 				}
 			});
 		});
@@ -812,6 +906,31 @@ console.log( address.join(', ') );
 					initImageWarnings();
 				}
 			});
+		});
+
+		form.on('click', '.image-rotate-trigger', function(e){
+			e.preventDefault();
+
+			var el = $(this);
+			var thumb = el.closest('.handler').find('.thumb');
+			var input = el.parent().find('.rotation-hidden-input');
+			var degree = input.val();
+
+			if(!degree) {
+				thumb.addClass('rotated-90');
+				input.val('90');
+			} else if(degree == '90') {
+				thumb.removeClass('rotated-90');
+				thumb.addClass('rotated-180');
+				input.val('180');
+			} else if(degree == '180') {
+				thumb.removeClass('rotated-180');
+				thumb.addClass('rotated-270');
+				input.val('270');
+			} else if(degree == '270') {
+				thumb.removeClass('rotated-270');
+				input.val('');
+			}
 		});
 
 		// Translations
@@ -1021,13 +1140,10 @@ console.log( address.join(', ') );
 
 		form.on('change', 'select[name="export_to_all"]', function(){
 			if ( $(this).val() == '1' ) {
-				form.find('.marketplace-input').prop('checked',true);
-				form.find('.not-published-rel').addClass('hide');
-				form.find('.marketplaces-overlay').removeClass('hide');
+				form.find('.marketplace-input').prop('checked',true).prop('disabled', true);
 			} else {
+				form.find('.marketplace-input').prop('disabled', false);
 				form.find('.marketplace-input-unpublished').prop('checked',false);
-				form.find('.not-published-rel').removeClass('hide');
-				form.find('.marketplaces-overlay').addClass('hide');
 			}
 		});
 
@@ -1081,7 +1197,9 @@ console.log( address.join(', ') );
 		function initImageWarnings() {
 			form.find('.images-warning-size, .images-warning-orientation').addClass('hide');
 
-			if ( form.find('.image-gallery .thumb').length < 1 ) {
+			total_images_input.val( form.find('.image-gallery .thumb').length );
+
+			if ( total_images_input.val() < 1 ) {
 				form.find('.images-empty').show();
 			} else {
 				form.find('.images-empty').hide();
@@ -1092,6 +1210,8 @@ console.log( address.join(', ') );
 					form.find('.images-warning-orientation').removeClass('hide');
 				}
 			}
+
+			total_images_input.valid();
 		}
 		function initImageTooltips() {
 			form.find('.thumb-has-tooltip').removeClass('thumb-has-tooltip').tooltip();

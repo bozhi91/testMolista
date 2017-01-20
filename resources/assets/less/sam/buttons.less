@@ -1,0 +1,17 @@
+@import '../app/buttons.less';
+
+.btn.btn-primary {
+    color: @buttonsTextColor !important;
+    border-color: @buttonsBorder;
+    background: @buttonsBackground;
+
+    &:focus {
+    	border-color: @buttonsBorder !important;
+    	background: @buttonsBackground !important;
+    }
+}
+
+.btn-group.open > .dropdown-toggle.btn-primary:hover, .btn-group.open > .dropdown-toggle.btn-primary:focus {
+    border-color: @buttonsBorder;
+    background: @buttonsBackground;
+}

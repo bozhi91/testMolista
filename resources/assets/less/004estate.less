@@ -1,0 +1,26 @@
+@004HeaderBlack: #171715;
+
+#header {
+	background-color: #fff;
+
+	.btnBdrYlw { 
+		background-color: transparent; color: @004HeaderBlack; border-color: @004HeaderBlack;
+		&:hover { background-color: @004HeaderBlack; color: #fff; }
+	}
+
+	@media (min-width: 768px) {
+		.navbar-brand { 
+			padding-top: 0px;
+			img { max-height: 65px; }
+		}	
+	}
+
+	@media (max-width: 767px) {
+		.navbar-brand { 
+			padding: 0px 15px;
+			img { max-height: 40px; }
+		}	
+	}
+
+}
+

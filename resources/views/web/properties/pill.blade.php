@@ -1,8 +1,9 @@
 <div class="property-pill">
 	<div class="padder">
-		<a href="{{ action('Web\PropertiesController@details', $item->slug) }}" class="image" style="background-image: url('{{ $item->main_image }}');">
-			<img src="{{ $item->main_image }}" alt="{{$item->title}}" class="hide" />
+		<a href="{{ $item->full_url }}" class="image" style="background-image: url('{{ $item->main_image_thumb }}');">
+			<img src="{{ $item->main_image_thumb }}" alt="{{$item->title}}" class="hide" />
 		</a>
+		@include('web.properties.discount-label')
 		<div class="text">
 			@if ( $item->label)
 				<div class="labels">
@@ -10,9 +11,9 @@
 				</div>
 			@endif
 			<div class="title text-bold">
-				<a href="{{ action('Web\PropertiesController@details', $item->slug) }}">{{$item->title}}</a>
+				<a href="{{ $item->full_url }}">{{$item->title}}</a>
 			</div>
-			<div class="price text-italic">{{ price($item->price, $item->infocurrency->toArray()) }}</div>
+			<div class="price text-italic">{{ price($item->price, $item->infocurrency->toArray()) }} @include('web.properties.discount-price') </div>
 			<div class="location text-italic">{{ implode(', ', array_filter([
 				'district' => $item->district,
 				'city' => $item->city->name,
@@ -21,7 +22,7 @@
 			<ul class="list-inline metrics">
 				<li class="text-nowrap text-lowercase has-fontello-icon">
 					<i class="fontello-icon fontello-icon-table"></i>
-					{{ number_format($property->rooms,0,',','.') }} 
+					{{ number_format($property->rooms,0,',','.') }}
 					@if ($property->rooms == 1)
 						{{ Lang::get('web/properties.more.room') }}
 					@else
@@ -39,7 +40,7 @@
 				</li>
 			</ul>
 			<div class="button hide">
-				<a href="{{ action('Web\PropertiesController@details', $item->slug) }}">Ver Detalles</a>
+				<a href="{{ $item->full_url }}">{{ Lang::get('web/properties.search.results.more') }}</a>
 			</div>
 		</div>
 	</div>

@@ -29,7 +29,7 @@
 		    	&.open { a { background: transparent; }	}
 
 		    	.dropdown-menu {
-	    		    background: @gray; border-radius: 4px; border: 1px solid @gray;
+	    		    background: @gray; border-radius: 4px; border: 1px solid @gray; z-index: 2000;
 
 				    li a {
 				    	color: @black;
@@ -135,5 +135,37 @@
 			.open .main-item { background: transparent; }
 		}
 
+		//settings on responsive menu
+		#app-navbar-collapse {
+			padding-top: 5px;
+		}
+		.navbar-nav {
+			margin: 0px -15px !important;
+		}
+		.header-locale-social {
+			.locale-select {
+				.main-item {
+					padding: 10px 15px !important;
+					margin: 0px !important;
+
+					.locale-placeholder {
+						padding: 0px !important;
+					}
+				}
+				.dropdown-menu {
+					margin-left: 25px;
+					margin-right: 25px;
+				}
+			}
+		}
 	}
+}
+
+
+/* Ajuste contenido en responive */
+
+@media (max-width: 767px) {
+  #sticky-wrapper {
+    padding-top: 80px;
+  }
 }

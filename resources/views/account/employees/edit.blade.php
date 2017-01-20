@@ -24,6 +24,7 @@
 					<li role="presentation"><a href="#tab-permissions" aria-controls="tab-permissions" role="tab" data-toggle="tab">{{ Lang::get('account/employees.show.tab.permissions') }}</a></li>
 					<li role="presentation"><a href="#tab-tickets" aria-controls="tab-tickets" role="tab" data-toggle="tab">{{ Lang::get('account/employees.tickets') }}</a></li>
 					<li role="presentation"><a href="#tab-visits" aria-controls="tab-visits" role="tab" data-toggle="tab">{{ Lang::get('account/visits.title') }}</a></li>
+					<li role="presentation"><a href="#tab-leads" aria-controls="tab-leads" role="tab" data-toggle="tab">{{ Lang::get('account/employees.leads') }}</a></li>
 				</ul>
 
 				<div class="tab-content">
@@ -41,30 +42,47 @@
 							<div style="font-weight: bold; padding-top: 10px;">{{ Lang::get('account/employees.show.tab.permissions.delete_all.warning') }}</div>
 							<hr />
 						@endif
-						<div class="alert alert-info properties-empty {{ ( count($properties) > 0 ) ? 'hide' : '' }}">{{ Lang::get('account/employees.show.tab.properties.empty') }}</div>
-						@if ( count($properties) > 0 )
-							<div class="properties-list {{ ( count($properties) < 1 ) ? 'hide' : '' }}">
-								<table class="table table-hover">
-									<thead>
-										<tr>
-											<th>{{ Lang::get('account/employees.show.tab.properties.title') }}</th>
-											<th></th>
-										</tr>
-									</thead>
-									<tbody>
-										@foreach ($properties as $property)
-											<tr class="property-line">
-												<td>{{ $property->title }}</td>
-												<td class="text-right text-nowrap">
-													@if ( Auth::user()->can('property-edit') && Auth::user()->can('employee-edit'))
-														{!! Form::button( Lang::get('account/employees.button.dissociate'), [ 'class'=>'btn btn-default btn-xs dissociate-trigger', 'data-url'=>action('Account\EmployeesController@getDissociate', [ $employee->id, $property->id ]) ]) !!}
-													@endif
-												</td>
-											</tr>
-										@endforeach
-									</tbody>
-								</table>
+
+						@if ( $properties->count() < 1)
+							<div class="alert alert-info properties-empty">
+								{{ Lang::get('account/employees.show.tab.properties.empty') }}
 							</div>
+						@else
+							<table class="table table-striped">
+							<thead>
+								<tr>
+									{!! drawSortableHeaders(url()->full(), [
+										'assigned' => [ 'title' => Lang::get('account/employees.show.tab.properties.assigned'), 'sortable'=>false, 'class'=>'text-center' ],
+										'reference' => [ 'title' => Lang::get('account/properties.ref'), 'sortable'=>false, ],
+										'address' => [ 'title' => Lang::get('account/properties.column.address'), 'sortable'=>false, ],
+										'price' => [ 'title' => Lang::get('account/properties.column.price'), 'sortable'=>false, ],
+										'action' => [ 'title' => '', 'sortable'=>false ],
+									]) !!}
+								</tr>
+							</thead>
+							<tbody>
+								@foreach ($properties as $property)
+								<tr>
+									<td class="text-center">
+										<a href="#" data-url="{{ action('Account\EmployeesController@getChangeRelation', [
+											'email' => $employee->email, 'property_id' => $property->id]) }}" class="change-status-trigger">
+											<span class="glyphicon glyphicon-{{ in_array($property->id, $assigned_properties) ? 'ok' : 'remove' }}" aria-hidden="true"></span>
+										</a>
+									</td>
+									<td>{{ $property->ref }}</td>
+									<td>{!! implode( [
+										$property->address,
+										@implode(' / ', array_filter([ $property->city->name, $property->state->name ]))
+										], '<br>') !!}</td>
+									<td>{{ $property->price }}</td>
+									<td class="text-right text-nowrap">
+										<a href="{{ action('Account\PropertiesController@show', $property->slug) }}" class="btn btn-primary btn-xs">{{ Lang::get('general.view') }}</a>
+									</td>
+								</tr>
+								@endforeach
+							</tbody>
+							</table>
+							{!! drawPagination($properties, Input::except('page')) !!}
 						@endif
 					</div>
 
@@ -141,6 +159,43 @@
 						])
 					</div>
 
+					<div role="tabpanel" class="tab-pane tab-main" id="tab-leads">
+						@if ( count($customers->count()) < 1)
+							<div class="alert alert-info">{{ Lang::get('account/customers.empty') }}</div>
+						@else
+							<table class="table table-striped">
+								<thead>
+								<tr>
+									{!! drawSortableHeaders(url()->full(), [
+										'name' => [ 'title' => Lang::get('account/customers.name'), 'sortable'=>false, ],
+										'email' => [ 'title' => Lang::get('account/customers.email'), 'sortable'=>false, ],
+										'origin' => [ 'title' => Lang::get('account/customers.origin'), 'sortable'=>false, ],
+										'properties' => [ 'title' => Lang::get('account/customers.properties'), 'sortable'=>false, 'class'=>'text-center', ],
+										'matches' => [ 'title' => Lang::get('account/customers.matches'), 'sortable'=>false, 'class'=>'text-center', ],
+										'action' => [ 'title' => '', 'sortable'=>false, 'class'=>'text-right text-nowrap', ],
+									]) !!}
+								</tr>
+								</thead>
+								<tbody>
+								@foreach ($customers as $customer)
+									<tr>
+										<td>{{ $customer->full_name }}</td>
+										<td>{{ $customer->email }}</td>
+										<td style="text-transform: capitalize;">{{ $customer->origin }}</td>
+										<td class="text-center">{{ number_format($customer->properties->count(), 0, ',', '.') }}</td>
+										<td class="text-center">{{ number_format($customer->possible_matches->count(), 0, ',', '.') }}</td>
+										<td class="text-right text-nowrap">
+											<a href="{{ action('Account\CustomersController@show', urlencode($customer->email)) }}"
+											   class="btn btn-primary btn-xs">{{ Lang::get('general.view') }}</a>
+										</td>
+									</tr>
+								@endforeach
+								</tbody>
+							</table>
+							{!! drawPagination($customers, Input::except('page'), url()->full()) !!}
+						@endif
+					</div>
+
 				</div>
 
 			</div>
@@ -165,6 +220,8 @@
 			var cont = $('#admin-employees');
 			var form = $('#employee-form');
 
+			$('#tab-leads').pjax('.pagination a');
+
 			form.validate({
 				ignore: '',
 				errorPlacement: function(error, element) {
@@ -185,37 +242,34 @@
 				}
 			});
 
-			cont.on('click','.dissociate-trigger',function(e){
-				var el = $(this);
+			cont.on('click', '.change-status-trigger', function(e){
 				e.preventDefault();
-				SITECOMMON.confirm("{{ print_js_string( Lang::get('account/employees.show.tab.properties.dissociate') ) }}", function (e) {
-					if (e) {
-						LOADING.show();
 
-						$.ajax({
-							dataType: 'json',
-							url: el.data().url,
-							success: function(data) {
-								LOADING.hide();
-								if ( data.success ) {
-									el.closest('.property-line').remove();
-									if ( cont.find('.properties-list .property-line').length < 1 ) {
-										cont.find('.properties-list').addClass('hide');
-										cont.find('.properties-empty').removeClass('hide');
-									}
-									alertify.success("{{ print_js_string( Lang::get('account/employees.message.dissociated') ) }}");
-								} else {
-									alertify.error("{{ print_js_string( Lang::get('general.messages.error') ) }}");
-								}
-							},
-							error: function() {
-								LOADING.hide();
-								alertify.error("{{ print_js_string( Lang::get('general.messages.error') ) }}");
+				LOADING.show();
+
+				var el = $(this);
+
+				$.ajax({
+					dataType: 'json',
+					url: el.data().url,
+					success: function(data) {
+						LOADING.hide();
+						if (data.success) {
+							if (data.active) {
+								el.find('.glyphicon').removeClass('glyphicon-remove').addClass('glyphicon-ok');
+							} else {
+								el.find('.glyphicon').removeClass('glyphicon-ok').addClass('glyphicon-remove');
 							}
-						});
-
+						} else {
+							alertify.error("{{ print_js_string( Lang::get('general.messages.error') ) }}");
+						}
+					},
+					error: function() {
+						LOADING.hide();
+						alertify.error("{{ print_js_string( Lang::get('general.messages.error') ) }}");
 					}
 				});
+
 			});
 
 			TICKETS.init('#tab-tickets');

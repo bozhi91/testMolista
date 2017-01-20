@@ -12,6 +12,9 @@
 	        @include('common.messages', [ 'dismissible'=>true ])
 
 			<div class="pull-right hidden-xs">
+				@if ( Auth::user()->can('ticket-delete') )
+				<a href="{{ action('Account\TicketsController@getDestroy', $ticket->id) }}" class="btn btn-danger" }}>{{ Lang::get('general.delete') }}</a>
+				@endif
 				{!! print_goback_button( Lang::get('general.back'), [ 'class'=>'btn btn-primary' ]) !!}
 			</div>
 
@@ -100,8 +103,8 @@
 												<div class="error-container">
 													{!! form::file('attachment', [ 'class'=>'form-control' ]) !!}
 												</div>
-												<div class="help-block">{!! Lang::get('account/tickets.attachment.helper', [ 
-													'maxsize'=>Config::get('app.property_image_maxsize', 2048) 
+												<div class="help-block">{!! Lang::get('account/tickets.attachment.helper', [
+													'maxsize'=>Config::get('app.property_image_maxsize', 2048)
 												]) !!}</div>
 											</div>
 										</div>
@@ -133,7 +136,7 @@
 									@if ( $message->user )
 										<img src="{{ $message->user->image }}" class="pull-left author-icon" title="{{ $message->user->name }}" />
 									@else
-										<img src="{{ asset('images/tickets/customer.png') }}" class="pull-left author-icon" title="{{ $ticket->contact->fullname }}" />
+										<img src="{{ asset('images/tickets/customer.png') }}" class="pull-left author-icon" title="{{ @$ticket->contact->fullname }}" />
 									@endif
 									<div>
 										<strong>{{ $message->subject }}</strong>
@@ -149,7 +152,7 @@
 										@if ( $message->user )
 											<strong>{{ $message->user->name }}</strong>
 										@else
-											<strong>{{ $ticket->contact->fullname }}</strong>
+											<strong>{{ @$ticket->contact->fullname }}</strong>
 										@endif
 										-
 										{{ since_text($message->created_at) }}
@@ -190,6 +193,14 @@
 								<div>{{ $ticket->contact->company }}</div>
 								<div class="text-ellipsis" title="{{ $ticket->contact->email }}">{{ $ticket->contact->email }}</div>
 								<div>{{ $ticket->contact->phone }}</div>
+								<hr />
+								{!! Form::open([ 'action'=>'Account\Calendar\BaseController@getCreate', 'method'=>'get', 'class'=>'text-right' ]) !!}
+									{!! Form::hidden('customer_id', @$ticket->contact->id_molista) !!}
+									{!! Form::hidden('user_ids[]', $current_site_user->id) !!}
+									{!! Form::hidden('user_ids[]', @$ticket->user->id_molista) !!}
+									{!! Form::hidden('property_ids[]', @$ticket->item->id_molista) !!}
+									{!! Form::button(Lang::get('account/calendar.button.schedule'), [ 'type'=>'submit', 'class'=>'btn btn-sm btn-default' ]) !!}
+								{!! Form::close() !!}
 							</div>
 						</div>
 					@endif
@@ -236,7 +247,7 @@
 								<div>{{ Lang::get('account/tickets.referer') }}: {{ $ticket->referer }}</div>
 							@endif
 							<div>
-								{{ Lang::get('account/tickets.status') }}: {{ Lang::get("account/tickets.status.{$ticket->status->code}") }} 
+								{{ Lang::get('account/tickets.status') }}: {{ Lang::get("account/tickets.status.{$ticket->status->code}") }}
 								<small class="cursor-pointer status-change-trigger">[{{ Lang::get('account/tickets.status.change') }}]</small>
 							</div>
 							{!! Form::open([ 'id'=>'status-form', 'action'=>[ 'Account\TicketsController@postStatus', $ticket->id ], 'class'=>'form-inline status-form' ]) !!}
@@ -256,14 +267,6 @@
 								<div>{{ Lang::get('account/properties.ref')}}: <a href="{{ $property->full_url}}" target="_blank">{{ $property->ref }}</a></div>
 								<div>{{ $property->title }}</div>
 								<div>{{ implode(', ', $property->location_array) }}</div>
-								<hr />
-								{!! Form::open([ 'action'=>'Account\Calendar\BaseController@getCreate', 'method'=>'get', 'class'=>'text-right' ]) !!}
-									{!! Form::hidden('customer_id', @$ticket->contact->id_molista) !!}
-									{!! Form::hidden('user_ids[]', $current_site_user->id) !!}
-									{!! Form::hidden('user_ids[]', @$ticket->user->id_molista) !!}
-									{!! Form::hidden('property_ids[]', @$ticket->item->id_molista) !!}
-									{!! Form::button(Lang::get('account/calendar.button.schedule'), [ 'type'=>'submit', 'class'=>'btn btn-sm btn-default' ]) !!}
-								{!! Form::close() !!}
 							</div>
 						</div>
 					@endif
@@ -353,7 +356,7 @@
 			if ( cont.find('.alert-success').length ) {
 				if ( typeof window.parent != 'object' ) {
 					return;
-				} 
+				}
 				if ( typeof window.parent.TICKETS != 'object' ) {
 					return;
 				}
@@ -389,8 +392,8 @@
 				add_cont = $(this);
 
 				$.magnificPopup.open({
-					items: { 
-						src: '#cc-bcc-form' 
+					items: {
+						src: '#cc-bcc-form'
 					},
 					modal: true,
 					type: 'inline',

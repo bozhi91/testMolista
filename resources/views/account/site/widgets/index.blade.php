@@ -63,7 +63,7 @@
 			function initForms() {
 				cont.find('.widget-form').each(function(){
 					var form = $(this);
-
+						
 					if ( form.hasClass('initialized') )
 					{
 						return true;
@@ -78,9 +78,10 @@
 							LOADING.show();
 							$.ajax({
 								method: 'POST',
-								dataType: 'json',
 								url: form.attr('action'),
-								data: form.serialize(),
+								data: new FormData(form[0]),
+								processData: false,
+								contentType: false,
 								success: function(data) {
 									LOADING.hide();
 									if ( data.success ) {
@@ -104,7 +105,26 @@
 							});
 						}
 					});
+					
+					form.find('.label-color-input').each(function(){
+						var el = $(this);
+						var target = form.find('.label-color-hidden');
 
+						if ( !target.val() ) {
+							target.val('s');
+						}
+
+						el.spectrum({
+							preferredFormat: "hex",
+							showInput: true,
+							color: target.val(),
+							move: function(color) {
+								target.val( color.toHexString() );
+								form.find('.label-color-input').spectrum("set", color);
+							}
+						});
+					});
+					
 				});
 			}
 

@@ -65,6 +65,8 @@ class Marketplace extends \App\TranslatableModel
     {
         $instance = new \App\Property;
         $query = $instance->newQuery();
+        $query->select('properties.*');
+        $query->groupBy('properties.id');
 
         return new \App\Relations\BelongsToManyOrToAll($query, $this, 'properties_marketplaces', 'marketplace_id', 'property_id', 'export_to_all', 1);
     }
@@ -207,7 +209,7 @@ class Marketplace extends \App\TranslatableModel
 
 	public function scopeOfCountry($query,$country_id)
 	{
-		if ( !is_integer($country_id) ) 
+		if ( !is_integer($country_id) )
 		{
 			$country_code = $country_id;
 			$country_id = \App\Models\Geography\Country::where('code',$country_code)->first()->id;
@@ -250,5 +252,10 @@ class Marketplace extends \App\TranslatableModel
 			->addSelect( \DB::raw('sites_marketplaces.`marketplace_export_all`') )
 			;
 	}
+
+    public function getIntegrationSecretAttribute()
+    {
+        return sha1($this->code.'-'.env('APP_KEY'));
+    }
 
 }

@@ -1,8 +1,8 @@
 #home {
-	.main-property { 
+	.main-property {
 		max-width: 1280px; margin: 0px auto;
-		.item { 
-			min-height: 200px; background: center center no-repeat; background-size: cover; 
+		.item {
+			min-height: 200px; background: center center no-repeat; background-size: cover;
 			.main-image { width: 100%; }
 		}
 		.carousel-caption { text-align: center; text-shadow: none; font-size: 18px; }
@@ -17,29 +17,30 @@
 			}
 		}
 	}
-	.search-area { 
-		padding: 35px 0px; 
+	.search-area {
+		padding: 35px 0px;
 		.quick-link {
 			margin-bottom: 30px; display: block; position: relative; padding: 0px 70px 0px 110px; border-radius: @borderRadius 20px @borderRadius @borderRadius; text-decoration: none; overflow: hidden;
+			&.no-image { padding-left: 20px; }
 			.text { padding: 30px 0px; color: @colorWhite; font-size: 18px; line-height: 1em; }
 			.image { height: 100%; width: 85px; position: absolute; top: 0px; left: 0px; background: center center no-repeat; background-size: cover; }
-			.arrow { 
+			.arrow {
 				width: 48px; position: absolute; top: 0px; right: 6px; padding-top: 22px;
 				span { display: inline-block; border: 3px solid @colorWhite; color: @colorWhite; border-radius: 30px; width: 36px; height: 36px; line-height: 24px; font-size: 40px; text-align: center; }
 			}
-			&.quick-link-new { 
+			&.quick-link-new {
 				background: #337884;
 				.image { background-image: url('/images/home/link-new.jpg'); }
 			}
-			&.quick-link-rent { 
+			&.quick-link-rent {
 				background: #30ac4a;
 				.image { background-image: url('/images/home/link-rent.jpg'); }
 			}
-			&.quick-link-used { 
+			&.quick-link-used {
 				background: #993556;
 				.image { background-image: url('/images/home/link-used.jpg'); }
 			}
-			&.quick-link-houses { 
+			&.quick-link-houses {
 				background: #b8a528;
 				.image { background-image: url('/images/home/link-houses.jpg'); }
 			}
@@ -50,20 +51,49 @@
 
 @media (min-width: 768px) {
 	#home {
-		.main-property { 
+		.slider-quick-search {
+			opacity: 1; position: absolute; bottom: 0px; left: 0px; right: 0px; background: @colorPurple; padding: 30px 20px;
+			.form-control { border-color: @colorGreyLight; color: @colorGreyLight; background: @colorPurple; }
+			.form-control::-webkit-input-placeholder { color: @colorGreyLight; }
+			.form-control:-moz-placeholder { color: @colorGreyLight; }
+			.form-control::-moz-placeholder { color: @colorGreyLight; }
+			.form-control:-ms-input-placeholder { color: @colorGreyLight; }
+			.btn-primary { background-color: @colorGreyLight; color: @colorPurple; }
+			.more-options { color: @colorGreyLight; font-size: 13px; font-weight: 500; padding-top: 10px; }
+		}
+
+		.main-property {
 			.item { min-height: 540px; }
 			.carousel-caption { padding-bottom: 30px; left: 0px; right: 0px; }
 			.carousel-caption-text { padding: 10px  30px; }
-			.slider-quick-search { 
-				opacity: 0; position: absolute; bottom: 0px; left: 0px; right: 0px; background: @colorPurple; padding: 30px 20px; 
-				.form-control { border-color: @colorGreyLight; color: @colorGreyLight; background: @colorPurple; }
-				.form-control::-webkit-input-placeholder { color: @colorGreyLight; }
-				.form-control:-moz-placeholder { color: @colorGreyLight; }
-				.form-control::-moz-placeholder { color: @colorGreyLight; }
-				.form-control:-ms-input-placeholder { color: @colorGreyLight; }
-				.btn-primary { background-color: @colorGreyLight; color: @colorPurple; }
-				.more-options { color: @colorGreyLight; font-size: 13px; font-weight: 500; padding-top: 10px; }
+			.slider-quick-search {
+				.slider-quick-search;
 			}
+		}
+
+		.slider-quick-search-container {
+			position: absolute;
+			top: 20px;
+			width: 13%;
+		}
+
+	}
+}
+
+.home-search-area {
+	background: @colorGreyLight; padding-top: 30px; position: relative;
+	h2 { margin: 0px 0px 20px 0px; }
+	.form-area {
+		padding-bottom: 35px;
+		.form-area-minimizer {
+			position: absolute; left: 0px; right: 0px; bottom: 0px; display: block; background: @colorGrey; opacity: 0.4; color: @colorBlack;
+			&:hover { opacity: 0.5; }
+		}
+		&.closed {
+			padding-bottom: 0;
+			.input-line { display: none; }
+			.first-input-line { display: block; }
+			.form-area-minimizer { display: none; }
 		}
 	}
 }
@@ -73,9 +103,9 @@ body.theme-bellamar {
 
 	@media (min-width: 768px) {
 		#home {
-			.main-property { 
-				.carousel-caption { 
-					position: absolute; top: 0; 
+			.main-property {
+				.carousel-caption {
+					position: absolute; top: 0;
 					.container {
 						.row {
 							.col-xs-12.col-md-6 {
@@ -86,9 +116,13 @@ body.theme-bellamar {
 						}
 					}
 				}
-				.slider-quick-search { 
-					opacity: 1; top: 0px !important; bottom: auto; 
+				.slider-quick-search {
+					opacity: 1; top: 0px !important; bottom: auto;
 				}
+			}
+
+			.slider-quick-search {
+				opacity: 1; top: 0px !important; bottom: auto;
 			}
 		}
 	}

@@ -35,20 +35,8 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 
 	public function postIndex()
 	{
-		// Replace subdomain and domains
-		$current_domains = $this->site->domains->lists('domain','id')->all();
-		if ( !$current_domains )
-		{
-			$current_domains = [ 'new'=>'' ];
-		}
-		$this->request->merge([
-			'subdomain' => $this->site->subdomain,
-			'domains_array' => $current_domains,
-		]);
-
 		// Validate general fields
 		$fields = [
-			'subdomain' => 'required|alpha_dash',
 			'theme' => 'required|in:'.implode(',', array_keys(\Config::get('themes.themes'))),
 			'site_currency' => 'required|exists:currencies,code',
 			'timezone' => 'required|in:'.implode(',', \App\Site::getTimezoneOptions()),
@@ -56,7 +44,6 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 			'locales_array' => 'required|array',
 			'i18n' => 'array',
 			'i18n.title.'.fallback_lang() => 'required',
-			'domains_array' => 'required|array',
 			'social_array' => 'required|array',
 			'mailer' => 'required|array',
 			'mailer.service' => 'required|in:default,custom',
@@ -107,31 +94,18 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 		$i18n = $this->request->input('i18n');
 		$valid_locales = \LaravelLocalization::getSupportedLocales();
 
-		// Validate subdomain
-		if ( \App\Site::where('subdomain', $this->request->input('subdomain'))->where('id','!=',$this->site->id)->count() )
-		{
-			return redirect()->back()->withInput()->with('error', trans('account/site.configuration.subdomain.error'));
-		}
-
-		// Validate domains
-		foreach ( $this->request->input('domains_array') as $id => $domain )
-		{
-
-			$domain = rtrim($domain, '/');
-			// If domain is same as molista domain, false
-			if ( preg_match('#\.'.\Config::get('app.application_domain').'(\/)?$#', $domain) || \App\SiteDomains::where('domain', $domain)->where('id','!=',@intval($id))->count() )
-			{
-				return redirect()->back()->withInput()->with('error', trans('account/site.configuration.domains.error'));
-			}
-		}
-
 		// Save site
-		$this->site->subdomain = $this->request->input('subdomain');
 		$this->site->theme = $this->request->input('theme');
 		$this->site->timezone = $this->request->input('timezone');
 		$this->site->ga_account = $this->request->input('ga_account');
 		$this->site->customer_register = $this->request->input('customer_register') ? 1 : 0;
 		$this->site->mailer = $this->request->input('mailer');
+		$this->site->alert_config = $this->request->input('alerts');
+		
+		if ( $this->site->can_hide_molista )
+		{
+			$this->site->hide_molista = $this->request->input('hide_molista') ? 1 : 0;
+		}
 
 		$signature = $this->request->input('signature');
 		foreach ($signature as $key => $value)
@@ -206,33 +180,6 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 			foreach ($translations as $iso=>$def)
 			{
 				$this->site->translateOrNew($iso)->$key = sanitize($def);
-			}
-		}
-
-		// Save domains
-		foreach ($this->request->input('domains_array') as $domain_id => $domain_url)
-		{
-			// Remove empty spaces and triling slash
-			$domain_url = rtrim(trim($domain_url), '/');
-
-			if ( $domain_url && $domain_id == 'new' )
-			{
-				$this->site->domains()->create([
-					'domain' => sanitize($domain_url, 'url'),
-				]);
-			}
-			elseif ( $site_domain = $this->site->domains()->find($domain_id) )
-			{
-				if ( $domain_url )
-				{
-					$site_domain->update([
-						'domain' => sanitize($domain_url, 'url'),
-					]);
-				}
-				else
-				{
-					$site_domain->delete();
-				}
 			}
 		}
 

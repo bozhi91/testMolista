@@ -38,12 +38,22 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 			$query->where('email', 'like', "%{$this->request->input('email')}%");
 		}
 
+		$order = $this->request->input('order');		
+		switch ($this->request->input('orderby')){
+			case 'name': 
+				$query->orderBy('name', $order); 
+				break;
+			case 'email': 
+				$query->orderBy('email', $order); 
+				break;
+		}
+		
 		if ( $this->request->input('csv') )
 		{
 			return $this->exportCsv($query);
 		}
 
-		$employees = $query->orderBy('name')->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
+		$employees = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		if ( $employees->count() > 0 )
 		{
@@ -164,12 +174,41 @@ class EmployeesController extends \App\Http\Controllers\AccountController
 		{
 			abort(404);
 		}
-
-		$properties = $employee->properties()->ofSite( $this->site->id )->get();
-
-		return view('account.employees.edit', compact('employee','properties'));
+		
+		$customers = $employee->getCustomers()
+				->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
+				
+		$assigned_properties = $employee->properties()->ofSite( $this->site->id )->pluck('id')->toArray();
+		
+		$properties = $this->site->properties()
+				->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
+		
+	
+		
+		return view('account.employees.edit', compact('employee','properties', 'customers', 'assigned_properties'));
 	}
 
+	
+	public function getChangeRelation($email, $property_id){
+		$property = $this->site->properties()->find($property_id);
+		$employee = $this->site->users()->where('email', $email)->first();
+
+		if ( !$property || !$employee )
+		{
+			return [ 'error'=>1 ];
+		}
+
+		$user_assigned = $property->users()->where('id', $employee->id)->first();
+		
+		if($user_assigned) {
+			$property->users()->detach($employee->id);
+			return [ 'success'=>1, 'active' => false];
+		} else {
+			$property->users()->attach($employee->id);
+			return [ 'success'=>1, 'active' => true];
+		}
+	}
+	
 	public function update($email)
 	{
 		$employee = $this->site->users()->withRole('employee')->where('email', $email)->withPivot('can_create','can_edit','can_delete','can_view_all','can_edit_all','can_delete_all')->first();

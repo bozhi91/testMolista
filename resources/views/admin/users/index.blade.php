@@ -11,6 +11,7 @@
 					<h4>{{ Lang::get('general.filters') }}</h4>
 					<p>{!! Form::text('name', Input::get('name'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('admin/users.name') ]) !!}</p>
 					<p>{!! Form::text('email', Input::get('email'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('admin/users.email') ]) !!}</p>
+					<p>{!! Form::text('domain', Input::get('domain'), [ 'class'=>'form-control', 'placeholder'=>Lang::get('admin/users.site') ]) !!}</p>
 					<p>{!! Form::select('role', [ ''=>Lang::get('admin/users.role')]+$roles->toArray(), Input::get('role'), [ 'class'=>'form-control' ]) !!}</p>
 					<p>{!! Form::submit( Lang::get('general.filters.apply'), [ 'class'=>'btn btn-default btn-block']) !!}</p>
 				{{ Form::close() }}
@@ -45,7 +46,7 @@
 									<td>{{ $user->name }}</td>
 									<td>{{ $user->email }}</td>
 									<td>{{ $user->roles->implode('display_name', ', ') }}</td>
-									<td>{{ $user->sites->implode('title', ', ') }}</td>
+									<td>{{ $user->sites->implode('main_url', ', ') }}</td>
 									<td class="text-right">
 										@if ( Auth::user()->can('user-edit') )
 											<a href="{{ action('Admin\UsersController@edit', $user->id) }}" class="btn btn-xs btn-default">{{ Lang::get('general.edit') }}</a>
@@ -55,7 +56,7 @@
 							@endforeach
 						</tbody>
 					</table>
-					{!! drawPagination($users, Input::only('limit','name','email','role')) !!}
+					{!! drawPagination($users, Input::except('page'), action('Admin\UsersController@index', array_merge(Input::except('page','limit'), ['csv'=>1]))) !!}
 				@endif
 			</div>
 

@@ -1,4 +1,4 @@
-@if ( App::environment() == 'production' )
+@if ( App::environment() == 'production' && env('WHITELABEL_MOLISTA', false) )
 	<!-- Start of Async HubSpot Analytics Code -->
 	<script type="text/javascript">
 		(function(d,s,i,r) {

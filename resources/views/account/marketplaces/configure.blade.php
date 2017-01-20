@@ -31,10 +31,12 @@
 								<br />
 							@endif
 
-							<h4>{{ Lang::get('account/marketplaces.feed.properties.url') }}</h4>
-							<p>
-								<a href="{{ $current_site->getXmlFeedUrl($marketplace->code,'properties') }}" target="_blank">{{ $current_site->getXmlFeedUrl($marketplace->code,'properties') }}</a>
-							</p>
+							@if ( @$marketplace->upload_type == "url" )
+								<h4>{{ Lang::get('account/marketplaces.feed.properties.url') }}</h4>
+								<p>
+									<a href="{{ $current_site->getXmlFeedUrl($marketplace->code,'properties') }}" target="_blank">{{ $current_site->getXmlFeedUrl($marketplace->code,'properties') }}</a>
+								</p>
+							@endif
 
 							@if ( @$marketplace->configuration['xml_owners'] )
 								<br />

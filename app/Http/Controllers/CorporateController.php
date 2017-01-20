@@ -11,7 +11,9 @@ class CorporateController extends Controller
 
 	public function index()
 	{
-		$response = view('corporate.index')->render();
+		$marketplaces = \App\Models\Marketplace::enabled()->where('code', 'not like', 'molista%')->with('countries')->orderBy('name', 'asc')->get();
+
+		$response = view('corporate.index', compact('marketplaces'))->render();
 
 		require_once app_path('Http/minifier.php');
 		return minify_html($response);

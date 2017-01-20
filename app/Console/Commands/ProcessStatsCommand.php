@@ -6,7 +6,7 @@ class ProcessStatsCommand extends Command
 {
 	protected $signature = 'stats:process {date? : The date to process}';
 
-	protected $description = 'Process sites and users stats';
+	protected $description = 'Process globals, sites and users stats';
 
 	protected $sites;
 
@@ -54,6 +54,9 @@ class ProcessStatsCommand extends Command
 				$this->processDate( date('Y-m-d', $i) );
 			}
 		}
+
+		// Global stats
+		\App\Models\Stats::processStats();
 
 		// Delete stats cache
 		$this->info("\tDeleting stats cache");
@@ -217,17 +220,17 @@ class ProcessStatsCommand extends Command
 				case 'sale':
 					$stats[$property->site_id]['current_sale']++;
 					$stats[$property->site_id]['current_sale_price'] =  ( $sale_price_total + $property->price ) / $stats[$property->site_id]['current_sale'];
-					$stats[$property->site_id]['current_sale_sqm'] = ( $sale_sqm_total + ($property->price / $property->size) ) / $stats[$property->site_id]['current_sale'];
+					$stats[$property->site_id]['current_sale_sqm'] = ( $sale_sqm_total + ($property->size > 0 ? $property->price / $property->size : 0) ) / $stats[$property->site_id]['current_sale'];
 					break;
 				case 'rent':
 					$stats[$property->site_id]['current_rent']++;
 					$stats[$property->site_id]['current_rent_price'] =  ( $rent_price_total + $property->price ) / $stats[$property->site_id]['current_rent'];
-					$stats[$property->site_id]['current_rent_sqm'] = ( $rent_sqm_total + ($property->price / $property->size) ) / $stats[$property->site_id]['current_rent'];
+					$stats[$property->site_id]['current_rent_sqm'] = ( $rent_sqm_total + ($property->size > 0 ? $property->price / $property->size : 0) ) / $stats[$property->site_id]['current_rent'];
 					break;
 				case 'transfer':
 					$stats[$property->site_id]['current_transfer']++;
 					$stats[$property->site_id]['current_transfer_price'] =  ( $transfer_price_total + $property->price ) / $stats[$property->site_id]['current_transfer'];
-					$stats[$property->site_id]['current_transfer_sqm'] = ( $transfer_sqm_total + ($property->price / $property->size) ) / $stats[$property->site_id]['current_transfer'];
+					$stats[$property->site_id]['current_transfer_sqm'] = ( $transfer_sqm_total + ($property->size > 0 ? $property->price / $property->size : 0) ) / $stats[$property->site_id]['current_transfer'];
 					break;
 			}
 		}

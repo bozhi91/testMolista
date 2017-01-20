@@ -4,9 +4,9 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<style type="text/css">
 
-		@font-face { 
-			font-family: 'Montserrat'; 
-			font-style: normal; 
+		@font-face {
+			font-family: 'Montserrat';
+			font-style: normal;
 			font-weight: 400;
 			src: url('{{ public_path("fonts/montserrat-normal-normal.ttf") }}') format('truetype');
 		}
@@ -27,7 +27,7 @@
 					<tr>
 						<td class="header-logo">
 							@if ( $property->site->logo )
-								<img src="{{ public_path("sites/{$property->site->id}/{$property->site->logo}") }}" alt="">
+								<img src="{{ public_path("sites/{$property->site->id}/{$property->site->logo}") }}" alt="" style="max-width: 300px">
 							@endif
 						</td>
 						<td class="header-data">
@@ -113,7 +113,7 @@
 									<div class="facts">
 										<div>{{ number_format($property->size,0,',','.') }} m²</div>
 										<div>
-											{{ number_format($property->rooms,0,',','.') }} 
+											{{ number_format($property->rooms,0,',','.') }}
 											@if ($property->rooms == 1)
 												{{ Lang::get('web/properties.more.room') }}
 											@else
@@ -129,7 +129,7 @@
 											@endif
 										</div>
 										<div>
-											{{ @number_format(round($property->price/$property->size),0,',','.') }} 
+											{{ @number_format(round($property->price/$property->size),0,',','.') }}
 											{{ $property->infocurrency->symbol }}/m²
 										</div>
 										<div>{{ Lang::get('account/properties.ref') }}: {{ $property->ref }}</div>
@@ -180,10 +180,12 @@
 							@endif
 						</td>
 						<td class="powered-logo">
+							@if (!$property->site->hide_molista)
 							<div class="powered">Powered by</div>
 							<div class="logo">
 								<img src="{{ public_path('images/pdf/molista.png') }}" />
 							</div>
+							@endif
 						</td>
 					</tr>
 				</table>

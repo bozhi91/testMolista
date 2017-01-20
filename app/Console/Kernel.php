@@ -26,6 +26,13 @@ class Kernel extends ConsoleKernel
 		Commands\PlanMaintenanceCommand::class,
 		Commands\MarketplaceUploadFeedCommand::class,
 		Commands\GeographyLoadCountryCitiesCommand::class,
+		Commands\InitGlobalStatsCommand::class,
+		Commands\RefreshMatchesCountCommand::class,
+		Commands\TicketsContactsSyncCommand::class,
+		Commands\TransferDistrincts::class,
+		Commands\PublicarPropiedadesApi::class,
+		Commands\TransferCities::class,
+		Commands\TranslationsImportCommand::class,
 	];
 
 	/**
@@ -39,5 +46,8 @@ class Kernel extends ConsoleKernel
 		$schedule->command('uploads:maintenance')->dailyAt('06:00');
 		$schedule->command('stats:process yesterday')->dailyAt('03:00');
 		$schedule->command('parser:process')->hourly();
+		$schedule->command('stats:refresh-matches')->twiceDaily();
+		$schedule->command('tickets:contacts-sync')->dailyAt('02:00');
+		$schedule->command('marketplace:api:publish')->cron('0 */3 * * * *');
 	}
 }

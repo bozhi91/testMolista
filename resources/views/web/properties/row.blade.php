@@ -2,7 +2,8 @@
 	<div class="row">
 		<div class="col-xs-12 col-sm-3">
 			<div class="property-column image-column">
-				<a href="{{ action('Web\PropertiesController@details', $item->slug) }}" class="image" style="background-image: url('{{ $item->main_image }}');">
+				@include('web.properties.discount-label')
+				<a href="{{ $item->full_url }}" class="image" style="background-image: url('{{ $item->main_image }}');">
 					<img src="{{ $item->main_image }}" alt="{{$item->title}}" class="hide" />
 				</a>
 				@include ('web.properties.row-image-price')
@@ -13,7 +14,7 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-9">
 						<div class="title text-bold">
-							<a href="{{ action('Web\PropertiesController@details', $item->slug) }}">{{$item->title}}</a>
+							<a href="{{ $item->full_url }}">{{$item->title}}</a>
 						</div>
 						<div class="location text-italic">
 							<i class="fontello-icon fontello-icon-marker hidden-xs"></i>
@@ -23,7 +24,7 @@
 								'state' => $item->state->name,
 							])) }}
 						</div>
-						<div class="description text-italic">{!! str_limit($item->description, 150, ' <a href="'.(action('Web\PropertiesController@details', $item->slug)).'">[...]</a>') !!}</div>
+						<div class="description text-italic">{!! str_limit($item->description, 150, ' <a href="'.($item->full_url).'">[...]</a>') !!}</div>
 					</div>
 					<div class="col-xs-12 col-sm-3">
 						@include ('web.properties.row-price' , ['price_class'=>'text-bold text-right'])
@@ -39,7 +40,7 @@
 							</li>
 							<li class="text-nowrap text-lowercase has-fontello-icon">
 								<i class="fontello-icon fontello-icon-table"></i>
-								{{ number_format($item->rooms,0,',','.') }} 
+								{{ number_format($item->rooms,0,',','.') }}
 								@if ($item->rooms == 1)
 									{{ Lang::get('web/properties.more.room') }}
 								@else
@@ -59,6 +60,9 @@
 								<i class="fontello-icon fontello-icon-coins"></i>
 								{{ @number_format(round($item->price/$item->size),0,',','.') }} {{ $item->infocurrency->symbol }}/m²
 							</li>
+							<li class="text-nowrap">
+								{{ Lang::get('account/properties.ref') }}: {{ $property->ref }}
+							</li>
 						</ul>
 						<div class="services text-italic">
 							{{ $item->services->sortBy('title')->implode('title',', ') }}
@@ -66,7 +70,7 @@
 					</div>
 					<div class="col-xs-3">
 					</div>
-					<a href="{{ action('Web\PropertiesController@details', $item->slug) }}" class="hidden-xs btn btn-primary btn-more-info">
+					<a href="{{ $item->full_url }}" class="hidden-xs btn btn-primary btn-more-info">
 						@include ('web.properties.row-moreinfo')
 					</a>
 				</div>

@@ -9,7 +9,7 @@ class Locale extends Model
 
 	static public function getCorporateLocales()
 	{
-		return [ 'es' ];
+		return explode('|', env('WHITELABEL_LANGUAGES', 'es'));
 	}
 
 	static public function getConfigFilepath()

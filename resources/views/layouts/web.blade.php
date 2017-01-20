@@ -13,7 +13,7 @@
 	@elseif ( !empty($site_setup['seo']['title'][fallback_lang()]) )
 		<title>{{ $site_setup['seo']['title'][fallback_lang()] }}</title>
 	@else
-		<title>Molista</title>
+		<title>{{ env('WHITELABEL_WEBNAME', 'Molista') }}</title>
 	@endif
 
 	@if ( !empty($seo_description) )
@@ -32,7 +32,7 @@
 	@endif
 
 	<link href="https://fonts.googleapis.com/css?family=Lato:400,300,700,900,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
-	<link href="{{ Theme::url('/compiled/css/app.css') }}" rel="stylesheet" type='text/css' />
+	<link href="{{ Theme::url('/compiled/css/app.css').'?v='.env('CSS_VERSION') }}" rel="stylesheet" type='text/css' />
 
 	@if ( LaravelLocalization::getCurrentLocaleDirection() == 'rtl' )
 		<link href="{{ Theme::url('/compiled/css/rtl.css') }}" rel="stylesheet" type='text/css' />
@@ -41,12 +41,16 @@
 	@if ( !empty($site_setup['favicon']) )
 		<link id="page_favicon" href="{{ $site_setup['favicon'] }}" rel="icon" type="image/x-icon" />
 	@else
-		<link id="page_favicon" href="{{ asset('favicon.ico') }}" rel="icon" type="image/x-icon" />
+		<link id="page_favicon" href="{{ asset( env('WHITELABEL_FAVICON', 'favicon.ico') ) }}" rel="icon" type="image/x-icon" />
 	@endif
 
 	@if ( !empty($use_google_maps) )
 		<script src="http://maps.google.com/maps/api/js?key={{ Config::get('app.google_maps_api_key')}}"></script>
-	@endif	
+	@endif
+
+	@if (!empty($og))
+		{!! $og->renderTags() !!}
+	@endif
 
 	<script type="text/javascript">
 		var ready_callbacks = [];
@@ -54,7 +58,7 @@
 
 </head>
 
-<body id="{{ @$body_id }}" class="dir-{{ LaravelLocalization::getCurrentLocaleDirection() }} theme-{{ Theme::get() }}">
+<body id="{{ @$body_id }}" class="dir-{{ LaravelLocalization::getCurrentLocaleDirection() }} theme-{{ Theme::get() }} {{ !empty($current_site) ? 'site-id-'.$current_site->id.' site-'.$current_site->subdomain : '' }}">
 
 	<?php $ga_account = isset($google_analitics_account) ? $google_analitics_account : @$current_site->ga_account; ?>
 	@if ( $ga_account )
@@ -75,6 +79,8 @@
 		@include('web.search.modal')
 	@endif
 
+	@include('web.common.cookies', [ 'showjs'=>true ])
+
 	@if ( Request::server('REQUEST_SCHEME') == 'https' )
 		<script type="text/javascript" src="https://ws.sharethis.com/button/buttons.js"></script>
 	@else
@@ -82,17 +88,16 @@
 	@endif
 	<script type="text/javascript">
 		stLight.options({
-			publisher: "2572efa4-03fa-451c-b604-4fb0add8bbb4", 
-			doNotHash: true, 
-			doNotCopy: true, 
+			publisher: "2572efa4-03fa-451c-b604-4fb0add8bbb4",
+			doNotHash: true,
+			doNotCopy: true,
 			hashAddressBar: false,
 			popup: true,
 			servicePopup: true
 		});
 	</script>
 
-
-	<script src="{{ Theme::url('/compiled/js/app.js') }}"></script>
+	<script src="{{ Theme::url('/compiled/js/app.js').'?v='.env('JS_VERSION') }}"></script>
 	<script src="{{ Theme::url('/js/jquery.validate/messages_' . LaravelLocalization::getCurrentLocale() . '.min.js') }}"></script>
 	<script src="{{ Theme::url('/js/alertify/messages_' . LaravelLocalization::getCurrentLocale() . '.js') }}"></script>
 	<script src="{{ Theme::url('/js/summernote/summernote-' . summetime_lang() . '.js') }}"></script>

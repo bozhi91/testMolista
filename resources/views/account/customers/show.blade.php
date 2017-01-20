@@ -28,6 +28,9 @@
 		<div class="tab-content">
 
 			<div role="tabpanel" class="tab-pane tab-main {{$current_tab == 'general' ? 'active' : '' }}" id="tab-general">
+
+				{!! Form::model($customer, [ 'action'=>['Account\CustomersController@postGeneral',$customer->email], 'method'=>'post', 'id'=>'general-form' ]) !!}
+
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
@@ -65,11 +68,77 @@
 					</div>
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
+							{!! Form::label(null, Lang::get('account/customers.origin') ) !!}
+							{!! Form::text(null, @$customer->origin, [ 'class'=>'form-control', 'readonly'=>'readonly', 'style'=>'text-transform: capitalize;' ]) !!}
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group error-container">
 							{!! Form::label(null, Lang::get('account/customers.created') ) !!}
 							{!! Form::text(null, @$customer->created_at->format('d/m/Y'), [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
 						</div>
 					</div>
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group error-container">
+							{!! Form::label(null, Lang::get('account/customers.dni') ) !!}
+							{!! Form::text(null, @$customer->dni, [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
+						</div>
+					</div>
 				</div>
+
+				<div class="row">
+					<div class="col-xs-12">
+						<label>{{ Lang::get('account/customers.alerts') }}</label>
+					</div>
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<div class="checkbox">
+								<label class="normal">
+									<?php $val = $customer->alert_config === null ? 1 : $customer->alert_config['bajada'] ?>
+									{!! Form::hidden('alerts[bajada]', 0) !!}
+									{!! Form::checkbox('alerts[bajada]', 1, $val) !!}
+									{{ Lang::get('account/customers.alert.bajada') }}
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<div class="checkbox">
+								<label class="normal">
+									<?php $val = $customer->alert_config === null ? 1 : $customer->alert_config['venta'] ?>
+									{!! Form::hidden('alerts[venta]', 0) !!}
+									{!! Form::checkbox('alerts[venta]', 1, $val) !!}
+									{{ Lang::get('account/customers.alert.venta') }}
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="text-right">
+						{!! Form::button(Lang::get('account/customers.show.customer.general.button'), [ 'type'=>'submit', 'class'=>'btn btn-primary', ]) !!}
+					</div>
+				</div>
+
+				{!! Form::close() !!}
+
+				{!! Form::model($customer, [ 'action'=>['Account\CustomersController@postComment',$customer->email], 'method'=>'post', 'id'=>'comment-form' ]) !!}
+					<hr />
+					<h3 class="page-title">{{ Lang::get('account/customers.show.customer.comment.title') }}</h3>
+					<div class="form-group error-placement">
+						{!! Form::textarea('comment', null, [ 'class'=>'form-control', ]) !!}
+					</div>
+					<div class="form-group">
+						<div class="text-right">
+							{!! Form::button(Lang::get('account/customers.show.customer.comment.button'), [ 'type'=>'submit', 'class'=>'btn btn-primary', ]) !!}
+						</div>
+					</div>
+				{!! Form::close() !!}
+
 			</div>
 
 			<div role="tabpanel" class="tab-pane tab-main {{$current_tab == 'profile' ? 'active' : '' }}" id="tab-profile">
@@ -91,17 +160,30 @@
 						</div>
 						<div class="col-xs-12 col-sm-4">
 							<div class="form-group error-container">
-								<?php $tmp = empty($cities) ? [ ''=>'' ] : [ ''=>'' ] + $cities; ?>
+								<?php
+									$tmp = $customer->customer_cities()->pluck('city_id')->toArray();
+									$currentCities = empty($tmp) ? 0 : $tmp;
+								?>
 								{!! Form::label('city_id', Lang::get('account/properties.city')) !!}
-								{!! Form::select('city_id', $tmp, null, [ 'class'=>'form-control city-input' ]) !!}
+								{!! Form::select('city_id[]', empty($cities) ? [] : $cities, $currentCities, [
+									'class'=>'form-control city-input has-select-2',
+									'multiple' => 'multiple',
+								]) !!}
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-xs-12 col-sm-4">
+							<?php
+								$tmp = $customer->customer_districts()->pluck('district_id')->toArray();
+								$currentDistricts = empty($tmp) ? 0 : $tmp;
+							?>
 							<div class="form-group error-container">
-								{!! Form::label('district', Lang::get('account/properties.district')) !!}
-								{!! Form::text('district', null, [ 'class'=>'form-control district-input' ]) !!}
+								{!! Form::label('district_id', Lang::get('account/properties.district')) !!}
+								{!! Form::select('district_id[]', $districts, $currentDistricts, [
+									'class'=>'form-control has-select-2',
+									'multiple' => 'multiple',
+								]) !!}
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-4">
@@ -269,21 +351,34 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
+								<th>{{ Lang::get('account/properties.ref') }}</th>
 								<th>{{ Lang::get('account/properties.column.title') }}</th>
+								<th>{{ Lang::get('account/properties.column.address') }}</th>
+								<th>{{ Lang::get('account/properties.column.price') }}</th>
 								<th></th>
 							</tr>
 						</thead>
 						<tbody>
 							@foreach ($customer->properties as $property)
 								<tr>
+									<td>{{$property->ref}}</td>
 									<td>{{$property->title}}</td>
+									<td>{{$property->address}}</td>
+									<td>{{$property->price}}</td>
 									<td class="text-right text-nowrap">
 										{!! Form::open([ 'action'=>[ 'Account\CustomersController@deleteRemovePropertyCustomer', $property->slug ], 'method'=>'DELETE', 'class'=>'delete-property-form' ]) !!}
 											{!! Form::hidden('customer_id', $customer->id) !!}
 											{!! Form::hidden('current_tab', 'properties') !!}
+
+											<a href="#" data-href="{{ action('Account\PropertiesController@getCatchClose', ['id' => $property->catch_current->id, 'client_id' => $customer->id])}}"
+											   class="btn btn-default btn-xs popup-catch-trigger">{{ Lang::get('account/properties.show.property.catch.actions.close') }}</a>
+
+											@if ( $event = $property->calendars->where('customer_id', $customer->id)->last() )
+												<a href="{{ action('Account\Calendar\BaseController@getEvent', $event->id) }}"><i class="fa fa-calendar-check-o has-tooltip" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="{{ Lang::get('account/calendar.scheduled') }}"></i></a>
+											@endif
 											<a href="{{ action('Account\Calendar\BaseController@getCreate') }}?property_ids[]={{$property->id}}&customer_id={{@$customer->id}}" class="btn btn-info btn-xs">{{ Lang::get('account/calendar.button.schedule') }}</a>
 											{!! Form::button(Lang::get('account/customers.discards.action'), [ 'type'=>'submit', 'class'=>'btn btn-danger btn-xs' ]) !!}
-											<a href="{{ action('Web\PropertiesController@details', $property->slug) }}" class="btn btn-default btn-xs" target="_blank">{{ Lang::get('general.view') }}</a>
+											<a href="{{ $property->full_url }}" class="btn btn-default btn-xs" target="_blank">{{ Lang::get('general.view') }}</a>
 										{!! Form::close() !!}
 									</td>
 								</tr>
@@ -299,20 +394,26 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
+								<th>{{ Lang::get('account/properties.ref') }}</th>
 								<th>{{ Lang::get('account/properties.column.title') }}</th>
+								<th>{{ Lang::get('account/properties.column.address') }}</th>
+								<th>{{ Lang::get('account/properties.column.price') }}</th>
 								<th></th>
 							</tr>
 						</thead>
 						<tbody>
 							@foreach ($customer->possible_matches as $property)
 								<tr>
+									<td>{{$property->ref}}</td>
 									<td>{{$property->title}}</td>
+									<td>{{$property->address}}</td>
+									<td>{{$property->price}}</td>
 									<td class="text-right text-nowrap">
 										{!! Form::open([ 'action'=>[ 'Account\CustomersController@postAddPropertyCustomer', $property->slug ], 'method'=>'POST', 'class'=>'add-property-form' ]) !!}
 											{!! Form::hidden('customer_id', $customer->id) !!}
 											{!! Form::hidden('current_tab', 'matches') !!}
 											{!! Form::button(Lang::get('account/customers.matches.action'), [ 'type'=>'submit', 'class'=>'btn btn-default btn-xs' ]) !!}
-											<a href="{{ action('Web\PropertiesController@details', $property->slug) }}" class="btn btn-default btn-xs" target="_blank">{{ Lang::get('general.view') }}</a>
+											<a href="{{ $property->full_url }}" class="btn btn-default btn-xs" target="_blank">{{ Lang::get('general.view') }}</a>
 										{!! Form::close() !!}
 									</td>
 								</tr>
@@ -328,6 +429,7 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
+								<th>{{ Lang::get('account/properties.ref') }}</th>
 								<th>{{ Lang::get('account/properties.column.title') }}</th>
 								<th></th>
 							</tr>
@@ -335,13 +437,14 @@
 						<tbody>
 							@foreach ($customer->properties_discards as $property)
 								<tr>
+									<td>{{$property->ref}}</td>
 									<td>{{$property->title}}</td>
 									<td class="text-right text-nowrap">
 										{!! Form::open([ 'action'=>[ 'Account\CustomersController@putUndiscardPropertyCustomer', $property->slug ], 'method'=>'PUT', 'class'=>'undelete-property-form' ]) !!}
 											{!! Form::hidden('customer_id', $customer->id) !!}
 											{!! Form::hidden('current_tab', 'discards') !!}
 											{!! Form::button(Lang::get('account/customers.discards.undelete'), [ 'type'=>'submit', 'class'=>'btn btn-default btn-xs' ]) !!}
-											<a href="{{ action('Web\PropertiesController@details', $property->slug) }}" class="btn btn-default btn-xs" target="_blank">{{ Lang::get('general.view') }}</a>
+											<a href="{{ $property->full_url }}" class="btn btn-default btn-xs" target="_blank">{{ Lang::get('general.view') }}</a>
 										{!! Form::close() !!}
 									</td>
 								</tr>
@@ -376,6 +479,20 @@
 			tabs.find('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 				cont.find('input[name="current_tab"]').val( $(this).data('tab') );
 				cont.find('.has-select-2').select2();
+			});
+
+			cont.find('.has-select-2').select2();
+
+			cont.on('click','.popup-catch-trigger', function(e){
+				var el = $(this);
+				e.preventDefault();
+				$.magnificPopup.open({
+					items: {
+						src: el.data().href
+					},
+					type: 'iframe',
+					modal: true
+				});
 			});
 
 			profile_form.validate({
@@ -460,6 +577,17 @@
 					}
 				});
 			});
+
+			cont.find('form.add-property-form').each(function(){
+				$(this).validate({
+					submitHandler: function(f){
+						LOADING.show();
+						f.submit();
+					}
+				});
+			});
+
+			cont.find('.has-tooltip').tooltip();
 
 			$.ajax({
 				type: 'GET',

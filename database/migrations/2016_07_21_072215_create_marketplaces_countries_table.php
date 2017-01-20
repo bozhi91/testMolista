@@ -38,6 +38,9 @@ class CreateMarketplacesCountriesTable extends Migration
 		});
 
 		$spain = \App\Models\Geography\Country::where('code','ES')->first();
-		\DB::statement("UPDATE `marketplaces` SET `country_id`={$spain->id} WHERE 1");
+		if ( $spain )
+		{
+			\DB::statement("UPDATE `marketplaces` SET `country_id`={$spain->id} WHERE 1");
+		}
 	}
 }

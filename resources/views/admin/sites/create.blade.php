@@ -78,6 +78,12 @@
 						{!! Form::select('custom_theme', [ ''=>'' ]+$themes, null, [ 'class'=>'form-control' ]) !!}
 					</div>
 				</div>
+				<div class="col-xs-12 col-sm-6">
+					<div class="form-group error-container">
+						{!! Form::label('reseller_id', Lang::get('admin/sites.reseller')) !!}
+						{!! Form::select('reseller_id', [ ''=>'' ]+$resellers, null, [ 'class'=>'form-control' ]) !!}
+					</div>
+				</div>
 			</div>
 
 		</div>

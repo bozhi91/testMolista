@@ -14,7 +14,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		$this->middleware([ 'permission:property-view' ], [ 'only' => [ 'index','show','postCatch' ] ]);
 		$this->middleware([ 'permission:property-create', 'property.permission:create' ], [ 'only' => [ 'create','store' ] ]);
 		$this->middleware([ 'permission:property-edit' ], [ 'only' => [ 'edit','update','getAssociate','postAssociate' ] ]);
-		$this->middleware([ 'property.permission:edit' ], [ 'only' => [ 'update','getAssociate','postAssociate','getChangeStatus' ] ]);
+		$this->middleware([ 'property.permission:edit' ], [ 'only' => [ 'update','getAssociate','postAssociate','getChangeHomeSlider','getChangeHighlight','getChangeStatus' ] ]);
 		$this->middleware([ 'permission:property-delete', 'property.permission:delete' ], [ 'only' => [ 'destroy' ] ]);
 
 		\View::share('submenu_section', 'properties');
@@ -55,6 +55,25 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			$query->whereTranslationLike('title', "%{$this->request->input('title')}%");
 		}
 
+		// Filter by address
+		if ( $this->request->input('address') )
+		{
+			$clean_filters = true;
+			$query->leftJoin('states','properties.state_id','=','states.id');
+			$query->where(function ($query) {
+				$query->where('properties.address', 'LIKE', "%{$this->request->input('address')}%");
+				$query->orWhere('states.name', 'LIKE', "%{$this->request->input('address')}%");
+				$query->orWhere('cities.name', 'LIKE', "%{$this->request->input('address')}%");
+			});
+		}
+
+		// Filter by mode
+		if ( $this->request->input('mode') )
+		{
+			$clean_filters = true;
+			$query->where('properties.mode', $this->request->input('mode'));
+		}
+
 		// Filter by highlighted
 		if ( $this->request->input('highlighted') )
 		{
@@ -69,22 +88,31 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			$query->where('properties.enabled', intval($this->request->input('enabled'))-1);
 		}
 
+		//Filter by mode
+		if($this->request->input('mode')) {
+			$query->where('properties.mode', $this->request->input('mode'));
+		}
+
+		//Filter by price
+		if($this->request->input('price')) {
+			$query->where('properties.price'
+					, $this->request->input('operation', '=')
+					, $this->request->input('price'));
+		}
+
 		switch ( $this->request->input('order') )
 		{
-			case 'desc':
-				$order = 'desc';
+			case 'asc':
+				$order = 'asc';
 				break;
 			default:
-				$order = 'asc';
+				$order = 'desc';
 		}
 
 		switch ( $this->request->input('orderby') )
 		{
 			case 'reference':
 				$query->orderBy('ref', $order);
-				break;
-			case 'creation':
-				$query->orderBy('created_at', $order);
 				break;
 			case 'location':
 				$query->orderBy('city_name', $order);
@@ -96,8 +124,14 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 						->orderBy('customers_total', $order);
 				break;
 			case 'title':
-			default:
 				$query->orderBy('title', $order);
+				break;
+			case 'price':
+				$query->orderBy('price', $order);
+				break;
+			case 'creation':
+			default:
+				$query->orderBy('created_at', $order);
 				break;
 		}
 
@@ -106,11 +140,12 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			return $this->exportCsv($query);
 		}
 
+		$total_properties = $query->get()->count();
 		$properties = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 
 		$this->set_go_back_link();
 
-		return view('account.properties.index', compact('properties','clean_filters'));
+		return view('account.properties.index', compact('properties','clean_filters', 'total_properties'));
 	}
 
 	public function exportCsv($query)
@@ -183,10 +218,11 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		}
 
 		$managers = $this->site->users()->orderBy('name')->lists('name','id')->all();
+		$districts = $this->site->districts()->orderBy('name')->lists('name','id');
 
 		$current_tab = session('current_tab', 'general');
 
-		return view('account.properties.create', compact('modes','types','energy_types','services','countries','states','cities','country_id','managers','current_tab'));
+		return view('account.properties.create', compact('modes','types','energy_types','services','countries','states','cities','country_id','managers','current_tab', 'districts'));
 	}
 
 	public function store()
@@ -208,7 +244,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'seller_phone' => '',
 			'seller_cell' => '',
 			'price_min' => 'numeric|min:1',
-			'commission' => 'integer|between:0,100',
+			'commission_fixed' => 'numeric|min:0',
+			'commission' => 'numeric|between:0,100',
 		];
 		$validator = \Validator::make($this->request->all(), $catch_fields);
 		if ($validator->fails())
@@ -260,6 +297,24 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		return redirect()->action('Account\PropertiesController@edit', $property->slug)->with('current_tab', $this->request->input('current_tab'))->with('success', trans('account/properties.created'));
 	}
 
+	public function download($slug,$locale) {
+		// Get property
+		$property = $this->site->properties()->enabled()
+					->whereTranslation('slug', $slug)
+					->first();
+
+		if ( !$property )
+		{
+			abort(404);
+		}
+
+		$filepath = $property->getPdfFile( $locale );
+
+		return response()->download($filepath, "property-{$locale}.pdf", [
+			'Content-Type: application/pdf',
+		]);
+	}
+
 	public function edit($slug)
 	{
 		$query = $this->site->properties()
@@ -288,6 +343,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		$countries = $this->site->enabled_countries;
 		$states = \App\Models\Geography\State::enabled()->where('country_id', $property->country_id)->lists('name','id');
 		$cities = \App\Models\Geography\City::enabled()->where('state_id', $property->state_id)->lists('name','id');
+		$districts = $this->site->districts()->orderBy('name')->lists('name','id');
 
 		$marketplaces = $this->site->marketplaces()
 							->wherePivot('marketplace_enabled','=',1)
@@ -296,7 +352,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 		$current_tab = session('current_tab', 'general');
 
-		return view('account.properties.edit', compact('property','modes','types','energy_types','services','countries','states','cities','marketplaces','current_tab'));
+		return view('account.properties.edit', compact('property','modes','types','energy_types','services','countries','states','cities','marketplaces','current_tab', 'districts'));
 	}
 
 	public function update(Request $request, $slug)
@@ -320,6 +376,10 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			abort(404);
 		}
 
+		$oldPrice = floatval($property->price);
+		$newPrice = floatval($this->request->input('price'));
+		$isPriceFall = $newPrice < $oldPrice;
+
 		// Validate request
 		$valid = $this->validateRequest($property->id);
 		if ( $valid !== true )
@@ -331,6 +391,29 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		if ( !$this->saveRequest($property,false) )
 		{
 			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
+		}
+
+		if($isPriceFall){
+			if($this->site->alert_config === null ||
+					$this->site->alert_config['bajada']['agentes']){
+				$agents = $property->users()->withRole('employee')->get();
+				foreach($agents as $agent){
+					$job = (new \App\Jobs\SendNotificationPriceFall($property, $agent))->onQueue('emails');
+					$this->dispatch($job);
+				}
+			}
+
+			if($this->site->alert_config === null ||
+					$this->site->alert_config['bajada']['customers']){
+				foreach($property->customers as $customer){
+
+					if($customer->alert_config === null ||
+							$customer->alert_config['bajada']){
+						$job = (new \App\Jobs\SendNotificationPriceFall($property, null, $customer))->onQueue('emails');
+						$this->dispatch($job);
+					}
+				}
+			}
 		}
 
 		// Save marketplaces
@@ -363,7 +446,9 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			abort(404);
 		}
 
-		return view('account.properties.show', compact('property'));
+		$current_tab = session('current_tab', old('current_tab', 'tab-general'));
+				
+		return view('account.properties.show', compact('property', 'current_tab'));
 	}
 
 	public function getLeads($slug)
@@ -410,7 +495,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'seller_phone' => '',
 			'seller_cell' => '',
 			'price_min' => 'numeric|min:1',
-			'commission' => 'integer|between:0,100',
+			'commission_fixed' => 'numeric|min:0',
+			'commission' => 'numeric|between:0,100',
 		];
 		$validator = \Validator::make($this->request->all(), $fields);
 		if ($validator->fails())
@@ -443,7 +529,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		return [ 'success'=>true ];
 	}
 
-	public function getCatchClose($id)
+	public function getCatchClose($id, $client_id = null)
 	{
 		if ( $id )
 		{
@@ -458,7 +544,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			$customers[$customer->id] = $customer->fullname;
 		}
 
-		return view('account.properties.catch-close', compact('item','managers','customers'));
+		return view('account.properties.catch-close', compact('item','managers','customers', 'client_id'));
 	}
 	public function postCatchClose($id)
 	{
@@ -512,6 +598,22 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 				$data['days_average'] = @floatval( \App\Models\Property\Catches::ofSite($this->site->id)->whereNotNull('days_to_close')->avg('days_to_close') );
 				$item->update($data);
 				break;
+		}
+
+		// Disable property
+		$item->property->update([
+			'enabled' => 0,
+		]);
+
+		//Send notifications on property sell
+		if(in_array($this->request->input('status'), ['sold'])){
+			foreach($item->property->customers() as $customer){
+				if($customer->alert_config === null ||
+						$customer->alert_config['venta']){
+					$job = (new \App\Jobs\SendNotificationOnPropertySale($customer, $item->property))->onQueue('emails');
+					$this->dispatch($job);
+				}
+			}
 		}
 
 		return [ 'success'=>true ];
@@ -607,6 +709,23 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		}
 
 		$property->enabled = $property->enabled ? 0 : 1;
+
+		// If change to enabled
+		if ( $property->enabled )
+		{
+			// Get site plan max_properties limitation
+			$max_properties = @intval($property->site->plan->max_properties);
+
+			// If limitation has been reached
+			if ( $max_properties && $this->site->properties()->enabled()->count() >= $max_properties )
+			{
+				return [
+					'error' => 1,
+					'error_message' => strip_tags(str_replace("\n", ' ', trans('account/warning.export.limit', [ 'max_properties' => $max_properties ]))),
+				];
+			}
+		}
+
 		$property->save();
 
 
@@ -614,7 +733,6 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'success' => 1,
 			'enabled' => $property->enabled,
 		];
-
 	}
 
 	public function getChangeHighlight($slug)
@@ -633,7 +751,24 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'success' => 1,
 			'highlighted' => $property->highlighted,
 		];
+	}
 
+	public function getChangeHomeSlider($slug)
+	{
+		$property = $this->site->properties()->whereIn('properties.id', $this->auth->user()->properties()->lists('id'))->whereTranslation('slug', $slug)->first();
+		if ( !$property )
+		{
+			return [ 'error'=>1 ];
+		}
+
+		$property->home_slider = $property->home_slider ? 0 : 1;
+		$property->save();
+
+
+		return [
+			'success' => 1,
+			'home_slider' => $property->home_slider,
+		];
 	}
 
 	/* HELPER FUNCTIONS --------------------------------------------------------------------------- */
@@ -641,10 +776,12 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 	protected function getRequestFields($id=false)
 	{
 		$fields = [
-			'ref' => 'required',
+			'ref' => 'required|unique:properties,ref,'.$id.',id,site_id,'.$this->site->id.',deleted_at,NULL',
 			'type' => 'required|in:'.implode(',', array_keys(\App\Property::getTypeOptions())),
 			'mode' => 'required|in:'.implode(',', \App\Property::getModes()),
 			'price' => 'required|numeric|min:0',
+			'price_before' => 'numeric|min:0',
+			'discount_show' => 'boolean',
 			'currency' => 'required|exists:currencies,code',
 			'size' => 'required|numeric|min:0',
 			'size_unit' => 'required|in:'.implode(',', array_keys(\App\Property::getSizeUnitOptions())),
@@ -652,6 +789,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'baths' => 'required|integer|min:0',
 			'services' => 'array',
 			'enabled' => 'boolean',
+			'home_slider' => 'boolean',
 			'highlighted' => 'boolean',
 			'ec' => 'in:'.implode(',', array_keys(\App\Property::getEcOptions())),
 			'ec_pending' => 'boolean',
@@ -665,7 +803,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'territory_id' => 'exists:territories,id',
 			'state_id' => 'required|exists:states,id',
 			'city_id' => 'required|exists:cities,id',
-			'district' => '',
+			'district_id' => '',
 			'address' => '',
 			'address_parts' => 'array',
 			'show_address' => 'boolean',
@@ -765,6 +903,27 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			}
 		}
 
+		//District data
+		if($this->request->input('new_district') == 'true'){
+			if(!$this->request->input('district')) {
+				$property->district_id = null;
+			} else {
+				$district = $this->site->districts()
+						->where('name', $this->request->input('district'))->first();
+
+				if(!$district) {
+					$district = $this->site->districts()->create([
+						'name' => $this->request->input('district'),
+					]);
+				}
+
+				$property->district_id = $district->id;
+			}
+		} else {
+			$property->district_id = $this->request->input('district_id') ?
+					$this->request->input('district_id') : null;
+		}
+
 		// Translatable fields
 		foreach (\App\Session\Site::get('locales_tabs') as $locale => $locale_name)
 		{
@@ -795,6 +954,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		// Process images
 		$position = 0;
 		$preserve = [];
+
+		$rotation = $this->request->input('rotation');
 
 		// Update images position
 		if ( $this->request->input('images') ) {
@@ -827,6 +988,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 					$new_image = $property->images()->create([
 						'image' => $filename,
 						'position' => $position,
+						'created_at' => new \DateTime(),
+						'updated_at' => new \DateTime(),
 					]);
 
 					// Check ok
@@ -835,8 +998,16 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 						continue;
 					}
 
+					$newlocation = "{$dirpath}/{$filename}";
+
 					// Move image to permanent location
-					rename($filepath, "{$dirpath}/{$filename}");
+					rename($filepath, $newlocation);
+
+					//rotate image if necessary
+					if(!empty($rotation[$image_id])){
+						$degree = -(int)$rotation[$image_id];
+						\Image::make($newlocation)->rotate($degree)->save($newlocation);
+					}
 
 					// Preserve
 					$preserve[] = $new_image->id;
@@ -844,11 +1015,29 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 				// Old image
 				else
 				{
-					// Update position
-					$property->images()->find($image_id)->update([
+					$image = $property->images()->find($image_id);
+
+					$updateFields = [
 						'default' => 0,
-						'position' => $position
-					]);
+						'position' => $position,
+					];
+
+					//rotate image if necessary
+					if(!empty($rotation[$image_id])){
+						$degree = -(int)$rotation[$image_id];
+						$path = public_path("sites/{$property->site_id}/properties/{$property->id}/{$image->image}");
+						\Image::make($path)->rotate($degree)->save($path);
+
+						//delete thumbnail
+						$thumbPath = public_path("sites/{$property->site_id}/properties/{$property->id}/thumbnail/{$image->image}");
+						\File::delete($thumbPath);
+
+						$updateFields['updated_at'] = new \DateTime();
+					}
+
+					// Update position
+					$image->update($updateFields);
+
 					// Preserve
 					$preserve[] = $image_id;
 
@@ -912,6 +1101,21 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		return true;
 	}
 
+	public function postComment($slug)
+	{
+		$property = $this->site->properties()->whereIn('properties.id', $this->auth->user()->properties()->lists('id'))->whereTranslation('slug', $slug)->first();
+		if ( !$property )
+		{
+			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
+		}
+
+		$property->update([
+			'comment' => $this->request->input('comment')
+		]);
+
+		return redirect()->back()->with('success', trans('general.messages.success.saved'));
+	}
+
 	public function postUpload()
 	{
 
@@ -947,6 +1151,34 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 		if( $upload_success )
 		{
+			// Resize targets
+			$target_width = 1920;
+			$target_height = 1080;
+
+			// Create thumb
+			$thumb = \Image::make( public_path("{$dir}/{$filename}") );
+
+			// Change extension and encode as jpg
+			if ( preg_match('#\.[^.]+$#', $filename, $matches) )
+			{
+				$ofilename = $filename;
+
+				$filename = preg_replace('#\.[^.]+$#', '.jpg', $filename); // Change extension
+				$thumb->encode('jpg'); // Encode
+
+				// Resize
+				$thumb->resize($target_width, $target_height, function($constraint) {
+					$constraint->aspectRatio();
+					$constraint->upsize();
+				})->save( public_path("{$dir}/{$filename}") );
+
+				if ( $matches[0] != '.jpg' )
+				{
+					@unlink( public_path("{$dir}/{$ofilename}") );
+				}
+			}
+
+			// Define flags
 			@list($w, $h) = @getimagesize( public_path("{$dir}/{$filename}") );
 			$is_vertical = ( $w && $h && $w < $h ) ? true : false;
 			$has_size = ( $w && $w < 1280 ) ? false : true;

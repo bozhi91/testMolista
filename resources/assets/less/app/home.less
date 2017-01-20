@@ -1,8 +1,8 @@
 #home {
-	.main-property { 
+	.main-property {
 		max-width: 1280px; margin: 0px auto;
-		.item { 
-			min-height: 200px; background: center center no-repeat; background-size: cover; 
+		.item {
+			min-height: 200px; background: center center no-repeat; background-size: cover;
 			.main-image { width: 100%; }
 		}
 		.carousel-caption { text-align: center; text-shadow: none; font-size: 18px; }
@@ -15,29 +15,30 @@
 			top: 0px; margin-top: 20px;
 		}
 	}
-	.search-area { 
-		padding: 35px 0px; 
+	.search-area {
+		padding: 35px 0px;
 		.quick-link {
 			margin-bottom: 30px; display: block; position: relative; padding: 0px 70px 0px 110px; border-radius: @borderRadius 20px @borderRadius @borderRadius; text-decoration: none; overflow: hidden;
+			&.no-image { padding-left: 20px; }
 			.text { padding: 20px 0px; color: @colorWhite; font-size: 18px; line-height: 1em; }
 			.image { height: 100%; width: 85px; position: absolute; top: 0px; left: 0px; background: center center no-repeat; background-size: cover; }
-			.arrow { 
+			.arrow {
 				width: 48px; position: absolute; top: 0px;right: 0px; padding-top: 11px;
 				span { display: inline-block; border: 3px solid @colorWhite; color: @colorWhite; border-radius: 30px; width: 36px; height: 36px; line-height: 24px; font-size: 40px; text-align: center; }
 			}
-			&.quick-link-new { 
+			&.quick-link-new {
 				background: #337884;
 				.image { background-image: url('/images/home/link-new.jpg'); }
 			}
-			&.quick-link-rent { 
+			&.quick-link-rent {
 				background: #30ac4a;
 				.image { background-image: url('/images/home/link-rent.jpg'); }
 			}
-			&.quick-link-used { 
+			&.quick-link-used {
 				background: #993556;
 				.image { background-image: url('/images/home/link-used.jpg'); }
 			}
-			&.quick-link-houses { 
+			&.quick-link-houses {
 				background: #b8a528;
 				.image { background-image: url('/images/home/link-houses.jpg'); }
 			}
@@ -46,21 +47,27 @@
 	}
 }
 
+#home-slider {
+	.slider-quick-search-container {
+		display: none;
+	}
+}
+
 @media (min-width: 768px) {
 	#home {
-		.main-property { 
+		.main-property {
 			.item { min-height: 540px; }
 			.carousel-caption { padding-bottom: 125px; }
 			.carousel-caption-text { padding: 10px  30px; }
 		}
-		.properties-slider-area { 
-			margin-top: -45px; padding: 35px 45px 5px 45px; border: @borderWidth solid @colorGrey; border-radius: @borderRadius; 
+		.properties-slider-area {
+			margin-top: -45px; padding: 35px 45px 5px 45px; border: @borderWidth solid @colorGrey; border-radius: @borderRadius;
 			.carousel-control {
 				&.left { left: -33px; }
 				&.right { right: -33px; }
 			}
 		}
-		.search-area { 
+		.search-area {
 			&.under-properties { padding: 35px 45px; border: @borderWidth solid transparent; }
 		}
 	}

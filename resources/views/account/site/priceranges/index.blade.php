@@ -5,6 +5,7 @@
 	<style type="text/css">
 		.add-range-area { margin-bottom: 20px; text-align: right; }
 		.sortable-handler { border: 1px solid #a0a0a0; padding: 20px; cursor: move; background: #fff; margin-bottom: 5px; }
+			.sortable-handler .pricerange-modal-trigger { margin-left: 5px; }
 		.pricerange-item-form {}
 			.pricerange-item-form .nav { border: none; }
 				.pricerange-item-form .nav>li>a,
@@ -65,7 +66,8 @@
 										<li class="sortable-handler">
 											<div class="row">
 												<div class="col-xs-12">
-													<a href="#pricerange-modal-id-{{ $pricerange->id }}" class="btn btn-primary btn-xs pricerange-modal-trigger pull-right">{{ Lang::get('general.edit') }}</a>
+													<a href="#pricerange-modal-edit-{{ $pricerange->id }}" class="btn btn-primary btn-xs pricerange-modal-trigger pull-right">{{ Lang::get('general.edit') }}</a>
+													<a href="#pricerange-modal-delete-{{ $pricerange->id }}" class="btn btn-danger btn-xs pricerange-modal-trigger pull-right">{{ Lang::get('general.delete') }}</a>
 													{!! Form::hidden('items[]', $pricerange->id) !!}
 													{{ $pricerange->title }}
 												</div>
@@ -78,10 +80,18 @@
 							@foreach ($priceranges->$tab as $pricerange)
 								@include('account.site.priceranges.form', [
 									'form_action' => 'Account\Site\PriceRangesController@postIndex',
-									'form_id' => "pricerange-modal-id-{$pricerange->id}",
+									'form_id' => "pricerange-modal-edit-{$pricerange->id}",
 									'form_title' => Lang::get('account/priceranges.form.title.edit'),
 									'form_item' => $pricerange,
 								])
+								{!! Form::open([ 'action'=>[ 'Account\Site\PriceRangesController@deleteRemove', $pricerange->id], 'method'=>'delete', 'id'=>"pricerange-modal-delete-{$pricerange->id}", 'class'=>'mfp-hide app-popup-block-white pricerange-delete-form' ]) !!}
+									<h4>{{ Lang::get('account/priceranges.form.delete.title') }}</h4>
+									<div class="intro">{!! Lang::get('account/priceranges.form.delete.intro') !!}</div>
+									<div class="text-right">
+										<a href="#" class="btn btn-default trigger-popup-close">{{ Lang::get('general.cancel') }}</a>
+										{!! Form::button(Lang::get('general.delete'), [ 'type'=>'submit', 'class'=>'btn btn-danger' ]) !!}
+									</div>
+								{!! Form::close() !!}
 							@endforeach
 						@endif
 
@@ -133,6 +143,16 @@
 				});
 			});
 			
+			cont.find('.pricerange-delete-form').each(function(){
+				var form = $(this);
+				form.validate({
+					submitHandler: function(f) {
+						form.append('<input type="hidden" name="current_tab" value="' + $('#current-tab-input').val() + '" />');
+						LOADING.show();
+						f.submit();
+					}
+				});
+			});
 
 			cont.find('.pricerange-item-form').each(function(){
 				var form = $(this);

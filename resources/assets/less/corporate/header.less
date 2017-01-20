@@ -1,5 +1,5 @@
-header { 
-	min-height: 84px; background-color: @black; 
+header {
+	min-height: 84px; background-color: @black;
 
 	.navbar-default {
 		background-color: transparent;
@@ -21,11 +21,11 @@ header {
 					border-color: transparent; background: transparent;
 					a {
 						font-size: 14px;
-						&.dropdown-toggle, 
+						&.dropdown-toggle,
 						&.dropdown-toggle:hover { color: #848484; border: 1px solid transparent; border-radius: 4px; margin: 15px 0px 0px 10px; padding: 5px; }
 					}
-					.dropdown-menu { 
-						background-color: @black; min-width: 90px; 
+					.dropdown-menu {
+						background-color: @black; min-width: 90px;
 						a { color: #848484; }
 					}
 				}
@@ -33,13 +33,19 @@ header {
 					a.dropdown-toggle{ background: transparent; }
 					a.focus{ background-color: @black; padding: 0; }
 				}
-				.phone-info { 
-					margin: 22px 0px 0px 10px; color: #848484; position: relative; padding-left: 15px; 
+				.phone-info {
+					margin: 22px 0px 0px 10px; color: #848484; position: relative; padding-left: 15px;
 					.fa-phone { color: @white; position: absolute; left: 0px; top: 4px; }
+					.corporate-header-tel {
+						color: #848484; font-size: 14px;
+						&:hover {
+							text-decoration: underline;
+						}
+					}
 				}
 			}
 		}
 	}
 
-	
+
 }
