@@ -136,6 +136,7 @@ Route::group([
 	});
 
 	// Feeds
+	Route::get('feeds/yaencontre.php', 'Web\FeedsController@yaencontre');
 	Route::get('feeds/{code}/{hash}', 'Web\FeedsController@unifiedFeed');
 
 	// Auth
