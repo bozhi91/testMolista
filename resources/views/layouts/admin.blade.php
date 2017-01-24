@@ -18,6 +18,16 @@
 		<script src="http://maps.google.com/maps/api/js?key={{ Config::get('app.google_maps_api_key')}}"></script>
 	@endif
 
+	@if (env('SENTRY_PUBLIC_DNS'))
+	<script src="https://cdn.ravenjs.com/3.9.1/raven.min.js"></script>
+	<script type="text/javascript">
+		Raven.config('{{ env('SENTRY_PUBLIC_DNS') }}').install();
+		@if (Auth::check())
+		Raven.setUserContext({ id: '{{ Auth::user()->id }}' });
+		@endif
+	</script>
+	@endif
+
 	<script type="text/javascript">
 		var ready_callbacks = [];
 	</script>

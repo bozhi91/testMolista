@@ -31,6 +31,16 @@
 
 	<link id="page_favicon" href="{{ asset( env('WHITELABEL_FAVICON','favicon.ico') ) }}" rel="icon" type="image/x-icon" />
 
+	@if (env('SENTRY_PUBLIC_DNS'))
+	<script src="https://cdn.ravenjs.com/3.9.1/raven.min.js"></script>
+	<script type="text/javascript">
+		Raven.config('{{ env('SENTRY_PUBLIC_DNS') }}').install();
+		@if (Auth::check())
+		Raven.setUserContext({ id: '{{ Auth::user()->id }}' });
+		@endif
+	</script>
+	@endif
+
 	<script type="text/javascript">
 		var ready_callbacks = [];
 	</script>
