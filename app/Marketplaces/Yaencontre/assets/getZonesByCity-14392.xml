@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2695">
+        <name><![CDATA[Casco Urbano]]></name>
+    </zone>
+    
+    <zone id="2696">
+        <name><![CDATA[Urbanizaciones]]></name>
+    </zone>
+    
+</zones>

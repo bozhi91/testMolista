@@ -170,6 +170,30 @@ class User extends Authenticatable
 			});
 	}
 
+	public function scopeWithDomainOrSubdomain($query, $domain)
+	{
+		$parts = parse_url($domain);
+		$subdomain = @$parts['host'] ? preg_replace('#(.' . env('APP_DOMAIN') . '$)#', '', $parts['host']) : $domain;
+
+		$query->whereIn('id', function($query) use ($domain, $subdomain) {
+			$query->select('user_id')
+				->from('sites_users')
+				->whereIn('site_id', function($query) use ($subdomain) {
+					$query->select('id')
+						->from('sites')
+						->where('subdomain', 'like', "%{$subdomain}%")
+						;
+				})
+				->orWhereIn('site_id', function($query) use ($domain) {
+					$query->select('site_id')
+						->from('sites_domains')
+						->where('domain', 'like', "%{$domain}%")
+						;
+				})
+				;
+		});
+	}
+
 	public function scopeWithRole($query, $roles)
 	{
 		return $query->whereIn('id', function($query) use ($roles) {

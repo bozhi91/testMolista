@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2422">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="2423">
+        <name><![CDATA[Albaicin]]></name>
+    </zone>
+    
+    <zone id="2424">
+        <name><![CDATA[Genil]]></name>
+    </zone>
+    
+    <zone id="2425">
+        <name><![CDATA[Beiro]]></name>
+    </zone>
+    
+    <zone id="2426">
+        <name><![CDATA[Zaidín]]></name>
+    </zone>
+    
+    <zone id="2427">
+        <name><![CDATA[Ronda]]></name>
+    </zone>
+    
+    <zone id="2428">
+        <name><![CDATA[Chana]]></name>
+    </zone>
+    
+    <zone id="2429">
+        <name><![CDATA[Norte]]></name>
+    </zone>
+    
+</zones>

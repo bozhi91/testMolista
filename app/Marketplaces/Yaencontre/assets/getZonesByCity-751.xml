@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2623">
+        <name><![CDATA[Zona Centro]]></name>
+    </zone>
+    
+    <zone id="2624">
+        <name><![CDATA[Fanals]]></name>
+    </zone>
+    
+    <zone id="2625">
+        <name><![CDATA[El Moli]]></name>
+    </zone>
+    
+    <zone id="2626">
+        <name><![CDATA[El Rieral]]></name>
+    </zone>
+    
+    <zone id="2627">
+        <name><![CDATA[Mas Bell]]></name>
+    </zone>
+    
+    <zone id="2628">
+        <name><![CDATA[Puig Ventor]]></name>
+    </zone>
+    
+</zones>

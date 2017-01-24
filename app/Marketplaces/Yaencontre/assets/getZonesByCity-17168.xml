@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="22566">
+        <name><![CDATA[Puig Pueblo]]></name>
+    </zone>
+    
+    <zone id="22567">
+        <name><![CDATA[Playa del Puig]]></name>
+    </zone>
+    
+</zones>

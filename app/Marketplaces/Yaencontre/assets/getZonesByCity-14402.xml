@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3788">
+        <name><![CDATA[Valdeiglesias Pueblo]]></name>
+    </zone>
+    
+    <zone id="3789">
+        <name><![CDATA[Costa de Madrid]]></name>
+    </zone>
+    
+    <zone id="3790">
+        <name><![CDATA[San Ramon]]></name>
+    </zone>
+    
+    <zone id="3791">
+        <name><![CDATA[Javacruz]]></name>
+    </zone>
+    
+</zones>

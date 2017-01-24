@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="22533">
+        <name><![CDATA[Barrio San Jeronimo]]></name>
+    </zone>
+    
+    <zone id="22534">
+        <name><![CDATA[Barrio del Cristo]]></name>
+    </zone>
+    
+    <zone id="22535">
+        <name><![CDATA[Barrio San Jose]]></name>
+    </zone>
+    
+</zones>

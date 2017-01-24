@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="22547">
+        <name><![CDATA[San Javier Centro]]></name>
+    </zone>
+    
+    <zone id="22548">
+        <name><![CDATA[Santiago de la Ribera]]></name>
+    </zone>
+    
+    <zone id="22549">
+        <name><![CDATA[El Mirador]]></name>
+    </zone>
+    
+    <zone id="22550">
+        <name><![CDATA[Pozo Aledo]]></name>
+    </zone>
+    
+    <zone id="22551">
+        <name><![CDATA[La Manga del Mar Menor]]></name>
+    </zone>
+    
+    <zone id="22552">
+        <name><![CDATA[Lo Llerena]]></name>
+    </zone>
+    
+    <zone id="22553">
+        <name><![CDATA[La Grajuela]]></name>
+    </zone>
+    
+</zones>

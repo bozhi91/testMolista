@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1710">
+        <name><![CDATA[Almarda]]></name>
+    </zone>
+    
+    <zone id="1711">
+        <name><![CDATA[Baladre]]></name>
+    </zone>
+    
+    <zone id="1712">
+        <name><![CDATA[Churruca]]></name>
+    </zone>
+    
+    <zone id="1713">
+        <name><![CDATA[Penyetes]]></name>
+    </zone>
+    
+    <zone id="1714">
+        <name><![CDATA[Puerto de Sagunto]]></name>
+    </zone>
+    
+    <zone id="34421">
+        <name><![CDATA[Antigua Moreria]]></name>
+    </zone>
+    
+    <zone id="34424">
+        <name><![CDATA[Centro - El Castillo]]></name>
+    </zone>
+    
+    <zone id="34425">
+        <name><![CDATA[Doctor Palos - Alto Palancia]]></name>
+    </zone>
+    
+</zones>

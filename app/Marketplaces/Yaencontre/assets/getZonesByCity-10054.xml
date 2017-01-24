@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2012">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="2013">
+        <name><![CDATA[Villacerrada]]></name>
+    </zone>
+    
+    <zone id="2014">
+        <name><![CDATA[Feria]]></name>
+    </zone>
+    
+    <zone id="2015">
+        <name><![CDATA[Pajarita]]></name>
+    </zone>
+    
+    <zone id="2016">
+        <name><![CDATA[Carretas-Huerta de Marzo]]></name>
+    </zone>
+    
+    <zone id="2017">
+        <name><![CDATA[Fatima]]></name>
+    </zone>
+    
+    <zone id="2018">
+        <name><![CDATA[Franciscanos]]></name>
+    </zone>
+    
+    <zone id="2019">
+        <name><![CDATA[Santa Teresa]]></name>
+    </zone>
+    
+    <zone id="2020">
+        <name><![CDATA[Vereda]]></name>
+    </zone>
+    
+    <zone id="2021">
+        <name><![CDATA[San Pedro-Mortero]]></name>
+    </zone>
+    
+    <zone id="2022">
+        <name><![CDATA[Pedro Lamata]]></name>
+    </zone>
+    
+    <zone id="2023">
+        <name><![CDATA[Hospital]]></name>
+    </zone>
+    
+    <zone id="2069">
+        <name><![CDATA[Parque Sur]]></name>
+    </zone>
+    
+    <zone id="2070">
+        <name><![CDATA[Sepulcro-Bolera]]></name>
+    </zone>
+    
+    <zone id="2071">
+        <name><![CDATA[Hermanos Falco]]></name>
+    </zone>
+    
+    <zone id="2072">
+        <name><![CDATA[Universidad]]></name>
+    </zone>
+    
+    <zone id="2073">
+        <name><![CDATA[Cubas-Industria]]></name>
+    </zone>
+    
+    <zone id="2074">
+        <name><![CDATA[San Antonio Abad]]></name>
+    </zone>
+    
+    <zone id="2075">
+        <name><![CDATA[Poligono San Anton]]></name>
+    </zone>
+    
+    <zone id="2076">
+        <name><![CDATA[Estrella]]></name>
+    </zone>
+    
+    <zone id="2077">
+        <name><![CDATA[Milagrosa]]></name>
+    </zone>
+    
+    <zone id="2078">
+        <name><![CDATA[El Pilar]]></name>
+    </zone>
+    
+    <zone id="2079">
+        <name><![CDATA[Canal de Maria Cristina]]></name>
+    </zone>
+    
+    <zone id="2080">
+        <name><![CDATA[Las Cañicas]]></name>
+    </zone>
+    
+    <zone id="2081">
+        <name><![CDATA[San Pablo]]></name>
+    </zone>
+    
+    <zone id="2082">
+        <name><![CDATA[Abuzaderas]]></name>
+    </zone>
+    
+    <zone id="2083">
+        <name><![CDATA[Los Anguijes]]></name>
+    </zone>
+    
+    <zone id="2084">
+        <name><![CDATA[Argamason]]></name>
+    </zone>
+    
+    <zone id="2085">
+        <name><![CDATA[Campillo de las Doblas]]></name>
+    </zone>
+    
+    <zone id="2086">
+        <name><![CDATA[Cerro Lobo]]></name>
+    </zone>
+    
+    <zone id="2087">
+        <name><![CDATA[El Salobral]]></name>
+    </zone>
+    
+    <zone id="2088">
+        <name><![CDATA[Tinajeros]]></name>
+    </zone>
+    
+    <zone id="2089">
+        <name><![CDATA[Santa Ana]]></name>
+    </zone>
+    
+    <zone id="34505">
+        <name><![CDATA[Imaginalia]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="28950">
+        <name><![CDATA[Urb. Calalberche]]></name>
+    </zone>
+    
+    <zone id="34525">
+        <name><![CDATA[Santa Cruz del Retamar pueblo]]></name>
+    </zone>
+    
+</zones>

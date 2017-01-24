@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="87">
+        <name><![CDATA[Les peces]]></name>
+    </zone>
+    
+    <zone id="88">
+        <name><![CDATA[La papiola]]></name>
+    </zone>
+    
+    <zone id="89">
+        <name><![CDATA[Bonaterra i]]></name>
+    </zone>
+    
+    <zone id="90">
+        <name><![CDATA[Bonaterra ii]]></name>
+    </zone>
+    
+</zones>

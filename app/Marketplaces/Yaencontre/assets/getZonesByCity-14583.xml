@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1846">
+        <name><![CDATA[La Purisima - Barriomar]]></name>
+    </zone>
+    
+    <zone id="1847">
+        <name><![CDATA[Buenos Aires]]></name>
+    </zone>
+    
+    <zone id="1848">
+        <name><![CDATA[El Carmen]]></name>
+    </zone>
+    
+    <zone id="1849">
+        <name><![CDATA[La Catedral]]></name>
+    </zone>
+    
+    <zone id="1850">
+        <name><![CDATA[Espinardo]]></name>
+    </zone>
+    
+    <zone id="1851">
+        <name><![CDATA[La Fama]]></name>
+    </zone>
+    
+    <zone id="1852">
+        <name><![CDATA[La Flota]]></name>
+    </zone>
+    
+    <zone id="1853">
+        <name><![CDATA[Infante Juan Manuel]]></name>
+    </zone>
+    
+    <zone id="1854">
+        <name><![CDATA[Nuestra Sra de la Fuentesanta]]></name>
+    </zone>
+    
+    <zone id="1855">
+        <name><![CDATA[La Paz]]></name>
+    </zone>
+    
+    <zone id="1856">
+        <name><![CDATA[San Andres]]></name>
+    </zone>
+    
+    <zone id="1857">
+        <name><![CDATA[San Antolin]]></name>
+    </zone>
+    
+    <zone id="1858">
+        <name><![CDATA[San Anton]]></name>
+    </zone>
+    
+    <zone id="1859">
+        <name><![CDATA[San Bartolome]]></name>
+    </zone>
+    
+    <zone id="1860">
+        <name><![CDATA[San Basilio]]></name>
+    </zone>
+    
+    <zone id="1861">
+        <name><![CDATA[San Juan]]></name>
+    </zone>
+    
+    <zone id="1862">
+        <name><![CDATA[San Lorenzo]]></name>
+    </zone>
+    
+    <zone id="1863">
+        <name><![CDATA[San Miguel]]></name>
+    </zone>
+    
+    <zone id="1864">
+        <name><![CDATA[San Nicolas]]></name>
+    </zone>
+    
+    <zone id="1865">
+        <name><![CDATA[San Pedro]]></name>
+    </zone>
+    
+    <zone id="1866">
+        <name><![CDATA[San Pio X]]></name>
+    </zone>
+    
+    <zone id="1867">
+        <name><![CDATA[Santa Catalina]]></name>
+    </zone>
+    
+    <zone id="1868">
+        <name><![CDATA[Santa Eulalia]]></name>
+    </zone>
+    
+    <zone id="1869">
+        <name><![CDATA[Santa Maria de Gracia]]></name>
+    </zone>
+    
+    <zone id="1870">
+        <name><![CDATA[Santiago el Mayor]]></name>
+    </zone>
+    
+    <zone id="1871">
+        <name><![CDATA[Vista Alegre]]></name>
+    </zone>
+    
+    <zone id="1872">
+        <name><![CDATA[Vistabella]]></name>
+    </zone>
+    
+    <zone id="1873">
+        <name><![CDATA[El Ranero]]></name>
+    </zone>
+    
+    <zone id="33702">
+        <name><![CDATA[El Progreso]]></name>
+    </zone>
+    
+    <zone id="33711">
+        <name><![CDATA[Juan Carlos I]]></name>
+    </zone>
+    
+    <zone id="33712">
+        <name><![CDATA[Ronda Sur]]></name>
+    </zone>
+    
+    <zone id="34470">
+        <name><![CDATA[Suroeste]]></name>
+    </zone>
+    
+    <zone id="34692">
+        <name><![CDATA[El Puntal]]></name>
+    </zone>
+    
+</zones>

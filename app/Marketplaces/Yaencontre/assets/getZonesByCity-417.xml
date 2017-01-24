@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1452">
+        <name><![CDATA[Pla del Vent Torreblanca]]></name>
+    </zone>
+    
+    <zone id="1453">
+        <name><![CDATA[Residencial Sant Joan - TV3]]></name>
+    </zone>
+    
+    <zone id="1454">
+        <name><![CDATA[Les Planes]]></name>
+    </zone>
+    
+    <zone id="1455">
+        <name><![CDATA[Barri Centre]]></name>
+    </zone>
+    
+    <zone id="34220">
+        <name><![CDATA[Eixample]]></name>
+    </zone>
+    
+</zones>

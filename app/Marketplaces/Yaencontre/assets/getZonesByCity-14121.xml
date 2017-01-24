@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="33683">
+        <name><![CDATA[Cascajos - Piqueras]]></name>
+    </zone>
+    
+    <zone id="33684">
+        <name><![CDATA[Casco Antiguo]]></name>
+    </zone>
+    
+    <zone id="33685">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="33686">
+        <name><![CDATA[El Campillo]]></name>
+    </zone>
+    
+    <zone id="33687">
+        <name><![CDATA[Los Lirios]]></name>
+    </zone>
+    
+    <zone id="33688">
+        <name><![CDATA[Oeste]]></name>
+    </zone>
+    
+    <zone id="33689">
+        <name><![CDATA[Portillejo - Valdegastea]]></name>
+    </zone>
+    
+    <zone id="33690">
+        <name><![CDATA[Residencia]]></name>
+    </zone>
+    
+    <zone id="33691">
+        <name><![CDATA[San Adrián - La Cava]]></name>
+    </zone>
+    
+    <zone id="33692">
+        <name><![CDATA[Universidad]]></name>
+    </zone>
+    
+</zones>

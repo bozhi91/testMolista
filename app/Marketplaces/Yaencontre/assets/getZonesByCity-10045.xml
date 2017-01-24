@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3563">
+        <name><![CDATA[Casco Viejo]]></name>
+    </zone>
+    
+    <zone id="3564">
+        <name><![CDATA[Zaramanga]]></name>
+    </zone>
+    
+    <zone id="3565">
+        <name><![CDATA[Abetxuko]]></name>
+    </zone>
+    
+    <zone id="3566">
+        <name><![CDATA[Zabalgana]]></name>
+    </zone>
+    
+    <zone id="3567">
+        <name><![CDATA[Ensanche]]></name>
+    </zone>
+    
+    <zone id="3568">
+        <name><![CDATA[El Pilar]]></name>
+    </zone>
+    
+    <zone id="3569">
+        <name><![CDATA[Lovaina]]></name>
+    </zone>
+    
+    <zone id="3570">
+        <name><![CDATA[Txagorritxu]]></name>
+    </zone>
+    
+    <zone id="3571">
+        <name><![CDATA[San Martin]]></name>
+    </zone>
+    
+    <zone id="3572">
+        <name><![CDATA[Mendizorroa]]></name>
+    </zone>
+    
+    <zone id="3573">
+        <name><![CDATA[Ariznabarra]]></name>
+    </zone>
+    
+    <zone id="3574">
+        <name><![CDATA[Armentia]]></name>
+    </zone>
+    
+    <zone id="3575">
+        <name><![CDATA[Aranzabela]]></name>
+    </zone>
+    
+    <zone id="3576">
+        <name><![CDATA[Aranbizkarra]]></name>
+    </zone>
+    
+    <zone id="3577">
+        <name><![CDATA[Arana]]></name>
+    </zone>
+    
+    <zone id="3578">
+        <name><![CDATA[Judizmendi]]></name>
+    </zone>
+    
+    <zone id="3579">
+        <name><![CDATA[Santa Lucia]]></name>
+    </zone>
+    
+    <zone id="3580">
+        <name><![CDATA[Adurza]]></name>
+    </zone>
+    
+    <zone id="3581">
+        <name><![CDATA[San Cristobal]]></name>
+    </zone>
+    
+    <zone id="3582">
+        <name><![CDATA[Ali-Gobeo]]></name>
+    </zone>
+    
+    <zone id="3583">
+        <name><![CDATA[Sansomendi]]></name>
+    </zone>
+    
+    <zone id="3584">
+        <name><![CDATA[Lakua-Arriaga]]></name>
+    </zone>
+    
+    <zone id="3585">
+        <name><![CDATA[Salburua]]></name>
+    </zone>
+    
+    <zone id="3586">
+        <name><![CDATA[Lakua Centro]]></name>
+    </zone>
+    
+    <zone id="3587">
+        <name><![CDATA[Lakuabizkarra]]></name>
+    </zone>
+    
+    <zone id="3588">
+        <name><![CDATA[Ibaiondo]]></name>
+    </zone>
+    
+    <zone id="3589">
+        <name><![CDATA[Marriturri]]></name>
+    </zone>
+    
+    <zone id="3590">
+        <name><![CDATA[Coronacion]]></name>
+    </zone>
+    
+    <zone id="3591">
+        <name><![CDATA[Errekalenor]]></name>
+    </zone>
+    
+    <zone id="3592">
+        <name><![CDATA[Ibaialde]]></name>
+    </zone>
+    
+    <zone id="3593">
+        <name><![CDATA[Santo Tomas]]></name>
+    </zone>
+    
+    <zone id="3594">
+        <name><![CDATA[Izarra]]></name>
+    </zone>
+    
+    <zone id="3595">
+        <name><![CDATA[Aretxabaleta]]></name>
+    </zone>
+    
+    <zone id="3596">
+        <name><![CDATA[Elorriaga]]></name>
+    </zone>
+    
+    <zone id="3597">
+        <name><![CDATA[Gardelegui]]></name>
+    </zone>
+    
+    <zone id="3598">
+        <name><![CDATA[Santiago]]></name>
+    </zone>
+    
+    <zone id="3599">
+        <name><![CDATA[Esmaltaciones]]></name>
+    </zone>
+    
+    <zone id="3600">
+        <name><![CDATA[Borobizkarra]]></name>
+    </zone>
+    
+    <zone id="3601">
+        <name><![CDATA[Larrein]]></name>
+    </zone>
+    
+    <zone id="3602">
+        <name><![CDATA[Gazalbide]]></name>
+    </zone>
+    
+    <zone id="3603">
+        <name><![CDATA[Elejalde]]></name>
+    </zone>
+    
+    <zone id="3604">
+        <name><![CDATA[El Anglo]]></name>
+    </zone>
+    
+    <zone id="3605">
+        <name><![CDATA[Ciudad Jardin]]></name>
+    </zone>
+    
+    <zone id="3606">
+        <name><![CDATA[Oreitiasolo]]></name>
+    </zone>
+    
+    <zone id="3607">
+        <name><![CDATA[Aldaia]]></name>
+    </zone>
+    
+    <zone id="3608">
+        <name><![CDATA[Eskalmendi]]></name>
+    </zone>
+    
+    <zone id="3609">
+        <name><![CDATA[Gamarra Menor]]></name>
+    </zone>
+    
+    <zone id="3610">
+        <name><![CDATA[Gamarra Mayor]]></name>
+    </zone>
+    
+    <zone id="3611">
+        <name><![CDATA[Arkayate]]></name>
+    </zone>
+    
+</zones>

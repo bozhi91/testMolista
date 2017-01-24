@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2961">
+        <name><![CDATA[Sevilla la Nueva Pueblo]]></name>
+    </zone>
+    
+    <zone id="2962">
+        <name><![CDATA[Lorrio]]></name>
+    </zone>
+    
+    <zone id="2963">
+        <name><![CDATA[Los Manantiales]]></name>
+    </zone>
+    
+    <zone id="2964">
+        <name><![CDATA[Los Cortijos]]></name>
+    </zone>
+    
+    <zone id="2965">
+        <name><![CDATA[Valdelagua]]></name>
+    </zone>
+    
+    <zone id="2966">
+        <name><![CDATA[Las Plazas]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1353">
+        <name><![CDATA[Santa Margarida de Montbui (Nucli Antic)]]></name>
+    </zone>
+    
+    <zone id="1354">
+        <name><![CDATA[La Mallola]]></name>
+    </zone>
+    
+    <zone id="1355">
+        <name><![CDATA[El Coll del Guix]]></name>
+    </zone>
+    
+    <zone id="1356">
+        <name><![CDATA[El Saió]]></name>
+    </zone>
+    
+    <zone id="1478">
+        <name><![CDATA[Vista Alegre]]></name>
+    </zone>
+    
+    <zone id="1479">
+        <name><![CDATA[Del Pi]]></name>
+    </zone>
+    
+</zones>

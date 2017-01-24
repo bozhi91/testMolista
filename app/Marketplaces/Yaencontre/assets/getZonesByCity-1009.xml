@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="231">
+        <name><![CDATA[Racó del cèsar]]></name>
+    </zone>
+    
+    <zone id="232">
+        <name><![CDATA[Les eres]]></name>
+    </zone>
+    
+    <zone id="233">
+        <name><![CDATA[La massó]]></name>
+    </zone>
+    
+    <zone id="234">
+        <name><![CDATA[Les morisques]]></name>
+    </zone>
+    
+    <zone id="235">
+        <name><![CDATA[La coma]]></name>
+    </zone>
+    
+    <zone id="236">
+        <name><![CDATA[Creixell - mar]]></name>
+    </zone>
+    
+    <zone id="237">
+        <name><![CDATA[Les sínies]]></name>
+    </zone>
+    
+    <zone id="238">
+        <name><![CDATA[Port romà]]></name>
+    </zone>
+    
+    <zone id="239">
+        <name><![CDATA[Marina de creixell]]></name>
+    </zone>
+    
+    <zone id="240">
+        <name><![CDATA[La plana]]></name>
+    </zone>
+    
+</zones>

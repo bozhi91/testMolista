@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1481">
+        <name><![CDATA[Sant Pere]]></name>
+    </zone>
+    
+    <zone id="1482">
+        <name><![CDATA[Can Manyoses]]></name>
+    </zone>
+    
+    <zone id="1483">
+        <name><![CDATA[Sant Ramón]]></name>
+    </zone>
+    
+    <zone id="1484">
+        <name><![CDATA[L´Espelt]]></name>
+    </zone>
+    
+    <zone id="1485">
+        <name><![CDATA[El Raval d´Aguilera]]></name>
+    </zone>
+    
+    <zone id="1486">
+        <name><![CDATA[El Bosc Gran]]></name>
+    </zone>
+    
+    <zone id="1487">
+        <name><![CDATA[Can Sabater]]></name>
+    </zone>
+    
+    <zone id="1488">
+        <name><![CDATA[Samuntà]]></name>
+    </zone>
+    
+    <zone id="1489">
+        <name><![CDATA[Les Casetes Mussons]]></name>
+    </zone>
+    
+    <zone id="1490">
+        <name><![CDATA[Can Soler]]></name>
+    </zone>
+    
+    <zone id="1491">
+        <name><![CDATA[Can Masarnau]]></name>
+    </zone>
+    
+    <zone id="1492">
+        <name><![CDATA[Barri de la Font]]></name>
+    </zone>
+    
+    <zone id="1493">
+        <name><![CDATA[Santa Olga]]></name>
+    </zone>
+    
+    <zone id="1494">
+        <name><![CDATA[Puig Rabat]]></name>
+    </zone>
+    
+    <zone id="1495">
+        <name><![CDATA[El Pla]]></name>
+    </zone>
+    
+</zones>

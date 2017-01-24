@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="490">
+        <name><![CDATA[Santa maria]]></name>
+    </zone>
+    
+    <zone id="491">
+        <name><![CDATA[La collada - Sis camins]]></name>
+    </zone>
+    
+    <zone id="492">
+        <name><![CDATA[Aragai]]></name>
+    </zone>
+    
+    <zone id="493">
+        <name><![CDATA[Mas seró]]></name>
+    </zone>
+    
+    <zone id="494">
+        <name><![CDATA[Molí de vent]]></name>
+    </zone>
+    
+    <zone id="495">
+        <name><![CDATA[Aiguacuït]]></name>
+    </zone>
+    
+    <zone id="496">
+        <name><![CDATA[Sant joan]]></name>
+    </zone>
+    
+    <zone id="497">
+        <name><![CDATA[Centre]]></name>
+    </zone>
+    
+    <zone id="498">
+        <name><![CDATA[Geltrú]]></name>
+    </zone>
+    
+    <zone id="499">
+        <name><![CDATA[Ribes roges]]></name>
+    </zone>
+    
+    <zone id="500">
+        <name><![CDATA[Prat de vilanova]]></name>
+    </zone>
+    
+    <zone id="501">
+        <name><![CDATA[Mar]]></name>
+    </zone>
+    
+    <zone id="502">
+        <name><![CDATA[Regina park]]></name>
+    </zone>
+    
+    <zone id="503">
+        <name><![CDATA[La bóvila]]></name>
+    </zone>
+    
+    <zone id="504">
+        <name><![CDATA[Tacó]]></name>
+    </zone>
+    
+    <zone id="505">
+        <name><![CDATA[Llimonet]]></name>
+    </zone>
+    
+    <zone id="506">
+        <name><![CDATA[Sant cristòbol]]></name>
+    </zone>
+    
+    <zone id="507">
+        <name><![CDATA[Racó de santa llúcia]]></name>
+    </zone>
+    
+    <zone id="508">
+        <name><![CDATA[Mas roquer]]></name>
+    </zone>
+    
+    <zone id="509">
+        <name><![CDATA[La plana]]></name>
+    </zone>
+    
+    <zone id="510">
+        <name><![CDATA[Can xicarró]]></name>
+    </zone>
+    
+    <zone id="511">
+        <name><![CDATA[Mas tapet]]></name>
+    </zone>
+    
+    <zone id="512">
+        <name><![CDATA[Mas gros]]></name>
+    </zone>
+    
+    <zone id="513">
+        <name><![CDATA[Mas bou]]></name>
+    </zone>
+    
+    <zone id="514">
+        <name><![CDATA[Mas d´en puig]]></name>
+    </zone>
+    
+    <zone id="515">
+        <name><![CDATA[Torre d´en veguer]]></name>
+    </zone>
+    
+    <zone id="516">
+        <name><![CDATA[Fons Somella]]></name>
+    </zone>
+    
+    <zone id="517">
+        <name><![CDATA[Corral d´en roc]]></name>
+    </zone>
+    
+    <zone id="34711">
+        <name><![CDATA[Barri de Mar]]></name>
+    </zone>
+    
+    <zone id="34712">
+        <name><![CDATA[Les Casernes]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3501">
+        <name><![CDATA[Casco Urbano]]></name>
+    </zone>
+    
+    <zone id="3502">
+        <name><![CDATA[Partida Solaes ]]></name>
+    </zone>
+    
+    <zone id="3503">
+        <name><![CDATA[Surrach]]></name>
+    </zone>
+    
+    <zone id="3504">
+        <name><![CDATA[Sanadorli]]></name>
+    </zone>
+    
+</zones>

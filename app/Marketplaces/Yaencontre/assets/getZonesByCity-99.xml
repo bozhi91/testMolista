@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3508">
+        <name><![CDATA[La Beguda Alta]]></name>
+    </zone>
+    
+    <zone id="3509">
+        <name><![CDATA[Ca n´Amat]]></name>
+    </zone>
+    
+    <zone id="3510">
+        <name><![CDATA[Can Bargallo]]></name>
+    </zone>
+    
+    <zone id="3511">
+        <name><![CDATA[Can Margarit]]></name>
+    </zone>
+    
+    <zone id="3512">
+        <name><![CDATA[Can Prats]]></name>
+    </zone>
+    
+    <zone id="3513">
+        <name><![CDATA[El Pou del Merli]]></name>
+    </zone>
+    
+    <zone id="3514">
+        <name><![CDATA[San Esteban de Sasroviras]]></name>
+    </zone>
+    
+    <zone id="3515">
+        <name><![CDATA[Vallserrat]]></name>
+    </zone>
+    
+    <zone id="34329">
+        <name><![CDATA[La Beguda Baixa]]></name>
+    </zone>
+    
+</zones>

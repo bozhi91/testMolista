@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2756">
+        <name><![CDATA[Casco Urbano]]></name>
+    </zone>
+    
+    <zone id="2757">
+        <name><![CDATA[Barrio Alto]]></name>
+    </zone>
+    
+    <zone id="2758">
+        <name><![CDATA[Barrio Bajo]]></name>
+    </zone>
+    
+    <zone id="2759">
+        <name><![CDATA[El Barrio]]></name>
+    </zone>
+    
+    <zone id="2760">
+        <name><![CDATA[Bajo de Guia]]></name>
+    </zone>
+    
+    <zone id="2761">
+        <name><![CDATA[Bonanza]]></name>
+    </zone>
+    
+    <zone id="2762">
+        <name><![CDATA[El Mazacote]]></name>
+    </zone>
+    
+    <zone id="2763">
+        <name><![CDATA[La Jara]]></name>
+    </zone>
+    
+    <zone id="2764">
+        <name><![CDATA[La Colina Monte Algaida]]></name>
+    </zone>
+    
+    <zone id="2765">
+        <name><![CDATA[Monteolivete]]></name>
+    </zone>
+    
+    <zone id="2766">
+        <name><![CDATA[El Palmar]]></name>
+    </zone>
+    
+    <zone id="2767">
+        <name><![CDATA[La Dehesilla]]></name>
+    </zone>
+    
+    <zone id="2768">
+        <name><![CDATA[El Alto de las Cuevas]]></name>
+    </zone>
+    
+    <zone id="2769">
+        <name><![CDATA[Las Piletas]]></name>
+    </zone>
+    
+    <zone id="2770">
+        <name><![CDATA[El Espirtu Santo]]></name>
+    </zone>
+    
+    <zone id="2771">
+        <name><![CDATA[La Banda Playa]]></name>
+    </zone>
+    
+    <zone id="2772">
+        <name><![CDATA[La Otra Banda]]></name>
+    </zone>
+    
+</zones>

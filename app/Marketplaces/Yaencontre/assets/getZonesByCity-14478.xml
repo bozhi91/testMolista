@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="34713">
+        <name><![CDATA[Benalmádena Costa]]></name>
+    </zone>
+    
+    <zone id="34715">
+        <name><![CDATA[Benalmádena Pueblo]]></name>
+    </zone>
+    
+    <zone id="35030">
+        <name><![CDATA[ Monterrey - Rancho Domingo ]]></name>
+    </zone>
+    
+    <zone id="35032">
+        <name><![CDATA[ Parque de la Paloma ]]></name>
+    </zone>
+    
+    <zone id="35034">
+        <name><![CDATA[Puerto Marina]]></name>
+    </zone>
+    
+    <zone id="35037">
+        <name><![CDATA[ Torremuelle]]></name>
+    </zone>
+    
+    <zone id="35038">
+        <name><![CDATA[Torrequebrada]]></name>
+    </zone>
+    
+    <zone id="35040">
+        <name><![CDATA[Zona el Higuerón]]></name>
+    </zone>
+    
+    <zone id="35042">
+        <name><![CDATA[Solymar]]></name>
+    </zone>
+    
+    <zone id="35044">
+        <name><![CDATA[Montealto - Santangelo norte]]></name>
+    </zone>
+    
+    <zone id="35084">
+        <name><![CDATA[Arroyo de la Miel]]></name>
+    </zone>
+    
+</zones>

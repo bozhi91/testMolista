@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="91">
+        <name><![CDATA[Residencial aubareda]]></name>
+    </zone>
+    
+    <zone id="92">
+        <name><![CDATA[Urb. castellmoster]]></name>
+    </zone>
+    
+    <zone id="93">
+        <name><![CDATA[Urb. picarany]]></name>
+    </zone>
+    
+    <zone id="94">
+        <name><![CDATA[Nucli antic]]></name>
+    </zone>
+    
+</zones>

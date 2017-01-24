@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2913">
+        <name><![CDATA[La Argañosa]]></name>
+    </zone>
+    
+    <zone id="2914">
+        <name><![CDATA[Vallobin-La Florida-Las Campas]]></name>
+    </zone>
+    
+    <zone id="2915">
+        <name><![CDATA[Ciudad Naranco]]></name>
+    </zone>
+    
+    <zone id="2916">
+        <name><![CDATA[Teatinos]]></name>
+    </zone>
+    
+    <zone id="2917">
+        <name><![CDATA[Ventanielles]]></name>
+    </zone>
+    
+    <zone id="2918">
+        <name><![CDATA[Tenderina]]></name>
+    </zone>
+    
+    <zone id="2921">
+        <name><![CDATA[San Lazaro-Otero-Villafría]]></name>
+    </zone>
+    
+    <zone id="2924">
+        <name><![CDATA[Montecerrao]]></name>
+    </zone>
+    
+    <zone id="2925">
+        <name><![CDATA[Milán-Pumarin-Pontón de Vaqueros]]></name>
+    </zone>
+    
+    <zone id="2926">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="33660">
+        <name><![CDATA[Parque San Francisco - Plaza de América]]></name>
+    </zone>
+    
+    <zone id="33661">
+        <name><![CDATA[Casco Histórico]]></name>
+    </zone>
+    
+    <zone id="33662">
+        <name><![CDATA[Santo Domingo]]></name>
+    </zone>
+    
+    <zone id="33663">
+        <name><![CDATA[Zona Teatro Campoamor]]></name>
+    </zone>
+    
+    <zone id="33765">
+        <name><![CDATA[La Ería-Masip]]></name>
+    </zone>
+    
+    <zone id="33768">
+        <name><![CDATA[La Corredoria]]></name>
+    </zone>
+    
+    <zone id="33781">
+        <name><![CDATA[Buenavista-El Cristo]]></name>
+    </zone>
+    
+    <zone id="34724">
+        <name><![CDATA[Fozaneldi]]></name>
+    </zone>
+    
+    <zone id="35053">
+        <name><![CDATA[Auditorio-Parque Invierno]]></name>
+    </zone>
+    
+    <zone id="35134">
+        <name><![CDATA[Huca-Prados]]></name>
+    </zone>
+    
+    <zone id="35137">
+        <name><![CDATA[Parroquias de Oviedo]]></name>
+    </zone>
+    
+    <zone id="35140">
+        <name><![CDATA[Las Cruces]]></name>
+    </zone>
+    
+    <zone id="35143">
+        <name><![CDATA[Pando]]></name>
+    </zone>
+    
+    <zone id="35263">
+        <name><![CDATA[Auditorio-Parque Invierno]]></name>
+    </zone>
+    
+    <zone id="35266">
+        <name><![CDATA[Buenavista-El Cristo]]></name>
+    </zone>
+    
+    <zone id="35269">
+        <name><![CDATA[Ciudad Naranco]]></name>
+    </zone>
+    
+    <zone id="35272">
+        <name><![CDATA[Fozaneldi]]></name>
+    </zone>
+    
+    <zone id="35275">
+        <name><![CDATA[Huca-Prados]]></name>
+    </zone>
+    
+    <zone id="35278">
+        <name><![CDATA[La Argañosa]]></name>
+    </zone>
+    
+    <zone id="35281">
+        <name><![CDATA[La Corredoria]]></name>
+    </zone>
+    
+    <zone id="35284">
+        <name><![CDATA[La Ería-Masip]]></name>
+    </zone>
+    
+    <zone id="35287">
+        <name><![CDATA[Milán-Pumarín-Pontón de Vaqueros]]></name>
+    </zone>
+    
+    <zone id="35290">
+        <name><![CDATA[Montecerrao]]></name>
+    </zone>
+    
+    <zone id="35293">
+        <name><![CDATA[San Lazaro-Otero-Villafría]]></name>
+    </zone>
+    
+    <zone id="35296">
+        <name><![CDATA[Teatinos]]></name>
+    </zone>
+    
+    <zone id="35299">
+        <name><![CDATA[Tenderina]]></name>
+    </zone>
+    
+    <zone id="35302">
+        <name><![CDATA[Vallobin-La Florida-Las Campas]]></name>
+    </zone>
+    
+    <zone id="35305">
+        <name><![CDATA[Ventanielles]]></name>
+    </zone>
+    
+    <zone id="35311">
+        <name><![CDATA[villamejil]]></name>
+    </zone>
+    
+    <zone id="35314">
+        <name><![CDATA[Limanes]]></name>
+    </zone>
+    
+</zones>

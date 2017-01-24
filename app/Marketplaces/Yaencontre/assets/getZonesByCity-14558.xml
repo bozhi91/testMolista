@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3711">
+        <name><![CDATA[San Pedro]]></name>
+    </zone>
+    
+    <zone id="3712">
+        <name><![CDATA[San Roque]]></name>
+    </zone>
+    
+    <zone id="3713">
+        <name><![CDATA[Campoamor]]></name>
+    </zone>
+    
+    <zone id="3714">
+        <name><![CDATA[San Jose Obrero]]></name>
+    </zone>
+    
+    <zone id="3715">
+        <name><![CDATA[Vistabella]]></name>
+    </zone>
+    
+    <zone id="3716">
+        <name><![CDATA[Cabezo Verde]]></name>
+    </zone>
+    
+    <zone id="3717">
+        <name><![CDATA[Las Tejeras]]></name>
+    </zone>
+    
+    <zone id="3718">
+        <name><![CDATA[Florentino Gómez]]></name>
+    </zone>
+    
+    <zone id="3719">
+        <name><![CDATA[Santa Rosa de Lima]]></name>
+    </zone>
+    
+    <zone id="3720">
+        <name><![CDATA[Cayitas]]></name>
+    </zone>
+    
+    <zone id="3721">
+        <name><![CDATA[El Potrox]]></name>
+    </zone>
+    
+    <zone id="3722">
+        <name><![CDATA[Huerto de los Frailes]]></name>
+    </zone>
+    
+</zones>

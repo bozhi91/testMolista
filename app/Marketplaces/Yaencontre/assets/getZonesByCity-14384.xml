@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1690">
+        <name><![CDATA[Urb. Somosaguas]]></name>
+    </zone>
+    
+    <zone id="1691">
+        <name><![CDATA[Urb. la Finca]]></name>
+    </zone>
+    
+    <zone id="1692">
+        <name><![CDATA[Urb. Prado de Somosaguas]]></name>
+    </zone>
+    
+    <zone id="1693">
+        <name><![CDATA[Arroyo de Meaques]]></name>
+    </zone>
+    
+    <zone id="28944">
+        <name><![CDATA[Monteclaro]]></name>
+    </zone>
+    
+    <zone id="28945">
+        <name><![CDATA[Monte Alina]]></name>
+    </zone>
+    
+    <zone id="34512">
+        <name><![CDATA[Zona Avenida de Europa]]></name>
+    </zone>
+    
+    <zone id="34515">
+        <name><![CDATA[Zona Estación]]></name>
+    </zone>
+    
+    <zone id="34516">
+        <name><![CDATA[Zona Norte]]></name>
+    </zone>
+    
+    <zone id="34518">
+        <name><![CDATA[Zona Pueblo]]></name>
+    </zone>
+    
+</zones>

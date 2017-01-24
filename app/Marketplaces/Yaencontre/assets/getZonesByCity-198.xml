@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1357">
+        <name><![CDATA[Badorc (El)]]></name>
+    </zone>
+    
+    <zone id="1358">
+        <name><![CDATA[Bosc de l´Aliga]]></name>
+    </zone>
+    
+    <zone id="1359">
+        <name><![CDATA[Boscos de Can Martí]]></name>
+    </zone>
+    
+    <zone id="1360">
+        <name><![CDATA[Can Aguilera]]></name>
+    </zone>
+    
+    <zone id="1361">
+        <name><![CDATA[Can Bonastre]]></name>
+    </zone>
+    
+    <zone id="1362">
+        <name><![CDATA[Can Bou]]></name>
+    </zone>
+    
+    <zone id="1363">
+        <name><![CDATA[Can Cairot]]></name>
+    </zone>
+    
+    <zone id="1364">
+        <name><![CDATA[Can Canals de Mas Bové]]></name>
+    </zone>
+    
+    <zone id="1365">
+        <name><![CDATA[Can Claramunt]]></name>
+    </zone>
+    
+    <zone id="1366">
+        <name><![CDATA[Can Creixell]]></name>
+    </zone>
+    
+    <zone id="1367">
+        <name><![CDATA[Can Martí]]></name>
+    </zone>
+    
+    <zone id="1368">
+        <name><![CDATA[Can Mas]]></name>
+    </zone>
+    
+    <zone id="1369">
+        <name><![CDATA[Can Mata]]></name>
+    </zone>
+    
+    <zone id="1370">
+        <name><![CDATA[Castell de la Ventosa]]></name>
+    </zone>
+    
+    <zone id="1371">
+        <name><![CDATA[Fortesa (La)]]></name>
+    </zone>
+    
+    <zone id="1372">
+        <name><![CDATA[Grua (La)]]></name>
+    </zone>
+    
+    <zone id="1373">
+        <name><![CDATA[Sant Jaume Ses-Oliveres]]></name>
+    </zone>
+    
+    <zone id="1374">
+        <name><![CDATA[Sant Jordi]]></name>
+    </zone>
+    
+    <zone id="1375">
+        <name><![CDATA[Vallbonica]]></name>
+    </zone>
+    
+    <zone id="1376">
+        <name><![CDATA[Venta-Can Musarro (La)]]></name>
+    </zone>
+    
+    <zone id="34331">
+        <name><![CDATA[Montserrat]]></name>
+    </zone>
+    
+</zones>

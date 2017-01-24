@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="33733">
+        <name><![CDATA[Endériz]]></name>
+    </zone>
+    
+    <zone id="33734">
+        <name><![CDATA[Olaiz]]></name>
+    </zone>
+    
+    <zone id="33735">
+        <name><![CDATA[Olave]]></name>
+    </zone>
+    
+    <zone id="33736">
+        <name><![CDATA[Osacáin]]></name>
+    </zone>
+    
+</zones>

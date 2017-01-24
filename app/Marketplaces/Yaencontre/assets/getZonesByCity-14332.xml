@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2320">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="2321">
+        <name><![CDATA[El Naranjo-La Serna]]></name>
+    </zone>
+    
+    <zone id="2322">
+        <name><![CDATA[El Cerro-El Molino]]></name>
+    </zone>
+    
+    <zone id="2323">
+        <name><![CDATA[El Arroyo-La Fuente]]></name>
+    </zone>
+    
+    <zone id="2324">
+        <name><![CDATA[La Avanzada-La Cueva]]></name>
+    </zone>
+    
+    <zone id="33710">
+        <name><![CDATA[Loranca]]></name>
+    </zone>
+    
+</zones>

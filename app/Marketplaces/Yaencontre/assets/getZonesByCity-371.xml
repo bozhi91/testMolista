@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="209">
+        <name><![CDATA[Apeadero]]></name>
+    </zone>
+    
+    <zone id="210">
+        <name><![CDATA[Bellamar]]></name>
+    </zone>
+    
+    <zone id="211">
+        <name><![CDATA[Can bou]]></name>
+    </zone>
+    
+    <zone id="212">
+        <name><![CDATA[Can roca]]></name>
+    </zone>
+    
+    <zone id="213">
+        <name><![CDATA[Can vinader]]></name>
+    </zone>
+    
+    <zone id="214">
+        <name><![CDATA[Castillo]]></name>
+    </zone>
+    
+    <zone id="215">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="216">
+        <name><![CDATA[Rat penat]]></name>
+    </zone>
+    
+    <zone id="217">
+        <name><![CDATA[Els canyars]]></name>
+    </zone>
+    
+    <zone id="218">
+        <name><![CDATA[Estación]]></name>
+    </zone>
+    
+    <zone id="219">
+        <name><![CDATA[Garraf ii]]></name>
+    </zone>
+    
+    <zone id="220">
+        <name><![CDATA[Gran via mar]]></name>
+    </zone>
+    
+    <zone id="221">
+        <name><![CDATA[Manuel girona]]></name>
+    </zone>
+    
+    <zone id="222">
+        <name><![CDATA[Montemar]]></name>
+    </zone>
+    
+    <zone id="223">
+        <name><![CDATA[Montanyeta]]></name>
+    </zone>
+    
+    <zone id="224">
+        <name><![CDATA[Pau casals]]></name>
+    </zone>
+    
+    <zone id="225">
+        <name><![CDATA[Pineda]]></name>
+    </zone>
+    
+    <zone id="226">
+        <name><![CDATA[Playa]]></name>
+    </zone>
+    
+    <zone id="227">
+        <name><![CDATA[Playafels]]></name>
+    </zone>
+    
+    <zone id="228">
+        <name><![CDATA[Plaza juan xxiii]]></name>
+    </zone>
+    
+    <zone id="229">
+        <name><![CDATA[Poal]]></name>
+    </zone>
+    
+    <zone id="230">
+        <name><![CDATA[Vistaalegre]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1647">
+        <name><![CDATA[Aiguaviva]]></name>
+    </zone>
+    
+    <zone id="1648">
+        <name><![CDATA[Can Ferrer de la Cogullada]]></name>
+    </zone>
+    
+    <zone id="1649">
+        <name><![CDATA[Mas Mateu]]></name>
+    </zone>
+    
+    <zone id="1650">
+        <name><![CDATA[Urb. el Mirador del Penedès]]></name>
+    </zone>
+    
+    <zone id="1651">
+        <name><![CDATA[Urb. la Moixeta]]></name>
+    </zone>
+    
+    <zone id="1652">
+        <name><![CDATA[Urb. la Talaia Mediterrànea]]></name>
+    </zone>
+    
+    <zone id="1653">
+        <name><![CDATA[Urb. les Pinedes Altes]]></name>
+    </zone>
+    
+</zones>

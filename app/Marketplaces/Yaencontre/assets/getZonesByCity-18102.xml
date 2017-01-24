@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1655">
+        <name><![CDATA[Casco Histórico]]></name>
+    </zone>
+    
+    <zone id="1656">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="1657">
+        <name><![CDATA[Delicias]]></name>
+    </zone>
+    
+    <zone id="1658">
+        <name><![CDATA[Universidad]]></name>
+    </zone>
+    
+    <zone id="1659">
+        <name><![CDATA[San José]]></name>
+    </zone>
+    
+    <zone id="1661">
+        <name><![CDATA[La Almozara]]></name>
+    </zone>
+    
+    <zone id="1662">
+        <name><![CDATA[Oliver-Valdefierro]]></name>
+    </zone>
+    
+    <zone id="1663">
+        <name><![CDATA[Torrero-La Paz]]></name>
+    </zone>
+    
+    <zone id="1664">
+        <name><![CDATA[Margen Izquierda]]></name>
+    </zone>
+    
+    <zone id="1665">
+        <name><![CDATA[Barrios Rurales Norte]]></name>
+    </zone>
+    
+    <zone id="1666">
+        <name><![CDATA[Barrios Rurales Oeste]]></name>
+    </zone>
+    
+    <zone id="1787">
+        <name><![CDATA[Actur - Rey Fernando]]></name>
+    </zone>
+    
+    <zone id="1788">
+        <name><![CDATA[Casablanca]]></name>
+    </zone>
+    
+    <zone id="1790">
+        <name><![CDATA[Miralbueno]]></name>
+    </zone>
+    
+    <zone id="1791">
+        <name><![CDATA[Santa Isabel]]></name>
+    </zone>
+    
+    <zone id="1792">
+        <name><![CDATA[Barrio Torrero]]></name>
+    </zone>
+    
+    <zone id="33341">
+        <name><![CDATA[Grancasa]]></name>
+    </zone>
+    
+    <zone id="33342">
+        <name><![CDATA[Parque de los cineastas]]></name>
+    </zone>
+    
+    <zone id="33343">
+        <name><![CDATA[Ranillas]]></name>
+    </zone>
+    
+    <zone id="33344">
+        <name><![CDATA[Juslibol]]></name>
+    </zone>
+    
+    <zone id="33345">
+        <name><![CDATA[Movera]]></name>
+    </zone>
+    
+    <zone id="33346">
+        <name><![CDATA[Montañana]]></name>
+    </zone>
+    
+    <zone id="33347">
+        <name><![CDATA[Peñaflor]]></name>
+    </zone>
+    
+    <zone id="33348">
+        <name><![CDATA[San Juan de Mozarrifar]]></name>
+    </zone>
+    
+    <zone id="33349">
+        <name><![CDATA[San Gregorio]]></name>
+    </zone>
+    
+    <zone id="33351">
+        <name><![CDATA[Urbanización el Zorongo]]></name>
+    </zone>
+    
+    <zone id="33352">
+        <name><![CDATA[Alfocea]]></name>
+    </zone>
+    
+    <zone id="33353">
+        <name><![CDATA[Venta del Olivar]]></name>
+    </zone>
+    
+    <zone id="33354">
+        <name><![CDATA[Villarrapa]]></name>
+    </zone>
+    
+    <zone id="33355">
+        <name><![CDATA[Casetas]]></name>
+    </zone>
+    
+    <zone id="33356">
+        <name><![CDATA[Garrapinillos]]></name>
+    </zone>
+    
+    <zone id="33357">
+        <name><![CDATA[Monzalbarba]]></name>
+    </zone>
+    
+    <zone id="33358">
+        <name><![CDATA[Alfonso]]></name>
+    </zone>
+    
+    <zone id="33359">
+        <name><![CDATA[La Madalena]]></name>
+    </zone>
+    
+    <zone id="33360">
+        <name><![CDATA[Plaza de toros]]></name>
+    </zone>
+    
+    <zone id="33361">
+        <name><![CDATA[San Pablo]]></name>
+    </zone>
+    
+    <zone id="33362">
+        <name><![CDATA[Doctor Cerrada]]></name>
+    </zone>
+    
+    <zone id="33363">
+        <name><![CDATA[Paseo de la constitución – Las damas]]></name>
+    </zone>
+    
+    <zone id="33364">
+        <name><![CDATA[Paseo Independencia]]></name>
+    </zone>
+    
+    <zone id="33365">
+        <name><![CDATA[Paseo Sagasta]]></name>
+    </zone>
+    
+    <zone id="33366">
+        <name><![CDATA[Ciudad jardín – Parque Roma]]></name>
+    </zone>
+    
+    <zone id="33368">
+        <name><![CDATA[Mercado San Valero]]></name>
+    </zone>
+    
+    <zone id="33369">
+        <name><![CDATA[Nueva estación]]></name>
+    </zone>
+    
+    <zone id="33370">
+        <name><![CDATA[Parcelación Barcelona]]></name>
+    </zone>
+    
+    <zone id="33371">
+        <name><![CDATA[Oliver]]></name>
+    </zone>
+    
+    <zone id="33372">
+        <name><![CDATA[Valdefierro]]></name>
+    </zone>
+    
+    <zone id="33373">
+        <name><![CDATA[Miraflores San José]]></name>
+    </zone>
+    
+    <zone id="33374">
+        <name><![CDATA[La Granja]]></name>
+    </zone>
+    
+    <zone id="33375">
+        <name><![CDATA[Parque Miraflores]]></name>
+    </zone>
+    
+    <zone id="33376">
+        <name><![CDATA[San José alto]]></name>
+    </zone>
+    
+    <zone id="33377">
+        <name><![CDATA[Barrio de la Paz]]></name>
+    </zone>
+    
+    <zone id="33378">
+        <name><![CDATA[Pinares de Venecia]]></name>
+    </zone>
+    
+    <zone id="33379">
+        <name><![CDATA[Universidad San Francisco]]></name>
+    </zone>
+    
+    <zone id="33380">
+        <name><![CDATA[Salvador Allende – Parque Goya]]></name>
+    </zone>
+    
+    <zone id="33381">
+        <name><![CDATA[Ruiseñores]]></name>
+    </zone>
+    
+    <zone id="33382">
+        <name><![CDATA[Romareda - Casablanca]]></name>
+    </zone>
+    
+    <zone id="33383">
+        <name><![CDATA[Montecanal – Valdespartera – Arcosur]]></name>
+    </zone>
+    
+    <zone id="33384">
+        <name><![CDATA[Miralbueno – Bombarda]]></name>
+    </zone>
+    
+    <zone id="33385">
+        <name><![CDATA[La Jota]]></name>
+    </zone>
+    
+    <zone id="33386">
+        <name><![CDATA[Las Fuentes – La Cartuja]]></name>
+    </zone>
+    
+    <zone id="33387">
+        <name><![CDATA[Arrabal – Barrio Jesús]]></name>
+    </zone>
+    
+    <zone id="33388">
+        <name><![CDATA[Arrabal]]></name>
+    </zone>
+    
+    <zone id="33389">
+        <name><![CDATA[Barrio Jesús]]></name>
+    </zone>
+    
+    <zone id="33672">
+        <name><![CDATA[Delicias]]></name>
+    </zone>
+    
+    <zone id="34377">
+        <name><![CDATA[Otros barrios]]></name>
+    </zone>
+    
+</zones>

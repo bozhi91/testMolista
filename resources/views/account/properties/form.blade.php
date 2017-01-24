@@ -830,7 +830,13 @@
 					form.find('.input-lat').val( results[0].geometry.location.lat() );
 					form.find('.input-lng').val( results[0].geometry.location.lng() );
 				} else {
-					alertify.error("{{ print_js_string( Lang::get('account/properties.geolocate.error') ) }}"+status);
+					var message = "{{ print_js_string( Lang::get('account/properties.geolocate.error') ) }}: "+status;
+					switch (status) {
+						case 'ZERO_RESULTS':
+							message = "{{ print_js_string( Lang::get('account/properties.geolocate.no_results') ) }}";
+							break;
+					}
+					alertify.error(message);
 				}
 			});
 		});

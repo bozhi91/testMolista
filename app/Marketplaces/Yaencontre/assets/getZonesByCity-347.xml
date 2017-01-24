@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="22458">
+        <name><![CDATA[Granollers Centre]]></name>
+    </zone>
+    
+    <zone id="22459">
+        <name><![CDATA[Can Bassa]]></name>
+    </zone>
+    
+    <zone id="22460">
+        <name><![CDATA[Can Gili]]></name>
+    </zone>
+    
+    <zone id="22461">
+        <name><![CDATA[Can Monic]]></name>
+    </zone>
+    
+    <zone id="22462">
+        <name><![CDATA[Congost]]></name>
+    </zone>
+    
+    <zone id="22463">
+        <name><![CDATA[Sota el Cami Ral]]></name>
+    </zone>
+    
+    <zone id="22464">
+        <name><![CDATA[Font Verda]]></name>
+    </zone>
+    
+    <zone id="22465">
+        <name><![CDATA[Granollers Nord]]></name>
+    </zone>
+    
+    <zone id="22466">
+        <name><![CDATA[L´hostal]]></name>
+    </zone>
+    
+    <zone id="22467">
+        <name><![CDATA[Instituts]]></name>
+    </zone>
+    
+    <zone id="22468">
+        <name><![CDATA[Joan Prim Centre]]></name>
+    </zone>
+    
+    <zone id="22469">
+        <name><![CDATA[Lledoner]]></name>
+    </zone>
+    
+    <zone id="22470">
+        <name><![CDATA[Palou]]></name>
+    </zone>
+    
+    <zone id="22471">
+        <name><![CDATA[Ponent]]></name>
+    </zone>
+    
+    <zone id="22472">
+        <name><![CDATA[Sant Miquel]]></name>
+    </zone>
+    
+    <zone id="22473">
+        <name><![CDATA[Tres Torres]]></name>
+    </zone>
+    
+</zones>

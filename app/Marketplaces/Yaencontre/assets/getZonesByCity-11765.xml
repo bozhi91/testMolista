@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="34731">
+        <name><![CDATA[El Cobre]]></name>
+    </zone>
+    
+    <zone id="34733">
+        <name><![CDATA[La Granja-La Colina-Los Pastores]]></name>
+    </zone>
+    
+    <zone id="34737">
+        <name><![CDATA[San García]]></name>
+    </zone>
+    
+    <zone id="34745">
+        <name><![CDATA[Pescadores-Saladillo]]></name>
+    </zone>
+    
+    <zone id="34752">
+        <name><![CDATA[Bajadilla - Fuente Nueva]]></name>
+    </zone>
+    
+    <zone id="34755">
+        <name><![CDATA[Reconquista-San José Artesano-El Rosario]]></name>
+    </zone>
+    
+    <zone id="35069">
+        <name><![CDATA[San Bernabé]]></name>
+    </zone>
+    
+    <zone id="35072">
+        <name><![CDATA[El Rinconcillo]]></name>
+    </zone>
+    
+    <zone id="35075">
+        <name><![CDATA[Casco Antiguo]]></name>
+    </zone>
+    
+    <zone id="35078">
+        <name><![CDATA[Pelayo]]></name>
+    </zone>
+    
+    <zone id="35081">
+        <name><![CDATA[El Faro de Punta Carnero]]></name>
+    </zone>
+    
+</zones>

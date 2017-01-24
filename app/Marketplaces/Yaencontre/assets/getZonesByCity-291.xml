@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2090">
+        <name><![CDATA[Casco Urbano-Distrito 1]]></name>
+    </zone>
+    
+    <zone id="2091">
+        <name><![CDATA[San Jose-Distrito 2]]></name>
+    </zone>
+    
+    <zone id="2092">
+        <name><![CDATA[La Guardia-Distrito 3]]></name>
+    </zone>
+    
+    <zone id="2093">
+        <name><![CDATA[San Antonio-San Roque-Can Costa-Distrito 4]]></name>
+    </zone>
+    
+</zones>

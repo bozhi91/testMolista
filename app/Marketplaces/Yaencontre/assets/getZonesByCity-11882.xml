@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2629">
+        <name><![CDATA[El Balco]]></name>
+    </zone>
+    
+    <zone id="2630">
+        <name><![CDATA[La Playa]]></name>
+    </zone>
+    
+    <zone id="2631">
+        <name><![CDATA[Les Amplaries]]></name>
+    </zone>
+    
+    <zone id="2632">
+        <name><![CDATA[Les Plagetes de Bellver]]></name>
+    </zone>
+    
+    <zone id="2633">
+        <name><![CDATA[Marina d´Or]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1704">
+        <name><![CDATA[Centre]]></name>
+    </zone>
+    
+    <zone id="1705">
+        <name><![CDATA[Mira-sol]]></name>
+    </zone>
+    
+    <zone id="1706">
+        <name><![CDATA[Valldoreix]]></name>
+    </zone>
+    
+    <zone id="1707">
+        <name><![CDATA[La Floresta]]></name>
+    </zone>
+    
+    <zone id="1708">
+        <name><![CDATA[Les Planes]]></name>
+    </zone>
+    
+    <zone id="34500">
+        <name><![CDATA[El Coll - Sant Francesc]]></name>
+    </zone>
+    
+    <zone id="34523">
+        <name><![CDATA[Volpelleres]]></name>
+    </zone>
+    
+</zones>

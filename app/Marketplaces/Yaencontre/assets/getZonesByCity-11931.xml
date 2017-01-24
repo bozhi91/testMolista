@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2286">
+        <name><![CDATA[Hospital]]></name>
+    </zone>
+    
+    <zone id="2287">
+        <name><![CDATA[El Pilar]]></name>
+    </zone>
+    
+    <zone id="2288">
+        <name><![CDATA[Torremocha]]></name>
+    </zone>
+    
+    <zone id="2289">
+        <name><![CDATA[La Soledad]]></name>
+    </zone>
+    
+    <zone id="2290">
+        <name><![CDATA[Cariñena-Carinyena]]></name>
+    </zone>
+    
+    <zone id="2291">
+        <name><![CDATA[La Union-La senia-Santa Sofia]]></name>
+    </zone>
+    
+    <zone id="2292">
+        <name><![CDATA[El Progreso-San Fernando]]></name>
+    </zone>
+    
+</zones>

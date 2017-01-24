@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="357">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="358">
+        <name><![CDATA[Zona besos]]></name>
+    </zone>
+    
+    <zone id="359">
+        <name><![CDATA[La mina]]></name>
+    </zone>
+    
+    <zone id="360">
+        <name><![CDATA[Besos mar]]></name>
+    </zone>
+    
+    <zone id="890">
+        <name><![CDATA[Zona_temp besos]]></name>
+    </zone>
+    
+</zones>

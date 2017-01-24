@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3480">
+        <name><![CDATA[Nucleo Urbano]]></name>
+    </zone>
+    
+    <zone id="3481">
+        <name><![CDATA[Urb. Santa Maria de Vilalba]]></name>
+    </zone>
+    
+    <zone id="3482">
+        <name><![CDATA[Can Vilalba]]></name>
+    </zone>
+    
+    <zone id="3483">
+        <name><![CDATA[Urb. Las Carpas]]></name>
+    </zone>
+    
+    <zone id="3484">
+        <name><![CDATA[Urb. Ca n´Amat]]></name>
+    </zone>
+    
+    <zone id="3485">
+        <name><![CDATA[Urb. Can Costa-Can Popo]]></name>
+    </zone>
+    
+    <zone id="3486">
+        <name><![CDATA[Urb. Sant Miquel]]></name>
+    </zone>
+    
+    <zone id="3487">
+        <name><![CDATA[Poligono Industrial Ermengol-El Barcelones]]></name>
+    </zone>
+    
+    <zone id="3488">
+        <name><![CDATA[Poligono Industrial Can Socarrat-Can Moragas]]></name>
+    </zone>
+    
+</zones>

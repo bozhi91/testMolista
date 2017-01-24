@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="22442">
+        <name><![CDATA[Altafulla Pueblo ]]></name>
+    </zone>
+    
+    <zone id="22443">
+        <name><![CDATA[Barrio Maritimo ]]></name>
+    </zone>
+    
+    <zone id="22444">
+        <name><![CDATA[Brisas del Mar]]></name>
+    </zone>
+    
+</zones>

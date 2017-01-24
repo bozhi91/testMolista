@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="195">
+        <name><![CDATA[Airesol a-b]]></name>
+    </zone>
+    
+    <zone id="196">
+        <name><![CDATA[Airesol c]]></name>
+    </zone>
+    
+    <zone id="197">
+        <name><![CDATA[Airesol d]]></name>
+    </zone>
+    
+    <zone id="198">
+        <name><![CDATA[El balcó de sant llorenç]]></name>
+    </zone>
+    
+    <zone id="199">
+        <name><![CDATA[Can font]]></name>
+    </zone>
+    
+    <zone id="200">
+        <name><![CDATA[Can avellaneda]]></name>
+    </zone>
+    
+    <zone id="201">
+        <name><![CDATA[Sant feliu del raco]]></name>
+    </zone>
+    
+    <zone id="202">
+        <name><![CDATA[Castellar residencial]]></name>
+    </zone>
+    
+    <zone id="203">
+        <name><![CDATA[Els fruiters]]></name>
+    </zone>
+    
+    <zone id="204">
+        <name><![CDATA[Casc antic]]></name>
+    </zone>
+    
+    <zone id="206">
+        <name><![CDATA[Eixample]]></name>
+    </zone>
+    
+    <zone id="207">
+        <name><![CDATA[Parc catalunya]]></name>
+    </zone>
+    
+    <zone id="208">
+        <name><![CDATA[Instituts]]></name>
+    </zone>
+    
+    <zone id="669">
+        <name><![CDATA[Centre]]></name>
+    </zone>
+    
+</zones>

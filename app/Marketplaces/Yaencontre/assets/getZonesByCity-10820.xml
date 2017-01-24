@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2494">
+        <name><![CDATA[Amonda]]></name>
+    </zone>
+    
+    <zone id="2495">
+        <name><![CDATA[Es Cos]]></name>
+    </zone>
+    
+    <zone id="2496">
+        <name><![CDATA[Sant Francesc]]></name>
+    </zone>
+    
+    <zone id="2497">
+        <name><![CDATA[Es Blanquer]]></name>
+    </zone>
+    
+    <zone id="2498">
+        <name><![CDATA[Crist Rei]]></name>
+    </zone>
+    
+    <zone id="2499">
+        <name><![CDATA[Pologon Can Matzari]]></name>
+    </zone>
+    
+    <zone id="2500">
+        <name><![CDATA[Gran Via Colom]]></name>
+    </zone>
+    
+    <zone id="2501">
+        <name><![CDATA[Els Molins]]></name>
+    </zone>
+    
+</zones>

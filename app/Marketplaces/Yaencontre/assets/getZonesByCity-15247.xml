@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2384">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="2385">
+        <name><![CDATA[Vegueta, Cono Sur y Tarifa]]></name>
+    </zone>
+    
+    <zone id="2386">
+        <name><![CDATA[Puerto-Canteras]]></name>
+    </zone>
+    
+    <zone id="2387">
+        <name><![CDATA[Ciudad Alta]]></name>
+    </zone>
+    
+    <zone id="2388">
+        <name><![CDATA[Tamaraceite-San Lorenzo]]></name>
+    </zone>
+    
+    <zone id="28996">
+        <name><![CDATA[Siete Palmas]]></name>
+    </zone>
+    
+    <zone id="34277">
+        <name><![CDATA[Miller]]></name>
+    </zone>
+    
+    <zone id="34379">
+        <name><![CDATA[Alcaravaneras]]></name>
+    </zone>
+    
+    <zone id="34380">
+        <name><![CDATA[Arenales - Lugo - Avenida Marítima]]></name>
+    </zone>
+    
+    <zone id="34383">
+        <name><![CDATA[Ciudad Jardín]]></name>
+    </zone>
+    
+    <zone id="34386">
+        <name><![CDATA[La Minilla]]></name>
+    </zone>
+    
+    <zone id="34388">
+        <name><![CDATA[Escaleritas - La Feria ]]></name>
+    </zone>
+    
+    <zone id="34390">
+        <name><![CDATA[Altavista - Don Zoilo]]></name>
+    </zone>
+    
+    <zone id="34392">
+        <name><![CDATA[Schamann - Rehoyas]]></name>
+    </zone>
+    
+    <zone id="34395">
+        <name><![CDATA[Vegueta]]></name>
+    </zone>
+    
+    <zone id="34396">
+        <name><![CDATA[Cono Sur]]></name>
+    </zone>
+    
+    <zone id="34399">
+        <name><![CDATA[Tafira]]></name>
+    </zone>
+    
+    <zone id="34401">
+        <name><![CDATA[Almatriche]]></name>
+    </zone>
+    
+    <zone id="34403">
+        <name><![CDATA[San Lorenzo]]></name>
+    </zone>
+    
+    <zone id="34405">
+        <name><![CDATA[Tamaraceite]]></name>
+    </zone>
+    
+    <zone id="34406">
+        <name><![CDATA[Guanarteme]]></name>
+    </zone>
+    
+    <zone id="34409">
+        <name><![CDATA[La Isleta]]></name>
+    </zone>
+    
+    <zone id="34410">
+        <name><![CDATA[Santa Catalina - Canteras]]></name>
+    </zone>
+    
+</zones>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="166">
+        <name><![CDATA[Ajuntament]]></name>
+    </zone>
+    
+    <zone id="167">
+        <name><![CDATA[Albareda]]></name>
+    </zone>
+    
+    <zone id="168">
+        <name><![CDATA[Cambrils badia]]></name>
+    </zone>
+    
+    <zone id="169">
+        <name><![CDATA[Cambrils mediterrani]]></name>
+    </zone>
+    
+    <zone id="170">
+        <name><![CDATA[Cap de sant pere]]></name>
+    </zone>
+    
+    <zone id="171">
+        <name><![CDATA[Eixample]]></name>
+    </zone>
+    
+    <zone id="172">
+        <name><![CDATA[Eixample platja]]></name>
+    </zone>
+    
+    <zone id="173">
+        <name><![CDATA[El casc antic]]></name>
+    </zone>
+    
+    <zone id="174">
+        <name><![CDATA[El dorado playa]]></name>
+    </zone>
+    
+    <zone id="175">
+        <name><![CDATA[El pinaret]]></name>
+    </zone>
+    
+    <zone id="176">
+        <name><![CDATA[Els ametllers]]></name>
+    </zone>
+    
+    <zone id="177">
+        <name><![CDATA[Els tallats]]></name>
+    </zone>
+    
+    <zone id="178">
+        <name><![CDATA[Horta de santa maria]]></name>
+    </zone>
+    
+    <zone id="179">
+        <name><![CDATA[La dorada]]></name>
+    </zone>
+    
+    <zone id="180">
+        <name><![CDATA[La llosa]]></name>
+    </zone>
+    
+    <zone id="181">
+        <name><![CDATA[La parellada]]></name>
+    </zone>
+    
+    <zone id="182">
+        <name><![CDATA[Mar cambrils]]></name>
+    </zone>
+    
+    <zone id="183">
+        <name><![CDATA[Molí de la torre]]></name>
+    </zone>
+    
+    <zone id="184">
+        <name><![CDATA[Nou cambrils]]></name>
+    </zone>
+    
+    <zone id="185">
+        <name><![CDATA[Parellada]]></name>
+    </zone>
+    
+    <zone id="186">
+        <name><![CDATA[Port]]></name>
+    </zone>
+    
+    <zone id="187">
+        <name><![CDATA[Pueblo]]></name>
+    </zone>
+    
+    <zone id="188">
+        <name><![CDATA[Quatre camins]]></name>
+    </zone>
+    
+    <zone id="189">
+        <name><![CDATA[Regueral]]></name>
+    </zone>
+    
+    <zone id="190">
+        <name><![CDATA[Reus mediterrània]]></name>
+    </zone>
+    
+    <zone id="191">
+        <name><![CDATA[Sol cambrils]]></name>
+    </zone>
+    
+    <zone id="192">
+        <name><![CDATA[Tarraco]]></name>
+    </zone>
+    
+    <zone id="193">
+        <name><![CDATA[Vilafortuny]]></name>
+    </zone>
+    
+    <zone id="194">
+        <name><![CDATA[Vinyols]]></name>
+    </zone>
+    
+    <zone id="1816">
+        <name><![CDATA[Regueral - Prat d´En Forés]]></name>
+    </zone>
+    
+    <zone id="1817">
+        <name><![CDATA[Els Esquirols]]></name>
+    </zone>
+    
+    <zone id="1818">
+        <name><![CDATA[El Cavet]]></name>
+    </zone>
+    
+</zones>

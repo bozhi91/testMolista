@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="518">
+        <name><![CDATA[Ciutat vella]]></name>
+    </zone>
+    
+    <zone id="519">
+        <name><![CDATA[Eixample]]></name>
+    </zone>
+    
+    <zone id="520">
+        <name><![CDATA[Sants-montjuïc]]></name>
+    </zone>
+    
+    <zone id="521">
+        <name><![CDATA[Les corts]]></name>
+    </zone>
+    
+    <zone id="522">
+        <name><![CDATA[Sarrià - sant gervasi]]></name>
+    </zone>
+    
+    <zone id="523">
+        <name><![CDATA[Gràcia]]></name>
+    </zone>
+    
+    <zone id="524">
+        <name><![CDATA[Horta - guinardó]]></name>
+    </zone>
+    
+    <zone id="525">
+        <name><![CDATA[Nou barris]]></name>
+    </zone>
+    
+    <zone id="526">
+        <name><![CDATA[Sant andreu]]></name>
+    </zone>
+    
+    <zone id="527">
+        <name><![CDATA[Sant martí]]></name>
+    </zone>
+    
+    <zone id="33306">
+        <name><![CDATA[El Raval]]></name>
+    </zone>
+    
+    <zone id="33307">
+        <name><![CDATA[El Gótic]]></name>
+    </zone>
+    
+    <zone id="33308">
+        <name><![CDATA[La Barceloneta]]></name>
+    </zone>
+    
+    <zone id="33311">
+        <name><![CDATA[Born-Santa Caterina-Sant Pere-La Ribera]]></name>
+    </zone>
+    
+    <zone id="33312">
+        <name><![CDATA[Les corts]]></name>
+    </zone>
+    
+    <zone id="33313">
+        <name><![CDATA[Pedralbes]]></name>
+    </zone>
+    
+    <zone id="33314">
+        <name><![CDATA[Sant Ramon-La Maternitat]]></name>
+    </zone>
+    
+    <zone id="33316">
+        <name><![CDATA[Eixample dreta]]></name>
+    </zone>
+    
+    <zone id="33317">
+        <name><![CDATA[Eixample esquerra]]></name>
+    </zone>
+    
+    <zone id="33319">
+        <name><![CDATA[La Sagrada Família]]></name>
+    </zone>
+    
+    <zone id="33320">
+        <name><![CDATA[Fort Pienc]]></name>
+    </zone>
+    
+    <zone id="33321">
+        <name><![CDATA[Sant Antoni]]></name>
+    </zone>
+    
+    <zone id="33322">
+        <name><![CDATA[La Marina del Prat Vermell]]></name>
+    </zone>
+    
+    <zone id="33323">
+        <name><![CDATA[La Marina de Port]]></name>
+    </zone>
+    
+    <zone id="33324">
+        <name><![CDATA[La Font de la Guatlla]]></name>
+    </zone>
+    
+    <zone id="33325">
+        <name><![CDATA[El Poble Sec-Montjuïc]]></name>
+    </zone>
+    
+    <zone id="33326">
+        <name><![CDATA[Hostafrancs]]></name>
+    </zone>
+    
+    <zone id="33327">
+        <name><![CDATA[La Bordeta]]></name>
+    </zone>
+    
+    <zone id="33328">
+        <name><![CDATA[Sants-Badal]]></name>
+    </zone>
+    
+    <zone id="33330">
+        <name><![CDATA[Zona Franca- Port]]></name>
+    </zone>
+    
+    <zone id="33331">
+        <name><![CDATA[Sants]]></name>
+    </zone>
+    
+    <zone id="33332">
+        <name><![CDATA[Sarrià]]></name>
+    </zone>
+    
+    <zone id="33333">
+        <name><![CDATA[Sant Gervasi – Galvany]]></name>
+    </zone>
+    
+    <zone id="33334">
+        <name><![CDATA[Sant Gervasi – La Bonanova]]></name>
+    </zone>
+    
+    <zone id="33335">
+        <name><![CDATA[El Putxet i Farró]]></name>
+    </zone>
+    
+    <zone id="33336">
+        <name><![CDATA[Les Tres Torres]]></name>
+    </zone>
+    
+    <zone id="33337">
+        <name><![CDATA[Camp d´en Grassot]]></name>
+    </zone>
+    
+    <zone id="33340">
+        <name><![CDATA[Vila de Gràcia]]></name>
+    </zone>
+    
+    <zone id="33390">
+        <name><![CDATA[Vallvidrera-El Tibidabo-Les Planes]]></name>
+    </zone>
+    
+    <zone id="33391">
+        <name><![CDATA[El Coll]]></name>
+    </zone>
+    
+    <zone id="33393">
+        <name><![CDATA[Gràcia Nova]]></name>
+    </zone>
+    
+    <zone id="33394">
+        <name><![CDATA[La Salut]]></name>
+    </zone>
+    
+    <zone id="33395">
+        <name><![CDATA[Vallcarca i els Penitents]]></name>
+    </zone>
+    
+    <zone id="33396">
+        <name><![CDATA[Horta]]></name>
+    </zone>
+    
+    <zone id="33397">
+        <name><![CDATA[Can Baró]]></name>
+    </zone>
+    
+    <zone id="33398">
+        <name><![CDATA[El Baix Guinardó]]></name>
+    </zone>
+    
+    <zone id="33399">
+        <name><![CDATA[El Carmel]]></name>
+    </zone>
+    
+    <zone id="33400">
+        <name><![CDATA[El Guinardó]]></name>
+    </zone>
+    
+    <zone id="33401">
+        <name><![CDATA[La Clota]]></name>
+    </zone>
+    
+    <zone id="33402">
+        <name><![CDATA[La Font d´en Fargues]]></name>
+    </zone>
+    
+    <zone id="33403">
+        <name><![CDATA[La Vall d´Hebron]]></name>
+    </zone>
+    
+    <zone id="33404">
+        <name><![CDATA[La Teixonera]]></name>
+    </zone>
+    
+    <zone id="33405">
+        <name><![CDATA[Montbau]]></name>
+    </zone>
+    
+    <zone id="33406">
+        <name><![CDATA[Sant Genís dels Agudells]]></name>
+    </zone>
+    
+    <zone id="33410">
+        <name><![CDATA[Ciutat Meridiana-Torre Baró-Vallbona]]></name>
+    </zone>
+    
+    <zone id="33411">
+        <name><![CDATA[El Turó de la Peira-Can Peguera]]></name>
+    </zone>
+    
+    <zone id="33412">
+        <name><![CDATA[El Verdum]]></name>
+    </zone>
+    
+    <zone id="33413">
+        <name><![CDATA[La Guineueta]]></name>
+    </zone>
+    
+    <zone id="33414">
+        <name><![CDATA[La Prosperitat]]></name>
+    </zone>
+    
+    <zone id="33415">
+        <name><![CDATA[La Trinitat Nova]]></name>
+    </zone>
+    
+    <zone id="33416">
+        <name><![CDATA[Les Roquetes-Canyelles]]></name>
+    </zone>
+    
+    <zone id="33417">
+        <name><![CDATA[Porta]]></name>
+    </zone>
+    
+    <zone id="33419">
+        <name><![CDATA[Vilapicina i la Torre Llobeta]]></name>
+    </zone>
+    
+    <zone id="33420">
+        <name><![CDATA[Sant Andreu de Palomar]]></name>
+    </zone>
+    
+    <zone id="33421">
+        <name><![CDATA[Baró de Viver]]></name>
+    </zone>
+    
+    <zone id="33422">
+        <name><![CDATA[Bon Pastor]]></name>
+    </zone>
+    
+    <zone id="33423">
+        <name><![CDATA[El Congrés i els Indians]]></name>
+    </zone>
+    
+    <zone id="33424">
+        <name><![CDATA[La Sagrera]]></name>
+    </zone>
+    
+    <zone id="33425">
+        <name><![CDATA[Navas]]></name>
+    </zone>
+    
+    <zone id="33426">
+        <name><![CDATA[Trinitat Vella]]></name>
+    </zone>
+    
+    <zone id="33427">
+        <name><![CDATA[Sant Martí]]></name>
+    </zone>
+    
+    <zone id="33428">
+        <name><![CDATA[Diagonal Mar]]></name>
+    </zone>
+    
+    <zone id="33429">
+        <name><![CDATA[El Besòs i el Maresme]]></name>
+    </zone>
+    
+    <zone id="33430">
+        <name><![CDATA[Camp de l´Arpa]]></name>
+    </zone>
+    
+    <zone id="33431">
+        <name><![CDATA[El Clot]]></name>
+    </zone>
+    
+    <zone id="33432">
+        <name><![CDATA[El Parc i la Llacuna]]></name>
+    </zone>
+    
+    <zone id="33433">
+        <name><![CDATA[El Poblenou]]></name>
+    </zone>
+    
+    <zone id="33434">
+        <name><![CDATA[La Verneda i La Pau]]></name>
+    </zone>
+    
+    <zone id="33435">
+        <name><![CDATA[La Vila Olímpica]]></name>
+    </zone>
+    
+    <zone id="33436">
+        <name><![CDATA[Provençals del Poblenou]]></name>
+    </zone>
+    
+    <zone id="35113">
+        <name><![CDATA[Ciutat  Vella]]></name>
+    </zone>
+    
+</zones>

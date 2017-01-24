@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1874">
+        <name><![CDATA[Casco]]></name>
+    </zone>
+    
+    <zone id="1875">
+        <name><![CDATA[San Antonio Abad]]></name>
+    </zone>
+    
+    <zone id="1876">
+        <name><![CDATA[El Plan]]></name>
+    </zone>
+    
+    <zone id="1877">
+        <name><![CDATA[San Felix]]></name>
+    </zone>
+    
+    <zone id="1878">
+        <name><![CDATA[Hondon]]></name>
+    </zone>
+    
+    <zone id="1879">
+        <name><![CDATA[Canteras]]></name>
+    </zone>
+    
+    <zone id="1880">
+        <name><![CDATA[Perin]]></name>
+    </zone>
+    
+    <zone id="1881">
+        <name><![CDATA[Los puertos]]></name>
+    </zone>
+    
+    <zone id="1882">
+        <name><![CDATA[Campo Nubla]]></name>
+    </zone>
+    
+    <zone id="1883">
+        <name><![CDATA[La Aljorra]]></name>
+    </zone>
+    
+    <zone id="1884">
+        <name><![CDATA[Albujon]]></name>
+    </zone>
+    
+    <zone id="1885">
+        <name><![CDATA[Miranda]]></name>
+    </zone>
+    
+    <zone id="1886">
+        <name><![CDATA[Santa Ana]]></name>
+    </zone>
+    
+    <zone id="1887">
+        <name><![CDATA[Los Medicos]]></name>
+    </zone>
+    
+    <zone id="1888">
+        <name><![CDATA[Pozo Estrecho]]></name>
+    </zone>
+    
+    <zone id="1889">
+        <name><![CDATA[La Palma]]></name>
+    </zone>
+    
+    <zone id="1890">
+        <name><![CDATA[Santa Lucia]]></name>
+    </zone>
+    
+    <zone id="1891">
+        <name><![CDATA[Alumbres]]></name>
+    </zone>
+    
+    <zone id="1892">
+        <name><![CDATA[Escombreras]]></name>
+    </zone>
+    
+    <zone id="1893">
+        <name><![CDATA[El Algar]]></name>
+    </zone>
+    
+    <zone id="1894">
+        <name><![CDATA[Beal]]></name>
+    </zone>
+    
+    <zone id="1895">
+        <name><![CDATA[Rincon de San Gines]]></name>
+    </zone>
+    
+    <zone id="33737">
+        <name><![CDATA[Peral]]></name>
+    </zone>
+    
+    <zone id="34418">
+        <name><![CDATA[Ciudad Jardín]]></name>
+    </zone>
+    
+</zones>

@@ -10,6 +10,7 @@
 		'name' => 'Name',
 		'last_name' => 'Surname',
 		'email' => 'Email',
+		'emailorphone' => 'Email or Phone',
 		'phone' => 'Phone',
 		'locale' => 'Language',
 		'created' => 'Created',

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="3469">
+        <name><![CDATA[Casco Urbano Antiguo]]></name>
+    </zone>
+    
+    <zone id="3470">
+        <name><![CDATA[Casco Nuevo-Palmares]]></name>
+    </zone>
+    
+    <zone id="3471">
+        <name><![CDATA[Port Saplaya]]></name>
+    </zone>
+    
+    <zone id="3472">
+        <name><![CDATA[Patacona]]></name>
+    </zone>
+    
+    <zone id="3473">
+        <name><![CDATA[Partitas]]></name>
+    </zone>
+    
+</zones>

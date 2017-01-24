@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1896">
+        <name><![CDATA[Norte]]></name>
+    </zone>
+    
+    <zone id="1897">
+        <name><![CDATA[Sur]]></name>
+    </zone>
+    
+    <zone id="1898">
+        <name><![CDATA[Este]]></name>
+    </zone>
+    
+    <zone id="1899">
+        <name><![CDATA[Oeste]]></name>
+    </zone>
+    
+    <zone id="1900">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="1901">
+        <name><![CDATA[Grao]]></name>
+    </zone>
+    
+    <zone id="35052">
+        <name><![CDATA[Urbanizaciones]]></name>
+    </zone>
+    
+</zones>

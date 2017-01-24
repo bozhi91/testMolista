@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="2363">
+        <name><![CDATA[Can Antolí]]></name>
+    </zone>
+    
+    <zone id="2364">
+        <name><![CDATA[Banús]]></name>
+    </zone>
+    
+    <zone id="2365">
+        <name><![CDATA[Bellaterra]]></name>
+    </zone>
+    
+    <zone id="2366">
+        <name><![CDATA[Bonasort]]></name>
+    </zone>
+    
+    <zone id="2367">
+        <name><![CDATA[Can Cerdà]]></name>
+    </zone>
+    
+    <zone id="2368">
+        <name><![CDATA[Can Fatjó dels Aurons]]></name>
+    </zone>
+    
+    <zone id="2369">
+        <name><![CDATA[Canaletes]]></name>
+    </zone>
+    
+    <zone id="2370">
+        <name><![CDATA[Centre]]></name>
+    </zone>
+    
+    <zone id="2371">
+        <name><![CDATA[Cordelles]]></name>
+    </zone>
+    
+    <zone id="2372">
+        <name><![CDATA[Fontetes]]></name>
+    </zone>
+    
+    <zone id="2373">
+        <name><![CDATA[Gorgs]]></name>
+    </zone>
+    
+    <zone id="2374">
+        <name><![CDATA[Montflorit]]></name>
+    </zone>
+    
+    <zone id="2375">
+        <name><![CDATA[Plana del Castell (en construcció)]]></name>
+    </zone>
+    
+    <zone id="2376">
+        <name><![CDATA[Serraparera]]></name>
+    </zone>
+    
+    <zone id="2377">
+        <name><![CDATA[Terranova]]></name>
+    </zone>
+    
+    <zone id="2378">
+        <name><![CDATA[Turonet]]></name>
+    </zone>
+    
+    <zone id="2382">
+        <name><![CDATA[Nueva Andalucia]]></name>
+    </zone>
+    
+    <zone id="2383">
+        <name><![CDATA[Los Chopos]]></name>
+    </zone>
+    
+    <zone id="34468">
+        <name><![CDATA[Polígon Industrial Polizur]]></name>
+    </zone>
+    
+</zones>

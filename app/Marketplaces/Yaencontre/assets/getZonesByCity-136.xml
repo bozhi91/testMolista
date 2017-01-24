@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1683">
+        <name><![CDATA[Ràpita, La]]></name>
+    </zone>
+    
+</zones>

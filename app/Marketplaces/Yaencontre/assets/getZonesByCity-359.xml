@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1439">
+        <name><![CDATA[Parque Vall del Palau]]></name>
+    </zone>
+    
+    <zone id="1440">
+        <name><![CDATA[La Plana]]></name>
+    </zone>
+    
+    <zone id="1441">
+        <name><![CDATA[La Solana]]></name>
+    </zone>
+    
+    <zone id="1442">
+        <name><![CDATA[Zona Centre]]></name>
+    </zone>
+    
+    <zone id="1443">
+        <name><![CDATA[Zona Catalunya]]></name>
+    </zone>
+    
+    <zone id="1444">
+        <name><![CDATA[El Pla de l´Estació]]></name>
+    </zone>
+    
+</zones>

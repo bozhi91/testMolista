@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="22539">
+        <name><![CDATA[Centro Urbano]]></name>
+    </zone>
+    
+    <zone id="22540">
+        <name><![CDATA[Urb. Entrecaminos]]></name>
+    </zone>
+    
+    <zone id="22541">
+        <name><![CDATA[Urb. La Juliana]]></name>
+    </zone>
+    
+</zones>

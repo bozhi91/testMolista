@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1964">
+        <name><![CDATA[Rio Nilo]]></name>
+    </zone>
+    
+    <zone id="1965">
+        <name><![CDATA[Brezo]]></name>
+    </zone>
+    
+    <zone id="1966">
+        <name><![CDATA[Campo Olivar]]></name>
+    </zone>
+    
+    <zone id="1967">
+        <name><![CDATA[El Caracol]]></name>
+    </zone>
+    
+    <zone id="1968">
+        <name><![CDATA[El Reston I]]></name>
+    </zone>
+    
+    <zone id="1969">
+        <name><![CDATA[El Reston II]]></name>
+    </zone>
+    
+    <zone id="1970">
+        <name><![CDATA[La Estacion]]></name>
+    </zone>
+    
+    <zone id="1971">
+        <name><![CDATA[La Villa]]></name>
+    </zone>
+    
+    <zone id="1972">
+        <name><![CDATA[Las Virgenes]]></name>
+    </zone>
+    
+    <zone id="1973">
+        <name><![CDATA[Viva Verde]]></name>
+    </zone>
+    
+    <zone id="1974">
+        <name><![CDATA[Las Comunidades]]></name>
+    </zone>
+    
+    <zone id="1975">
+        <name><![CDATA[UDE Norte-Oeste]]></name>
+    </zone>
+    
+    <zone id="34029">
+        <name><![CDATA[Hospital]]></name>
+    </zone>
+    
+    <zone id="34032">
+        <name><![CDATA[Centro]]></name>
+    </zone>
+    
+    <zone id="34528">
+        <name><![CDATA[Hispanoamérica - Comunidades]]></name>
+    </zone>
+    
+</zones>

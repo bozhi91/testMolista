@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<zones>
+    <statusCode>200</statusCode>
+    <statusMsg>OK</statusMsg>
+
+    
+    <zone id="1211">
+        <name><![CDATA[Benicalap]]></name>
+    </zone>
+    
+    <zone id="1212">
+        <name><![CDATA[Pobles del Nord]]></name>
+    </zone>
+    
+    <zone id="1213">
+        <name><![CDATA[Benimaclet]]></name>
+    </zone>
+    
+    <zone id="1214">
+        <name><![CDATA[Extramurs]]></name>
+    </zone>
+    
+    <zone id="1215">
+        <name><![CDATA[Quatre carreres]]></name>
+    </zone>
+    
+    <zone id="1216">
+        <name><![CDATA[Pobles de l´Oest]]></name>
+    </zone>
+    
+    <zone id="1217">
+        <name><![CDATA[Pobles del Sud]]></name>
+    </zone>
+    
+    <zone id="1219">
+        <name><![CDATA[Ciutat vella]]></name>
+    </zone>
+    
+    <zone id="1220">
+        <name><![CDATA[Camins al grau]]></name>
+    </zone>
+    
+    <zone id="1221">
+        <name><![CDATA[Poblats Marítims]]></name>
+    </zone>
+    
+    <zone id="1222">
+        <name><![CDATA[Campanar]]></name>
+    </zone>
+    
+    <zone id="1223">
+        <name><![CDATA[El pla del real]]></name>
+    </zone>
+    
+    <zone id="1224">
+        <name><![CDATA[L´Eixample]]></name>
+    </zone>
+    
+    <zone id="1225">
+        <name><![CDATA[Jesús]]></name>
+    </zone>
+    
+    <zone id="1226">
+        <name><![CDATA[Rascanya]]></name>
+    </zone>
+    
+    <zone id="1227">
+        <name><![CDATA[Algirós]]></name>
+    </zone>
+    
+    <zone id="1228">
+        <name><![CDATA[L´Olivereta]]></name>
+    </zone>
+    
+    <zone id="1229">
+        <name><![CDATA[Patraix]]></name>
+    </zone>
+    
+    <zone id="33570">
+        <name><![CDATA[La Seu]]></name>
+    </zone>
+    
+    <zone id="33571">
+        <name><![CDATA[El Carme]]></name>
+    </zone>
+    
+    <zone id="33572">
+        <name><![CDATA[La Xerea]]></name>
+    </zone>
+    
+    <zone id="33573">
+        <name><![CDATA[El Mercat]]></name>
+    </zone>
+    
+    <zone id="33574">
+        <name><![CDATA[Sant Francesc]]></name>
+    </zone>
+    
+    <zone id="33575">
+        <name><![CDATA[El Pilar]]></name>
+    </zone>
+    
+    <zone id="33576">
+        <name><![CDATA[El Forn d´Alcedo]]></name>
+    </zone>
+    
+    <zone id="33577">
+        <name><![CDATA[El Castellar-L´Oliveral]]></name>
+    </zone>
+    
+    <zone id="33578">
+        <name><![CDATA[Pinedo]]></name>
+    </zone>
+    
+    <zone id="33579">
+        <name><![CDATA[El Saler]]></name>
+    </zone>
+    
+    <zone id="33580">
+        <name><![CDATA[El Palmar]]></name>
+    </zone>
+    
+    <zone id="33581">
+        <name><![CDATA[El Perellonet]]></name>
+    </zone>
+    
+    <zone id="33582">
+        <name><![CDATA[La Torre]]></name>
+    </zone>
+    
+    <zone id="33583">
+        <name><![CDATA[Faitanar]]></name>
+    </zone>
+    
+    <zone id="33584">
+        <name><![CDATA[Benimàmet]]></name>
+    </zone>
+    
+    <zone id="33585">
+        <name><![CDATA[Beniferri]]></name>
+    </zone>
+    
+    <zone id="33586">
+        <name><![CDATA[Benifaraig]]></name>
+    </zone>
+    
+    <zone id="33587">
+        <name><![CDATA[Poble Nou]]></name>
+    </zone>
+    
+    <zone id="33588">
+        <name><![CDATA[Carpesa]]></name>
+    </zone>
+    
+    <zone id="33589">
+        <name><![CDATA[Cases de Bàrcena]]></name>
+    </zone>
+    
+    <zone id="33590">
+        <name><![CDATA[Mauella]]></name>
+    </zone>
+    
+    <zone id="33591">
+        <name><![CDATA[Masarrojos]]></name>
+    </zone>
+    
+    <zone id="33592">
+        <name><![CDATA[Borbotó]]></name>
+    </zone>
+    
+    <zone id="33593">
+        <name><![CDATA[Russafa]]></name>
+    </zone>
+    
+    <zone id="33594">
+        <name><![CDATA[El Pla del Remei]]></name>
+    </zone>
+    
+    <zone id="33595">
+        <name><![CDATA[Gran Vía]]></name>
+    </zone>
+    
+    <zone id="33596">
+        <name><![CDATA[El Botànic]]></name>
+    </zone>
+    
+    <zone id="33597">
+        <name><![CDATA[La Roqueta]]></name>
+    </zone>
+    
+    <zone id="33598">
+        <name><![CDATA[La Petxina]]></name>
+    </zone>
+    
+    <zone id="33599">
+        <name><![CDATA[Arrancapins]]></name>
+    </zone>
+    
+    <zone id="33602">
+        <name><![CDATA[Les Tendetes]]></name>
+    </zone>
+    
+    <zone id="33603">
+        <name><![CDATA[El Calvari]]></name>
+    </zone>
+    
+    <zone id="33604">
+        <name><![CDATA[Sant Pau]]></name>
+    </zone>
+    
+    <zone id="33605">
+        <name><![CDATA[Exposició]]></name>
+    </zone>
+    
+    <zone id="33606">
+        <name><![CDATA[Mestalla]]></name>
+    </zone>
+    
+    <zone id="33607">
+        <name><![CDATA[Jaume Roig]]></name>
+    </zone>
+    
+    <zone id="33608">
+        <name><![CDATA[Ciudad Universitària]]></name>
+    </zone>
+    
+    <zone id="33609">
+        <name><![CDATA[Saïdia]]></name>
+    </zone>
+    
+    <zone id="33610">
+        <name><![CDATA[Marxalenes]]></name>
+    </zone>
+    
+    <zone id="33611">
+        <name><![CDATA[Morvedre]]></name>
+    </zone>
+    
+    <zone id="33612">
+        <name><![CDATA[Trinitat]]></name>
+    </zone>
+    
+    <zone id="33613">
+        <name><![CDATA[Tormos]]></name>
+    </zone>
+    
+    <zone id="33614">
+        <name><![CDATA[Sant Antoni]]></name>
+    </zone>
+    
+    <zone id="33616">
+        <name><![CDATA[Ciutat Fallera]]></name>
+    </zone>
+    
+    <zone id="33617">
+        <name><![CDATA[Els Orriols]]></name>
+    </zone>
+    
+    <zone id="33618">
+        <name><![CDATA[Torrefiel]]></name>
+    </zone>
+    
+    <zone id="33619">
+        <name><![CDATA[Sant Llorenç]]></name>
+    </zone>
+    
+    <zone id="33623">
+        <name><![CDATA[Camí de Vera]]></name>
+    </zone>
+    
+    <zone id="33624">
+        <name><![CDATA[L´Illa perduda]]></name>
+    </zone>
+    
+    <zone id="33625">
+        <name><![CDATA[Ciutat Jardí]]></name>
+    </zone>
+    
+    <zone id="33626">
+        <name><![CDATA[L´Amistat]]></name>
+    </zone>
+    
+    <zone id="33627">
+        <name><![CDATA[La Vega Baixa]]></name>
+    </zone>
+    
+    <zone id="33628">
+        <name><![CDATA[La Carrasca]]></name>
+    </zone>
+    
+    <zone id="33629">
+        <name><![CDATA[La Raïosa]]></name>
+    </zone>
+    
+    <zone id="33630">
+        <name><![CDATA[L´Hort de Senabre]]></name>
+    </zone>
+    
+    <zone id="33631">
+        <name><![CDATA[La Creu Coberta]]></name>
+    </zone>
+    
+    <zone id="33632">
+        <name><![CDATA[Sant Marcel·lí]]></name>
+    </zone>
+    
+    <zone id="33633">
+        <name><![CDATA[Camí Real]]></name>
+    </zone>
+    
+    <zone id="33634">
+        <name><![CDATA[Montolivet]]></name>
+    </zone>
+    
+    <zone id="33635">
+        <name><![CDATA[En Corts]]></name>
+    </zone>
+    
+    <zone id="33636">
+        <name><![CDATA[Malilla]]></name>
+    </zone>
+    
+    <zone id="33637">
+        <name><![CDATA[Fonteta de Sant Lluís]]></name>
+    </zone>
+    
+    <zone id="33638">
+        <name><![CDATA[Na Rovella]]></name>
+    </zone>
+    
+    <zone id="33639">
+        <name><![CDATA[La Punta]]></name>
+    </zone>
+    
+    <zone id="33640">
+        <name><![CDATA[Ciutat de les Arts i les Ciències]]></name>
+    </zone>
+    
+    <zone id="33641">
+        <name><![CDATA[El Grau]]></name>
+    </zone>
+    
+    <zone id="33642">
+        <name><![CDATA[El Cabanyal- El Canyamelar]]></name>
+    </zone>
+    
+    <zone id="33643">
+        <name><![CDATA[La Malva-rosa]]></name>
+    </zone>
+    
+    <zone id="33644">
+        <name><![CDATA[Beteró]]></name>
+    </zone>
+    
+    <zone id="33645">
+        <name><![CDATA[Natzaret]]></name>
+    </zone>
+    
+    <zone id="33646">
+        <name><![CDATA[Aiora]]></name>
+    </zone>
+    
+    <zone id="33647">
+        <name><![CDATA[Albors]]></name>
+    </zone>
+    
+    <zone id="33648">
+        <name><![CDATA[La Creu del Grau]]></name>
+    </zone>
+    
+    <zone id="33649">
+        <name><![CDATA[Camí fondo]]></name>
+    </zone>
+    
+    <zone id="33650">
+        <name><![CDATA[Penya-Roja]]></name>
+    </zone>
+    
+    <zone id="33651">
+        <name><![CDATA[Nou Moles]]></name>
+    </zone>
+    
+    <zone id="33652">
+        <name><![CDATA[Soternes]]></name>
+    </zone>
+    
+    <zone id="33653">
+        <name><![CDATA[Tres Forques]]></name>
+    </zone>
+    
+    <zone id="33654">
+        <name><![CDATA[La FontSanta]]></name>
+    </zone>
+    
+    <zone id="33655">
+        <name><![CDATA[La Llum]]></name>
+    </zone>
+    
+    <zone id="33656">
+        <name><![CDATA[Sant Isidre]]></name>
+    </zone>
+    
+    <zone id="33657">
+        <name><![CDATA[Vara de Quart]]></name>
+    </zone>
+    
+    <zone id="33658">
+        <name><![CDATA[Safranar]]></name>
+    </zone>
+    
+    <zone id="33659">
+        <name><![CDATA[Favara]]></name>
+    </zone>
+    
+    <zone id="33668">
+        <name><![CDATA[Campanar]]></name>
+    </zone>
+    
+    <zone id="33669">
+        <name><![CDATA[Patraix]]></name>
+    </zone>
+    
+    <zone id="33670">
+        <name><![CDATA[Benimaclet]]></name>
+    </zone>
+    
+    <zone id="33671">
+        <name><![CDATA[Benicalap]]></name>
+    </zone>
+    
+</zones>
