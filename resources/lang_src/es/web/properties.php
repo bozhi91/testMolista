@@ -62,6 +62,13 @@
 		'empty' => 'No se encontraron resultados',
 
 		'call.to.action' => 'Obtener más información',
+		'recommend.action' => 'Recomendar a un amigo',
+		'recommend.header' => 'Recomendar esta propiedad a un amigo',
+		'recommend.recieve_email' => 'Email de tu amigo',
+		'recommend.send_email' => 'Tu email',
+		'recommend.send_name' => 'Tu nombre',
+		'recommend.default_message' => 'Creo que te puede interesar este inmueble que he visto.',
+		
 		'related.title' => 'Otras propiedades relacionadas',
 
 		'energy.certificate.help' => '<p>La certificación energética indica la eficiencia del inmueble en cuanto a consumo de energía, agua, etc.</p><p>La categoría A es la más eficiente y la G, la menos.</p>',

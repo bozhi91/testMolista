@@ -264,6 +264,12 @@ class PropertiesController extends WebController
 		return [ 'success'=>true ];
 	}
 
+	public function sharefriend($slug)
+	{
+		dd($this->request->all());
+	}
+	
+	
 	public function downloads($slug,$locale)
 	{
 		// Get property

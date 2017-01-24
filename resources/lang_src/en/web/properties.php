@@ -62,6 +62,13 @@
 		'empty' => 'No results found',
 
 		'call.to.action' => 'Get more information',
+		'recommend.action' => 'Recommend to a friend',
+		'recommend.header' => 'Recommend this property to a friend',
+		'recommend.recieve_email' => 'Your friend\'s email',
+		'recommend.send_email' => 'Your email',
+		'recommend.send_name' => 'Your name',
+		'recommend.default_message' => 'I think you may be interested in this property that I have seen.',
+		
 		'related.title' => 'Other properties that may interest you',
 
 		'energy.certificate.help' => '<p>The energy certification indicates the efficiency of the property in terms of consumption of energy, water, etc.</p><p>Category A is the most efficient and G the least.</p>',

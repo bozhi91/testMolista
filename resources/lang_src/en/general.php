@@ -7,6 +7,7 @@
 		'back' => 'Back',
 		'cancel' => 'Cancel',
 		'continue' => 'Continue',
+		'send' => 'Send',
 		'search' => 'Search',
 		'save' => 'Save',
 		'save.changes' => 'Save changes',
