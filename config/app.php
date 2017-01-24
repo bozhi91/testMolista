@@ -243,6 +243,9 @@
 
 			/* https://github.com/msurguy/Honeypot */
 			Msurguy\Honeypot\HoneypotServiceProvider::class,
+
+			/* https://sentry.io */
+			Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
 		],
 
 		/*
@@ -337,7 +340,10 @@
 			'OpenGraph' => \ChrisKonnertz\OpenGraph\OpenGraph::class,
 
 			/* https://github.com/msurguy/Honeypot */
-			'Honeypot' => Msurguy\Honeypot\HoneypotFacade::class
+			'Honeypot' => Msurguy\Honeypot\HoneypotFacade::class,
+
+			/* https://sentry.io */
+			'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
 		],
 
 	];
