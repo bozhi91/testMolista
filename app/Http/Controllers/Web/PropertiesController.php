@@ -225,6 +225,12 @@ class PropertiesController extends WebController
 			return [ 'error'=>true ];
 		}
 
+		// No robots
+		if ( $this->request->input('accept_legal_terms') )
+		{
+			return [ 'error'=>true ];
+		}
+
 		// No customer, create
 		$customer = $this->site->customers()->where('email', $this->request->input('email'))->first();
 		if ( !$customer )
