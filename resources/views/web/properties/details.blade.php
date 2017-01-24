@@ -59,14 +59,14 @@
 
 			<div class="details {{ @$property->details['lot_area'] ? 'has-lot-area' : '' }}">
 				<div class="row">
-					<div class="cols-xs-12 col-sm-10">
+					<div class="cols-xs-12 col-sm-12">
 						<div class="description text-italic">
 							{!! nl2p($property->description) !!}
 						</div>
 					</div>
 				</div>
 				<div class="row">
-					<div class="cols-xs-12 col-sm-9">
+					<div class="cols-xs-12 col-sm-12">
 						@if ( @$property->details['lot_area'] )
 							<ul class="list-inline metrics lot-area-metrics">
 								<li class="text-nowrap lot-area-item lot-area-size">
@@ -138,7 +138,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="cols-xs-12 col-sm-9">
+					<div class="cols-xs-12 col-sm-12">
 						<div class="services text-italic">
 							{{ $property->services->sortBy('title')->implode('title',', ') }}
 						</div>
@@ -166,11 +166,11 @@
 						@endif
 						<br />
 						<a href="{{ action('Web\PropertiesController@downloads', [ $property->slug, LaravelLocalization::getCurrentLocale() ]) }}" class="btn btn-primary hidden-xs" target="_blank">{{ Lang::get('web/properties.download.pdf') }}</a>
+						<a href="#property-moreinfo-form" class="btn btn-primary more-info-trigger call-to-action pull-right">{{ Lang::get('web/properties.call.to.action') }}</a>
 					</div>
 				</div>
-				<a href="#property-moreinfo-form" class="btn btn-primary call-to-action more-info-trigger">{{ Lang::get('web/properties.call.to.action') }}</a>
 			</div>
-
+			
 			<div class="map-area">
 				@if ( $property->show_address )
 					<div class="visible-address">
