@@ -70,7 +70,9 @@ abstract class Mapper extends \App\Marketplaces\Mapper {
 		switch ($this->item['type']) {
 			case 'apartment': return [1, 10];
 			case 'duplex': return [1, 3];
-			case 'house': return [2, 13];
+			case 'house': 
+			case 'terraced_house':
+				return [2, 13];
 			case 'lot': return [6, 53];
 			case 'penthouse': return [1, 5];
 			case 'store': return [12, null];
@@ -85,6 +87,7 @@ abstract class Mapper extends \App\Marketplaces\Mapper {
 			case 'industrial': return [7, 64];
 			case 'state': return [2, 24];
 			case 'farmhouse': return [2, 21];
+			default: return [1, 9];
 		}
 	}
 

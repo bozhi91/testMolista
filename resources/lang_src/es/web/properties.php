@@ -36,6 +36,7 @@
 		'type.industrial' => 'Nave Industrial',
 		'type.state' => 'Finca Rustica',
 		'type.farmhouse' => 'Masía',
+		'type.terraced_house' => 'Casa adosada',
 
 		'more.show' => 'Más opciones',
 		'more.any' => 'Mostrar todas',

@@ -119,6 +119,7 @@ class Mapper extends \App\Marketplaces\Mapper {
             'state' => 'land',
             'duplex' => 'appartement',
             'house' => 'old',
+			'terraced_house' => 'old',
             'farmhouse' => 'old',
             'penthouse' => 'luxury',
             'villa' => 'old',

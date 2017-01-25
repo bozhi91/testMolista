@@ -144,10 +144,13 @@ class Mapper extends \App\Marketplaces\Mapper {
 			case 'villa':
 			case 'penthouse':
 			case 'house':
+			case 'terraced_house':
 			case 'chalet':
 			case 'farmhouse':
 			case 'bungalow':
 				return '2';
+			default:
+				return '1';
 		}
 	}
 

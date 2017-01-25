@@ -177,6 +177,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 			case 'penthouse':
 			case 'house':
 			case 'chalet':
+			case 'terraced_house':
 				return [1, 'Vivienda', 3, 'Casa'];
 			case 'apartment': return [1, 'Vivienda', 4, 'Apartamento'];
 			case 'farmhouse': return [1, 'Vivienda', 8, 'Masía'];
@@ -191,6 +192,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 			case 'lot': return [5, 'Terrenos y Solares', 1, 'Terreno residencial'];
 			case 'store': return [3, 'Local', 1, 'Local Comercial'];
 			case 'industrial': return [4, 'Industrial', 1, 'Nave Industrial'];
+			default: return [1, 'Vivienda', 1, 'Piso'];
 		}
 	}
 
