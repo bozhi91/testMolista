@@ -143,6 +143,7 @@ class Mapper extends \App\Marketplaces\Mapper {
             'apartment' => 'Piso',
             'duplex' => 'Dúplex',
             'house' => 'Casa',
+			'terraced_house' => 'Casa',
             'lot' => 'Solar',
             'penthouse' => 'Ático',
             'store' => 'Local comercial',

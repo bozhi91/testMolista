@@ -350,6 +350,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 	protected function getPropertyType() {
 		switch ($this->item['type']) {
 			case 'house':
+			case 'terraced_house':
 			case 'villa':
 			case 'duplex':
 				return 2;

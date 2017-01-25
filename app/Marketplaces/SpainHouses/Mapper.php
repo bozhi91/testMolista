@@ -151,6 +151,7 @@ class Mapper extends \App\Marketplaces\Mapper {
             break;
             case 'farmhouse':
             case 'house':
+			case 'terraced_house':
                 $type = 16;
             break;
             case 'state':

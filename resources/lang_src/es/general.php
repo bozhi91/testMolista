@@ -10,6 +10,8 @@
 		'search' => 'Buscar',
 		'save' => 'Guardar',
 		'save.changes' => 'Guardar cambios',
+		'copy' => 'Duplicar',
+		'actions' => 'Acciones',
 
 		'filters' => 'Filtros',
 		'filters.apply' => 'Aplicar filtros',

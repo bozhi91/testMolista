@@ -85,6 +85,7 @@ class Mapper extends \App\Marketplaces\Mapper {
             break;
             case 'duplex':
             case 'house':
+			case 'terraced_house':
             case 'penthouse':
             case 'villa':
             case 'apartment':

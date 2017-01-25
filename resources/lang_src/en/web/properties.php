@@ -36,6 +36,7 @@
 		'type.industrial' => 'Industrial building',
 		'type.state' => 'State',
 		'type.farmhouse' => 'Farmhouse',
+		'type.terraced_house' => 'Terraced house',
 
 		'more.show' => 'Show more options',
 		'more.any' => 'Show all',

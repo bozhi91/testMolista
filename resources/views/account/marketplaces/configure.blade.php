@@ -105,8 +105,8 @@
 									?>
 									{!! drawSortableHeaders($pagination_url, [
 										'reference' => [ 'title' => Lang::get('account/properties.ref') ],
-										'title' => [ 'title' => Lang::get('account/properties.column.title') ],
-										'creation' => [ 'title' => Lang::get('account/properties.column.created') ],
+										'address' => [ 'title' => Lang::get('account/properties.column.address') ],
+										'price' => [ 'title' => Lang::get('account/properties.column.price') ],
 										'exported' => [ 'title' => Lang::get('account/marketplaces.properties.published'), 'class'=>'text-center text-nowrap' ],
 										'enabled' => [ 'title' => Lang::get('account/marketplaces.properties.enabled'), 'class'=>'text-center text-nowrap' ],
 									]) !!}
@@ -116,8 +116,11 @@
 								@foreach ($properties as $property)
 									<tr>
 										<td>{{ $property->ref }}</td>
-										<td>{{ $property->title }}</td>
-										<td>{{  $property->created_at->format('d/m/Y') }}</td>
+										<td>{!! implode( [
+											$property->address,
+											@implode(' / ', array_filter([ $property->city->name, $property->state->name ]))
+											], '<br>') !!}</td>
+										<td>{{ $property->price }}</td>
 										<td class="text-center">
 											@if ( $property->export_to_all )
 												<span class="glyphicon glyphicon-ok has-tooltip" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="{{ Lang::get('account/marketplaces.properties.toall') }}"></span>

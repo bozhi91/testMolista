@@ -142,6 +142,7 @@ class Mapper extends \App\Marketplaces\Mapper {
             case 'penthouse':
             case 'villa':
             case 'apartment':
+			case 'terraced_house':
             default:
                 $type = $this->isRent() ? 'For Rent' : 'For Sale';
             break;
@@ -156,6 +157,7 @@ class Mapper extends \App\Marketplaces\Mapper {
             'apartment' => 'Apartamento',
             'duplex' => 'Dúplex',
             'house' => 'Casa',
+			'terraced_house' => 'Casa',
             'lot' => 'Solar',
             'penthouse' => 'Ático',
             'store' => 'Local',

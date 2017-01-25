@@ -101,6 +101,7 @@ class Mapper extends \App\Marketplaces\Mapper {
             'lot' => 'Undeveloped Land',
             'duplex' => 'Apartment',
             'house' => 'Townhouse',
+			'terraced_house' => 'Townhouse',
             'penthouse' => 'Penthouse',
             'villa' => 'Villa',
             'apartment' => 'Apartment',
