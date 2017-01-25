@@ -92,6 +92,12 @@ class MarketplacesController extends \App\Http\Controllers\AccountController
 			case 'title':
 				$query->orderBy('title', $order);
 				break;
+			case 'price':
+				$query->orderBy('price', $order);
+				break;
+			case 'address':
+				$query->orderBy('address', $order);
+				break;
 			case 'creation':
 				$query->orderBy('created_at', $order);
 				break;
