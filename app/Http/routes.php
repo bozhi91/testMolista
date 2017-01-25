@@ -244,6 +244,7 @@ Route::group([
 		Route::get('properties/status/{slug}', 'Account\PropertiesController@getChangeStatus');
 		Route::get('properties/{slug}/property-{locale}.pdf', 'Account\PropertiesController@download');
 		Route::resource('properties', 'Account\PropertiesController');
+		Route::get('properties/create/{slug?}', 'Account\PropertiesController@create');
 		// Employees
 		Route::get('employees/tickets/{email}', 'Account\EmployeesController@getTickets');
 		Route::get('employees/associate/{email}', 'Account\EmployeesController@getAssociate');
