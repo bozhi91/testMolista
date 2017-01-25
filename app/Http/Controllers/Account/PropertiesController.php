@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Account;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Models\Property\Videos;
 
 class PropertiesController extends \App\Http\Controllers\AccountController
 {
