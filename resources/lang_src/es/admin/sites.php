@@ -30,6 +30,7 @@ return [
 	'tab.plan' => 'Plan',
 	'tab.invoices' => 'Facturas',
 	'tab.payments' => 'Pagos',
+	'tab.notes' => 'Notas',
 
 	'goto.site' => 'Go to site',
 	'goto.admin' => 'Go to admin',
