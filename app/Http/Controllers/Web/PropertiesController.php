@@ -135,7 +135,7 @@ class PropertiesController extends WebController
 		if($this->request->input('district')){
 			$query->where('district_id', $this->request->input('district'));
 		}
-		
+
 		// Sort order
 		$order = $this->request->input('order');
 		if ( $order && array_key_exists($order, \App\Property::getSortOptions()) )
@@ -177,6 +177,7 @@ class PropertiesController extends WebController
 					->with('city')
 					->with('services')
 					->with('images')
+					->with('videos')
 					->findOrFail($id);
 
 		// If slug is from another language
@@ -191,13 +192,13 @@ class PropertiesController extends WebController
 		]);
 
 		$og = new \ChrisKonnertz\OpenGraph\OpenGraph();
-		
+
 		$og->title($property->title)
 			->type('article')
 			->image($property->mainImage)
 			->description($property->description)
 			->url($property->full_url);
-			
+
 		return view('web.properties.details', compact('property', 'og'));
 	}
 
