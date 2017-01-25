@@ -11,7 +11,7 @@
 				$awesomeLinks[] = $widget;
 			}
 		}
-	}
+	}	
 ?>
 
 @extends('layouts.web')
@@ -21,8 +21,7 @@
 	@include('web.search.home')
 
 	<div id="home">
-
-		@if ($sliders)
+		@if($sliders && !empty($sliders['items']))
 			@include('common.widget-slider', ['widget' => $sliders])
 		@elseif ($main_property)
 			<div class="main-property carousel slide" data-interval="false">

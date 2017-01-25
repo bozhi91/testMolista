@@ -261,7 +261,7 @@
 				<div class="cols-xs-12 col-sm-12">
 					<div class="form-group error-container">
 						{!! Form::label('r_email', Lang::get('web/properties.recommend.recieve_email') ) !!}
-						{!! Form::text('r_email', '', [ 'class'=>'form-control required' ] ) !!}
+						{!! Form::text('r_email', '', [ 'class'=>'form-control required email' ] ) !!}
 						{!! Form::hidden('f_email', '') !!}
 						{!! Form::hidden('link', Request::url()) !!}
 					</div>
@@ -460,7 +460,39 @@
 					});
 				}
 			});
-
+			
+			var form = $('#property-share-form');
+			form.validate({
+				ignore: '',
+				errorPlacement: function(error, element) {
+					element.closest('.error-container').append(error);
+				},
+				submitHandler: function(f) {
+					LOADING.show();
+					form.find('.form-error').addClass('hide');
+					$.ajax({
+						dataType: 'json',
+						type: 'POST',
+						url: form.attr('action'),
+						data: form.serialize(),
+						success: function(data) {
+							LOADING.hide();
+							if ( data.success ) {
+								form.find('.form-content').addClass('hide');
+								form.find('.form-success').removeClass('hide');
+							} else {
+								var message = data.message ? data.message : "{{ print_js_string( Lang::get('general.messages.error') ) }}";
+								form.find('.form-error').removeClass('hide').find('.alert-content').html(message);
+							}
+						},
+						error: function() {
+							LOADING.hide();
+								form.find('.form-error').removeClass('hide').find('.alert-content').html("{{ print_js_string( Lang::get('general.messages.error') ) }}");
+						}
+					});
+				}
+			});
+			
 			cont.find('.more-info-trigger').magnificPopup({
 				type: 'inline',
 				modal: true

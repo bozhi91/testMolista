@@ -68,6 +68,7 @@
 		'recommend.send_email' => 'Tu email',
 		'recommend.send_name' => 'Tu nombre',
 		'recommend.default_message' => 'Creo que te puede interesar este inmueble que he visto.',
+		'recommend.success' => 'El mensaje de recommendación se ha enviado correctamente.',
 		
 		'related.title' => 'Otras propiedades relacionadas',
 
@@ -81,6 +82,13 @@
 											<p>Mientras tanto le enviamos un PDF con más información.</p>
 											<p>:sitename</p>',
 
+		'recommendfriend.email.title' => ':name te recommienda ver esta propiedad.',
+		'recommendfriend.email.intro' => '<p>Hola,</p>
+			<p>Tu amigo, :name (:email) te recommienda ver esta propiedad <a href=":url" target="_blank">:title</a>.</p>
+			<p><i>:message</i></p>
+			<p>Mientras tanto le enviamos un PDF con más información.</p>
+			<p>:sitename</p>',
+		
 		'images.label.default' => 'Slider default',
 		'images.warning.orientation' => 'Recomendamos usar imágenes con mayor ancho que largo.',
 		'images.warning.size' => 'El tamaño de esta imagen es muy pequeño. Recomendamos usar imágenes más grandes (ej. 1280 pixels de ancho).',
