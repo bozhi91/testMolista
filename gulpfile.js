@@ -1,5 +1,5 @@
 // Comment to see notifications
-process.env.DISABLE_NOTIFIER = true; 
+process.env.DISABLE_NOTIFIER = true;
 
 var elixir = require('laravel-elixir');
 
@@ -14,7 +14,7 @@ var elixir = require('laravel-elixir');
  |
  */
 
-elixir.config.sourcemaps = false;
+elixir.config.sourcemaps = true;
 
 elixir(function(mix) {
 
@@ -23,7 +23,7 @@ elixir(function(mix) {
 	mix
 		.less([
 			'common.less',
-		], 'resources/assets/css/compiled/common.css')		
+		], 'resources/assets/css/compiled/common.css')
 		.scripts([
 			'moment-with-locales.js',
 			'jquery-1.12.1.js',
