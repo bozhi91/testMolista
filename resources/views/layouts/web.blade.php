@@ -97,6 +97,7 @@
 		<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
 	@endif
 	<script type="text/javascript">
+	if (typeof(stLight) !== "undefined") {
 		stLight.options({
 			publisher: "2572efa4-03fa-451c-b604-4fb0add8bbb4",
 			doNotHash: true,
@@ -105,6 +106,7 @@
 			popup: true,
 			servicePopup: true
 		});
+	}
 	</script>
 
 	<script src="{{ Theme::url('/compiled/js/app.js').'?v='.env('JS_VERSION') }}"></script>

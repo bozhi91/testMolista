@@ -71,6 +71,8 @@ Route::group([
 		Route::get('sites/update-setup/{id}', 'Admin\SitesController@getUpdateSetup');
 		Route::post('sites/invoice/{id}', 'Admin\SitesController@postInvoice');
 		Route::delete('sites/invoice/{id}', 'Admin\SitesController@deleteInvoice');
+		Route::get('sites/comments/{id}', 'Admin\SitesController@comments');
+		Route::post('sites/comments/{id}', 'Admin\SitesController@add_comment');
 		Route::resource('sites', 'Admin\SitesController');
 		// Users
 		Route::resource('users', 'Admin\UsersController');
