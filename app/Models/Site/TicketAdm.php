@@ -517,6 +517,12 @@ class TicketAdm
 			return false;
 		}
 
+		// Does not exist if no ticket_contact_id
+		if ( !$contact->ticket_contact_id )
+		{
+			return true;
+		}
+
 		$data = [
 			'headers'=> [
 				'Authorization' => $this->getAuthorizationHeader(),
