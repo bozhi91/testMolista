@@ -447,4 +447,55 @@ class SitesController extends Controller
 		return redirect()->back()->with('current_tab','plan')->with('error', trans('admin/sites.downgrade.error'));
 	}
 
+	/**
+	 * @return Response
+	 */
+	public function add_comment($id)
+	{			
+		// Check permission
+		if ( !$this->auth->user()->hasRole('admin') )
+		{			
+			exit;
+		}
+		
+		$site = \App\Site::findOrFail($id);
+		
+		//validate
+		$validator = \Validator::make($this->request->all(), [
+			'comment' => 'required',
+		]);
+		if ($validator->fails())
+		{
+			return abort();
+		}
+
+		$site->comments()->create([
+			'comment' => $this->request->get('comment'),
+			'user_id' => $this->auth->user()->id
+		]);
+
+		return;
+	}
+	
+	/**
+	 * @return Response
+	 */
+	public function comments($id)
+	{
+		// Check permission
+		if ( !$this->auth->user()->hasRole('admin') )
+		{
+			exit;
+		}
+
+		$site = \App\Site::findOrFail($id);
+
+		$items = $site->comments()
+					->with('user')
+					->orderBy('created_at', 'desc')
+					->get();
+		
+		return view('admin.sites.comments', compact('items'));
+	}
+
 }

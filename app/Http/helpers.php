@@ -531,3 +531,9 @@
 	{
 		return email_render($view, $data, 'resources/assets/css/emails/corporate.css');
 	}
+	
+	function linkify($string)
+	{
+		return preg_replace('@(http)(s)?(://)?(([a-zA-Z])([-\w]+\.)+([^\s\.]+[^\s]*)+[^,.\s])@', '<a href="http$2://$4" target="_blank" title="$0">$0</a>', $string);
+	}
+

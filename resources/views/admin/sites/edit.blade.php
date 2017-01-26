@@ -19,6 +19,12 @@
 			<li role="presentation" class="{{ $current_tab == 'plan' ? 'active' : '' }}"><a href="#tab-site-plan" aria-controls="tab-site-plan" role="tab" data-toggle="tab">{{ Lang::get('admin/sites.tab.plan') }}</a></li>
 			<li role="presentation" class="{{ $current_tab == 'payments' ? 'active' : '' }}"><a href="#tab-site-payments" aria-controls="tab-site-payments" role="tab" data-toggle="tab">{{ Lang::get('admin/sites.tab.payments') }}</a></li>
 			<li role="presentation" class="{{ $current_tab == 'invoices' ? 'active' : '' }}"><a href="#tab-site-invoices" aria-controls="tab-site-invoices" role="tab" data-toggle="tab">{{ Lang::get('admin/sites.tab.invoices') }}</a></li>
+			
+			@if ( Entrust::hasRole('admin') )
+			<li role="presentation" class="{{ $current_tab == 'notes' ? 'active' : '' }}">
+				<a href="#tab-site-notes" aria-controls="tab-site-notes" role="tab" data-toggle="tab">{{ Lang::get('admin/sites.tab.notes') }}</a>
+			</li>
+			@endif
 		</ul>
 
 		<div class="tab-content">
@@ -409,6 +415,30 @@
 				@endif
 			</div>
 
+			@if ( Entrust::hasRole('admin') )
+			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'notes' ? 'active' : '' }}" id="tab-site-notes">
+				<div class="row">
+					{!! Form::open([ 'action'=>[ 'Admin\SitesController@add_comment', $site->id ], 'method'=>'post', 'id'=>'comment-form' ]) !!}
+					<div class="col-xs-12">
+						<div class="form-group" style="overflow: hidden;">
+							<div class="error-container">
+								{!! Form::textarea('comment', '', [ 'class'=>'form-control col-xs-12', 'required', 'rows' => 3 ]) !!}
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12">
+						<div class="form-group text-right">
+							{!! Form::button('Añadir nota', [ 'type'=>'submit', 'class'=>'btn btn-default' ]) !!}
+						</div>
+					</div>
+					{!! Form::close() !!}
+				</div>
+				<div class="dashboard-block" id="comments-list">
+					Cargando...
+				</div>
+			</div>
+			@endif
+			
 			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'payments' ? 'active' : '' }}" id="tab-site-payments">
 				{!! $payment_tab !!}
 			</div>
@@ -578,6 +608,50 @@
 					}
 				});
 			});
+
+			var Comments = {
+
+				comment_form : $('#comment-form'),
+				comments_list : $('#comments-list'),
+
+				init : function() {
+					var me = this;
+
+					if (me.comment_form.length) {
+						me.comment_form.validate({
+							errorPlacement: function(error, element) {
+								element.closest('.error-container').append(error);
+							},
+							submitHandler: function(f){								
+								LOADING.show();
+								$.post(me.comment_form.attr('action'), me.comment_form.serialize(), function(){
+									me.comment_form.find('textarea').val('');
+									me.load(function(){
+										LOADING.hide();
+										setTimeout(function() {
+											me.comments_list.find('.success').removeClass('success');
+										}, 3000);
+									});
+								});
+							}
+						});
+					}
+
+					if (me.comments_list.length) {
+						me.load(function(){
+							me.comments_list.find('.success').removeClass('success');
+						});
+					}
+				},
+
+				load : function(callback) {					
+					this.comments_list.load('{{ action('Admin\SitesController@comments', $site->id) }}', callback);
+				}
+
+			};
+
+			Comments.init();
+
 
 		});
 	</script>
