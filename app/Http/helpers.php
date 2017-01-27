@@ -531,9 +531,38 @@
 	{
 		return email_render($view, $data, 'resources/assets/css/emails/corporate.css');
 	}
-	
+
 	function linkify($string)
 	{
 		return preg_replace('@(http)(s)?(://)?(([a-zA-Z])([-\w]+\.)+([^\s\.]+[^\s]*)+[^,.\s])@', '<a href="http$2://$4" target="_blank" title="$0">$0</a>', $string);
 	}
 
+	function message($text)
+	{
+		$prefix = 'message_'.uniqid();
+
+		// Remove meta tags
+		$text = preg_replace('#<meta .+?(>|\/>)#', '', $text);
+
+		// Remove script tags
+		$text = preg_replace('#<script .+?<\/script>#', '', $text);
+
+		// Remove "javascript:" actions
+		$text = preg_replace('#javascript\:#', '', $text);
+
+		// Remove all links
+		$text = preg_replace('#href="(.+?)"#', 'href="javascript:alert(\'Link disabled for security:\n$1\');"', $text);
+
+		// Prefix css: ([^>\r\n,{}]+)(,(?=[^}]*{)|\s*{)
+		if (preg_match_all('#<style .+?<\/style>#', $text, $match)) {
+			// 2. Remove them from the text
+			$text = preg_replace('#<style .+?<\/style>#', '', $text);
+
+			foreach ($match[0] as $style) {
+				$style = preg_replace('#([^>\r\n,{}]+)(,(?=[^}]*{)|\s*{)#', "#$prefix $1{", $style);
+				$text .= $style;
+			}
+		}
+
+		return '<div id="'.$prefix.'" style="overflow-x: auto;">'.$text.'</div>';
+	}
