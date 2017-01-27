@@ -540,6 +540,19 @@
 	function message($text)
 	{
 		$prefix = 'message_'.uniqid();
+		$html_id = 'html_'.$prefix;
+		$body_id = 'body_'.$prefix;
+
+		// Replace thml tag
+		$text = preg_replace('#<html#', '<div id="'.$html_id.'"', $text);
+		$text = preg_replace('#<\/html>#', '</div>', $text);
+
+		// Replace body tag
+		$text = preg_replace('#<body#', '<div id="'.$body_id.'"', $text);
+		$text = preg_replace('#<\/body>#', '</div>', $text);
+
+		// Remove DOCTYPE
+		$text = preg_replace('#<!DOCTYPE.+?>#', '', $text);
 
 		// Remove meta tags
 		$text = preg_replace('#<meta .+?(>|\/>)#', '', $text);
@@ -559,7 +572,11 @@
 			$text = preg_replace('#<style .+?<\/style>#', '', $text);
 
 			foreach ($match[0] as $style) {
-				$style = preg_replace('#([^>\r\n,{}]+)(,(?=[^}]*{)|\s*{)#', "#$prefix $1{", $style);
+				// Replace the body for the body tag
+				$style = preg_replace('#(body)(,(?=[^}]*{)|\s*{)#', "#$body_id$2", $style);
+
+				// Add prefix in all the tags
+				$style = preg_replace('#([^>\r\n,{}]+)(,(?=[^}]*{)|\s*{)#', "#$prefix $1$2", $style);
 				$text .= $style;
 			}
 		}
