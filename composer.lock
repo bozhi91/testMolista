@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d1d0b4bcc8f29cbb4fbf3b90a6702d69",
+    "content-hash": "ce2c44b46a1f2d1eecc167bde1efe967",
     "packages": [
         {
             "name": "alexpechkarev/google-geocoder",
@@ -3274,6 +3274,44 @@
                 "logging"
             ],
             "time": "2016-03-10T09:38:19+00:00"
+        },
+        {
+            "name": "rokde/laravel-slow-query-logger",
+            "version": "0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rokde/laravel-slow-query-logger.git",
+                "reference": "892b63fc99fd8f4d63e5c62d31b132b84fc753e6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rokde/laravel-slow-query-logger/zipball/892b63fc99fd8f4d63e5c62d31b132b84fc753e6",
+                "reference": "892b63fc99fd8f4d63e5c62d31b132b84fc753e6",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "5.2.*",
+                "illuminate/support": "5.2.*",
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Rokde\\LaravelSlowQueryLogger\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Robert Kummer",
+                    "email": "rok@ipunkt.biz"
+                }
+            ],
+            "description": "Slow Query Logger for Laravel",
+            "time": "2016-06-28T14:29:35+00:00"
         },
         {
             "name": "sabre/uri",

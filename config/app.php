@@ -246,6 +246,9 @@
 
 			/* https://sentry.io */
 			Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
+
+			/* https://github.com/rokde/laravel-slow-query-logger */
+			Rokde\LaravelSlowQueryLogger\LaravelSlowQueryLoggerProvider::class,
 		],
 
 		/*
