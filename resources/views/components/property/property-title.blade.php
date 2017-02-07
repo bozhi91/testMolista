@@ -1,0 +1,1 @@
+<h1 class="text-bold property-title">{{$property->title}}</h1>
