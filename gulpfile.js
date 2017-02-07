@@ -281,4 +281,18 @@ elixir(function(mix) {
 		], 'public/themes/modular/compiled/css/pdf.css')
 		;
 
+	/* Modular */
+	mix
+		.less([
+			'whitey-modular/app.less',
+		], 'resources/assets/css/compiled/whitey-modular.css')
+		.styles([
+			'compiled/common.css',
+			'compiled/whitey-modular.css',
+		], 'public/themes/whitey-modular/compiled/css/app.css')
+		.less([
+			'white-cloud/pdf.less',
+		], 'public/themes/whitey-modular/compiled/css/pdf.css')
+		;
+
 });
