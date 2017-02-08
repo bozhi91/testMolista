@@ -18,41 +18,51 @@ class CustomersController extends \App\Http\Controllers\AccountController
 	{
 		$price = $this->request->input('price');
 		$mode = $this->request->input('mode');
-		
+
 		if($price || $mode) {
 			$query = $this->site->customers()->whereIn('id', function($query) use($price, $mode){
-			
+
 				$subquery = $query->select('customer_id')
 					->from('customers_queries');
-			
+
 				if($price){
 					$subquery->where('price_min', '<=', $price);
 					$subquery->where('price_max', '>=', $price);
 				}
-			
+
 				if($mode){
 					$subquery->where('mode', $mode);
 				}
-			
+
 				return $subquery;
 			})->with('queries');
 		} else {
 			$query = $this->site->customers()->with('queries');
 		}
-		
+
 		$agent_id = !\Auth::user()->can('lead-view_all') ?
 				\Auth::user()->id : $this->request->input('agent_id');
-				
-		if($agent_id) {
-			$agent = \App\User::where('id', $agent_id)->firstOrFail();			
+
+		if ($agent_id) {
+			$agent = $this->site->users()->where('id', $agent_id)->firstOrFail();
 			$property_ids = $agent->properties()->pluck('id')->toArray();
-						
+
+			// clientes que tiene las propiedades del agente
 			$customer_ids = !empty($property_ids) ? \DB::table('properties_customers')
 				->whereIn('property_id', $property_ids)->pluck('customer_id') : [];
-			
-			$query->whereIn('id', $customer_ids);
+
+			// clientes que el agente tiene vinculados en tickets
+			if ($agent->ticket_user_id) {
+				$contacts = $this->site->ticket_adm->getUserContacts($agent->ticket_user_id);
+				if ($contacts) {
+					$contacts_ids = $this->site->customers()->whereIn('ticket_contact_id', collect($contacts)->pluck('id')->toArray())->get()->pluck('id')->toArray();
+					$customer_ids = array_merge($customer_ids, $contacts_ids);
+				}
+			}
+
+			$query->whereIn('id', array_unique($customer_ids));
 		}
-		
+
 		if ( $this->site_user->hasRole('employee') )
 		{
 			$query->ofUser($this->site_user->id);
@@ -138,7 +148,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		$this->set_go_back_link();
 
 		$agents = $this->site->users()->withRole('employee')->with('properties')->lists('name', 'id')->toArray();
-		
+
 		return view('account.customers.index', compact('customers', 'stats', 'agents'));
 	}
 
@@ -232,7 +242,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		{
 			abort(404);
 		}
-		
+
 		$validator = \Validator::make($this->request->all(), $this->getRequiredFields($customer->id));
 		if ($validator->fails())
 		{
@@ -273,7 +283,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		}
 
 		$customer = $query->first();
-		
+
 		if ( !$customer )
 		{
 			abort(404);
@@ -298,7 +308,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		$current_tab = session('current_tab', 'general');
 
 		$districts = $this->site->districts()->lists('name', 'id')->all();
-		
+
 		return view('account.customers.show', compact('customer','profile','countries','country_id','states','cities','modes','types','services','current_tab', 'districts'));
 	}
 
@@ -327,7 +337,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		{
 			abort(404);
 		}
-				
+
 		$fields = [
 			'country_id' => 'exists:countries,id',
 			'territory_id' => 'exists:territories,id',
@@ -387,7 +397,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 
 		$this->saveCustomerDistricts($customer, $this->request->input('district_id'));
 		$this->saveCustomerCities($customer, $this->request->input('city_id'));
-		
+
 		return redirect()->action('Account\CustomersController@show', urlencode($customer->email))->with('current_tab', $this->request->input('current_tab'))->with('success', trans('general.messages.success.saved'));
 	}
 
@@ -395,13 +405,13 @@ class CustomersController extends \App\Http\Controllers\AccountController
 	 * @param Customer $customer
 	 * @param array $district_ids
 	 */
-	private function saveCustomerDistricts($customer, $district_ids){		
+	private function saveCustomerDistricts($customer, $district_ids){
 		\App\Models\Site\CustomerDistrict::where('customer_id', $customer->id)->delete();
-		
+
 		if(empty($district_ids)){
 			return;
 		}
-		
+
 		$data = [];
 		foreach ($district_ids as $districtId) {
 			if ($districtId != 0) {
@@ -410,18 +420,18 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		}
 		\App\Models\Site\CustomerDistrict::insert($data);
 	}
-	
+
 	/**
 	 * @param Customer $customer
 	 * @param array $city_ids
 	 */
 	private function saveCustomerCities($customer, $city_ids){
 		\App\Models\Site\CustomerCity::where('customer_id', $customer->id)->delete();
-		
+
 		if(empty($city_ids)){
 			return;
 		}
-				
+
 		$data = [];
 		foreach ($city_ids as $cityId) {
 			if ($cityId != 0) {
@@ -430,7 +440,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		}
 		\App\Models\Site\CustomerCity::insert($data);
 	}
-	
+
 	public function getAddPropertyCustomer($slug)
 	{
 		$property = $this->site->properties()
@@ -443,7 +453,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 	}
 
 	public function postAddPropertyCustomer($slug)
-	{				
+	{
 		$property = $this->site->properties()
 						->whereTranslation('slug', $slug)
 						->first();
@@ -453,7 +463,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		}
 
 		$customer_id = $this->request->input('customer_id');
-		
+
 		if ( !$customer_id ) {
 			$validator = \Validator::make($this->request->all(), $this->getRequiredFields());
 			if ($validator->fails())
@@ -489,7 +499,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		{
 			$property->customers()->attach( $customer_id );
 		}
-		
+
 		// Redirect back with current tab ?
 		if ( $this->request->input('current_tab') )
 		{

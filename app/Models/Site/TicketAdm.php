@@ -1308,6 +1308,36 @@ class TicketAdm
 		return $stats;
 	}
 
+	public function getUserContacts($user_id)
+	{
+		if (!$this->site_ready)
+		{
+			return false;
+		}
+
+		// Request url
+		$response = $this->guzzle_client->request('GET', "user/{$user_id}/contact?site_id={$this->site_id}", [
+			'headers'=> [
+				'Authorization' => $this->getAuthorizationHeader(),
+			],
+		]);
+
+		// Error
+		$body = @json_decode($response->getBody());
+
+		if ( $response->getStatusCode() != 200 )
+		{
+			$error_message = "TICKETING -> getUserContacts error";
+			if ( @$body->message )
+			{
+				$error_message .= ": {$body->message}";
+			}
+			\Log::error($error_message);
+			return false;
+		}
+
+		return $body;
+	}
 
 	public function getStatusOptions()
 	{
