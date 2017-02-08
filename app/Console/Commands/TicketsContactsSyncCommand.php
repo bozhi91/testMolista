@@ -17,10 +17,19 @@ class TicketsContactsSyncCommand extends Command
 	{
 		// For each site
 		\App\Site::chunk(10, function ($sites) {
-			foreach ($sites as $site) 
+			foreach ($sites as $site)
 			{
 				$this->info("Importing customers for site ID {$site->id}");
 				$site->importTicketingCustomers();
+			}
+		});
+
+		// For each site
+		\App\Site::chunk(10, function ($sites) {
+			foreach ($sites as $site)
+			{
+				$this->info("Assign contacs to customers for site ID {$site->id}");
+				$site->assignUsersCustomers();
 			}
 		});
 

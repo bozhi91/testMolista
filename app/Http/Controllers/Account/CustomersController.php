@@ -45,22 +45,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 
 		if ($agent_id) {
 			$agent = $this->site->users()->where('id', $agent_id)->firstOrFail();
-			$property_ids = $agent->properties()->pluck('id')->toArray();
-
-			// clientes que tiene las propiedades del agente
-			$customer_ids = !empty($property_ids) ? \DB::table('properties_customers')
-				->whereIn('property_id', $property_ids)->pluck('customer_id') : [];
-
-			// clientes que el agente tiene vinculados en tickets
-			if ($agent->ticket_user_id) {
-				$contacts = $this->site->ticket_adm->getUserContacts($agent->ticket_user_id);
-				if ($contacts) {
-					$contacts_ids = $this->site->customers()->whereIn('ticket_contact_id', collect($contacts)->pluck('id')->toArray())->get()->pluck('id')->toArray();
-					$customer_ids = array_merge($customer_ids, $contacts_ids);
-				}
-			}
-
-			$query->whereIn('id', array_unique($customer_ids));
+			$query->whereIn('id', $agent->customers()->get()->pluck('id'));
 		}
 
 		if ( $this->site_user->hasRole('employee') )

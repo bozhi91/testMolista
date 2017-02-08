@@ -110,7 +110,7 @@ class Site extends TranslatableModel
 	public function comments() {
 		return $this->morphMany('App\Models\Site\Comment', 'commentable');
 	}
-	
+
 	public function users()
 	{
 		return $this->belongsToMany('App\User', 'sites_users', 'site_id', 'user_id')->withPivot('can_create','can_edit','can_delete','can_view_all','can_edit_all','can_delete_all');
@@ -1213,6 +1213,52 @@ class Site extends TranslatableModel
 
 		return true;
 	}
+
+    function assignUsersCustomers($user_id = null)
+    {
+        // Loop the users of the site
+        foreach ($this->users as $user)
+        {
+            // Process all or a single user
+            if ($user_id && $user_id != $user->id) continue;
+
+            // If not setup on tickets, skip
+            if (!$user->ticket_user_id) continue;
+
+            // Get the contacts of the user from tickets
+            $tickets = $this->ticket_adm->getUserContacts($user->ticket_user_id);
+            if ($tickets)
+            {
+                // Match to the local database ...
+                $tickets = $this->customers()->whereIn('ticket_contact_id', collect($tickets)->pluck('id')->toArray())->pluck('id')->toArray();
+            }
+
+            // Get the contacts from the properties
+    		$properties = $this->customers()->whereIn('id', \DB::table('properties_customers')->whereIn('property_id', $user->properties()->pluck('id'))->pluck('customer_id'))->pluck('id')->toArray();
+
+            // Created
+            $created = $this->customers()->where('created_by', $user->id)->pluck('id')->toArray();
+
+            $contacts = [];
+            if (is_array($tickets))
+            {
+                $contacts = array_merge($contacts, $tickets);
+            }
+
+            if (is_array($properties))
+            {
+                $contacts = array_merge($contacts, $properties);
+            }
+
+            if (is_array($created))
+            {
+                $contacts = array_merge($contacts, $created);
+            }
+
+            // Sync
+            $user->customers()->sync(array_unique($contacts));
+        }
+    }
 
 	public function downgradeToFree()
 	{

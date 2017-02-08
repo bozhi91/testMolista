@@ -1315,6 +1315,11 @@ class TicketAdm
 			return false;
 		}
 
+		if (!$user_id)
+		{
+			return false;
+		}
+
 		// Request url
 		$response = $this->guzzle_client->request('GET', "user/{$user_id}/contact?site_id={$this->site_id}", [
 			'headers'=> [
@@ -1327,10 +1332,10 @@ class TicketAdm
 
 		if ( $response->getStatusCode() != 200 )
 		{
-			$error_message = "TICKETING -> getUserContacts error";
+			$error_message = "TICKETING -> getUserContacts error [".$response->getStatusCode()." /user/{$user_id}/contact?site_id={$this->site_id}] ";
 			if ( @$body->message )
 			{
-				$error_message .= ": {$body->message}";
+				$error_message .= ": {$body->message} [{$this->site_id} - {$user_id}]";
 			}
 			\Log::error($error_message);
 			return false;

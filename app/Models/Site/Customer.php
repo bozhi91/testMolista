@@ -20,6 +20,10 @@ class Customer extends Model
 		static::created(function($item){
 			$customer = self::find($item->id);
 			$customer->site->ticket_adm->associateContact($customer);
+			// Si tenemos creador, lo vinculamos al cliente
+			if ($customer->created_by) {
+				$customer->users()->attach($customer->created_by);
+			}
 		});
 		// Whenever a customer is updated
 		static::updated(function($item){
@@ -58,6 +62,10 @@ class Customer extends Model
 		return $this->hasMany('App\Models\Site\CustomerCity', 'customer_id');
 	}
 
+	public function users() {
+		return $this->belongsToMany('\App\User')->withTimestamps();
+	}
+
 	public function getFullNameAttribute()
 	{
 		return implode(' ', [
@@ -78,17 +86,7 @@ class Customer extends Model
 
 	public function scopeOfUser($query, $user_id)
 	{
-		$query->where(function($query) use ($user_id) {
-			$query->whereIn('customers.id', function($query) use ($user_id) {
-				$query->distinct()->select('customer_id')
-					->from('properties_customers')
-					->whereIn('property_id', function($query) use ($user_id) {
-						$query->distinct()->select('property_id')
-							->from('properties_users')
-							->where('user_id', $user_id);
-					});
-			})->orWhere('customers.created_by', $user_id);
-		});
+		$query->whereIn('customers.id', \DB::table('customer_user')->select('customer_id')->where('user_id', $user_id)->pluck('customer_id'));
 	}
 
 	public function getPossibleMatchesAttribute() {
