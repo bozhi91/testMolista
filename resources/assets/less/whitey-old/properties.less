@@ -32,8 +32,10 @@
 	}
 	.property-list {
 		.property-row {
-			.text-column {
-				.title { text-decoration: underline; }
+			.col-xs-12.col-sm-9 {
+				.text-column {
+					.title { text-decoration: underline; }
+				}
 			}
 		}
 	}
@@ -69,6 +71,15 @@
 	.select2-container--open .select2-dropdown--below { border-color: @yellow; }
 /* End Setting for select in search-area */
 
+/* Change width of property row */
+@media (min-width: 768px) {
+	#properties {
+		.property-row > .row > .col-xs-12.col-sm-3 { width: 33.33333333%; }
+		.property-row > .row > .col-xs-12.col-sm-9 { width: 66.66666667%; }
+	}
+}
+/* End Change width of property row */
+
 /* properties */
 
 @media (min-width: 768px) {
@@ -76,36 +87,36 @@
 		.property-list {
 			.property-row {
 
-				.image-column {
-					.property-image { 
-						height: 85%;
+				.col-xs-12.col-sm-3 {
+					.image-column {
+						.image { height: 100%; }
+						.price { 
+							position: absolute; bottom: 0px; width: 100%; background-color: @yellow; text-align: left; padding: 5px 0px;
 
-						.image { height: 100%; margin-bottom: 0px; }
-					}
-					.price { 
-						position: absolute; bottom: 0px; width: 100%; height: 15%; background-color: @yellow; text-align: left; padding: 0px; padding-top: 1px; font-size: 16px;
-
-						a { color: @white; margin-left: 10px; font-size: 20px; }
+							a { color: @white; margin-left: 10px; font-size: 20px; }
+						}
 					}
 				}
 
-				.text-column {
-					.text-column-block {
-						padding-bottom: 45px; position: relative;
+				.col-xs-12.col-sm-9 {
+					.text-column {
+						padding-bottom: 45px;
 
+						.col-xs-9 { position: absolute; top: 80px; width: 100%; }
+						.col-xs-3 { width: 0%; min-height: 1px; padding-left: 15px; padding-right: 0px; }
+						.col-xs-12.col-sm-3 { display: none; width: 0%; }
+						.col-xs-12.col-sm-9 { width: 100%; }
 						.title {
-							text-decoration: underline; margin-top: 10px; margin-bottom: 5px;
-
+							text-decoration: underline; margin-top: 10px;
+	
 							a { color: @gray; font-weight: bold; }
 						}
-						.location { margin-top: 10px; margin-bottom: 5px; }
-						.metrics { margin-top: 10px; margin-bottom: 5px; }
-						.services { margin-top: 5px; margin-bottom: 5px; padding-top: 0px; }
-						
-						.description { margin-top: 5px; margin-bottom: 5px; padding: 0px;}
-						
+						.location { margin-top: 10px; }
+						.description { margin-top: 60px; }
+						.price { }
+						.metrics { }
 						.btn-more-info { 
-							position: absolute; bottom: 0px; left: 0px; right: auto; border-radius: 0px;
+							position: absolute; bottom: 0px; right: auto; border-radius: 0px;
 
 							&:hover { color: @black !important; text-decoration: underline; }
 						}
@@ -125,11 +136,27 @@
 
 @media (min-width: 768px) and (max-width: 991px) {
 	#properties {
-		
+		.property-list {
+			.property-row {
+				.col-xs-12.col-sm-9 {
+					.text-column {
+						.description { margin-top: 80px; padding-bottom: 10px; }
+	    			}
+	    		}
+	    		.col-xs-12.col-sm-3{
+	    			.image-column {
+	    				.price{
+	    					padding-top: 0px; padding-bottom: 5px;
+
+	    					a { font-size: 16px; }
+	    				}
+	    			}
+	    		}
+	    	}
+		}
 		.results-sort-trigger {
 		    margin-bottom: 45px;
 		}
-
 		.search-area {
 			margin-top: 154px;
 
@@ -153,33 +180,27 @@
 			.property-row {
 			    border: 1px solid @gray; background: @white; padding: 0px; margin-bottom: 30px;
 
-				.text-column {
-					padding: 15px; height: auto !important;
+				.col-xs-12.col-sm-9 {
+					.text-column {
+						padding: 15px; height: auto !important;
 
-					.title {
-						text-decoration: underline; margin-top: 0px;
+						.title {
+							text-decoration: underline; margin-top: 0px;
 
-						a { color: @gray; font-weight: bold; }
+							a { color: @gray; font-weight: bold; }
+						}
+						.location { margin-top: 0px; }
+						.description { margin-top: 0px; }
+						.price { display: none; }
 					}
-					.location { margin-top: 5px; margin-bottom: 5px; }
-					.metrics { margin-top: 5px; margin-bottom: 5px; }
-					.services { margin-top: 5px; margin-bottom: 5px; }
-					.description { margin-top: 5px; margin-bottom: 5px; }
-					.price { display: none; }
 				}
+				.col-xs-12.col-sm-3 {
+					.image-column {
+						.price {
+							position: absolute; bottom: 0px; right: 0px; background-color: @yellow;
 
-				.image-column {
-
-					.property-image {
-						height: 100%;
-
-						.image { height: 100%; }
-					}
-
-					.price {
-						position: absolute; bottom: 0px; right: 0px; background-color: @yellow;
-
-					    a { padding-left: 15px; padding-right: 15px; color: @white; }
+						    a { padding-left: 15px; padding-right: 15px; color: @white; }
+						}
 					}
 				}
 			}

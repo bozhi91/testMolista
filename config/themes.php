@@ -210,16 +210,6 @@ return [
 			'gmaps-circle'	=> '#1396e2',
 		],
 
-		'whitey-modular' => [
-			'title'			=> 'Whitey Modular',
-			'public'		=> true,
-			'custom'		=> false,
-			'extends'	 	=> 'default',
-			'views-path' 	=> 'themes/whitey-modular',
-			'asset-path' 	=> 'themes/whitey-modular',
-			'gmaps-circle'	=> '#1396e2',
-		],
-
 		// Add your themes here...
 
 		/*--------------[ Example Structre ]-------------

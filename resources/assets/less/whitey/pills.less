@@ -6,41 +6,113 @@
     .padder {
     	position: static;
 
-		.image { margin-bottom: 5px; }
+		.image {
+			margin-bottom: 0px;
+			.labels { position: absolute; top: 7px; right: 5px; .label { font-size: 14px; } }
+		}
 
 		.text {
-			padding: 10px 15px; margin-bottom: 40px; border-bottom: 1px solid @gray; min-height: 90px;
+			padding: 10px 15px 15px 15px; border-bottom: 1px solid @gray;
 
 			.title a { color: @gray; font-weight: bold; }
-			.price { position: absolute; bottom: 9px; color: @black; font-weight: bold; }
-			.metrics { display: none; }
-			.labels { position: absolute; top: 7px; right: 5px; .label { font-size: 14px; } }
-			.button {
-				display: block !important; text-align: right; position: absolute; bottom: 9px; right: 15px;
+			
+			.location {  }
+			
+		}
+		.text:after { display: table; content: ""; clear: both; }
 
-				a {
-				    background-color: @yellow; padding: 5px 10px; font-size: 14px; color: @white;
+		.price {
+			.price-price {
+				.price { color: @black; font-weight: bold; padding-top: 5px; padding-left: 10px; }
+			}
+			.price-button {
+				.button {
+					display: block !important; padding: 5px 10px;
 
-				    &:hover { background-color: @yellowHover; }
+					a {
+					    background-color: @yellow; padding: 5px 10px; font-size: 14px; color: @white;
+
+					    &:hover { background-color: @yellowHover; }
+					}
 				}
 			}
 		}
-		.text:after { display: table; content: ""; clear: both; }
 	}
 }
 
 /* responsive */
 
-@media (min-width: 768px) and (max-width: 1091px) {
+@media (min-width: 992px) {
 	.property-pill {
 		.padder {
-			.text { min-height: 120px; }
-			.price { font-size: 12px; }
-			.button a { font-size: 12px !important; }
+			.price {
+				.button {
+					text-align: right;
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 991px) {
+	.property-pill {
+		.padder {
+			.price {
+				.price-price .price {
+					padding-right: 10px;
+				}
+			}
+		}
+	}
+}
+
+
+@media (min-width: 768px) and (max-width: 991px) {
+	.property-pill {
+		.padder {
+			.price {
+				text-align: center;
+				padding: 15px 0px;
+
+				.button {
+					text-align: center;
+				}
+			}
 		}
 	}
 }
 
 @media (max-width: 767px) {
-	.property-pill { height: auto !important; }
+	.property-pill {
+		height: auto !important;
+
+		.padder {
+			.price {
+				.button {
+					text-align: right;
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 330px) {
+	.property-pill {
+		height: auto !important;
+
+		.padder {
+			.price {
+				text-align: center;
+				padding: 15px 0px;
+
+				.col-xs-6.col-sm-12.col-md-6 {
+					width: 100%;
+				}
+
+				.button {
+					text-align: center;
+				}
+			}
+		}
+	}
 }
