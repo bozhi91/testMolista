@@ -10,43 +10,90 @@
 		<div class="container">
 
 			<div class="header">
-				<div class="row">
-					<div class="col-xs-12 col-sm-8">
-						<div class="modular-property-title">
-							@include('components.property.property-title')
+				
+				<div class="hidden-xs">
+					<div class="row">
+						<div class="hidden-xs col-sm-8">
+							<div class="modular-property-title">
+								@include('components.property.property-title')
+							</div>
+							<div class="modular-property-price">
+								@include('components.property.property-price')
+							</div>
 						</div>
-						<div class="modular-property-price">
-							@include('components.property.property-price')
-						</div>
-					</div>
-					<div class="col-xs-12 col-sm-4">
-						<div class="modular-property-more-info-button">
-							@include('components.property.property-moreinfo-button')
+						<div class="hidden-xs col-sm-4">
+							<div class="modular-property-more-info-button">
+								@include('components.property.property-moreinfo-button')
+							</div>
 						</div>
 					</div>
 				</div>
+
+				<div class="visible-xs">
+					<div class="row">
+						<div class="col-xs-8">
+							<div class="modular-property-title">
+								@include('components.property.property-title')
+							</div>
+							<div class="modular-property-location">
+								@include('components.property.property-location')
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<div class="modular-property-price">
+								@include('components.property.property-price')
+							</div>
+						</div>
+					</div>
+				</div>
+				
 			</div>
 
 			<div class="content">
 				
 				<div class="row">
-					<div class="col-xs-12 col-sm-8">
+					<div class="col-xs-12 col-sm-7">
 						@include('components.property.property-image-slider')
 					</div>
-					<div class="col-xs-12 col-sm-4">
-						
-						@include('components.property.property-metrics')
+					<div class="col-xs-12 col-sm-5">
+						<div class="hidden-xs">
+							<div class="modular-property-content-text">
+							
+							@include('components.property.property-metrics')
 
-						@include('components.property.property-services')
+							@include('components.property.property-location')
 
-						@include('components.property.property-location')
+							@include('components.property.property-description')
 
-						@include('components.property.property-description')
+							@include('components.property.property-services')
 
-						@include('components.property.property-energy-certification')
+							@include('components.property.property-energy-certification')
 
-						@include('components.property.property-donwload-pdf')
+							@include('components.property.property-donwload-pdf')
 
+							</div>
+						</div>
+						<div class="visible-xs">
+
+							<div class="modular-property-content-text">
+							
+								@include('components.property.property-description')
+
+								<div class="modular-property-metrics row">
+									@include('components.property.property-metrics')
+								</div>
+
+								@include('components.property.property-services')
+
+								@include('components.property.property-energy-certification')
+
+							</div>
+
+							<div class="modular-property-more-info-button">
+								@include('components.property.property-moreinfo-button')
+							</div>
+
+						</div>
 					</div>
 				</div>
 				
@@ -214,6 +261,10 @@
 					cont.find('.energy-certification-popover-trigger.is-open').trigger('click');
 				}
 			});
+
+			if ( $(window).width() < 768 ) {
+				$('#property .content .modular-property-content-text .modular-property-metrics .metrics li').matchHeight(); //{ byRow : false }
+			};
 
 		});
 	</script>

@@ -51,6 +51,10 @@
 				} else {
 					cont.find('.results-area .property-column').css({ height: 'auto' });
 				}
+
+				if ( $(window).width() > 768 ) {
+					cont.find('.properties-list-properties .property-row .property-column .text-column-block').matchHeight({ byRow : false });
+				};
 			}
 			$(window).resize(fixPropertiesSize);
 			fixPropertiesSize();
