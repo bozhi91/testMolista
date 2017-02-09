@@ -61,7 +61,9 @@
 			});
 			cont.on('click', '.main-property .item', function(e){
 				e.preventDefault();
-				document.location.href = $(this).data().href;
+				var href = $(this).data().href;
+				if (!href) href = $(this).attr('href');
+				document.location.href = href;
 			});
 
 			var search_sm = cont.find('.quick-search-xs-sm-area');
