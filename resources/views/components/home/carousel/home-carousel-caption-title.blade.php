@@ -1,0 +1,1 @@
+<div class="carousel-caption-title"> {{$main_property->title}} </div>
