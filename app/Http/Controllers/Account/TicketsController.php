@@ -216,6 +216,9 @@ class TicketsController extends \App\Http\Controllers\AccountController
 
 		if ( $result )
 		{
+			// Actualizar los clientes de todos los usuarios del site
+			$this->site->assignUsersCustomers();
+
 			return redirect()->back()->with('success', trans('general.messages.success.saved'));
 		}
 

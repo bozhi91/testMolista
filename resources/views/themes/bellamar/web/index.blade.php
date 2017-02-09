@@ -17,7 +17,7 @@
 				$awesomeLinks[] = $widget;
 			}
 		}
-	}
+	}	
 ?>
 
 @extends('layouts.web')
@@ -27,8 +27,8 @@
 	@include('web.search.home')
 
 	<div id="home">
-
-		@if($sliders)
+		
+		@if($sliders && !empty($sliders['items']))
 			@include('common.widget-slider', ['widget' => $sliders])
 		@endif
 
@@ -191,7 +191,9 @@
 			});
 			cont.on('click', '.main-property .item', function(e){
 				e.preventDefault();
-				document.location.href = $(this).data().href;
+				var href = $(this).data().href;
+				if (!href) href = $(this).attr('href');
+				document.location.href = href;
 			});
 
 			var search_sm = cont.find('.quick-search-xs-sm-area');

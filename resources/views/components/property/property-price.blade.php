@@ -1,0 +1,1 @@
+<div class="price property-price">{{ price($property->price, $property->infocurrency->toArray()) }} <span class="pvp">@include('web.properties.discount-price')</span></div>
