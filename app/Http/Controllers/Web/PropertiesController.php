@@ -265,6 +265,44 @@ class PropertiesController extends WebController
 		return [ 'success'=>true ];
 	}
 
+	public function sharefriend($slug)
+	{
+		// Get property
+		$property = $this->site->properties()->enabled()
+					->whereTranslation('slug', $slug)
+					->first();
+		
+		if ( !$property ){
+			return [ 'error'=>true ];
+		}
+		
+		if(!empty($this->request->input('f_email'))){
+			return [ 'success'=>true ]; //honey pot
+		}
+		
+		// Validate user
+		$validator = \Validator::make($this->request->all(), [		
+			'r_email' => 'required|email',
+			'email' => 'required|email',
+			'link' => 'required',
+			'name' => 'required',
+			'message' => 'required'
+		]);
+		
+		if ($validator->fails()){
+			return [ 'error'=>true ];
+		}
+		
+		$data = array_merge($this->request->all(), [
+			'locale' => \LaravelLocalization::getCurrentLocale(),
+		]);
+		$job = (new \App\Jobs\SendRecommendProperty($property, $data))->onQueue('emails');
+		$this->dispatch($job);
+				
+		return [ 'success'=>true ];
+	}
+	
+	
 	public function downloads($slug,$locale)
 	{
 		// Get property

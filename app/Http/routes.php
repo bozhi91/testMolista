@@ -171,6 +171,7 @@ Route::group([
 	Route::get('properties', 'Web\PropertiesController@index');
 	Route::get('property/{slug}/property-{locale}.pdf', 'Web\PropertiesController@downloads');
 	Route::post('property/{slug}', 'Web\PropertiesController@moreinfo');
+	Route::post('property/share/{slug}', 'Web\PropertiesController@sharefriend');
 	Route::get('property/{slug}/{id?}', 'Web\PropertiesController@details');
 	// Pages
 	Route::post('pages/{slug}', 'Web\PagesController@post');
