@@ -162,7 +162,7 @@
 							<div class="row">
 								<div class="col-xs-12">
 									<div class="message-body">
-										@if (@$_GET['html_message'] == 1 || @$site->ajustes['html_message'])
+										@if (true || @$site->ajustes['html_message'])
 										{!! message($message->body) !!}
 										@else
 										{!! nl2p(strip_tags($message->body)) !!}
