@@ -16,7 +16,7 @@ class TicketsContactsSyncCommand extends Command
 	public function handle()
 	{
 		// For each site
-		\App\Site::orderBy('id')->chunk(10, function ($sites) {
+		\App\Site::orderBy('id')->chunk(100, function ($sites) {
 			foreach ($sites as $site)
 			{
 				$this->info("Importing customers for site ID {$site->id}");
