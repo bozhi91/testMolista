@@ -75,7 +75,7 @@ $media = $images->merge($videos);
 													<a href="{{ $media_item->link }}"
 													   class="image-thumb mfp-iframe" style="background-image: url('{{ $media_item->image_url }}');">
 
-														<div class="image-thumb-overlay">
+														<div class="image-thumb-overlay" style="opactity: 1">
 															<div class="image-thumb-overlay-icon-container">
 																<i class="berlanga-icon-video"></i>
 															</div>
