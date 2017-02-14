@@ -163,6 +163,21 @@ class Property extends TranslatableModel
 		return $this->belongsToMany('App\Models\Property\Service', 'properties_services', 'property_id', 'service_id')->withTranslations();
 	}
 
+	/* Retrieve all the property media */
+	public function media()
+	{
+		$images = $this->images->sortBy('position')->values();
+		$media = $this->videos->sortBy('position_video')->values();
+
+		// Put videos on second place:
+		// first image...
+		$media->prepend($images->shift());
+		// and then the rest at the end
+		$media = $media->merge($images);
+
+		return $media;
+	}
+
 	public function hasService($id)
 	{
 		$services = $this->services;
