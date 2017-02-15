@@ -111,6 +111,32 @@
 	.search-area.under-properties {
 	    display: none;
 	}
+        
+        .slider-quick-search-container {
+            display: block;
+            position: absolute;
+            top: 20px;
+            width: 300px;
+            right: 15%;
+        }
+        
+        .slider-quick-search {
+            background-color: @carouselSearchBackground;
+            padding: 20px;
+
+            #quick-search-form {
+                    input, select {
+                            background-color: @carouselSearchInner;
+                            color: @white;
+                    }
+                    .advanced-search-trigger {
+                            color: @white;
+                            font-size: 15px;
+                    }
+                    .form-control:focus { border-color: @buttonBlue; }
+            }
+	}
+        
 }
 
 @media (min-width: 768px) {
