@@ -3,6 +3,7 @@
 	<ul class="nav nav-tabs main-tabs" role="tablist">
 		<li role="presentation" class="active"><a href="#tab-general" aria-controls="tab-general" role="tab" data-toggle="tab">{{ Lang::get('admin/marketplaces.tab.general') }}</a></li>
 		<li role="presentation"><a href="#tab-country" aria-controls="tab-country" role="tab" data-toggle="tab">{{ Lang::get('admin/marketplaces.tab.countries') }}</a></li>
+		<li role="presentation"><a href="#tab-domains" aria-controls="tab-country" role="tab" data-toggle="tab">{{ Lang::get('admin/marketplaces.tab.domains') }}</a></li>
 		<li role="presentation"><a href="#tab-configuration" aria-controls="tab-configuration" role="tab" data-toggle="tab">{{ Lang::get('admin/marketplaces.tab.configuration') }}</a></li>
 		<li role="presentation"><a href="#tab-instructions" aria-controls="tab-instructions" role="tab" data-toggle="tab">{{ Lang::get('admin/marketplaces.tab.instructions') }}</a></li>
 	</ul>
@@ -108,12 +109,35 @@
 					<div class="col-xs-12 col-sm-2 col-md-3">
 						<div class="checkbox">
 							<label>
-								<input type="checkbox" name="countries_ids[]" value="{{ $country_id }}" class="country-input" />
+								<input type="checkbox" name="countries_ids[]" value="{{ $country_id }}" class="country-input" alt="{{ $country_title }}" />
 								{{ $country_title }}
 							</label>
 						</div>
 					</div>
 				@endforeach
+			</div>
+		</div>
+
+		<div role="tabpanel" class="tab-pane tab-main" id="tab-domains">
+			<div class="row">
+				<div class="col-xs-12">
+					<p>{{ Lang::get('admin/marketplaces.tab.domains.intro') }}</p>
+
+					<table class="table" id="domains-list">
+						<thead><tr>
+							<th class="col-xs-3">{{ Lang::get('admin/marketplaces.tab.domains.country') }}</th>
+							<th class="col-xs-11">{{ Lang::get('admin/marketplaces.tab.domains.domain') }}</th>
+						</tr></thead>
+						@if ($item->domains)
+						@foreach ($item->domains as $id => $domain)
+							<tr data-id="{{ $id }}">
+								<td>{{ $countries[$id] }}</td>
+								<td><input type="text" name="domains[{{ $id }}]" value="{{ $domain }}" class="form-control"></td>
+							</tr>
+						@endforeach
+						@endif
+					</table>
+				</div>
 			</div>
 		</div>
 
@@ -261,9 +285,50 @@
 {!! Form::close() !!}
 
 <script type="text/javascript">
+
+	var Domains = {
+
+		$list : false,
+
+		init : function() {
+			this.$list = $('#domains-list');
+		},
+
+		add : function(id, title, domain) {
+			if (!id || !title) return;
+			if (!domain) domain = '';
+
+			var item = this.getItem(id);
+			if (!item) {
+				var item = '<tr data-id="'+id+'"><td>'+title+'</td><td><input type="text" name="domains['+id+']" value="'+domain+'" class="form-control"></td></tr>';
+				this.$list.append($(item));
+			} else {
+				item.find('input').prop('disabled', false);
+				item.show();
+			}
+		},
+
+		remove : function(id) {
+			if (!id) return;
+			var item = this.getItem(id);
+			if (!item) return;
+
+			item.find('input').prop('disabled', true);
+			item.hide();
+		},
+
+		getItem : function(id) {
+			var item = this.$list.find('[data-id="'+id+'"]');
+			return item.length ? item : false;
+		}
+
+	};
+
 	ready_callbacks.push(function(){
 		var form = $('#marketplace-form');
 		var countries_ids = {!! @json_encode($item->countries_ids) !!};
+
+		Domains.init();
 
 		$.each(countries_ids, function(k,id){
 			form.find('input.country-input[value="' +id + '"]').prop('checked', true);
@@ -325,6 +390,9 @@
 		form.on('change', '.country-input', function(){
 			if ( $(this).is(':checked') ) {
 				form.find('.country-input-error').addClass('hide');
+				Domains.add(this.value, this.alt);
+			} else {
+				Domains.remove(this.value);
 			}
 
 			form.find('.country-input-all-none').prop('checked', false);
