@@ -36,4 +36,9 @@
 		'footer.cookies' => 'Cookies policy',
 
 		'try' => 'Try it!',
+		
+		'distributor.title' => 'Do you want to become a distributor of a molista?',
+		'distributor.description' => 'Trust a leading product, take advantage of the resources we offer you and grow your career and your business.',
+		'distributor.try' => 'Become a distribuitor',
+		
 	];

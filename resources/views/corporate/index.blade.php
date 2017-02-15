@@ -148,6 +148,8 @@
 
 			@include('corporate.common.home-fourth-block')
 
+			@include('corporate.common.home-five-block')
+			
 	</div>
 
 	<div id="exports-popup" class="mfp-hide mfp-white-popup">

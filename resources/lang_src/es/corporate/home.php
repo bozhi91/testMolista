@@ -36,4 +36,8 @@
 		'footer.cookies' => 'Política de cookies',
 
 		'try' => 'Pruébalo',
+		
+		'distributor.title' => '¿Quieres ser distribuidor de molista?',
+		'distributor.description' => 'Confía en un producto líder, toma ventaja de los recursos que te ofrecemos y haz crecer tu carrera y tu negocio.',
+		'distributor.try' => 'Quiero ser distribuidor',
 	];
