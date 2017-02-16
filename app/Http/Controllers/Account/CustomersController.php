@@ -557,7 +557,6 @@ class CustomersController extends \App\Http\Controllers\AccountController
 
 		$fields = [
 			'first_name' => 'required',
-			'last_name' => 'required',
 			'email' => "required|email|unique:customers,email,".($id ? $id : 'NULL').",id,site_id,".$this->site->id,
 			'phone' => 'required',
 			'locale' => 'required|in:'.implode(',',$locales),

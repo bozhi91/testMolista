@@ -11,7 +11,7 @@
 		<div class="col-xs-12 col-sm-6">
 			<div class="form-group error-container">
 				{!! form::label('last_name', Lang::get('web/customers.register.name.last')) !!}
-				{!! form::text('last_name', null, [ 'class'=>'form-control required']) !!}
+				{!! form::text('last_name', null, [ 'class'=>'form-control']) !!}
 			</div>
 		</div>
 	</div>
