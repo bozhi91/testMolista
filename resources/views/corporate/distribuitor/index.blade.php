@@ -17,6 +17,10 @@
 					</p>
 				</div>
 
+				@if ( session('distribuitors_error') )
+					@include('common.messages', [ 'dismissible'=>true ])
+				@endif
+				
 				{!! Form::model(null, [
 				'action'=>'Corporate\DistribuitorController@postContact',
 				'method'=>'POST',
@@ -104,7 +108,19 @@
 
 <script type="text/javascript">
     ready_callbacks.push(function () {
-        var cont = $('#distribuitors-page');
+		var form = $('#distribuitors-form');
+		
+		form.validate({
+			ignore: '',
+			errorPlacement: function(error, element) {
+				element.closest('.error-container').append(error);
+			},
+			submitHandler: function(f) {
+				LOADING.show();
+				f.submit();
+			}
+		});
+
     });
 </script>
 

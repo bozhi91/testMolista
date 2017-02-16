@@ -11,21 +11,21 @@ class DistribuitorController extends \App\Http\Controllers\CorporateController {
 		return view('corporate.distribuitor.index');
 	}
 
-	public function postContact() {
-		
-		dd($this->request->all());
-		
+	public function postContact() {		
 		$validator = \Validator::make($this->request->all(), [
 					'name' => 'required',
+					'company' => 'required',
 					'email' => 'required|email',
 					'phone' => 'required',
-					'details' => 'required',
+					'workers' => 'required',
+					'message' => 'required',
 		]);
-
+		
 		if ($validator->fails()) {
-			return redirect()->back()->withErrors($validator)->withInput()->with('contact_error', true);
+			return redirect()->back()->withErrors($validator)
+					->withInput()->with('distribuitors_error', true);
 		}
-
+		
 		\Mail::send('emails.corporate.contact', $this->request->only('name', 'email', 'phone', 'details'), function($message) {
 			$message->from(env('MAIL_FROM_EMAIL'), env('MAIL_FROM_NAME'));
 			$message->subject(trans('corporate/general.contact.subject', [ 'webname' => env('APP_URL')]));
