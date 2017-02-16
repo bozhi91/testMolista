@@ -152,6 +152,19 @@
 					</div>
 				@endif
 
+				{!! Form::model($property, [ 'action'=>['Account\PropertiesController@postNota',$property->slug], 'method'=>'post', 'id'=>'nota-form' ]) !!}
+					<hr />
+					<h3 class="page-title">{{ Lang::get('account/properties.show.property.nota.title') }}</h3>
+					<div class="form-group error-placement">
+						{!! Form::textarea('nota', null, [ 'class'=>'form-control', ]) !!}
+					</div>
+					<div class="form-group">
+						<div class="text-right">
+							{!! Form::button(Lang::get('account/properties.show.property.nota.button'), [ 'type'=>'submit', 'class'=>'btn btn-primary', ]) !!}
+						</div>
+					</div>
+				{!! Form::close() !!}
+				
 				{!! Form::model($property, [ 'action'=>['Account\PropertiesController@postComment',$property->slug], 'method'=>'post', 'id'=>'comment-form' ]) !!}
 					<hr />
 					<h3 class="page-title">{{ Lang::get('account/properties.show.property.comment.title') }}</h3>

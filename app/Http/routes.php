@@ -225,7 +225,8 @@ Route::group([
 		});
 
 		Route::post('properties/comment/{slug}', 'Account\PropertiesController@postComment');
-
+		Route::post('properties/nota/{slug}', 'Account\PropertiesController@postNota');
+		
 		Route::group([
 			'middleware' => [
 				'permission:property-create',

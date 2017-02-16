@@ -164,6 +164,8 @@
 
 		'show.property.comment.title' => 'Comentario',
 		'show.property.comment.button' => 'Guardar comentario',
+		'show.property.nota.title' => 'Nota',
+		'show.property.nota.button' => 'Guardar nota',
 
 		'show.property.matches.title' => 'Posibles coincidencias',
 
