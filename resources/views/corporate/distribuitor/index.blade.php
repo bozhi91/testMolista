@@ -17,7 +17,7 @@
 					</p>
 				</div>
 
-				@if ( session('distribuitors_error') )
+				@if ( session('distribuitors_error') || session('distribuitors_success') )
 					@include('common.messages', [ 'dismissible'=>true ])
 				@endif
 				
@@ -84,8 +84,8 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-5">
 						<div class="form-group error-container">
-							{!! Form::label('message', Lang::get('corporate/home.distributor.label.message')) !!}
-							{!! Form::textarea('message', null, [ 'class'=>'form-control required' ]) !!}
+							{!! Form::label('mensaje', Lang::get('corporate/home.distributor.label.message')) !!}
+							{!! Form::textarea('mensaje', null, [ 'class'=>'form-control required' ]) !!}
 						</div>
 					</div>
 				</div>
