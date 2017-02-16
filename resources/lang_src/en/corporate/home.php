@@ -39,6 +39,13 @@
 		
 		'distributor.title' => 'Do you want to become a distributor of a molista?',
 		'distributor.description' => 'Trust a leading product, take advantage of the resources we offer you and grow your career and your business.',
+		'distributor.description2' => 'If the answer is yes, please fill out this form and we will contact you shortly. You can also write to <a href="mailto::email" target="_blank">:email</a>',
 		'distributor.try' => 'Become a distribuitor',
 		
+		'distributor.label.name' => 'First and last names',
+		'distributor.label.company' => 'Company',
+		'distributor.label.email' => 'Email',
+		'distributor.label.phone' => 'Phone',
+		'distributor.label.message' => 'Message',
+		'distributor.label.workers' => 'How many customers do you expect to have?',
 	];

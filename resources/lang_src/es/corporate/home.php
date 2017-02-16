@@ -39,5 +39,15 @@
 		
 		'distributor.title' => '¿Quieres ser distribuidor de molista?',
 		'distributor.description' => 'Confía en un producto líder, toma ventaja de los recursos que te ofrecemos y haz crecer tu carrera y tu negocio.',
+		'distributor.description2' => 'Si la respuesta es sí, por favor, rellena este formulario y en breve nos pondremos en contacto contigo. También nos puedes escribir a <a href="mailto::email" target="_blank">:email</a>',
+		
 		'distributor.try' => 'Quiero ser distribuidor',
+		
+		'distributor.label.name' => 'Nombre y apellidos',
+		'distributor.label.company' => 'Empresa',
+		'distributor.label.email' => 'Email',
+		'distributor.label.phone' => 'Teléfono',
+		'distributor.label.message' => 'Mensaje',
+		'distributor.label.workers' => '¿Cuántos clientes estimas que puedes tener?',
+		
 	];

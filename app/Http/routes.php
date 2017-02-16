@@ -27,6 +27,7 @@ Route::group([
 	], function() {
 		Route::get('/', 'CorporateController@index');
 		Route::controller('demo', 'Corporate\DemoController');
+		Route::controller('distribuitors', 'Corporate\DistribuitorController');
 		Route::controller('info', 'Corporate\InfoController');
 		Route::controller('pricing', 'Corporate\PricingController');
 		Route::get('features/{slug?}', 'Corporate\FeaturesController@getIndex');

@@ -9,7 +9,7 @@
 				<h3>{{ Lang::get('corporate/home.distributor.title') }}</h3>
 				<p class="col-sm-8 col-sm-offset-2">{{ Lang::get('corporate/home.distributor.description') }}</p>
 
-				<a href="{{ action('Corporate\SignupController@getIndex') }}" class="btn text-uppercase btn-distributor" 
+				<a href="{{ action('Corporate\DistribuitorController@getIndex') }}" class="btn text-uppercase btn-distributor" 
 				   title="{{ Lang::get('corporate/home.distributor.title') }}">{{ Lang::get('corporate/home.distributor.try') }}</a>
 			</div>
 		</div>
