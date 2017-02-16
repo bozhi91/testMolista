@@ -621,17 +621,46 @@ class CustomersController extends \App\Http\Controllers\AccountController
 
 	public function postGeneral($slug)
 	{
-		$customer = $this->site->customers()->where('email', $slug)->first();
-		if ( !$customer )
-		{
-			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
+		$general = $this->request->input('general');
+		
+		$generalRules = [
+			'first_name' => 'required',
+			'email' => 'required|email',
+			'phone' => 'required',
+			'locale' => 'required',
+			'dni' => 'required',
+		];
+		
+		if($general['email'] != $slug){			
+			$generalRules['email'] = 'required|email|unique:customers';			
+		} 
+				
+		$validator = \Validator::make($general, $generalRules);
+
+		if ($validator->fails()) {
+			return redirect()->back()->withErrors($validator);
+		}
+				
+		$customer = $this->site->customers()
+				->where('email', $slug)->first();
+		
+		if ( !$customer ){
+			return redirect()->back()->withInput()
+					->with('error', trans('general.messages.error'));
 		}
 
 		$customer->update([
-			'alert_config' => $this->request->input('alerts')
+			'alert_config' => $this->request->input('alerts'),
+			'first_name' => $general['first_name'],
+			'last_name' => $general['last_name'],
+			'email' => $general['email'],
+			'phone' => $general['phone'],
+			'dni' => $general['dni'],
+			'locale' => $general['locale']
 		]);
 
-		return redirect()->back()->with('success', trans('general.messages.success.saved'));
+		return redirect()->action('Account\CustomersController@show', urlencode($general['email']))
+				->with('success', trans('general.messages.success.saved'));
 	}
 
 }
