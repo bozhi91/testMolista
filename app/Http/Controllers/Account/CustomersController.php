@@ -620,26 +620,27 @@ class CustomersController extends \App\Http\Controllers\AccountController
 
 	public function postGeneral($slug)
 	{
-		$general = $this->request->input('general');
-		
-		$generalRules = [
-			'first_name' => 'required',
-			'email' => 'required|email',
-			'phone' => 'required',
-			'locale' => 'required',
-			'dni' => 'required',
-		];
-		
-		if($general['email'] != $slug){			
-			$generalRules['email'] = 'required|email|unique:customers';			
-		} 
+		if(\Entrust::hasRole('admin')){
+			$general = $this->request->input('general');
+			$generalRules = [
+				'first_name' => 'required',
+				'email' => 'required|email',
+				'phone' => 'required',
+				'locale' => 'required',
+				'dni' => 'required',
+			];
+			
+			if($general['email'] != $slug){			
+				$generalRules['email'] = 'required|email|unique:customers';			
+			} 
 				
-		$validator = \Validator::make($general, $generalRules);
+			$validator = \Validator::make($general, $generalRules);
 
-		if ($validator->fails()) {
-			return redirect()->back()->withErrors($validator);
+			if ($validator->fails()) {
+				return redirect()->back()->withErrors($validator);
+			}
 		}
-				
+		
 		$customer = $this->site->customers()
 				->where('email', $slug)->first();
 		
@@ -648,17 +649,28 @@ class CustomersController extends \App\Http\Controllers\AccountController
 					->with('error', trans('general.messages.error'));
 		}
 
-		$customer->update([
+		$updateFields = [
 			'alert_config' => $this->request->input('alerts'),
-			'first_name' => $general['first_name'],
-			'last_name' => $general['last_name'],
-			'email' => $general['email'],
-			'phone' => $general['phone'],
-			'dni' => $general['dni'],
-			'locale' => $general['locale']
-		]);
-
-		return redirect()->action('Account\CustomersController@show', urlencode($general['email']))
+		];
+		
+		$emailRedirect = $slug;
+		
+		if(isset($general)) {
+			$updateFields = array_merge($updateFields, [
+				'first_name' => $general['first_name'],
+				'last_name' => $general['last_name'],
+				'email' => $general['email'],
+				'phone' => $general['phone'],
+				'dni' => $general['dni'],
+				'locale' => $general['locale']
+			]);
+			
+			$emailRedirect = $general['email'];
+		}
+		
+		$customer->update($updateFields);
+		
+		return redirect()->action('Account\CustomersController@show', urlencode($emailRedirect))
 				->with('success', trans('general.messages.success.saved'));
 	}
 
