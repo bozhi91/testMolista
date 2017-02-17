@@ -166,19 +166,6 @@
 					</div>
 				@endif
 
-				{!! Form::model($property, [ 'action'=>['Account\PropertiesController@postNota',$property->slug], 'method'=>'post', 'id'=>'nota-form' ]) !!}
-					<hr />
-					<h3 class="page-title">{{ Lang::get('account/properties.show.property.nota.title') }}</h3>
-					<div class="form-group error-placement">
-						{!! Form::textarea('nota', null, [ 'class'=>'form-control', ]) !!}
-					</div>
-					<div class="form-group">
-						<div class="text-right">
-							{!! Form::button(Lang::get('account/properties.show.property.nota.button'), [ 'type'=>'submit', 'class'=>'btn btn-primary', ]) !!}
-						</div>
-					</div>
-				{!! Form::close() !!}
-				
 				{!! Form::model($property, [ 'action'=>['Account\PropertiesController@postComment',$property->slug], 'method'=>'post', 'id'=>'comment-form' ]) !!}
 					<hr />
 					<h3 class="page-title">{{ Lang::get('account/properties.show.property.comment.title') }}</h3>
@@ -188,6 +175,19 @@
 					<div class="form-group">
 						<div class="text-right">
 							{!! Form::button(Lang::get('account/properties.show.property.comment.button'), [ 'type'=>'submit', 'class'=>'btn btn-primary', ]) !!}
+						</div>
+					</div>
+				{!! Form::close() !!}
+
+				{!! Form::model($property, [ 'action'=>['Account\PropertiesController@postNota',$property->slug], 'method'=>'post', 'id'=>'nota-form' ]) !!}
+					<hr />
+					<h3 class="page-title">{{ Lang::get('account/properties.show.property.nota.title') }}</h3>
+					<div class="form-group error-placement">
+						{!! Form::textarea('nota', null, [ 'class'=>'form-control', ]) !!}
+					</div>
+					<div class="form-group">
+						<div class="text-right">
+							{!! Form::button(Lang::get('account/properties.show.property.nota.button'), [ 'type'=>'submit', 'class'=>'btn btn-primary', ]) !!}
 						</div>
 					</div>
 				{!! Form::close() !!}
@@ -203,9 +203,9 @@
 				<div id="leads-list">
 					@include('account.properties.show-leads', [ 'customers'=>$property->customers->sortBy('full_name') ])
 				</div>
-				
+
 				<hr>
-				
+
 				<div id="leads-matches">
 					<h3 class="page-title">{{ Lang::get('account/properties.show.property.matches.title') }}</h3>
 					@include('account.properties.show-matches', [ 'customers'=>$property->possible_matches, 'property' => $property ])
@@ -257,24 +257,24 @@
 											<div id="seller-modal-{{$catch->id}}" class="mfp-white-popup mfp-hide">
 												<h4 class="page-title">{{ $catch->seller_full_name }}</h4>
 												<p>
-													{{ Lang::get('account/properties.show.property.seller.email') }}: 
+													{{ Lang::get('account/properties.show.property.seller.email') }}:
 													<a href="mailto:{{ $catch->seller_email }}" target="_blank">{{ $catch->seller_email }}</a>
 												</p>
 												@if ( $catch->seller_phone )
 													<p>
-														{{ Lang::get('account/properties.show.property.seller.phone') }}: 
+														{{ Lang::get('account/properties.show.property.seller.phone') }}:
 														{{ $catch->seller_phone }}
 													</p>
 												@endif
 												@if ( $catch->seller_cell )
 													<p>
-														{{ Lang::get('account/properties.show.property.seller.cell') }}: 
+														{{ Lang::get('account/properties.show.property.seller.cell') }}:
 														{{ $catch->seller_cell }}
 													</p>
 												@endif
 												@if ( $catch->seller_id_card )
 													<p>
-														{{ Lang::get('account/properties.show.property.seller.id') }}: 
+														{{ Lang::get('account/properties.show.property.seller.id') }}:
 														{{ $catch->seller_id_card }}
 													</p>
 												@endif
@@ -292,12 +292,12 @@
 											<div id="buyer-modal-{{$catch->id}}" class="mfp-white-popup mfp-hide">
 												<h4 class="page-title">{{ $catch->buyer->full_name }}</h4>
 												<p>
-													{{ Lang::get('account/properties.show.property.seller.email') }}: 
+													{{ Lang::get('account/properties.show.property.seller.email') }}:
 													<a href="mailto:{{ $catch->buyer->email }}" target="_blank">{{ $catch->buyer->email }}</a>
 												</p>
 												@if ( $catch->buyer->phone )
 													<p>
-														{{ Lang::get('account/properties.show.property.seller.phone') }}: 
+														{{ Lang::get('account/properties.show.property.seller.phone') }}:
 														{{ $catch->buyer->phone }}
 													</p>
 												@endif
