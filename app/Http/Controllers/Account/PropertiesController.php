@@ -551,7 +551,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 	}
 
 	public function getCatch($property_id, $id=false)
-	{
+	{		
 		$property = $this->site->properties()->findOrFail( $property_id );
 
 		if ( $id )
@@ -577,6 +577,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'seller_id_card' => '',
 			'seller_phone' => '',
 			'seller_cell' => '',
+			'cif' => '',
+			'company_name' => '',
 			'price_min' => 'numeric|min:1',
 			'commission_fixed' => 'numeric|min:0',
 			'commission' => 'numeric|between:0,100',

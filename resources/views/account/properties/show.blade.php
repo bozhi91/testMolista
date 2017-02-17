@@ -89,6 +89,20 @@
 						</div>
 					</div>
 					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group error-placement">
+								{!! Form::label(null, Lang::get('account/properties.show.property.seller.company_name') ) !!}
+								{!! Form::text(null, $property->catch_current->company_name, [ 'class'=>'form-control', 'readonly'=>'readonly', ]) !!}
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group error-placement">
+								{!! Form::label(null, Lang::get('account/properties.show.property.seller.cif') ) !!}
+								{!! Form::text(null, $property->catch_current->cif, [ 'class'=>'form-control', 'readonly'=>'readonly', ]) !!}
+							</div>
+						</div>
+					</div>
+					<div class="row">
 						<div class="col-xs-12 col-sm-3">
 							<div class="form-group">
 								<div class="error-placement">
