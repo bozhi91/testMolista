@@ -166,9 +166,9 @@
 
 		'show.property.comment.title' => 'Comment',
 		'show.property.comment.button' => 'Save comment',
-		'show.property.nota.title' => 'Note',
-		'show.property.nota.button' => 'Save note',
-		
+		'show.property.nota.title' => 'Notes',
+		'show.property.nota.button' => 'Save notes',
+
 		'show.property.matches.title' => 'Possible matches',
 
 		'show.transactions.none' => 'There are no transactions',
