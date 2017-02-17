@@ -44,13 +44,13 @@
 	<div class="col-xs-12 col-sm-6">
 		<div class="form-group error-placement">
 			{!! Form::label('company_name', Lang::get('account/properties.show.property.seller.company_name') ) !!}
-			{!! Form::text('company_name', $item->company_name, [ 'class'=>'form-control']) !!}
+			{!! Form::text('company_name', @$item->company_name, [ 'class'=>'form-control']) !!}
 		</div>
 	</div>
 	<div class="col-xs-12 col-sm-6">
 		<div class="form-group error-placement">
 			{!! Form::label('cif', Lang::get('account/properties.show.property.seller.cif') ) !!}
-			{!! Form::text('cif', $item->cif, [ 'class'=>'form-control']) !!}
+			{!! Form::text('cif', @$item->cif, [ 'class'=>'form-control']) !!}
 		</div>
 	</div>
 </div>
