@@ -1,7 +1,7 @@
 @extends('layouts.account')
 
 <?php
-	$currency =	empty($profile->currency) ? $current_site->infocurrency : $profile->infocurrency;	
+	$currency =	empty($profile->currency) ? $current_site->infocurrency : $profile->infocurrency;
 ?>
 
 @section('account_content')
@@ -26,25 +26,25 @@
 		</ul>
 
 		<div class="tab-content">
-				
+
 			<div role="tabpanel" class="tab-pane tab-main {{$current_tab == 'general' ? 'active' : '' }}" id="tab-general">
 
 				{!! Form::model($customer, [ 'action'=>['Account\CustomersController@postGeneral',$customer->email], 'method'=>'post', 'id'=>'general-form' ]) !!}
 
-				<?php $isAdmin = Entrust::hasRole('admin'); ?>
-				
+				<?php $isAdmin = Entrust::hasRole('company'); ?>
+
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
 							{!! Form::label('general[first_name]', Lang::get('account/customers.name') ) !!}
-							{!! Form::text($isAdmin ? 'general[first_name]' : null, 
+							{!! Form::text($isAdmin ? 'general[first_name]' : null,
 								@$customer->first_name, [ 'class'=>'form-control', 'readonly' => $isAdmin ? null : 'readonly']) !!}
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
 							{!! Form::label('general[last_name]', Lang::get('account/customers.last_name') ) !!}
-							{!! Form::text($isAdmin ? 'general[last_name]' : null, 
+							{!! Form::text($isAdmin ? 'general[last_name]' : null,
 								@$customer->last_name, [ 'class'=>'form-control', 'readonly' => $isAdmin ? null : 'readonly']) !!}
 						</div>
 					</div>
@@ -60,7 +60,7 @@
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
 							{!! Form::label('general[phone]', Lang::get('account/customers.phone') ) !!}
-							{!! Form::text($isAdmin ? 'general[phone]' : null, 
+							{!! Form::text($isAdmin ? 'general[phone]' : null,
 								@$customer->phone, [ 'class'=>'form-control', 'readonly' => $isAdmin ? null : 'readonly' ]) !!}
 						</div>
 					</div>
@@ -69,7 +69,7 @@
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
 							{!! Form::label('general[locale]', Lang::get('account/customers.locale') ) !!}
-							{!! form::select($isAdmin ? 'general[locale]' : null, 
+							{!! form::select($isAdmin ? 'general[locale]' : null,
 								@$site_setup['locales_select'], $customer->locale, [ 'class'=>'form-control', 'readonly' => $isAdmin ? null : 'readonly']) !!}
 						</div>
 					</div>

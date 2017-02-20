@@ -620,7 +620,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 
 	public function postGeneral($slug)
 	{
-		if(\Entrust::hasRole('admin')){
+		if(\Entrust::hasRole('company')){
 			$general = $this->request->input('general');
 			$generalRules = [
 				'first_name' => 'required',
@@ -629,21 +629,21 @@ class CustomersController extends \App\Http\Controllers\AccountController
 				'locale' => 'required',
 				'dni' => 'required',
 			];
-			
-			if($general['email'] != $slug){			
-				$generalRules['email'] = 'required|email|unique:customers';			
-			} 
-				
+
+			if($general['email'] != $slug){
+				$generalRules['email'] = 'required|email|unique:customers';
+			}
+
 			$validator = \Validator::make($general, $generalRules);
 
 			if ($validator->fails()) {
 				return redirect()->back()->withErrors($validator);
 			}
 		}
-		
+
 		$customer = $this->site->customers()
 				->where('email', $slug)->first();
-		
+
 		if ( !$customer ){
 			return redirect()->back()->withInput()
 					->with('error', trans('general.messages.error'));
@@ -652,9 +652,9 @@ class CustomersController extends \App\Http\Controllers\AccountController
 		$updateFields = [
 			'alert_config' => $this->request->input('alerts'),
 		];
-		
+
 		$emailRedirect = $slug;
-		
+
 		if(isset($general)) {
 			$updateFields = array_merge($updateFields, [
 				'first_name' => $general['first_name'],
@@ -664,12 +664,12 @@ class CustomersController extends \App\Http\Controllers\AccountController
 				'dni' => $general['dni'],
 				'locale' => $general['locale']
 			]);
-			
+
 			$emailRedirect = $general['email'];
 		}
-		
+
 		$customer->update($updateFields);
-		
+
 		return redirect()->action('Account\CustomersController@show', urlencode($emailRedirect))
 				->with('success', trans('general.messages.success.saved'));
 	}
