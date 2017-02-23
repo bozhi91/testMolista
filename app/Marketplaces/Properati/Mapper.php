@@ -104,7 +104,11 @@ class Mapper extends \App\Marketplaces\Mapper {
 	 * @return boolean
 	 */
 	public function valid() {
-
+		if (in_array($this->item['type'], ['plot'])){
+            $this->errors []= \Lang::get('validation.type');
+            return false;
+        }
+		
 		if ($this->isTransfer()) {
 			$this->errors []= \Lang::get('validation.transfer');
             return false;
@@ -230,6 +234,8 @@ class Mapper extends \App\Marketplaces\Mapper {
 				return 'country';
 			case 'farmhouse':
 				return 'country house';
+			case 'garage':
+				return 'garage';
 
 			default: return 'other';
 		}

@@ -37,6 +37,8 @@
 		'type.state' => 'State',
 		'type.farmhouse' => 'Farmhouse',
 		'type.terraced_house' => 'Terraced house',
+		'type.garage' => 'Garage',
+		'type.plot' => 'Plot',
 
 		'more.show' => 'Show more options',
 		'more.any' => 'Show all',

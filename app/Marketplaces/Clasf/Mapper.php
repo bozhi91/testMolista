@@ -83,6 +83,12 @@ class Mapper extends \App\Marketplaces\Mapper {
             case 'industrial':
                 $type = 'venta naves industriales';
             break;
+			case 'garage':
+				$type = 'alquiler venta plazas garaje';
+			break;
+			case 'plot':
+				$type = 'venta terrenos';
+			break;
             case 'duplex':
             case 'house':
 			case 'terraced_house':
@@ -104,6 +110,12 @@ class Mapper extends \App\Marketplaces\Mapper {
     {
         switch ($this->item['type'])
         {
+			case 'garage':
+				$type = '';
+			break;
+			case 'plot':
+				$type = 'parcelas rusticas';
+			break;
             case 'store':
                 $type = $this->isRent() ? 'alquiler de locales' : ($this->isTransfer() ? 'traspaso' : 'venta de locales');
             break;
@@ -153,6 +165,8 @@ class Mapper extends \App\Marketplaces\Mapper {
             case 'lot':
             case 'industrial':
             case 'building':
+			case 'garage':
+			case 'plot':
                 $type = '';
             break;
             case 'penthouse':
