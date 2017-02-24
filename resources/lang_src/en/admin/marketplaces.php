@@ -10,6 +10,11 @@ return [
 	'tab.configuration' => 'Configuration',
 	'tab.instructions' => 'Instructions',
 	'tab.countries' => 'Countries',
+	'tab.domains' => 'Domains',
+
+	'tab.domains.country' => 'Country',
+	'tab.domains.domain' => 'Domain',
+	'tab.domains.intro' => 'If the marketplace has diferent domain names by country, you can define them here.',
 
 	'title' => 'Name',
 	'code' => 'Code',

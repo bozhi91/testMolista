@@ -22,7 +22,7 @@
 						</div>
 						<div class="form-group">
 							{!! Form::label('country', Lang::get('account/marketplaces.country'), [ 'class'=>'sr-only' ]) !!}
-							{!! Form::select('country', [ '' => Lang::get('account/marketplaces.country') ]+$countries, Input::get('country'), [ 'class'=>'form-control' ]) !!}
+							{!! Form::select('country', [ '' => Lang::get('account/marketplaces.country') ]+$countries->lists('name','code')->all(), Input::get('country'), [ 'class'=>'form-control' ]) !!}
 						</div>
 						{!! Form::submit(Lang::get('general.filters.apply'), [ 'class'=>'btn btn-default' ]) !!}
 					{!! Form::close() !!}
@@ -59,7 +59,7 @@
 				</div>
 			@endif
 
-			<table class="table table-striped">
+			<table class="table">
 				<thead>
 					<tr>
 						<?php $limit_sortable = ($current_site->plan_property_limit > 0) ? false : true; ?>
@@ -77,12 +77,28 @@
 				</thead>
 				<tbody>
 					@foreach ($marketplaces as $marketplace)
-						<tr>
+						<?php
+							$domains = [];
+							if ($marketplace->domains) {
+								foreach ($marketplace->domains as $key => $domain) {
+									if (empty($domain)) continue;
+									$domains []= [
+										'country' => $countries->where('id', $key)->first(),
+										'domain' => $domain
+									];
+								}
+							}
+						?>
+						<tr data-id="{{ $marketplace->id }}" class="closed">
 							<td>
 								@if ( @$marketplace->url )
 									<a href="{{ $marketplace->url }}" target="_blank" class="marketplace-name" style="background-image: url({{ asset("marketplaces/{$marketplace->logo}") }});">{{ $marketplace->name }}</a>
 								@else
 									<span class="marketplace-name" style="background-image: url({{ asset("marketplaces/{$marketplace->logo}") }});">{{ $marketplace->name }}</span>
+								@endif
+								@if (!empty($domains))
+								<span class="glyphicon glyphicon-menu-down pull-right show-domains"></span>
+								<span class="glyphicon glyphicon-menu-up pull-right show-domains"></span>
 								@endif
 							</td>
 							<td class="text-center"><img src="{{ asset($marketplace->flag) }}" alt="{{ $marketplace->country }}" title="{{ $marketplace->country }}" /></td>
@@ -131,6 +147,21 @@
 								@endif
 							</td>
 						</tr>
+						@if (!empty($domains))
+						@foreach ($domains as $key => $domain)
+						<tr class="marketplaces-domains {{ $key ? 'childs' : '' }}" data-domains="{{ $marketplace->id }}">
+							@if (!$key)
+							<td rowspan="{{ count($domains) }}">
+								<div class="marketplaces-domains-info">
+									<span class="glyphicon glyphicon-info-sign"></span> Nombres de dominio<br>en función del país
+								</div>
+							</td>
+							@endif
+							<td class="text-center"><img src="{{ $domain['country']->flag_url }}" alt="{{ $domain['country']->code }}" title="{{ $domain['country']->code }}" /></td>
+							<td colspan="6">{{ $domain['domain'] }}</td>
+						</tr>
+						@endforeach
+						@endif
 					@endforeach
 				</tbody>
 			</table>
@@ -158,6 +189,19 @@
 				});
 			});
 
+			cont.on('click', '.show-domains', function(){
+				var $tr = $(this).closest('tr');
+				var $domains = $('[data-domains="'+$tr.data('id')+'"]');
+				if ($tr.hasClass('closed')) {
+					$domains.show();
+					$tr.removeClass('closed');
+				} else {
+					$domains.hide();
+					$tr.addClass('closed');
+				}
+			});
+
+			cont.find('thead th').eq(0).each(function(){ $(this).width($(this).width());  });
 		});
 	</script>
 

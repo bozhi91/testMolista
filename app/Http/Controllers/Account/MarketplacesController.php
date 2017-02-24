@@ -53,7 +53,7 @@ class MarketplacesController extends \App\Http\Controllers\AccountController
 
 		$total_properties = $this->site->properties()->enabled()->count();
 
-		$countries = \App\Models\Geography\Country::withTranslations()->withMarketplaces()->orderBy('name')->lists('name','code')->all();
+		$countries = \App\Models\Geography\Country::withTranslations()->withMarketplaces()->orderBy('name')->get();
 
 		$this->set_go_back_link();
 
