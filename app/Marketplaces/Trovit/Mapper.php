@@ -76,6 +76,11 @@ class Mapper extends \App\Marketplaces\Mapper {
 
     public function valid()
     {
+		if (in_array($this->item['type'], ['plot', 'garage'])){
+            $this->errors []= \Lang::get('validation.type');
+            return false;
+        }
+		
         $rules = [
             'id' => 'required',
             'url' => 'required',

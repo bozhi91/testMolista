@@ -156,6 +156,8 @@ class Mapper extends \App\Marketplaces\Mapper {
             'industrial' => 'Nave industrial',
             'state' => 'Finca rústica',
             'farmhouse' => 'Masia',
+			'garage' => 'Garaje',
+			'plot' => 'Parcela',
         ];
 
         return isset($types[$type]) ? $types[$type] : 'Piso';

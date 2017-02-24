@@ -128,6 +128,12 @@ class Mapper extends \App\Marketplaces\Mapper {
     {
         switch ($this->item['type'])
         {
+			case 'plot':
+				$type = 16384;
+			break;
+			case 'garage':
+				$type = 32768;
+			break;
             case 'chalet':
                 $type = 64;
             break;

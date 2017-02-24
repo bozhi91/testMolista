@@ -993,6 +993,8 @@ class Property extends TranslatableModel
 			'state' => trans('web/properties.type.state'),
 			'farmhouse' => trans('web/properties.type.farmhouse'),
 			'terraced_house' => trans('web/properties.type.terraced_house'),
+			'garage' => trans('web/properties.type.garage'),
+			'plot' => trans('web/properties.type.plot'),
 		];
 
 		if ( $site_id )

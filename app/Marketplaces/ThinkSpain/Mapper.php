@@ -110,6 +110,8 @@ class Mapper extends \App\Marketplaces\Mapper {
             'bungalow' => 'Bungalow',
             'state' => 'Finca/Country House',
             'farmhouse' => 'Finca/Country House',
+			'garage' => 'Garage',
+			'plot' => 'Building Plot',
         ];
 
         return isset($types[$this->item['type']]) ? $types[$this->item['type']] : 'Flat';

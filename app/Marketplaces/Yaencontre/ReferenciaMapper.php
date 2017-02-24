@@ -144,6 +144,8 @@ class ReferenciaMapper extends BaseMapper {
 			case 'industrial': return [45, 'nave industrial'];
 			case 'state': return [26, 'finca rústica'];
 			case 'farmhouse': return [17, 'masía'];
+			case 'garage': return [36, 'garaje'];
+			case 'plot': return [40, 'parcela'];
 			default: return [11, 'piso'];
 		}
 	}

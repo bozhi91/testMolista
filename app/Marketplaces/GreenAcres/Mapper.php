@@ -78,7 +78,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 
     public function valid()
     {
-        if (in_array($this->item['type'], ['building', 'chalet', 'bungalow']))
+        if (in_array($this->item['type'], ['building', 'chalet', 'bungalow', 'garage', 'plot']))
         {
             $this->errors []= \Lang::get('validation.type');
             return false;

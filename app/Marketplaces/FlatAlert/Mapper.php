@@ -122,7 +122,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 	 */
 	protected function validType() {
 		return !in_array($this->item['type'], ['ranche', 'state', 'hotel',
-					'aparthotel', 'building', 'lot', 'store', 'industrial']);
+					'aparthotel', 'building', 'lot', 'store', 'industrial', 'garage']);
 	}
 
 	/**
@@ -149,6 +149,8 @@ class Mapper extends \App\Marketplaces\Mapper {
 			case 'farmhouse':
 			case 'bungalow':
 				return '2';
+			case 'plot':
+				return '5';
 			default:
 				return '1';
 		}

@@ -37,6 +37,8 @@
 		'type.state' => 'Finca Rustica',
 		'type.farmhouse' => 'Masía',
 		'type.terraced_house' => 'Casa adosada',
+		'type.garage' => 'Garaje',
+		'type.plot' => 'Parcela',
 
 		'more.show' => 'Más opciones',
 		'more.any' => 'Mostrar todas',
