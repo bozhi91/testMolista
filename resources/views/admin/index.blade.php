@@ -112,7 +112,7 @@
 		var map_window,
 			map_items = {!! json_encode($items) !!};
 
-		if ( map_items ) {
+		if ( map_items.length ) {
 			google.maps.event.addDomListener(window, 'load', function(){
 				var bounds = new google.maps.LatLngBounds();
 

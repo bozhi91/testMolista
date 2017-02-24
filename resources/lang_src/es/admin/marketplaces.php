@@ -10,6 +10,11 @@ return [
 	'tab.configuration' => 'Configuración',
 	'tab.instructions' => 'Instrucciones',
 	'tab.countries' => 'Países',
+	'tab.domains' => 'Dominios',
+
+	'tab.domains.country' => 'País',
+	'tab.domains.domain' => 'Dominio',
+	'tab.domains.intro' => 'Si el marketplace dispone de diferentes nombres de dominio en función del país, puedes definirlos aquí.',
 
 	'title' => 'Nombre',
 	'code' => 'Código',

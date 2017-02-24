@@ -190,4 +190,19 @@ class Country extends TranslatableModel
 		});
 	}
 
+	public function getFlagFolderAttribute()
+	{
+		return "images/flags";
+	}
+
+	public function getFlagAttribute()
+	{
+		return $this->code ? "{$this->flag_folder}/{$this->code}.png" : false;
+	}
+
+	public function getFlagUrlAttribute()
+	{
+		return $this->flag ? asset($this->flag) : false;
+	}
+
 }

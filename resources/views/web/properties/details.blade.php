@@ -1,10 +1,3 @@
-<?php
-
-$videos = $property->videos->sortBy('position_video')->values();
-$images = $property->images->sortBy('position')->values();
-$media = $images->merge($videos);
-?>
-
 @extends('layouts.web', [
 	'menu_section' => 'properties',
 	'use_google_maps' => true,
@@ -75,7 +68,7 @@ $media = $images->merge($videos);
 													<a href="{{ $media_item->link }}"
 													   class="image-thumb mfp-iframe" style="background-image: url('{{ $media_item->image_url }}');">
 
-														<div class="image-thumb-overlay">
+														<div class="image-thumb-overlay video">
 															<div class="image-thumb-overlay-icon-container">
 																<i class="berlanga-icon-video"></i>
 															</div>

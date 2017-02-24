@@ -155,6 +155,8 @@
 		'show.property.seller.id' => 'Seller ID card',
 		'show.property.seller.phone' => 'Seller phone',
 		'show.property.seller.cell' => 'Seller movile',
+		'show.property.seller.cif' => 'CIF',
+		'show.property.seller.company_name' => 'Company name',
 		'show.property.price.min' => 'Minimum price',
 		'show.property.price.min.help' => 'This is the minimum price for which the owner would be willing to close the transaction (sell, rent, etc.)',
 		'show.property.commission' => 'Commission',
@@ -164,6 +166,8 @@
 
 		'show.property.comment.title' => 'Comment',
 		'show.property.comment.button' => 'Save comment',
+		'show.property.nota.title' => 'Notes',
+		'show.property.nota.button' => 'Save notes',
 
 		'show.property.matches.title' => 'Possible matches',
 

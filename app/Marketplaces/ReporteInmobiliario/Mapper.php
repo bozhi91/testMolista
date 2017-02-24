@@ -165,6 +165,11 @@ class Mapper extends \App\Marketplaces\Mapper {
 	 * @return boolean
 	 */
 	public function valid() {
+		if (in_array($this->item['type'], ['plot', 'garage'])){
+            $this->errors []= \Lang::get('validation.type');
+            return false;
+        }
+		
 		$data = array_merge($this->item, $this->config);
 
 		if ($this->isTransfer()) {

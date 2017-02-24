@@ -551,7 +551,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 	}
 
 	public function getCatch($property_id, $id=false)
-	{
+	{		
 		$property = $this->site->properties()->findOrFail( $property_id );
 
 		if ( $id )
@@ -577,6 +577,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'seller_id_card' => '',
 			'seller_phone' => '',
 			'seller_cell' => '',
+			'cif' => '',
+			'company_name' => '',
 			'price_min' => 'numeric|min:1',
 			'commission_fixed' => 'numeric|min:0',
 			'commission' => 'numeric|between:0,100',
@@ -1228,7 +1230,25 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 		return redirect()->back()->with('success', trans('general.messages.success.saved'));
 	}
+	
+	public function postNota($slug)
+	{		
+		$property = $this->site->properties()->whereIn('properties.id', $this->auth->user()->properties()->lists('id'))
+				->whereTranslation('slug', $slug)->first();
+		
+		if ( !$property )
+		{
+			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
+		}
 
+		$property->update([
+			'nota' => $this->request->input('nota')
+		]);
+
+		return redirect()->back()->with('success', trans('general.messages.success.saved'));
+	}
+	
+	
 	public function postUpload()
 	{
 

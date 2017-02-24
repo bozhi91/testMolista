@@ -114,8 +114,10 @@ class Mapper extends \App\Marketplaces\Mapper {
 				return 'Oficinas y locales';
 			case 'lot':
 			case 'state':
+			case 'plot':
 				return 'Terrenos y solares';
 			case 'store':
+			case 'garage':
 				return 'Trasteros y garajes';
 			case 'hotel':
 			case 'aparthotel':

@@ -47,6 +47,11 @@ abstract class Mapper extends \App\Marketplaces\Mapper {
 	 * @return boolean
 	 */
 	public function valid() {
+		if (in_array($this->item['type'], ['garage'])){
+            $this->errors []= \Lang::get('validation.type');
+            return false;
+        }
+		
 		return true;
 	}
 
@@ -87,6 +92,7 @@ abstract class Mapper extends \App\Marketplaces\Mapper {
 			case 'industrial': return [7, 64];
 			case 'state': return [2, 24];
 			case 'farmhouse': return [2, 21];
+			case 'plot': return [6, 58];
 			default: return [1, 9];
 		}
 	}

@@ -22,6 +22,7 @@ class Marketplace extends \App\TranslatableModel
 		'name' => 'required|string',
 		'countries_ids' => 'required|array',
 		'configuration' => 'array',
+		'domains' => 'array',
 		'requires_contact' => 'boolean',
 		'enabled' => 'boolean',
 		'logo' => 'image',
@@ -33,6 +34,7 @@ class Marketplace extends \App\TranslatableModel
 		'name' => 'required|string',
 		'countries_ids' => 'required|array',
 		'configuration' => 'array',
+		'domains' => 'array',
 		'enabled' => 'boolean',
 		'requires_contact' => 'boolean',
 		'logo' => 'image',
@@ -44,6 +46,7 @@ class Marketplace extends \App\TranslatableModel
 
 	protected $casts = [
 		'configuration' => 'array',
+		'domains' => 'array',
 	];
 
 	public function countries()
@@ -120,7 +123,6 @@ class Marketplace extends \App\TranslatableModel
 				$item->translateOrNew($locale)->$field = $value;
 			}
 		}
-
 
 		$item->save();
 

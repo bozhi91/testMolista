@@ -186,6 +186,8 @@ class PropertiesController extends WebController
 			return redirect()->to($property->full_url, 301);
 		}
 
+		$media = $property->media();
+
 		$this->set_seo_values([
 			'title' => $property->title . (empty($this->site->title) ? '' : " - {$this->site->title}"),
 			'description' => $property->description,
@@ -199,7 +201,7 @@ class PropertiesController extends WebController
 			->description($property->description)
 			->url($property->full_url);
 
-		return view('web.properties.details', compact('property', 'og'));
+		return view('web.properties.details', compact('property', 'og', 'media'));
 	}
 
 	public function moreinfo($slug)
