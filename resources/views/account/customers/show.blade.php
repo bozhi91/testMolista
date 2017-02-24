@@ -31,39 +31,46 @@
 
 				{!! Form::model($customer, [ 'action'=>['Account\CustomersController@postGeneral',$customer->email], 'method'=>'post', 'id'=>'general-form' ]) !!}
 
+				<?php $isAdmin = Entrust::hasRole('company'); ?>
+
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
-							{!! Form::label(null, Lang::get('account/customers.name') ) !!}
-							{!! Form::text(null, @$customer->first_name, [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
+							{!! Form::label('general[first_name]', Lang::get('account/customers.name') ) !!}
+							{!! Form::text($isAdmin ? 'general[first_name]' : null,
+								@$customer->first_name, [ 'class'=>'form-control', 'readonly' => $isAdmin ? null : 'readonly']) !!}
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
-							{!! Form::label(null, Lang::get('account/customers.last_name') ) !!}
-							{!! Form::text(null, @$customer->last_name, [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
+							{!! Form::label('general[last_name]', Lang::get('account/customers.last_name') ) !!}
+							{!! Form::text($isAdmin ? 'general[last_name]' : null,
+								@$customer->last_name, [ 'class'=>'form-control', 'readonly' => $isAdmin ? null : 'readonly']) !!}
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
-							{!! Form::label(null, Lang::get('account/customers.email') ) !!}
-							{!! Form::text(null, @$customer->email, [ 'class'=>'form-control email', 'readonly'=>'readonly' ]) !!}
+							{!! Form::label('general[email]', Lang::get('account/customers.email') ) !!}
+							{!! Form::text($isAdmin ? 'general[email]' : null,
+								@$customer->email, [ 'class'=>'form-control email', 'readonly' => $isAdmin ? null : 'readonly' ]) !!}
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
-							{!! Form::label(null, Lang::get('account/customers.phone') ) !!}
-							{!! Form::text(null, @$customer->phone, [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
+							{!! Form::label('general[phone]', Lang::get('account/customers.phone') ) !!}
+							{!! Form::text($isAdmin ? 'general[phone]' : null,
+								@$customer->phone, [ 'class'=>'form-control', 'readonly' => $isAdmin ? null : 'readonly' ]) !!}
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
-							{!! Form::label(null, Lang::get('account/customers.locale') ) !!}
-							{!! Form::text(null, @$site_setup['locales_select'][$customer->locale], [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
+							{!! Form::label('general[locale]', Lang::get('account/customers.locale') ) !!}
+							{!! form::select($isAdmin ? 'general[locale]' : null,
+								@$site_setup['locales_select'], $customer->locale, [ 'class'=>'form-control', 'readonly' => $isAdmin ? null : 'readonly']) !!}
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6">
@@ -82,8 +89,9 @@
 					</div>
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
-							{!! Form::label(null, Lang::get('account/customers.dni') ) !!}
-							{!! Form::text(null, @$customer->dni, [ 'class'=>'form-control', 'readonly'=>'readonly' ]) !!}
+							{!! Form::label('general[dni]', Lang::get('account/customers.dni') ) !!}
+							{!! Form::text($isAdmin ? 'general[dni]' : null,
+								@$customer->dni, [ 'class'=>'form-control', 'readonly' => $isAdmin ? null : 'readonly']) !!}
 						</div>
 					</div>
 				</div>
