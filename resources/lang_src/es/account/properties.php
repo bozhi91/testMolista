@@ -155,6 +155,9 @@
 		'show.property.seller.id' => 'DNI vendedor',
 		'show.property.seller.phone' => 'Teléfono vendedor',
 		'show.property.seller.cell' => 'Móvil vendedor',
+		'show.property.seller.cif' => 'CIF',
+		'show.property.seller.company_name' => 'Nombre Empresa',
+
 		'show.property.price.min' => 'Precio mínimo',
 		'show.property.price.min.help' => 'Corresponde al precio mínimo por el que el propietario estaría dispuesto a cerrar la transacción (vender, alquilar, etc)',
 		'show.property.commission' => 'Comisión',
@@ -164,6 +167,8 @@
 
 		'show.property.comment.title' => 'Comentario',
 		'show.property.comment.button' => 'Guardar comentario',
+		'show.property.nota.title' => 'Notas',
+		'show.property.nota.button' => 'Guardar notas',
 
 		'show.property.matches.title' => 'Posibles coincidencias',
 
