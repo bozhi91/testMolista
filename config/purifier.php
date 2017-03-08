@@ -25,7 +25,7 @@ return [
 	'settings' => [
 		'default' => [
 			'HTML.Doctype'				=> 'XHTML 1.0 Transitional',
-			'HTML.Allowed'				=> 'div,b,strong,i,em,a[href|title],ul,ol,li,p[style],br,span[style],img[width|height|alt|src|style],iframe[frameborder|width|height|alt|src|style]',
+			'HTML.Allowed'				=> 'blockquote,pre,h1,h2,h3,h4,h5,h6,div,b,strong,i,em,a[href|title],ul,ol,li,p[style],br,span[style],img[width|height|alt|src|style],iframe[frameborder|width|height|alt|src|style]',
 			'CSS.AllowedProperties'		=> 'font,font-size,font-weight,font-style,font-family,text-decoration,padding-left,color,background-color,text-align,float,width',
 			'HTML.MaxImgLength'			=> NULL,
 			'HTML.TargetBlank'			=> true,
