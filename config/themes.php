@@ -210,6 +210,16 @@ return [
 			'gmaps-circle'	=> '#1396e2',
 		],
 
+		'zoner-modular' => [
+			'title'			=> 'Zoner Modular',
+			'public'		=> true,
+			'custom'		=> false,
+			'extends'	 	=> 'default',
+			'views-path' 	=> 'themes/zoner-modular',
+			'asset-path' 	=> 'themes/zoner-modular',
+			'gmaps-circle'	=> '#1396e2',
+		],
+
 		// Add your themes here...
 
 		/*--------------[ Example Structre ]-------------
