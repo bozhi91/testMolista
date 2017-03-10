@@ -19,17 +19,17 @@
 
 		</div>
 
-		<div class="price">
+		<div class="price-block">
 
 			<div class="row">
 
-				<div class="col-xs-6 col-sm-6">
+				<div class="col-xs-6 col-sm-12 col-md-6">
 					<div class="price-price pill-price">
 						@include('components.properties.pill.properties-pill-price')
 					</div>
 				</div>
 
-				<div class="col-xs-6 col-sm-6">
+				<div class="col-xs-6 col-sm-12 col-md-6">
 					<div class="price-button pill-price">
 						@include('components.properties.pill.properties-pill-button')
 					</div>
@@ -45,7 +45,6 @@
 
 	ready_callbacks.push(function(){
 		$('.property-pill .padder .text').matchHeight({ byRow : false });
-		$('.property-pill .padder .text .title a').matchHeight({ byRow : false });
 		$('.property-pill .padder .price .pill-price').matchHeight({ byRow : false });
 	});
 
