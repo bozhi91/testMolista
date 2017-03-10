@@ -28,6 +28,7 @@ class Mapper extends \App\Marketplaces\Mapper {
         $map['#type'] = $this->type();
         $map['#town'] = $item['location']['city'];
         $map['#province'] = $item['location']['state'];
+        $map['#postalcode'] = $item['location']['zipcode'];
 
         if (!empty($item['location']['lng']) && !empty($item['location']['lat']))
         {
