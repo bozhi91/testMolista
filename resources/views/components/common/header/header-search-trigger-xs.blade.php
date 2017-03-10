@@ -8,7 +8,7 @@
 
 		cont.on('click','.show-advance-search-trigger',function(e){
 			e.preventDefault();
-			$('.advanced-search-trigger').trigger('click');
+			$('#advanced-search-trigger').trigger('click');
 		});
 
 	});
