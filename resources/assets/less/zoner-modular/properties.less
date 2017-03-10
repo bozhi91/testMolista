@@ -33,11 +33,9 @@
 	}
 	.property-list {
 		.property-row {
-			.col-xs-12.col-sm-9 {
-				.text-column {
-					.title { text-decoration: underline; a { color: @buttonBlue; } }
-					.price { a { color: @buttonBlue; } }
-				}
+			.text-column {
+				.title { text-decoration: underline; a { color: @buttonBlue; } }
+				.price { a { color: @buttonBlue; } }
 			}
 		}
 	}
@@ -73,52 +71,41 @@
 	.select2-container--open .select2-dropdown--below { border-color: @buttonBlue; }
 /* End Setting for select in search-area */
 
-/* Change width of property row */
-@media (min-width: 768px) {
-	#properties {
-		.property-row > .row > .col-xs-12.col-sm-3 { width: 33.33333333%; }
-		.property-row > .row > .col-xs-12.col-sm-9 { width: 66.66666667%; }
-	}
-}
-/* End Change width of property row */
-
 /* properties */
 
 @media (min-width: 768px) {
 	#properties {
 		.property-list {
 			.property-row {
-				.col-xs-12.col-sm-3 {
-					.image-column {
-						.image { height: 100%; }
-						.price { 
-							position: absolute; bottom: 0px; width: 100%; background-color: @buttonBlue; text-align: left; padding: 5px 0px;
+				.image-column {
+					
+					.property-image {
+				    	height: 85%;
+				    	.image { height: 100%; }
+					}
+					.price { 
+						background-color: @buttonBlue; padding: 5px 0px;
+						text-align: left; height: 15%;
 
-							a { color: @white; margin-left: 10px; font-size: 20px; }
-						}
+						a { color: @white; margin-left: 10px; font-size: 20px; }
 					}
 				}
-				.col-xs-12.col-sm-9 {
-					.text-column {
-						padding-bottom: 45px;
+				.text-column {
+					padding-bottom: 45px;
 
-						.col-xs-9 { position: absolute; top: 80px; width: 100%; }
-						.col-xs-3 { width: 0%; min-height: 1px; padding-left: 15px; padding-right: 0px; }
-						.col-xs-12.col-sm-3 { display: none; width: 0%; }
-						.col-xs-12.col-sm-9 { width: 100%; }
-						.title {
-							text-decoration: underline; margin-top: 10px;
-							a { color: @gray; font-weight: bold; }
-						}
-						.location { margin-top: 10px; }
-						.description { margin-top: 60px; }
-						.price { }
-						.metrics { }
-						.btn-more-info { 
-							position: absolute; bottom: 0px; right: auto; border-radius: 0px; color: @white !important;
+					.title {
+						text-decoration: underline; margin-top: 10px;
+						a { color: @gray; font-weight: bold; }
+					}
+					.location { margin-top: 10px; }
+					.description { margin-top: 10px; }
+					.metrics { }
+					.btn-more-info {
+						position: static !important;
+  						float: right;
+						border-radius: 0px; color: @white !important;
 
-							&:hover { color: @black !important; text-decoration: underline; }
-						}
+						&:hover { color: @black !important; text-decoration: underline; opacity: 0.8; }
 					}
 				}
 			}
@@ -131,20 +118,16 @@
 	#properties {
 		.property-list {
 			.property-row {
-				.col-xs-12.col-sm-9 {
-					.text-column {
-						.description { margin-top: 80px; padding-bottom: 10px; }
-	    			}
-	    		}
-	    		.col-xs-12.col-sm-3{
-	    			.image-column {
-	    				.price{
-	    					padding-top: 0px; padding-bottom: 5px;
+				.text-column {
+					.description { margin-top: 80px; padding-bottom: 10px; }
+    			}
+    			.image-column {
+    				.price{
+    					padding-top: 0px; padding-bottom: 5px;
 
-	    					a { font-size: 16px; }
-	    				}
-	    			}
-	    		}
+    					a { font-size: 16px; }
+    				}
+    			}
 	    	}
 		}
 		.results-sort-trigger {
@@ -154,7 +137,8 @@
 			margin-top: 154px;
 
 			h2 { margin-top: -100px; }
-			.col-xs-12.col-sm-6.input-line {
+			
+			.input-line {
 				.text-right {
 					text-align: center;
 
@@ -168,31 +152,30 @@
 
 @media (max-width: 767px) {
 	#properties {
+		.results-area {
+			padding: 25px 0px 50px 0px;
+		}
 		.property-list {
 			.property-row {
 			    border: 1px solid @borderDarkgray; background: @white; padding: 0px; margin-bottom: 30px;
 
-				.col-xs-12.col-sm-9 {
-					.text-column {
-						padding: 15px; height: auto !important;
+				.text-column {
+					padding: 15px; height: auto !important;
 
-						.title {
-							text-decoration: underline; margin-top: 0px;
+					.title {
+						text-decoration: underline; margin-top: 0px;
 
-							a { color: @gray; font-weight: bold; }
-						}
-						.location { margin-top: 0px; }
-						.description { margin-top: 0px; }
-						.price { display: none; }
+						a { color: @gray; font-weight: bold; }
 					}
+					.location { margin-top: 0px; }
+					.description { margin-top: 0px; }
+					.price { display: none; }
 				}
-				.col-xs-12.col-sm-3 {
-					.image-column {
-						.price {
-							position: absolute; bottom: 0px; right: 0px; background-color: @buttonBlue;
+				.image-column {
+					.price {
+						position: absolute; bottom: 0px; right: 0px; background-color: @buttonBlue;
 
-						    a { padding-left: 15px; padding-right: 15px; color: @white; }
-						}
+					    a { padding-left: 15px; padding-right: 15px; color: @white; }
 					}
 				}
 			}
