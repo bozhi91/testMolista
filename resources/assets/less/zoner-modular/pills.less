@@ -1,36 +1,46 @@
 @import '../app/pills.less';
 
 .property-pill {
-    position: relative;
-    border: 1px solid @gray;
-    background-color: @white;
+	position: static; border: 1px solid @gray; background-color: @white;
 
-    .padder {
-    	position: static;
+	.padder {
 
-		.image { margin-bottom: 5px; }
+		.image {
+			position: relative; margin-bottom: 10px;
 
-		.text {
-			padding: 10px 15px;
-			margin-bottom: 40px;
-			border-bottom: 1px solid @gray;
-			min-height: 90px;
+			.discount-label {
+				position: absolute;
+				top: 0px;
+				left: 0px;
+			}
 
-			.title a { color: @gray; font-weight: bold; }
-			.price { position: absolute; bottom: 9px; color: @black; font-weight: bold; }
-			.metrics { display: none; }
-			.labels { position: absolute; top: 7px; right: 5px; .label { font-size: 14px; } }
-			.button {
-				display: block !important; text-align: right; position: absolute; bottom: 9px; right: 15px;
-
-				a {
-				    background-color: @buttonBlue; padding: 5px 10px; font-size: 14px; color: @white;
-
-				    &:hover { background-color: @buttonBlueHover; }
-				}
+			.labels {
+				position: absolute;
+				bottom: 0px;
+				right: 0px;
 			}
 		}
-		.text:after { display: table; content: ""; clear: both; }
+
+		.text {
+			padding: 5px;
+
+			.title a { color: @gray; font-weight: bold; }
+
+		}
+
+		.price {
+			border-top: 1px solid @gray;
+
+			.price-price {
+
+			}
+
+			.price-button {
+				display: block !important;
+			}
+
+		}
+
 	}
 }
 
@@ -39,13 +49,8 @@
 @media (min-width: 768px) and (max-width: 1091px) {
 	.property-pill {
 		.padder {
-			.text { min-height: 120px; }
 			.price { font-size: 12px; }
 			.button a { font-size: 12px !important; }
 		}
 	}
-}
-
-@media (max-width: 767px) {
-	.property-pill { height: auto !important; }
 }

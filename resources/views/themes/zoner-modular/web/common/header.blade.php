@@ -1,4 +1,5 @@
 <nav id="header" class="navbar navbar-default {{ @$header_class }}">
+
 	<div class="container header-container">
 		
 		@include('components.common.header.header-logo')
