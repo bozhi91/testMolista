@@ -220,6 +220,16 @@ return [
 			'gmaps-circle'	=> '#1396e2',
 		],
 
+		'redly-modular' => [
+			'title'			=> 'Redly Modular',
+			'public'		=> true,
+			'custom'		=> false,
+			'extends'	 	=> 'default',
+			'views-path' 	=> 'themes/redly-modular',
+			'asset-path' 	=> 'themes/redly-modular',
+			'gmaps-circle'	=> '#1396e2',
+		],
+
 		// Add your themes here...
 
 		/*--------------[ Example Structre ]-------------

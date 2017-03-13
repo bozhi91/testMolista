@@ -249,7 +249,7 @@ elixir(function(mix) {
 			'compiled/sam.css',
 		], 'public/themes/sam/compiled/css/app.css')
 		.less([
-			'white-cloud/pdf.less',
+			'sam/pdf.less',
 		], 'public/themes/sam/compiled/css/pdf.css')
 		;
 
@@ -277,7 +277,7 @@ elixir(function(mix) {
 			'compiled/modular.css',
 		], 'public/themes/modular/compiled/css/app.css')
 		.less([
-			'white-cloud/pdf.less',
+			'modular/pdf.less',
 		], 'public/themes/modular/compiled/css/pdf.css')
 		;
 
@@ -291,8 +291,22 @@ elixir(function(mix) {
 			'compiled/zoner-modular.css',
 		], 'public/themes/zoner-modular/compiled/css/app.css')
 		.less([
-			'white-cloud/pdf.less',
+			'zoner-modular/pdf.less',
 		], 'public/themes/zoner-modular/compiled/css/pdf.css')
+		;
+
+	/* Zoner Modular */
+	mix
+		.less([
+			'redly-modular/app.less',
+		], 'resources/assets/css/compiled/redly-modular.css')
+		.styles([
+			'compiled/common.css',
+			'compiled/redly-modular.css',
+		], 'public/themes/redly-modular/compiled/css/app.css')
+		.less([
+			'redly-modular/pdf.less',
+		], 'public/themes/redly-modular/compiled/css/pdf.css')
 		;
 
 });
