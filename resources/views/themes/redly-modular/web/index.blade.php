@@ -12,19 +12,8 @@
 
 	<div id="home">
 
-		<div class="modular-slider-block">
-			<div class="modular-carousel-search hidden-xs">
-				<div class="modular-carousel-search-container">
-				<div class="modular-carousel-search-block">
-					@include('components.home.home-slider-search-block')
-				</div>
-				</div>
-			</div>
-
-			<div class="modular-slider">
-				@include('components.home.home-slider')
-			</div>
-
+		<div class="modular-slider">
+			@include('components.home.home-slider')
 		</div>
 
 		<div class="modular-highlight-properties">

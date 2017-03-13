@@ -1,24 +1,5 @@
 @import '../app/home.less';
 
-/* setting on picture at carousel */
-@media (min-width: 768px) {
-	#home {
-		.main-property {
-			max-width: 100%;
-			.item { height: 720px; }
-		}
-	}
-}
-@media (max-width: 767px) {
-	#home {
-		.main-property {
-			max-width: 100%;
-			.item { height: 480px; }
-		}
-	}
-}
-/* end setting on picture at carousel */
-
 /* ########## Search Home Top ########## */
 @media (min-width: 768px) {
 	#home-top-search {
@@ -60,33 +41,32 @@
 /* ########## END Search Home Top ########## */
 
 #home {
+
 	.carousel {
 		.carousel-caption {
+			.carousel-caption-text {
+				text-align: left; padding: 20px 30px;
 
-			.container { width: auto !important; }
+				.carousel-caption-title { color: @black; font-size: 22px; }
+				.carousel-caption-subtitle { color: @black; font-size: 22px; font-weight: bold; margin-top: -5px; }
+				.carousel-caption-button {
+					margin-top: 15px;
+					text-align: center;
 
-			.col-xs-12.col-md-3.hidden-xs.hidden-sm { display: none; }
+				 	span {
+						background-color: @yellow; color: @white; padding: 5px 10px; font-size: 14px;
 
-			.col-xs-12.col-md-6 {
-				width: 100%;
-
-				.carousel-caption-text {
-					text-align: left; padding: 20px 30px;
-
-					.carousel-caption-title { color: @black; font-size: 22px; }
-					.carousel-caption-subtitle { color: @black; font-size: 22px; font-weight: bold; margin-top: -5px; }
-					.carousel-caption-button {
-						margin-top: 15px;
-
-					 	a {
-							background-color: @yellow; color: @white; padding: 5px 10px; font-size: 14px;
-
-						    &:hover { text-decoration: underline; opacity: 0.8; }
-						}
+					    &:hover { text-decoration: underline; opacity: 0.8; }
 					}
 				}
 			}
 		}
+	}
+
+	.carousel:after { display: table; content: ""; clear: both; }
+
+	.main-property {
+		max-width: 100%;
 	}
 
 	.properties-slider-area { 
