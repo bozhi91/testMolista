@@ -35,17 +35,29 @@
 					</div>
 					<div class="col-xs-12 col-sm-4">
 						
-						@include('components.property.property-metrics')
-
-						@include('components.property.property-services')
-
+						<div class="zoner-modular-location">
 						@include('components.property.property-location')
+						</div>
 
+						<div class="zoner-modular-description">
 						@include('components.property.property-description')
+						</div>
 
+						<div class="zoner-modular-services">
+						@include('components.property.property-services')
+						</div>
+
+						<div class="zoner-modular-metrics">
+						@include('components.property.property-metrics')
+						</div>
+
+						<div class="zoner-modular-energy">
 						@include('components.property.property-energy-certification')
+						</div>
 
+						<div class="zoner-modular-pdf">
 						@include('components.property.property-donwload-pdf')
+						</div>
 
 					</div>
 				</div>

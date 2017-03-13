@@ -84,28 +84,31 @@
 				    	.image { height: 100%; }
 					}
 					.price { 
-						background-color: @buttonBlue; padding: 5px 0px;
+						background-color: @buttonBlue;
 						text-align: left; height: 15%;
 
 						a { color: @white; margin-left: 10px; font-size: 20px; }
 					}
 				}
 				.text-column {
-					padding-bottom: 45px;
+					padding-bottom: 55px;
 
 					.title {
 						text-decoration: underline; margin-top: 10px;
 						a { color: @gray; font-weight: bold; }
 					}
 					.location { margin-top: 10px; }
-					.description { margin-top: 10px; }
+					.description { margin-top: 10px; padding: 0px; }
 					.metrics { }
 					.btn-more-info {
 						position: static !important;
-  						float: right;
+  						float: left;
 						border-radius: 0px; color: @white !important;
 
 						&:hover { color: @black !important; text-decoration: underline; opacity: 0.8; }
+					}
+					.properties-button {
+						position: absolute; bottom: 0px; left: 0px;
 					}
 				}
 			}
@@ -119,7 +122,7 @@
 		.property-list {
 			.property-row {
 				.text-column {
-					.description { margin-top: 80px; padding-bottom: 10px; }
+					.description { margin-top: 10px; padding-bottom: 10px; }
     			}
     			.image-column {
     				.price{
@@ -131,7 +134,7 @@
 	    	}
 		}
 		.results-sort-trigger {
-		    margin-bottom: 45px;
+		    margin-bottom: 25px;
 		}
 		.search-area {
 			margin-top: 154px;
