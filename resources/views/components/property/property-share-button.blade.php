@@ -1,4 +1,4 @@
-<a href="#property-share-form" class="btn btn-primary more-info-trigger call-to-action pull-right">
+<a href="#property-share-form" class="btn btn-primary more-info-trigger call-to-action">
 	{{ Lang::get('web/properties.recommend.action') }}
 </a>
 
