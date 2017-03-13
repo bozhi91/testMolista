@@ -55,37 +55,37 @@
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-5 col-lg-4">
 
-						<div class="zoner-property-right-block">
+						<div class="redly-property-right-block">
 							
-							<div class="zoner-modular-location hidden-xs">
+							<div class="redly-modular-location hidden-xs">
 							@include('components.property.property-location')
 							</div>
 
-							<div class="zoner-modular-description">
+							<div class="redly-modular-description">
 							@include('components.property.property-description')
 							</div>
 
-							<div class="zoner-modular-services">
+							<div class="redly-modular-services">
 							@include('components.property.property-services')
 							</div>
 
-							<div class="zoner-modular-metrics">
+							<div class="redly-modular-metrics">
 							@include('components.property.property-metrics')
 							</div>
 
-							<div class="zoner-modular-energy">
+							<div class="redly-modular-energy">
 							@include('components.property.property-energy-certification')
 							</div>
 
-							<div class="zoner-modular-pdf">
+							<div class="redly-modular-pdf">
 							@include('components.property.property-download-pdf')
 							</div>
 
-							<div class="visible-xs zoner-modular-moreinfo-button">
+							<div class="visible-xs redly-modular-moreinfo-button">
 							@include('components.property.property-moreinfo-button')
 							</div>
 							
-							<div class="zoner-modular-share-button">
+							<div class="redly-modular-share-button">
 							@include('components.property.property-share-button')
 							</div>
 
