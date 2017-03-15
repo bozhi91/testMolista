@@ -4,8 +4,14 @@
 #home {
 	.main-property {
 		.item {
-			background: center center no-repeat !important;
-    		background-size: contain !important;
+			background: center center no-repeat;
+    		background-size: contain;
+
+    		.carousel-caption {
+    			& > .container {
+    				max-width: 100% !important;
+    			}
+    		}
 		}
 	}
 }

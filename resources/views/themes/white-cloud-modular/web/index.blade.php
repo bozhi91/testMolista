@@ -32,4 +32,18 @@
 
 	@include('components.home.home-script')
 
+	<script type="text/javascript">
+		ready_callbacks.push(function(){
+			var cont = $('#home');
+
+			var main_property = cont.find('.main-property');
+			var main_property_image = main_property.find('.main-image');
+			if ( true ) {
+				main_property_image.addClass('hide');
+				main_property.find('.item.active').css({ 'background-image': 'url(' + main_property_image.attr('src') + ')' })
+			}
+
+		});
+	</script>
+
 @endsection
