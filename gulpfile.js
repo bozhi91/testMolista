@@ -295,4 +295,18 @@ elixir(function(mix) {
 		], 'public/themes/zoner-modular/compiled/css/pdf.css')
 		;
 
+	/* White-Cloud Modular */
+	mix
+		.less([
+			'white-cloud-modular/app.less',
+		], 'resources/assets/css/compiled/white-cloud-modular.css')
+		.styles([
+			'compiled/common.css',
+			'compiled/white-cloud-modular.css',
+		], 'public/themes/white-cloud-modular/compiled/css/app.css')
+		.less([
+			'white-cloud-modular/pdf.less',
+		], 'public/themes/white-cloud-modular/compiled/css/pdf.css')
+		;
+
 });

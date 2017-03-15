@@ -220,6 +220,16 @@ return [
 			'gmaps-circle'	=> '#1396e2',
 		],
 
+		'white-cloud-modular' => [
+			'title'			=> 'White Cloud Modular',
+			'public'		=> true,
+			'custom'		=> false,
+			'extends'	 	=> 'default',
+			'views-path' 	=> 'themes/white-cloud-modular',
+			'asset-path' 	=> 'themes/white-cloud-modular',
+			'gmaps-circle'	=> '#efb817',
+		],
+
 		// Add your themes here...
 
 		/*--------------[ Example Structre ]-------------
