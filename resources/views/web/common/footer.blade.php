@@ -17,6 +17,13 @@
 								@include('common.widget-text', [
 									'widget' => $widget,
 								])
+							@elseif ( $widget['type'] == 'awesome-link' )
+								@if ($widget['title'])
+								<h4>{{ $widget['title'] }}</h4>
+								@endif
+								@include('common.widget-awesome-link-footer', [
+									'widget' => $widget,
+								])
 							@endif
 							<div class="visible-xs-block visible-sm-block">&nbsp;</div>
 						</div>
