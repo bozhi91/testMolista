@@ -1,24 +1,60 @@
-<div class="property-image-slider">
-	@if ( $property->images->count() > 0 )
+@if ( $media->count() > 0 )
+	<div class="property-image-slider">
 		<div class="images-gallery">
 			@include('web.properties.discount-label', [ 'item' => $property ])
-			<div class="image-main text-center">
-				<img src="{{ $property->main_image }}" alt="{{$property->title}}" class="img-responsive cursor-pointer trigger-image-thumbs" id="property-main-image" />
-			</div>
-			@if ( $property->images->count() > 1 )
+
+			@if($property->main_image)
+				<div class="image-main text-center">
+					<img src="{{ $property->main_image }}" alt="{{$property->title}}"
+						 class="img-responsive cursor-pointer trigger-image-thumbs" id="property-main-image" />
+				</div>
+			@else
+				<div class="image-main text-center">
+					@include('web.properties.video', [ 'video'=> $media->first() ])
+				</div>
+			@endif
+
+			@if ( $media->count() > 1 )
 				<div id="images-carousel" class="images-carousel carousel slide" data-interval="false">
 					<div class="carousel-inner" role="listbox">
 						<div class="item active">
 							<div class="row">
-								@foreach ($property->images->sortBy('position')->values() as $key => $image)
+								@foreach ($media as $key => $media_item)
 									@if ( $key > 0 && $key%6 < 1 )
 										</div></div><div class="item"><div class="row">
 									@endif
-									<div class="col-xs-4 col-sm-2">
-										<a href="{{ $image->image_url }}" class="image-thumb" style="background-image: url('{{ $image->image_url_thumb }}');">
-											<img src="{{ $image->image_url_thumb }}" alt="{{$property->title}}" class="hide" />
-										</a>
-									</div>
+
+									@if($media_item instanceof App\Models\Property\Images)
+										<div class="col-xs-4 col-sm-2">
+											<a href="{{ $media_item->image_url }}"
+											   class="image-thumb mfp-image"
+											   style="background-image: url('{{ $media_item->image_url_thumb }}');">
+
+												<div class="image-thumb-overlay">
+													<div class="image-thumb-overlay-icon-container">
+
+														<i class="berlanga-icon-photo"></i>
+													</div>
+												</div>
+
+												<img src="{{ $media_item->image_url_thumb }}" alt="{{$property->title}}" class="hide" />
+											</a>
+										</div>
+									@elseif($media_item instanceof App\Models\Property\Videos)
+										<div class="col-xs-4 col-sm-2">
+											<a href="{{ $media_item->link }}"
+											   class="image-thumb mfp-iframe" style="background-image: url('{{ $media_item->image_url }}');">
+
+												<div class="image-thumb-overlay video">
+													<div class="image-thumb-overlay-icon-container">
+														<i class="berlanga-icon-video"></i>
+													</div>
+												</div>
+
+												<img src="{{ $media_item->image_url }}" alt="{{$property->title}}" class="hide" />
+											</a>
+										</div>
+									@endif
 								@endforeach
 							</div>
 						</div>
@@ -32,5 +68,5 @@
 				</div>
 			@endif
 		</div>
-	@endif
-</div>
+	</div>
+@endif
