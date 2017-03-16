@@ -14,6 +14,8 @@
 		@page { size: 595px 806px; }
 
 		{!! $css !!}
+
+		.description { line-height: 1.2em !important }
 	</style>
 </head>
 
@@ -165,6 +167,18 @@
 					</tr>
 				</table>
 			</div>
+		@endif
+
+		@if ( $property->description && $property->site->pdf_extended )
+		<div class="container">
+			<table class="description services">
+				<tr>
+					<td>
+						{!! nl2p($property->description) !!}
+					</td>
+				</tr>
+			</table>
+		</div>
 		@endif
 
 		<div class="footer">
