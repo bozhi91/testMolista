@@ -1103,7 +1103,9 @@
 			$i = 0;
 			$label_default = false;
 			$label_palette = "[ [";
-			foreach (Theme::config('label-palette') as $color)
+			$theme_palete = Theme::config('label-palette');
+			if (!is_array($theme_palete)) $theme_palete = [];
+			foreach ($theme_palete as $color)
 			{
 				if ( !$label_default )
 				{
