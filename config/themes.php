@@ -165,8 +165,8 @@ return [
 			'public'		=> true,
 			'custom'		=> false,
 			'extends'	 	=> 'default',
-			'views-path' 	=> 'themes/redly',
-			'asset-path' 	=> 'themes/redly',
+			'views-path' 	=> 'themes/redly-modular',
+			'asset-path' 	=> 'themes/redly-modular',
 			'gmaps-circle'	=> '#efb817',
 		],
 
@@ -207,16 +207,6 @@ return [
 			'extends'	 	=> 'default',
 			'views-path' 	=> 'themes/modular',
 			'asset-path' 	=> 'themes/modular',
-			'gmaps-circle'	=> '#1396e2',
-		],
-
-		'redly-modular' => [
-			'title'			=> 'Redly Modular',
-			'public'		=> true,
-			'custom'		=> false,
-			'extends'	 	=> 'default',
-			'views-path' 	=> 'themes/redly-modular',
-			'asset-path' 	=> 'themes/redly-modular',
 			'gmaps-circle'	=> '#1396e2',
 		],
 
