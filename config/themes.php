@@ -14,7 +14,7 @@ return [
     |--------------------------------------------------------------------------
     | File path where themes will be located.
     | Can be outside default views path EG: resources/themes
-    | Leave it null if you place your themes in the default views folder 
+    | Leave it null if you place your themes in the default views folder
     | (as defined in config\views.php)
     |--------------------------------------------------------------------------
     */
@@ -175,8 +175,8 @@ return [
 			'public'		=> true,
 			'custom'		=> false,
 			'extends'	 	=> 'default',
-			'views-path' 	=> 'themes/white-cloud',
-			'asset-path' 	=> 'themes/white-cloud',
+			'views-path' 	=> 'themes/white-cloud-modular',
+			'asset-path' 	=> 'themes/white-cloud-modular',
 			'gmaps-circle'	=> '#efb817',
 		],
 
@@ -208,26 +208,6 @@ return [
 			'views-path' 	=> 'themes/modular',
 			'asset-path' 	=> 'themes/modular',
 			'gmaps-circle'	=> '#1396e2',
-		],
-
-		'zoner-modular' => [
-			'title'			=> 'Zoner Modular',
-			'public'		=> true,
-			'custom'		=> false,
-			'extends'	 	=> 'default',
-			'views-path' 	=> 'themes/zoner-modular',
-			'asset-path' 	=> 'themes/zoner-modular',
-			'gmaps-circle'	=> '#1396e2',
-		],
-
-		'white-cloud-modular' => [
-			'title'			=> 'White Cloud Modular',
-			'public'		=> true,
-			'custom'		=> false,
-			'extends'	 	=> 'default',
-			'views-path' 	=> 'themes/white-cloud-modular',
-			'asset-path' 	=> 'themes/white-cloud-modular',
-			'gmaps-circle'	=> '#efb817',
 		],
 
 		// Add your themes here...
