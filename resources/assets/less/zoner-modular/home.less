@@ -1,5 +1,24 @@
 @import '../app/home.less';
 
+/* setting on picture at carousel */
+@media (min-width: 768px) {
+	#home {
+		.main-property {
+			max-width: 100%;
+			.item { height: 720px; }
+		}
+	}
+}
+@media (max-width: 767px) {
+	#home {
+		.main-property {
+			max-width: 100%;
+			.item { height: 480px; }
+		}
+	}
+}
+/* end setting on picture at carousel */
+
 #home {
 	.carousel {
 		position: relative;
