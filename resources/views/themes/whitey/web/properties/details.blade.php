@@ -69,7 +69,7 @@
 
 							@include('components.property.property-energy-certification')
 
-							@include('components.property.property-donwload-pdf')
+							@include('components.property.property-download-pdf')
 
 							</div>
 						</div>
