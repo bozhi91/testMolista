@@ -308,7 +308,7 @@ elixir(function(mix) {
 			'white-cloud-modular/pdf.less',
 		], 'public/themes/white-cloud-modular/compiled/css/pdf.css')
 
-	/* Zoner Modular */
+	/* Redly Modular */
 	mix
 		.less([
 			'redly-modular/app.less',
