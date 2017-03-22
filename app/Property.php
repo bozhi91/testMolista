@@ -169,6 +169,8 @@ class Property extends TranslatableModel
 		$images = $this->images->sortBy('position')->values();
 		$media = $this->videos->sortBy('position_video')->values();
 
+		if (!$images->count()) return $media;
+
 		// Put videos on second place:
 		// first image...
 		$media->prepend($images->shift());
