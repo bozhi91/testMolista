@@ -1,0 +1,88 @@
+@import '../app/pills.less';
+
+.property-pill {
+	position: static; border: 1px solid @gray; background-color: @white;
+
+	.padder {
+
+		.image {
+			position: relative; margin-bottom: 0px; background-size: contain;
+
+			.discount-label {
+				position: absolute;
+				top: 0px;
+				left: 0px;
+			}
+
+			.labels {
+				position: absolute;
+				top: 5px;
+				right: 2px;
+			}
+		}
+
+		.text {
+			padding: 10px;
+
+			.title a { color: @black; font-weight: bold; }
+
+		}
+
+		.price-block {
+			border-top: 1px solid @gray;
+			padding: 5px 0px;
+
+			.price-price {
+				color: @black;
+
+				.price {
+					margin-top: 5px;
+					margin-bottom: 5px;
+					margin-left: 10px;
+					.pvp {
+						text-decoration: line-through;
+					}
+				}
+
+			}
+
+			.price-button {
+				text-align: right;
+
+				.button {
+					display: block !important;
+					margin-top: 5px;
+					margin-bottom: 5px;
+					margin-right: 10px;
+
+					a {
+						background-color: @yellow;
+					    color: @white;
+					    padding: 5px 10px;
+					    font-size: 14px;
+
+					    &:hover {
+					    	background-color: @yellowHover;
+					    	opacity: 0.8;
+					    }
+					}
+				}
+
+				@media (min-width: 768px) and (max-width: 991px) {
+					& { text-align: center;	}
+				}
+			}
+		}
+	}
+}
+
+/* responsive */
+
+@media (min-width: 768px) and (max-width: 1091px) {
+	.property-pill {
+		.padder {
+			.price { font-size: 12px; }
+			.button a { font-size: 12px !important; }
+		}
+	}
+}
