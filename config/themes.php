@@ -145,8 +145,8 @@ return [
 			'public'		=> true,
 			'custom'		=> false,
 			'extends'	 	=> 'default',
-			'views-path' 	=> 'themes/zoner',
-			'asset-path' 	=> 'themes/zoner',
+			'views-path' 	=> 'themes/zoner-modular',
+			'asset-path' 	=> 'themes/zoner-modular',
 			'gmaps-circle'	=> '#1396e2',
 		],
 
@@ -165,8 +165,8 @@ return [
 			'public'		=> true,
 			'custom'		=> false,
 			'extends'	 	=> 'default',
-			'views-path' 	=> 'themes/redly',
-			'asset-path' 	=> 'themes/redly',
+			'views-path' 	=> 'themes/redly-modular',
+			'asset-path' 	=> 'themes/redly-modular',
 			'gmaps-circle'	=> '#efb817',
 		],
 

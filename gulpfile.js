@@ -307,6 +307,19 @@ elixir(function(mix) {
 		.less([
 			'white-cloud-modular/pdf.less',
 		], 'public/themes/white-cloud-modular/compiled/css/pdf.css')
+
+	/* Zoner Modular */
+	mix
+		.less([
+			'redly-modular/app.less',
+		], 'resources/assets/css/compiled/redly-modular.css')
+		.styles([
+			'compiled/common.css',
+			'compiled/redly-modular.css',
+		], 'public/themes/redly-modular/compiled/css/app.css')
+		.less([
+			'redly-modular/pdf.less',
+		], 'public/themes/redly-modular/compiled/css/pdf.css')
 		;
 
 });
