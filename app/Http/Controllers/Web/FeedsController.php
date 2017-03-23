@@ -96,4 +96,37 @@ class FeedsController extends \App\Http\Controllers\WebController
 		]);
 	}
 
+	public function yaencontre()
+	{
+		$user_code = $this->request->get('id');
+		if (!$user_code) {
+			abort(404);
+		}
+
+		// Check if marketplace is active
+		$marketplace = \App\Models\Marketplace::where('id', env('YAENCONTRE_MARKETPLACE_ID'))->enabled()->first();
+		if (!$marketplace) {
+			abort(404);
+		}
+
+		// Find the site by code
+		$site = \App\Site::enabled()->whereIn('id', function($query) use ($user_code, $marketplace) {
+			$query->select('site_id')
+					->from('sites_marketplaces')
+					->where('marketplace_configuration', 'like', '%"oficina":"'.$user_code.'"%')
+					->where('marketplace_enabled', 1)
+					->where('marketplace_id', $marketplace->id);
+		})->first();
+
+		if (!$site) {
+			abort(404);
+		}
+
+		// Set the site
+		$this->site = $site;
+
+		// Get the feed
+		return $this->getProperties($marketplace->code);
+	}
+
 }
