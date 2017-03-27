@@ -51,10 +51,21 @@ class TranslationsImportCommand extends Command
 		// Get enabled locales
 		$enabled_locales = \App\Models\Locale::lists('name','locale')->all();
 
+		// Parse file
+		/*
+		$text = file_get_contents($filepath);
+		$text = preg_replace('#"""#', '"', $text);
+		$text = preg_replace('#""#', '"', $text);
+		$text = preg_replace('#^"#mis', '', $text);
+		$text = preg_replace('#;;#', '', $text);
+		file_put_contents($filepath, $text);
+		die;
+		*/
+
 		// Process file
 		if ( ($handle = fopen($filepath, "r")) !== FALSE )
 		{
-			while ( ($data = fgetcsv($handle, 0, ';')) !== FALSE )
+			while ( ($data = fgetcsv($handle, 0, ',')) !== FALSE )
 			{
 				// Set headers
 				if ( !$columns )
@@ -68,6 +79,19 @@ class TranslationsImportCommand extends Command
 							$locales[$field] = $enabled_locales[$field];
 						}
 					}
+
+					$columns = [
+						'id' => 0,
+						'file' => 1,
+						'tag' => 2,
+						'en' => 3,
+						'fr' => 4
+					];
+
+					$locales = [
+						'en' => 'English',
+						'fr' => 'French'
+					];
 
 					if ( !isset($columns['file']) )
 					{
@@ -116,6 +140,8 @@ class TranslationsImportCommand extends Command
 					continue;
 				}
 
+				if (count($data) < 5) continue;
+
 				// Process locales
 				foreach ($locales as $locale => $locale_name)
 				{
@@ -142,12 +168,14 @@ class TranslationsImportCommand extends Command
 					}
 
 					// Already translated
-					if ( $translation->value )
+					if ( $translation->value && false)
 					{
 						//$this->warn("{$file} -> {$tag}");
 						//$this->warn("Already translated to {$locales[$locale]}");
 						continue;
 					}
+
+					$value = utf8_encode($value);
 
 					$translation->value = \App\Models\Translation::cleanValue($value);
 					$translation->save();
@@ -182,4 +210,3 @@ class TranslationsImportCommand extends Command
 	}
 
 }
-	
