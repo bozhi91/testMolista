@@ -18,6 +18,9 @@
 				<li role="presentation" class="{{ $current_tab == 'general' ? 'active' : '' }}"><a href="#tab-general" aria-controls="tab-general" role="tab" data-toggle="tab" data-tab="general">{{ Lang::get('admin/marketplaces.tab.general') }}</a></li>
 				<li role="presentation" class="{{ $current_tab == 'configuration' ? 'active' : '' }}"><a href="#tab-configuration" aria-controls="tab-configuration" role="tab" data-toggle="tab" data-tab="configuration">{{ Lang::get('admin/marketplaces.tab.configuration') }}</a></li>
 				<li role="presentation" class="{{ $current_tab == 'properties' ? 'active' : '' }}"><a href="#tab-properties" aria-controls="tab-properties" role="tab" data-toggle="tab" data-tab="properties">{{ Lang::get('account/marketplaces.properties') }}</a></li>
+				@if (!empty($logs))
+				<li role="presentation" class="{{ $current_tab == 'logs' ? 'active' : '' }}"><a href="#tab-logs" aria-controls="tab-logs" role="tab" data-toggle="tab" data-tab="logs">{{ Lang::get('account/marketplaces.logs') }}</a></li>
+				@endif
 			</ul>
 
 			<div class="tab-content">
@@ -140,6 +143,65 @@
 						{!! drawPagination($properties, Input::except('page')+[ 'current_tab'=>'properties' ]) !!}
 					@endif
 				</div>
+
+				@if (!empty($logs))
+				<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'logs' ? 'active' : '' }}" id="tab-logs">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<?php
+									$pagination_url = implode('',[
+										action('Account\MarketplacesController@getConfigure', $marketplace->code),
+										'?',
+										http_build_query(Input::except('page')+[ 'current_tab'=>'logs' ]),
+									]);
+								?>
+								{!! drawSortableHeaders($pagination_url, [
+									'updated_at' => [ 'title' => Lang::get('account/marketplaces.logs.updated_at') ],
+									'property' => [ 'title' => Lang::get('account/marketplaces.logs.property') ],
+									'message' => [ 'title' => Lang::get('account/marketplaces.logs.message') ],
+									'info' => [ 'title' => '' ]
+								]) !!}
+							</tr>
+						</thead>
+						<tbody>
+							@foreach ($logs as $log)
+								<tr class="{{ @$log->result[0] === false ? 'danger' : '' }}">
+									<td>{{ $log->updated_at->format('d/m/Y H:i') }}</td>
+									<td>
+										@if ($log->property)
+										{!! implode( [
+											@$log->property['reference'],
+											/*@$log->property['location']['address'],
+											@implode(' / ', array_filter([ @$log->property['location']['city'], @$log->property['location']['state'] ]))*/
+										], '<br>') !!}
+										@endif
+									</td>
+									<td>{!! implode('<br>', @$log->result[1]['messages']) !!}</td>
+									<td>
+										@if ($log->request)
+										<a href="javascript:;"><span class="glyphicon glyphicon-info-sign" data-toggle="modal" data-target="#result-modal-{{ $log->id }}"></span></a>
+										<div class="modal fade" tabindex="-1" role="dialog" id="result-modal-{{ $log->id }}">
+										  <div class="modal-dialog" role="document">
+										    <div class="modal-content">
+										      <div class="modal-body" style="word-wrap: break-word;">
+										        {{ $log->request }}
+										      </div>
+										      <div class="modal-footer">
+										        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+										      </div>
+										    </div><!-- /.modal-content -->
+										  </div><!-- /.modal-dialog -->
+										</div><!-- /.modal -->
+										@endif
+									</td>
+								</tr>
+							@endforeach
+						</tbody>
+					</table>
+					{!! drawPagination($logs, Input::except('page')+[ 'current_tab'=>'logs' ]) !!}
+				</div>
+				@endif
 
 			</div>
 

@@ -114,9 +114,11 @@ class MarketplacesController extends \App\Http\Controllers\AccountController
 
 		$properties = $query->orderBy('ref', 'asc')->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
 
+		$logs = \App\Models\Site\ApiPublication::where('site_id', $this->site->id)->where('marketplace_id', $marketplace->id)->orderBy('updated_at', 'desc')->paginate( $this->request->get('limit', \Config::get('app.pagination_perpage', 10)) );
+
 		$current_tab = session('current_tab', $this->request->input('current_tab','general'));
 
-		return view('account.marketplaces.configure', compact('marketplace','configuration','properties','current_tab'));
+		return view('account.marketplaces.configure', compact('marketplace','configuration','properties','logs','current_tab'));
 	}
 	public function postConfigure($code)
 	{

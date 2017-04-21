@@ -17,7 +17,7 @@ abstract class Inmofactory extends \App\Marketplaces\API {
 				],
 				[
 					'name' => 'password',
-					'type' => 'text',
+					'type' => 'password',
 					'required' => true
 				],
 				[
