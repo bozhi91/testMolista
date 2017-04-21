@@ -13,7 +13,7 @@ class AddRequestToApiPublications extends Migration
     public function up()
     {
         Schema::table('api_publications', function (Blueprint $table) {
-            $table->binary('request')->after('property');
+            $table->binary('request')->nullable()->after('property');
         });
     }
 

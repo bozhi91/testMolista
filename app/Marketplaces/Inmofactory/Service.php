@@ -65,9 +65,9 @@ abstract class Service extends \App\Marketplaces\Service {
 	 */
 	private function formatResponse($response) {
 		$array = json_decode($response, true);
-		
+
 		return [
-			($array['StatusCode'] == 200 || 
+			($array['StatusCode'] == 200 ||
 				$array['StatusCode'] == 201) ? true : false,
 			['messages' => [$array['Message']]]
 		];
@@ -86,7 +86,7 @@ abstract class Service extends \App\Marketplaces\Service {
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
-		curl_setopt($ch, CURLOPT_TIMEOUT, 600); // Timeout in seconds        
+		curl_setopt($ch, CURLOPT_TIMEOUT, 600); // Timeout in seconds
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -101,6 +101,9 @@ abstract class Service extends \App\Marketplaces\Service {
 			$headers[] = 'Content-Length: ' . strlen($query);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $query);
 		}
+
+		// Save last request for debug
+		$this->setLastRequest($json);
 
 		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 

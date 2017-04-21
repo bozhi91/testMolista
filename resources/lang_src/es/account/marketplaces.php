@@ -61,7 +61,7 @@
 		'configuration.fields.username' => 'Usuario',
 		'configuration.fields.password' => 'Contraseña',
 		'configuration.fields.agent_id' => 'Id de agente',
-		
+
 		'properties' => 'Propiedades',
 		'properties.published' => 'Activa en export',
 		'properties.enabled' => 'Activa en web',
@@ -73,4 +73,9 @@
 		'contact.phone' => 'Teléfono',
 		'contact.email' => 'Email',
 		'contact.success' => '<h4>Muchas gracias.</h4><p>Nos pondremos en contacto con usted lo antes posible.</p>',
+
+		'logs' => 'Log de publicaciones',
+		'logs.updated_at' => 'Fecha',
+		'logs.property' => 'Propiedad',
+		'logs.message' => 'Mensajes',
 	];
