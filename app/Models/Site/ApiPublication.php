@@ -19,6 +19,7 @@ class ApiPublication extends Model {
 
 	protected $casts = [
 		'property' => 'array',
+		'request' => 'array',
 		'result' => 'array',
 	];
 
