@@ -8,6 +8,17 @@ use App\Marketplaces\Interfaces\PublishPropertyApiInterface;
 abstract class API extends Base implements PublishPropertyApiInterface {
 
 	private $_service;
+	protected $last_request;
+
+	public function setLastRequest($request)
+	{
+		$this->last_request = $request;
+	}
+
+	public function getLastRequest()
+	{
+		return $this->last_request;
+	}
 
 	/**
 	 * @param array $config

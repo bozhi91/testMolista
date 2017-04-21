@@ -51,14 +51,17 @@ abstract class Inmofactory extends \App\Marketplaces\API {
 			$service = $this->getService();
 
 			$result = $service->updateProperty($mapped);
-			
+
 			if(!$result[0]){
 				$messages = $result[1]['messages'];
 				if($messages[0] == 'No existe un inmueble con el externalId informado'){
 					$result = $service->createProperty($mapped);
 				}
 			}
-			
+
+			// Save last request data
+			$this->setLastRequest($service->getLastRequest());
+
 			return $result;
 		}
 	}
