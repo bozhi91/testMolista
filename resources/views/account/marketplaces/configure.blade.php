@@ -18,7 +18,7 @@
 				<li role="presentation" class="{{ $current_tab == 'general' ? 'active' : '' }}"><a href="#tab-general" aria-controls="tab-general" role="tab" data-toggle="tab" data-tab="general">{{ Lang::get('admin/marketplaces.tab.general') }}</a></li>
 				<li role="presentation" class="{{ $current_tab == 'configuration' ? 'active' : '' }}"><a href="#tab-configuration" aria-controls="tab-configuration" role="tab" data-toggle="tab" data-tab="configuration">{{ Lang::get('admin/marketplaces.tab.configuration') }}</a></li>
 				<li role="presentation" class="{{ $current_tab == 'properties' ? 'active' : '' }}"><a href="#tab-properties" aria-controls="tab-properties" role="tab" data-toggle="tab" data-tab="properties">{{ Lang::get('account/marketplaces.properties') }}</a></li>
-				@if (!empty($logs))
+				@if ($logs->total())
 				<li role="presentation" class="{{ $current_tab == 'logs' ? 'active' : '' }}"><a href="#tab-logs" aria-controls="tab-logs" role="tab" data-toggle="tab" data-tab="logs">{{ Lang::get('account/marketplaces.logs') }}</a></li>
 				@endif
 			</ul>
@@ -144,7 +144,7 @@
 					@endif
 				</div>
 
-				@if (!empty($logs))
+				@if ($logs->total())
 				<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'logs' ? 'active' : '' }}" id="tab-logs">
 					<table class="table table-striped">
 						<thead>
