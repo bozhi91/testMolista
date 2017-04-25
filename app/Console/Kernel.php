@@ -34,7 +34,7 @@ class Kernel extends ConsoleKernel
 		Commands\TranslationsImportCommand::class,
 
 		Commands\PlanInitCommand::class,
-		Commands\PlanBasicEnterpriseCommand::class,
+		Commands\PlanNewBasicEnterpriseCommand::class,
 	];
 
 	/**

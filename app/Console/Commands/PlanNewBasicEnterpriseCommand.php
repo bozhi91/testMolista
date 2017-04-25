@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class PlanBasicEnterpriseCommand extends Command
+class PlanNewBasicEnterpriseCommand extends Command
 {
 
 	protected $signature = 'plan:new-basic-enterprise';
@@ -247,6 +247,7 @@ class PlanBasicEnterpriseCommand extends Command
 		foreach ($groups as $group)
 		{
 			$level = 0;
+
 			foreach ($group as $plan)
 			{
 				$level++;
@@ -255,6 +256,10 @@ class PlanBasicEnterpriseCommand extends Command
 
 				$plan->update([
 					'level' => $level,
+				]);
+
+				\App\Models\Stats::where('plan_id', $plan->id)->update([
+					'plan_level' => $level,
 				]);
 			}
 		}
