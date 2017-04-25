@@ -23,7 +23,6 @@ class Kernel extends ConsoleKernel
 		Commands\ProcessStatsCommand::class,
 		Commands\TicketsMaintenanceCommand::class,
 		Commands\ParseWebsiteCommand::class,
-		Commands\PlanMaintenanceCommand::class,
 		Commands\MarketplaceUploadFeedCommand::class,
 		Commands\GeographyLoadCountryCitiesCommand::class,
 		Commands\InitGlobalStatsCommand::class,
@@ -33,6 +32,9 @@ class Kernel extends ConsoleKernel
 		Commands\PublicarPropiedadesApi::class,
 		Commands\TransferCities::class,
 		Commands\TranslationsImportCommand::class,
+
+		Commands\PlanInitCommand::class,
+		Commands\PlanBasicEnterpriseCommand::class,
 	];
 
 	/**
