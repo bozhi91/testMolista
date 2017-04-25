@@ -88,8 +88,8 @@
 																@if ( $plan->is_free )
 																	<option value="year" data-text="{{ $plan->name }}" data-price="0" data-transfer="{{ floatval($plan->extras['transfer']) }}" data-level="{{ $plan->level }}">{{ Lang::get('web/plans.free') }}</option>
 																@else
-																	<option value="year" data-text="{{ $plan->name }} {{ Lang::get('web/plans.price.year') }}" data-price="{{ $plan->price_year }}" data-transfer="{{ floatval($plan->extras['transfer']) }}" data-level="{{ $plan->level }}" {{ @$data['payment_interval'][$plan->code] == 'year' ? 'selected="selected"' : '' }}>{{ Lang::get('web/plans.price.year') }} {{ price($plan->price_year, $plan->infocurrency->toArray()) }}</option>
 																	<option value="month" data-text="{{ $plan->name }} {{ Lang::get('web/plans.price.month') }}"  data-price="{{ $plan->price_month }}" data-transfer="{{ floatval($plan->extras['transfer']) }}" data-level="{{ $plan->level }}"  {{ @$data['payment_interval'][$plan->code] == 'month' ? 'selected="selected"' : '' }}>{{ Lang::get('web/plans.price.month') }} {{ price($plan->price_month, $plan->infocurrency->toArray()) }}</option>
+																	<option value="year" data-text="{{ $plan->name }} {{ Lang::get('web/plans.price.year') }}" data-price="{{ $plan->price_year }}" data-transfer="{{ floatval($plan->extras['transfer']) }}" data-level="{{ $plan->level }}" {{ @$data['payment_interval'][$plan->code] == 'year' ? 'selected="selected"' : '' }}>{{ Lang::get('web/plans.price.year') }} {{ price($plan->price_year, $plan->infocurrency->toArray()) }}</option>
 																@endif
 															</select>
 														</div>
