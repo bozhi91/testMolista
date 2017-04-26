@@ -38,18 +38,34 @@ class Stats extends Model
 
 	static public function getConsolidatedStats()
 	{
-		$stats = self::select('plan_level')
-					->addSelect( \DB::raw("(CASE `plan_level` WHEN 1 THEN 'Pro' WHEN 2 THEN 'Plus' ELSE 'Free' END) as plan_name") )
-					->addSelect( \DB::raw("COUNT(*) as total_sites") )
-					->addSelect(  \DB::raw("SUM(`monthly_fee`) as total_revenues"))
+		$stats = [
+			'free' => 0,
+			'paying' => 0,
+			'revenue' => 0,
+		];
+
+		$query = self::selectRaw("`plan_level`, COUNT(*) as total_sites, SUM(`monthly_fee`) as total_revenues")
 					->whereNotIn('site_id', explode(',', env('EXCLUDE_SITES_FROM_STATS')))
 					->whereIn('site_id', function($q){
 						$subquery = $q->select('id')->from('sites');
 						$subquery->where('enabled', 1);
 						return $subquery;
 					})
-					->groupBy('plan_level')
-					->get()->keyBy('plan_level');
+					->groupBy('plan_level');
+
+		foreach ($query->get() as $data)
+		{
+			if ( $data->plan_level < 1 )
+			{
+				$stats['free'] += $data->total_sites;
+			}
+			else
+			{
+				$stats['paying'] += $data->total_sites;
+			}
+
+			$stats['revenue'] += $data->total_revenues;
+		};
 
 		return $stats;
 	}

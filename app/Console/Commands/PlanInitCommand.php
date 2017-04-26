@@ -2,7 +2,7 @@
 
 use Illuminate\Console\Command;
 
-class PlanMaintenanceCommand extends Command
+class PlanInitCommand extends Command
 {
 	protected $signature = 'plan:init';
 

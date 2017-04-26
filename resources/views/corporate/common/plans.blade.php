@@ -27,6 +27,8 @@
 		$currency_decimals = ($plan->infocurrency->decimals == 0) ? 1 : $plan->infocurrency->decimals;
 		break;
 	}
+
+	$hide_plan_extras = true;
 ?>
 
 <div class="row">
@@ -37,32 +39,32 @@
 				<div class="plan-block-body">
 
 					<div class="plan-block-item">
-						<div class="plan-block-feature">{{ Lang::get('web/plans.price.year') }}</div>
+						<div class="plan-block-feature">{{ Lang::get('web/plans.price.month') }}</div>
 						<div class="plan-block-price">
 							@if ( @$plan->is_free ) 
 								<span class="text-uppercase">{{ Lang::get('web/plans.free') }}</span>
 							@else
-								<span class="plan-block-price-text  text-uppercase">{{ price($plan->price_year, $currency) }} </span><span class="vat-included">({{ Lang::get('web/plans.vat.included') }})</span>
+								<span class="plan-block-price-text text-uppercase">{{ price($plan->price_month, $currency) }} </span><span class="vat-included">({{ Lang::get('web/plans.vat.included') }})</span>
 							@endif
 						</div>
 					</div>
 					<div class="plan-block-item">
+						<div class="plan-block-feature">{{ Lang::get('web/plans.price.year') }}</div>
+						<div class="plan-subblock-price">
+							@if ( @$plan->is_free ) 
+								<strong class="text-uppercase">{{ Lang::get('web/plans.free') }}</strong>
+							@else
+								<strong>{{ price($plan->price_year, $currency) }} </span><span class="vat-included">({{ Lang::get('web/plans.vat.included') }})</span>
+							@endif
+						</div>
+					</div>
+					<div class="plan-block-item hide">
 						<div class="plan-block-feature">{{ Lang::get('web/plans.price.year.month') }}</div>
 						<div class="plan-subblock-price">
 							@if ( @$plan->is_free ) 
 								<strong class="text-uppercase">{{ Lang::get('web/plans.free') }}</strong>
 							@else
 								<strong>{{ price($plan->price_year/12, array_merge($currency, [ 'decimals'=>$currency_decimals ])) }} </strong><span class="vat-included">({{ Lang::get('web/plans.vat.included') }})</span>
-							@endif
-						</div>
-					</div>
-					<div class="plan-block-item">
-						<div class="plan-block-feature">{{ Lang::get('web/plans.price.month') }}</div>
-						<div class="plan-subblock-price">
-							@if ( @$plan->is_free ) 
-								<strong class="text-uppercase">{{ Lang::get('web/plans.free') }}</strong>
-							@else
-								<strong>{{ price($plan->price_month, array_merge($currency, [ 'decimals'=>$currency_decimals ])) }} </strong><span class="vat-included">({{ Lang::get('web/plans.vat.included') }})</span>
 							@endif
 						</div>
 					</div>
