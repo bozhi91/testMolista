@@ -185,8 +185,8 @@ return [
 			'public'		=> true,
 			'custom'		=> false,
 			'extends'	 	=> 'default',
-			'views-path' 	=> 'themes/sam',
-			'asset-path' 	=> 'themes/sam',
+			'views-path' 	=> 'themes/modular',
+			'asset-path' 	=> 'themes/modular',
 			'gmaps-circle'	=> '#1396e2',
 		],
 
@@ -198,16 +198,6 @@ return [
 			'views-path' 	=> 'themes/kredikasa',
 			'asset-path' 	=> 'themes/kredikasa',
 			'gmaps-circle'	=> '#efb817',
-		],
-
-		'modular' => [
-			'title'			=> 'Modular',
-			'public'		=> true,
-			'custom'		=> false,
-			'extends'	 	=> 'default',
-			'views-path' 	=> 'themes/modular',
-			'asset-path' 	=> 'themes/modular',
-			'gmaps-circle'	=> '#1396e2',
 		],
 
 		// Add your themes here...
