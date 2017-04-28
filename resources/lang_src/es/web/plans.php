@@ -38,4 +38,8 @@
 		'footnote.text1' => 'Incluye el traspaso de 100 inmuebles.',
 		'footnote.optional' => 'Este servicio es opcional.',
 		'vat.included' => 'IVA incl.',
+
+		'two.months.free' => '2 meses gratis',
+		'ssl.installation' => 'Instalación certificado SSL: :price',
+		'ssl.installation.certificate' => 'No incluye certificado',
 	];
