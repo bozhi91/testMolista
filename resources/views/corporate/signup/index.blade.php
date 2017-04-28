@@ -130,7 +130,7 @@
 												{!! Form::label('language', Lang::get('corporate/signup.site.language'), [ 'class'=>'' ]) !!}
 												{!! Form::select('language', $languages, null, [ 'class'=>'form-control' ]) !!}
 											</div>
-											<div class="error-container">
+											<div class="error-container hide">
 												<div class="checkbox ">
 													<div class="form-inline transfer-list">
 														<div class="form-group optional-text">{{ Lang::get('corporate/signup.full.site.optional') }}:</div>

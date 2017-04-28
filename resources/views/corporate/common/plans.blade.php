@@ -27,8 +27,6 @@
 		$currency_decimals = ($plan->infocurrency->decimals == 0) ? 1 : $plan->infocurrency->decimals;
 		break;
 	}
-
-	$hide_plan_extras = true;
 ?>
 
 <div class="row">
@@ -53,8 +51,10 @@
 						<div class="plan-subblock-price">
 							@if ( @$plan->is_free ) 
 								<strong class="text-uppercase">{{ Lang::get('web/plans.free') }}</strong>
+								<div>&nbsp;</div>
 							@else
-								<strong>{{ price($plan->price_year, $currency) }} </span><span class="vat-included">({{ Lang::get('web/plans.vat.included') }})</span>
+								<strong>{{ price($plan->price_year, $currency) }}</strong> <span class="vat-included">({{ Lang::get('web/plans.vat.included') }})</span>
+								<div>{{ trans('web/plans.two.months.free') }}</div>
 							@endif
 						</div>
 					</div>
@@ -203,24 +203,17 @@
 					</div>
 				@endif
 
-				@if ( empty($hide_plan_extras) && $plan->extras )
+				@if ( empty($hide_plan_extras) )
 					<div class="plan-block-extras">
-						<div class="plan-block-extras-optional">
-							{{ Lang::get('web/plans.optional') }}
-						</div>
-						@foreach ($plan->extras as $extra_key => $extra_cost)
-							<div class="plan-block-extras-item">
-								{{ Lang::get("web/plans.extras.{$extra_key}") }}:
-								@if ( $extra_cost )
-									<strong class="extras-price add-footnote">{{ price($extra_cost, $currency) }}</strong>
-									@if ( env('PLANS_PROMOTION',0) )
-										<strong class="text-uppercase add-footnote">{{ Lang::get('web/plans.free') }}</strong>
-									@endif
-								@else
-									<strong class="text-uppercase add-footnote">{{ Lang::get('web/plans.included') }}</strong>
-								@endif
+						<div style="{{ $plan->is_free ? 'opacity: 0;' : '' }}">
+							<div class="plan-block-extras-optional hide">
+								{{ Lang::get('web/plans.optional') }}
 							</div>
-						@endforeach
+							<div class="plan-block-extras-item">
+								<strong>{{ Lang::get('web/plans.ssl.installation', [ 'price' => price(79, $currency) ]) }}</strong>
+								<div class="text-lowercase">({{ Lang::get('web/plans.ssl.installation.certificate') }})</div>
+							</div>
+						</div>
 					</div>
 				@endif
 
@@ -229,12 +222,3 @@
 		</div>
 	@endforeach
 </div>
-
-@if ( empty($hide_plan_extras) )
-	<div class="plan-block-footnotes">
-		<ul class="list-unstyled text-center">
-			<li>* {{ Lang::get("web/plans.footnote.text0")  }} {{ Lang::get('web/plans.footnote.optional') }}</li>
-			<li>** {{ Lang::get("web/plans.footnote.text1")  }} {{ Lang::get('web/plans.footnote.optional') }}</li>
-		</ul>
-	</div>
-@endif
