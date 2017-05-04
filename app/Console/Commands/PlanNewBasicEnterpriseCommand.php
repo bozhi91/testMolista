@@ -143,10 +143,8 @@ class PlanNewBasicEnterpriseCommand extends Command
 
 	protected $stripe_plans = [];
 
-	public function __construct()
+	public function handle()
 	{
-		parent::__construct();
-
 		// Set Stripe api key
 		\Stripe\Stripe::setApiKey( env('STRIPE_SECRET') );
 
@@ -161,10 +159,6 @@ class PlanNewBasicEnterpriseCommand extends Command
 			}
 		}
 
-	}
-
-	public function handle()
-	{
 		$this->disableOldPlans();
 		$this->createNewPlans();
 		$this->updatePlanLevels();

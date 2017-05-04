@@ -49,6 +49,6 @@ class Kernel extends ConsoleKernel
 		$schedule->command('stats:process yesterday')->dailyAt('03:00');
 		$schedule->command('stats:refresh-matches')->twiceDaily();
 		$schedule->command('tickets:contacts-sync')->dailyAt('02:00');
-		//$schedule->command('marketplace:api:publish')->cron('0 */3 * * * *');
+		$schedule->command('marketplace:api:publish')->cron('0 */3 * * * *');
 	}
 }
