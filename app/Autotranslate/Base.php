@@ -10,7 +10,10 @@ class Base {
 			return $text_to_translate;
 		}
 
-		// Get translation
+		// Google translate
+		return \App\Autotranslate\GoogleTranslator::translate($from, $to, $text_to_translate);
+
+		/* Microsoft
 		$translator = new \App\Autotranslate\MicrosoftTranslator();
 		$translator->translate($from, $to, $text_to_translate);
 		$response = @json_decode($translator->response->jsonResponse);
@@ -33,6 +36,7 @@ class Base {
 		$translation = strip_tags($translation);
 
 		return $translation;
+		*/
 	}
 
 }
