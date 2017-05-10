@@ -91,7 +91,7 @@
 
 	@include('web.common.cookies', [ 'showjs'=>true ])
 
-	@if ( Request::server('REQUEST_SCHEME') == 'https' || $_SERVER['HTTPS'] == 'on' )
+	@if ( Request::server('REQUEST_SCHEME') == 'https' || @$_SERVER['HTTPS'] == 'on' )
 		<script type="text/javascript" src="https://ws.sharethis.com/button/buttons.js"></script>
 	@else
 		<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
