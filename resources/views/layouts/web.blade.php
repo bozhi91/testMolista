@@ -45,7 +45,7 @@
 	@endif
 
 	@if ( !empty($use_google_maps) )
-		<script src="http://maps.google.com/maps/api/js?key={{ Config::get('app.google_maps_api_key')}}"></script>
+		<script src="//maps.google.com/maps/api/js?key={{ Config::get('app.google_maps_api_key')}}"></script>
 	@endif
 
 	@if (!empty($og))
@@ -91,7 +91,7 @@
 
 	@include('web.common.cookies', [ 'showjs'=>true ])
 
-	@if ( Request::server('REQUEST_SCHEME') == 'https' )
+	@if ( Request::server('REQUEST_SCHEME') == 'https' || $_SERVER['HTTPS'] == 'on' )
 		<script type="text/javascript" src="https://ws.sharethis.com/button/buttons.js"></script>
 	@else
 		<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>

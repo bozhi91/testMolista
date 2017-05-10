@@ -15,7 +15,7 @@
 	<link id="page_favicon" href="{{ Theme::url('/favicon.ico') }}" rel="icon" type="image/x-icon" />
 
 	@if ( @$use_google_maps )
-		<script src="http://maps.google.com/maps/api/js?key={{ Config::get('app.google_maps_api_key')}}"></script>
+		<script src="//maps.google.com/maps/api/js?key={{ Config::get('app.google_maps_api_key')}}"></script>
 	@endif
 
 	@if (env('SENTRY_PUBLIC_DNS'))

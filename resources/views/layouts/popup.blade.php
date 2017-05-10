@@ -10,7 +10,7 @@
 	<link href="{{ Theme::url('/compiled/css/app.css').'?v='.env('CSS_VERSION') }}" rel="stylesheet" type='text/css' />
 
 	@if ( !empty($use_google_maps) )
-		<script src="http://maps.google.com/maps/api/js?key={{ Config::get('app.google_maps_api_key')}}"></script>
+		<script src="//maps.google.com/maps/api/js?key={{ Config::get('app.google_maps_api_key')}}"></script>
 	@endif
 
 	@if (env('SENTRY_PUBLIC_DNS'))

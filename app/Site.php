@@ -653,8 +653,8 @@ class Site extends TranslatableModel
 			'site_id' => $site->id,
 			'last_updated' => date("Y-m-d H:i:s"),
 			'theme' => $site->theme,
-			'logo' => $site->logo ? asset("sites/{$site->id}/{$site->logo}") : false,
-			'favicon' => $site->favicon ? asset("sites/{$site->id}/{$site->favicon}") : false,
+			'logo' => $site->logo ? $this->main_url."/sites/{$site->id}/{$site->logo}" : false,
+			'favicon' => $site->favicon ? $this->main_url."/sites/{$site->id}/{$site->favicon}" : false,
 			'social_media' => $site->social_array,
 			'seo' => $site->i18n,
 		];
