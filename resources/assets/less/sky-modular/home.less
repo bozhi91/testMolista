@@ -1,0 +1,209 @@
+@import '../app/home.less';
+
+/* setting on picture at carousel */
+@media (min-width: 768px) {
+	#home {
+		.main-property {
+			max-width: 100%;
+			.item { height: 720px; }
+		}
+	}
+}
+@media (max-width: 767px) {
+	#home {
+		.main-property {
+			max-width: 100%;
+			.item { height: 480px; }
+		}
+	}
+}
+/* end setting on picture at carousel */
+
+#home {
+	.carousel {
+		position: relative;
+		.carousel-caption {
+
+			.slider-quick-search {
+				background-color: @carouselSearchBackground;
+				padding: 20px;
+				width: 300px;
+				margin: auto;
+
+				#quick-search-form {
+					input, select {
+						background-color: @carouselSearchInner;
+						color: @white;
+					}
+					.advanced-search-trigger {
+						color: @white;
+						font-size: 15px;
+					}
+					.form-control:focus { border-color: @buttonBlue; }
+				}
+			}
+
+			.carousel-caption-text {
+				text-align: left; padding: 20px 30px;
+
+				.carousel-caption-title { color: @black; font-size: 22px; }
+				.carousel-caption-subtitle { color: @black; font-size: 22px; font-weight: bold; margin-top: -5px; }
+				.carousel-caption-button {
+					margin-top: 15px;
+
+				 	span.carousel-button {
+						background-color: @buttonBlue;
+					    color: @white;
+					    padding: 5px 10px;
+					    font-size: 14px;
+
+					    &:hover {
+					    	text-decoration: underline;
+					    	opacity: 0.8;
+					    }
+					}
+				}
+			}
+		}
+
+	}
+
+	.carousel:after { display: table; content: ""; clear: both; }
+
+	.main-property {
+		max-width: 100%;
+	}
+
+	.modular-slider-block {
+		position: relative;
+
+		.modular-carousel-search {
+			position: absolute;
+			z-index: 9950;
+			width: 100%;
+
+			.modular-carousel-search-container {
+				position: relative;
+
+				@media (min-width: 768px) {
+					& {
+					    width: 750px;
+					    margin: auto;
+					}
+				}
+				@media (min-width: 992px) {
+					& {
+				    	width: 970px;
+				    	margin: auto;
+					}
+				}
+				@media (min-width: 1200px) {
+					& {
+					    width: 1170px;
+					    margin: auto;
+					}
+				}
+			}
+
+			.modular-carousel-search-block {
+				position: absolute;
+				top: 0px;
+				left: 15px;
+				width: 250px;
+				margin: 0 auto;
+
+				@media (min-width: 768px) {
+					& {
+					    width: 250px;
+					}
+				}
+				@media (min-width: 992px) {
+					& {
+				    	width: 300px;
+					}
+				}
+				@media (min-width: 1200px) {
+					& {
+					    width: 350px;
+					}
+				}
+			}
+		}
+
+		.modular-slider {
+			z-index: 1000;
+		}
+	}
+
+	.properties-slider-area { 
+		border: 0px;
+		h2 { color: @black; display: none; }
+	}
+
+	.search-area.under-properties {
+	    display: none;
+	}
+        
+    .slider-quick-search-container {
+        display: block;
+        position: absolute;
+        top: 20px;
+        width: 300px;
+        right: 15%;
+    }
+        
+    .slider-quick-search {
+        background-color: @carouselSearchBackground;
+        padding: 20px;
+
+        #quick-search-form {
+            input, select {
+                background-color: @carouselSearchInner;
+                color: @white;
+            }
+            .advanced-search-trigger {
+                color: @white;
+                font-size: 15px;
+            }
+            .form-control:focus { border-color: @buttonBlue; }
+        }
+	}
+}
+
+/* Home slider */
+
+@media (min-width: 768px) {
+	#home {
+		padding-bottom: 50px;
+		.properties-slider-area { margin-top: 0px; }
+		.main-property {
+			.carousel-caption {
+				padding-bottom: 50px;
+				text-align: left;
+				left: 10%;
+    			right: 10%;
+			}
+		}
+		.carousel-caption-text {
+			float: right;
+		}
+	}
+}
+
+@media (min-width: 1199px) {
+	#home {	.main-property { .carousel-caption { left: 20%; right: 20%; } }	}
+}
+
+/* responsive */
+
+@media (max-width: 767px) {
+	#home {
+		.carousel-caption-text {
+			.carousel-caption-button {
+				text-align: center;
+			}
+		}
+	}
+}
+
+#advanced-search-modal {}
