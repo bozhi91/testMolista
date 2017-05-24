@@ -200,6 +200,16 @@ return [
 			'gmaps-circle'	=> '#efb817',
 		],
 
+		'sky-modular' => [
+			'title'			=> 'Sky Modular',
+			'public'		=> true,
+			'custom'		=> false,
+			'extends'	 	=> 'default',
+			'views-path' 	=> 'themes/sky-modular',
+			'asset-path' 	=> 'themes/sky-modular',
+			'gmaps-circle'	=> '#1396e2',
+		],
+
 		// Add your themes here...
 
 		/*--------------[ Example Structre ]-------------

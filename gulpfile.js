@@ -322,4 +322,18 @@ elixir(function(mix) {
 		], 'public/themes/redly-modular/compiled/css/pdf.css')
 		;
 
+	/* Sky Modular */
+	mix
+		.less([
+			'sky-modular/app.less',
+		], 'resources/assets/css/compiled/sky-modular.css')
+		.styles([
+			'compiled/common.css',
+			'compiled/sky-modular.css',
+		], 'public/themes/sky-modular/compiled/css/app.css')
+		.less([
+			'sky-modular/pdf.less',
+		], 'public/themes/sky-modular/compiled/css/pdf.css')
+		;
+
 });
