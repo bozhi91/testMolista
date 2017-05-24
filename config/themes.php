@@ -155,8 +155,8 @@ return [
 			'public'		=> true,
 			'custom'		=> false,
 			'extends'	 	=> 'default',
-			'views-path' 	=> 'themes/sky',
-			'asset-path' 	=> 'themes/sky',
+			'views-path' 	=> 'themes/sky-modular',
+			'asset-path' 	=> 'themes/sky-modular',
 			'gmaps-circle'	=> '#1396e2',
 		],
 
