@@ -155,8 +155,8 @@ return [
 			'public'		=> true,
 			'custom'		=> false,
 			'extends'	 	=> 'default',
-			'views-path' 	=> 'themes/sky',
-			'asset-path' 	=> 'themes/sky',
+			'views-path' 	=> 'themes/sky-modular',
+			'asset-path' 	=> 'themes/sky-modular',
 			'gmaps-circle'	=> '#1396e2',
 		],
 
@@ -198,16 +198,6 @@ return [
 			'views-path' 	=> 'themes/kredikasa',
 			'asset-path' 	=> 'themes/kredikasa',
 			'gmaps-circle'	=> '#efb817',
-		],
-
-		'sky-modular' => [
-			'title'			=> 'Sky Modular',
-			'public'		=> true,
-			'custom'		=> false,
-			'extends'	 	=> 'default',
-			'views-path' 	=> 'themes/sky-modular',
-			'asset-path' 	=> 'themes/sky-modular',
-			'gmaps-circle'	=> '#1396e2',
 		],
 
 		// Add your themes here...
