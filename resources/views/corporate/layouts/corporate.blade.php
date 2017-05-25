@@ -155,5 +155,7 @@
 		@include('corporate.common.signup_adwords_tracker')
 	@endif
 
+	@include('common.hubspot')
+
 </body>
 </html>
