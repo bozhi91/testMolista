@@ -52,6 +52,7 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 			'signature' => 'required|array',
 			'signature.name' => 'required|string',
 			'signature.email' => 'email',
+			'home_highlights' => 'required|in:0,3,6,9',
 		];
 
 		switch ( $this->request->input('mailer.service') )
@@ -101,6 +102,7 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 		$this->site->customer_register = $this->request->input('customer_register') ? 1 : 0;
 		$this->site->mailer = $this->request->input('mailer');
 		$this->site->alert_config = $this->request->input('alerts');
+		$this->site->home_highlights = $this->request->input('home_highlights');
 		
 		if ( $this->site->can_hide_molista )
 		{
