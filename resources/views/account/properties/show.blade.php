@@ -467,11 +467,19 @@
 		ready_callbacks.push(function() {
 			var cont = $('#admin-properties');
 
+			cont.on('click', '.popup-log-trigger', function(){
+				var el = $(this);
+
+				$.magnificPopup.open({
+					items: {
+						src: el.attr('href')
+					},
+					type: 'inline'
+				});
+			});
+
 			if ( cont.find('.logs-row').length > 0 ) {
 				cont.find('.logs-table').removeClass('hide');
-				cont.find('.popup-log-trigger').magnificPopup({
-					type:'inline'
-				});
 				cont.find('.log-detail').each(function(){
 					if ( $(this).find('.log-detail-row').length > 0 ) {
 						$(this).find('.log-detail-content').removeClass('hide');
