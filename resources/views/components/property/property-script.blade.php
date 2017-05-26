@@ -139,65 +139,65 @@
 			$(e.target).removeClass('is-open');
 		});
 
-		var form = $('#property-moreinfo-form');
-		form.validate({
+		var form_info = $('#property-moreinfo-form');
+		form_info.validate({
 			ignore: '',
 			errorPlacement: function(error, element) {
 				element.closest('.error-container').append(error);
 			},
 			submitHandler: function(f) {
 				LOADING.show();
-				form.find('.form-error').addClass('hide');
+				form_info.find('.form-error').addClass('hide');
 				$.ajax({
 					dataType: 'json',
 					type: 'POST',
-					url: form.attr('action'),
-					data: form.serialize(),
+					url: form_info.attr('action'),
+					data: form_info.serialize(),
 					success: function(data) {
 						LOADING.hide();
 						if ( data.success ) {
-							form.find('.form-content').addClass('hide');
-							form.find('.form-success').removeClass('hide');
+							form_info.find('.form-content').addClass('hide');
+							form_info.find('.form-success').removeClass('hide');
 						} else {
 							var message = data.message ? data.message : "{{ print_js_string( Lang::get('general.messages.error') ) }}";
-							form.find('.form-error').removeClass('hide').find('.alert-content').html(message);
+							form_info.find('.form-error').removeClass('hide').find('.alert-content').html(message);
 						}
 					},
 					error: function() {
 						LOADING.hide();
-							form.find('.form-error').removeClass('hide').find('.alert-content').html("{{ print_js_string( Lang::get('general.messages.error') ) }}");
+							form_info.find('.form-error').removeClass('hide').find('.alert-content').html("{{ print_js_string( Lang::get('general.messages.error') ) }}");
 					}
 				});
 			}
 		});
 
-		var form = $('#property-share-form');
-		form.validate({
+		var form_share = $('#property-share-form');
+		form_share.validate({
 			ignore: '',
 			errorPlacement: function(error, element) {
 				element.closest('.error-container').append(error);
 			},
 			submitHandler: function(f) {
 				LOADING.show();
-				form.find('.form-error').addClass('hide');
+				form_share.find('.form-error').addClass('hide');
 				$.ajax({
 					dataType: 'json',
 					type: 'POST',
-					url: form.attr('action'),
-					data: form.serialize(),
+					url: form_share.attr('action'),
+					data: form_share.serialize(),
 					success: function(data) {
 						LOADING.hide();
 						if ( data.success ) {
-							form.find('.form-content').addClass('hide');
-							form.find('.form-success').removeClass('hide');
+							form_share.find('.form-content').addClass('hide');
+							form_share.find('.form-success').removeClass('hide');
 						} else {
 							var message = data.message ? data.message : "{{ print_js_string( Lang::get('general.messages.error') ) }}";
-							form.find('.form-error').removeClass('hide').find('.alert-content').html(message);
+							form_share.find('.form-error').removeClass('hide').find('.alert-content').html(message);
 						}
 					},
 					error: function() {
 						LOADING.hide();
-							form.find('.form-error').removeClass('hide').find('.alert-content').html("{{ print_js_string( Lang::get('general.messages.error') ) }}");
+							form_share.find('.form-error').removeClass('hide').find('.alert-content').html("{{ print_js_string( Lang::get('general.messages.error') ) }}");
 					}
 				});
 			}
