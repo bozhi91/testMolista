@@ -42,6 +42,12 @@
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			<div class="alert-content"></div>
 		</div>
+
+		<div style="height: 1px; width: 1px; overflow: hidden;">
+			<input type="checkbox" name="accept_legal_terms" value="1" class="" />
+			Do you agree to the terms and conditions of using our services?
+		</div>
+
 		<div class="form-group text-right">
 			{!! Form::button(Lang::get('general.cancel'), [ 'class'=>'btn btn-default popup-modal-dismiss pull-left' ] ) !!}
 			{!! Form::button(Lang::get('general.continue'), [ 'type'=>'submit', 'class'=>'btn btn-primary' ] ) !!}
