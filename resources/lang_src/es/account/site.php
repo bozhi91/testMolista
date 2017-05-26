@@ -91,6 +91,12 @@
 		'configuration.alerts.agents' => 'Agentes',
 		'configuration.alerts.customers' => 'Leads',
 		
+		'configuration.home.highlights.label' => 'Propiedades destacadas home',
+		'configuration.home.highlights.group.3' => 'Mostrar en grupos de 3',
+		'configuration.home.highlights.group.6' => 'Mostrar en grupos de 6',
+		'configuration.home.highlights.group.9' => 'Mostrar en grupos de 9',
+		'configuration.home.highlights.group.all' => 'Mostrar todas',
+
 		'menus.h1' => 'Menúes',
 
 		'menus.links.title' => 'Opciones de enlaces',

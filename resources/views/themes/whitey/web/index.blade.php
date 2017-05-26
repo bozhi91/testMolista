@@ -30,10 +30,12 @@
 
 	</div>
 
+	@include('components.home.home-script')
+
 	<script type="text/javascript">
 		ready_callbacks.push(function(){
 			var cont = $('#home');
-
+/*
 			cont.find('.properties-slider .property-pill').matchHeight({ byRow : false });
 			cont.find('.search-area .quick-link').matchHeight({ byRow : false });
 			cont.find('.properties-slider .item').matchHeight({ byRow : false });
@@ -77,7 +79,7 @@
 				main_property_image.addClass('hide');
 				main_property.find('.item.active').css({ 'background-image': 'url(' + main_property_image.attr('src') + ')' })
 			}
-
+*/
 		});
 	</script>
 
