@@ -45,6 +45,10 @@
 		var ready_callbacks = [];
 	</script>
 
+	<style type="text/css">
+		#hs-eu-cookie-confirmation { display: none !important; }
+	</style>
+
 </head>
 
 <body class="dir-{{ LaravelLocalization::getCurrentLocaleDirection() }} theme-{{ Theme::get() }}">
@@ -65,17 +69,17 @@
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 						</button>
-						<a class="navbar-brand" href="{{ action('CorporateController@index') }}" title="{{ Lang::get('corporate/seo.header.link.home') }}">
+						<a class="navbar-brand" href="http://www.molista.com/{{ app()->getLocale() == 'es' ? '' : 'en/' }}" title="{{ Lang::get('corporate/seo.header.link.home') }}">
 							<img src="{{ Theme::url( env('WHITELABEL_LOGO_HEADER', '/images/corporate/logo.png') ) }}" alt="{{ Lang::get('corporate/seo.header.image.logo') }}">
 						</a>
 					</div>
 
 					<div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
-							<li><a href="{{ action('Corporate\DemoController@getIndex') }}" title="{{ Lang::get('corporate/seo.header.link.demo') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</a></li>
-							<li><a href="{{ action('Corporate\FeaturesController@getIndex') }}" title="{{ Lang::get('corporate/seo.header.link.features') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.moreinfo') }}</a></li>
-							<li><a href="{{ action('Corporate\PricingController@getIndex') }}" title="{{ Lang::get('corporate/seo.header.link.pricing') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.pricing') }}</a></li>
-							@if ( @$enabled_locales && count($enabled_locales) > 1 )
+							<li><a href="http://www.molista.com/{{ app()->getLocale() == 'es' ? '' : 'en/' }}demo" title="{{ Lang::get('corporate/seo.header.link.demo') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</a></li>
+							<li><a href="http://www.molista.com/{{ app()->getLocale() == 'es' ? '' : 'en/' }}features/web-inmobiliarias" title="{{ Lang::get('corporate/seo.header.link.features') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.moreinfo') }}</a></li>
+							<li><a href="http://www.molista.com/{{ app()->getLocale() == 'es' ? '' : 'en/' }}pricing" title="{{ Lang::get('corporate/seo.header.link.pricing') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.pricing') }}</a></li>
+							@if ( false && @$enabled_locales && count($enabled_locales) > 1 )
 								<li class="language-container dropdown">
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ (1==2) ? Lang::get('corporate/general.languages') : LaravelLocalization::getCurrentLocaleNative() }} <span class="caret"></span></a>
 									<ul class="language_bar_chooser dropdown-menu">
@@ -114,15 +118,11 @@
 			<div class="row">
 				<div class="col-md-12 text-center">
 					<ul class="footer-menu list-inline">
-						<li class="text-nowrap"><a href="#contact-modal" data-toggle="modal" rel="nofollow" title="{{ Lang::get('corporate/seo.footer.link.support') }}">{{ Lang::get('corporate/general.support') }}</a></li>
+						<li class="text-nowrap"><a href="http://www.molista.com/{{ app()->getLocale() == 'es' ? '' : 'en/' }}info/legal" title="{{ Lang::get('corporate/seo.footer.link.legal') }}">{{ Lang::get('corporate/home.footer.legal') }}</a></li>
 						<li class="hidden-xs">I</li>
-						<li class="text-nowrap"><a href="#contact-modal" rel="nofollow" title="{{ Lang::get('corporate/seo.footer.link.contact') }}" data-toggle="modal">{{ Lang::get('corporate/general.contact') }}</a></li>
+						<li class="text-nowrap"><a href="http://www.molista.com/{{ app()->getLocale() == 'es' ? '' : 'en/' }}info/legal#privacy-policy" title="{{ Lang::get('corporate/seo.footer.link.privacy') }}">{{ Lang::get('corporate/home.footer.privacy') }}</a></li>
 						<li class="hidden-xs">I</li>
-						<li class="text-nowrap"><a href="{{ action('Corporate\InfoController@getLegal') }}" title="{{ Lang::get('corporate/seo.footer.link.legal') }}">{{ Lang::get('corporate/home.footer.legal') }}</a></li>
-						<li class="hidden-xs">I</li>
-						<li class="text-nowrap"><a href="{{ action('Corporate\InfoController@getLegal') }}#privacy-policy" title="{{ Lang::get('corporate/seo.footer.link.privacy') }}">{{ Lang::get('corporate/home.footer.privacy') }}</a></li>
-						<li class="hidden-xs">I</li>
-						<li class="text-nowrap"><a href="{{ action('Corporate\InfoController@getLegal') }}#cookies-policy" title="{{ Lang::get('corporate/seo.footer.link.cookies') }}">{{ Lang::get('corporate/home.footer.cookies') }}</a></li>
+						<li class="text-nowrap"><a href="http://www.molista.com/{{ app()->getLocale() == 'es' ? '' : 'en/' }}info/legal#cookies-policy" title="{{ Lang::get('corporate/seo.footer.link.cookies') }}">{{ Lang::get('corporate/home.footer.cookies') }}</a></li>
 						<li class="hidden-xs">I</li>
 						<li class="text-nowrap"><a href="{{ action('Corporate\CustomersController@getIndex') }}" title="{{ Lang::get('corporate/seo.footer.link.customer') }}">{{ Lang::get('corporate/home.footer.admin.access') }}</a></li>
 					</ul>
@@ -142,7 +142,6 @@
 	<!-- / FOOTER -->
 
 	@include('common.contact-modal')
-	@include('common.cookies-warning')
 
 	<script src="{{ Theme::url('/compiled/js/corporate.js').'?v='.env('JS_VERSION') }}"></script>
 	<script src="{{ Theme::url('/js/jquery.validate/messages_' . LaravelLocalization::getCurrentLocale() . '.min.js') }}"></script>
