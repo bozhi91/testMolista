@@ -9,7 +9,6 @@ use App\Http\Controllers\Controller;
 
 class SiteController extends Controller
 {
-
 	public function getValidate($type)
 	{
 		$response = false;
@@ -17,6 +16,12 @@ class SiteController extends Controller
 		switch ($type)
 		{
 			case 'subdomain':
+				if ( ! $this->isInvalidSubdomain($this->request->input('subdomain')) )
+				{
+					echo 'false';
+					exit;
+				}
+
 				$query = \App\Site::whereNotNull('id');
 				if ( $this->request->input('subdomain') )
 				{
@@ -44,6 +49,24 @@ class SiteController extends Controller
 
 		echo $response ? 'true' : 'false';
 		exit;
+	}
+
+	protected function isInvalidSubdomain($subdomain = false)
+	{
+		if ( ! $subdomain = trim($subdomain) )
+		{
+			return true;
+		}
+
+		foreach (\App\Site::getInvalidSubdomains() as $invalid)
+		{
+			if ( $invalid == $subdomain )
+			{
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 }

@@ -23,6 +23,7 @@ Route::group([
 		'middleware' => [
 			'geolocation',
 			'currency.corporate',
+			'hubspot.redirect',
 		],
 	], function() {
 		Route::get('/', 'CorporateController@index');
