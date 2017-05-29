@@ -1303,4 +1303,16 @@ class Site extends TranslatableModel
 		return true;
 	}
 
+	public static function getInvalidSubdomains()
+	{
+		return [
+			'app',
+			'access',
+			'admin',
+			'login',
+			'molista',
+		];
+
+	}
+
 }

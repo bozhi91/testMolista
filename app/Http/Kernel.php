@@ -66,6 +66,8 @@ class Kernel extends HttpKernel
 
 		'geolocation' => \App\Http\Middleware\Geolocation::class,
 
+		'hubspot.redirect' => \App\Http\Middleware\HubspotRedirect::class,
+
 		'currency.site' => \App\Http\Middleware\CurrencySite::class,
 		'currency.corporate' => \App\Http\Middleware\CurrencyCorporate::class,
 

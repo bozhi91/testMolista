@@ -277,7 +277,7 @@ class SignupController extends \App\Http\Controllers\CorporateController
 		$fields = [
 			'user.type' => 'required|in:new,old',
 			'pack' => 'required|in:'.$plans->implode('code',','),
-			'subdomain' => 'required|alpha_dash|max:255|unique:sites,subdomain',
+			'subdomain' => 'required|alpha_dash|max:255|unique:sites,subdomain|not_in:'.implode(',', \App\Site::getInvalidSubdomains()),
 			'web_transfer_requested' => 'boolean',
 			'iban_account' => 'required_if:payment_method,transfer',
 			'invoicing.type' => 'required|in:individual,company',
