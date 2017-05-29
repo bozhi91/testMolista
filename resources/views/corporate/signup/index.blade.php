@@ -318,7 +318,7 @@
 										<div class="checkbox error-container">
 											<label>
 												{!! Form::checkbox('accept', 1, null, [ 'class'=>'required' ]) !!}
-												<a href="{{ action('Corporate\InfoController@getLegal') }}" target="_blank">{{ Lang::get('corporate/signup.user.new.accept') }}</a>
+												<a href="http://www.molista.com/{{ app()->getLocale() == 'es' ? '' : 'en/' }}info/legal" target="_blank">{{ Lang::get('corporate/signup.user.new.accept') }}</a>
 											</label>
 										</div>
 									</div>
@@ -347,13 +347,13 @@
 				<div class="col-xs-12 text-center">
 					<ul>
 						<li>
-							<a href="{{ action('Corporate\DemoController@getIndex') }}" class="btn btnBdrYlw text-uppercase">
+							<a href="http://www.molista.com/{{ app()->getLocale() == 'es' ? '' : 'en/' }}demo" class="btn btnBdrYlw text-uppercase">
 								{{ Lang::get('corporate/general.demo') }}
 							</a>
 							<div class="visible-xs" style="height: 10px;"></div>
 						</li>
 						<li>
-							<a href="{{ action('Corporate\FeaturesController@getIndex') }}" class="btn btnBdrYlw text-uppercase">
+							<a href="http://www.molista.com/{{ app()->getLocale() == 'es' ? '' : 'en/' }}features/web-inmobiliarias" class="btn btnBdrYlw text-uppercase">
 								{{ Lang::get('corporate/general.moreinfo') }}
 							</a>
 						</li>
