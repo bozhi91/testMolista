@@ -45,6 +45,10 @@
 		var ready_callbacks = [];
 	</script>
 
+	<style type="text/css">
+		#hs-eu-cookie-confirmation { display: none !important; }
+	</style>
+
 </head>
 
 <body class="dir-{{ LaravelLocalization::getCurrentLocaleDirection() }} theme-{{ Theme::get() }}">
