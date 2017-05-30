@@ -33,7 +33,7 @@
 						</div>
 						<div class="section-1-right-block-button">
 							<div class="section-1-right-block-button-content">
-								<a class="start-button" href="http://www.molista.com/signup">QUIERO EMPEZAR AHORA</a>
+								<a class="start-button" href="{{ action('Corporate\SignupController@getIndex') }}">QUIERO EMPEZAR AHORA</a>
 							</div>
 						</div>
 						<div class="section-1-right-block-image">
@@ -157,7 +157,7 @@
 				Pásate a molista <span class="section-4-title-yellow">GRATIS</span>
 			</div>
 			<div class="button-block">
-				<a class="start-button" href="http://www.molista.com/signup">QUIERO EMPEZAR AHORA</a>
+				<a class="start-button" href="{{ action('Corporate\SignupController@getIndex') }}">QUIERO EMPEZAR AHORA</a>
 			</div>
 		</div>
 	</div>
