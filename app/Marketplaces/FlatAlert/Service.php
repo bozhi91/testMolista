@@ -16,6 +16,7 @@ class Service extends \App\Marketplaces\Service {
 		if ($this->_client === null) {
 			$this->_client = new Client([
 				'base_uri' => env('FLATALERT_API_URL', 'http://dev.flatalert.es:5008/api/v1/priv/'),
+				'http_errors' => false
 			]);
 		}
 		return $this->_client;
