@@ -11,7 +11,9 @@
 				    <h1>{{ Lang::get('corporate/home.h1') }}</h1>
 				    {!! Lang::get('corporate/home.intro') !!}
 				    <div class="btn-area">
-				    	<a href="{{ action('Corporate\PricingController@getIndex') }}" title="{{ Lang::get('corporate/seo.home.link.try') }}" class="btn btn-try">{{ Lang::get('corporate/home.try') }}</a>
+						@if ( @$corporate_links['pricing'] )
+					    	<a href="{{ $corporate_links['pricing'] }}" title="{{ Lang::get('corporate/seo.home.link.try') }}" class="btn btn-try">{{ Lang::get('corporate/home.try') }}</a>
+						@endif
 				    </div>
 			    </div>
 			  </div>
@@ -81,11 +83,15 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-xs-12 text-center">
-						  <ul>
-					        <li><a href="{{ action('Corporate\DemoController@getIndex') }}" title="{{ Lang::get('corporate/seo.header.link.demo') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</a></li>
-					        <li><a href="{{ action('Corporate\FeaturesController@getIndex') }}" title="{{ Lang::get('corporate/seo.header.link.features') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.moreinfo') }}</a></li>
-					        <li><a href="{{ action('Corporate\SignupController@getIndex') }}" title="{{ Lang::get('corporate/seo.header.link.pricing') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/home.try') }}</a></li>
-					      </ul>
+							<ul>
+								@if ( @$corporate_links['demo'] )
+									<li><a href="{{ $corporate_links['demo'] }}" title="{{ Lang::get('corporate/seo.header.link.demo') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</a></li>
+								@endif
+								@if ( @$corporate_links['features'] )
+									<li><a href="{{ $corporate_links['features'] }}" title="{{ Lang::get('corporate/seo.header.link.features') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.moreinfo') }}</a></li>
+								@endif
+								<li><a href="{{ action('Corporate\SignupController@getIndex') }}" title="{{ Lang::get('corporate/seo.header.link.pricing') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/home.try') }}</a></li>
+							</ul>
 						</div>
 					</div>
 				</div>

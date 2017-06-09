@@ -8,9 +8,9 @@
 			<div class="title-block col-sm-10 text-center">
 				<h3>{{ Lang::get('corporate/home.distributor.title') }}</h3>
 				<p class="col-sm-8 col-sm-offset-2">{{ Lang::get('corporate/home.distributor.description') }}</p>
-
-				<a href="{{ action('Corporate\DistribuitorController@getIndex') }}" class="btn text-uppercase btn-distributor" 
-				   title="{{ Lang::get('corporate/home.distributor.title') }}">{{ Lang::get('corporate/home.distributor.try') }}</a>
+				@if ( @$corporate_links['distribuitors'] )
+					<a href="{{ $corporate_links['distribuitors'] }}" class="btn text-uppercase btn-distributor" title="{{ Lang::get('corporate/home.distributor.title') }}">{{ Lang::get('corporate/home.distributor.try') }}</a>
+				@endif
 			</div>
 		</div>
 	</div>
