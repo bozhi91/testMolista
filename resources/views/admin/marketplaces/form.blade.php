@@ -128,7 +128,7 @@
 							<th class="col-xs-3">{{ Lang::get('admin/marketplaces.tab.domains.country') }}</th>
 							<th class="col-xs-11">{{ Lang::get('admin/marketplaces.tab.domains.domain') }}</th>
 						</tr></thead>
-						@if ($item->domains)
+						@if ($item && $item->domains)
 						@foreach ($item->domains as $id => $domain)
 							<tr data-id="{{ $id }}">
 								<td>{{ $countries[$id] }}</td>
