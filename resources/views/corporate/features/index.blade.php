@@ -264,8 +264,12 @@
 					<div class="row">
 						<div class="col-xs-12 text-center">
 							<ul>
-								<li><a href="{{ action('Corporate\DemoController@getIndex') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</a></li>
-								<li><button class="btn btnBdrYlw text-uppercase" data-toggle="modal" data-target="#contact-modal">{{ Lang::get('corporate/general.contact') }}</button></li>
+								@if ( @$corporate_links['demo'] )
+									<li><a href="{{ $corporate_links['demo'] }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</a></li>
+								@endif
+								@if ( @$corporate_links['contact'] )
+									<li><button class="btn btnBdrYlw text-uppercase" data-toggle="modal" data-target="{{ $corporate_links['contact'] }}">{{ Lang::get('corporate/general.contact') }}</button></li>
+								@endif
 							</ul>
 						</div>
 					</div>

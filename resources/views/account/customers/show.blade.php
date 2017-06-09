@@ -2,6 +2,11 @@
 
 <?php
 	$currency =	empty($profile->currency) ? $current_site->infocurrency : $profile->infocurrency;
+
+	$possible_matches = $customer->possible_matches;
+	// Update customer matches_count 
+	$customer->matches_count = $possible_matches->count();
+	$customer->save();
 ?>
 
 @section('account_content')
@@ -20,7 +25,7 @@
 			<li role="presentation" class="{{$current_tab == 'general' ? 'active' : '' }}"><a href="#tab-general" aria-controls="tab-general" role="tab" data-tab="general" data-toggle="tab">{{ Lang::get('account/customers.show.tab.general') }}</a></li>
 			<li role="presentation" class="{{$current_tab == 'profile' ? 'active' : '' }}"><a href="#tab-profile" aria-controls="tab-profile" role="tab" data-tab="profile" data-toggle="tab">{{ Lang::get('account/customers.profile') }}</a></li>
 			<li role="presentation" class="{{$current_tab == 'properties' ? 'active' : '' }}"><a href="#tab-properties" aria-controls="tab-properties" role="tab" data-tab="properties" data-toggle="tab">{{ Lang::get('account/customers.properties') }} (<span id="properties-total">{{ number_format($customer->properties->count(),0,',','.') }}</span>)</a></li>
-			<li role="presentation" class="{{$current_tab == 'matches' ? 'active' : '' }}"><a href="#tab-matches" aria-controls="tab-matches" role="tab" data-tab="matches" data-toggle="tab">{{ Lang::get('account/customers.matches') }} (<span id="matches-total">{{ number_format($customer->possible_matches->count(),0,',','.') }}</span>)</a></li>
+			<li role="presentation" class="{{$current_tab == 'matches' ? 'active' : '' }}"><a href="#tab-matches" aria-controls="tab-matches" role="tab" data-tab="matches" data-toggle="tab">{{ Lang::get('account/customers.matches') }} (<span id="matches-total">{{ number_format($possible_matches->count(),0,',','.') }}</span>)</a></li>
 			<li role="presentation" class="{{$current_tab == 'discards' ? 'active' : '' }}"><a href="#tab-discards" aria-controls="tab-discards" role="tab" data-tab="discards" data-toggle="tab">{{ Lang::get('account/customers.discards') }} (<span id="discards-total">{{ number_format($customer->properties_discards->count(),0,',','.') }}</span>)</a></li>
 			<li role="presentation" class="{{$current_tab == 'visits' ? 'active' : '' }}"><a href="#tab-visits" aria-controls="tab-visits" role="tab" data-tab="visits" data-toggle="tab">{{ Lang::get('account/visits.title') }}</a></li>
 		</ul>
@@ -397,8 +402,8 @@
 			</div>
 
 			<div role="tabpanel" class="tab-pane tab-main {{$current_tab == 'matches' ? 'active' : '' }} property-list-tab" data-total="#matches-total" id="tab-matches">
-				<div class="alert alert-info properties-empty {{ $customer->possible_matches->count() > 0 ? 'hide' : '' }}">{{ Lang::get('account/properties.empty') }}</div>
-				<div class="properties-list {{ $customer->possible_matches->count() < 1 ? 'hide' : '' }}">
+				<div class="alert alert-info properties-empty {{ $possible_matches->count() > 0 ? 'hide' : '' }}">{{ Lang::get('account/properties.empty') }}</div>
+				<div class="properties-list {{ $possible_matches->count() < 1 ? 'hide' : '' }}">
 					<table class="table table-hover">
 						<thead>
 							<tr>
@@ -410,7 +415,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							@foreach ($customer->possible_matches as $property)
+							@foreach ($possible_matches as $property)
 								<tr>
 									<td>{{$property->ref}}</td>
 									<td>{{$property->title}}</td>

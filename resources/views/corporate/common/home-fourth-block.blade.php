@@ -27,11 +27,17 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12 text-center">
-			  <ul>
-		        <li><a href="{{ empty($demo_link) ? action('Corporate\DemoController@getIndex') : $demo_link }}" {{ empty($demo_target) ? '' : "target=\"$demo_target\"" }}  title="{{ Lang::get('corporate/seo.header.link.demo') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</a></li>
-		        <li><a href="{{ action('Corporate\FeaturesController@getIndex') }}" class="btn btnBdrYlw text-uppercase" title="{{ Lang::get('corporate/seo.header.link.features') }}">{{ Lang::get('corporate/general.moreinfo') }}</a></li>
-		        <li><a href="{{ action('Corporate\SignupController@getIndex') }}" class="btn btnBdrYlw text-uppercase" title="{{ Lang::get('corporate/seo.header.link.pricing') }}">{{ Lang::get('corporate/home.try') }}</a></li>
-		      </ul>
+				<ul>
+					@if ( @$demo_link )
+						<li><a href="{{ $demo_link }}" {{ @$demo_target ? "target='{$demo_target}'" : '' }}  title="{{ Lang::get('corporate/seo.header.link.demo') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</a></li>
+					@elseif ( @$corporate_links['demo'] )
+						<li><a href="{{ $corporate_links['demo'] }}" {{ @$demo_target ? "target='{$demo_target}'" : '' }}  title="{{ Lang::get('corporate/seo.header.link.demo') }}" class="btn btnBdrYlw text-uppercase">{{ Lang::get('corporate/general.demo') }}</a></li>
+					@endif
+					@if ( @$corporate_links['features'] )
+						<li><a href="{{ $corporate_links['features'] }}" class="btn btnBdrYlw text-uppercase" title="{{ Lang::get('corporate/seo.header.link.features') }}">{{ Lang::get('corporate/general.moreinfo') }}</a></li>
+					@endif
+					<li><a href="{{ action('Corporate\SignupController@getIndex') }}" class="btn btnBdrYlw text-uppercase" title="{{ Lang::get('corporate/seo.header.link.pricing') }}">{{ Lang::get('corporate/home.try') }}</a></li>
+				</ul>
 			</div>
 		</div>
 	</div>
