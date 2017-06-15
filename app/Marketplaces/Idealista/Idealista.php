@@ -27,7 +27,7 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
 		//Set config params
 		$this->setAggregator($config['aggregator']);
 		$this->setCode(@$config['code']);
-		$this->newly_build = !empty($config['newly_build']);
+		$this->newly_build = !!empty($config['newly_build']);
 
 		//Generate client node
 		$this->setClient([
