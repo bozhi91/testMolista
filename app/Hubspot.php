@@ -34,7 +34,14 @@ class Hubspot {
             }
 
 			// Not found, then create the lead
-			\HubSpot::contacts()->createOrUpdate($email, $properties);
+			try
+            {
+                \HubSpot::contacts()->createOrUpdate($email, $properties);
+            }
+            catch (\Exception $e)
+            {
+                return false;
+            }
 
             return true;
 		}
@@ -82,7 +89,14 @@ class Hubspot {
             }
 
             // Not found, then create the lead
-            \HubSpot::contacts()->createOrUpdate($email, $properties);
+            try
+            {
+                \HubSpot::contacts()->createOrUpdate($email, $properties);
+            }
+            catch (\Exception $e)
+            {
+                return false;
+            }
 
             return true;
         }
