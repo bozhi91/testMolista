@@ -169,7 +169,7 @@ class Mapper extends \App\Marketplaces\Mapper {
             $this->errors []= \Lang::get('validation.type');
             return false;
         }
-		
+
 		$data = array_merge($this->item, $this->config);
 
 		if ($this->isTransfer()) {
@@ -365,6 +365,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 			case 'state': return 6;
 			case 'store': return 9;
 			case 'ranch': return 5;
+			case 'office': return 11;
 			case 'farmhouse': return 5;
 		}
 

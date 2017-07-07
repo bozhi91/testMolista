@@ -51,12 +51,14 @@ abstract class Mapper extends \App\Marketplaces\Mapper {
             $this->errors []= \Lang::get('validation.type');
             return false;
         }
-		
+
 		return true;
 	}
 
 	/**
 	 * Identifies the type of the property within the following enumeration
+	 *
+	 * https://api.inmofactory.com/Help/Dictionaries
 	 *
 	 * 1	Piso
 	 * 2	Casa
@@ -75,7 +77,7 @@ abstract class Mapper extends \App\Marketplaces\Mapper {
 		switch ($this->item['type']) {
 			case 'apartment': return [1, 10];
 			case 'duplex': return [1, 3];
-			case 'house': 
+			case 'house':
 			case 'terraced_house':
 				return [2, 13];
 			case 'lot': return [6, 53];
@@ -93,6 +95,7 @@ abstract class Mapper extends \App\Marketplaces\Mapper {
 			case 'state': return [2, 24];
 			case 'farmhouse': return [2, 21];
 			case 'plot': return [6, 58];
+			case 'office': return [4, 88];
 			default: return [1, 9];
 		}
 	}

@@ -136,6 +136,7 @@ class Mapper extends \App\Marketplaces\Mapper {
             'apartment' => 'Piso',
             'industrial' => 'Nave Industrial',
 			'garage' => 'Garaje',
+			'office' => 'Oficina',
         ];
 
         return isset($types[$this->item['type']]) ? $types[$this->item['type']] : 'Piso';

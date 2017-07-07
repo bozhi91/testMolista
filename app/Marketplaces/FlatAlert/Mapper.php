@@ -59,7 +59,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 		} else {
 			$map['energy_certification']['description'] = $item['ec'];
 		}
-		
+
 		$map['images'] = $this->getImages();
 		//$map['plans'] = [];
 
@@ -78,14 +78,14 @@ class Mapper extends \App\Marketplaces\Mapper {
 			$this->errors [] = \Lang::get('validation.type');
 			return false;
 		}
-		
+
 		if ($this->isTransfer()) {
 			$this->errors [] = \Lang::get('validation.transfer');
 			return false;
 		}
-				
+
 		$data = array_merge($this->item, $this->config);
-				
+
 		$rules = [
 			'id' => 'required',
 			'type' => 'required',
@@ -132,7 +132,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 	 * Parking -> 4
 	 * Solar/Parcela -> 5
 	 * Oficina -> 6
-	 * 
+	 *
 	 * @return string
 	 */
 	protected function getType() {
@@ -151,6 +151,8 @@ class Mapper extends \App\Marketplaces\Mapper {
 				return '2';
 			case 'plot':
 				return '5';
+			case 'office':
+				return '6';
 			default:
 				return '1';
 		}
@@ -159,7 +161,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 	/**
 	 * Alquiler -> 1
 	 * Venta -> 2
-	 * 
+	 *
 	 * @return string
 	 */
 	protected function getMode() {
@@ -199,5 +201,5 @@ class Mapper extends \App\Marketplaces\Mapper {
 	protected function getStatus() {
 		return '1';
 	}
-	
+
 }

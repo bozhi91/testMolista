@@ -220,6 +220,9 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
 			case 'state':
 				$idealista_type = 'land';
 				break;
+			case 'office':
+				$idealista_type = 'office';
+				break;
 			case 'apartment':
 			case 'duplex':
 			case 'penthouse':
@@ -330,6 +333,8 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
 			return $this->getPremiseFeauters($property);
 		}elseif($type == 'land'){
 			return $this->getLandFeauters($property);
+		}elseif($type == 'office'){
+			return $this->getOfficeFeatures($property);
 		}
 	}
 
@@ -490,6 +495,36 @@ class Idealista extends Base implements PublishPropertyXmlInterface {
 			'plotArea' => $property['size'],
 			'landType' => 0,
 		];
+
+		return $features;
+	}
+
+	/**
+	 * @param array $property
+	 * @return array
+	 */
+	private function getOfficeFeatures(array $property) {
+		$oFeatures = $property['features'];
+
+		$features = [
+			'bathrooms' => $property['baths'],
+			'constructedArea' => $property['size'],
+			'energyCertification' => [
+			    'rating' => $this->getEnergyCertificationRating($property)
+			],
+			'conditionedAir' => empty($oFeatures['air-conditioning']) ? 1 : 2,
+			'alarm' => (empty($oFeatures['alarm'])) ? 'false' : 'true',
+			'elevator' => empty($oFeatures['elevator']) ? 'false' : 'true',
+			'furniture' => (empty($oFeatures['furnished'])) ? 1 : 3,
+			'garden' => empty($oFeatures['garden']) ? 'false' : 'true',
+		];
+
+		if (!empty($property['rooms'])) {
+			$features['rooms'] = $property['rooms'];
+		}
+		if (!empty($oFeatures['heating'])) {
+			$features['heatingType'] = 0;
+		}
 
 		return $features;
 	}
