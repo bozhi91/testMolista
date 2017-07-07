@@ -7,6 +7,36 @@ if ( empty($domain['host']) )
 	die("Environment variable APP_URL is not defined!");
 }
 
+Route::get('hubspot', function()
+{
+	try
+	{
+		HubSpot::contacts()->getByEmail('albert+prueba2@incubout.com');
+	}
+	catch (\Exception $e)
+	{
+		// Not found, then create the lead
+		HubSpot::contacts()->createOrUpdate('albert+prueba2@incubout.com', [
+			[
+				'property' => 'hs_lead_status',
+				'value' => 'NEW'
+			],
+			[
+				'property' => 'lifecyclestage',
+				'value' => 'opportunity'
+			],
+			[
+				'property' => 'product',
+				'value' => 'Molista'
+			],
+		]);
+	}
+
+
+	return HubSpot::contacts()->getByEmail('albert+prueba@incubout.com');
+
+});
+
 // Corporate domain routes ---------------------------------------------------------
 Route::group([
 	'domain' => $domain['host'],
@@ -229,7 +259,7 @@ Route::group([
 
 		Route::post('properties/comment/{slug}', 'Account\PropertiesController@postComment');
 		Route::post('properties/nota/{slug}', 'Account\PropertiesController@postNota');
-		
+
 		Route::group([
 			'middleware' => [
 				'permission:property-create',
