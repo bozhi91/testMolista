@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ce2c44b46a1f2d1eecc167bde1efe967",
+    "content-hash": "f6f6af599937ae2255385aece4652615",
     "packages": [
         {
             "name": "alexpechkarev/google-geocoder",
@@ -3312,6 +3312,91 @@
             ],
             "description": "Slow Query Logger for Laravel",
             "time": "2016-06-28T14:29:35+00:00"
+        },
+        {
+            "name": "rossjcooper/laravel-hubspot",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rossjcooper/laravel-hubspot.git",
+                "reference": "eb9928ae261ad5fd02083976bd013f55789448ea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rossjcooper/laravel-hubspot/zipball/eb9928ae261ad5fd02083976bd013f55789448ea",
+                "reference": "eb9928ae261ad5fd02083976bd013f55789448ea",
+                "shasum": ""
+            },
+            "require": {
+                "ryanwinchester/hubspot-php": "1.0.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Rossjcooper\\LaravelHubSpot\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ross Cooper",
+                    "email": "therossjcooper@gmail.com"
+                }
+            ],
+            "time": "2017-05-06T22:54:15+00:00"
+        },
+        {
+            "name": "ryanwinchester/hubspot-php",
+            "version": "v1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ryanwinchester/hubspot-php.git",
+                "reference": "f620bac70bde7143d55823ad93ddf6aebc36dff4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ryanwinchester/hubspot-php/zipball/f620bac70bde7143d55823ad93ddf6aebc36dff4",
+                "reference": "f620bac70bde7143d55823ad93ddf6aebc36dff4",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "~6.0",
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": " dev-master@dev",
+                "phpspec/phpspec": "~2.0",
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SevenShores\\Hubspot\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Ryan Winchester",
+                    "email": "fungku@gmail.com",
+                    "homepage": "http://ryanwinchester.ca"
+                }
+            ],
+            "description": "HubSpot PHP API client",
+            "keywords": [
+                "api",
+                "hubspot"
+            ],
+            "time": "2017-05-16T16:51:53+00:00"
         },
         {
             "name": "sabre/uri",

@@ -249,6 +249,9 @@
 
 			/* https://github.com/rokde/laravel-slow-query-logger */
 			Rokde\LaravelSlowQueryLogger\LaravelSlowQueryLoggerProvider::class,
+
+			/* https://github.com/rossjcooper/laravel-hubspot */
+			Rossjcooper\LaravelHubSpot\HubSpotServiceProvider::class,
 		],
 
 		/*
@@ -347,6 +350,9 @@
 
 			/* https://sentry.io */
 			'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
+
+			/* https://github.com/rossjcooper/laravel-hubspot */
+			'HubSpot' => Rossjcooper\LaravelHubSpot\Facades\HubSpot::class,
 		],
 
 	];
