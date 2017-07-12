@@ -80,7 +80,7 @@ class Mapper extends \App\Marketplaces\Mapper {
             $this->errors []= \Lang::get('validation.type');
             return false;
         }
-		
+
         $rules = [
             'id' => 'required',
             'url' => 'required',
@@ -177,6 +177,7 @@ class Mapper extends \App\Marketplaces\Mapper {
             'industrial' => 'Nave industrial',
             'state' => 'Finca rústica',
             'farmhouse' => 'Masía rural',
+            'office' => 'Oficina',
         ];
 
         return isset($types[$this->item['type']]) ? $types[$this->item['type']] : $this->item['type'];

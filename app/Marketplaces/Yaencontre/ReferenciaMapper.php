@@ -129,7 +129,7 @@ class ReferenciaMapper extends BaseMapper {
 			case 'apartment': return [7, 'apartamento'];
 			case 'duplex': return [9, 'duplex'];
 			case 'house': return [16, 'casa'];
-			case 'terraced_house': return [18, 'casa adosada'];	
+			case 'terraced_house': return [18, 'casa adosada'];
 			case 'penthouse': return [8, 'ático'];
 			case 'villa': return [24, 'villa'];
 			case 'aparthotel': return [48, 'aparta-hotel'];
@@ -146,6 +146,7 @@ class ReferenciaMapper extends BaseMapper {
 			case 'farmhouse': return [17, 'masía'];
 			case 'garage': return [36, 'garaje'];
 			case 'plot': return [40, 'parcela'];
+			case 'office': return [29, 'oficina'];
 			default: return [11, 'piso'];
 		}
 	}
@@ -237,17 +238,17 @@ class ReferenciaMapper extends BaseMapper {
 		$ubicacion['poblacion@id=' . $poblacionId] = $poblacionLabel;
 
 		list($zoneId, $zoneLabel) = $this->getZoneData();
-		
+
 		if($zoneId && $zoneLabel) {
 			$ubicacion['zona@id=' .$zoneId] = $zoneLabel;
 		} else {
 			$ubicacion['zona@id='] = ''; //tag required
 		}
-		
+
 		//Opcionales
 		$ubicacion['zona_libre'] = '';
 		$ubicacion['cod_postal'] = !empty($l['zipcode']) ? $l['zipcode'] : '';
-		$ubicacion['tipo_via@id='] = '';//$ubicacion['tipo_via@id=0'] = 'avenida'; getTipoDeVia()		
+		$ubicacion['tipo_via@id='] = '';//$ubicacion['tipo_via@id=0'] = 'avenida'; getTipoDeVia()
 		$ubicacion['direccion'] = !empty($l['address_parts']['street']) ? $l['address_parts']['street'] : '';
 		$ubicacion['direccion_num'] = !empty($l['address_parts']['number']) ? $l['address_parts']['number'] : '';
 		$ubicacion['direccion_otra_info'] = '';

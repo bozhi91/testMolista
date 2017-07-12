@@ -58,6 +58,19 @@ class SignupController extends \App\Http\Controllers\CorporateController
 
 		session()->put($this->session_name, $data);
 
+		// Register in hubspot
+		\App\Hubspot::createOrUpdateLead($data['user']['new']['email'], [
+			'firstname' => $data['invoicing']['first_name'],
+			'lastname' => $data['invoicing']['last_name'],
+			'company' => $data['invoicing']['company'],
+			'phone' => $data['user']['new']['phone'],
+			'address' => $data['invoicing']['street'],
+			'city' => $data['invoicing']['city'],
+			'zip' => $data['invoicing']['zipcode'],
+			'cif_nif' => $data['invoicing']['tax_id'],
+			'country' => \App\Models\Geography\Country::withTranslations()->where('countries.id', $data['invoicing']['country_id'])->pluck('name')->first()
+		]);
+
 		return redirect()->action('Corporate\SignupController@getConfirm');
 	}
 
@@ -169,7 +182,7 @@ class SignupController extends \App\Http\Controllers\CorporateController
 			$locales = \App\Models\Locale::whereIn('locale', [ fallback_lang() ])->lists('id','locale');
 		}
 
-		foreach ($locales as $locale => $locale_id) 
+		foreach ($locales as $locale => $locale_id)
 		{
 			$site->locales()->attach($locale_id);
 			$site->translateOrNew($locale)->title = $data['subdomain'];
@@ -219,6 +232,8 @@ class SignupController extends \App\Http\Controllers\CorporateController
 		// Send welcome email
 		$job = ( new \App\Jobs\SendWelcomeEmail($site, $locale) )->onQueue('emails');
 		$this->dispatch( $job );
+
+		\App\Hubspot::setAsCustomer($data['user']['new']['email']);
 
 		// Redirect to finish
 		return redirect()
@@ -327,7 +342,7 @@ class SignupController extends \App\Http\Controllers\CorporateController
 		}
 
 		$validator = \Validator::make($data, $fields);
-		if ( $validator->fails() ) 
+		if ( $validator->fails() )
 		{
 			$this->validation_error = $validator;
 			return false;

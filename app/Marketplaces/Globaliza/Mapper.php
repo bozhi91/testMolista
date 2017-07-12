@@ -155,6 +155,7 @@ class Mapper extends \App\Marketplaces\Mapper {
             'state' => 'Suelo',
 			'garage' => 'Garaje',
 			'plot' => 'Suelo',
+			'office' => 'Oficina',
         ];
 
         return isset($types[$this->item['type']]) ? $types[$this->item['type']] : 'Vivienda';
@@ -180,6 +181,7 @@ class Mapper extends \App\Marketplaces\Mapper {
             'farmhouse' => 'Casa Rural',
 			'garage' => 'Plaza de garaje',
 			'plot' => 'Parcela',
+			'office' => 'Fija/Permanente',
         ];
 
         return isset($types[$this->item['type']]) ? $types[$this->item['type']] : 'Piso';

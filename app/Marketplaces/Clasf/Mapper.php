@@ -89,6 +89,9 @@ class Mapper extends \App\Marketplaces\Mapper {
 			case 'plot':
 				$type = 'venta terrenos';
 			break;
+            case 'office':
+				$type = 'alquiler venta oficinas';
+			break;
             case 'duplex':
             case 'house':
 			case 'terraced_house':
@@ -146,6 +149,9 @@ class Mapper extends \App\Marketplaces\Mapper {
             case 'chalet':
                 $type = 'alquiler venta chalets';
             break;
+            case 'office':
+				$type = 'venta de oficinas';
+			break;
             default:
                 $type = 'alquiler venta pisos';
             break;

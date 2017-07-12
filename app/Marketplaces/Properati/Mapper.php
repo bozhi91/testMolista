@@ -108,7 +108,7 @@ class Mapper extends \App\Marketplaces\Mapper {
             $this->errors []= \Lang::get('validation.type');
             return false;
         }
-		
+
 		if ($this->isTransfer()) {
 			$this->errors []= \Lang::get('validation.transfer');
             return false;
@@ -236,6 +236,8 @@ class Mapper extends \App\Marketplaces\Mapper {
 				return 'country house';
 			case 'garage':
 				return 'garage';
+			case 'office':
+				return 'office';
 
 			default: return 'other';
 		}

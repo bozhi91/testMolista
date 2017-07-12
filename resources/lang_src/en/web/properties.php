@@ -8,7 +8,7 @@
 		'mode.sale' => 'Properties for sale',
 		'mode.rent' => 'Properties for rent',
 		'mode.transfer' => 'Properties for ownership transfer',
-		
+
 		'district' => 'District',
 
 		'state' => 'State',
@@ -39,6 +39,7 @@
 		'type.terraced_house' => 'Terraced house',
 		'type.garage' => 'Garage',
 		'type.plot' => 'Plot',
+		'type.office' => 'Office',
 
 		'more.show' => 'Show more options',
 		'more.any' => 'Show all',
@@ -72,7 +73,7 @@
 		'recommend.send_name' => 'Your name',
 		'recommend.default_message' => 'I think you may be interested in this property that I have seen.',
 		'recommend.success' => 'Your recommendation message was successfully sent.',
-		
+
 		'related.title' => 'Other properties that may interest you',
 
 		'energy.certificate.help' => '<p>The energy certification indicates the efficiency of the property in terms of consumption of energy, water, etc.</p><p>Category A is the most efficient and G the least.</p>',
@@ -91,7 +92,7 @@
 			<p><i>:message</i></p>
 			<p>In the meantime, we send you a PDF file with more information.</p>
 			<p>:sitename</p>',
-		
+
 		'images.label.default' => 'Slider default',
 		'images.warning.orientation' => 'We recommend images that have a larger width than height.',
 		'images.warning.size' => 'The size of this image might be too small. We recommend you use an image with a bigger size (ie. 1280 pixels width).',
