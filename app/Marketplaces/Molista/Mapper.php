@@ -79,7 +79,7 @@ class Mapper extends \App\Marketplaces\Mapper {
             $this->errors []= \Lang::get('validation.type');
             return false;
         }
-		
+
         $rules = [
             'id' => 'required',
             'url' => 'required',
@@ -141,6 +141,9 @@ class Mapper extends \App\Marketplaces\Mapper {
             case 'aparthotel':
                 $type = 'Short Term Rentals';
             break;
+            case 'office':
+                $type = $this->isRent() ? 'Office For Rent' : 'Office For Sale';
+            break;
             case 'duplex':
             case 'house':
 			case 'terraced_house':
@@ -175,6 +178,7 @@ class Mapper extends \App\Marketplaces\Mapper {
             'industrial' => 'Nave industrial',
             'state' => 'Finca rústica',
             'farmhouse' => 'Masía rural',
+            'office' => 'Oficina',
         ];
 
         return isset($types[$this->item['type']]) ? $types[$this->item['type']] : $this->item['type'];

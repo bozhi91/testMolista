@@ -115,6 +115,7 @@ class Mapper extends \App\Marketplaces\Mapper {
         $types = [
             'store' => 'business',
             'industrial' => 'business',
+            'office' => 'business',
             'lot' => 'land',
             'state' => 'land',
             'duplex' => 'appartement',

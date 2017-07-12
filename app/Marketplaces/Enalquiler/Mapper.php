@@ -72,7 +72,7 @@ class Mapper extends \App\Marketplaces\Mapper {
         }
 
         if (in_array($this->item['type'], ['hotel', 'aparthotel',
-			'building', 'industrial', 'bungalow', 'state', 'garage', 'plot']))
+			'building', 'industrial', 'bungalow', 'state', 'garage', 'plot', 'office']))
         {
             $this->errors []= \Lang::get('validation.type');
             return false;
@@ -119,7 +119,7 @@ class Mapper extends \App\Marketplaces\Mapper {
      *
      * @return integer
      */
-    protected function category() 
+    protected function category()
     {
         switch ($this->item['type']) {
             case 'house':

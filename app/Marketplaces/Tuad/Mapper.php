@@ -123,6 +123,8 @@ class Mapper extends \App\Marketplaces\Mapper {
 			case 'aparthotel':
 			case 'bungalow':
 				return 'Alquiler vacacional';
+			case 'office':
+				return 'Oficinas y locales';
 			default:
 				return $this->isRent() ? 'Pisos en alquiler' : 'Pisos en venta';
 		}

@@ -22,7 +22,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 		$map['email_sucursal'] = '';
 		$map['email_comercializadora'] = $this->config['email'];
 		//Opcional
-		
+
 		$map['venta_01'] = $this->isSale() ? 1 : 0;
 		$map['alquiler_01'] = $this->isRent() ? 1 : 0;
 		$map['alquiler_opcion_venta_01'] = 0;
@@ -134,7 +134,7 @@ class Mapper extends \App\Marketplaces\Mapper {
             $this->errors []= \Lang::get('validation.type');
             return false;
         }
-		
+
 		$data = array_merge($this->item, $this->config);
 
 		$rules = [
@@ -193,6 +193,8 @@ class Mapper extends \App\Marketplaces\Mapper {
 			case 'hotel':
 			case 'aparthotel':
 				return [10, 'Negocio', 4, 'Hotel'];
+			case 'office':
+				return [2, 'Oficina', 1, 'Oficina'];
 			case 'building': return [8, 'Inversiones', 3, 'Edificios'];
 			case 'lot': return [5, 'Terrenos y Solares', 1, 'Terreno residencial'];
 			case 'store': return [3, 'Local', 1, 'Local Comercial'];

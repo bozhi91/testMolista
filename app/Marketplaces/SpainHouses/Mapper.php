@@ -173,6 +173,9 @@ class Mapper extends \App\Marketplaces\Mapper {
             case 'aparthotel':
                 $type = 2;
             break;
+            case 'office':
+                $type = 256;
+            break;
             default:
                 $type = 4;
             break;

@@ -39,6 +39,7 @@
 		'type.terraced_house' => 'Casa adosada',
 		'type.garage' => 'Garaje',
 		'type.plot' => 'Parcela',
+		'type.office' => 'Despacho',
 
 		'more.show' => 'Más opciones',
 		'more.any' => 'Mostrar todas',
@@ -72,7 +73,7 @@
 		'recommend.send_name' => 'Tu nombre',
 		'recommend.default_message' => 'Creo que te puede interesar este inmueble que he visto.',
 		'recommend.success' => 'El mensaje de recommendación se ha enviado correctamente.',
-		
+
 		'related.title' => 'Otras propiedades relacionadas',
 
 		'energy.certificate.help' => '<p>La certificación energética indica la eficiencia del inmueble en cuanto a consumo de energía, agua, etc.</p><p>La categoría A es la más eficiente y la G, la menos.</p>',
@@ -91,7 +92,7 @@
 			<p><i>:message</i></p>
 			<p>Mientras tanto le enviamos un PDF con más información.</p>
 			<p>:sitename</p>',
-		
+
 		'images.label.default' => 'Slider default',
 		'images.warning.orientation' => 'Recomendamos usar imágenes con mayor ancho que largo.',
 		'images.warning.size' => 'El tamaño de esta imagen es muy pequeño. Recomendamos usar imágenes más grandes (ej. 1280 pixels de ancho).',
