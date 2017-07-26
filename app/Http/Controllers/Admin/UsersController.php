@@ -98,6 +98,7 @@ class UsersController extends Controller
 			'email' => 'required|email|max:255|unique:users',
 			'password' => 'required|min:6',
 			'locale' => 'required|string|in:'.implode(',',\LaravelLocalization::getSupportedLanguagesKeys()),
+			'roles' => 'required|array',
 		]);
 		if ($validator->fails())
 		{
@@ -108,6 +109,12 @@ class UsersController extends Controller
 		if ( \App\User::where('email', $this->request->input('email'))->count() )
 		{
 			return redirect()->back()->withInput()->with('error', trans('admin/users.email.used'));
+		}
+
+		// Check roles
+		if ( empty($this->request->input('roles')) || !is_array($this->request->input('roles')) )
+		{
+			return redirect()->back()->withInput()->with('error', trans('admin/users.roles.required'));
 		}
 
 		// Get user
@@ -121,6 +128,17 @@ class UsersController extends Controller
 		if ( !$user )
 		{
 			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
+		}
+
+		// Update roles
+		foreach ($this->request->input('roles') as $role_name)
+		{
+			$role = \App\Models\Role::where('name', $role_name)->first();
+			if ( !$role )
+			{
+				continue;
+			}
+			$user->roles()->attach( $role->id );
 		}
 
 		return $this->update($user->id);
