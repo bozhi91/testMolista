@@ -551,7 +551,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 	}
 
 	public function getCatch($property_id, $id=false)
-	{		
+	{
 		$property = $this->site->properties()->findOrFail( $property_id );
 
 		if ( $id )
@@ -1218,7 +1218,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 	public function postComment($slug)
 	{
-		$property = $this->site->properties()->whereIn('properties.id', $this->auth->user()->properties()->lists('id'))->whereTranslation('slug', $slug)->first();
+		$property = $this->site->properties()->whereTranslation('slug', $slug)->first();
 		if ( !$property )
 		{
 			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
@@ -1230,12 +1230,11 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 		return redirect()->back()->with('success', trans('general.messages.success.saved'));
 	}
-	
+
 	public function postNota($slug)
-	{		
-		$property = $this->site->properties()->whereIn('properties.id', $this->auth->user()->properties()->lists('id'))
-				->whereTranslation('slug', $slug)->first();
-		
+	{
+		$property = $this->site->properties()->whereTranslation('slug', $slug)->first();
+
 		if ( !$property )
 		{
 			return redirect()->back()->withInput()->with('error', trans('general.messages.error'));
@@ -1247,8 +1246,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 		return redirect()->back()->with('success', trans('general.messages.success.saved'));
 	}
-	
-	
+
+
 	public function postUpload()
 	{
 

@@ -2,7 +2,7 @@
 
 use Florianv\LaravelSwap\Facades\Swap;
 
-class CurrencyConverter 
+class CurrencyConverter
 {
 
 	public static function __callStatic($name, $arguments)
@@ -47,6 +47,15 @@ class CurrencyConverter
 				\Log::error("Rate to convert from {$from} to {$to} not available");
 				return $amount;
 			}
+			catch (\Swap\Exception\ChainProviderException $e)
+			{
+				\Log::error("Rate service not available to convert from {$from} to {$to}");
+
+				// Get old rate
+				$rate = \App\Models\CurrencyRate::where('from',$from)->where('to',$to)->value('rate');
+
+				return $rate ? $amount * $rate : $amount;
+			}
 
 			\App\Models\CurrencyRate::firstOrCreate([
 				'from' => $from,
@@ -61,7 +70,6 @@ class CurrencyConverter
 			])->update([
 				'rate' => (1 / $rate),
 			]);
-
 		}
 
 		return $amount * $rate;
