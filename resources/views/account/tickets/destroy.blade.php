@@ -18,7 +18,7 @@
 							@if ( $message->user )
 								<img src="{{ $message->user->image }}" class="pull-left author-icon" title="{{ $message->user->name }}" />
 							@else
-								<img src="{{ asset('images/tickets/customer.png') }}" class="pull-left author-icon" title="{{ $ticket->contact->fullname }}" />
+								<img src="{{ asset('images/tickets/customer.png') }}" class="pull-left author-icon" title="{{ $ticket->contact ? $ticket->contact->fullname : '' }}" />
 							@endif
 							<div>
 								<strong>{{ $message->subject }}</strong>
@@ -32,12 +32,13 @@
 							@endif
 							<div class="help-block">
 								@if ( $message->user )
-									<strong>{{ $message->user->name }}</strong>
+									<strong>{{ $message->user->name }}</strong> - {{ since_text($message->created_at) }}
+								@elseif ( $ticket->contact )
+									<strong>{{ $ticket->contact->fullname }}</strong> - {{ since_text($message->created_at) }}
 								@else
-									<strong>{{ $ticket->contact->fullname }}</strong>
+									{{ since_text($message->created_at) }}
 								@endif
-								-
-								{{ since_text($message->created_at) }}
+								
 							</div>
 						</div>
 					</div>
