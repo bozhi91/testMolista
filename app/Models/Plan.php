@@ -115,7 +115,17 @@ class Plan extends Model
 
 	static public function getEnabled($currency=false)
 	{
-		$query = \App\Models\Plan::enabled();
+		// 
+		$authuserid = false;
+		if ( $authuserid && \Auth::check() && \Auth::user()->id == $authuserid )
+		{
+			$ids = \App\Models\Plan::whereIn('code', ['free','pro','pro_usd','enterprise','enterprise_usd'])->lists('id');
+			$query = \App\Models\Plan::whereIn('id', $ids);
+		}
+		else
+		{
+			$query = \App\Models\Plan::enabled();
+		}
 
 		if ( $currency )
 		{
