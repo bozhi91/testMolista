@@ -177,7 +177,7 @@ abstract class Mapper extends \App\Marketplaces\Mapper {
 			//$document['Description'] = '';
 			$document['Url'] = $image;
 			//$document['RoomTypeId'] = '';
-			$document['FileTypeId'] = 0;
+			$document['FileTypeId'] = 2;
 			$document['Visible'] = true;
 			$document['SortingId'] = ++$i;
 			$documents[] = $document;
