@@ -52,7 +52,14 @@ class PaymentController extends \App\Http\Controllers\AccountController
 
 		$current_plan_level = @intval( $this->site->plan->level );
 
-		$plans = \App\Models\Plan::enabled()->where('plans.currency',$this->site->payment_currency)->where('level','>', $current_plan_level)->lists('code')->all();
+		$plans = [];
+		foreach (\App\Models\Plan::getEnabled($this->site->payment_currency) as $key => $plan)
+		{
+			if ( $plan->level > $current_plan_level )
+			{
+				$plans[] = $plan->code;
+			}
+		}
 
 		// Validation fields
 		$fields = [
