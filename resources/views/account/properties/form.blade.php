@@ -462,7 +462,7 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-12">
 				        <div class="form-group error-container">
-				            {!! Form::label('url_3d', Lang::get('account/url.3d.title')) !!}
+				            {!! Form::label('url_3d', Lang::get('account/properties.url.3d.title')) !!}
 				            <div class="">
 				                {!! Form::text('url_3d', null, [ 'class'=>'form-control url' ]) !!}
 				            </div>
