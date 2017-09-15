@@ -71,6 +71,8 @@
 
 							@include('components.property.property-download-pdf')
 
+							@include('components.property.property-view-in-3d')
+
 							</div>
 						</div>
 						<div class="visible-xs">

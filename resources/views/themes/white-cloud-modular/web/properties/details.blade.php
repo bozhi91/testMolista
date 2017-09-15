@@ -89,6 +89,10 @@
 							@include('components.property.property-share-button')
 							</div>
 
+							<div class="white-cloud-modular-view-in-3d">
+							@include('components.property.property-view-in-3d')
+							</div>
+
 						</div>
 
 					</div>

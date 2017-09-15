@@ -299,4 +299,6 @@
 		'districts.message.saved' => 'The district was successfully saved',
 		'districts.delete' => 'Are you sure you want to remove this district?',
 		'districts.empty' => 'No distrincts created'
+
+		'url.3d.title' => 'URL for the 3D view'
 	];

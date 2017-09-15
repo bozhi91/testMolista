@@ -142,6 +142,9 @@
 						<a href="#property-share-form" class="btn btn-primary more-info-trigger call-to-action pull-right">
 							{{ Lang::get('web/properties.recommend.action') }}
 						</a>
+
+						@include('components.property.property-view-in-3d')
+						
 					</div>
 				</div>
 			</div>
