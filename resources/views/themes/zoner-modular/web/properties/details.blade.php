@@ -51,7 +51,11 @@
 				
 				<div class="row">
 					<div class="col-xs-12 col-sm-6 col-md-7 col-lg-8">
+						
 						@include('components.property.property-image-slider')
+
+						@include('components.property.property-view-in-3d-iframe')
+						
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-5 col-lg-4">
 
@@ -90,7 +94,7 @@
 							</div>
 
 							<div class="zoner-modular-view-in-3d">
-							@include('components.property.property-view-in-3d')
+							@include('components.property.property-view-in-3d-button')
 							</div>
 
 						</div>
