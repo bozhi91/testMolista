@@ -53,7 +53,11 @@
 				
 				<div class="row">
 					<div class="col-xs-12 col-sm-7">
+						
 						@include('components.property.property-image-slider')
+
+						@include('components.property.property-view-in-3d-iframe')
+
 					</div>
 					<div class="col-xs-12 col-sm-5">
 						<div class="hidden-xs">
@@ -71,7 +75,7 @@
 
 							@include('components.property.property-download-pdf')
 
-							@include('components.property.property-view-in-3d')
+							@include('components.property.property-view-in-3d-button')
 
 							</div>
 						</div>
@@ -94,6 +98,8 @@
 							<div class="modular-property-more-info-button">
 								@include('components.property.property-moreinfo-button')
 							</div>
+
+							@include('components.property.property-view-in-3d-button')
 
 						</div>
 					</div>
