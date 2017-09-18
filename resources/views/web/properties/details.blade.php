@@ -143,11 +143,13 @@
 							{{ Lang::get('web/properties.recommend.action') }}
 						</a>
 
-						@include('components.property.property-view-in-3d')
+						@include('components.property.property-view-in-3d-button', ['url_3d_container_classes' => 'webtheme-view-3d-button'])
 						
 					</div>
 				</div>
 			</div>
+
+			@include('components.property.property-view-in-3d-iframe')
 
 			<div class="map-area">
 				@if ( $property->show_address )
