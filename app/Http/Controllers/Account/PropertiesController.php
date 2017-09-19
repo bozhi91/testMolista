@@ -905,7 +905,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'construction_year' => 'integer|min:0',
 			'export_to_all' => 'boolean',
 			'details' => '',
-			'marketplace_attributes' => ''
+			'marketplace_attributes' => '',
+			'url_3d' => ''
 		];
 
 		return $fields;

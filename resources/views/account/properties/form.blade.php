@@ -458,6 +458,17 @@
 						</div>
 					@endforeach
 				</div>
+				<hr />
+				<div class="row">
+					<div class="col-xs-12 col-sm-12">
+				        <div class="form-group error-container">
+				            {!! Form::label('url_3d', Lang::get('account/properties.url.3d.title')) !!}
+				            <div class="">
+				                {!! Form::text('url_3d', null, [ 'class'=>'form-control url' ]) !!}
+				            </div>
+				        </div>
+				    </div>
+				</div>
 			</div>
 
 			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'location' ? 'active' : '' }}" id="tab-location">

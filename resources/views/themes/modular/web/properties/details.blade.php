@@ -31,7 +31,11 @@
 				
 				<div class="row">
 					<div class="col-xs-12 col-sm-8">
+						
 						@include('components.property.property-image-slider')
+
+						@include('components.property.property-view-in-3d-iframe')
+
 					</div>
 					<div class="col-xs-12 col-sm-4">
 						
@@ -46,6 +50,8 @@
 						@include('components.property.property-energy-certification')
 
 						@include('components.property.property-download-pdf')
+
+						@include('components.property.property-view-in-3d-button')
 
 					</div>
 				</div>
