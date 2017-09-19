@@ -98,4 +98,6 @@
 		'images.warning.size' => 'El tamaño de esta imagen es muy pequeño. Recomendamos usar imágenes más grandes (ej. 1280 pixels de ancho).',
 
 		'download.pdf' => 'Descargar PDF',
+		
+		'view.in.3d' => 'Vista en 3D'
 	];
