@@ -43,9 +43,11 @@
 			<div class="alert-content"></div>
 		</div>
 
+		@if ($current_site->recaptcha_enabled)
 		<div class="form-group">
-			<div class="g-recaptcha" data-sitekey="{{env('GOOGLE_RECAPTCHA_KEY')}}"></div>
+			<div class="g-recaptcha" data-sitekey="{{ Config::get("recaptcha.sitekey") }}"></div>
 		</div>
+		@endif
 
 		<div style="height: 1px; width: 1px; overflow: hidden;">
 			<input type="checkbox" name="accept_legal_terms" value="1" class="" />
@@ -60,4 +62,6 @@
 {!! Form::close() !!}
 <!-- Modal -->
 
+@if ($current_site->recaptcha_enabled)
 <script src='https://www.google.com/recaptcha/api.js'></script>
+@endif
