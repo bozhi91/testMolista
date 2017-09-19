@@ -221,7 +221,8 @@ class PropertiesController extends WebController
 			'last_name' => 'required',
 			'email' => 'required|email',
 			'phone' => 'required',
-			'message' => 'required'
+			'message' => 'required',
+			'g-recaptcha-response'=>'required|recaptcha'
 		]);
 		if ($validator->fails())
 		{

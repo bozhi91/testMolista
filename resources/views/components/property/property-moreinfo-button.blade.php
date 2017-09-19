@@ -43,6 +43,10 @@
 			<div class="alert-content"></div>
 		</div>
 
+		<div class="form-group">
+			<div class="g-recaptcha" data-sitekey="{{env('GOOGLE_RECAPTCHA_KEY')}}"></div>
+		</div>
+
 		<div style="height: 1px; width: 1px; overflow: hidden;">
 			<input type="checkbox" name="accept_legal_terms" value="1" class="" />
 			Do you agree to the terms and conditions of using our services?
@@ -55,3 +59,5 @@
 	</div>
 {!! Form::close() !!}
 <!-- Modal -->
+
+<script src='https://www.google.com/recaptcha/api.js'></script>
