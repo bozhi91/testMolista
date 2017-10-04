@@ -288,7 +288,7 @@ abstract class Mapper extends \App\Marketplaces\Mapper {
 
 		if (in_array($typeId, [1, 2, 3, 4])) {
 			$features[] = $this->genFeature(13, [
-				'DecimalValue' => (int)$item['toilettes']
+				'DecimalValue' => isset($item['toilettes']) ? (int)$item['toilettes'] : 0
 			]);
 		}
 
