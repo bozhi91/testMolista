@@ -1315,4 +1315,12 @@ class Site extends TranslatableModel
 
 	}
 
+	public function setRecaptchaConfig()
+	{
+		if (!empty($this->recaptcha_secretkey) && !empty($this->recaptcha_sitekey)) {
+			\Config::set('recaptcha.secret', $this->recaptcha_secretkey);
+			\Config::set('recaptcha.sitekey', $this->recaptcha_sitekey);
+		}
+	}
+
 }

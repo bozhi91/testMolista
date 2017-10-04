@@ -97,6 +97,14 @@
 		'configuration.home.highlights.group.9' => 'Show in groups of 9',
 		'configuration.home.highlights.group.all' => 'Show all',
 
+		'configuration.recaptcha.enabled.title' => 'Activate Google reCAPTCHA',
+		'configuration.recaptcha.enabled.helper' => 'Checks if the forms are filled by humans',
+		'configuration.recaptcha.sitekey.title' => 'Site Key',
+		'configuration.recaptcha.sitekey.helper' => 'Enter the site key provided by the reCAPTCHA of Google',
+		'configuration.recaptcha.secretkey.title' => 'Secret Key',
+		'configuration.recaptcha.secretkey.helper' => 'Enter the secret key provided by the reCAPTCHA of Google',
+		'configuration.recaptcha.example' => 'Example: ',
+
 		'menus.h1' => 'Menus',
 
 		'menus.links.title' => 'Links options',

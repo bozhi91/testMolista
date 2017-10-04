@@ -103,6 +103,45 @@
 	<div class="col-xs-12 col-sm-6">
 	</div>
 </div>
+<hr/>
+<div class="row">
+	<div class="col-xs-12 col-sm-6">
+		<div class="form-group error-container">
+			{!! Form::label('recaptcha_enabled', Lang::get('account/site.configuration.recaptcha.enabled.title')) !!}
+			{!! Form::select('recaptcha_enabled',[ 
+				'0' => Lang::get('general.no'),
+				'1' => Lang::get('general.yes')
+			], (empty($current_site->recaptcha_enabled) ? 0 : 1), [ 'class'=>'recaptcha_enabled-select form-control' ]) !!}
+			<div class="help-block">{{ Lang::get('account/site.configuration.recaptcha.enabled.helper') }}</div>
+		</div>
+	</div>
+	@if ($current_site->recaptcha_enabled)
+	<div class="col-xs-12 col-sm-6">
+		{!! Form::label('recaptcha_example', Lang::get('account/site.configuration.recaptcha.example')) !!}
+		<div class="form-group">
+			<div class="g-recaptcha" data-sitekey="{{ Config::get("recaptcha.sitekey") }}"></div>
+		</div>
+		<script src='https://www.google.com/recaptcha/api.js'></script>
+	</div>
+	@endif
+</div>
+<div class="row">
+	<div class="col-xs-12 col-sm-6">
+		<div class="form-group error-container">
+			{!! Form::label('recaptcha_sitekey', Lang::get('account/site.configuration.recaptcha.sitekey.title')) !!}
+			{!! Form::text('recaptcha_sitekey', null, [ 'class'=>'form-control' ]) !!}
+			<div class="help-block">{{ Lang::get('account/site.configuration.recaptcha.sitekey.helper') }}</div>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-6">
+		<div class="form-group error-container">
+			{!! Form::label('recaptcha_secretkey', Lang::get('account/site.configuration.recaptcha.secretkey.title')) !!}
+			{!! Form::text('recaptcha_secretkey', null, [ 'class'=>'form-control' ]) !!}
+			<div class="help-block">{{ Lang::get('account/site.configuration.recaptcha.secretkey.helper') }}</div>
+		</div>
+	</div>
+</div>
+
 
 <div class="{{ ( $max_languages == 1 ) ? 'hide' : '' }}"
 	<hr />

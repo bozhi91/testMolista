@@ -20,6 +20,8 @@ class SiteSetup
 		$setup = $site->site_setup;
 		\App\Session\Site::replace($setup);
 
+		$site->setRecaptchaConfig();
+
 		// Add site to request attributes
 		$request->attributes->add([
 			'site' => $site,

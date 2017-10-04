@@ -72,6 +72,7 @@
 		'rent' => 'Only properties for rent are allowed in this marketplace.',
 		'sale' => 'Only properties for sale are allowed in this marketplace.',
 		'one_picture' => 'You need at least 1 picture.',
+		'recaptcha'=>'Please ensure that you are a human!',
 
 		/*
 		|--------------------------------------------------------------------------
