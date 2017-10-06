@@ -215,14 +215,21 @@ class PropertiesController extends WebController
 			return [ 'error'=>true ];
 		}
 
-		// Validate user
-		$validator = \Validator::make($this->request->all(), [
+		$fields = [
 			'first_name' => 'required',
 			'last_name' => 'required',
 			'email' => 'required|email',
 			'phone' => 'required',
 			'message' => 'required'
-		]);
+		];
+
+		if ($this->site->recaptcha_enabled) {
+			$fiels['g-recaptcha-response'] = 'required|recaptcha';
+		}
+
+		// Validate user
+		$validator = \Validator::make($this->request->all(), $fields);
+		
 		if ($validator->fails())
 		{
 			return [ 'error'=>true ];

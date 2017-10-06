@@ -69,6 +69,7 @@
 		'unique' => 'The :attribute has already been taken.',
 		'url' => 'The :attribute format is invalid.',
 		'alphanumericHypen' => 'Letters, numbers, hypen and underscores only please',
+		'recaptcha'=>'Por favor asegurate de que eres humano!',
 
 		/*
 		|--------------------------------------------------------------------------

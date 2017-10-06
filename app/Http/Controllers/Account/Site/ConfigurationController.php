@@ -53,6 +53,9 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 			'signature.name' => 'required|string',
 			'signature.email' => 'email',
 			'home_highlights' => 'required|in:0,3,6,9',
+			'recaptcha_enabled' => 'required|boolean',
+			'recaptcha_sitekey' => 'string',
+			'recaptcha_secretkey' => 'string',
 		];
 
 		switch ( $this->request->input('mailer.service') )
@@ -103,6 +106,9 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 		$this->site->mailer = $this->request->input('mailer');
 		$this->site->alert_config = $this->request->input('alerts');
 		$this->site->home_highlights = $this->request->input('home_highlights');
+		$this->site->recaptcha_enabled = $this->request->input('recaptcha_enabled') ? 1 : 0;
+		$this->site->recaptcha_sitekey = $this->request->input('recaptcha_sitekey');
+		$this->site->recaptcha_secretkey = $this->request->input('recaptcha_secretkey');
 		
 		if ( $this->site->can_hide_molista )
 		{
