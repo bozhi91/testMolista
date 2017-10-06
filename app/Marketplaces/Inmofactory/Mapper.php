@@ -336,7 +336,7 @@ abstract class Mapper extends \App\Marketplaces\Mapper {
 
 		if (in_array($typeId, [1, 2, 3, 4, 5, 6, 7, 8, 10, 12])) {
 			$features[] = $this->genFeature(57, [
-				'DecimalValue' => floatval($item['size_real'])
+				'DecimalValue' => @floatval($item['size_real'])
 			]);
 		}
 
