@@ -66,11 +66,14 @@ abstract class Service extends \App\Marketplaces\Service {
 	private function formatResponse($response) {
 		$array = json_decode($response, true);
 
-		return [
-			($array['StatusCode'] == 200 ||
-				$array['StatusCode'] == 201) ? true : false,
-			['messages' => [$array['Message']]]
-		];
+		if (!$array) {
+		     $array = json_decode(str_replace("'", '"', $response), true);
+		}
+
+		$return = ($array['StatusCode'] == 200 || $array['StatusCode'] == 201);
+		$messages = !empty($array['Message']) ? [$array['Message']] : [];
+
+		return [$return, ['messages' => $messages]];
 	}
 
 	/**
