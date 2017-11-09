@@ -234,6 +234,48 @@ class MarketplaceHelper
 		return $properties;
 	}
 
+	public function getMarketplacePropertiesToUnpublish()
+	{
+		// Get properties
+		$properties = [];
+
+		$query = $this->site->properties();
+
+		// Export all properties to marketplace
+		if ( @$this->marketplace->pivot->marketplace_export_all )
+		{
+			// Get all disabled
+			$query->where('enabled', 0);
+		}
+		// Only disabled for this marketplace
+		else
+		{
+			$query->disabledOnMarketplace($this->marketplace->id);
+		}
+
+		$source = $query->withEverything()
+					->orderBy('highlighted','desc')
+					->orderBy('updated_at','desc')
+					->get();
+
+		foreach ($source as $key => $property)
+		{
+			// Prepare property
+			$this->setProperty($property);
+
+			// If check_limit, validate property
+			if ( $this->marketplace_adm->validateProperty($this->property_marketplace) !== true )
+			{
+				continue;
+			}
+
+			// Add property to feed
+			$properties[] = $this->property_marketplace;
+		}
+
+		return $properties;
+	}
+
 	public function getMarketplaceXmlOwners()
 	{
 		$config = @json_decode($this->marketplace->pivot->marketplace_configuration);

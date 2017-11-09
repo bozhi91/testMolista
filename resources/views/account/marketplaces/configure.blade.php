@@ -159,6 +159,7 @@
 								{!! drawSortableHeaders($pagination_url, [
 									'updated_at' => [ 'title' => Lang::get('account/marketplaces.logs.updated_at') ],
 									'property' => [ 'title' => Lang::get('account/marketplaces.logs.property') ],
+									'action' => [ 'title' => Lang::get('account/marketplaces.logs.action') ],
 									'message' => [ 'title' => Lang::get('account/marketplaces.logs.message') ],
 									'info' => [ 'title' => '' ]
 								]) !!}
@@ -177,7 +178,7 @@
 										], '<br>') !!}
 										@endif
 									</td>
-									<td>{!! implode('<br>', @$log->result[1]['messages']) !!}</td>
+									<td>{{ Lang::get('account/marketplaces.logs.action.'.$log->action) }}</td>
 									<td>
 										@if ($log->request)
 										<a href="javascript:;"><span class="glyphicon glyphicon-info-sign" data-toggle="modal" data-target="#result-modal-{{ $log->id }}"></span></a>

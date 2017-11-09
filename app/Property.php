@@ -761,6 +761,15 @@ class Property extends TranslatableModel
 				})->addSelect( \DB::raw('1 as exported_to_marketplace') );
 	}
 
+	public function scopeDisabledOnMarketplace($query, $marketplace_id)
+	{
+		$ids = self::ofMarketplace($marketplace_id)->select('properties.id')->get()->pluck('id')->toArray();
+		if (!is_array($ids)) {
+			$ids = [];
+		}
+		return $query->whereNotIn('properties.id', $ids);
+	}
+
 	public function scopeInState($query, $state_id)
 	{
 		if ( !is_int($state_id) )
