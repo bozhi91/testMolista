@@ -78,4 +78,7 @@
 		'logs.updated_at' => 'Fecha',
 		'logs.property' => 'Propiedad',
 		'logs.message' => 'Mensajes',
+		'logs.action' => 'Acción',
+		'logs.action.publish' => 'Publicar',
+		'logs.action.delete' => 'Eliminar',
 	];

@@ -84,21 +84,50 @@ class PublicarPropiedadesApi extends Command {
 		$helper = new \App\Models\Site\MarketplaceHelper($site);
 		$helper->setMarketplace($marketplace);
 
+		// Properties to publish
 		$properties = $helper->getMarketplaceProperties();
 		$handler = $helper->getMarketplaceAdm();
 		foreach($properties as $property){
 
+			// Check if property has been changed since published
 			$log = ApiPublication::where('site_id', $site->id)
 					->where('marketplace_id', $marketplace->id)
 					->where('property_id', $property['id'])
 					->where('created_at', '>', $property['updated_at'])
+					->where('action', 'publish')
 					->first();
 
-			if($log) {
+			if ($log) {
 				continue;
 			}
 
 			$job = (new \App\Jobs\PublishPropertyApi($handler
+					, $property
+					, $site
+					, $marketplace))->onQueue('publish');
+
+			dispatch($job);
+		}
+
+		// Properties to delete
+		$unpublish = $helper->getMarketplacePropertiesToUnpublish();
+
+		$handler = $helper->getMarketplaceAdm();
+		foreach($unpublish as $property){
+
+			// If property has not been updated since deleted, do nothing
+			$log = ApiPublication::where('site_id', $site->id)
+					->where('marketplace_id', $marketplace->id)
+					->where('property_id', $property['id'])
+					->where('created_at', '>', $property['updated_at'])
+					->where('action', 'delete')
+					->first();
+
+			if ($log) {
+				continue;
+			}
+
+			$job = (new \App\Jobs\UnpublishPropertyApi($handler
 					, $property
 					, $site
 					, $marketplace))->onQueue('publish');

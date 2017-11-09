@@ -65,6 +65,9 @@ abstract class Service extends \App\Marketplaces\Service {
 	 */
 	private function formatResponse($response) {
 		$array = json_decode($response, true);
+		if (!$array) {
+			$array = json_decode(str_replace("'", '"', $response), true);
+		}
 
 		if (!$array) {
 		     $array = json_decode(str_replace("'", '"', $response), true);

@@ -66,4 +66,15 @@ abstract class Inmofactory extends \App\Marketplaces\API {
 		}
 	}
 
+	public function unpublishProperty(array $property)
+	{
+		$service = $this->getService();
+		$result = $service->deleteProperty($property['id']);
+
+		// Save last request data
+		$this->setLastRequest($service->getLastRequest());
+
+		return $result;
+	}
+
 }
