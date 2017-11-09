@@ -180,6 +180,10 @@
 									</td>
 									<td>{{ Lang::get('account/marketplaces.logs.action.'.$log->action) }}</td>
 									<td>
+										@if ($log->result[1]['messages'])
+											{{ implode('<br>', $log->result[1]['messages']) }}
+										@endif
+
 										@if ($log->request)
 										<a href="javascript:;"><span class="glyphicon glyphicon-info-sign" data-toggle="modal" data-target="#result-modal-{{ $log->id }}"></span></a>
 										<div class="modal fade" tabindex="-1" role="dialog" id="result-modal-{{ $log->id }}">
