@@ -20,10 +20,8 @@
 
 /vendor
 /.idea
-.gitignore
+
 package.json
-composer.lock
-composer.json
 
 Homestead.json
 Homestead.yaml
