@@ -79,7 +79,7 @@
 					@role('company')
 						@if ( @$submenu_section == 'reports' )
 							<li role="presentation" class="active">
-								<a href="{{ action('Account\ReportsController@getIndex') }}">
+								<a  onclick="$('#commonModal').modal()" href="{{ action('Account\ReportsController@getIndex') }}">
 									<i class="account-icon account-icon-reports"></i>
 									{{ Lang::get('account/menu.reports') }}
 								</a>
