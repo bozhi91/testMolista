@@ -1,10 +1,4 @@
 
-/**
- * Created by PhpStorm.
- * User: bozhi
- * Date: 30/04/18
- * Time: 21:41
- */
 <!-- This is a common modal. We can use it to display a popup messages. -->
     <!--
 params:
