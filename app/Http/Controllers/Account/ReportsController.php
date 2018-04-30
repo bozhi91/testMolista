@@ -1,8 +1,9 @@
 <?php namespace App\Http\Controllers\Account;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
+use Illuminate\Support\Facades\Log;
+use DB;
 
 class ReportsController extends \App\Http\Controllers\AccountController
 {
@@ -14,8 +15,19 @@ class ReportsController extends \App\Http\Controllers\AccountController
 		\View::share('submenu_section', 'reports');
 	}
 
-	public function getIndex()
+    public function getIndex()
 	{
+        $value = session('SiteSetup');
+        $result = DB::table('sites')
+            ->select('sites.id','sites.plan_id','plans.code')
+            ->where('sites.id', $value['site_id'])
+            ->join('plans', 'sites.plan_id', '=', 'plans.id')
+            ->get();
+
+        //return view('layouts.account')->with("plan",$value['site_id']);
+        return view('layouts.account')->with("plan",$result[0]->code);
+
+
 		// Get last visit to this section
 		$since = \App\Models\Site\UserSince::getSince($this->site->id, $this->site_user->id, 'reports');
 
@@ -65,8 +77,6 @@ class ReportsController extends \App\Http\Controllers\AccountController
 		// Set last visit to this section
 		\App\Models\Site\UserSince::setSince($this->site->id, $this->site_user->id, 'reports');
 
-
 		return view('account.reports.index', compact('stats'));
 	}
-	
 }

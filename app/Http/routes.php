@@ -233,6 +233,7 @@ Route::group([
 		],
 	], function() {
 		Route::get('/', 'Account\ReportsController@getIndex');
+
 		Route::get('profile', 'AccountController@index');
 		Route::post('profile', 'AccountController@updateProfile');
 		Route::controller('profile/signatures', 'Account\Profile\SignaturesController');
@@ -374,3 +375,4 @@ Route::group([
 	Route::controller('user', 'UserController');
 	Route::controller('geography', 'GeographyController');
 });
+

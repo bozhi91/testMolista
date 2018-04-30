@@ -73,6 +73,9 @@
 					</li>
 					<li class="separator"></li>
 
+
+					<?phpaction('Account\ReportsController@getIndex');?>
+
 					@role('company')
 						@if ( @$submenu_section == 'reports' )
 							<li role="presentation" class="active">
@@ -80,24 +83,22 @@
 									<i class="account-icon account-icon-reports"></i>
 									{{ Lang::get('account/menu.reports') }}
 								</a>
-                                <?php
-                                    $value = session('SiteSetup');
-                                    echo "--->".$value['site_id'];
-                                ?>
-
-                          @if(action('Account\Reports\PropertiesController@getIndex')==false)
-                                hola
-                              @else
-                                noo noo
-                          @endif
 
 								<!-- if the current plan is not premium, do not display the menu bellow. -->
-								<!--<ul id="account-submenu-reports" class="nav" role="menu">
-									<li><a href="{{ action('Account\Reports\PropertiesController@getIndex') }}" class="{{ (@$submenu_subsection == 'reports-properties') ? 'current' : '' }}">{{ Lang::get('account/menu.reports.properties') }}</a></li>
-									<li><a href="{{ action('Account\Reports\AgentsController@getIndex') }}" class="{{ (@$submenu_subsection == 'reports-agents') ? 'current' : '' }}">{{ Lang::get('account/menu.reports.agents') }}</a></li>
-									<li><a href="{{ action('Account\Reports\LeadsController@getIndex') }}" class="{{ (@$submenu_subsection == 'reports-leads') ? 'current' : '' }}">{{ Lang::get('account/menu.reports.leads') }}</a></li>
-									<li><a href="{{ action('Account\Reports\ReferersController@getIndex') }}" class="{{ (@$submenu_subsection == 'reports-referers') ? 'current' : '' }}">{{ Lang::get('account/menu.reports.referers') }}</a></li>
-								</ul>-->
+								@if(empty($plan))
+									{{$plan=''}}
+								@endif
+
+								@if($plan=="fre")
+									<h2>Please update</h2>
+								@else
+										<ul id="account-submenu-reports" class="nav" role="menu">
+										<li><a href="{{ action('Account\Reports\PropertiesController@getIndex') }}" class="{{ (@$submenu_subsection == 'reports-properties') ? 'current' : '' }}">{{ Lang::get('account/menu.reports.properties') }}</a></li>
+										<li><a href="{{ action('Account\Reports\AgentsController@getIndex') }}" class="{{ (@$submenu_subsection == 'reports-agents') ? 'current' : '' }}">{{ Lang::get('account/menu.reports.agents') }}</a></li>
+										<li><a href="{{ action('Account\Reports\LeadsController@getIndex') }}" class="{{ (@$submenu_subsection == 'reports-leads') ? 'current' : '' }}">{{ Lang::get('account/menu.reports.leads') }}</a></li>
+										<li><a href="{{ action('Account\Reports\ReferersController@getIndex') }}" class="{{ (@$submenu_subsection == 'reports-referers') ? 'current' : '' }}">{{ Lang::get('account/menu.reports.referers') }}</a></li>
+										</ul>
+								@endif
 							</li>
 						@else
 							<li role="presentation">
