@@ -4,8 +4,19 @@
 ])
 
 @section('content')
-
 	@include('account.warning.pending-request')
+
+	<head>
+		<style type="text/css">
+			#tab-visits .column-property { display: none; }
+		</style>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<!-- Latest compiled JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
 
     <div id="account-container" class="container">
 		<div class="row">
@@ -79,7 +90,7 @@
 					@role('company')
 						@if ( @$submenu_section == 'reports' )
 							<li role="presentation" class="active">
-								<a  onclick="$('#commonModal').modal()" href="{{ action('Account\ReportsController@getIndex') }}">
+								<a  id="dialog" onclick="showDialog();" href="{{ action('Account\ReportsController@getIndex') }}">
 									<i class="account-icon account-icon-reports"></i>
 									{{ Lang::get('account/menu.reports') }}
 								</a>
@@ -181,7 +192,8 @@
     </div>
 
 	<script type="text/javascript">
-		var TICKETS = {
+
+        var TICKETS = {
 			cont: null,
 
 			options: {},
@@ -205,6 +217,10 @@
 						});
 					}
 				});
+                TICKETS.cont.on('click', '.#dialog', function(e){
+                        e.preventDefault();
+                        alert("sasdasd");
+                });
 			},
 
 			reload: function() {
@@ -223,7 +239,9 @@
 			var header_menu = $('#header .header-menu-search-trigger');
 			var locale_menu = $('#header .header-locale-social');
 
-			// Hide header menu
+            $('#commonModal').modal();
+
+            // Hide header menu
 			header_menu.find('>li').addClass('hidden-xs');
 
 			// Create account menu items
