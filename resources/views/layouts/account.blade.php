@@ -89,8 +89,12 @@
 									{{$plan=''}}
 								@endif
 
-								@if($plan=="fre")
+								@if($plan=="free")
 									<h2>Please update</h2>
+									@include('Modals.commonModal', ['header'=>"PDF Print Error",
+                 					'message'=>"No puedes imprimir este PDF. Por favor, actualuza tu plan!<br>
+                  						<p><a href='".$protocol.$_SERVER['HTTP_HOST']."/account/payment/upgrade' target='_blank'>
+                  					Actualiza!</a></p>"])
 								@else
 										<ul id="account-submenu-reports" class="nav" role="menu">
 										<li><a href="{{ action('Account\Reports\PropertiesController@getIndex') }}" class="{{ (@$submenu_subsection == 'reports-properties') ? 'current' : '' }}">{{ Lang::get('account/menu.reports.properties') }}</a></li>
