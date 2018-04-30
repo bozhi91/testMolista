@@ -90,7 +90,7 @@
 								@endif
 
 								@if($plan=="free")
-								
+
                                     <?php $protocol =isset($_SERVER['HTTPS']) ? 'https://' : 'http://';?>
 									@include('Modals.commonModal', ['header'=>"PDF Print Error",
                  					'message'=>"No puedes imprimir este PDF. Por favor, actualuza tu plan!<br>
