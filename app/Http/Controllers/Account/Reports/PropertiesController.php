@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use Illuminate\Support\Facades\Log;
+
 class PropertiesController extends \App\Http\Controllers\AccountController
 {
 
@@ -22,6 +24,9 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 		$yesterday =  time() - (60*60*24);
 		$stats = $this->site->stats()->whereDate('date','=',date('Y-m-d',$yesterday))->first();
+
+		Log::Info("holaaaa");
+		return false;
 
 		return view('account.reports.properties.index', compact('stats','current_tab'));
 	}
