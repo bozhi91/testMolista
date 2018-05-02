@@ -1,3 +1,22 @@
+
+<!-- Mostrar el plan actual y un boton para actualizar el plan. -->
+<?php $plan= App\Http\Controllers\Account\ReportsController::getPlan();?>
+<?php $protocol =isset($_SERVER['HTTPS']) ? 'https://' : 'http://';?>
+
+<div class="row">
+	<div class="col-sm-4"></div>
+	<div class="col-sm-4"></div>
+
+	<div class="col-sm-4">
+		<h4 id="planTag" style="margin-bottom:0px; margin-top:0px;">
+			<p>Plan actual:<b><?php echo  $plan;?></b>
+			<a href="/account/payment/upgrade" target='_blank'>
+				<button type="button" class="btn btn-info">Actualizar</button>
+			</a></p>
+		</h4>
+	</div>
+</div>
+
 <nav id="header" class="navbar navbar-default {{ @$header_class }}">
 	<div class="container header-container">
 		<div class="navbar-header">
@@ -18,17 +37,18 @@
 							'widget' => $widget,
 							'widget_class' => 'nav navbar-nav header-menu',
 						])
+
 					@endif
 				@endforeach
 			@endif
+
 
 			<ul class="nav navbar-nav header-menu header-menu-search-trigger visible-xs">
 				<li class="visible-xs"><a href="javascript:;" class="main-item show-advance-search-trigger">{{ Lang::get('web/search.title.popup') }}</a></li>
 			</ul>
 
-			<ul class="nav navbar-nav navbar-right header-locale-social">
-
-				@if ( !empty($site_setup['locales_select']) )
+				<ul class="nav navbar-nav navbar-right header-locale-social">
+			@if ( !empty($site_setup['locales_select']) )
 					<li class="dropdown locale-select">
 						<a href="#" class="main-item dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 							<span class="locale-placeholder">

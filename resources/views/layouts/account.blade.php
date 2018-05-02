@@ -4,8 +4,8 @@
 ])
 
 @section('content')
-
 	@include('account.warning.pending-request')
+
 
     <div id="account-container" class="container">
 		<div class="row">
@@ -73,19 +73,39 @@
 					</li>
 					<li class="separator"></li>
 
+
+					<?phpaction('Account\ReportsController@getIndex');?>
+					<!-- if the current plan is not premium, do not display the menu bellow. -->
+					@if(empty($plan))
+						{{$plan=''}}
+					@endif
+
 					@role('company')
 						@if ( @$submenu_section == 'reports' )
 							<li role="presentation" class="active">
-								<a href="{{ action('Account\ReportsController@getIndex') }}">
+								<a  id="dialog" href="{{ action('Account\ReportsController@getIndex') }}">
 									<i class="account-icon account-icon-reports"></i>
 									{{ Lang::get('account/menu.reports') }}
 								</a>
-								<ul id="account-submenu-reports" class="nav" role="menu">
-									<li><a href="{{ action('Account\Reports\PropertiesController@getIndex') }}" class="{{ (@$submenu_subsection == 'reports-properties') ? 'current' : '' }}">{{ Lang::get('account/menu.reports.properties') }}</a></li>
-									<li><a href="{{ action('Account\Reports\AgentsController@getIndex') }}" class="{{ (@$submenu_subsection == 'reports-agents') ? 'current' : '' }}">{{ Lang::get('account/menu.reports.agents') }}</a></li>
-									<li><a href="{{ action('Account\Reports\LeadsController@getIndex') }}" class="{{ (@$submenu_subsection == 'reports-leads') ? 'current' : '' }}">{{ Lang::get('account/menu.reports.leads') }}</a></li>
-									<li><a href="{{ action('Account\Reports\ReferersController@getIndex') }}" class="{{ (@$submenu_subsection == 'reports-referers') ? 'current' : '' }}">{{ Lang::get('account/menu.reports.referers') }}</a></li>
-								</ul>
+
+
+
+								@if($plan=="free")
+                                    <?php $protocol =isset($_SERVER['HTTPS']) ? 'https://' : 'http://';?>
+									@include('Modals.commonModal', ['header'=>"Acceso Denegado!",
+                 					'message'=>"No puedes acceder al informe. El informe solo podrá verse
+                 					 en las versiones de pago.Por favor, actualuza tu plan!
+                  					 <p><a  href='".$protocol.$_SERVER['HTTP_HOST']."/account/payment/upgrade' target='_blank'>
+                  					    <button type='button' class='btn btn-info .btn-md' style='margin-top:10px !important;'>Actualizar</button>
+                  					 </a></p>"])
+								@else
+										<ul id="account-submenu-reports" class="nav" role="menu">
+										<li><a href="{{ action('Account\Reports\PropertiesController@getIndex') }}" class="{{ (@$submenu_subsection == 'reports-properties') ? 'current' : '' }}">{{ Lang::get('account/menu.reports.properties') }}</a></li>
+										<li><a href="{{ action('Account\Reports\AgentsController@getIndex') }}" class="{{ (@$submenu_subsection == 'reports-agents') ? 'current' : '' }}">{{ Lang::get('account/menu.reports.agents') }}</a></li>
+										<li><a href="{{ action('Account\Reports\LeadsController@getIndex') }}" class="{{ (@$submenu_subsection == 'reports-leads') ? 'current' : '' }}">{{ Lang::get('account/menu.reports.leads') }}</a></li>
+										<li><a href="{{ action('Account\Reports\ReferersController@getIndex') }}" class="{{ (@$submenu_subsection == 'reports-referers') ? 'current' : '' }}">{{ Lang::get('account/menu.reports.referers') }}</a></li>
+										</ul>
+								@endif
 							</li>
 						@else
 							<li role="presentation">
@@ -163,21 +183,18 @@
     </div>
 
 	<script type="text/javascript">
-		var TICKETS = {
+
+        var TICKETS = {
 			cont: null,
-
 			options: {},
-
 			init: function(sel, ops) {
 				TICKETS.cont = $(sel);
-
 				if ( ops ) {
 					TICKETS.options = $.extend(TICKETS.options, ops);
 				}
 
 				TICKETS.cont.on('click', '.edit-ticket-trigger', function(e){
 					e.preventDefault();
-
 					if ( url = $(this).data().href ) {
 						$.magnificPopup.open({
 							items: {
@@ -187,6 +204,10 @@
 						});
 					}
 				});
+                TICKETS.cont.on('click', '.#dialog', function(e){
+                        e.preventDefault();
+                        alert("sasdasd");
+                });
 			},
 
 			reload: function() {
@@ -205,7 +226,16 @@
 			var header_menu = $('#header .header-menu-search-trigger');
 			var locale_menu = $('#header .header-locale-social');
 
-			// Hide header menu
+			//Display modal dialog when try to access the reports in free plan.
+
+			$("#dialog").click(function(e){
+                e.preventDefault();
+			    e.stopPropagation();
+                $('#commonModal').modal();
+            });
+
+
+            // Hide header menu
 			header_menu.find('>li').addClass('hidden-xs');
 
 			// Create account menu items
@@ -218,7 +248,6 @@
 				}
 
 				var lnk = el.find('>a').eq(0);
-
 				var item = $('<li class="visible-xs"></li>');
 
 				// Has submenu

@@ -1,8 +1,9 @@
 <?php namespace App\Http\Controllers\Account;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
+use Illuminate\Support\Facades\Log;
+use DB;
 
 class ReportsController extends \App\Http\Controllers\AccountController
 {
@@ -14,7 +15,20 @@ class ReportsController extends \App\Http\Controllers\AccountController
 		\View::share('submenu_section', 'reports');
 	}
 
-	public function getIndex()
+
+    public static function getPlan(){
+        $value = session('SiteSetup');
+        $result = DB::table('sites')
+            ->select('sites.id','sites.plan_id','plans.code')
+            ->where('sites.id', $value['site_id'])
+            ->join('plans', 'sites.plan_id', '=', 'plans.id')
+            ->get();
+
+        if(count($result)>0){return $result[0]->code;}
+        return "unavailable";
+    }
+
+    public function getIndex()
 	{
 		// Get last visit to this section
 		$since = \App\Models\Site\UserSince::getSince($this->site->id, $this->site_user->id, 'reports');
@@ -65,8 +79,10 @@ class ReportsController extends \App\Http\Controllers\AccountController
 		// Set last visit to this section
 		\App\Models\Site\UserSince::setSince($this->site->id, $this->site_user->id, 'reports');
 
-
+		//return view('layouts.account')->with("plan",$value['site_id']);
+        if($this->getPlan() == "free"){
+            return view('layouts.account')->with("plan",$this->getPlan());
+        }
 		return view('account.reports.index', compact('stats'));
 	}
-	
 }

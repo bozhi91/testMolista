@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use Illuminate\Support\Facades\Log;
+
 class PropertiesController extends \App\Http\Controllers\AccountController
 {
 
