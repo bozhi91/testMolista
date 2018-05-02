@@ -6,17 +6,6 @@
 @section('content')
 	@include('account.warning.pending-request')
 
-	<head>
-		<style type="text/css">
-			#tab-visits .column-property { display: none; }
-		</style>
-		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<!-- jQuery library -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<!-- Latest compiled JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	</head>
 
     <div id="account-container" class="container">
 		<div class="row">
@@ -86,6 +75,10 @@
 
 
 					<?phpaction('Account\ReportsController@getIndex');?>
+					<!-- if the current plan is not premium, do not display the menu bellow. -->
+					@if(empty($plan))
+						{{$plan=''}}
+					@endif
 
 					@role('company')
 						@if ( @$submenu_section == 'reports' )
@@ -95,10 +88,7 @@
 									{{ Lang::get('account/menu.reports') }}
 								</a>
 
-								<!-- if the current plan is not premium, do not display the menu bellow. -->
-								@if(empty($plan))
-									{{$plan=''}}
-								@endif
+
 
 								@if($plan=="free")
                                     <?php $protocol =isset($_SERVER['HTTPS']) ? 'https://' : 'http://';?>
