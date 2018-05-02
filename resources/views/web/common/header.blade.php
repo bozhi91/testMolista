@@ -1,6 +1,7 @@
 <nav id="header" class="navbar navbar-default {{ @$header_class }}">
 	<div class="container header-container">
 		<div class="navbar-header">
+
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
 				<span class="sr-only">Toggle Navigation</span>
 				<span class="icon-bar"></span>
@@ -22,12 +23,21 @@
 				@endforeach
 			@endif
 
+
+                <?php $protocol =isset($_SERVER['HTTPS']) ? 'https://' : 'http://';?>
+				<div class="navbar-left header-locale-social" style="margin-left:65%;">
+					<h4 id="planTag" style="color:#000">Plan: Free</h4>
+					<a href="/account/payment/upgrade" target='_blank'>
+						<button type="button" class="btn btn-info" style="margin-bottom:10px;">Actualizar</button>
+					</a>
+				</div>
+
 			<ul class="nav navbar-nav header-menu header-menu-search-trigger visible-xs">
 				<li class="visible-xs"><a href="javascript:;" class="main-item show-advance-search-trigger">{{ Lang::get('web/search.title.popup') }}</a></li>
 			</ul>
 
-			<ul class="nav navbar-nav navbar-right header-locale-social">
 
+			<ul class="nav navbar-nav navbar-right header-locale-social">
 				@if ( !empty($site_setup['locales_select']) )
 					<li class="dropdown locale-select">
 						<a href="#" class="main-item dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

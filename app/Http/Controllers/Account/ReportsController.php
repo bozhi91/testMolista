@@ -24,8 +24,7 @@ class ReportsController extends \App\Http\Controllers\AccountController
             ->join('plans', 'sites.plan_id', '=', 'plans.id')
             ->get();
 
-        //return view('layouts.account')->with("plan",$value['site_id']);
-        return view('layouts.account')->with("plan",$result[0]->code);
+
 
 
 		// Get last visit to this section
@@ -77,6 +76,10 @@ class ReportsController extends \App\Http\Controllers\AccountController
 		// Set last visit to this section
 		\App\Models\Site\UserSince::setSince($this->site->id, $this->site_user->id, 'reports');
 
+		//return view('layouts.account')->with("plan",$value['site_id']);
+        if($result[0]->code == "free"){
+           // return view('layouts.account')->with("plan",$result[0]->code);
+        }
 		return view('account.reports.index', compact('stats'));
 	}
 }
