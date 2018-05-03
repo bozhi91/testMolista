@@ -1,3 +1,6 @@
+<!-- Mostrar el plan actual y un boton para actualizar el plan. -->
+@include("layouts.currentPlan")
+
 <nav id="header" class="navbar navbar-default {{ @$header_class }}">
 	<div class="container header-container">
 		

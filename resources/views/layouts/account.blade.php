@@ -88,8 +88,6 @@
 									{{ Lang::get('account/menu.reports') }}
 								</a>
 
-
-
 								@if($plan=="free")
                                     <?php $protocol =isset($_SERVER['HTTPS']) ? 'https://' : 'http://';?>
 									@include('Modals.commonModal', ['header'=>"Acceso Denegado!",
@@ -147,7 +145,6 @@
 						@endrole
 						<li class="separator"></li>
 					@endif
-
 					@if ( @$submenu_section == 'profile' )
 						<li role="presentation" class="active">
 							<a href="{{ action('AccountController@index') }}">
@@ -167,9 +164,18 @@
 							</a>
 						</li>
 					@endif
+					<!-- Custom Link -->
+					<li class="separator"></li>
+					<li>
+						<a href="{{ action('Account\ReportsController@getUserData') }}">
+							<i class="glyphicon glyphicon-cog"></i>
+							Goto Garantify
+						</a>
+					</li>
+					<!-- Custom Link -->
 
 					<li role="presentation">
-						<a href="{{ action('Auth\AuthController@logout') }}">
+						<a href="{{ action('Account\ReportsController@getIndex') }}">
 							<i class="account-icon account-icon-logout_2"></i>
 							{{ Lang::get('web/header.logout') }}
 						</a>

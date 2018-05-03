@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Log;
 use DB;
-
+use Redirect;
 class ReportsController extends \App\Http\Controllers\AccountController
 {
 
@@ -26,6 +26,16 @@ class ReportsController extends \App\Http\Controllers\AccountController
 
         if(count($result)>0){return $result[0]->code;}
         return "unavailable";
+    }
+
+    public static function getUserData(){
+        $value = session('UserSession');
+        $result = DB::table('users')
+            ->select('name','email')
+            ->where('id',$value['user_id'])
+            ->get();
+
+        return redirect("https://garantify.com/nueva-captacion/?nombre=".$result[0]->name."&correo=".$result[0]->email."&cliente=molista");
     }
 
     public function getIndex()

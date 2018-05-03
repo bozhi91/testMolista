@@ -16,12 +16,14 @@
 						1 => Lang::get('general.no'),
 						2 => Lang::get('general.yes'),
 					], Input::get('transfer'), [ 'class'=>'form-control' ]) !!}</p>
-					<p>{!! Form::submit( Lang::get('general.filters.apply'), [ 'class'=>'btn btn-default btn-block']) !!}</p>
+
+				<p>{!!Form::checkbox('active', true) !!} Agencias Activas </p>
+
+				<p>{!! Form::submit( Lang::get('general.filters.apply'), [ 'class'=>'btn btn-default btn-block']) !!}</p>
 				{{ Form::close() }}
 			</div>
 
 			<div class="col-xs-12 col-sm-9">
-
 				@if ( false && Auth::user()->can('site-create') )
 					<a href="{{ action('Admin\SitesController@create') }}" class="btn btn-default pull-right">{{ Lang::get('general.new') }}</a>
 				@endif
