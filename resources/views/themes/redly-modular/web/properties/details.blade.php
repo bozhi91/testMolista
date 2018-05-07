@@ -94,7 +94,9 @@
 							</div>
 
 							<div class="redly-modular-view-in-3d">
-							@include('components.property.property-view-in-3d-button')
+                            <?php if(!strpos($_SERVER['PHP_SELF'],"buyapropertymallorca")):;?>
+								@include('components.property.property-view-in-3d-button')
+							<?php endif;?>
 							</div>
 
 						</div>

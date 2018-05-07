@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
 
 class SitesController extends Controller
 {
@@ -26,8 +27,7 @@ class SitesController extends Controller
 							->with('properties')
 							->with('users')
 							->with('plan')
-							->with('domains')
-							;
+							->with('domains');
 
 		// Filter by title
 		if ( $this->request->input('title') )
@@ -35,7 +35,13 @@ class SitesController extends Controller
 			$query->whereTranslationLike('title', "%{$this->request->input('title')}%");
 		}
 
-		// Filter by domain
+        // Filter by active
+        if ( $this->request->input('active') )
+        {
+            $query->where('enabled', $this->request->input('active'));
+        }
+
+        // Filter by domain
 		if ( $this->request->input('domain') )
 		{
 			$query->withDomain($this->request->input('domain'));
