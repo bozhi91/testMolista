@@ -18,6 +18,7 @@
 					], Input::get('transfer'), [ 'class'=>'form-control' ]) !!}</p>
 
 				<p>{!!Form::checkbox('active', true) !!} Agencias Activas </p>
+				<p>{!!Form::checkbox('payed', true) !!} Agencias de pago </p>
 
 				<p>{!! Form::submit( Lang::get('general.filters.apply'), [ 'class'=>'btn btn-default btn-block']) !!}</p>
 				{{ Form::close() }}

@@ -41,6 +41,12 @@ class SitesController extends Controller
             $query->where('enabled', $this->request->input('active'));
         }
 
+        // Filter by plan
+        if ( $this->request->input('payed') )
+        {
+            $query->where('plan_id','!=',1);
+        }
+
         // Filter by domain
 		if ( $this->request->input('domain') )
 		{
