@@ -9,7 +9,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" style="color:#ff0000" href="{{ action('CorporateController@index') }}">Molista</a>
+			<a class="navbar-brand" style="color:#0000ff" href="{{ action('CorporateController@index') }}">Molista</a>
 		</div>
 
 		<div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -29,7 +29,5 @@
 				@endif
 			</ul>
 		</div>
-
 	</div>
-
 </nav>
