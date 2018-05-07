@@ -3,7 +3,7 @@
 <?php $protocol =isset($_SERVER['HTTPS']) ? 'https://' : 'http://';?>
 
 <?php if(strpos($_SERVER['PHP_SELF'],"account")):;?><!-- If the current page is the admin panel: load the register button-->
-<div class="row">
+<div class="row" id="updatePlan">
     <div class="col-sm-3"></div>
     <div class="col-sm-3"></div>
     <div class="col-sm-3"></div>
