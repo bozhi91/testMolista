@@ -2,7 +2,7 @@
 <?php $plan= App\Http\Controllers\Account\ReportsController::getPlan();?>
 <?php $protocol =isset($_SERVER['HTTPS']) ? 'https://' : 'http://';?>
 
-<?php if(strpos($_SERVER['PHP_SELF'],"account")):;?><!-- If the current page is the admin panel: load the register button-->
+<?php if(strpos($_SERVER['REQUEST_URI'],"account")):;?><!-- If the current page is the admin panel: load the register button-->
 <div class="row" id="updatePlan">
     <div class="col-sm-3"></div>
     <div class="col-sm-3"></div>
