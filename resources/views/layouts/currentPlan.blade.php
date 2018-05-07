@@ -13,7 +13,8 @@
             <p>Plan actual:<b><?php echo  $plan;?></b>
                 <a href="/account/payment/upgrade" target='_blank'>
                     <button type="button" class="btn btn-info">Actualizar</button>
-                </a></p>
+                </a>
+            </p>
         </h4>
     </div>
 </div>
