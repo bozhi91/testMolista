@@ -73,7 +73,6 @@ class SitesController extends Controller
 			default:
 				$order = 'asc';
 		}
-
 		switch ( $this->request->input('orderby') )
 		{
 			case 'created':
