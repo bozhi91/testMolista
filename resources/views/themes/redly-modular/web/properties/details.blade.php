@@ -94,7 +94,7 @@
 							</div>
 
 							<div class="redly-modular-view-in-3d">
-								
+
 								@if($agency!=185)
 									@include('components.property.property-view-in-3d-button')
 								@endif

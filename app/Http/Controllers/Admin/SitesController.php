@@ -81,7 +81,9 @@ class SitesController extends Controller
 			break;
 
             case 'plan':
-                $query->orderBy('plan_id', $order);
+                $query
+                    ->leftJoin('plans','plans.id','=','sites.plan_id')
+                    ->orderBy('name', $order);
             break;
 
 			case 'transfer':
