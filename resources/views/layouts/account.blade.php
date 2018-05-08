@@ -168,8 +168,8 @@
 					<li class="separator"></li>
 					<li>
 						<a href="{{ action('Account\ReportsController@getUserData') }}">
-							<i class="glyphicon glyphicon-cog"></i>
-							Goto Garantify
+							<i class="account-icon glyphicon glyphicon-cog"></i>
+							Benefíciate
 						</a>
 					</li>
 					<!-- Custom Link -->

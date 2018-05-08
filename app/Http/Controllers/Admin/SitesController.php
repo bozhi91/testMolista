@@ -78,7 +78,12 @@ class SitesController extends Controller
 		{
 			case 'created':
 				$query->orderBy('created_at', $order);
-				break;
+			break;
+
+            case 'plan':
+                $query->orderBy('plan_id', $order);
+            break;
+
 			case 'transfer':
 				$query->orderBy('web_transfer_requested', $order);
 				break;

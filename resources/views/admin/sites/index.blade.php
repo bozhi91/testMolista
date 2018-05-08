@@ -40,7 +40,7 @@
 								{!! drawSortableHeaders(url()->full(), [
 									'id' => [ 'title' => '#' ],
 									'domain' => [ 'title' => Lang::get('admin/sites.domain'), 'sortable'=>false ],
-									'plan' => [ 'title' => Lang::get('admin/sites.tab.plan')  ],
+									'plan' => [ 'title' => Lang::get('admin/sites.tab.plan') ],
 									'country' => [ 'title' => Lang::get('admin/sites.country'), 'sortable'=>false ],
 									'theme' => [ 'title' => Lang::get('admin/sites.theme') ],
 									'properties' => [ 'title' => Lang::get('admin/sites.properties'), 'class'=>'text-center' ],
