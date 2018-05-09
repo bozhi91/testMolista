@@ -1128,6 +1128,8 @@ class Site extends TranslatableModel
 
 	public function getStripeCustomerAttribute()
 	{
+	    echo "2";
+
 		if ( !$this->stripe_id )
 		{
 			return false;
