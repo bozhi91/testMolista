@@ -175,7 +175,7 @@
 									color: white;
 									background: red;
 									padding: 3px;
-									font-size: 10px;">novedad</div>
+									font-size: 10px;">nuevo</div>
 						</a>
 					</li>
 					<!-- Custom Link -->
