@@ -244,7 +244,7 @@ class PaymentController extends \App\Http\Controllers\AccountController
 
 	public function getUpdateCreditCard()
 	{
-	    echo "1";
+	  //  echo "1";
 
 		$stripe_customer = $this->site->stripe_customer;
 		if ( !$stripe_customer )
