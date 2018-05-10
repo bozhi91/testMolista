@@ -19,7 +19,7 @@ class Mapper extends \App\Marketplaces\Mapper {
         $map['#has_included_fees'] = 0;
         $map['#agency_rates_type'] = 2;
         $map['#currency'] = 'EUR';
-        $map['#commune'] = $item['location']['state'];
+        $map['#city'] = $item['location']['city'];
         $map['#country_code'] = $item['location']['country'];
         $map['#habitat'] = $this->habitat();
 
@@ -27,6 +27,7 @@ class Mapper extends \App\Marketplaces\Mapper {
         {
             $map['#latitude'] = $this->decimal($item['location']['lat'], 8);
             $map['#longitude'] = $this->decimal($item['location']['lng'], 8);
+	    	$map['#postal_code'] = $item['location']['zipcode'];
         }
         else
         {
