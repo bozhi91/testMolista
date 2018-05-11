@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use App\Http\Requests;
 
+use Illuminate\Support\Facades\Log;
+
 class PaymentController extends \App\Http\Controllers\AccountController
 {
 
@@ -244,14 +246,25 @@ class PaymentController extends \App\Http\Controllers\AccountController
 
 	public function getUpdateCreditCard()
 	{
-	  //  echo "1";
+	    echo "DONE";
 
-		$stripe_customer = $this->site->stripe_customer;
+       /* //pass the user object to the gateway; it must implement BillableContract
+
+        $gateway = new \Laravel\Cashier\StripeGateway($user);
+
+        //manually create a new Customer instance with Stripe
+        $customer = $gateway->createStripeCustomer($request->get('stripe_token'));
+
+        //update the model's info
+        $gateway->updateLocalStripeData($customer);
+        */
+
+        $stripe_customer = $this->site->stripe_customer;
 		if ( !$stripe_customer )
 		{
 			abort(404);
 		}
-
+        echo "1";
 		$user_email = $stripe_customer->email ? $stripe_customer->email : $this->site_user->email;
 
 		return view('account.payment.update-credit-card', compact('user_email'));
