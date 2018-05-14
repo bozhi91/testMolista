@@ -115,8 +115,18 @@
 									<span class="text-uppercase">{{ $card_brand }}</span>
 									**** **** **** {{ $card_last_four }}
 								</div>
+
+                                <?php
+									$status =false; //App\Http\Controllers\Account\PaymentController::checkMigratedUsers();
+								?>
+
 								<div>
-									<a href="{{ action('Account\PaymentController@getUpdateCreditCard') }}" class="btn btn-sm btn-primary">{{ Lang::get('account/payment.method.stripe.update') }}</a>
+									@if($status)
+										<a href="{{ action('Account\PaymentController@getUpdateCreditCard') }}" class="btn btn-sm btn-primary">{{ Lang::get('account/payment.method.stripe.update') }}</a>
+									@else
+
+										<a href="{{ action('Account\PaymentController@getUpdateCreditCard') }}"  class="btn btn-sm btn-primary">Sincronizar</a>
+									@endif
 								</div>
 							</li>
 						@elseif ( $payment_method == 'transfer' )
@@ -130,7 +140,6 @@
 			</div>
 		</div>
 	@endif
-
 </div>	
 
 <div id="plans-modal" class="mfp-hide app-popup-block-white app-popup-block-large">

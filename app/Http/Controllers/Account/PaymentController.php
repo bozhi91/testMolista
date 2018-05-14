@@ -2,8 +2,8 @@
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
-
 use Illuminate\Support\Facades\Log;
+use DB;
 
 class PaymentController extends \App\Http\Controllers\AccountController
 {
@@ -158,6 +158,7 @@ class PaymentController extends \App\Http\Controllers\AccountController
 	public function getPay()
 	{
 		$planchange = $this->site->planchanges()->pending()->first();
+
 		if ( !$planchange )
 		{
 			return redirect()->action('Account\Profile\PlanController@getIndex');
@@ -188,7 +189,6 @@ class PaymentController extends \App\Http\Controllers\AccountController
 		}
 
 		$data = $this->site->getSignupInfo();
-
 		return view('account.payment.pay', $data);
 	}
 	public function postPay()
@@ -244,27 +244,50 @@ class PaymentController extends \App\Http\Controllers\AccountController
 		return redirect()->action('Account\Profile\PlanController@getIndex')->with('success', trans('account/payment.plans.cancel.success'));
 	}
 
+	//check if the current user has already synchronized his account with the new stripe account
+    //if so, let him update his account. If not, he will synchronize the account with the new stripe account.
+    //The catch is, we're actually creating a new stripe account for this user, using his actual plan as default.
+    //The user will think we're updating his accont, but actually we're creating a new one.
+	public static function isUserSynchronized(){
+
+	    $user_id=2051;
+        $site_id=1361;
+        return false;
+        $status = DB::table('stripe_migration')->where('user_id', $user_id)->where('site_id', $site_id)->first();
+        if($status==null){
+            return false;
+        }
+        return true;
+    }
+
+    public function syncronizeStripeAccount(){
+        $data = $this->site->getSignupInfo();
+        return $data;
+       // return view('account.payment.pay', compact('data'));
+        //update the table stripe_migrations when STRIPE server returns ACK
+	    // return view('account/profile/tab-plan', compact('user_email'));
+	    //return false;
+    }
+
 	public function getUpdateCreditCard()
 	{
-	    echo "DONE";
+	    //check if the user is synchronized with the new stripe account. If not, do it!
+	    if(!$this->isUserSynchronized()){
+            $data = $this->syncronizeStripeAccount();
 
-       /* //pass the user object to the gateway; it must implement BillableContract
+            $pending_request = array("id"=>1,"payment_method"=>"stripe");
+            $data['pending_request']=$pending_request;
 
-        $gateway = new \Laravel\Cashier\StripeGateway($user);
+            return view('account.payment.synchronize',compact('data'));
 
-        //manually create a new Customer instance with Stripe
-        $customer = $gateway->createStripeCustomer($request->get('stripe_token'));
-
-        //update the model's info
-        $gateway->updateLocalStripeData($customer);
-        */
+            die;
+        }
 
         $stripe_customer = $this->site->stripe_customer;
 		if ( !$stripe_customer )
 		{
 			abort(404);
 		}
-        echo "1";
 		$user_email = $stripe_customer->email ? $stripe_customer->email : $this->site_user->email;
 
 		return view('account.payment.update-credit-card', compact('user_email'));
