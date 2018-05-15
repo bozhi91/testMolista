@@ -16,6 +16,7 @@ class PlanController extends \App\Http\Controllers\AccountController
 
 	public function getIndex()
 	{
+
 		$data = [
 			'current_tab' => 'plan',
 			'pending_request' => $this->site->planchanges()->pending()->first(),

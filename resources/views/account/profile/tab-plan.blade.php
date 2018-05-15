@@ -117,7 +117,7 @@
 								</div>
 
                                 <?php
-									$status =false; //App\Http\Controllers\Account\PaymentController::checkMigratedUsers();
+									$status = false; //App\Http\Controllers\Account\PaymentController::isUserSynchronized();
 								?>
 
 								<div>

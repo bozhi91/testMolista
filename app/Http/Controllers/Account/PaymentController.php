@@ -46,6 +46,8 @@ class PaymentController extends \App\Http\Controllers\AccountController
 	}
 	public function postUpgrade()
 	{
+	    echo json_encode($_POST);// die;
+
 		// Check if pending request
 		if ( $this->site->has_pending_plan_request )
 		{
@@ -195,6 +197,15 @@ class PaymentController extends \App\Http\Controllers\AccountController
 	{
 		// Validate plan change
 		$planchange = $this->site->planchanges()->pending()->first();
+
+		echo json_encode( $planchange);
+        echo json_encode( $_POST);
+
+        echo "Sign up user....";
+        $this->site->newSubscription('main', $planchange->stripe_plan_id)->create( $this->request->input('stripeToken') );
+        echo "done..."; die;
+
+
 		if ( !$planchange )
 		{
 			\Log::error("Account\PaymentController postPay: planchange ID {$planchange->id} not found");
@@ -250,9 +261,14 @@ class PaymentController extends \App\Http\Controllers\AccountController
     //The user will think we're updating his accont, but actually we're creating a new one.
 	public static function isUserSynchronized(){
 
-	    $user_id=2051;
-        $site_id=1361;
+	    $site = session('SiteSetup');
+        $user = session('UserSession');
+
+	    $user_id = $site["site_id"];
+        $site_id = $user["user_id"];
+
         return false;
+
         $status = DB::table('stripe_migration')->where('user_id', $user_id)->where('site_id', $site_id)->first();
         if($status==null){
             return false;
@@ -261,26 +277,20 @@ class PaymentController extends \App\Http\Controllers\AccountController
     }
 
     public function syncronizeStripeAccount(){
-        $data = $this->site->getSignupInfo();
+
+        $pending_request = array("id"=>1,"payment_method"=>"stripe","payment_interval"=>"year",
+            "price"=>100,"plan_currency"=>"EUR","currency_symbol"=>"€","plan_name"=>"Basic","email"=>"user@gmail.com");
+
+        $data['pending_request']=$pending_request;
         return $data;
-       // return view('account.payment.pay', compact('data'));
-        //update the table stripe_migrations when STRIPE server returns ACK
-	    // return view('account/profile/tab-plan', compact('user_email'));
-	    //return false;
     }
 
 	public function getUpdateCreditCard()
 	{
-	    //check if the user is synchronized with the new stripe account. If not, do it!
+	    //Check if the user is synchronized with the new stripe account. If not, do it!
 	    if(!$this->isUserSynchronized()){
             $data = $this->syncronizeStripeAccount();
-
-            $pending_request = array("id"=>1,"payment_method"=>"stripe");
-            $data['pending_request']=$pending_request;
-
             return view('account.payment.synchronize',compact('data'));
-
-            die;
         }
 
         $stripe_customer = $this->site->stripe_customer;
@@ -290,7 +300,7 @@ class PaymentController extends \App\Http\Controllers\AccountController
 		}
 		$user_email = $stripe_customer->email ? $stripe_customer->email : $this->site_user->email;
 
-		return view('account.payment.update-credit-card', compact('user_email'));
+		return view('account.payment.update-credit-card', 'user_email');
 	}
 	public function postUpdateCreditCard()
 	{
