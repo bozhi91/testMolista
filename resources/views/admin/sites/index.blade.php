@@ -17,8 +17,21 @@
 						2 => Lang::get('general.yes'),
 					], Input::get('transfer'), [ 'class'=>'form-control' ]) !!}</p>
 
-				<p>{!!Form::checkbox('active', true) !!} Agencias Activas </p>
-				<p>{!!Form::checkbox('payed', true) !!} Agencias de pago </p>
+				<?php
+				    $active = session('active');
+                	$payed   = session('payed');
+
+				    if($active):?>
+						<p>{{Form::checkbox('active',0,true ) }}  Agencias Activas </p>
+					<?php else:?>
+						<p>{{Form::checkbox('active',0,false ) }}  Agencias Activas </p>
+					<?php endif;?>
+
+					<?php if($active):?>
+					<p>{{Form::checkbox('payed',0,true ) }}  Agencias de pago </p>
+					<?php else:?>
+					<p>{{Form::checkbox('active',0,false ) }}  Agencias de pago </p>
+                	<?php endif;?>
 
 				<p>{!! Form::submit( Lang::get('general.filters.apply'), [ 'class'=>'btn btn-default btn-block']) !!}</p>
 				{{ Form::close() }}
@@ -26,7 +39,7 @@
 
 			<div class="col-xs-12 col-sm-9">
 				@if ( false && Auth::user()->can('site-create') )
-					<a href="{{ action('Admin\SitesController@create') }}" class="btn btn-default pull-right">{{ Lang::get('general.new') }}</a>
+					 <a href="{{ action('Admin\SitesController@create') }}" class="btn btn-default pull-right">{{ Lang::get('general.new') }}</a>
 				@endif
 
 				<h1 class="list-title">{{ Lang::get('admin/menu.sites') }}</h1>
