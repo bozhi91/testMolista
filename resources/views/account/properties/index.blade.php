@@ -90,6 +90,7 @@
 								'image' => [ 'title' => Lang::get('account/properties.image'), 'sortable'=>false, 'class'=>'text-center text-nowrap' ],
 								'enabled' => [ 'title' => Lang::get('account/properties.enabled'), 'sortable'=>false, 'class'=>'text-center text-nowrap' ],
 								'action' => [ 'title' => '', 'sortable'=>false ],
+								'marketplaces' => [ 'title' => 'Marketplaces', 'sortable'=>false ],
 							]) !!}
 						</tr>
 					</thead>
@@ -187,6 +188,19 @@
 											</li>
 										</ul>
 									</div>
+								</td>
+								<td>
+
+                                <?php
+									$result = App\Http\Controllers\Account\PropertiesController::getMarketplaces($property->ref);
+								?>
+									@foreach ($result as $res)
+										<?php
+                                        $url = "http://".$res->subdomain.".molista.com/marketplaces/".$res->logo;?>
+										<span class="marketplace-name text-nowrap;" title={{ $res->name }}
+										  	style="background-image: url({{ $url }})"/>&nbsp;
+										</span>
+									@endforeach
 								</td>
 							</tr>
 						@endforeach
