@@ -37,19 +37,16 @@ class SitesController extends Controller
 		}
 
         // Filter by active --> called by the checkbox
-        if ( $this->request->input('active') )
+        if ( $this->request->input('active')!=null)
         {
-            session(['active' => true]);
             $query->where('enabled', $this->request->input('active'));
-        }else session(['active' => false]);
-
+        }
 
         // Filter by plan --> called by the checkbox
         if ( $this->request->input('payed') )
         {
-            session(['payed' => true]);
             $query->where('plan_id','!=',1);
-        }else session(['payed' => false]);
+        }
 
         // Filter by domain
 		if ( $this->request->input('domain') )

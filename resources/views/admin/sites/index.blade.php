@@ -17,21 +17,11 @@
 						2 => Lang::get('general.yes'),
 					], Input::get('transfer'), [ 'class'=>'form-control' ]) !!}</p>
 
-				<?php
-				    $active = session('active');
-                	$payed   = session('payed');
+				<input type="checkbox" name="payed" id="payed"  valie="payed">
+				{{ Lang::get('account/properties.payed') }}<br>
 
-				    if($active):?>
-						<p>{{Form::checkbox('active',0,true ) }}  Agencias Activas </p>
-					<?php else:?>
-						<p>{{Form::checkbox('active',0,false ) }}  Agencias Activas </p>
-					<?php endif;?>
-
-					<?php if($active):?>
-					<p>{{Form::checkbox('payed',0,true ) }}  Agencias de pago </p>
-					<?php else:?>
-					<p>{{Form::checkbox('active',0,false ) }}  Agencias de pago </p>
-                	<?php endif;?>
+				<input type="checkbox" name="active" id="active" valie="active">
+				{{ Lang::get('account/properties.active') }}
 
 				<p>{!! Form::submit( Lang::get('general.filters.apply'), [ 'class'=>'btn btn-default btn-block']) !!}</p>
 				{{ Form::close() }}
@@ -93,9 +83,21 @@
 	</div>
 
 	<script type="text/javascript">
-		ready_callbacks.push(function(){
-			var cont = $('#sites-list');
-		});
+            ready_callbacks.push(function(){
+                var cont = $('sites-list');
+
+                var vars = {};
+                var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+                    vars[key] = value;
+                });
+
+                if(vars["active"]=='on'){
+                    $("#active").click();
+                }
+                if(vars["payed"]=='on'){
+                    $("#payed").click();
+                }
+            });
 	</script>
 
 @endsection
