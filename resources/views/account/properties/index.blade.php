@@ -193,14 +193,13 @@
 
                                 <?php
 									$result = App\Http\Controllers\Account\PropertiesController::getMarketplaces($property->ref);
+                                        foreach ($result as $res){
+                                            $url = "http://".$res->subdomain.".molista.com/marketplaces/".$res->logo;
+                                            echo "<span class='marketplace-name text-nowrap;' title='".$res->name."'
+                                              style='background-image: url(".$url.")'/>&nbsp;
+                                        	</span>";
+                                        }
 								?>
-									@foreach ($result as $res)
-										<?php
-                                        $url = "http://".$res->subdomain.".molista.com/marketplaces/".$res->logo;?>
-										<span class="marketplace-name text-nowrap;" title={{ $res->name }}
-										  	style="background-image: url({{ $url }})"/>&nbsp;
-										</span>
-									@endforeach
 								</td>
 							</tr>
 						@endforeach
@@ -208,13 +207,13 @@
 				</table>
                 {!! drawPagination($properties, Input::except('page'), action('Account\PropertiesController@index', [ 'csv'=>1 ])) !!}
 			@endif
-
 		</div>
 	</div>
 
 	<script type="text/javascript">
 		ready_callbacks.push(function() {
 			var cont = $('#admin-properties');
+			
 
 			//Share dialog
 			cont.find('.share-social-link').on('click', function(e){
