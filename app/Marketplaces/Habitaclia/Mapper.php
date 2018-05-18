@@ -9,7 +9,12 @@ class Mapper extends \App\Marketplaces\Mapper {
 	 * @return array
 	 */
 	public function map() {
+
+
+
+
 		$item = $this->item;
+
 
 		$map = [];
 
@@ -118,6 +123,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 		$map['mapa']['longitud'] = self::h($item['location']['lng']);
 		$map['mapa']['zoom'] = 16; //14 15 16 17
 		$map['mapa']['puntero'] = !empty($item['show_address']) && $item['show_address'] ? 1 : 0;
+        $map['mapa']['video_360'] = "";
 
 		$map['producto_premium'] = 0;
 		$map['producto_destacado'] = 0;

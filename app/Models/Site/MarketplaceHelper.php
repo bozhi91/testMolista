@@ -102,7 +102,6 @@ class MarketplaceHelper
 		if ($marketplace) {
 			$this->setMarketplace($marketplace);
 		}
-
 		return $this->marketplace_adm->getAttributes();
 	}
 

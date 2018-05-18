@@ -55,6 +55,7 @@ class AttributesHandler {
 	 * @return array
 	 */
 	protected function loadData() {
+
 		$provinciasFile = dirname(__FILE__) . '/assets/provincias.csv';
 		$poblacionesFile = dirname(__FILE__) . '/assets/poblaciones.csv';
 		$zonasFile = dirname(__FILE__) . '/assets/zonas.csv';
