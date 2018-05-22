@@ -40,6 +40,11 @@
 			{!! Form::label("{$item_key}[property_id]", Lang::get('account/site.menus.update.field.property')) !!}
 			{!! Form::select("{$item_key}[property_id]", [''=>'']+$properties, @$item->property_id, [ 'class'=>'has-select-2 form-control required' ]) !!}
 		</div>
+	@elseif ($type == 'contact')
+		<div class="form-group error-container">
+			{!! Form::label("{$item_key}[property_id]", "Contact") !!}
+			{!! Form::text("{$item_key}[contact]", null,[ 'class'=>'input-sm form-control']) !!}
+		</div>
 	@endif
 
 	<div class="form-group error-container">

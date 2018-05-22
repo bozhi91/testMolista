@@ -12,7 +12,6 @@
 			<div class="col-xs-12 col-sm-5">
 
 				<div class="menu-item-options relative">
-
 					@if ( empty($menu) )
 						<div class="mfp-bg" style="position: absolute;"></div>
 					@endif
@@ -20,7 +19,6 @@
 					<h3>{{ Lang::get('account/site.menus.links.title') }}</h3>
 
 					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-
 						<div class="panel panel-custom">
 							<div role="button" id="menu-item-custom-heading" data-toggle="collapse" href="#menu-item-custom" aria-expanded="{{ (old('items.new.type') == 'custom') ? 'true' : 'false' }}" aria-controls="menu-item-custom" class="panel-heading {{ (old('items.new.type') == 'custom') ? '' : 'collapsed' }}">
 								<div class="pull-right"><span class="caret"></span></div>
@@ -81,6 +79,27 @@
 							</div>
 						</div>
 
+						<!--------------- CONTACT WIDGET ---------------------------->
+						<div class="panel panel-custom">
+							<div role="button" id="menu-item-properties-heading1" data-toggle="collapse" href="#menu-item-properties1" aria-expanded="{{ (old('items.new.type') == 'property') ? 'true' : 'false' }}" aria-controls="menu-item-properties1" class="panel-heading {{ (old('items.new.type') == 'property') ? '' : 'collapsed' }}">
+								<div class="pull-right"><span class="caret"></span></div>
+								{{ Lang::get('account/site.menus.links.properties') }}
+							</div>
+							<div id="menu-item-properties1" class="panel-collapse collapse {{ (old('items.new.type') == 'property') ? 'in' : '' }}" role="tabpanel" aria-labelledby="menu-item-properties-heading1">
+								<div class="panel-body">
+									@if ( !empty($menu) )
+										{!! Form::open([ 'method'=>'POST', 'class'=>'new-menu-item-form', 'action'=>['Account\Site\MenusController@postItem', $menu->slug] ]) !!}
+										{!! Form::hidden('items[new][type]','property') !!}
+										@include('account.site.menus.item', [ 'type'=>'contact', 'item'=>false ])
+										<div class="text-right">
+											{!! Form::submit(Lang::get('account/site.menus.links.button'), [ 'class'=>'btn btn-primary btn-sm']) !!}
+										</div>
+										{!! Form::close() !!}
+									@endif
+								</div>
+							</div>
+						</div>
+						<!--------------- CONTACT WIDGET ---------------------------->
 					</div>
 					
 				</div>

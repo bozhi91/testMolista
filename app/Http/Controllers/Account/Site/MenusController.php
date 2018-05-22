@@ -246,6 +246,9 @@ class MenusController extends \App\Http\Controllers\AccountController
 			case 'property':
 				$item->property_id = $data['property_id'];
 				return true;
+            case 'contact':
+                $item->property_id = $data['conact'];
+                return true;
 		}
 
 		return false;
