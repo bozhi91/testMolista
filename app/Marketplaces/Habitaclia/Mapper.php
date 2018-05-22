@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Marketplaces\Habitaclia;
+use DB;
 
 class Mapper extends \App\Marketplaces\Mapper {
 
@@ -10,12 +11,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 	 */
 	public function map() {
 
-
-
-
 		$item = $this->item;
-
-
 		$map = [];
 
 		$map['id_inmueble'] = $item['id'];
@@ -119,11 +115,12 @@ class Mapper extends \App\Marketplaces\Mapper {
 		$map['photos']['photo'] = $this->getImages();
 		$map['videos'] = '';
 
+        $map['videos_360']['video'] = $this->get_3d_url();
+
 		$map['mapa']['latitud'] = self::h($item['location']['lat']);
 		$map['mapa']['longitud'] = self::h($item['location']['lng']);
 		$map['mapa']['zoom'] = 16; //14 15 16 17
 		$map['mapa']['puntero'] = !empty($item['show_address']) && $item['show_address'] ? 1 : 0;
-        $map['mapa']['video_360'] = "";
 
 		$map['producto_premium'] = 0;
 		$map['producto_destacado'] = 0;
@@ -131,6 +128,24 @@ class Mapper extends \App\Marketplaces\Mapper {
 
 		return $map;
 	}
+
+	private function get_3d_url(){
+	    $videos = array();
+        $item = $this->item;
+
+        $videos3d = DB::table('properties')
+            ->select('url_3d')
+            ->where('id',$item['id'])
+            ->get();
+
+        foreach ($videos3d as $video){
+            $token = strtok($video->url_3d, ".");
+            $token = strtok(".");
+            array_push($videos,array("plataforma"=>$token,"url"=>$video->url_3d));
+        }
+
+	    return $videos;
+    }
 
 	/**
 	 * @return boolean

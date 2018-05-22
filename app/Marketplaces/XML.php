@@ -14,21 +14,15 @@ abstract class XML extends Base implements PublishPropertyXmlInterface {
         {
             $this->writer->start();
         }
-        //echo json_encode($properties);
-
         foreach ($properties as $p)
         {
             $mapper = static::getMapper($p, $this->iso_lang, $this->config);
 
-            //echo var_dump($mapper);
-           // die;
             if ($mapper->valid())
             {
                 $this->writer->addItem([$mapper->map()]);
             }
         }
-
-        echo var_dump($this->writer->getXml()); die;
 
         return $this->writer->getXml();
     }
