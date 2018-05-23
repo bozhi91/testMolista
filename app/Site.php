@@ -712,6 +712,7 @@ class Site extends TranslatableModel
 				switch ( $widget->type )
 				{
 					case 'menu':
+
 						$w['items'] = [];
 						if ( $widget->menu )
 						{
@@ -721,9 +722,14 @@ class Site extends TranslatableModel
 								{
 									$url = $item->url;
 								}
+                                if ( $item->type == 'contact' )
+                                {
+                                    $url="";
+                                }
 								else
 								{
 									$url_parts = parse_url(\LaravelLocalization::getLocalizedURL($locale,$item->item_url));
+
 									$url = implode('?', array_filter([
 										@$url_parts['path'],
 										@$url_parts['query'],

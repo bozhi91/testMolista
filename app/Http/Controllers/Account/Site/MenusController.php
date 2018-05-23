@@ -171,7 +171,6 @@ class MenusController extends \App\Http\Controllers\AccountController
 	public function postItem($slug)
 	{
 		$menu = $this->site->menus()->whereSlug($slug)->firstOrFail();
-
 		$item_type = $this->request->input('items.new.type');
 
 		// Get fields
@@ -184,7 +183,7 @@ class MenusController extends \App\Http\Controllers\AccountController
 
 		$request = $this->request->input('items.new');
 
-		// Validate
+        // Validate
 		$validator = \Validator::make($request, $fields);
 		if ( $validator->fails() ) 
 		{
@@ -247,7 +246,6 @@ class MenusController extends \App\Http\Controllers\AccountController
 				$item->property_id = $data['property_id'];
 				return true;
             case 'contact':
-                $item->property_id = $data['conact'];
                 return true;
 		}
 
@@ -276,6 +274,11 @@ class MenusController extends \App\Http\Controllers\AccountController
 					'title' => 'array',
 					'page_id' => 'required|integer|exists:pages,id,site_id,'.$this->site->id,
 				];
+            case 'contact':
+                return [
+                    'title' => 'array',
+                    'contact' => 'string',
+                ];
 		}
 
 		return false;
