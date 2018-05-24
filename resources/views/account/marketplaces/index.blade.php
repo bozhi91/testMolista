@@ -3,7 +3,6 @@
 @section('account_content')
 
 	<div id="account-marketplaces">
-
         @include('common.messages', [ 'dismissible'=>true ])
         <div class="row">
         	<div class="col-md-8">
@@ -37,8 +36,8 @@
 								<td align="right"><img src="/images/account/adviser.png"/></td>
 								<td valign="middle" align="left">
 									<h4>¿Puedo ayudarte?</h4>
-									<p><i class="fa fa-phone" aria-hidden="true"></i> <a href="tel:931807020">93 180 70 20</a></p>
-									<p><i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:xavier@molista.com">xavier@molista.com</a></p>
+									<p><i class="fa fa-phone" aria-hidden="true"></i> <a href="tel:+34930181684">+34 93 018 16 84</a></p>
+									<p><i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:info@molista.com">info@molista.com</a></p>
 								</td>
 							<tr>
 						</tbody>
@@ -175,7 +174,6 @@
 			var cont = $('#account-marketplaces');
 
   			$('[data-toggle="popover"]').css('cursor', 'pointer').popover();
-
 			cont.find('form.delete-form').each(function(){
 				$(this).validate({
 					submitHandler: function(f) {
