@@ -17,8 +17,12 @@
 	            'action' => [ 'Account\PropertiesController@update', $property->slug ],
 				'isCreate' => false,
 	        ])
-
 		</div>
 	</div>
+	<script type="text/javascript">
+        if(document.location.href.search("edit#tab-marketplaces")!=-1){
+            $("[href='#tab-marketplaces']").click();
+		}
+	</script>
 
 @endsection

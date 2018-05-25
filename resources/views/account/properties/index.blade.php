@@ -193,11 +193,13 @@
 
                                 <?php
 									$result = App\Http\Controllers\Account\PropertiesController::getMarketplaces($property->ref);
+									$path = "properties/".$property->slug."/edit#tab-marketplaces";
+
                                         foreach ($result as $res){
                                             $url = "http://".$res->subdomain.".molista.com/marketplaces/".$res->logo;
-                                            echo "<span class='marketplace-name text-nowrap;' title='".$res->name."'
-                                              style='background-image: url(".$url.")'/>&nbsp;
-                                        	</span>";
+                                            echo "<a target='_blank'  href={$path}>
+											<span class='marketplace-name text-nowrap;' title='".$res->name."'style='background-image: url(".$url.")'/>&nbsp;
+                                        	</span></a>";
                                         }
 								?>
 								</td>

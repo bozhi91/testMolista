@@ -39,7 +39,7 @@ class SitesController extends Controller
         // Filter by active --> called by the checkbox
         if ( $this->request->input('active')!=null)
         {
-            $query->where('enabled', $this->request->input('active'));
+            $query->where('sites.enabled', $this->request->input('active'));
         }
 
         // Filter by plan --> called by the checkbox
