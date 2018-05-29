@@ -165,7 +165,7 @@ class Mapper  extends \App\Marketplaces\Mapper {
         {
             $pictures ['image@number='.($i+1)]= [
                 '#image' => $image,
-                '#alttext' => "text"
+                '#alttext' => ""
             ];
         }
         return $pictures;
@@ -180,7 +180,7 @@ class Mapper  extends \App\Marketplaces\Mapper {
             $this->errors []= \Lang::get('validation.type');
             return false;
         }
-        
+
         $rules = [
             'id' => 'required',
             'reference' => 'required',
