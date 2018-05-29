@@ -7,12 +7,12 @@
 		$tmp = $countries->toArray();
 		$countries = [
 			68 => $tmp[68], //España
-			157 => $tmp[157], //Mexico
-			49 => $tmp[49], //Colombia
-			10 => $tmp[10], //Argentina
-			46 => $tmp[46], //Chile
-			174 => $tmp[174], //Peru
-			63 => $tmp[63], //Ecuador
+			//157 => $tmp[157], //Mexico
+			//49 => $tmp[49], //Colombia
+			//10 => $tmp[10], //Argentina
+			//46 => $tmp[46], //Chile
+			//174 => $tmp[174], //Peru
+			//63 => $tmp[63], //Ecuador
 		] + [
 			'' => '----------------------------',
 		] + $tmp;
@@ -21,12 +21,15 @@
 	{
 		$countries = $countries->toArray();
 	}
+
+	$checkboxDesde = App\Http\Controllers\Account\PropertiesController::getCheckboxDesdeState($property['id']);
 ?>
 
 <style type="text/css">
 	#tab-marketplaces .marketplace-name { display: inline-block; padding-left: 25px; background: left center no-repeat; }
 	#tab-visits .column-property { display: none; }
 </style>
+
 
 {!! Form::model($item, [ 'method'=>$method, 'action'=>$action, 'files'=>true, 'id'=>'edit-form' ]) !!}
 	{!! Form::hidden('current_tab', $current_tab) !!}
@@ -78,20 +81,37 @@
 				</div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
-						<div class="form-group error-container">
-							{!! Form::hidden('currency', $infocurrency->code) !!}
-							{!! Form::label('price', Lang::get('account/properties.price').' *') !!}
-							<div class="input-group">
-								@if ( $infocurrency->position == 'before' )
-									<div class="input-group-addon">{{ $infocurrency->symbol }}</div>
-								@endif
-								{!! Form::text('price', null, [ 'class'=>'form-control required number', 'min'=>'0' ]) !!}
-								@if ( $infocurrency->position == 'after' )
-									<div class="input-group-addon">{{ $infocurrency->symbol }}</div>
+						<div class="row">
+							<div class="col-sm-3">
+
+								{!! Form::hidden('propertyId', $property['id']) !!}
+								Desde:
+								@if($checkboxDesde==1)
+									<input type="checkbox" name="desde" value="Hourly" checked>
+									@else
+									<input type="checkbox" name="desde" value="Hourly">
 								@endif
 							</div>
+							<div class="col-sm-9">
+
+								{!! Form::hidden('currency', $infocurrency->code) !!}
+								{!! Form::label('price', Lang::get('account/properties.price').' *') !!}
+								<div class="input-group">
+									@if ( $infocurrency->position == 'before' )
+										<div class="input-group-addon">{{ $infocurrency->symbol }}</div>
+									@endif
+									{!! Form::text('price', null, [ 'class'=>'form-control required number', 'min'=>'0' ]) !!}
+									@if ( $infocurrency->position == 'after' )
+										<div class="input-group-addon">{{ $infocurrency->symbol }}</div>
+									@endif
+								</div>
+
+							</div>
 						</div>
+
 					</div>
+
+
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
 							{!! Form::hidden('currency', $infocurrency->code) !!}

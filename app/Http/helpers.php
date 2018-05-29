@@ -38,6 +38,17 @@
 			$currency[] = $symbol;
 		}
 
+
+		//get the propertyId from the URL
+        $propertyId =  $_SERVER['REQUEST_URI'];
+        $pos = strrpos($propertyId, "/");
+
+        $propertyId  = substr($propertyId,$pos+1,strlen($propertyId));
+        $precioDesde = App\Http\Controllers\Account\PropertiesController::getCheckboxDesdeState($propertyId);
+        if($precioDesde=='1'){
+            return "Desde: ".implode(' ', $currency);
+        }
+
 		return implode(' ', $currency);
 	}
 

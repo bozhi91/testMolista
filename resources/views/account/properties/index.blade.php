@@ -136,7 +136,7 @@
 								</td>
 								<td class="text-right text-nowrap">
 									<div class="btn-group" role="group">
-										<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" 
+										<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"
 												aria-haspopup="true" aria-expanded="false">
 											{{ Lang::get('general.actions') }} <span class="caret"></span>
 										</button>
@@ -146,7 +146,7 @@
 													<i class="fa fa-eye" aria-hidden="true"></i> {{ Lang::get('general.view') }}
 												</a>
 											</li>
-											
+
 											@if ( (($current_site_user->properties->where('id',$property->id)->count() > 0 && Auth::user()->canProperty('edit')) || Auth::user()->canProperty('edit_all')) && Auth::user()->can('property-edit') )
 											<li>
 												<a class="dropdown-menu-link" href="{{ action('Account\PropertiesController@edit', $property->slug) }}">
@@ -154,7 +154,7 @@
 												</a>
 											</li>
 											@endif
-											
+
 											@if ( Auth::user()->can('property-create') && Auth::user()->canProperty('create') )
 											<li>
 												<a class="dropdown-menu-link" href="{{ action('Account\PropertiesController@create', ['slug' => $property->slug]) }}" >
@@ -162,9 +162,9 @@
 												</a>
 											</li>
 											@endif
-																						
+
 											@if ( (($current_site_user->properties->where('id',$property->id)->count() > 0 && Auth::user()->canProperty('delete')) || Auth::user()->canProperty('delete_all')) && Auth::user()->can('property-delete') )
-												{!! Form::open([ 'method'=>'DELETE', 'class'=>'delete-form', 
+												{!! Form::open([ 'method'=>'DELETE', 'class'=>'delete-form',
 													'action'=>['Account\PropertiesController@destroy', $property->slug] ]) !!}
 
 												<button type="submit" class="btn btn-link dropdown-menu-button">
@@ -174,7 +174,7 @@
 											@endif
 										</ul>
 									</div>
-									
+
 									<div class="btn-group" role="group">
 										<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 											{{ Lang::get('general.share') }} <span class="caret"></span>
