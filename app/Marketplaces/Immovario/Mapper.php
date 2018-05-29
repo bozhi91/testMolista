@@ -6,29 +6,22 @@ namespace App\Marketplaces\Immovario;
 class Mapper  extends \App\Marketplaces\Mapper {
 
     public function map() {
+
         $item = $this->item;
-
-       /* $fp=fopen("/home/bozhi/Desktop/items.txt","a");
-        fwrite($fp,json_encode($item));
-        fclose($fp);*/
-
         $map = [];
+
         //General Info
         $map['General']['ID'] = $item['id'];
-        $map['General']['Reference'] = $item['reference'];
-        $map['General']['Objecttype'] = $item['type'];
-
-        $map['General']['Construction'] = "New building*";
-        $map['General']['Urbanisation'] = "Urbaniz*";
-        $map['General']['Complex'] = "Complex*";
-
-        $map['General']['Place'] = $item['location']['city'];
-        $map['General']['Price'] =  $item['price']."€";
-
-        $map['General']['Priceform'] = "price form";
-        $map['General']['Onrequest'] = "On request";
-
-        $map['General']['Status'] =  $item['mode'];
+        $map['General']['Reference']    = $item['reference'];
+        $map['General']['Objecttype']   = $item['type'];
+        $map['General']['Construction'] = $this->getConstructionType();
+        $map['General']['Urbanisation'] = $item['location']['district'];
+        $map['General']['Complex']   = "Complex???";
+        $map['General']['Place']     = $item['location']['city'];
+        $map['General']['Price']     =  $item['price']."€";
+        $map['General']['Priceform'] = "price form???";
+        $map['General']['Onrequest'] = "On request???";
+        $map['General']['Status']    =  $item['mode'];
 
         //Description
         $map['Description']['DescriptionCatalan'] = $item['description']['ca'];
@@ -43,15 +36,14 @@ class Mapper  extends \App\Marketplaces\Mapper {
 
         //Specifications
         $map['Specifications']['Construction'] = $this->getConstructionType();
-
-        $map['Specifications']['Rustic']    = "yes*";//search for rustic in the title(use  $pos= strpos($mystring, $findme); if(pos=== false)->string not found)
+        $map['Specifications']['Rustic']  = $this->getFeature("rustic");
 
         //Seaview? yes/no
         !empty($item['features']['ocean-view'])
             ? $map['Specifications']['SeaView'] = "Yes"
             : $map['Specifications']['SeaView'] = "No";
 
-        $map['Specifications']['CanalView'] = "yes*";//???????
+        $map['Specifications']['CanalView'] = "";
 
         //Garden? yes/no
         !empty($item['features']['garden'])
@@ -68,39 +60,39 @@ class Mapper  extends \App\Marketplaces\Mapper {
             ? $map['Specifications']['Garage'] = "Yes"
             : $map['Specifications']['Garage'] = "No";
 
-        $map['Specifications']['Parking-Places'] = "2*";//?????
+        //Num of garages between 0 and 10
+        $map['Specifications']['Parking-Places'] = "";
 
         //Heating? Yes/No
         !empty($item['features']['heating'])
             ? $map['Specifications']['Heating'] = "Yes"
             : $map['Specifications']['Heating'] = "No";
 
-        $map['Specifications']['BuiltArea'] = $item['size'];
-        $map['Specifications']['LivingArea'] = "---";
-        $map['Specifications']['Plot-Size'] = "---";
-        $map['Specifications']['Mooring'] = "---";
+        $map['Specifications']['BuiltArea'] = $item['size_real'];
+        $map['Specifications']['LivingArea'] = $item['size'];
+        $map['Specifications']['Plot-Size'] = $item['covered_area'];
+        $map['Specifications']['Mooring'] = "";
 
         //Rooms: out of 10
         $map['Specifications']['Bedrooms'] = $item['bedrooms'];
-        $map['Specifications']['Bathrooms'] = $item['toilettes'];
-        $map['Specifications']['LivingDiningRooms'] = "--";
-
-        $map['Specifications']['Living-Rooms'] = "--";
-        $map['Specifications']['Dining-Rooms'] = "--";
-        $map['Specifications']['Kitchens'] = "-----";
-        $map['Specifications']['Storage-Rooms'] = "--";
-        $map['Specifications']['Laundry-Rooms'] = "--";
-        $map['Specifications']['Terraces'] = "-----";
+        $map['Specifications']['Bathrooms'] = $item['baths'];
+        $map['Specifications']['LivingDiningRooms'] = "";
+        $map['Specifications']['Living-Rooms'] = "";
+        $map['Specifications']['Dining-Rooms'] = "";
+        $map['Specifications']['Kitchens'] = "";
+        $map['Specifications']['Storage-Rooms'] = "";
+        $map['Specifications']['Laundry-Rooms'] = "";
+        $map['Specifications']['Terraces'] = "";
 
         //Features
-        $map['Specifications']['HolidayComplex'] = "-----";//???????????????
+        $map['Specifications']['HolidayComplex'] = "";
 
         //Air conditioning? Yes/No
         !empty($item['features']['air-conditioning'])
             ? $map['Specifications']['Air-Conditioning'] = "Yes"
             : $map['Specifications']['Air-Conditioning'] = "No";
 
-        $map['Specifications']['Patio'] = "-----";
+        $map['Specifications']['Patio'] = $this->getFeature("patio");
 
         //Elevator/Lift? yes/no
         !empty($item['features']['elevator'])
@@ -122,63 +114,62 @@ class Mapper  extends \App\Marketplaces\Mapper {
             ? $map['Specifications']['Alarm'] = "Yes"
             : $map['Specifications']['Alarm'] = "No";
 
-
-        $map['Specifications']['Bodega'] = "-----";
-        $map['Specifications']['Sprinkler-System'] = "-----";
+        $map['Specifications']['Bodega'] = $this->getFeature("bodega");
+        $map['Specifications']['Sprinkler-System'] = "???";
 
         //Is furnished? Yes/No
         !empty($item['features']['furnished'])
             ? $map['Specifications']['Furnished'] = "Yes"
             : $map['Specifications']['Furnished'] = "No";
 
-        $map['Specifications']['SeperateGuestApartment'] = "-----";
+        $map['Specifications']['SeperateGuestApartment'] = "";
 
         //Images
-        $map['images']['image'] = "-----";
+        $map['images'] = $this->getImages();
 
         return $map;
     }
 
+    private function getFeature($feature){
+        $pos = strpos($this->item['description']['es'], $feature);
+        if($pos=== false){
+            return "No";
+        }
+        return "Yes";
+    }
 
     private function getConstructionType(){
-
         $type = "";
-//http://inmocorona.localhost:8000/feeds/properties/immovario.xml
         if($this->item['newly_build']=='1'){
             $type = "New Construction";
         }
         if($this->item['second_hand']=='1'){
             $type = "Resale";
         }
-        else{
-            $type = "Unknown type";
-            /*	"bank_owned": 0,
-	            "private_owned": 1,*/
+        if($this->item['bank_owned']=='1'){
+            $type = "Bank Owned";
         }
-
+        if($this->item['private_owned']=='1'){
+            $type = "Private Owned";
+        }
+        else{
+            $type = "";
+        }
         return $type;
     }
 
-
-
-        protected function photos()
-    {
+        protected function getImages(){
         $pictures = [];
 
         foreach ($this->item['images'] as $i => $image)
         {
-            if (!$i > 20) continue;
-
-            $pictures []= [
-                '#orden' => $i+1,
-                '#url' => $image
+            $pictures ['image@number='.($i+1)]= [
+                '#image' => $image,
+                '#alttext' => "text"
             ];
         }
-
         return $pictures;
     }
-
-
 
     /**
      * @return boolean
@@ -189,16 +180,12 @@ class Mapper  extends \App\Marketplaces\Mapper {
             $this->errors []= \Lang::get('validation.type');
             return false;
         }
-
-        $data = array_merge($this->item, $this->config);
-
+        
         $rules = [
             'id' => 'required',
             'reference' => 'required',
             'type' => 'required',
-            'attributes.habitaclia-city' => 'required',
-            'location.address' => 'required',
-            'email' => 'required',
+            'location.city' => 'required'
         ];
 
         return empty($this->errors);
