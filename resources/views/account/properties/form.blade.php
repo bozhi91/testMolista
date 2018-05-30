@@ -82,18 +82,16 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="row">
-							<div class="col-sm-3">
-
+							<div class="col-sm-4" style="margin-top:25px;">
 								{!! Form::hidden('propertyId', $property['id']) !!}
-								Desde:
+								Precio Desde:
 								@if($checkboxDesde==1)
 									<input type="checkbox" name="desde" value="Hourly" checked>
 									@else
 									<input type="checkbox" name="desde" value="Hourly">
 								@endif
 							</div>
-							<div class="col-sm-9">
-
+							<div class="col-sm-8">
 								{!! Form::hidden('currency', $infocurrency->code) !!}
 								{!! Form::label('price', Lang::get('account/properties.price').' *') !!}
 								<div class="input-group">
