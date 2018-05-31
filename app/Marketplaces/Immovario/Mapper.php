@@ -16,11 +16,11 @@ class Mapper  extends \App\Marketplaces\Mapper {
         $map['General']['Objecttype']   = $item['type'];
         $map['General']['Construction'] = $this->getConstructionType();
         $map['General']['Urbanisation'] = $item['location']['district'];
-        $map['General']['Complex']   = "Complex???";
+        $map['General']['Complex']   = "";
         $map['General']['Place']     = $item['location']['city'];
         $map['General']['Price']     =  $item['price']."€";
-        $map['General']['Priceform'] = "price form???";
-        $map['General']['Onrequest'] = "On request???";
+        $map['General']['Priceform'] = "";
+        $map['General']['Onrequest'] = "";
         $map['General']['Status']    =  $item['mode'];
 
         //Description
@@ -115,7 +115,7 @@ class Mapper  extends \App\Marketplaces\Mapper {
             : $map['Specifications']['Alarm'] = "No";
 
         $map['Specifications']['Bodega'] = $this->getFeature("bodega");
-        $map['Specifications']['Sprinkler-System'] = "???";
+        $map['Specifications']['Sprinkler-System'] = "";
 
         //Is furnished? Yes/No
         !empty($item['features']['furnished'])
