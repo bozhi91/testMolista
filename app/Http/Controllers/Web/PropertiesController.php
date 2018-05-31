@@ -6,10 +6,15 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\WebController;
+use Illuminate\Support\Facades\Log;
 
 class PropertiesController extends WebController
 {
-
+    public function getAgencyById(){
+        $value = session('SiteSetup');
+        Log::Info($value['site_id']);
+        return $value['site_id'];
+    }
 	public function index()
 	{
 		$query = $this->site->properties()->enabled()
@@ -162,6 +167,7 @@ class PropertiesController extends WebController
 
 	public function details($slug, $id = false)
 	{
+
 		if ( !$id )
 		{
 			if ( $property = $this->site->properties()->enabled()->whereTranslation('slug', $slug)->first() )
@@ -201,7 +207,9 @@ class PropertiesController extends WebController
 			->description($property->description)
 			->url($property->full_url);
 
-		return view('web.properties.details', compact('property', 'og', 'media'));
+        $agency = $this->getAgencyById();
+
+		return view('web.properties.details', compact('property', 'og', 'media','agency'));
 	}
 
 	public function moreinfo($slug)

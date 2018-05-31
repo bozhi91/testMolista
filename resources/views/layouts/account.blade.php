@@ -166,10 +166,16 @@
 					@endif
 					<!-- Custom Link -->
 					<li class="separator"></li>
-					<li>
+					<li style="position:relative;">
 						<a href="{{ action('Account\ReportsController@getUserData') }}">
-							<i class="glyphicon glyphicon-cog"></i>
-							Goto Garantify
+							<i class="account-icon glyphicon glyphicon-cog"></i>
+							Benefíciate de Garantify.com
+							<div
+							style="	position: absolute;top: 6px;left: -6px;
+									color: white;
+									background: red;
+									padding: 3px;
+									font-size: 10px;">nuevo</div>
 						</a>
 					</li>
 					<!-- Custom Link -->

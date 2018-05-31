@@ -41,6 +41,12 @@ class SitesController extends Controller
             $query->where('enabled', $this->request->input('active'));
         }
 
+        // Filter by plan
+        if ( $this->request->input('payed') )
+        {
+            $query->where('plan_id','!=',1);
+        }
+
         // Filter by domain
 		if ( $this->request->input('domain') )
 		{
@@ -67,12 +73,18 @@ class SitesController extends Controller
 			default:
 				$order = 'asc';
 		}
-
 		switch ( $this->request->input('orderby') )
 		{
 			case 'created':
 				$query->orderBy('created_at', $order);
-				break;
+			break;
+
+            case 'plan':
+                $query
+                    ->leftJoin('plans','plans.id','=','sites.plan_id')
+                    ->orderBy('name', $order);
+            break;
+
 			case 'transfer':
 				$query->orderBy('web_transfer_requested', $order);
 				break;

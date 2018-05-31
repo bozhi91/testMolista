@@ -18,6 +18,7 @@
 					], Input::get('transfer'), [ 'class'=>'form-control' ]) !!}</p>
 
 				<p>{!!Form::checkbox('active', true) !!} Agencias Activas </p>
+				<p>{!!Form::checkbox('payed', true) !!} Agencias de pago </p>
 
 				<p>{!! Form::submit( Lang::get('general.filters.apply'), [ 'class'=>'btn btn-default btn-block']) !!}</p>
 				{{ Form::close() }}
@@ -39,7 +40,7 @@
 								{!! drawSortableHeaders(url()->full(), [
 									'id' => [ 'title' => '#' ],
 									'domain' => [ 'title' => Lang::get('admin/sites.domain'), 'sortable'=>false ],
-									'plan' => [ 'title' => Lang::get('admin/sites.tab.plan')  ],
+									'plan' => [ 'title' => Lang::get('admin/sites.tab.plan') ],
 									'country' => [ 'title' => Lang::get('admin/sites.country'), 'sortable'=>false ],
 									'theme' => [ 'title' => Lang::get('admin/sites.theme') ],
 									'properties' => [ 'title' => Lang::get('admin/sites.properties'), 'class'=>'text-center' ],

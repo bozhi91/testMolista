@@ -94,13 +94,13 @@
 							</div>
 
 							<div class="redly-modular-view-in-3d">
-                            <?php if(!strpos($_SERVER['PHP_SELF'],"buyapropertymallorca")):;?>
-								@include('components.property.property-view-in-3d-button')
-							<?php endif;?>
+
+								@if($agency!=185)
+									@include('components.property.property-view-in-3d-button')
+								@endif
+
 							</div>
-
 						</div>
-
 					</div>
 				</div>
 
