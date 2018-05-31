@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use Illuminate\Support\Facades\Log;
+use DB;
 
 class PaymentController extends \App\Http\Controllers\AccountController
 {
@@ -44,6 +46,8 @@ class PaymentController extends \App\Http\Controllers\AccountController
 	}
 	public function postUpgrade()
 	{
+	    echo json_encode($_POST);// die;
+
 		// Check if pending request
 		if ( $this->site->has_pending_plan_request )
 		{
@@ -156,6 +160,7 @@ class PaymentController extends \App\Http\Controllers\AccountController
 	public function getPay()
 	{
 		$planchange = $this->site->planchanges()->pending()->first();
+
 		if ( !$planchange )
 		{
 			return redirect()->action('Account\Profile\PlanController@getIndex');
@@ -186,13 +191,21 @@ class PaymentController extends \App\Http\Controllers\AccountController
 		}
 
 		$data = $this->site->getSignupInfo();
-
 		return view('account.payment.pay', $data);
 	}
 	public function postPay()
 	{
 		// Validate plan change
 		$planchange = $this->site->planchanges()->pending()->first();
+
+		echo json_encode( $planchange);
+        echo json_encode( $_POST);
+
+        echo "Sign up user....";
+        $this->site->newSubscription('main', $planchange->stripe_plan_id)->create( $this->request->input('stripeToken') );
+        echo "done..."; die;
+
+
 		if ( !$planchange )
 		{
 			\Log::error("Account\PaymentController postPay: planchange ID {$planchange->id} not found");
@@ -242,19 +255,52 @@ class PaymentController extends \App\Http\Controllers\AccountController
 		return redirect()->action('Account\Profile\PlanController@getIndex')->with('success', trans('account/payment.plans.cancel.success'));
 	}
 
+	//check if the current user has already synchronized his account with the new stripe account
+    //if so, let him update his account. If not, he will synchronize the account with the new stripe account.
+    //The catch is, we're actually creating a new stripe account for this user, using his actual plan as default.
+    //The user will think we're updating his accont, but actually we're creating a new one.
+	public static function isUserSynchronized(){
+
+	    $site = session('SiteSetup');
+        $user = session('UserSession');
+
+	    $user_id = $site["site_id"];
+        $site_id = $user["user_id"];
+
+        return false;
+
+        $status = DB::table('stripe_migration')->where('user_id', $user_id)->where('site_id', $site_id)->first();
+        if($status==null){
+            return false;
+        }
+        return true;
+    }
+
+    public function syncronizeStripeAccount(){
+
+        $pending_request = array("id"=>1,"payment_method"=>"stripe","payment_interval"=>"year",
+            "price"=>100,"plan_currency"=>"EUR","currency_symbol"=>"€","plan_name"=>"Basic","email"=>"user@gmail.com");
+
+        $data['pending_request']=$pending_request;
+        return $data;
+    }
+
 	public function getUpdateCreditCard()
 	{
-	    echo "1";
+	    //Check if the user is synchronized with the new stripe account. If not, do it!
+	    if(!$this->isUserSynchronized()){
+            $data = $this->syncronizeStripeAccount();
+            return view('account.payment.synchronize',compact('data'));
+        }
 
-		$stripe_customer = $this->site->stripe_customer;
+        $stripe_customer = $this->site->stripe_customer;
 		if ( !$stripe_customer )
 		{
 			abort(404);
 		}
-
 		$user_email = $stripe_customer->email ? $stripe_customer->email : $this->site_user->email;
 
-		return view('account.payment.update-credit-card', compact('user_email'));
+		return view('account.payment.update-credit-card', 'user_email');
 	}
 	public function postUpdateCreditCard()
 	{

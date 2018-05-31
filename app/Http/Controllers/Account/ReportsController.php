@@ -18,6 +18,7 @@ class ReportsController extends \App\Http\Controllers\AccountController
 
     public static function getPlan(){
         $value = session('SiteSetup');
+
         $result = DB::table('sites')
             ->select('sites.id','sites.plan_id','plans.code')
             ->where('sites.id', $value['site_id'])
@@ -30,12 +31,24 @@ class ReportsController extends \App\Http\Controllers\AccountController
 
     public static function getUserData(){
         $value = session('UserSession');
-        $result = DB::table('users')
+        $site  = session('SiteSetup');
+
+        //get the userdata
+        $resultUser = DB::table('users')
             ->select('name','email')
             ->where('id',$value['user_id'])
             ->get();
 
-        return redirect("https://garantify.com/nueva-captacion/?nombre=".$result[0]->name."&correo=".$result[0]->email."&cliente=molista");
+        //get the site data
+        $resultSite = DB::table('sites')
+            ->select('subdomain')
+            ->where('id',$site['site_id'])
+            ->get();
+
+        //replace the '-' with empty space in the subdomain
+        $sitename = str_replace("-"," ",$resultSite[0]->subdomain);
+
+        return redirect("https://garantify.com/nueva-captacion/?nombre=".$sitename."&correo=".$resultUser[0]->email."&cliente=molista");
     }
 
     public function getIndex()
