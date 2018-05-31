@@ -1,22 +1,41 @@
 @extends('layouts.web')
-
 @section('content')
 
-	<div id="pages">
+	<?php
+    	use Illuminate\Support\Facades\DB;
 
+    	$site_id = session('SiteSetup')['site_id'];
+
+    	$result = DB::table('pages')
+            ->join('pages_translations', 'pages.id', '=', 'pages_translations.page_id')
+            ->select('pages.id')
+            ->where('pages_translations.slug','like','%legal%')
+			->where('pages.site_id',$site_id)
+			->get();
+
+    	//if the site has own privacy-policy page, go to this page
+    	if(count($result)>0){
+            $result = DB::table('sites_domains')
+                ->select('domain')
+                ->where('site_id',$site_id)
+                ->first();
+            $privacy_url = $result->domain."/pages/legal";
+        }
+        else{
+            $privacy_url = "https://molista.com/legal/#privacy-policy";
+        }
+	?>
+
+	<div id="pages">
 		<div class="container">
 			<h1>{{ $page->title }}</h1>
-
 			@include('common.messages')
-			
 			<div class="row">
-
 				<div class="cols-xs-12 col-sm-6">
 					<div class="body">
 						{!! $page->body !!}
 					</div>
 				</div>
-
 				<div class="cols-xs-12 col-sm-6">
 					{!! Form::model(null, [ 'method'=>'POST', 'action'=>[ 'Web\PagesController@post', $page->slug ], 'id'=>'contact-form' ]) !!}
 						<div class="form-group error-container">
@@ -48,7 +67,10 @@
 							{!! Form::textarea('body', null, [ 'class'=>'form-control required', 'placeholder'=>Lang::get('web/pages.message.placeholder') ]) !!}
 						</div>
 						<div class="text-right">
-							{!! Form::submit( Lang::get('general.continue'), [ 'class'=>'btn btn-primary']) !!}
+							<a target=_blank href={{$privacy_url}}>Acepto los términos y condiciones:</a>
+							<input type="checkbox" id="accept" onclick="if( $('#accept:checkbox:checked').length > 0)$('#subm').prop('disabled',false);else $('#subm').prop('disabled',true);"/>
+
+							{!! Form::submit( Lang::get('general.continue'), [  'id'=>'subm', 'class'=>'btn btn-primary']) !!}
 						</div>
 					{!! Form::close() !!}
 				</div>

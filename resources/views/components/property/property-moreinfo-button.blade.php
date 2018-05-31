@@ -2,6 +2,29 @@
 	<a href="#property-moreinfo-form" class="btn btn-primary call-to-action more-info-trigger">{{ Lang::get('web/properties.call.to.action') }}</a>
 </div>
 
+	<?php
+		use Illuminate\Support\Facades\DB;
+		$site_id = session('SiteSetup')['site_id'];
+		$result = DB::table('pages')
+			->join('pages_translations', 'pages.id', '=', 'pages_translations.page_id')
+			->select('pages.id')
+			->where('pages_translations.slug','like','%legal%')
+			->where('pages.site_id',$site_id)
+			->get();
+
+		//if the site has own privacy-policy page, go to this page
+		if(count($result)>0){
+			$result = DB::table('sites_domains')
+				->select('domain')
+				->where('site_id',$site_id)
+				->first();
+			$privacy_url = $result->domain."/pages/legal";
+		}
+		else{
+			$privacy_url = "https://molista.com/legal/#privacy-policy";
+		}
+	?>
+
 <!-- Modal -->
 {!! Form::open([ 'action'=>[ 'Web\PropertiesController@moreinfo', $property->slug ], 'method'=>'POST', 'id'=>'property-moreinfo-form', 'class'=>'mfp-hide app-popup-block-white' ]) !!}
 	<h2 class="page-title">{{ Lang::get('web/properties.call.to.action') }}</h2>
@@ -49,18 +72,18 @@
 		</div>
 		@endif
 
-		<div style="height: 1px; width: 1px; overflow: hidden;">
-			<input type="checkbox" name="accept_legal_terms" value="1" class="" />
-			Do you agree to the terms and conditions of using our services?
-		</div>
-
 		<div class="form-group text-right">
 			{!! Form::button(Lang::get('general.cancel'), [ 'class'=>'btn btn-default popup-modal-dismiss pull-left' ] ) !!}
-			{!! Form::button(Lang::get('general.continue'), [ 'type'=>'submit', 'class'=>'btn btn-primary' ] ) !!}
+
+			<a target=_blank href={{$privacy_url}}>Acepto los términos y condiciones:</a>
+			<input type="checkbox" id="accept" onclick="if( $('#accept:checkbox:checked').length > 0)$('#subm').prop('disabled',false);else $('#subm').prop('disabled',true);"/>
+
+			{!! Form::button(Lang::get('general.continue'), [ 'type'=>'submit', 'id'=>'subm', 'disabled'=>'true', 'class'=>'btn btn-primary' ] ) !!}
 		</div>
 	</div>
 {!! Form::close() !!}
 <!-- Modal -->
+
 
 @if ($current_site->recaptcha_enabled)
 <script src='https://www.google.com/recaptcha/api.js'></script>
