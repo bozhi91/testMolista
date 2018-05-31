@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Models\Property\Videos;
+use DB;
 
 class PropertiesController extends \App\Http\Controllers\AccountController
 {
@@ -20,6 +21,21 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 		\View::share('submenu_section', 'properties');
 	}
+
+    public static function getMarketplaces($ref){
+
+        $properties = DB::select("
+              select sm.site_id, sm.marketplace_id, m.logo, m.name, s.subdomain
+              from sites_marketplaces sm, properties p, marketplaces m,sites s
+              where m.id = sm.marketplace_id
+              and p.site_id = sm.site_id
+              and s.id = p.site_id
+              and p.ref = '".$ref."'
+              and sm.marketplace_enabled = 1
+              and marketplace_export_all = 1");
+
+            return  $properties;
+    }
 
 	public function index()
 	{
