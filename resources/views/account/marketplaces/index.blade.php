@@ -37,7 +37,7 @@
 								<td align="right"><img src="/images/account/adviser.png"/></td>
 								<td valign="middle" align="left">
 									<h4>¿Puedo ayudarte?</h4>
-									<p><i class="fa fa-phone" aria-hidden="true"></i> <a href="tel:+34930181684"> +34 93 018 16 84</a></p>
+									<p><i class="fa fa-phone" aria-hidden="true"></i> <a href="tel:+34930181684">+34 93 018 16 84</a></p>
 									<p><i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:info@molista.com">info@molista.com</a></p>
 								</td>
 							<tr>
@@ -50,7 +50,6 @@
 		@if ( $marketplaces->count() < 1)
 			<div class="alert alert-info">{{ Lang::get('account/marketplaces.empty') }}</div>
 		@else
-
 			@if ( $current_site->plan_property_limit > 0 )
 				<div class="alert alert-info">
 					{!! Lang::get('account/warning.export.limit', [
