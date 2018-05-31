@@ -1,6 +1,9 @@
 <?php
 
 	return [
+        'payed' => 'Payed Agencies',
+        'active' => 'Active Agencies',
+
 		'h1' => 'Properties',
 		'empty' => 'No properties found',
 

@@ -1,6 +1,8 @@
 <?php
 
 	return [
+        'payed' => 'Agencias de pago',
+        'active' => 'Agencias activas',
 		'h1' => 'Propiedades',
 		'empty' => 'No se encontraron propiedades',
 
