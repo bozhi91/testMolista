@@ -67,11 +67,17 @@
 							{!! Form::textarea('body', null, [ 'class'=>'form-control required', 'placeholder'=>Lang::get('web/pages.message.placeholder') ]) !!}
 						</div>
 						<div class="text-right">
-							<a target=_blank href={{$privacy_url}}>Acepto los términos y condiciones:</a>
+
+
+						<label>
 							<input type="checkbox" id="accept" onclick="if( $('#accept:checkbox:checked').length > 0)$('#subm').prop('disabled',false);else $('#subm').prop('disabled',true);"/>
+							He leído y acepto
+							<a target=_blank href={{$privacy_url}} style="color:#333333"> los términos y condiciones</a>
+						</label>
 
 							{!! Form::submit( Lang::get('general.continue'), [  'id'=>'subm', 'class'=>'btn btn-primary']) !!}
 						</div>
+
 					{!! Form::close() !!}
 				</div>
 			</div>

@@ -72,12 +72,18 @@
 		</div>
 		@endif
 
+		<div class="row">
+			<div class="cols-xs-12" style="padding-left:20px;">
+				<label>
+					<input type="checkbox" id="accept" onclick="if( $('#accept:checkbox:checked').length > 0)$('#subm').prop('disabled',false);else $('#subm').prop('disabled',true);"/>
+					He leído y acepto
+					<a target=_blank href={{$privacy_url}} style="color:#333333"> los términos y condiciones</a>
+				</label>
+			</div>
+		</div>
+
 		<div class="form-group text-right">
 			{!! Form::button(Lang::get('general.cancel'), [ 'class'=>'btn btn-default popup-modal-dismiss pull-left' ] ) !!}
-
-			<a target=_blank href={{$privacy_url}}>Acepto los términos y condiciones:</a>
-			<input type="checkbox" id="accept" onclick="if( $('#accept:checkbox:checked').length > 0)$('#subm').prop('disabled',false);else $('#subm').prop('disabled',true);"/>
-
 			{!! Form::button(Lang::get('general.continue'), [ 'type'=>'submit', 'id'=>'subm', 'disabled'=>'true', 'class'=>'btn btn-primary' ] ) !!}
 		</div>
 	</div>
