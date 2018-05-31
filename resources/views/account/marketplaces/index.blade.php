@@ -3,7 +3,6 @@
 @section('account_content')
 
 	<div id="account-marketplaces">
-
         @include('common.messages', [ 'dismissible'=>true ])
         <div class="row">
         	<div class="col-md-8">
@@ -174,7 +173,6 @@
 			var cont = $('#account-marketplaces');
 
   			$('[data-toggle="popover"]').css('cursor', 'pointer').popover();
-
 			cont.find('form.delete-form').each(function(){
 				$(this).validate({
 					submitHandler: function(f) {
