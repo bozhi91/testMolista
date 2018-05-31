@@ -22,6 +22,7 @@ class SitesController extends Controller
 
 	public function index()
 	{
+
 		$query = \App\Site::withTranslations()
 							->with('country')
 							->with('properties')
@@ -35,13 +36,13 @@ class SitesController extends Controller
 			$query->whereTranslationLike('title', "%{$this->request->input('title')}%");
 		}
 
-        // Filter by active
-        if ( $this->request->input('active') )
+        // Filter by active --> called by the checkbox
+        if ( $this->request->input('active')!=null)
         {
-            $query->where('enabled', $this->request->input('active'));
+            $query->where('sites.enabled', $this->request->input('active'));
         }
 
-        // Filter by plan
+        // Filter by plan --> called by the checkbox
         if ( $this->request->input('payed') )
         {
             $query->where('plan_id','!=',1);

@@ -17,8 +17,11 @@
 						2 => Lang::get('general.yes'),
 					], Input::get('transfer'), [ 'class'=>'form-control' ]) !!}</p>
 
-				<p>{!!Form::checkbox('active', true) !!} Agencias Activas </p>
-				<p>{!!Form::checkbox('payed', true) !!} Agencias de pago </p>
+				<input type="checkbox" name="payed" id="payed"  valie="payed">
+				{{ Lang::get('account/properties.payed') }}<br>
+
+				<input type="checkbox" name="active" id="active" valie="active">
+				{{ Lang::get('account/properties.active') }}
 
 				<p>{!! Form::submit( Lang::get('general.filters.apply'), [ 'class'=>'btn btn-default btn-block']) !!}</p>
 				{{ Form::close() }}
@@ -26,7 +29,7 @@
 
 			<div class="col-xs-12 col-sm-9">
 				@if ( false && Auth::user()->can('site-create') )
-					<a href="{{ action('Admin\SitesController@create') }}" class="btn btn-default pull-right">{{ Lang::get('general.new') }}</a>
+					 <a href="{{ action('Admin\SitesController@create') }}" class="btn btn-default pull-right">{{ Lang::get('general.new') }}</a>
 				@endif
 
 				<h1 class="list-title">{{ Lang::get('admin/menu.sites') }}</h1>
@@ -80,9 +83,21 @@
 	</div>
 
 	<script type="text/javascript">
-		ready_callbacks.push(function(){
-			var cont = $('#sites-list');
-		});
+            ready_callbacks.push(function(){
+                var cont = $('sites-list');
+
+                var vars = {};
+                var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+                    vars[key] = value;
+                });
+
+                if(vars["active"]=='on'){
+                    $("#active").click();
+                }
+                if(vars["payed"]=='on'){
+                    $("#payed").click();
+                }
+            });
 	</script>
 
 @endsection
