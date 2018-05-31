@@ -89,8 +89,8 @@
 								'highlighted' => [ 'title' => Lang::get('account/properties.highlighted'), 'sortable'=>false, 'class'=>'text-center text-nowrap' ],
 								'image' => [ 'title' => Lang::get('account/properties.image'), 'sortable'=>false, 'class'=>'text-center text-nowrap' ],
 								'enabled' => [ 'title' => Lang::get('account/properties.enabled'), 'sortable'=>false, 'class'=>'text-center text-nowrap' ],
-								'action' => [ 'title' => '', 'sortable'=>false ],
 								'marketplaces' => [ 'title' => 'Marketplaces', 'sortable'=>false ],
+								'action' => [ 'title' => '', 'sortable'=>false ],
 							]) !!}
 						</tr>
 					</thead>
@@ -135,6 +135,21 @@
 										<span class="glyphicon glyphicon-{{ $property->enabled ? 'ok' : 'remove' }}" aria-hidden="true"></span>
 									@endif
 								</td>
+
+								<td>
+                                    <?php
+                                    $result = App\Http\Controllers\Account\PropertiesController::getMarketplaces($property->ref);
+                                    $path = "properties/".$property->slug."/edit#tab-marketplaces";
+
+                                    foreach ($result as $res){
+                                        $url = "http://".$res->subdomain.".molista.com/marketplaces/".$res->logo;
+                                        echo "<a target='_blank'  href={$path}>
+											<span class='marketplace-name text-nowrap;' title='".$res->name."'style='background-image: url(".$url.")'/>&nbsp;
+                                        	</span></a>";
+                                    }
+                                    ?>
+								</td>
+								
 								<td class="text-right text-nowrap">
 									<div class="btn-group" role="group">
 										<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" 
@@ -188,20 +203,6 @@
 											</li>
 										</ul>
 									</div>
-								</td>
-								<td>
-
-                                <?php
-									$result = App\Http\Controllers\Account\PropertiesController::getMarketplaces($property->ref);
-									$path = "properties/".$property->slug."/edit#tab-marketplaces";
-
-                                        foreach ($result as $res){
-                                            $url = "http://".$res->subdomain.".molista.com/marketplaces/".$res->logo;
-                                            echo "<a target='_blank'  href={$path}>
-											<span class='marketplace-name text-nowrap;' title='".$res->name."'style='background-image: url(".$url.")'/>&nbsp;
-                                        	</span></a>";
-                                        }
-								?>
 								</td>
 							</tr>
 						@endforeach
