@@ -22,7 +22,9 @@
 		$countries = $countries->toArray();
 	}
 
-	$checkboxDesde = App\Http\Controllers\Account\PropertiesController::getCheckboxDesdeState($property['id']);
+	if(!empty($property)){
+        $checkboxDesde = App\Http\Controllers\Account\PropertiesController::getCheckboxDesdeState($property['id']);
+    }
 ?>
 
 <style type="text/css">
@@ -83,12 +85,14 @@
 					<div class="col-xs-12 col-sm-6">
 						<div class="row">
 							<div class="col-sm-4" style="margin-top:25px;">
-								{!! Form::hidden('propertyId', $property['id']) !!}
-								{{ Lang::get('web/properties.from') }}
-								@if($checkboxDesde==1)
-									<input type="checkbox" name="desde" value="Hourly" checked>
-									@else
-									<input type="checkbox" name="desde" value="Hourly">
+								@if(!empty($property))
+									{!! Form::hidden('propertyId', $property['id']) !!}
+									{{ Lang::get('web/properties.from') }}
+									@if($checkboxDesde=='1')
+										<input type="checkbox" name="desde" value="Hourly" checked>
+										@else
+										<input type="checkbox" name="desde" value="Hourly">
+									@endif
 								@endif
 							</div>
 							<div class="col-sm-8">
