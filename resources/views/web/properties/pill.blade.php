@@ -13,7 +13,13 @@
 			<div class="title text-bold">
 				<a href="{{ $item->full_url }}">{{$item->title}}</a>
 			</div>
-			<div class="price text-italic">{{ price($item->price, $item->infocurrency->toArray()) }} @include('web.properties.discount-price') </div>
+			<div class="price text-italic">
+				@if($item->desde=='1')
+					{{ Lang::get('web/properties.from') }}
+				@endif
+				{{ price($item->price, $item->infocurrency->toArray()) }}
+				@include('web.properties.discount-price')
+			</div>
 			<div class="location text-italic">{{ implode(', ', array_filter([
 				'district' => $item->district,
 				'city' => $item->city->name,

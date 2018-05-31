@@ -21,12 +21,17 @@
 	{
 		$countries = $countries->toArray();
 	}
+
+	if(!empty($property)){
+        $checkboxDesde = App\Http\Controllers\Account\PropertiesController::getCheckboxDesdeState($property['id']);
+    }
 ?>
 
 <style type="text/css">
 	#tab-marketplaces .marketplace-name { display: inline-block; padding-left: 25px; background: left center no-repeat; }
 	#tab-visits .column-property { display: none; }
 </style>
+
 
 {!! Form::model($item, [ 'method'=>$method, 'action'=>$action, 'files'=>true, 'id'=>'edit-form' ]) !!}
 	{!! Form::hidden('current_tab', $current_tab) !!}
@@ -78,20 +83,37 @@
 				</div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
-						<div class="form-group error-container">
-							{!! Form::hidden('currency', $infocurrency->code) !!}
-							{!! Form::label('price', Lang::get('account/properties.price').' *') !!}
-							<div class="input-group">
-								@if ( $infocurrency->position == 'before' )
-									<div class="input-group-addon">{{ $infocurrency->symbol }}</div>
-								@endif
-								{!! Form::text('price', null, [ 'class'=>'form-control required number', 'min'=>'0' ]) !!}
-								@if ( $infocurrency->position == 'after' )
-									<div class="input-group-addon">{{ $infocurrency->symbol }}</div>
+						<div class="row">
+							<div class="col-sm-4" style="margin-top:25px;">
+								@if(!empty($property))
+									{!! Form::hidden('propertyId', $property['id']) !!}
+									{{ Lang::get('web/properties.from') }}
+									@if($checkboxDesde=='1')
+										<input type="checkbox" name="desde" value="Hourly" checked>
+										@else
+										<input type="checkbox" name="desde" value="Hourly">
+									@endif
 								@endif
 							</div>
+							<div class="col-sm-8">
+								{!! Form::hidden('currency', $infocurrency->code) !!}
+								{!! Form::label('price', Lang::get('account/properties.price').' *') !!}
+								<div class="input-group">
+									@if ( $infocurrency->position == 'before' )
+										<div class="input-group-addon">{{ $infocurrency->symbol }}</div>
+									@endif
+									{!! Form::text('price', null, [ 'class'=>'form-control required number', 'min'=>'0' ]) !!}
+									@if ( $infocurrency->position == 'after' )
+										<div class="input-group-addon">{{ $infocurrency->symbol }}</div>
+									@endif
+								</div>
+
+							</div>
 						</div>
+
 					</div>
+
+
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
 							{!! Form::hidden('currency', $infocurrency->code) !!}

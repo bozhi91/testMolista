@@ -1,7 +1,7 @@
 <?php
 	return [
 		'title' => 'Propiedades',
-
+        'from' => 'Precio Desde: ',
 		'term' => 'Ingrese su búsqueda',
 
 		'mode' => 'Modalidad',
