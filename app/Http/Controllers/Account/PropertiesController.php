@@ -411,12 +411,37 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		return view('account.properties.edit', compact('property','modes','types','energy_types','services','countries','states','cities','marketplaces','current_tab', 'districts'));
 	}
 
+	public static function getCheckboxDesdeState($propertyId){
+
+        $status = DB::table('properties')
+            ->select('desde')
+            ->where('id',$propertyId)
+            ->first();
+
+        if($status!=null){
+            return $status->desde;
+        }
+        return 0;
+    }
+
 	public function update(Request $request, $slug)
 	{
 		// Get property
 		$query = $this->site->properties()
 						->whereTranslation('slug', $slug)
 						->withEverything();
+
+		//here we update the status of the checkbox 'desde'.
+		if(!empty($_POST['desde'])){
+            DB::table('properties')
+                ->where('id',$_POST['propertyId'])
+                ->update(array('desde' => true));
+        }
+        else {
+            DB::table('properties')
+                ->where('id',$_POST['propertyId'])
+                ->update(array('desde' => false));
+        }
 
 		if (!$this->auth->user()->canProperty('edit_all')) {
 			if ($this->auth->user()->canProperty('edit')) {
@@ -526,7 +551,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 	public function show($slug)
 	{
-		// Get property
+        // Get property
 		$property = $this->site->properties()
 						->withTrashed()
 						->whereTranslation('slug', $slug)

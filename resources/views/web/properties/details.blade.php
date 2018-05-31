@@ -6,11 +6,16 @@
 @section('content')
 
 	<div id="property">
-
 		<div class="container">
-
 			<div class="header">
-				<div class="price text-bold text-italic pull-right">{{ price($property->price, $property->infocurrency->toArray()) }}  @include('web.properties.discount-price') </div>
+				<div class="price text-bold text-italic pull-right">
+					@if($property->desde=='1')
+						{{ Lang::get('web/properties.from') }}
+					@endif
+					{{ price($property->price, $property->infocurrency->toArray(),$property) }}
+					@include('web.properties.discount-price')
+				</div>
+
 				<h1 class="text-bold">{{$property->title}}</h1>
 				<div class="location text-italic">
 					<i class="fontello-icon fontello-icon-marker hidden-xs"></i>
