@@ -84,7 +84,7 @@
 						<div class="row">
 							<div class="col-sm-4" style="margin-top:25px;">
 								{!! Form::hidden('propertyId', $property['id']) !!}
-								Precio Desde:
+								{{ Lang::get('web/properties.from') }}
 								@if($checkboxDesde==1)
 									<input type="checkbox" name="desde" value="Hourly" checked>
 									@else

@@ -17,7 +17,7 @@
 				@if($item->desde=='1')
 					{{ Lang::get('web/properties.from') }}
 				@endif
-				{{ price($item->price, $item->infocurrency->toArray(),$item) }}
+				{{ price($item->price, $item->infocurrency->toArray()) }}
 				@include('web.properties.discount-price')
 			</div>
 			<div class="location text-italic">{{ implode(', ', array_filter([

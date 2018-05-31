@@ -1,7 +1,7 @@
 <?php
 	return [
 		'title' => 'Properties',
-
+        'from' => 'Price From: ',
 		'term' => 'Enter your search',
 
 		'mode' => 'Modality',

@@ -7,7 +7,7 @@
 		return '<p>' . implode('</p><p>', $text). '</p>';
 	}
 
-	function price($price, $params=false, $propId = null)
+	function price($price, $params=false)
 	{
 		if ( is_object($params) && method_exists($params,'toArray') )
 		{
@@ -37,12 +37,6 @@
 		{
 			$currency[] = $symbol;
 		}
-
-		//TODO: move DESDE to translations
-        //	{{ Lang::get('web/properties.more.room') }}
-       if($propId['desde']!=null){
-            return "".implode(' ', $currency);
-        }
 
 		return implode(' ', $currency);
 	}
