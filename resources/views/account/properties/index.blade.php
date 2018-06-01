@@ -1,15 +1,53 @@
 @extends('layouts.account')
-
 @section('account_content')
+
+	<?php
+    	use Illuminate\Support\Facades\DB;
+
+		$site_id = session("SiteSetup")['site_id'];
+		$plan_id = session("SiteSetup")['plan']['id'];
+    	$propertyLimit = 5;
+
+    	$result = DB::table('properties')
+			->select('id')
+			->where('site_id',$site_id)
+			->get();
+    	$numProperties = count($result);
+
+    	$plan = DB::table('sites')
+			->select('plan_id')
+			->where('id',$site_id)
+            ->where('plan_id',1)
+			->first();
+	?>
+
+    <?php $protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';?>
 
 	<div id="admin-properties" class="row">
 		<div class="col-xs-12">
 
-	        @include('common.messages', [ 'dismissible'=>true ])
+			<!--If the user has more than 5 propeties and has the free plan, we block all the properties except the 5 recently created.-->
+			@if ($numProperties>$propertyLimit && $plan->plan_id==1)
+				<?php $message  = " <p><a href='".$protocol.$_SERVER['HTTP_HOST']."/account/payment/upgrade' target='_blank'>
+					<button type='button' class='btn btn-info .btn-md' style='margin-top:10px !important;'>Actualizar</button>
+					</a></p>";
+				?>
+			@endif
 
+	        @include('common.messages', [ 'dismissible'=>true ])
 			@if ( Auth::user()->can('property-create') && Auth::user()->canProperty('create') )
 				<div class="pull-right">
-					<a href="{{ action('Account\PropertiesController@create') }}" class="btn btn-primary">{{ Lang::get('account/properties.button.new') }}</a>
+					@if($numProperties<$propertyLimit && $plan->plan_id==1)
+						<a href="{{ action('Account\PropertiesController@create') }}" class="btn btn-primary">{{ Lang::get('account/properties.button.new') }}</a>
+					@else
+                        <?php $message  = " <p><a href='".$protocol.$_SERVER['HTTP_HOST']."/account/payment/upgrade' target='_blank'>
+							<button type='button' class='btn btn-info .btn-md' style='margin-top:10px !important;'>Actualizar</button>
+							</a></p>";
+                        ?>
+						@include('Modals.commonModal', ['header'=>"Acceso Denegado!",
+                 				 'message'=>"No puede crear más de ".$propertyLimit." propiedades en el plan Free, Por favor, actualiza tu plan!".$message])
+						<a onclick="$('#commonModal').modal();" class="btn btn-primary">{{ Lang::get('account/properties.button.new') }}</a>
+					@endif
 				</div>
 			@endif
 
@@ -214,9 +252,13 @@
 	</div>
 
 	<script type="text/javascript">
-		ready_callbacks.push(function() {
+
+        ready_callbacks.push(function() {
 			var cont = $('#admin-properties');
-			
+
+			if($(".page-title").text().split("(")[1][0] > '5') {
+                $('#commonModal').modal();
+            }
 
 			//Share dialog
 			cont.find('.share-social-link').on('click', function(e){
