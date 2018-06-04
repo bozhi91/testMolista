@@ -88,11 +88,15 @@
 								@if(!empty($property))
 									{!! Form::hidden('propertyId', $property['id']) !!}
 									{{ Lang::get('web/properties.from') }}
+
 									@if($checkboxDesde=='1')
-										<input type="checkbox" name="desde" value="Hourly" checked>
+										<input type="checkbox" value="1" name="desde" checked>
 										@else
-										<input type="checkbox" name="desde" value="Hourly">
+										<input type="checkbox" value="0" name="desde">
 									@endif
+									@else
+										{{ Lang::get('web/properties.from') }}
+										<input type="checkbox" name="desde" value="1">
 								@endif
 							</div>
 							<div class="col-sm-8">
@@ -509,6 +513,7 @@
 							<?php $tmp = empty($cities) ? [ ''=>'' ] : [ ''=>'' ] + $cities->toArray(); ?>
 							{!! Form::label('city_id', Lang::get('account/properties.city').' *') !!}
 							{!! Form::select('city_id', $tmp, null, [ 'class'=>'form-control required city-input' ]) !!}
+
 						</div>
 						<div class="form-group error-container">
 							<a href="#add-district" class="add-district-trigger btn btn-default btn-xs pull-right"

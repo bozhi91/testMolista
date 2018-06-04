@@ -12,6 +12,7 @@
 			->select('id')
 			->where('site_id',$site_id)
 			->get();
+
     	$numProperties = count($result);
 
     	$plan = DB::table('sites')
@@ -19,12 +20,23 @@
 			->where('id',$site_id)
             ->where('plan_id',1)
 			->first();
+
+    $props = App\Http\Controllers\Account\PropertiesController::getRecentProperties();
 	?>
 
     <?php $protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';?>
 
 	<div id="admin-properties" class="row">
 		<div class="col-xs-12">
+
+        <?php $message  = " <p><a href='".$protocol.$_SERVER['HTTP_HOST']."/account/payment/upgrade' target='_blank'>
+					<button type='button' class='btn btn-info .btn-md' style='margin-top:10px !important;'>Actualizar</button>
+					</a></p>";
+        ?>
+		@include('Modals.propertyDialog', ['header'=>"Atención",
+                 'message'=>"Tienes más de 5 porpiedades en tu plan free. Hemos desactivado todas menos las 5 más recientes.
+                  Si quiere crear más propiedades, actualiza tu plan: $message
+                  Abajo tiene un listado de las propiedasdes deshabilitadas: <br/>".$props])
 
 			<!--If the user has more than 5 propeties and has the free plan, we block all the properties except the 5 recently created.-->
 			@if ($numProperties>$propertyLimit && $plan->plan_id==1)
@@ -161,13 +173,18 @@
 									@endif
 								</td>
 								<td class="text-center">
-									<a href="{{ $property->main_image }}" target="_blank" class="property-table-thumb"
-									   style="background-image: url('{{ $property->main_image_thumb }}')"></a>
+									<a href="{{ $property->main_image }}" target="_blank" class="property-table-thumb" style="background-image: url('{{ $property->main_image_thumb }}')"></a>
 								</td>
 								<td class="text-center">
 									@if ( Auth::user()->can('property-edit') && Auth::user()->canProperty('edit') )
 										<a href="#" data-url="{{ action('Account\PropertiesController@getChangeStatus', $property->slug) }}" class="change-status-trigger">
-											<span class="glyphicon glyphicon-{{ $property->enabled ? 'ok' : 'remove' }}" aria-hidden="true"></span>
+											<!-- if props>5 and plan = free-->
+											@if( ($numProperties>$propertyLimit && $plan->plan_id!=1) )
+												<span class="glyphicon glyphicon-{{ $property->enabled ? 'ok' : 'remove' }}" aria-hidden="true"></span>
+											@endif
+											@if($numProperties<$propertyLimit )
+												<span class="glyphicon glyphicon-{{ $property->enabled ? 'ok' : 'remove' }}" aria-hidden="true"></span>
+											@endif
 										</a>
 									@else
 										<span class="glyphicon glyphicon-{{ $property->enabled ? 'ok' : 'remove' }}" aria-hidden="true"></span>
@@ -256,8 +273,8 @@
         ready_callbacks.push(function() {
 			var cont = $('#admin-properties');
 
-			if($(".page-title").text().split("(")[1][0] > '5') {
-                $('#commonModal').modal();
+			if( ($(".page-title").text().split("(")[1].split(")")[0]>5) && ($('#planTag > p > b').text())=='free'){
+                $('#propertyModal').modal();
             }
 
 			//Share dialog
