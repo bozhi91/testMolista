@@ -22,10 +22,11 @@
             ->where('plan_id',1)
 			->first();
 
-    	$props = App\Http\Controllers\Account\PropertiesController::getRecentProperties();
-	?>
+    	//echo json_encode($plan);die;
 
-    <?php $protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';?>
+    	$props = App\Http\Controllers\Account\PropertiesController::getRecentProperties();
+    	$protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
+	?>
 
 	<div id="admin-properties" class="row">
 		<div class="col-xs-12">
@@ -34,31 +35,36 @@
 					<button type='button' class='btn btn-info .btn-md' style='margin-top:10px !important;'>".Lang::get('account/properties.update')."</button>
 					</a></p>";
         ?>
-		@include('Modals.propertyDialog', ['header'=>Lang::get('account/properties.propHeader'),
+
+			<!--If the user has more than 5 propeties and has the free plan, we block all the properties except the 5 recently created.-->
+			@if (!empty($plan))
+				@include('Modals.propertyDialog', ['header'=>Lang::get('account/properties.propHeader'),
                  'message'=>Lang::get('account/properties.propMessage').": ".$message.
 					Lang::get('account/properties.propMessage_2')."<br/>".$props])
 
-			<!--If the user has more than 5 propeties and has the free plan, we block all the properties except the 5 recently created.-->
 			@if ($numProperties>$propertyLimit && $plan->plan_id==1)
-				<?php $message  = " <p><a href='".$protocol.$_SERVER['HTTP_HOST']."/account/payment/upgrade' target='_blank'>
-					<button type='button' class='btn btn-info .btn-md' style='margin-top:10px !important;'>".Lang::get('account/properties.update')."</button>
-					</a></p>";
-				?>
+					<?php $message  = " <p><a href='".$protocol.$_SERVER['HTTP_HOST']."/account/payment/upgrade' target='_blank'>
+						<button type='button' class='btn btn-info .btn-md' style='margin-top:10px !important;'>".Lang::get('account/properties.update')."</button>
+						</a></p>";
+					?>
+				@endif
 			@endif
 
 	        @include('common.messages', [ 'dismissible'=>true ])
-			@if ( Auth::user()->can('property-create') && Auth::user()->canProperty('create') )
+			@if(Auth::user()->can('property-create') && Auth::user()->canProperty('create') )
 				<div class="pull-right">
-					@if($numProperties<$propertyLimit && $plan->plan_id==1)
-						<a href="{{ action('Account\PropertiesController@create') }}" class="btn btn-primary">{{ Lang::get('account/properties.button.new') }}</a>
-					@else
-                        <?php $message  = " <p><a href='".$protocol.$_SERVER['HTTP_HOST']."/account/payment/upgrade' target='_blank'>
-							<button type='button' class='btn btn-info .btn-md' style='margin-top:10px !important;'>".Lang::get('account/properties.update')."</button>
-							</a></p>";
-                        ?>
-						@include('Modals.commonModal', ['header'=>Lang::get('account/properties.accessDenied'),
-                 				 'message'=>Lang::get('account/properties.propMessage_3').$message])
-						<a onclick="$('#commonModal').modal();" class="btn btn-primary">{{ Lang::get('account/properties.button.new') }}</a>
+					@if(!empty($plan))
+						@if($numProperties<$propertyLimit && $plan->plan_id==1)
+							<a href="{{ action('Account\PropertiesController@create') }}" class="btn btn-primary">{{ Lang::get('account/properties.button.new') }}</a>
+						@else
+							<?php $message  = " <p><a href='".$protocol.$_SERVER['HTTP_HOST']."/account/payment/upgrade' target='_blank'>
+								<button type='button' class='btn btn-info .btn-md' style='margin-top:10px !important;'>".Lang::get('account/properties.update')."</button>
+								</a></p>";
+							?>
+							@include('Modals.commonModal', ['header'=>Lang::get('account/properties.accessDenied'),
+									 'message'=>Lang::get('account/properties.propMessage_3').$message])
+							<a onclick="$('#commonModal').modal();" class="btn btn-primary">{{ Lang::get('account/properties.button.new') }}</a>
+						@endif
 					@endif
 				</div>
 			@endif
@@ -179,11 +185,13 @@
 									@if ( Auth::user()->can('property-edit') && Auth::user()->canProperty('edit') )
 										<a href="#" data-url="{{ action('Account\PropertiesController@getChangeStatus', $property->slug) }}" class="change-status-trigger">
 											<!-- if props>5 and plan = free-->
-											@if( ($numProperties>$propertyLimit && $plan->plan_id!=1) )
-												<span class="glyphicon glyphicon-{{ $property->enabled ? 'ok' : 'remove' }}" aria-hidden="true"></span>
-											@endif
-											@if($numProperties<$propertyLimit )
-												<span class="glyphicon glyphicon-{{ $property->enabled ? 'ok' : 'remove' }}" aria-hidden="true"></span>
+											@if(!empty($plan))
+												@if( ($numProperties>$propertyLimit && $plan->plan_id!=1) )
+													<span class="glyphicon glyphicon-{{ $property->enabled ? 'ok' : 'remove' }}" aria-hidden="true"></span>
+												@endif
+												@if($numProperties<$propertyLimit )
+													<span class="glyphicon glyphicon-{{ $property->enabled ? 'ok' : 'remove' }}" aria-hidden="true"></span>
+												@endif
 											@endif
 										</a>
 									@else
@@ -274,7 +282,7 @@
 			var cont = $('#admin-properties');
 
 			if( ($(".page-title").text().split("(")[1].split(")")[0]>5) && ($('#planTag > p > b').text())=='free'){
-                $('#propertyModal').modal();
+                //$('#propertyModal').modal();
             }
 
 			//Share dialog

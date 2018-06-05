@@ -400,8 +400,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		}
 
 		$filepath = $property->getPdfFile( $locale );
-
-		return response()->download($filepath, "property-{$locale}.pdf", [
+		
+        return response()->download($filepath, "property-{$locale}.pdf", [
 			'Content-Type: application/pdf',
 		]);
 	}
