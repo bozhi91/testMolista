@@ -2,6 +2,7 @@
 @section('account_content')
 
 	<?php
+
     	use Illuminate\Support\Facades\DB;
 
 		$site_id = session("SiteSetup")['site_id'];
@@ -21,7 +22,7 @@
             ->where('plan_id',1)
 			->first();
 
-    $props = App\Http\Controllers\Account\PropertiesController::getRecentProperties();
+    	$props = App\Http\Controllers\Account\PropertiesController::getRecentProperties();
 	?>
 
     <?php $protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';?>
@@ -30,18 +31,17 @@
 		<div class="col-xs-12">
 
         <?php $message  = " <p><a href='".$protocol.$_SERVER['HTTP_HOST']."/account/payment/upgrade' target='_blank'>
-					<button type='button' class='btn btn-info .btn-md' style='margin-top:10px !important;'>Actualizar</button>
+					<button type='button' class='btn btn-info .btn-md' style='margin-top:10px !important;'>".Lang::get('account/properties.update')."</button>
 					</a></p>";
         ?>
-		@include('Modals.propertyDialog', ['header'=>"Atención",
-                 'message'=>"Tienes más de 5 porpiedades en tu plan free. Hemos desactivado todas menos las 5 más recientes.
-                  Si quiere crear más propiedades, actualiza tu plan: $message
-                  Abajo tiene un listado de las propiedasdes deshabilitadas: <br/>".$props])
+		@include('Modals.propertyDialog', ['header'=>Lang::get('account/properties.propHeader'),
+                 'message'=>Lang::get('account/properties.propMessage').": ".$message.
+					Lang::get('account/properties.propMessage_2')."<br/>".$props])
 
 			<!--If the user has more than 5 propeties and has the free plan, we block all the properties except the 5 recently created.-->
 			@if ($numProperties>$propertyLimit && $plan->plan_id==1)
 				<?php $message  = " <p><a href='".$protocol.$_SERVER['HTTP_HOST']."/account/payment/upgrade' target='_blank'>
-					<button type='button' class='btn btn-info .btn-md' style='margin-top:10px !important;'>Actualizar</button>
+					<button type='button' class='btn btn-info .btn-md' style='margin-top:10px !important;'>".Lang::get('account/properties.update')."</button>
 					</a></p>";
 				?>
 			@endif
@@ -53,11 +53,11 @@
 						<a href="{{ action('Account\PropertiesController@create') }}" class="btn btn-primary">{{ Lang::get('account/properties.button.new') }}</a>
 					@else
                         <?php $message  = " <p><a href='".$protocol.$_SERVER['HTTP_HOST']."/account/payment/upgrade' target='_blank'>
-							<button type='button' class='btn btn-info .btn-md' style='margin-top:10px !important;'>Actualizar</button>
+							<button type='button' class='btn btn-info .btn-md' style='margin-top:10px !important;'>".Lang::get('account/properties.update')."</button>
 							</a></p>";
                         ?>
-						@include('Modals.commonModal', ['header'=>"Acceso Denegado!",
-                 				 'message'=>"No puede crear más de ".$propertyLimit." propiedades en el plan Free, Por favor, actualiza tu plan!".$message])
+						@include('Modals.commonModal', ['header'=>Lang::get('account/properties.accessDenied'),
+                 				 'message'=>Lang::get('account/properties.propMessage_3').$message])
 						<a onclick="$('#commonModal').modal();" class="btn btn-primary">{{ Lang::get('account/properties.button.new') }}</a>
 					@endif
 				</div>
