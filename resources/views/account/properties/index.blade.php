@@ -22,8 +22,6 @@
             ->where('plan_id',1)
 			->first();
 
-    	//echo json_encode($plan);die;
-
     	$props = App\Http\Controllers\Account\PropertiesController::getRecentProperties();
     	$protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
 	?>
@@ -158,7 +156,12 @@
 									$property->address,
 									@implode(' / ', array_filter([ $property->city->name, $property->state->name ]))
 									], '<br>') !!}</td>
-								<td>{{ $property->price }}</td>
+								<td>
+									@if($property->desde == 1)
+										{{ Lang::get('web/properties.from') }}
+									@endif
+									{{ $property->price }}
+								</td>
 								<td class="text-center">{{ number_format($property->customers->count(), 0, ',', '.')  }}</td>
 								<td class="text-center">
 									@if ( Auth::user()->can('property-edit') && Auth::user()->canProperty('edit') )
@@ -201,8 +204,8 @@
 
 								<td>
                                     <?php
-                                    $result = App\Http\Controllers\Account\PropertiesController::getMarketplaces($property->ref);
-                                    $path = "properties/".$property->slug."/edit#tab-marketplaces";
+                                    $result = App\Http\Controllers\Account\PropertiesController::getMarketplaces($property->id);
+                                    $path   = "properties/".$property->slug."/edit#tab-marketplaces";
 
                                     foreach ($result as $res){
                                         $url = "http://".$res->subdomain.".molista.com/marketplaces/".$res->logo;

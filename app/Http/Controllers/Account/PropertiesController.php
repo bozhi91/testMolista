@@ -43,18 +43,17 @@ class PropertiesController extends \App\Http\Controllers\AccountController
                     ->update(['enabled' => 0]);
             }
         }
-        // echo json_encode($properties);die;
         return $propRef;
     }
 
-    public static function getMarketplaces($ref){
+    public static function getMarketplaces($propId){
         $properties = DB::select("
               select sm.site_id, sm.marketplace_id, m.logo, m.name, s.subdomain
               from sites_marketplaces sm, properties p, marketplaces m,sites s
               where m.id = sm.marketplace_id
               and p.site_id = sm.site_id
               and s.id = p.site_id
-              and p.ref = '".$ref."'
+              and p.id = '".$propId."'
               and sm.marketplace_enabled = 1
               and marketplace_export_all = 1");
 
@@ -381,9 +380,6 @@ class PropertiesController extends \App\Http\Controllers\AccountController
                 ->update(['desde' => 1]);
 
         }
-
-       // echo json_encode($_POST);
-        echo json_encode($property);die;
 
         return redirect()->action('Account\PropertiesController@edit', $property->slug)->with('current_tab', $this->request->input('current_tab'))->with('success', trans('account/properties.created'));
 	}
