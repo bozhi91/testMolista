@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Account\Site;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
-
 use Intervention\Image\ImageManagerStatic as Image;
+use DB;
 
 class PagesController extends \App\Http\Controllers\AccountController
 {
@@ -22,13 +21,35 @@ class PagesController extends \App\Http\Controllers\AccountController
 		\View::share('submenu_subsection', 'site-pages');
 	}
 
+    public  function blog(){
+	    $entradas = DB::table('entradas')
+            ->select('title', 'created_at')
+            ->get();
+       return $entradas;
+    }
+
 	public function index()
 	{
+	    if(!empty($_GET['type'])){
+	        switch($_GET['action']){
+
+                case 'list':
+                    $entradas = $this->blog();
+                    return view('account.site.entradas.entradas',compact('entradas'));
+                break;
+
+                case 'new':
+                    //$entradas = $this->blog();
+                    return view('account.site.entradas.create');
+                break;
+            }
+        }
+
 		$pages = $this->site->pages()->orderBy('title')->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 		return view('account.site.pages.index', compact('pages'));
 	}
 
-	public function create()
+    public function create()
 	{
 		$types = \App\Models\Site\Page::getTypeOptions();
 		return view('account.site.pages.create', compact('types'));

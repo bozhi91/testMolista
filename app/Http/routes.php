@@ -7,6 +7,7 @@ if ( empty($domain['host']) )
 	die("Environment variable APP_URL is not defined!");
 }
 
+
 Route::get('hubspot', function()
 {
 	try
@@ -97,7 +98,7 @@ Route::group([
 		Route::get('/', 'AdminController@index');
 
 		// Sites
-		Route::controller('sites/payments', 'Admin\Sites\PaymentsController');
+        Route::controller('sites/payments', 'Admin\Sites\PaymentsController');
 		Route::get('sites/invoice/{id}/{file?}', 'Admin\SitesController@getInvoice');
 		Route::get('sites/downgrade/{id}', 'Admin\SitesController@getDowngrade');
 		Route::get('sites/update-setup/{id}', 'Admin\SitesController@getUpdateSetup');
@@ -352,6 +353,7 @@ Route::group([
 			Route::controller('widgets', 'Account\Site\WidgetsController');
 			// Pages
 			Route::resource('pages', 'Account\Site\PagesController');
+            Route::resource('blog', 'Account\Site\PagesController@blog');
 			//Sliders
 			Route::post('sliders/upload', 'Account\Site\SlidersController@upload');
 			Route::resource('sliders', 'Account\Site\SlidersController');
