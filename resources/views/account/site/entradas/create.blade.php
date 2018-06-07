@@ -4,13 +4,59 @@
 
 @section('account_content')
 
+	<?php
+		$title = "New Post Title";
+		$body  = "";
+		$postAction = 'Account\Site\PagesController@storePost';
+
+		if(!empty($_GET ['action'])){
+		    if($_GET ['action'] == 'edit'){
+                $postAction = 'Account\Site\PagesController@updatePost';
+                $post = App\Http\Controllers\Account\Site\PagesController::getPostById($_GET ['post_id']);
+		        $title = $post->title;
+				$body  = $post->body;
+		    }
+		}
+	?>
+
 	<div id="admin-pages">
-
 		@include('common.messages', [ 'dismissible'=>true ])
+		<h4>Nueva entrada</h4>
 
-			<h4>Nueva entrada</h4>
+		{!! Form::model(null, [ 'method'=>'POST', 'action'=>$postAction, 'id'=>'create-form' ]) !!}
+			<br/>
+			<div>
+				<b>Post Title</b><br/>
+				{{ Form::input('text', 'title',$title) }}<br/><br/>
 
+				<b>Post Body</b><br/>
+				<textarea rows="10" name="body" class="summernote">
+					{{ $body}}
+				</textarea><br/><br/>
+
+				@if(!empty($_GET['post_id']))
+					{{ Form::input('hidden', 'post_id',$_GET['post_id']) }}
+				@endif
+
+				{!! Form::submit("Save", [ 'class'=>'btn btn-primary']) !!}
+			</div>
+		{!! Form::close() !!}
+        <?php $params = array("type"=>"blog","action"=>"list");?>
 	</div>
+
+	<!-- Includes for the HTML Editor -->
+		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+		<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+		<!-- include summernote css/js-->
+		<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+		<script>
+			$(document).ready(function() {
+				$('.summernote').summernote();
+			});
+		</script>
+	<!-- Includes for the HTML Editor -->
 
 	<script type="text/javascript">
 		ready_callbacks.push(function(){

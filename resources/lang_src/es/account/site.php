@@ -2,8 +2,9 @@
 
 	return [
 
-		'configuration.h1' => 'Configuración del sitio',
+        'blog.delete' => '¿Confirma que desea eliminar esta entrada?',
 
+		'configuration.h1' => 'Configuración del sitio',
 		'configuration.tab.config' => 'General',
 		'configuration.tab.texts' => 'SEO',
 		'configuration.tab.social' => 'Redes sociales',

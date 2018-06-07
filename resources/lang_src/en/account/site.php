@@ -2,8 +2,9 @@
 
 	return [
 
-		'configuration.h1' => 'Site configuration',
+        'blog.delete' => 'Are you sure you want to delete this post?',
 
+		'configuration.h1' => 'Site configuration',
 		'configuration.tab.config' => 'General',
 		'configuration.tab.texts' => 'SEO',
 		'configuration.tab.social' => 'Social media',

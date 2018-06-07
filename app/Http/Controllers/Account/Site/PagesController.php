@@ -9,24 +9,104 @@ use DB;
 
 class PagesController extends \App\Http\Controllers\AccountController
 {
-
 	protected $preserve_images = [];
-
 	public function __initialize()
 	{
 		$this->middleware([ 'permission:site-edit' ]);
-
 		parent::__initialize();
 		\View::share('submenu_section', 'site');
 		\View::share('submenu_subsection', 'site-pages');
 	}
 
-    public  function blog(){
-	    $entradas = DB::table('entradas')
-            ->select('title', 'created_at')
+	//This methid will check if the blog page is created. If not, it will create it automatically.
+    public static function createBlog(){
+        $site_id = session('SiteSetup')['site_id'];
+        $blog = DB::table('pages')
+            ->select('*')
+            ->where('type','blog')
+            ->where('site_id',$site_id)
             ->get();
-       return $entradas;
+
+        //if the blog is not created for this site, create it.
+        if(count($blog)==0){
+            DB::table('pages')->insert(
+                ['site_id' => $site_id,
+                    'type' => 'blog',
+                    'configuration'  => 'a:1:{s:7:"default";N;}',
+                    'created_at'  => date("Y-m-d H-i-s"),
+                ]
+            );
+            $page = DB::table('pages')
+                ->select('id')
+                ->where('type','blog')
+                ->where('site_id',$site_id)
+                ->first();
+
+            DB::table('pages_translations')->insert(
+                [   'page_id' => $page->id,
+                    'locale' => 'es',
+                    'title' => 'Blog',
+                    'slug' => 'blog',
+                ]
+            );
+        }
+        return $blog;
     }
+
+    public function createNewPost(){
+        return view('account.site.entradas.create', compact('entradas'));
+    }
+    public function storePost(){
+        $site_id = session('SiteSetup')['site_id'];
+        DB::table('entradas')->insert(
+            ['site_id' => $site_id,
+                'title' => $_POST ['title'],
+                'body'  => $_POST ['body'],
+                'created_at'  => date("Y-m-d H-i-s"),
+            ]
+        );
+        $entradas =  PagesController::getAllPosts();
+        return view('account.site.entradas.entradas', compact('entradas'));
+    }
+
+    public function listPosts(){
+        $entradas =  PagesController::getAllPosts();
+        return view('account.site.entradas.entradas', compact('entradas'));
+    }
+
+    public static function getAllPosts(){
+	    $entradas = DB::table('entradas')
+            ->select('*')
+            ->get();
+        return $entradas;
+    }
+
+    public static function getPostById($id){
+        $post = DB::table('entradas')
+            ->select('*')
+            ->where('id',$id)
+            ->first();
+        return $post;
+    }
+
+    public static function updatePost(){
+
+        $post = DB::table('entradas')
+            ->where('id',$_POST ['post_id'])
+            ->update(['title' => $_POST ['title'], 'body' => $_POST ['body']]);
+
+        $entradas = PagesController::getAllPosts();
+        return view('account.site.entradas.entradas', compact('entradas'));
+    }
+
+    public  function deletePost(){
+	    //delete the post(by id)
+        DB::table('entradas')->where('id',  $_POST ['post_id'])->delete();
+
+        $entradas = PagesController::getAllPosts();
+        return view('account.site.entradas.entradas', compact('entradas'));
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	public function index()
 	{
@@ -34,7 +114,7 @@ class PagesController extends \App\Http\Controllers\AccountController
 	        switch($_GET['action']){
 
                 case 'list':
-                    $entradas = $this->blog();
+                    $entradas = $this->listPosts();
                     return view('account.site.entradas.entradas',compact('entradas'));
                 break;
 
@@ -54,8 +134,9 @@ class PagesController extends \App\Http\Controllers\AccountController
 		$types = \App\Models\Site\Page::getTypeOptions();
 		return view('account.site.pages.create', compact('types'));
 	}
-	public function store()
-	{
+
+    public function store(){
+
 		$validator = \Validator::make($this->request->all(), [
 			'i18n.title.'.fallback_lang() => 'required',
 			'type' => 'required|in:'.implode(',', array_keys(\App\Models\Site\Page::getTypeOptions())),

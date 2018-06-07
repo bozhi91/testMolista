@@ -353,8 +353,16 @@ Route::group([
 			Route::controller('widgets', 'Account\Site\WidgetsController');
 			// Pages
 			Route::resource('pages', 'Account\Site\PagesController');
-            Route::resource('blog', 'Account\Site\PagesController@blog');
-			//Sliders
+
+			//Blog routes. create,list,update,delete,etc.
+            Route::post('storeBlog', 'Account\Site\PagesController@storeBlog')->name("storeBlog");
+            Route::post('deletePost', 'Account\Site\PagesController@deletePost')->name("deletePost");
+            Route::get('createNewPost', 'Account\Site\PagesController@createNewPost')->name("createNewPost");
+            Route::get('listPosts', 'Account\Site\PagesController@listPosts')->name("listPosts");
+            Route::post('storePost', 'Account\Site\PagesController@storePost')->name("storePost");
+            Route::post('updatePost', 'Account\Site\PagesController@updatePost')->name("updatePost");
+
+            //Sliders
 			Route::post('sliders/upload', 'Account\Site\SlidersController@upload');
 			Route::resource('sliders', 'Account\Site\SlidersController');
 		});
