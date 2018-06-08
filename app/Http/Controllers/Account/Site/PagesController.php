@@ -20,14 +20,23 @@ class PagesController extends \App\Http\Controllers\AccountController
 
 	//This methid will check if the blog page is created. If not, it will create it automatically.
     public static function createBlog(){
+
         $site_id = session('SiteSetup')['site_id'];
+        //check if there is page for our blog in this site.
         $blog = DB::table('pages')
             ->select('*')
             ->where('type','blog')
             ->where('site_id',$site_id)
             ->get();
 
-        //if the blog is not created for this site, create it.
+        //check if there is a menu created for the site. We need a menu in order to store our blog
+        $menu = DB::table('menus')
+            ->select('*')
+            ->where('site_id',$site_id)
+            ->get();
+
+        //////////////////////////////////////////////////////////////////////////////////////////
+        //if the page for our blog is not created for this site, create it.
         if(count($blog)==0){
             DB::table('pages')->insert(
                 ['site_id' => $site_id,
@@ -36,9 +45,10 @@ class PagesController extends \App\Http\Controllers\AccountController
                     'created_at'  => date("Y-m-d H-i-s"),
                 ]
             );
+            //get the pageId
             $page = DB::table('pages')
-                ->select('id')
-                ->where('type','blog')
+                 ->select('id')
+               ->where('type','blog')
                 ->where('site_id',$site_id)
                 ->first();
 
@@ -49,6 +59,44 @@ class PagesController extends \App\Http\Controllers\AccountController
                     'slug' => 'blog',
                 ]
             );
+
+            //create the menu if it doesn't exist
+            if(count($menu)==0){
+
+                DB::table('menus')->insert(
+                    ['site_id' => $site_id,
+                        'title' => 'MyMenu',
+                        'slug'  => 'mymenu',
+                        'enabled'  =>1,
+                        'created_at'=> date("Y-m-d H-i-s"),
+                        'updated_at'=> date("Y-m-d H-i-s")
+                    ]
+                );
+
+                //get the menuId
+                $menu = DB::table('menus')
+                    ->select('id')
+                    ->where('enabled',1)
+                    ->where('site_id',$site_id)
+                    ->first();
+
+                //Link the page to the menu
+                DB::table('menus_items')->insert(
+                    ['menu_id'    => $menu->id,
+                        'page_id' => $page->id,
+                        'type'    => 'page'
+                    ]
+                );
+
+                //Link the menu to the widgets
+                DB::table('widgets')->insert(
+                    ['site_id'  => $site_id,
+                        'group' => "header",
+                        'type'  => 'menu',
+                        'menu_id'  => $menu->id
+                    ]
+                );
+            }
         }
         return $blog;
     }
@@ -85,7 +133,7 @@ class PagesController extends \App\Http\Controllers\AccountController
         $post = DB::table('entradas')
             ->select('*')
             ->where('id',$id)
-            ->first();
+            ->get();
         return $post;
     }
 

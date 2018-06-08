@@ -1,9 +1,13 @@
 <?php
 
 	return [
-		'yes' => 'Yes',
-		'no' => 'No',
+        'newPost'=>'Nueva Entrada',
+        'postTitle'=>'Título de la entrada',
+        'postBody'=>'Contenido de la entrada',
+        'defaultPostTitle' => 'Nueva entrada',
 
+        'yes' => 'Yes',
+		'no' => 'No',
 		'back' => 'Back',
 		'cancel' => 'Cancel',
 		'continue' => 'Continue',

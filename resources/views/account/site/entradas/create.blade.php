@@ -5,7 +5,7 @@
 @section('account_content')
 
 	<?php
-		$title = "New Post Title";
+		$title =   Lang::get('general.defaultPostTitle') ;
 		$body  = "";
 		$postAction = 'Account\Site\PagesController@storePost';
 
@@ -13,24 +13,24 @@
 		    if($_GET ['action'] == 'edit'){
                 $postAction = 'Account\Site\PagesController@updatePost';
                 $post = App\Http\Controllers\Account\Site\PagesController::getPostById($_GET ['post_id']);
-		        $title = $post->title;
-				$body  = $post->body;
+		        $title = $post[0]->title;
+				$body  = $post[0]->body;
 		    }
 		}
 	?>
 
 	<div id="admin-pages">
 		@include('common.messages', [ 'dismissible'=>true ])
-		<h4>Nueva entrada</h4>
+		<h2>{{ Lang::get('general.newPost') }}</h2>
 
 		{!! Form::model(null, [ 'method'=>'POST', 'action'=>$postAction, 'id'=>'create-form' ]) !!}
 			<br/>
 			<div>
-				<b>Post Title</b><br/>
+				<b>{{ Lang::get('general.postTitle') }}</b><br/>
 				{{ Form::input('text', 'title',$title) }}<br/><br/>
 
-				<b>Post Body</b><br/>
-				<textarea rows="10" name="body" class="summernote">
+				<b> {{ Lang::get('general.postBody') }}</b><br/>
+				<textarea name="body" class="summernote" style="height: 300px !important;" contenteditable="false">
 					{{ $body}}
 				</textarea><br/><br/>
 
@@ -38,7 +38,7 @@
 					{{ Form::input('hidden', 'post_id',$_GET['post_id']) }}
 				@endif
 
-				{!! Form::submit("Save", [ 'class'=>'btn btn-primary']) !!}
+				{!! Form::submit(  Lang::get('general.save'), [ 'class'=>'btn btn-primary']) !!}
 			</div>
 		{!! Form::close() !!}
         <?php $params = array("type"=>"blog","action"=>"list");?>
@@ -51,12 +51,21 @@
 		<!-- include summernote css/js-->
 		<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+
 		<script>
 			$(document).ready(function() {
-				$('.summernote').summernote();
+				$('.summernote').summernote(
+                    {
+                        height: 200,   //set editable area's height
+                        codemirror: { // codemirror options
+                            theme: 'monokai'
+                        }
+                    }
+                );
+
 			});
-		</script>
-	<!-- Includes for the HTML Editor -->
+        </script>
+    <!-- Includes for the HTML Editor -->
 
 	<script type="text/javascript">
 		ready_callbacks.push(function(){

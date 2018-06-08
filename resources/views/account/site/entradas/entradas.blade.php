@@ -5,13 +5,11 @@
 	<div id="admin-pages">
 
 		@include('common.messages', [ 'dismissible'=>true ])
-
-		<h4>=== List of posts ===</h4>
 		<?php App\Http\Controllers\Account\Site\PAgesController::createBlog();?>
 
 		<div class="pull-right">
 			<a href="{{ action('Account\Site\PagesController@createNewPost') }}" class="btn btn-primary">
-				Nueva Entrada
+                {{ Lang::get('general.newPost') }}
 			</a>
 		</div>
 
@@ -40,19 +38,16 @@
 								{{ Form::input('hidden', 'action',"edit") }}
 
 								<?php $attribs = array("action"=>"edit","post_id"=>$entrada->id);?>
+								<a href="http://albelia.localhost:8000/pages/blog?post_id={{$entrada->id}}"  class="btn btn-success btn-xs" style="color: white !important;" target="_blank">
+									{{ Lang::get('general.view') }}
+								</a>
 
 								<a href="{{ action('Account\Site\PagesController@createNewPost',$attribs) }}" class="btn btn-warning btn-xs" target="_blank">
-									{{ Lang::get('general.view') }}
+									{{ Lang::get('general.edit') }}
 								</a>
 								<button type="submit" class="btn btn-danger btn-xs">{{ Lang::get('general.delete') }}</button>
 								{!! Form::close() !!}
 							</td>
-
-							<!--
-								<a href="" class="btn btn-warning btn-xs" target="_blank">{{ Lang::get('general.view') }}</a>
-								<a href="" class="btn btn-primary btn-xs">{{ Lang::get('general.edit') }}</a>
-
-							-->
 						</tr>
 				@endforeach
 				</tbody>
@@ -79,5 +74,4 @@
 
 		});
 	</script>
-
 @endsection
