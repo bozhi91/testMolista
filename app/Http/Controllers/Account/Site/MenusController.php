@@ -79,6 +79,8 @@ class MenusController extends \App\Http\Controllers\AccountController
 
 	public function update($slug)
 	{
+
+
 		$menu = $this->site->menus()->whereSlug($slug)->firstOrFail();
 
 		$validator = \Validator::make($this->request->all(), [
@@ -94,6 +96,7 @@ class MenusController extends \App\Http\Controllers\AccountController
 		$menu->update([
 			'title' => sanitize( $this->request->input('title') ),
 		]);
+
 
 		// Get old items
 		$current_items = $menu->items->keyBy('id')->all();
@@ -155,6 +158,8 @@ class MenusController extends \App\Http\Controllers\AccountController
 
 		// Update site setup
 		$this->site->updateSiteSetup();
+
+       // echo json_encode($_POST);die;
 
 		return redirect()->action('Account\Site\MenusController@edit', $menu->slug)->with('success', trans('account/site.menus.update.success'));
 	}

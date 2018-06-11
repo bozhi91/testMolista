@@ -22,7 +22,8 @@ class PagesController extends \App\Http\Controllers\AccountController
     public static function createBlog(){
 
         $site_id = session('SiteSetup')['site_id'];
-        //check if there is page for our blog in this site.
+
+        //Check if there is page for our blog in this site.
         $blog = DB::table('pages')
             ->select('*')
             ->where('type','blog')
@@ -35,6 +36,7 @@ class PagesController extends \App\Http\Controllers\AccountController
             ->where('site_id',$site_id)
             ->get();
 
+
         //////////////////////////////////////////////////////////////////////////////////////////
         //if the page for our blog is not created for this site, create it.
         if(count($blog)==0){
@@ -45,24 +47,24 @@ class PagesController extends \App\Http\Controllers\AccountController
                     'created_at'  => date("Y-m-d H-i-s"),
                 ]
             );
-            //get the pageId
+
+            //get the pageId of the blog we just created
             $page = DB::table('pages')
-                 ->select('id')
-               ->where('type','blog')
+                ->select('id')
+                ->where('type','blog')
                 ->where('site_id',$site_id)
                 ->first();
 
             DB::table('pages_translations')->insert(
                 [   'page_id' => $page->id,
-                    'locale' => 'es',
-                    'title' => 'Blog',
-                    'slug' => 'blog',
+                    'locale'  => 'es',
+                    'title'   => 'Blog',
+                    'slug'    => 'blog'.$page->id,
                 ]
             );
 
             //create the menu if it doesn't exist
             if(count($menu)==0){
-
                 DB::table('menus')->insert(
                     ['site_id' => $site_id,
                         'title' => 'MyMenu',
@@ -72,8 +74,7 @@ class PagesController extends \App\Http\Controllers\AccountController
                         'updated_at'=> date("Y-m-d H-i-s")
                     ]
                 );
-
-                //get the menuId
+                //get the id of the menu we just created
                 $menu = DB::table('menus')
                     ->select('id')
                     ->where('enabled',1)
@@ -84,7 +85,71 @@ class PagesController extends \App\Http\Controllers\AccountController
                 DB::table('menus_items')->insert(
                     ['menu_id'    => $menu->id,
                         'page_id' => $page->id,
-                        'type'    => 'page'
+                        'type'    => 'page',
+                        'target'  => '_blank',
+                        'position'=>0
+                    ]
+                );
+
+                //get the menu_item_id
+                $menu_item = DB::table('menus_items')
+                    ->select('id')
+                    ->where('menu_id',$menu->id)
+                    ->where('page_id',$page->id)
+                    ->first();
+
+                //create a translation for this menu
+                DB::table('menus_items_translations')->insert(
+                    ['menu_item_id'  => $menu_item->id,
+                        'locale' => "es",
+                        'title'  => 'blog'
+                    ]
+                );
+                //Link the menu to the widgets
+                DB::table('widgets')->insert(
+                    ['site_id'  => $site_id,
+                        'group' => "header",
+                        'type'  => 'menu',
+                        'menu_id'  => $menu->id
+                    ]
+                );
+            }
+            else{
+                $page = DB::table('pages')
+                    ->select('id')
+                    ->where('type','blog')
+                    ->where('site_id',$site_id)
+                    ->first();
+
+                //If the menu exists, get it's id and put the Blog in it
+                $menu = DB::table('menus')
+                    ->select('id')
+                    ->where('enabled',1)
+                    ->where('site_id',$site_id)
+                    ->first();
+
+                //Link the page to the menu
+                DB::table('menus_items')->insert(
+                    ['menu_id'    => $menu->id,
+                        'page_id' => $page->id,
+                        'type'    => 'page',
+                        'target'  => '_blank',
+                        'position'  => 0
+                    ]
+                );
+
+                //get the menu_item_id
+                $menu_item = DB::table('menus_items')
+                    ->select('id')
+                    ->where('menu_id',$menu->id)
+                    ->where('page_id',$page->id)
+                    ->first();
+
+                //create a translation for this menu
+                DB::table('menus_items_translations')->insert(
+                    ['menu_item_id'  => $menu_item->id,
+                        'locale' => "es",
+                        'title'  => 'blog'
                     ]
                 );
 
@@ -96,6 +161,18 @@ class PagesController extends \App\Http\Controllers\AccountController
                         'menu_id'  => $menu->id
                     ]
                 );
+                $widget = DB::table('widgets')
+                    ->select('id')
+                    ->where('site_id',$site_id)
+                    ->first();
+
+                /*
+                DB::table('widgets_translations')->insert(
+                    ['widget_id'  => $widget->id,
+                        'locale' => "es",
+                        'title'  => 'menu'
+                    ]
+                );*/
             }
         }
         return $blog;
@@ -123,8 +200,10 @@ class PagesController extends \App\Http\Controllers\AccountController
     }
 
     public static function getAllPosts(){
+        $site_id = session('SiteSetup')['site_id'];
 	    $entradas = DB::table('entradas')
             ->select('*')
+            ->where('site_id',$site_id)
             ->get();
         return $entradas;
     }

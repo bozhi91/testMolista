@@ -1,7 +1,7 @@
 <?php
 
 	return [
-
+        'blog.empty' => 'There are no posts created yet.',
         'blog.delete' => 'Are you sure you want to delete this post?',
 
 		'configuration.h1' => 'Site configuration',

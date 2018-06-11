@@ -11,7 +11,7 @@
 			<a href="{{ action('Account\Site\PagesController@createNewPost') }}" class="btn btn-primary">
                 {{ Lang::get('general.newPost') }}
 			</a>
-		</div>
+		</div><br/><br/><br/>
 
 		@if ( count($entradas) < 1)
 			<div class="alert alert-info">{{ Lang::get('account/site.pages.empty') }}</div>
@@ -24,7 +24,6 @@
 						<th></th>
 					</tr>
 				</thead>
-
 				<tbody>
 				@foreach ($entradas as $entrada)
 						<tr>
@@ -58,7 +57,6 @@
 	<script type="text/javascript">
 		ready_callbacks.push(function() {
 			var cont = $('#admin-pages');
-
 			cont.find('form.delete-form').each(function(){
 				$(this).validate({
 					submitHandler: function(f) {
