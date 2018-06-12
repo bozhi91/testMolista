@@ -32,12 +32,20 @@
 
 							<td class="text-right text-nowrap">
 								{!! Form::open([ 'method'=>'POST', 'class'=>'delete-form', 'action'=>['Account\Site\PagesController@deletePost'] ]) !!}
-
 								{{ Form::input('hidden', 'post_id',$entrada->id) }}
 								{{ Form::input('hidden', 'action',"edit") }}
 
-								<?php $attribs = array("action"=>"edit","post_id"=>$entrada->id);?>
-								<a href="http://albelia.localhost:8000/pages/blog?post_id={{$entrada->id}}"  class="btn btn-success btn-xs" style="color: white !important;" target="_blank">
+								<?php
+									$attribs  = array("action"=>"edit","post_id"=>$entrada->id);
+
+									$site_id  = session('SiteSetup')['site_id'];
+                                	$domain   = env('APP_DOMAIN');
+									$protocol = env("APP_PROTOCOL");
+                                	$site = App\Http\Controllers\Account\Site\PagesController::getSiteById($site_id);
+                                	$url  = $protocol."://".$site->subdomain.".".$domain."/pages/blog?post_id=".$entrada->id;
+
+								?>
+								<a href="{{$url}}"  class="btn btn-success btn-xs" style="color: white !important;" target="_blank">
 									{{ Lang::get('general.view') }}
 								</a>
 

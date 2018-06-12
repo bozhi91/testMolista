@@ -23,7 +23,6 @@ class MenusController extends \App\Http\Controllers\AccountController
 			$this->menus = $this->site->menus()->get();
 			\View::share('menus', $this->menus);
 		}
-
 	}
 
 	public function index()
@@ -69,20 +68,19 @@ class MenusController extends \App\Http\Controllers\AccountController
 
 	public function edit($slug)
 	{
+
 		$menu = $this->site->menus()->whereSlug($slug)->withItems()->firstOrFail();
 
 		$pages = $this->site->pages()->orderBy('title')->lists('title','id')->all();
 		$properties = $this->site->properties()->orderBy('title')->lists('title','id')->all();
+
 
 		return view('account.site.menus.edit', compact('menu','pages','properties'));
 	}
 
 	public function update($slug)
 	{
-
-
 		$menu = $this->site->menus()->whereSlug($slug)->firstOrFail();
-
 		$validator = \Validator::make($this->request->all(), [
 			'title' => 'required|max:255',
 			'items' => 'array',
@@ -110,6 +108,7 @@ class MenusController extends \App\Http\Controllers\AccountController
 
 		// Update items
 		$position = 0;
+
 		foreach ($saved_items as $item_id => $request)
 		{
 			// Check if exists
@@ -120,6 +119,7 @@ class MenusController extends \App\Http\Controllers\AccountController
 
 			// Get item
 			$item = $current_items[$item_id];
+
 
 			// Validate
 			$validator = \Validator::make($request, $this->getItemTypeFields($item->type));
@@ -155,11 +155,8 @@ class MenusController extends \App\Http\Controllers\AccountController
 		{
 			$item->delete();
 		}
-
 		// Update site setup
 		$this->site->updateSiteSetup();
-
-       // echo json_encode($_POST);die;
 
 		return redirect()->action('Account\Site\MenusController@edit', $menu->slug)->with('success', trans('account/site.menus.update.success'));
 	}

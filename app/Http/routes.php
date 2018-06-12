@@ -362,6 +362,9 @@ Route::group([
             Route::post('storePost', 'Account\Site\PagesController@storePost')->name("storePost");
             Route::post('updatePost', 'Account\Site\PagesController@updatePost')->name("updatePost");
 
+            Route::get('getSiteById', 'Account\Site\PagesController@getSiteById')->name("getSiteById");
+
+
             //Sliders
 			Route::post('sliders/upload', 'Account\Site\SlidersController@upload');
 			Route::resource('sliders', 'Account\Site\SlidersController');

@@ -18,11 +18,19 @@ class PagesController extends \App\Http\Controllers\AccountController
 		\View::share('submenu_subsection', 'site-pages');
 	}
 
+    public static function getSiteById($site_id){
+
+	    $sites = DB::table('sites')
+            ->select('*')
+            ->where('id',$site_id)
+            ->first();
+
+	    return $sites;
+    }
+
 	//This methid will check if the blog page is created. If not, it will create it automatically.
     public static function createBlog(){
-
         $site_id = session('SiteSetup')['site_id'];
-
         //Check if there is page for our blog in this site.
         $blog = DB::table('pages')
             ->select('*')
@@ -47,7 +55,6 @@ class PagesController extends \App\Http\Controllers\AccountController
                     'created_at'  => date("Y-m-d H-i-s"),
                 ]
             );
-
             //get the pageId of the blog we just created
             $page = DB::table('pages')
                 ->select('id')
@@ -59,7 +66,7 @@ class PagesController extends \App\Http\Controllers\AccountController
                 [   'page_id' => $page->id,
                     'locale'  => 'es',
                     'title'   => 'Blog',
-                    'slug'    => 'blog'.$page->id,
+                    'slug'    => 'blog',
                 ]
             );
 
@@ -123,7 +130,7 @@ class PagesController extends \App\Http\Controllers\AccountController
 
                 //If the menu exists, get it's id and put the Blog in it
                 $menu = DB::table('menus')
-                    ->select('id')
+                    ->select('*')
                     ->where('enabled',1)
                     ->where('site_id',$site_id)
                     ->first();
@@ -161,12 +168,12 @@ class PagesController extends \App\Http\Controllers\AccountController
                         'menu_id'  => $menu->id
                     ]
                 );
-                $widget = DB::table('widgets')
+
+               /* $widget = DB::table('widgets')
                     ->select('id')
                     ->where('site_id',$site_id)
                     ->first();
 
-                /*
                 DB::table('widgets_translations')->insert(
                     ['widget_id'  => $widget->id,
                         'locale' => "es",

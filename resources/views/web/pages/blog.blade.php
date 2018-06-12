@@ -3,14 +3,21 @@
 
 	<?php
         //Display the first post by default
-        if(empty( $_GET['post_id'])){
+        if(empty($_GET['post_id'])){
             $posts = App\Http\Controllers\Account\Site\PagesController::getAllPosts();
         }
         else{
             $posts = App\Http\Controllers\Account\Site\PagesController::getPostById($_GET['post_id']);
         }
-        $title = $posts[0]->title;
-        $body  = $posts[0]->body;
+
+		if(count($posts)==0){
+        	$title="Blog";
+        	$body="El blog está vacio!";
+    	}
+    	else{
+            $title = $posts[0]->title;
+            $body  = $posts[0]->body;
+        }
 	?>
 
 	<div id="pages">

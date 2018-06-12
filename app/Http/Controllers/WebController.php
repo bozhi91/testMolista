@@ -47,6 +47,7 @@ class WebController extends Controller
         $sliders = false;
     	if(!empty($this->site->site_setup['widgets']['home']))
         {
+
     		foreach ($this->site->site_setup['widgets']['home'] as $widget)
             {
     			if ($widget['type'] == 'slider')
