@@ -20,6 +20,7 @@
 		'type' => 'Type',
 		'type.any' => 'All property types',
 		'type.house' => 'House',
+        'type.mooring' => 'Mooring',
 		'type.apartment' => 'Apartment',
 		'type.flat' => 'Flat',
 		'type.duplex' => 'Duplex',

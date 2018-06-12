@@ -32,7 +32,6 @@
 	#tab-visits .column-property { display: none; }
 </style>
 
-
 {!! Form::model($item, [ 'method'=>$method, 'action'=>$action, 'files'=>true, 'id'=>'edit-form' ]) !!}
 	{!! Form::hidden('current_tab', $current_tab) !!}
 	{!! Form::hidden('label_color', null) !!}
