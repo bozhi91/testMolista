@@ -265,6 +265,10 @@ class SitesController extends Controller
 	{
 		$locales = \App\Models\Locale::where('admin',1)->lists('id','locale')->toArray();
 
+
+		if(count($_POST['locales_array'])>3)echo "You can't have more than 3 languages in the basic plan. Please upgrade.";
+		echo json_encode($_POST);die;
+
 		// Validate
 		$fields = [
 			'subdomain' => 'required|alpha_dash|max:255',

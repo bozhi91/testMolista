@@ -13,7 +13,6 @@
 
 
 		<h1 class="list-title">{{ Lang::get('admin/sites.edit.title') }}</h1>
-
 		<ul class="nav nav-tabs main-tabs" role="tablist">
 			<li role="presentation" class="{{ $current_tab == 'site' ? 'active' : '' }}"><a href="#tab-site-config" aria-controls="tab-site-config" role="tab" data-toggle="tab">{{ Lang::get('admin/sites.tab.config') }}</a></li>
 			<li role="presentation" class="{{ $current_tab == 'plan' ? 'active' : '' }}"><a href="#tab-site-plan" aria-controls="tab-site-plan" role="tab" data-toggle="tab">{{ Lang::get('admin/sites.tab.plan') }}</a></li>
@@ -60,20 +59,28 @@
 					<div class="row">
 						<div class="col-xs-12 col-sm-6">
 							<div class="form-group">
+
 								{!! Form::label('locales_array[]', Lang::get('admin/sites.languages')) !!}
 								<?php
 									$tmp = [];
-									foreach (LaravelLocalization::getSupportedLocales() as $lang_iso => $lang_def) 
+
+									foreach (LaravelLocalization::getSupportedLocales() as $lang_iso => $lang_def)
 									{
 										$tmp[$lang_iso] = $lang_def['native'];
 									}
+
+									echo json_encode($tmp);
+
+
 								?>
-								<div class="error-container">
+								<div class="error-container" id="language">
 									{!! Form::select('locales_array[]', $tmp, null, [ 'class'=>'form-control required has-select-2', 'size'=>'1', 'multiple'=>'multiple' ]) !!}
+
 								</div>
 								<div class="help-block">{{ Lang::get('admin/sites.languages.english', [ 'fallback_locale'=>fallback_lang_text() ]) }}</div>
 							</div>
 						</div>
+
 						<div class="col-xs-12 col-sm-6">
 							<div class="form-group error-container owners-select-container">
 								{!! Form::label('owners_ids[]', Lang::get('admin/sites.owners')) !!}
@@ -135,7 +142,7 @@
 						</div>
 						<div class="col-xs-12 col-sm-6">
 							<div class="pull-right">
-								{!! Form::button( Lang::get('general.save'), [ 'type'=>'submit', 'class'=>'btn btn-default' ]) !!}
+								---->{!! Form::button( Lang::get('general.save'), [ 'type'=>'submit', 'class'=>'btn btn-default' ]) !!}
 							</div>
 							@if ( count($site->owners_ids) > 0 && Auth::user()->can('user-login') )
 								<a href="{{action('Admin\SitesController@show', $site->id)}}" class="btn btn-sm btn-default" target="_blank">
@@ -508,15 +515,16 @@
 				});
 
 			});
-
 			form.find('.has-select-2').select2();
 
 			var owners_str = '';
 			form.find('input[name="owners_ids[]"]').each(function(){
 				owners_str += '<li class="select2-selection__choice">' + $(this).data().title + '</li>';
 			});
-			form.find('select[name="owners_ids[]"]').on('change', function(){
+
+            form.find('select[name="owners_ids[]"]').on('change', function(){
 				$(this).closest('.form-group').find('.select2-selection__rendered').prepend(owners_str);
+
 			}).closest('.form-group').find('.select2-selection__rendered').prepend(owners_str);
 
 			var form_invoice = $('#invoice-form')
