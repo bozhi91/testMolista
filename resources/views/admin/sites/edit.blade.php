@@ -63,16 +63,23 @@
 								{!! Form::label('locales_array[]', Lang::get('admin/sites.languages')) !!}
 								<?php
 									$tmp = [];
-
 									foreach (LaravelLocalization::getSupportedLocales() as $lang_iso => $lang_def)
 									{
 										$tmp[$lang_iso] = $lang_def['native'];
 									}
+                                    $languagesLimit = App\Http\Controllers\Admin\Sites\PaymentsController::getMaxLanguages($site->id);
+                                   // $planLimit = App\Http\Controllers\Admin\Sites\PaymentsController::verifyPlan($site->id);
 
-									echo json_encode($tmp);
-
-
+									//echo json_encode($site);die;
 								?>
+
+                                <?php $protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';?>
+								@include('Modals.commonModal', ['header'=>"Acceso Denegado!",
+                                 'message'=>"No puedes insertar más de $languagesLimit  idiomas. Por favor, actualuza tu plan!
+                                   <p><a  href='".$protocol.$site->subdomain.'.'.$_SERVER['HTTP_HOST']."/account/payment/upgrade' target='_blank'>
+                                      <button type='button' class='btn btn-info .btn-md' style='margin-top:10px !important;'>Actualizar</button>
+                                   </a></p>"])
+
 								<div class="error-container" id="language">
 									{!! Form::select('locales_array[]', $tmp, null, [ 'class'=>'form-control required has-select-2', 'size'=>'1', 'multiple'=>'multiple' ]) !!}
 
@@ -142,7 +149,7 @@
 						</div>
 						<div class="col-xs-12 col-sm-6">
 							<div class="pull-right">
-								---->{!! Form::button( Lang::get('general.save'), [ 'type'=>'submit', 'class'=>'btn btn-default' ]) !!}
+								{!! Form::button( Lang::get('general.save'), [ 'type'=>'submit', 'class'=>'btn btn-default' ]) !!}
 							</div>
 							@if ( count($site->owners_ids) > 0 && Auth::user()->can('user-login') )
 								<a href="{{action('Admin\SitesController@show', $site->id)}}" class="btn btn-sm btn-default" target="_blank">
@@ -461,7 +468,8 @@
 
 	<script type="text/javascript">
 		var payments_url = "{{ action('Admin\Sites\PaymentsController@getList', $site->id) }}";
-		function payments_reload() {
+
+        function payments_reload() {
 			LOADING.show();
 			$.magnificPopup.close();
 			$('#tab-site-payments').load(payments_url, function(){
@@ -473,7 +481,24 @@
 			var cont = $('#admin-sites');
 			var form = $('#site-form');
 
-			form.validate({
+            //Verify the client's plan
+            //////////////////////////////////////////
+            form.find('select[name="locales_array[]"]').on('change', function(e){
+                var langs = $(".select2-selection__rendered")[0].childElementCount-1;
+                var languagesLimit = "{{$languagesLimit}}";
+
+                if(langs >= languagesLimit){
+                   	e.preventDefault();
+                   	e.stopPropagation();
+                    if(langs > languagesLimit){
+                        $('#commonModal').modal();
+                        $(".select2-selection__rendered")[0].last().remove();
+                    }
+				//	$(".select2-selection__rendered")[0].last().remove();
+                }
+            }).closest('.form-group').find('.select2-selection__rendered').prepend(owners_str);
+
+            form.validate({
 				ignore: '',
 				errorPlacement: function(error, element) {
 					element.closest('.error-container').append(error);
@@ -498,7 +523,9 @@
 				}
 			});
 
-			form.find('.domain-input').each(function(){
+
+
+            form.find('.domain-input').each(function(){
 				var el = $(this);
 
 				$(this).rules('add', {
@@ -524,7 +551,6 @@
 
             form.find('select[name="owners_ids[]"]').on('change', function(){
 				$(this).closest('.form-group').find('.select2-selection__rendered').prepend(owners_str);
-
 			}).closest('.form-group').find('.select2-selection__rendered').prepend(owners_str);
 
 			var form_invoice = $('#invoice-form')

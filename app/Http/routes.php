@@ -106,6 +106,10 @@ Route::group([
 		Route::get('sites/comments/{id}', 'Admin\SitesController@comments');
 		Route::post('sites/comments/{id}', 'Admin\SitesController@add_comment');
 		Route::resource('sites', 'Admin\SitesController');
+
+		Route::get('sites/getMaxLanguages/{id}', 'Admin\SitesController@getMaxLanguages');
+        Route::get('sites/verifyPlan/{id}', 'Admin\SitesController@verifyPlan');
+
 		// Users
 		Route::resource('users', 'Admin\UsersController');
 		// Marketplaces
@@ -130,7 +134,8 @@ Route::group([
 		Route::controller('utils/user', 'Admin\Utils\UserController');
 		Route::controller('utils/locale', 'Admin\Utils\LocaleController');
 		Route::controller('utils/parser', 'Admin\Utils\ParserController');
-		// Plan change requests
+
+        // Plan change requests
 		Route::group([
 			'middleware' => [ 'permission:planchange-aproove' ]
 		], function() {
@@ -355,6 +360,10 @@ Route::group([
 			//Sliders
 			Route::post('sliders/upload', 'Account\Site\SlidersController@upload');
 			Route::resource('sliders', 'Account\Site\SlidersController');
+
+			//get a list of the allowed translations.
+            Route::get('configuration/getAllowedTranslations/{id}', 'Admin\SitesController@getAllowedTranslations');
+
 		});
 		Route::controller('visits', 'Account\Visits\AjaxController');
 	});

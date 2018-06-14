@@ -119,7 +119,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'alerts' ? 'active' : '' }}" id="tab-site-alerts">
 						<label>{{  Lang::get('account/site.configuration.alerts.price.down') }}</label>
 						<div class="row">

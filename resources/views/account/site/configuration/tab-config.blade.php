@@ -158,19 +158,34 @@
 					</div>
 				</div>
 			</div>
+
+			<?php
+				$site_id = session("SiteSetup")['site_id'];
+         	    $languagesList = App\Http\Controllers\Admin\Sites\PaymentsController::getAllowedTranslations($site_id);
+
+         	   // echo json_encode($languagesList);
+         	    foreach($languagesList as $lang){
+				//	echo $lang->locale;
+                }
+
+			?>
+
 			@foreach (LaravelLocalization::getSupportedLocales() as $lang_iso => $lang_def)
-				@if ( $lang_iso != fallback_lang() )
+				@foreach ($languagesList as $lang)
+
+				@if ( $lang_iso != fallback_lang() && $lang_iso==$lang->locale )
 					<div class="col-xs-12 col-sm-2">
 						<div class="form-group">
 							<div class="checkbox">
 								<label class="normal">
 									{!! Form::checkbox('locales_array[]', $lang_iso, null, [ 'class'=>'required locale-input', 'title'=>Lang::get('account/site.configuration.languages.error') ]) !!}
-									{{ $lang_def['native'] }}
+									{{ $lang_def['native'] }}<!-- mark the checkbox-->
 								</label>
 							</div>
 						</div>
 					</div>
 				@endif
+				@endforeach
 			@endforeach
 		</div>
 	</div>

@@ -261,13 +261,15 @@ class SitesController extends Controller
 		return view('admin.sites.edit', compact('site','locales','owners','companies','resellers','invoices','current_tab','plan_details','payment_tab'));
 	}
 
-	public function update($id)
+    public function verifyPlan($site){
+        echo $site;
+        die;
+    }
+
+
+    public function update($id)
 	{
 		$locales = \App\Models\Locale::where('admin',1)->lists('id','locale')->toArray();
-
-
-		if(count($_POST['locales_array'])>3)echo "You can't have more than 3 languages in the basic plan. Please upgrade.";
-		echo json_encode($_POST);die;
 
 		// Validate
 		$fields = [
