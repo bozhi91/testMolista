@@ -3,7 +3,7 @@
 use \App\TranslatableModel;
 use Laravel\Cashier\Billable;
 use App\Models\Site\Subscription;
-
+use Illuminate\Support\Facades\DB;
 use Swift_Mailer;
 
 class Site extends TranslatableModel
@@ -23,19 +23,47 @@ class Site extends TranslatableModel
 	];
 
 	protected $data;
-
 	protected $ticket_token = false;
 
 	public static function boot()
 	{
 		parent::boot();
-
 		// Whenever a site is updated
 		static::updated(function($site){
 			$site->updateSiteSetup();
 			$site->ticket_adm->updateSite();
 		});
 	}
+
+	public static function verifyPlans($site){
+
+	    $site_data = DB::table('sites')
+            ->select('*')
+            ->where('id',$site->id)
+            ->first();
+
+        $today = date("Y-m-d H:i:s");
+        $paid_until   = $site_data->paid_until;
+        $limit_before = 3600*24*5; //5 days before the expiration
+        $limit_after  = 3600*24*7; //7 days after the expiration
+
+         if (strtotime($paid_until) > strtotime($today)){
+             if ( (strtotime($paid_until) - strtotime($today)) <= $limit_before ){
+                echo "Less than 5 days are left. Update your subscription  or you'll be downgraded to Free plan.";
+             }
+         }
+         else{
+             if ( (strtotime($today) - strtotime($paid_until)) >= $limit_after ){
+                echo "The subscription has expired 7 days ago. Update your plan now or you'll be downgraded to Free plan.";
+             }
+         }
+         //Send notification email to the user.
+        $params = array("to"=>"bozhidar1991@gmail.com",
+            "subject" => "Subscription Update Alert",
+            "content" => "The subscription has expired 7 days ago. Update your plan now or you'll be downgraded to Free plan.");
+
+        $site->sendEmail($params);
+    }
 
 	public function plan()
 	{

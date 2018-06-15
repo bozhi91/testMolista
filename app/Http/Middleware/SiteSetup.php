@@ -19,7 +19,6 @@ class SiteSetup
 		// Get site setup
 		$setup = $site->site_setup;
 		\App\Session\Site::replace($setup);
-
 		$site->setRecaptchaConfig();
 
 		// Add site to request attributes
@@ -55,6 +54,8 @@ class SiteSetup
 		}
 
 		// Check if plan is valid
+        \App\Site::verifyPlans($site);
+
 		$is_valid = empty($setup['plan']['is_valid']) ? false : true;
 		if ( !$is_valid )
 		{
@@ -77,8 +78,8 @@ class SiteSetup
 
 			if ( $error )
 			{
-				echo view('web.suspended')->render();
-				exit;
+				//echo view('web.suspended')->render();
+				//exit;
 			}
 		}
 
