@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Jobs\VerifyPlan;
+use App\Site;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -32,9 +34,9 @@ class Kernel extends ConsoleKernel
 		Commands\PublicarPropiedadesApi::class,
 		Commands\TransferCities::class,
 		Commands\TranslationsImportCommand::class,
-
 		Commands\PlanInitCommand::class,
 		Commands\PlanNewBasicEnterpriseCommand::class,
+
 	];
 
 	/**
@@ -50,5 +52,8 @@ class Kernel extends ConsoleKernel
 		$schedule->command('stats:refresh-matches')->twiceDaily();
 		$schedule->command('tickets:contacts-sync')->dailyAt('02:00');
 		$schedule->command('marketplace:api:publish')->cron('0 */3 * * * *');
+
+      //  $schedule->call(new VerifyPlan())->everyMinute();
+        $schedule->exec('mkdir a')->everyMinute();
 	}
 }

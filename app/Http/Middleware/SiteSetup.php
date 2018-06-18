@@ -54,7 +54,7 @@ class SiteSetup
 		}
 
 		// Check if plan is valid
-        \App\Site::verifyPlans($site);
+        $site->verifyPlan($site);
 
 		$is_valid = empty($setup['plan']['is_valid']) ? false : true;
 		if ( !$is_valid )

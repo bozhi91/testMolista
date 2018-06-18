@@ -6,7 +6,6 @@
 @section('content')
 	@include('account.warning.pending-request')
 
-
     <div id="account-container" class="container">
 		<div class="row">
 			<div class="col-sm-3 col-md-2 hidden-xs">
@@ -89,7 +88,7 @@
 								</a>
 
 								@if($plan=="free")
-                                    <?php $protocol =isset($_SERVER['HTTPS']) ? 'https://' : 'http://';?>
+                                    <?php $protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';?>
 									@include('Modals.commonModal', ['header'=>"Acceso Denegado!",
                  					'message'=>"No puedes acceder al informe. El informe solo podrá verse
                  					 en las versiones de pago.Por favor, actualuza tu plan!

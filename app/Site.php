@@ -5,6 +5,7 @@ use Laravel\Cashier\Billable;
 use App\Models\Site\Subscription;
 use Illuminate\Support\Facades\DB;
 use Swift_Mailer;
+use Illuminate\Support\Facades\Lang;
 
 class Site extends TranslatableModel
 {
@@ -35,9 +36,22 @@ class Site extends TranslatableModel
 		});
 	}
 
-	public static function verifyPlans($site){
+    public function verifyPlans(){
 
+	    echo "hola";
 	    $site_data = DB::table('sites')
+            ->select('*')
+            ->get();
+
+        foreach($site_data as $site){
+            echo json_encode($site);
+        }
+        die;
+    }
+
+	public function verifyPlan($site){
+
+        $site_data = DB::table('sites')
             ->select('*')
             ->where('id',$site->id)
             ->first();
@@ -45,24 +59,64 @@ class Site extends TranslatableModel
         $today = date("Y-m-d H:i:s");
         $paid_until   = $site_data->paid_until;
         $limit_before = 3600*24*5; //5 days before the expiration
-        $limit_after  = 3600*24*7; //7 days after the expiration
+        $limit_after  = 3600*24*7; //7 days before the expiration
+        $site_url     = env("APP_PROTOCOL")."://".$site_data->subdomain.".".$_SERVER['SERVER_NAME']."/account/payment/upgrade";
+        $message      = "";
+        $sendEmail    = 0; //This variable defines how many times we must send the notificaiton email
 
-         if (strtotime($paid_until) > strtotime($today)){
+         //If the date is about to expire
+         if (strtotime($paid_until) >= strtotime($today)){
              if ( (strtotime($paid_until) - strtotime($today)) <= $limit_before ){
-                echo "Less than 5 days are left. Update your subscription  or you'll be downgraded to Free plan.";
+                 $message.=Lang::get('account/site.subscription.toExpire');
+             }
+             else{
+                 DB::table('sites')
+                     ->where('id',$site->id)
+                     ->update(['sent_emails' => 0]);
+             }
+             if($site_data->sent_emails!=1){
+                 $sendEmail = 1;
+
+                 DB::table('sites')
+                     ->where('id',$site->id)
+                     ->update(['sent_emails' => 1]);
              }
          }
          else{
-             if ( (strtotime($today) - strtotime($paid_until)) >= $limit_after ){
-                echo "The subscription has expired 7 days ago. Update your plan now or you'll be downgraded to Free plan.";
+             //if the date has expired already
+             $datediff = (strtotime($today) - strtotime($paid_until));
+
+              if ((int)$datediff > $limit_after){
+                 $message.= Lang::get('account/site.subscription.expired');
+              }
+              //Send the seccond email
+             if($site_data->sent_emails!=2){
+                 $sendEmail = 1;
+                 DB::table('sites')
+                     ->where('id',$site->id)
+                     ->update(['sent_emails' => 2]);
+
+                 //Downgrade the user to free plan
+                 DB::table('sites')
+                     ->where('id',$site->id)
+                     ->update(['plan_id' => 1]);
              }
          }
-         //Send notification email to the user.
+
+         //Prepare the message body
+         $message.="<p><a  href=$site_url target='_blank'>
+                  	<button type='button' class='btn btn-info .btn-md' style='margin-top:10px !important;'>Actualizar</button>
+                  	</a></p>";
+
+        //Set the email attributes
         $params = array("to"=>"bozhidar1991@gmail.com",
             "subject" => "Subscription Update Alert",
-            "content" => "The subscription has expired 7 days ago. Update your plan now or you'll be downgraded to Free plan.");
+            "content" => $message);
 
-        $site->sendEmail($params);
+        //Send the email
+        if($sendEmail){
+            $this->sendEmail($params);
+        }
     }
 
 	public function plan()

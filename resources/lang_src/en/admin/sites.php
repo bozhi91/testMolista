@@ -1,8 +1,7 @@
 <?php
 
 return [
-	'empty' => 'No sites found',
-
+    'empty' => 'No sites found',
 	'title' => 'Title',
 	'subdomain' => 'Subdomain',
 	'subdomain.error.taken' => 'This subdomain is already in use',
