@@ -1,4 +1,6 @@
-<?php namespace App;
+<?php
+
+namespace App;
 
 use \App\TranslatableModel;
 use Laravel\Cashier\Billable;
@@ -6,6 +8,7 @@ use App\Models\Site\Subscription;
 use Illuminate\Support\Facades\DB;
 use Swift_Mailer;
 use Illuminate\Support\Facades\Lang;
+
 
 class Site extends TranslatableModel
 {
@@ -37,30 +40,41 @@ class Site extends TranslatableModel
 	}
 
     public function verifyPlans(){
-
-	    echo "hola";
 	    $site_data = DB::table('sites')
             ->select('*')
-            ->get();
+            ->where('id','88')
+            ->first();
 
-        foreach($site_data as $site){
-            echo json_encode($site);
-        }
-        die;
+        $site_data = \App\Site::enabled()
+            ->with('locales')
+            ->with('infocurrency')
+            ->where('id','88')->first();
+
+        $this->verifyPlan($site_data);
+
+	    //Verify all the sites and check their plans
+       /* foreach($site_data as $site){
+            if($site!=null){
+                $this->verifyPlan($site);
+            }
+        }*/
     }
 
+    //VErify the plan of only ONE site
 	public function verifyPlan($site){
-
-        $site_data = DB::table('sites')
-            ->select('*')
-            ->where('id',$site->id)
+        //Get user's email
+        $user_data = DB::table('sites')
+            ->select('users.*')
+            ->where('sites.id',$site->id)
+            ->join('users_stats', 'sites.id', '=', 'users_stats.site_id')
+            ->join('users', 'users_stats.user_id', '=', 'users.id')
             ->first();
 
         $today = date("Y-m-d H:i:s");
-        $paid_until   = $site_data->paid_until;
+        $paid_until   = $site->paid_until;
         $limit_before = 3600*24*5; //5 days before the expiration
         $limit_after  = 3600*24*7; //7 days before the expiration
-        $site_url     = env("APP_PROTOCOL")."://".$site_data->subdomain.".".$_SERVER['SERVER_NAME']."/account/payment/upgrade";
+        $site_url     = env("APP_PROTOCOL")."://".$site->subdomain.".".env("APP_DOMAIN")."/account/payment/upgrade";
         $message      = "";
         $sendEmail    = 0; //This variable defines how many times we must send the notificaiton email
 
@@ -74,7 +88,7 @@ class Site extends TranslatableModel
                      ->where('id',$site->id)
                      ->update(['sent_emails' => 0]);
              }
-             if($site_data->sent_emails!=1){
+             if($site->sent_emails!=1){
                  $sendEmail = 1;
 
                  DB::table('sites')
@@ -90,7 +104,7 @@ class Site extends TranslatableModel
                  $message.= Lang::get('account/site.subscription.expired');
               }
               //Send the seccond email
-             if($site_data->sent_emails!=2){
+             if($site->sent_emails!=2){
                  $sendEmail = 1;
                  DB::table('sites')
                      ->where('id',$site->id)
@@ -108,14 +122,25 @@ class Site extends TranslatableModel
                   	<button type='button' class='btn btn-info .btn-md' style='margin-top:10px !important;'>Actualizar</button>
                   	</a></p>";
 
-        //Set the email attributes
-        $params = array("to"=>"bozhidar1991@gmail.com",
-            "subject" => "Subscription Update Alert",
-            "content" => $message);
+        if($user_data!=null){
+            //Set the email attributes
+            $params = array(
+                "to" => "bozhidar1991@gmail.com",
+                "subject"   => "Subscription Update Alert",
+                "content"   => $message,
 
-        //Send the email
-        if($sendEmail){
+                "backup_required" => true,
+                "service"=>"myService",
+                "from_name"  => $site->subdomain,
+                "reply_name" => $user_data->name,
+            );
+
             $this->sendEmail($params);
+
+            //Send the email
+            if($sendEmail==1 || $site->paid_until==null){
+             //   $this->sendEmail($params);
+            }
         }
     }
 
@@ -615,7 +640,7 @@ class Site extends TranslatableModel
 
 		switch ( $this->mailer_service )
 		{
-			case 'custom':
+            case 'custom':
 				break;
 			default:
 				$params['backup_required'] = false;
@@ -881,9 +906,23 @@ class Site extends TranslatableModel
 			return false;
 		}
 
+		$aux_param = $params;
 		$params = array_merge($params, $this->getSiteMailerParams());
 
-		$from_name = $params['from_name'];
+        if($params['from_name']==null){
+            $params['from_name'] = $aux_param['from_name'];
+        }
+        if($params['backup_required']==null){
+            $params['backup_required'] = $aux_param['backup_required'];
+        }
+        if($params['service']==null){
+            $params['service'] = $aux_param['service'];
+        }
+        if($params['reply_name']==null){
+            $params['reply_name'] = $aux_param['reply_name'];
+        }
+
+		$from_name  = $params['from_name'];
 		$from_email = $params['from_email'];
 		if ( !$from_name || !$from_email )
 		{
@@ -907,6 +946,18 @@ class Site extends TranslatableModel
 			$backup = \Mail::getSwiftMailer();
 		}
 
+        ////Custom
+        $transport = \Swift_SmtpTransport::newInstance("smtp.1and1.es", "25", "tls");
+        $transport->setUsername("hyalos@hyalos.es");
+        $transport->setPassword("tonale16");
+        $transport->setStreamOptions([
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true,
+            ],
+        ]);
+        ////Custom
 		// Update configuration
 		switch ( $params['service'] )
 		{
@@ -915,7 +966,12 @@ class Site extends TranslatableModel
 				break;
 			case 'default':
 				break;
-			default:
+            case 'myService':
+                $mailer = new Swift_Mailer($transport);
+                \Mail::setSwiftMailer($mailer);
+                break;
+
+            default:
 				\Log::error("Mailer service '{$params['service']}' is not valid for site ID {$this->id}");
 				return false;
 		}
@@ -925,7 +981,6 @@ class Site extends TranslatableModel
             $res = \Mail::send('dummy', [ 'content' => $params['content'] ], function ($message) use ($params) {
                 $message->from($params['from_email'], $params['from_name']);
                 $message->replyTo($params['reply_email'], @$params['reply_name']);
-
                 $message->to($params['to'])->subject($params['subject']);
 
                 if ( !empty($params['attachments']) )
@@ -934,7 +989,6 @@ class Site extends TranslatableModel
                     {
                         $params['attachments'] = [ $params['attachments']=>[] ];
                     }
-
                     foreach ($params['attachments'] as $attachment => $definition)
                     {
                         $message->attach($attachment,$definition);

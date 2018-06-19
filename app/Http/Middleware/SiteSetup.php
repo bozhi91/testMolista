@@ -16,6 +16,9 @@ class SiteSetup
 			return $this->checkRedirection();
 		}
 
+		echo json_encode($site);
+		die;
+
 		// Get site setup
 		$setup = $site->site_setup;
 		\App\Session\Site::replace($setup);

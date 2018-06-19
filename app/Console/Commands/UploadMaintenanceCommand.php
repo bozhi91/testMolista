@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class UploadMaintenanceCommand extends Command
 {
@@ -37,6 +38,8 @@ class UploadMaintenanceCommand extends Command
     */
     public function handle()
     {
+        Log::Info("Scheduler!!! It works!!!");
+        die;
         $this->info('Uploads maintenance');
 
         $allowed = [

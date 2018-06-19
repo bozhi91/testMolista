@@ -6,6 +6,7 @@ use App\Jobs\VerifyPlan;
 use App\Site;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Log;
 
 class Kernel extends ConsoleKernel
 {
@@ -15,7 +16,7 @@ class Kernel extends ConsoleKernel
 	* @var array
 	*/
 	protected $commands = [
-		// Commands\Inspire::class,
+		 //Commands\Inspire::class,
 		Commands\RoleMaintenanceCommand::class,
 		Commands\TranslationsUpdateCommand::class,
 		Commands\TranslationsBulkCommand::class,
@@ -36,7 +37,7 @@ class Kernel extends ConsoleKernel
 		Commands\TranslationsImportCommand::class,
 		Commands\PlanInitCommand::class,
 		Commands\PlanNewBasicEnterpriseCommand::class,
-
+        Commands\CheckSubscriptions::class,
 	];
 
 	/**
@@ -47,13 +48,16 @@ class Kernel extends ConsoleKernel
 	*/
 	protected function schedule(Schedule $schedule)
 	{
-		$schedule->command('uploads:maintenance')->dailyAt('06:00');
+		$schedule->command('uploads:maintenance')->everyMinute();//dailyAt('06:00');
 		$schedule->command('stats:process yesterday')->dailyAt('03:00');
 		$schedule->command('stats:refresh-matches')->twiceDaily();
 		$schedule->command('tickets:contacts-sync')->dailyAt('02:00');
 		$schedule->command('marketplace:api:publish')->cron('0 */3 * * * *');
 
-      //  $schedule->call(new VerifyPlan())->everyMinute();
-        $schedule->exec('mkdir a')->everyMinute();
+        $schedule->command('subscription:verify')->everyMinute();
+
 	}
+
 }
+
+
