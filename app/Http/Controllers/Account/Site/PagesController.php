@@ -71,7 +71,7 @@ class PagesController extends \App\Http\Controllers\AccountController
             );
 
             //create the menu if it doesn't exist
-            if(count($menu)==0){
+            if(count($menu)==0){/*
                 DB::table('menus')->insert(
                     ['site_id' => $site_id,
                         'title' => 'MyMenu',
@@ -119,7 +119,7 @@ class PagesController extends \App\Http\Controllers\AccountController
                         'type'  => 'menu',
                         'menu_id'  => $menu->id
                     ]
-                );
+                );*/
             }
             else{
                 $page = DB::table('pages')
@@ -136,7 +136,7 @@ class PagesController extends \App\Http\Controllers\AccountController
                     ->first();
 
                 //Link the page to the menu
-                DB::table('menus_items')->insert(
+               /* DB::table('menus_items')->insert(
                     ['menu_id'    => $menu->id,
                         'page_id' => $page->id,
                         'type'    => 'page',
@@ -158,10 +158,11 @@ class PagesController extends \App\Http\Controllers\AccountController
                         'locale' => "es",
                         'title'  => 'blog'
                     ]
-                );
+                );*/
 
+               /// NOT used!!!!
                 //Link the menu to the widgets
-                DB::table('widgets')->insert(
+                /*DB::table('widgets')->insert(
                     ['site_id'  => $site_id,
                         'group' => "header",
                         'type'  => 'menu',
@@ -169,7 +170,7 @@ class PagesController extends \App\Http\Controllers\AccountController
                     ]
                 );
 
-               /* $widget = DB::table('widgets')
+                $widget = DB::table('widgets')
                     ->select('id')
                     ->where('site_id',$site_id)
                     ->first();
@@ -181,6 +182,9 @@ class PagesController extends \App\Http\Controllers\AccountController
                     ]
                 );*/
             }
+        }
+        else{
+            return true;
         }
         return $blog;
     }

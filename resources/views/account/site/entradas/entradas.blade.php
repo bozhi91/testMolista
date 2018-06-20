@@ -5,7 +5,14 @@
 	<div id="admin-pages">
 
 		@include('common.messages', [ 'dismissible'=>true ])
-		<?php App\Http\Controllers\Account\Site\PAgesController::createBlog();?>
+		<?php
+
+			$blog = App\Http\Controllers\Account\Site\PAgesController::createBlog();
+
+			if($blog!=true){
+			    echo "Blog created. To activate it, you need to add a new element to your menu.";
+            }
+		?>
 
 		<div class="pull-right">
 			<a href="{{ action('Account\Site\PagesController@createNewPost') }}" class="btn btn-primary">
@@ -14,7 +21,7 @@
 		</div><br/><br/><br/>
 
 		@if ( count($entradas) < 1)
-			<div class="alert alert-info">{{ Lang::get('account/site.pages.empty') }}</div>
+			<div class="alert alert-info">{{ Lang::get('account/site.blog.empty') }}</div>
 		@else
 			<table class="table table-striped">
 				<thead>
