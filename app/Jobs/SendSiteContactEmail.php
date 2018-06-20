@@ -38,14 +38,20 @@ class SendSiteContactEmail extends Job implements ShouldQueue {
 	 */
 	public function handle()
 	{
+        $logo_url = session("SiteSetup")['logo'];
+
 		$email_to = $this->email_to;
 		$data = $this->data;
 
+        $data = array_merge($data, [
+            'logo_url' => $logo_url,
+        ]);
+
 		$subject = trans('corporate/signup.email.subject');
-		$html = email_render_corporate('emails.site.contact', $data);
+		$html    = email_render_corporate('emails.site.contact', $data);
 
 		\Mail::send('dummy', [ 'content' => $html ], function($message) use ($email_to, $data) {
-			$message->from(env('MAIL_FROM_EMAIL'), env('MAIL_FROM_NAME'));
+            $message->from(env('MAIL_FROM_EMAIL'), env('MAIL_FROM_NAME'));
 			$message->subject($data['subject']);
 			$message->to($email_to);
 		});

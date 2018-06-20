@@ -1,7 +1,7 @@
 <?php
 
 	return [
-
+        'Update' => 'Actualizar',
 	    'subscription.expired'=>'Tu subscripción ha expirado hace 7 días. Tu plan ha sido cambiado a Free. Por favor, actualiza tu plan.',
         'subscription.toExpire'=>'Tu subscripción va a expirar en menos de 5 días. Actualiza tu plan o pasarás al plan Free.',
 

@@ -1,11 +1,10 @@
 <?php
 
 	return [
+        'Update' => 'Actualizar',
         'subscription.expired' =>'Tu subscripción ha expirado hace 7 dias. tu plan ha sido cambiado a Free. Por favor, actualiza tu plan.',
         'subscription.toExpire'=>'Your subscription has expired 7 days ago. You were downgraded to the Free plan. Upgrade your plan now!',
-
         'configuration.h1' => 'Site configuration',
-
 		'configuration.tab.config' => 'General',
 		'configuration.tab.texts' => 'SEO',
 		'configuration.tab.social' => 'Social media',

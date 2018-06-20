@@ -119,7 +119,7 @@ class Site extends TranslatableModel
 
          //Prepare the message body
          $message.="<p><a  href=$site_url target='_blank'>
-                  	<button type='button' class='btn btn-info .btn-md' style='margin-top:10px !important;'>Actualizar</button>
+                  	<button type='button' class='btn btn-info .btn-md' style='margin-top:10px !important;'>{{ Lang::get('account/site.subscription.Update');}}</button>
                   	</a></p>";
 
         if($user_data!=null){
