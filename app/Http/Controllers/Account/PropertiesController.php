@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Models\Property\Videos;
 use DB;
+use Illuminate\Support\Facades\Log;
 
 class PropertiesController extends \App\Http\Controllers\AccountController
 {
@@ -426,6 +427,12 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 	public function update(Request $request, $slug)
 	{
+
+        Log::Info( json_encode($_POST['body']));
+
+	    //echo json_encode($_POST);
+	    die;
+
 		// Get property
 		$query = $this->site->properties()
 						->whereTranslation('slug', $slug)

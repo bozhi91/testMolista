@@ -18,11 +18,9 @@
 				'' => '----------------------------',
 			] + $tmp;
 	}
-	else
-	{
+	else {
 		$countries = $countries->toArray();
 	}
-
 	if(!empty($property)){
 		$checkboxDesde = App\Http\Controllers\Account\PropertiesController::getCheckboxDesdeState($property['id']);
 	}
@@ -32,6 +30,8 @@
 	#tab-marketplaces .marketplace-name { display: inline-block; padding-left: 25px; background: left center no-repeat; }
 	#tab-visits .column-property { display: none; }
 </style>
+
+
 
 {!! Form::model($item, [ 'method'=>$method, 'action'=>$action, 'files'=>true, 'id'=>'edit-form' ]) !!}
 	{!! Form::hidden('current_tab', $current_tab) !!}
@@ -54,15 +54,33 @@
 			@else
 				<li role="presentation" class="{{ $current_tab == 'seller' ? 'active' : '' }}"><a href="#tab-seller" aria-controls="tab-seller" role="tab" data-toggle="tab" data-tab="general">{{ Lang::get('account/properties.tab.seller') }}</a></li>
 			@endif
-			<li role="presentation" class="{{ $current_tab == 'general' ? 'active' : '' }}">
-				<a href="#tab-html" aria-controls="tab-html" role="tab" data-toggle="tab" data-tab="general">HTML</a></li>
+
+			<li role="presentation" class="{{ $current_tab == 'html' ? 'active' : '' }}">
+				<a href="#tab-html" aria-controls="tab-html" role="tab" data-toggle="tab" data-tab="html">HTML</a></li>
 		</ul>
 
 		<div class="tab-content">
 
 			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'location' ? 'active' : '' }}" id="tab-html">
-				hello world
-				@include('account/properties/form-address')
+				<h2>{{ Lang::get('general.newPost') }}</h2>
+				<br/>
+				<div>
+					<b>{{ Lang::get('general.postTitle') }}</b><br/>
+					{{ Form::input('text', 'title',"My post") }}<br/><br/>
+
+					<b> {{ Lang::get('general.postBody') }}</b><br/>
+					<textarea name="body" class="summernote" style="height: 300px !important;" contenteditable="false">
+						Post Body
+                 	</textarea><br/><br/>
+
+                    <?php
+                    /*@if(!empty($_GET['post_id']))
+                        {{ Form::input('hidden', 'post_id',$_GET['post_id']) }}
+                    @endif*/
+                    ?>
+
+
+				</div>
 			</div>
 
 			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'general' ? 'active' : '' }}" id="tab-general">
@@ -1340,4 +1358,23 @@
 		initImageTooltips();
 
 	});
+</script>
+
+<!-- Includes for the HTML Editor -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+<!-- Includes for the HTML Editor -->
+
+<script>
+    $(document).ready(function() {
+        $('.summernote').summernote(
+            {
+                height: 200,   //set editable area's height
+                codemirror: { // codemirror options
+                    theme: 'monokai'
+                }
+            }
+        );
+
+    });
 </script>
