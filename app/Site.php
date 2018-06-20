@@ -8,7 +8,7 @@ use App\Models\Site\Subscription;
 use Illuminate\Support\Facades\DB;
 use Swift_Mailer;
 use Illuminate\Support\Facades\Lang;
-
+use Illuminate\Support\Facades\Log;
 
 class Site extends TranslatableModel
 {
@@ -40,27 +40,24 @@ class Site extends TranslatableModel
 	}
 
     public function verifyPlans(){
-	    $site_data = DB::table('sites')
-            ->select('*')
-            ->where('id','88')
-            ->first();
 
         $site_data = \App\Site::enabled()
             ->with('locales')
             ->with('infocurrency')
-            ->where('id','88')->first();
-
-        $this->verifyPlan($site_data);
+            ->get();
 
 	    //Verify all the sites and check their plans
-       /* foreach($site_data as $site){
+        foreach($site_data as $site){
             if($site!=null){
-                $this->verifyPlan($site);
+                if($site->mailer!=null){
+                    echo "id: ".$site->id;
+                    $this->verifyPlan($site);
+                }
             }
-        }*/
+        }
     }
 
-    //VErify the plan of only ONE site
+    //Verify the plan of only ONE site
 	public function verifyPlan($site){
         //Get user's email
         $user_data = DB::table('sites')
@@ -100,17 +97,20 @@ class Site extends TranslatableModel
              //if the date has expired already
              $datediff = (strtotime($today) - strtotime($paid_until));
 
-              if ((int)$datediff > $limit_after){
+              //Display this message on the backoffice
+              if ((int)$datediff >= $limit_after){
                  $message.= Lang::get('account/site.subscription.expired');
               }
               //Send the seccond email
-             if($site->sent_emails!=2){
+              if($site->sent_emails!=2){
                  $sendEmail = 1;
+
+                 //Write the the database that we have sent the seccond email
                  DB::table('sites')
                      ->where('id',$site->id)
                      ->update(['sent_emails' => 2]);
 
-                 //Downgrade the user to free plan
+                 //Downgrade the user to FREE plan
                  DB::table('sites')
                      ->where('id',$site->id)
                      ->update(['plan_id' => 1]);
@@ -125,21 +125,23 @@ class Site extends TranslatableModel
         if($user_data!=null){
             //Set the email attributes
             $params = array(
-                "to" => "bozhidar1991@gmail.com",
-                "subject"   => "Subscription Update Alert",
+                "to" => $user_data->email,//"bozhidar1991@gmail.com",
+                "subject"   => "Subscription Expiration Alert",
                 "content"   => $message,
 
                 "backup_required" => true,
-                "service"=>"myService",
+                "service"    => "myService",
                 "from_name"  => $site->subdomain,
                 "reply_name" => $user_data->name,
+                "mailer"     => $site->mailer,
             );
 
-            $this->sendEmail($params);
-
             //Send the email
-            if($sendEmail==1 || $site->paid_until==null){
-             //   $this->sendEmail($params);
+            if($sendEmail==1 && $site->paid_until!=null){
+                $this->sendEmail($params);
+                Log::Info("================================================================================");
+                Log::Info("Subscription Alert email sent to: ".$user_data->email." With parameters: ".json_encode($params));
+                Log::Info("================================================================================");
             }
         }
     }
@@ -661,6 +663,26 @@ class Site extends TranslatableModel
 		return $params;
 	}
 
+	private function getCustomMailerClient($params){
+
+        $transport = \Swift_SmtpTransport::newInstance($params['mailer']['out']['host'],
+            $params['mailer']['out']['port'],
+            $params['mailer']['out']['layer']);
+
+        $transport->setUsername($params['mailer']['out']['username']);
+        $transport->setPassword($params['mailer']['out']['password']);
+
+        $transport->setStreamOptions([
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true,
+            ],
+        ]);
+        return new Swift_Mailer($transport);
+    }
+
+
 	public function getSiteMailerClient()
 	{
 		switch ( $this->mailer_service )
@@ -676,7 +698,8 @@ class Site extends TranslatableModel
 						'allow_self_signed' => true,
 					],
 				]);
-				return new Swift_Mailer($transport);
+			return new Swift_Mailer($transport);
+
 			default:
 				return \Mail::getSwiftMailer();
 		}
@@ -910,16 +933,13 @@ class Site extends TranslatableModel
 		$params = array_merge($params, $this->getSiteMailerParams());
 
         if($params['from_name']==null){
-            $params['from_name'] = $aux_param['from_name'];
+            $params['from_name'] = $aux_param['mailer']['from_name'];
         }
         if($params['backup_required']==null){
             $params['backup_required'] = $aux_param['backup_required'];
         }
         if($params['service']==null){
             $params['service'] = $aux_param['service'];
-        }
-        if($params['reply_name']==null){
-            $params['reply_name'] = $aux_param['reply_name'];
         }
 
 		$from_name  = $params['from_name'];
@@ -946,34 +966,22 @@ class Site extends TranslatableModel
 			$backup = \Mail::getSwiftMailer();
 		}
 
-        ////Custom
-        $transport = \Swift_SmtpTransport::newInstance("smtp.1and1.es", "25", "tls");
-        $transport->setUsername("hyalos@hyalos.es");
-        $transport->setPassword("tonale16");
-        $transport->setStreamOptions([
-            'ssl' => [
-                'verify_peer' => false,
-                'verify_peer_name' => false,
-                'allow_self_signed' => true,
-            ],
-        ]);
-        ////Custom
 		// Update configuration
 		switch ( $params['service'] )
 		{
 			case 'custom':
 				\Mail::setSwiftMailer($this->getSiteMailerClient());
-				break;
-			case 'default':
-				break;
+			break;
             case 'myService':
-                $mailer = new Swift_Mailer($transport);
-                \Mail::setSwiftMailer($mailer);
-                break;
+                \Mail::setSwiftMailer($this->getCustomMailerClient($params));
+            break;
+
+			case 'default':
+			break;
 
             default:
 				\Log::error("Mailer service '{$params['service']}' is not valid for site ID {$this->id}");
-				return false;
+			return false;
 		}
 
 		// Send email
@@ -983,7 +991,7 @@ class Site extends TranslatableModel
                 $message->replyTo($params['reply_email'], @$params['reply_name']);
                 $message->to($params['to'])->subject($params['subject']);
 
-                if ( !empty($params['attachments']) )
+                if(!empty($params['attachments']))
                 {
                     if ( !is_array($params['attachments']) )
                     {
