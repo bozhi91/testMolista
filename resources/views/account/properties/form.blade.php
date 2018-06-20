@@ -54,9 +54,16 @@
 			@else
 				<li role="presentation" class="{{ $current_tab == 'seller' ? 'active' : '' }}"><a href="#tab-seller" aria-controls="tab-seller" role="tab" data-toggle="tab" data-tab="general">{{ Lang::get('account/properties.tab.seller') }}</a></li>
 			@endif
+			<li role="presentation" class="{{ $current_tab == 'general' ? 'active' : '' }}">
+				<a href="#tab-html" aria-controls="tab-html" role="tab" data-toggle="tab" data-tab="general">HTML</a></li>
 		</ul>
 
 		<div class="tab-content">
+
+			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'location' ? 'active' : '' }}" id="tab-html">
+				hello world
+				@include('account/properties/form-address')
+			</div>
 
 			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'general' ? 'active' : '' }}" id="tab-general">
 				<div class="row">
