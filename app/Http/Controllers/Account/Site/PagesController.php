@@ -28,8 +28,53 @@ class PagesController extends \App\Http\Controllers\AccountController
 	    return $sites;
     }
 
-	//This methid will check if the blog page is created. If not, it will create it automatically.
-    public static function createBlog(){
+    //returns 'true' if the blog is created. 'False' otherwise
+    public static function getBlog(){
+        $site_id = session('SiteSetup')['site_id'];
+        //Check if there is page for our blog in this site.
+
+        $blog = DB::table('pages')
+            ->select('*')
+            ->where('type','blog')
+            ->where('site_id',$site_id)
+            ->get();
+
+        if(count($blog)==0){
+            return false;
+        }
+        return true;
+    }
+
+    //check if the blog is activated in the menu
+    public static function isBlogActivated(){
+
+        $site_id = session('SiteSetup')['site_id'];
+
+        //get the menu for this site
+        $menu = DB::table('menus')
+            ->select('*')
+            ->where('enabled',1)
+            ->where('site_id',$site_id)
+            ->first();
+
+        //get the pageId
+        $page = DB::table('pages')
+            ->select('id')
+            ->where('type','blog')
+            ->where('site_id',$site_id)
+            ->first();
+
+        //Get the menu_item for
+        $menu_item = DB::table('menus_items')
+            ->select('id')
+            ->where('menu_id',$menu->id)
+            ->where('page_id',$page->id)
+            ->first();
+        return $menu_item;
+    }
+
+    //This methid will check if the blog page is created. If not, it will create it automatically.
+    public function createNewBlog(){
         $site_id = session('SiteSetup')['site_id'];
         //Check if there is page for our blog in this site.
         $blog = DB::table('pages')
@@ -69,124 +114,9 @@ class PagesController extends \App\Http\Controllers\AccountController
                     'slug'    => 'blog',
                 ]
             );
-
-            //create the menu if it doesn't exist
-            if(count($menu)==0){/*
-                DB::table('menus')->insert(
-                    ['site_id' => $site_id,
-                        'title' => 'MyMenu',
-                        'slug'  => 'mymenu',
-                        'enabled'  =>1,
-                        'created_at'=> date("Y-m-d H-i-s"),
-                        'updated_at'=> date("Y-m-d H-i-s")
-                    ]
-                );
-                //get the id of the menu we just created
-                $menu = DB::table('menus')
-                    ->select('id')
-                    ->where('enabled',1)
-                    ->where('site_id',$site_id)
-                    ->first();
-
-                //Link the page to the menu
-                DB::table('menus_items')->insert(
-                    ['menu_id'    => $menu->id,
-                        'page_id' => $page->id,
-                        'type'    => 'page',
-                        'target'  => '_blank',
-                        'position'=>0
-                    ]
-                );
-
-                //get the menu_item_id
-                $menu_item = DB::table('menus_items')
-                    ->select('id')
-                    ->where('menu_id',$menu->id)
-                    ->where('page_id',$page->id)
-                    ->first();
-
-                //create a translation for this menu
-                DB::table('menus_items_translations')->insert(
-                    ['menu_item_id'  => $menu_item->id,
-                        'locale' => "es",
-                        'title'  => 'blog'
-                    ]
-                );
-                //Link the menu to the widgets
-                DB::table('widgets')->insert(
-                    ['site_id'  => $site_id,
-                        'group' => "header",
-                        'type'  => 'menu',
-                        'menu_id'  => $menu->id
-                    ]
-                );*/
-            }
-            else{
-                $page = DB::table('pages')
-                    ->select('id')
-                    ->where('type','blog')
-                    ->where('site_id',$site_id)
-                    ->first();
-
-                //If the menu exists, get it's id and put the Blog in it
-                $menu = DB::table('menus')
-                    ->select('*')
-                    ->where('enabled',1)
-                    ->where('site_id',$site_id)
-                    ->first();
-
-                //Link the page to the menu
-               /* DB::table('menus_items')->insert(
-                    ['menu_id'    => $menu->id,
-                        'page_id' => $page->id,
-                        'type'    => 'page',
-                        'target'  => '_blank',
-                        'position'  => 0
-                    ]
-                );
-
-                //get the menu_item_id
-                $menu_item = DB::table('menus_items')
-                    ->select('id')
-                    ->where('menu_id',$menu->id)
-                    ->where('page_id',$page->id)
-                    ->first();
-
-                //create a translation for this menu
-                DB::table('menus_items_translations')->insert(
-                    ['menu_item_id'  => $menu_item->id,
-                        'locale' => "es",
-                        'title'  => 'blog'
-                    ]
-                );*/
-
-               /// NOT used!!!!
-                //Link the menu to the widgets
-                /*DB::table('widgets')->insert(
-                    ['site_id'  => $site_id,
-                        'group' => "header",
-                        'type'  => 'menu',
-                        'menu_id'  => $menu->id
-                    ]
-                );
-
-                $widget = DB::table('widgets')
-                    ->select('id')
-                    ->where('site_id',$site_id)
-                    ->first();
-
-                DB::table('widgets_translations')->insert(
-                    ['widget_id'  => $widget->id,
-                        'locale' => "es",
-                        'title'  => 'menu'
-                    ]
-                );*/
-            }
         }
-        else{
-            return true;
-        }
-        return $blog;
+        $entradas =  PagesController::getAllPosts();
+        return view('account.site.entradas.entradas', compact('entradas'));
     }
 
     public function createNewPost(){

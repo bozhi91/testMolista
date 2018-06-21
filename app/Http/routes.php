@@ -358,6 +358,7 @@ Route::group([
             Route::post('storeBlog', 'Account\Site\PagesController@storeBlog')->name("storeBlog");
             Route::post('deletePost', 'Account\Site\PagesController@deletePost')->name("deletePost");
             Route::get('createNewPost', 'Account\Site\PagesController@createNewPost')->name("createNewPost");
+            Route::get('createNewBlog', 'Account\Site\PagesController@createNewBlog')->name("createNewBlog");
             Route::get('listPosts', 'Account\Site\PagesController@listPosts')->name("listPosts");
             Route::post('storePost', 'Account\Site\PagesController@storePost')->name("storePost");
             Route::post('updatePost', 'Account\Site\PagesController@updatePost')->name("updatePost");
