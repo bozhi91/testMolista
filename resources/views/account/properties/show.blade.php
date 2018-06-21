@@ -107,6 +107,11 @@
 							<div class="form-group">
 								<div class="error-placement">
 									{!! Form::label(null, Lang::get('account/properties.show.property.price.min') ) !!}
+
+									@if ( $property->desde == 1)
+										({{ Lang::get('web/properties.from') }})
+									@endif
+
 									<div class="input-group">
 										@if ( @$property->infocurrency->position == 'before' )
 											<div class="input-group-addon">{{ $property->infocurrency->symbol }}</div>

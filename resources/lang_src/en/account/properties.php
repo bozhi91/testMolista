@@ -1,12 +1,19 @@
 <?php
 
 	return [
+        'propHeader'=>'Attention',
+        'propMessage'=>'You have more properties in your plan than the maximum limit. We have desabled all the properties
+                        except the recent ones. If you want to create more properties, update your plan.',
+
+        'propMessage_2'=>'In the list below, you have the disabled properties.',
+        'update'=>'Update',
+        'propMessage_3'=>'You cant create more properties in this plan. Please update!',
+        'accessDenied'=>'Access Denied',
+
         'payed' => 'Payed Agencies',
         'active' => 'Active Agencies',
-
 		'h1' => 'Properties',
 		'empty' => 'No properties found',
-
 		'button.new' => 'New property',
 
 		'column.title' => 'Property',

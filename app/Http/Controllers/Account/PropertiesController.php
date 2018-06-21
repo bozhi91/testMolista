@@ -22,15 +22,38 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		\View::share('submenu_section', 'properties');
 	}
 
-    public static function getMarketplaces($ref){
+	public static function getRecentProperties(){
 
+        $recentProps = DB::table("properties")
+            ->select("*")
+            ->where('site_id',session("SiteSetup")['site_id'])
+            ->orderByRaw('created_at DESC')
+            ->get();
+
+        //here we generate a list of the properties we must disable
+        $propRef = "<br/>";
+        $properties = array();
+        if(count($recentProps)>5){
+            for($i=5;$i<count($recentProps);$i++){
+                array_push($properties,$recentProps[$i]->ref);
+                $propRef.= " - Reference: ".$recentProps[$i]->ref."<br/>";
+
+                DB::table('properties')
+                    ->where('id',$recentProps[$i]->id)
+                    ->update(['enabled' => 0]);
+            }
+        }
+        return $propRef;
+    }
+
+    public static function getMarketplaces($propId){
         $properties = DB::select("
               select sm.site_id, sm.marketplace_id, m.logo, m.name, s.subdomain
               from sites_marketplaces sm, properties p, marketplaces m,sites s
               where m.id = sm.marketplace_id
               and p.site_id = sm.site_id
               and s.id = p.site_id
-              and p.ref = '".$ref."'
+              and p.id = '".$propId."'
               and sm.marketplace_enabled = 1
               and marketplace_export_all = 1");
 
@@ -263,6 +286,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 	public function store()
 	{
+
 		// Validate request
 		$valid = $this->validateRequest();
 		if ( $valid !== true )
@@ -350,7 +374,14 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 		$property = $this->site->properties()->find($property->id);
 
-		return redirect()->action('Account\PropertiesController@edit', $property->slug)->with('current_tab', $this->request->input('current_tab'))->with('success', trans('account/properties.created'));
+        if(!empty($_POST['desde'])) {
+            DB::table('properties')
+                ->where('id', $property['id'])
+                ->update(['desde' => 1]);
+
+        }
+
+        return redirect()->action('Account\PropertiesController@edit', $property->slug)->with('current_tab', $this->request->input('current_tab'))->with('success', trans('account/properties.created'));
 	}
 
 	public function download($slug,$locale) {
@@ -365,8 +396,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		}
 
 		$filepath = $property->getPdfFile( $locale );
-
-		return response()->download($filepath, "property-{$locale}.pdf", [
+		
+        return response()->download($filepath, "property-{$locale}.pdf", [
 			'Content-Type: application/pdf',
 		]);
 	}

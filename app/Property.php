@@ -6,6 +6,7 @@ use \App\TranslatableModel;
 use OwenIt\Auditing\AuditingTrait;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class Property extends TranslatableModel
 {
@@ -303,11 +304,19 @@ class Property extends TranslatableModel
 				$css = false;
 			}
 
+			//Get the site
+            $prop = DB::table("sites")
+                ->select("plan_id")
+                ->where('id',session("SiteSetup")['site_id'])
+                ->first();
+
+
 			\PDF::loadView('pdf.property', [
 				'css' => $css,
 				'property' => $this,
 				'main_image' => $main_image,
 				'other_images' => $other_images,
+                'plan'=> $prop->plan_id,
 			])->save($filepath);
 
 			// Delete tmp images

@@ -1,5 +1,7 @@
 <?php
 
+
+
 	if (!isset($colperpage)) {
 		$colperpage = 4;
 	}

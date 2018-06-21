@@ -1,13 +1,20 @@
 <?php
 
 	return [
+	    'propHeader'=>'Atención',
+        'propMessage'=>'Tienes más porpiedades en tu plan del limite máximo.
+         Hemos desactivado todas menos las más recientes.
+                        Si quiere crear más propiedades, actualiza tu plan',
+        'propMessage_2'=>'Abajo tiene un listado de las propiedades desactivadas',
+        'update'=>'Actualizar',
+        'propMessage_3'=>'No puede crear más propiedades en este plan, Por favor, actualiza tu plan!',
+        'accessDenied'=>'Acceso Denegado',
         'payed' => 'Agencias de pago',
         'active' => 'Agencias activas',
 		'h1' => 'Propiedades',
 		'empty' => 'No se encontraron propiedades',
 
 		'button.new' => 'Nueva propiedad',
-
 		'column.title' => 'Propiedad',
 		'column.location' => 'Ubicación',
 		'column.address' => 'Dirección',

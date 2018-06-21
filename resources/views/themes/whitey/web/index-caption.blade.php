@@ -3,7 +3,6 @@
 		<div class="row">
 			<div class="col-xs-12 col-md-6">
 				<div class="carousel-caption-text">
-					
 					@include('components.home.carousel.home-carousel-caption-title')
 
 					@include('components.home.carousel.home-carousel-caption-subtitle')

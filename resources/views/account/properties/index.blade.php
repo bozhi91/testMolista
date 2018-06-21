@@ -1,15 +1,76 @@
 @extends('layouts.account')
-
 @section('account_content')
+
+	<?php
+    	use Illuminate\Support\Facades\DB;
+
+		$site_id = session("SiteSetup")['site_id'];
+		$plan_id = session("SiteSetup")['plan']['id'];
+
+    	$result = DB::table('properties')
+			->select('id')
+			->where('site_id',$site_id)
+			->get();
+
+    	$numProperties = count($result);
+
+    	$site_plan = DB::table('sites')
+			->select('plan_id')
+			->where('id',$site_id)
+			->first();
+
+		$plan = DB::table('plans')
+			->join('sites', 'plans.id', '=', 'sites.plan_id')
+			->select('plans.max_properties')
+			->first();
+
+		$propertyLimit = $plan->max_properties;
+		if($plan->max_properties==null){
+			$propertyLimit = 1000;
+		}
+		$props = App\Http\Controllers\Account\PropertiesController::getRecentProperties();
+		$protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
+	?>
 
 	<div id="admin-properties" class="row">
 		<div class="col-xs-12">
 
-	        @include('common.messages', [ 'dismissible'=>true ])
+        <?php $message  = " <p><a href='".$protocol.$_SERVER['HTTP_HOST']."/account/payment/upgrade' target='_blank'>
+					<button type='button' class='btn btn-info .btn-md' style='margin-top:10px !important;'>".Lang::get('account/properties.update')."</button>
+					</a></p>";
+        ?>
 
-			@if ( Auth::user()->can('property-create') && Auth::user()->canProperty('create') )
+			<!--If the user has more than 5 propeties and has the free plan, we block all the properties except the 5 recently created.-->
+			@if (!empty($plan))
+				@include('Modals.propertyDialog', ['header'=>Lang::get('account/properties.propHeader'),
+                 'message'=>Lang::get('account/properties.propMessage').": ".$message.
+					Lang::get('account/properties.propMessage_2')."<br/>".$props])
+
+			@if ($numProperties>$propertyLimit)
+					<?php $message  = " <p><a href='".$protocol.$_SERVER['HTTP_HOST']."/account/payment/upgrade' target='_blank'>
+						<button type='button' class='btn btn-info .btn-md' style='margin-top:10px !important;'>".Lang::get('account/properties.update')."</button>
+						</a></p>";
+					?>
+				@endif
+			@endif
+
+	        @include('common.messages', [ 'dismissible'=>true ])
+			@if(Auth::user()->can('property-create') && Auth::user()->canProperty('create') )
 				<div class="pull-right">
-					<a href="{{ action('Account\PropertiesController@create') }}" class="btn btn-primary">{{ Lang::get('account/properties.button.new') }}</a>
+
+					@if(!empty($plan))
+						@if( $numProperties<$propertyLimit )<!-- The plan is free -->
+							<a href="{{ action('Account\PropertiesController@create') }}" class="btn btn-primary">{{ Lang::get('account/properties.button.new') }}</a>
+						@else
+							<?php $message  = " <p><a href='".$protocol.$_SERVER['HTTP_HOST']."/account/payment/upgrade' target='_blank'>
+								<button type='button' class='btn btn-info .btn-md' style='margin-top:10px !important;'>".Lang::get('account/properties.update')."</button>
+								</a></p>";
+							?>
+							@include('Modals.commonModal', ['header'=>Lang::get('account/properties.accessDenied') ,
+									 'message'=> Lang::get('account/properties.propMessage_3').$message])
+							<a onclick="$('#commonModal').modal();" class="btn btn-primary">{{ Lang::get('account/properties.button.new') }}</a>
+						@endif
+					@endif
 				</div>
 			@endif
 
@@ -102,7 +163,12 @@
 									$property->address,
 									@implode(' / ', array_filter([ $property->city->name, $property->state->name ]))
 									], '<br>') !!}</td>
-								<td>{{ $property->price }}</td>
+								<td>
+									@if($property->desde == 1)
+										{{ Lang::get('web/properties.from') }}
+									@endif
+									{{ $property->price }}
+								</td>
 								<td class="text-center">{{ number_format($property->customers->count(), 0, ',', '.')  }}</td>
 								<td class="text-center">
 									@if ( Auth::user()->can('property-edit') && Auth::user()->canProperty('edit') )
@@ -123,13 +189,20 @@
 									@endif
 								</td>
 								<td class="text-center">
-									<a href="{{ $property->main_image }}" target="_blank" class="property-table-thumb"
-									   style="background-image: url('{{ $property->main_image_thumb }}')"></a>
+									<a href="{{ $property->main_image }}" target="_blank" class="property-table-thumb" style="background-image: url('{{ $property->main_image_thumb }}')"></a>
 								</td>
 								<td class="text-center">
 									@if ( Auth::user()->can('property-edit') && Auth::user()->canProperty('edit') )
 										<a href="#" data-url="{{ action('Account\PropertiesController@getChangeStatus', $property->slug) }}" class="change-status-trigger">
-											<span class="glyphicon glyphicon-{{ $property->enabled ? 'ok' : 'remove' }}" aria-hidden="true"></span>
+											<!-- if props>5 and plan = free-->
+											@if(!empty($plan))
+												@if( ($numProperties>$propertyLimit) )
+													<span class="glyphicon glyphicon-{{ $property->enabled ? 'ok' : 'remove' }}" aria-hidden="true"></span>
+												@endif
+												@if($numProperties<$propertyLimit )
+													<span class="glyphicon glyphicon-{{ $property->enabled ? 'ok' : 'remove' }}" aria-hidden="true"></span>
+												@endif
+											@endif
 										</a>
 									@else
 										<span class="glyphicon glyphicon-{{ $property->enabled ? 'ok' : 'remove' }}" aria-hidden="true"></span>
@@ -138,8 +211,8 @@
 
 								<td>
                                     <?php
-                                    $result = App\Http\Controllers\Account\PropertiesController::getMarketplaces($property->ref);
-                                    $path = "properties/".$property->slug."/edit#tab-marketplaces";
+                                    $result = App\Http\Controllers\Account\PropertiesController::getMarketplaces($property->id);
+                                    $path   = "properties/".$property->slug."/edit#tab-marketplaces";
 
                                     foreach ($result as $res){
                                         $url = "http://".$res->subdomain.".molista.com/marketplaces/".$res->logo;
@@ -214,9 +287,13 @@
 	</div>
 
 	<script type="text/javascript">
-		ready_callbacks.push(function() {
+
+        ready_callbacks.push(function() {
 			var cont = $('#admin-properties');
-			
+
+			if( ($(".page-title").text().split("(")[1].split(")")[0] > {{$propertyLimit}}) ){
+                $('#propertyModal').modal();
+            }
 
 			//Share dialog
 			cont.find('.share-social-link').on('click', function(e){

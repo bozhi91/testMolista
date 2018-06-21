@@ -198,12 +198,8 @@ class PaymentController extends \App\Http\Controllers\AccountController
 		// Validate plan change
 		$planchange = $this->site->planchanges()->pending()->first();
 
-		echo json_encode( $planchange);
-        echo json_encode( $_POST);
 
-        echo "Sign up user....";
         $this->site->newSubscription('main', $planchange->stripe_plan_id)->create( $this->request->input('stripeToken') );
-        echo "done..."; die;
 
 
 		if ( !$planchange )

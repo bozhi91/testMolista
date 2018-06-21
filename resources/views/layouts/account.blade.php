@@ -6,7 +6,6 @@
 @section('content')
 	@include('account.warning.pending-request')
 
-
     <div id="account-container" class="container">
 		<div class="row">
 			<div class="col-sm-3 col-md-2 hidden-xs">
@@ -89,13 +88,16 @@
 								</a>
 
 								@if($plan=="free")
-                                    <?php $protocol =isset($_SERVER['HTTPS']) ? 'https://' : 'http://';?>
-									@include('Modals.commonModal', ['header'=>"Acceso Denegado!",
-                 					'message'=>"No puedes acceder al informe. El informe solo podrá verse
-                 					 en las versiones de pago.Por favor, actualuza tu plan!
-                  					 <p><a  href='".$protocol.$_SERVER['HTTP_HOST']."/account/payment/upgrade' target='_blank'>
-                  					    <button type='button' class='btn btn-info .btn-md' style='margin-top:10px !important;'>Actualizar</button>
-                  					 </a></p>"])
+                                    <?php
+                                    $protocol =isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
+                                    $message = "<p><a href='".$protocol.$_SERVER['HTTP_HOST']."/account/payment/upgrade' target='_blank'>
+                  	                     <button type='button' class='btn btn-info .btn-md' style='margin-top:10px !important;'>Actualizar</button>
+                  	                     </a></p>";
+                                    ?>
+
+                                    @include('Modals.commonModal', ['header'=>"Acceso Denegado!",
+                                        'message'=>"No puedes acceder al informe. El informe solo podrá verse
+                                         en las versiones de pago.Por favor, actualuza tu plan!".$message])
 								@else
 										<ul id="account-submenu-reports" class="nav" role="menu">
 										<li><a href="{{ action('Account\Reports\PropertiesController@getIndex') }}" class="{{ (@$submenu_subsection == 'reports-properties') ? 'current' : '' }}">{{ Lang::get('account/menu.reports.properties') }}</a></li>
