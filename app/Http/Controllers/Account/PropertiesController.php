@@ -271,6 +271,12 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			return redirect()->back()->withInput()->withErrors($valid);
 		}
 
+		//store the HTML text in the database
+        DB::table('properties')
+            ->where('id', $_POST['propertyId'])
+            ->where('ref', $_POST['ref'])
+            ->update(['html_property' =>  $_POST['body']]);
+
 		// Validate catch values
 		$catch_fields = [
 			'employee_id' => 'required|exists:users,id',

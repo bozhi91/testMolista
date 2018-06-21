@@ -21,11 +21,14 @@
 	else {
 		$countries = $countries->toArray();
 	}
+	$body = "Insert your HTML code here...";
 	if(!empty($property)){
 		$checkboxDesde = App\Http\Controllers\Account\PropertiesController::getCheckboxDesdeState($property['id']);
+        $body = $property->html_property;
 	}
 
-	$body = $property->html_property;
+	echo $action;
+	die;
 ?>
 
 <style type="text/css">
