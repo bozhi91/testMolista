@@ -1,9 +1,16 @@
 <?php
 
 	return [
+        'blog.inactive' => 'The blog was created but is still inactive.
+                            To activate it, create a new entrance from the menu.',
 
-		'configuration.h1' => 'Site configuration',
+        'blog.createBlog' => 'Create a new Blog',
+        'blog.createPost' => 'Create a new Post',
+        'blog.emptyBlog'  => 'The blog is not created yet. To create one, click on the button above.',
+        'blog.emptyPost'  => 'There are no posts for this blog',
+        'blog.delete' => 'Are you sure you want to delete this post?',
 
+        'configuration.h1' => 'Site configuration',
 		'configuration.tab.config' => 'General',
 		'configuration.tab.texts' => 'SEO',
 		'configuration.tab.social' => 'Social media',

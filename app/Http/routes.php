@@ -7,6 +7,7 @@ if ( empty($domain['host']) )
 	die("Environment variable APP_URL is not defined!");
 }
 
+
 Route::get('hubspot', function()
 {
 	try
@@ -97,7 +98,7 @@ Route::group([
 		Route::get('/', 'AdminController@index');
 
 		// Sites
-		Route::controller('sites/payments', 'Admin\Sites\PaymentsController');
+        Route::controller('sites/payments', 'Admin\Sites\PaymentsController');
 		Route::get('sites/invoice/{id}/{file?}', 'Admin\SitesController@getInvoice');
 		Route::get('sites/downgrade/{id}', 'Admin\SitesController@getDowngrade');
 		Route::get('sites/update-setup/{id}', 'Admin\SitesController@getUpdateSetup');
@@ -352,7 +353,20 @@ Route::group([
 			Route::controller('widgets', 'Account\Site\WidgetsController');
 			// Pages
 			Route::resource('pages', 'Account\Site\PagesController');
-			//Sliders
+
+			//Blog routes. create,list,update,delete,etc.
+            Route::post('storeBlog', 'Account\Site\PagesController@storeBlog')->name("storeBlog");
+            Route::post('deletePost', 'Account\Site\PagesController@deletePost')->name("deletePost");
+            Route::get('createNewPost', 'Account\Site\PagesController@createNewPost')->name("createNewPost");
+            Route::get('createNewBlog', 'Account\Site\PagesController@createNewBlog')->name("createNewBlog");
+            Route::get('listPosts', 'Account\Site\PagesController@listPosts')->name("listPosts");
+            Route::post('storePost', 'Account\Site\PagesController@storePost')->name("storePost");
+            Route::post('updatePost', 'Account\Site\PagesController@updatePost')->name("updatePost");
+
+            Route::get('getSiteById', 'Account\Site\PagesController@getSiteById')->name("getSiteById");
+
+
+            //Sliders
 			Route::post('sliders/upload', 'Account\Site\SlidersController@upload');
 			Route::resource('sliders', 'Account\Site\SlidersController');
 		});

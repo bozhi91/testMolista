@@ -3,38 +3,208 @@
 namespace App\Http\Controllers\Account\Site;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
-
 use Intervention\Image\ImageManagerStatic as Image;
+use DB;
 
 class PagesController extends \App\Http\Controllers\AccountController
 {
-
 	protected $preserve_images = [];
-
 	public function __initialize()
 	{
 		$this->middleware([ 'permission:site-edit' ]);
-
 		parent::__initialize();
 		\View::share('submenu_section', 'site');
 		\View::share('submenu_subsection', 'site-pages');
 	}
 
+    public static function getSiteById($site_id){
+
+	    $sites = DB::table('sites')
+            ->select('*')
+            ->where('id',$site_id)
+            ->first();
+
+	    return $sites;
+    }
+
+    //returns 'true' if the blog is created. 'False' otherwise
+    public static function getBlog(){
+        $site_id = session('SiteSetup')['site_id'];
+        //Check if there is page for our blog in this site.
+
+        $blog = DB::table('pages')
+            ->select('*')
+            ->where('type','blog')
+            ->where('site_id',$site_id)
+            ->get();
+
+        if(count($blog)==0){
+            return false;
+        }
+        return true;
+    }
+
+    //check if the blog is activated in the menu
+    public static function isBlogActivated(){
+
+        $site_id = session('SiteSetup')['site_id'];
+
+        //get the menu for this site
+        $menu = DB::table('menus')
+            ->select('*')
+            ->where('enabled',1)
+            ->where('site_id',$site_id)
+            ->first();
+
+        //get the pageId
+        $page = DB::table('pages')
+            ->select('id')
+            ->where('type','blog')
+            ->where('site_id',$site_id)
+            ->first();
+
+        //Get the menu_item for
+        $menu_item = DB::table('menus_items')
+            ->select('id')
+            ->where('menu_id',$menu->id)
+            ->where('page_id',$page->id)
+            ->first();
+        return $menu_item;
+    }
+
+    //This methid will check if the blog page is created. If not, it will create it automatically.
+    public function createNewBlog(){
+        $site_id = session('SiteSetup')['site_id'];
+        //Check if there is page for our blog in this site.
+        $blog = DB::table('pages')
+            ->select('*')
+            ->where('type','blog')
+            ->where('site_id',$site_id)
+            ->get();
+
+        //check if there is a menu created for the site. We need a menu in order to store our blog
+        $menu = DB::table('menus')
+            ->select('*')
+            ->where('site_id',$site_id)
+            ->get();
+
+
+        //////////////////////////////////////////////////////////////////////////////////////////
+        //if the page for our blog is not created for this site, create it.
+        if(count($blog)==0){
+            DB::table('pages')->insert(
+                ['site_id' => $site_id,
+                    'type' => 'blog',
+                    'configuration'  => 'a:1:{s:7:"default";N;}',
+                    'created_at'  => date("Y-m-d H-i-s"),
+                ]
+            );
+            //get the pageId of the blog we just created
+            $page = DB::table('pages')
+                ->select('id')
+                ->where('type','blog')
+                ->where('site_id',$site_id)
+                ->first();
+
+            DB::table('pages_translations')->insert(
+                [   'page_id' => $page->id,
+                    'locale'  => 'es',
+                    'title'   => 'Blog',
+                    'slug'    => 'blog',
+                ]
+            );
+        }
+        $entradas =  PagesController::getAllPosts();
+        return view('account.site.entradas.entradas', compact('entradas'));
+    }
+
+    public function createNewPost(){
+        return view('account.site.entradas.create', compact('entradas'));
+    }
+    public function storePost(){
+        $site_id = session('SiteSetup')['site_id'];
+        DB::table('entradas')->insert(
+            ['site_id' => $site_id,
+                'title' => $_POST ['title'],
+                'body'  => $_POST ['body'],
+                'created_at'  => date("Y-m-d H-i-s"),
+            ]
+        );
+        $entradas =  PagesController::getAllPosts();
+        return view('account.site.entradas.entradas', compact('entradas'));
+    }
+
+    public function listPosts(){
+        $entradas =  PagesController::getAllPosts();
+        return view('account.site.entradas.entradas', compact('entradas'));
+    }
+
+    public static function getAllPosts(){
+        $site_id = session('SiteSetup')['site_id'];
+	    $entradas = DB::table('entradas')
+            ->select('*')
+            ->where('site_id',$site_id)
+            ->get();
+        return $entradas;
+    }
+
+    public static function getPostById($id){
+        $post = DB::table('entradas')
+            ->select('*')
+            ->where('id',$id)
+            ->get();
+        return $post;
+    }
+
+    public static function updatePost(){
+
+        $post = DB::table('entradas')
+            ->where('id',$_POST ['post_id'])
+            ->update(['title' => $_POST ['title'], 'body' => $_POST ['body']]);
+
+        $entradas = PagesController::getAllPosts();
+        return view('account.site.entradas.entradas', compact('entradas'));
+    }
+
+    public  function deletePost(){
+	    //delete the post(by id)
+        DB::table('entradas')->where('id',  $_POST ['post_id'])->delete();
+
+        $entradas = PagesController::getAllPosts();
+        return view('account.site.entradas.entradas', compact('entradas'));
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	public function index()
 	{
+	    if(!empty($_GET['type'])){
+	        switch($_GET['action']){
+
+                case 'list':
+                    $entradas = $this->listPosts();
+                    return view('account.site.entradas.entradas',compact('entradas'));
+                break;
+
+                case 'new':
+                    //$entradas = $this->blog();
+                    return view('account.site.entradas.create');
+                break;
+            }
+        }
+
 		$pages = $this->site->pages()->orderBy('title')->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 		return view('account.site.pages.index', compact('pages'));
 	}
 
-	public function create()
+    public function create()
 	{
 		$types = \App\Models\Site\Page::getTypeOptions();
 		return view('account.site.pages.create', compact('types'));
 	}
-	public function store()
-	{
+
+    public function store(){
+
 		$validator = \Validator::make($this->request->all(), [
 			'i18n.title.'.fallback_lang() => 'required',
 			'type' => 'required|in:'.implode(',', array_keys(\App\Models\Site\Page::getTypeOptions())),

@@ -2,8 +2,15 @@
 
 	return [
 
-		'configuration.h1' => 'Configuración del sitio',
+        'blog.inactive' => 'El blog ha sido creado, pero todavía no es accesible.
+                            Para activarlo, crea una nueva entrada desde el menu',
+        'blog.createBlog' => 'Crear el blog',
+        'blog.createPost' => 'Crear una entrada',
+        'blog.emptyBlog' => 'El blog no está creado todavía. Para crear uno, haga click en el botón de arriba.',
+        'blog.emptyPost' => 'No se encontraron entradas en este blog',
+        'blog.delete' => '¿Confirma que desea eliminar esta entrada?',
 
+		'configuration.h1' => 'Configuración del sitio',
 		'configuration.tab.config' => 'General',
 		'configuration.tab.texts' => 'SEO',
 		'configuration.tab.social' => 'Redes sociales',

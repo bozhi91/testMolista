@@ -132,7 +132,10 @@
 									<li><a href="{{ action('Account\Site\MenusController@index') }}" class="{{ (@$submenu_subsection == 'site-menus') ? 'current' : '' }}">{{ Lang::get('account/menu.site.menus') }}</a></li>
 									<li><a href="{{ action('Account\Site\PagesController@index') }}" class="{{ (@$submenu_subsection == 'site-pages') ? 'current' : '' }}">{{ Lang::get('account/menu.site.pages') }}</a></li>
 									<li><a href="{{ action('Account\Site\SlidersController@index') }}" class="{{ (@$submenu_subsection == 'site-sliders') ? 'current' : '' }}">{{ Lang::get('account/menu.site.sliders') }}</a></li>
-								</ul>
+
+									<li><a href="{{ action('Account\Site\PagesController@listPosts')}}" class="{{ (@$submenu_subsection == 'site-blogs') ? 'current' : '' }}">Blog</a></li>
+
+                                </ul>
 							</li>
 						@endpermission
 						@role('company')
