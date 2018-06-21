@@ -2,11 +2,12 @@
 
 	return [
         'propHeader'=>'Attention',
-        'propMessage'=>'You have more than 5 properties in your free plan. We have desabled all the properties
-                        except the last 5. If you want to create more properties, update your plan.',
+        'propMessage'=>'You have more properties in your plan than the maximum limit. We have desabled all the properties
+                        except the recent ones. If you want to create more properties, update your plan.',
+
         'propMessage_2'=>'In the list below, you have the disabled properties.',
         'update'=>'Update',
-        'propMessage_3'=>'You cant create more than 5 properties in the free plan. Please update!',
+        'propMessage_3'=>'You cant create more properties in this plan. Please update!',
         'accessDenied'=>'Access Denied',
 
         'payed' => 'Payed Agencies',

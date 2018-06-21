@@ -2,11 +2,12 @@
 
 	return [
 	    'propHeader'=>'Atención',
-        'propMessage'=>'Tienes más de 5 porpiedades en tu plan free. Hemos desactivado todas menos las 5 más recientes.
+        'propMessage'=>'Tienes más porpiedades en tu plan del limite máximo.
+         Hemos desactivado todas menos las más recientes.
                         Si quiere crear más propiedades, actualiza tu plan',
         'propMessage_2'=>'Abajo tiene un listado de las propiedades desactivadas',
         'update'=>'Actualizar',
-        'propMessage_3'=>'No puede crear más de 5 propiedades en el plan Free, Por favor, actualiza tu plan!',
+        'propMessage_3'=>'No puede crear más propiedades en este plan, Por favor, actualiza tu plan!',
         'accessDenied'=>'Acceso Denegado',
         'payed' => 'Agencias de pago',
         'active' => 'Agencias activas',
