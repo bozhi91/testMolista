@@ -11,12 +11,14 @@
         ->where('id',$site_id)
         ->first();
 
-    $message="";
-    if($site_data->sent_emails==1){
-        $message = Lang::get('account/site.subscription.toExpire');
-    }
-    if($site_data->sent_emails==2){
-        $message = Lang::get('account/site.subscription.expired');
+    $message = "";
+    if(!empty($site_data)){
+        if($site_data->sent_emails==1){
+            $message = Lang::get('account/site.subscription.toExpire');
+        }
+        if($site_data->sent_emails==2){
+            $message = Lang::get('account/site.subscription.expired');
+        }
     }
 ?>
 

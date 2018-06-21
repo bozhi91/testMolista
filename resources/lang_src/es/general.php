@@ -1,9 +1,9 @@
 <?php
 
 	return [
+        'htmlSnippet' => 'Código HTML',
 		'yes' => 'Si',
 		'no' => 'No',
-
 		'back' => 'Volver',
 		'cancel' => 'Cancelar',
 		'continue' => 'Continuar',

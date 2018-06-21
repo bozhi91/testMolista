@@ -156,6 +156,8 @@
 
 			@include('components.property.property-view-in-3d-iframe')
 
+			@include('components.property.htmlArea', [ 'property'=>$property ] )
+
 			<div class="map-area">
 				@if ( $property->show_address )
 					<div class="visible-address">

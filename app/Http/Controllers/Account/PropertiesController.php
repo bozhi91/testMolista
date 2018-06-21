@@ -427,16 +427,16 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 	public function update(Request $request, $slug)
 	{
-
-        Log::Info( json_encode($_POST['body']));
-
-	    //echo json_encode($_POST);
-	    die;
-
 		// Get property
-		$query = $this->site->properties()
-						->whereTranslation('slug', $slug)
-						->withEverything();
+        // Get property
+        $query = $this->site->properties()
+            ->whereTranslation('slug', $slug)
+            ->withEverything();
+
+        DB::table('properties')
+            ->where('id', $_POST['propertyId'])
+            ->where('ref', $_POST['ref'])
+            ->update(['html_property' =>  $_POST['body']]);
 
 		//here we update the status of the checkbox 'desde'.
 		if(!empty($_POST['desde'])){

@@ -6,9 +6,7 @@
 @section('content')
 
 	<div id="property">
-
 		<div class="container">
-
 			<div class="header hidden-xs">
 				<div class="row">
 					<div class="col-xs-12 col-sm-8">
@@ -104,6 +102,8 @@
 					</div>
 				</div>
 
+				@include('components.property.htmlArea', [ 'property'=>$property ] )
+
 				<div class="row">
 					<div class="col-xs-12 col-sm-12">
 						@include('components.property.property-map-area')
@@ -115,14 +115,8 @@
 						@include('components.property.property-related-properties' , [ 'related_properties'=>$property->related_properties ] )
 					</div>
 				</div>
-
 			</div>
-
-
 		</div>
-
 	</div>
-
 	@include('components.property.property-script')
-
 @endsection
