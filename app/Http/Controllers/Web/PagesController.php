@@ -101,14 +101,14 @@ class PagesController extends WebController
 
 		$data['email_content_only'] = true;
 
-		$res = $this->site->ticket_adm->createTicket([
+        $res = $this->site->ticket_adm->createTicket([
 			'contact_id' => $customer->ticket_contact_id,
 			'source' => 'web',
 			'subject' => trans('web/pages.contact.email.subject'),
 			'body' => strip_tags( view('web.pages.email', $data)->render() ),
 		]);
 
-		return redirect()->back()->with('success', trans('web/pages.contact.email.sent'));
+        return redirect()->back()->with('success', trans('web/pages.contact.email.sent'));
 	}
 
 

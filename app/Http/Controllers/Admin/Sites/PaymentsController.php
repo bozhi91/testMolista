@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class PaymentsController extends Controller
 {
@@ -13,7 +14,68 @@ class PaymentsController extends Controller
 		parent::__initialize();
 	}
 
-	public function getList($site_id, $check_ajax = true)
+    public static function getAllowedTranslations($site){
+
+	    $translations = DB::table('locales')
+            ->select('locale')
+            ->join('sites_locales', 'locales.id', '=', 'sites_locales.locale_id')
+            ->where('sites_locales.site_id',$site)
+            ->get();
+
+        return $translations;
+    }
+
+    public static function getMaxLanguages($site){
+	    $planLimit = DB::table('sites')
+            ->select('plans.max_languages')
+            ->join('plans', 'sites.plan_id', '=', 'plans.id')
+            ->where('sites.id',$site)
+            ->first();
+
+	    $limit = $planLimit->max_languages;
+	    if($limit==null)$limit=1000;
+
+        return $limit;
+    }
+
+    public static function verifyPlan($site){
+        $countLanguages = DB::table('sites_locales')
+            ->select('*')
+            ->where('site_id',$site)
+            ->get();
+
+        $countLanguages = count($countLanguages);
+
+        //if the site has more languages than the plan allows, delete all but the allowed ones
+        while($countLanguages>self::getMaxLanguages($site)){
+
+            $countLanguages = DB::table('sites_locales')
+                ->select('*')
+                ->where('site_id',$site)
+                ->get();
+
+            $countLanguages = count($countLanguages);
+
+            if($countLanguages>self::getMaxLanguages($site)){
+                $language = DB::table('sites_locales')
+                    ->select('*')
+                    ->where('site_id',$site)
+                    ->get();//order by id asc->first()
+
+                $lang = $language[count($language)-1]->locale_id;
+
+                //delete the translation if it's not spanish
+                if($lang!=2){
+                    DB::table('sites_locales')
+                        ->where('locale_id',$lang)
+                        ->where('site_id',$site)
+                        ->delete();
+                }
+            }
+        }
+    }
+
+    public function getList($site_id, $check_ajax = true)
 	{
 		if ( $check_ajax && !$this->request->ajax() )
 		{

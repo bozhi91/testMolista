@@ -209,7 +209,7 @@
 									@endif
 								</td>
 
-								<td>
+								<td style="overflow: auto;max-height: 91px;	float:left;">
                                     <?php
                                     $result = App\Http\Controllers\Account\PropertiesController::getMarketplaces($property->id);
                                     $path   = "properties/".$property->slug."/edit#tab-marketplaces";
@@ -221,6 +221,7 @@
                                         	</span></a>";
                                     }
                                     ?>
+
 								</td>
 
 								<td class="text-right text-nowrap">

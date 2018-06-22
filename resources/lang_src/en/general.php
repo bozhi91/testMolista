@@ -1,13 +1,14 @@
 <?php
 
 	return [
+        'htmlSnippet' => 'HTML Snippet',
         'newPost'=>'Nueva Entrada',
         'postTitle'=>'Título de la entrada',
         'postBody'=>'Contenido de la entrada',
         'defaultPostTitle' => 'Nueva entrada',
-
-        'yes' => 'Yes',
+		'yes' => 'Yes',
 		'no' => 'No',
+
 		'back' => 'Back',
 		'cancel' => 'Cancel',
 		'continue' => 'Continue',

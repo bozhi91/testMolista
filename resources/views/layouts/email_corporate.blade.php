@@ -7,7 +7,7 @@
 		<div class="container">
 
 			<div class="header">
-				<a href="{{ LaravelLocalization::getLocalizedURL(null, '/') }}" target="_blank"><img src="{{ asset('images/emails/logo.png') }}" alt="" /></a>
+				<a href="{{ LaravelLocalization::getLocalizedURL(null, '/') }}" target="_blank"><img style="width:50%; height:20%;" src="{{ $logo_url }}" alt="" /></a>
 			</div>
 
 			<div class="content">

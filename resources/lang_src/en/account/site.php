@@ -10,6 +10,10 @@
         'blog.emptyPost'  => 'There are no posts for this blog',
         'blog.delete' => 'Are you sure you want to delete this post?',
 
+        'Update' => 'Update',
+        'subscription.expired' =>'Your subscription has expired 7 days ago. Your plan was downgraded to free. Please update your plan.',
+        'subscription.toExpire'=>'Your subscription will expire in less than 5 days. Renew your subscription or you will be downgraded to Free plan.' ,
+
         'configuration.h1' => 'Site configuration',
 		'configuration.tab.config' => 'General',
 		'configuration.tab.texts' => 'SEO',

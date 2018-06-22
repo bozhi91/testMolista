@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Lang;
 
 class SitesController extends Controller
 {
@@ -261,9 +263,33 @@ class SitesController extends Controller
 		return view('admin.sites.edit', compact('site','locales','owners','companies','resellers','invoices','current_tab','plan_details','payment_tab'));
 	}
 
-	public function update($id)
+    public function verifyPlan($site){
+        echo $site;
+        die;
+    }
+
+
+    public function update($id)
 	{
 		$locales = \App\Models\Locale::where('admin',1)->lists('id','locale')->toArray();
+
+		// Verify if the user has reached teh maximum limit of languages in his plan
+        $plans = DB::table('plans')
+            ->select('plans.max_languages')
+            ->join('sites', 'plans.id', '=', 'sites.plan_id')
+            ->first();
+
+        if(count($_POST['locales_array'])>$plans->max_languages){
+            $protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
+            $url      =  $protocol.$_POST['subdomain'].'.'.$_SERVER['HTTP_HOST']."/account/payment/upgrade";
+            $message  = "";
+
+            $message = Lang::get('admin/sites.max_languages');
+
+         //   $message.= "<a href='$url'>Actualizar</a>";
+            return redirect()->action('Admin\SitesController@edit', $id)->withInput()->withErrors($message);
+        }
+        ////////////////////////////////////////////////////////////////////////////////
 
 		// Validate
 		$fields = [

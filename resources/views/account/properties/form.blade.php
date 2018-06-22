@@ -21,10 +21,11 @@
 	{
 		$countries = $countries->toArray();
 	}
-
+	$body = "Insert your HTML code here...";
 	if(!empty($property)){
-        $checkboxDesde = App\Http\Controllers\Account\PropertiesController::getCheckboxDesdeState($property['id']);
-    }
+		$checkboxDesde = App\Http\Controllers\Account\PropertiesController::getCheckboxDesdeState($property['id']);
+        $body = $property->html_property;
+	}
 ?>
 
 <style type="text/css">
@@ -54,9 +55,23 @@
 			@else
 				<li role="presentation" class="{{ $current_tab == 'seller' ? 'active' : '' }}"><a href="#tab-seller" aria-controls="tab-seller" role="tab" data-toggle="tab" data-tab="general">{{ Lang::get('account/properties.tab.seller') }}</a></li>
 			@endif
+
+			<li role="presentation" class="{{ $current_tab == 'html' ? 'active' : '' }}">
+				<a href="#tab-html" aria-controls="tab-html" role="tab" data-toggle="tab" data-tab="html">HTML</a></li>
 		</ul>
 
 		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'location' ? 'active' : '' }}" id="tab-html">
+				<h2>{{ Lang::get('general.htmlSnippet') }}</h2>
+				<br/>
+				<div>
+
+					<textarea name="body" class="summernote" style="height: 300px !important;" contenteditable="false">
+					{{ $body }}
+					</textarea><br/><br/>
+
+				</div>
+			</div>
 
 			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'general' ? 'active' : '' }}" id="tab-general">
 				<div class="row">
@@ -88,7 +103,6 @@
 								@if(!empty($property))
 									{!! Form::hidden('propertyId', $property['id']) !!}
 									{{ Lang::get('web/properties.from') }}
-
 									@if($checkboxDesde=='1')
 										<input type="checkbox" value="1" name="desde" checked>
 										@else
@@ -513,7 +527,6 @@
 							<?php $tmp = empty($cities) ? [ ''=>'' ] : [ ''=>'' ] + $cities->toArray(); ?>
 							{!! Form::label('city_id', Lang::get('account/properties.city').' *') !!}
 							{!! Form::select('city_id', $tmp, null, [ 'class'=>'form-control required city-input' ]) !!}
-
 						</div>
 						<div class="form-group error-container">
 							<a href="#add-district" class="add-district-trigger btn btn-default btn-xs pull-right"
@@ -1338,4 +1351,23 @@
 		initImageTooltips();
 
 	});
+</script>
+
+<!-- Includes for the HTML Editor -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+<!-- Includes for the HTML Editor -->
+
+<script>
+    $(document).ready(function() {
+        $('.summernote').summernote(
+            {
+                height: 200,   //set editable area's height
+                codemirror: { // codemirror options
+                    theme: 'monokai'
+                }
+            }
+        );
+
+    });
 </script>

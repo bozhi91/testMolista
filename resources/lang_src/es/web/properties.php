@@ -1,5 +1,6 @@
 <?php
 	return [
+
 		'title' => 'Propiedades',
         'from' => 'Precio Desde ',
 		'term' => 'Ingrese su búsqueda',
@@ -19,6 +20,7 @@
 
 		'type' => 'Tipo',
 		'type.any' => 'Todos los tipos',
+        'type.mooring' => 'Amarres',
 		'type.house' => 'Casa',
 		'type.apartment' => 'Apartmento',
 		'type.flat' => 'Piso',

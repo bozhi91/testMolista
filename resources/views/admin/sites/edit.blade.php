@@ -11,9 +11,7 @@
 
 		@include('common.messages', [ 'dismissible'=>true ])
 
-
 		<h1 class="list-title">{{ Lang::get('admin/sites.edit.title') }}</h1>
-
 		<ul class="nav nav-tabs main-tabs" role="tablist">
 			<li role="presentation" class="{{ $current_tab == 'site' ? 'active' : '' }}"><a href="#tab-site-config" aria-controls="tab-site-config" role="tab" data-toggle="tab">{{ Lang::get('admin/sites.tab.config') }}</a></li>
 			<li role="presentation" class="{{ $current_tab == 'plan' ? 'active' : '' }}"><a href="#tab-site-plan" aria-controls="tab-site-plan" role="tab" data-toggle="tab">{{ Lang::get('admin/sites.tab.plan') }}</a></li>
@@ -60,20 +58,25 @@
 					<div class="row">
 						<div class="col-xs-12 col-sm-6">
 							<div class="form-group">
+
 								{!! Form::label('locales_array[]', Lang::get('admin/sites.languages')) !!}
 								<?php
 									$tmp = [];
-									foreach (LaravelLocalization::getSupportedLocales() as $lang_iso => $lang_def) 
+									foreach (LaravelLocalization::getSupportedLocales() as $lang_iso => $lang_def)
 									{
 										$tmp[$lang_iso] = $lang_def['native'];
 									}
+                                    $languagesLimit = App\Http\Controllers\Admin\Sites\PaymentsController::getMaxLanguages($site->id);
+                                   // $planLimit = App\Http\Controllers\Admin\Sites\PaymentsController::verifyPlan($site->id);
 								?>
-								<div class="error-container">
+
+								<div class="error-container" id="language">
 									{!! Form::select('locales_array[]', $tmp, null, [ 'class'=>'form-control required has-select-2', 'size'=>'1', 'multiple'=>'multiple' ]) !!}
 								</div>
 								<div class="help-block">{{ Lang::get('admin/sites.languages.english', [ 'fallback_locale'=>fallback_lang_text() ]) }}</div>
 							</div>
 						</div>
+
 						<div class="col-xs-12 col-sm-6">
 							<div class="form-group error-container owners-select-container">
 								{!! Form::label('owners_ids[]', Lang::get('admin/sites.owners')) !!}
@@ -442,19 +445,16 @@
 			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'payments' ? 'active' : '' }}" id="tab-site-payments">
 				{!! $payment_tab !!}
 			</div>
-
 		</div>
-
 		<div class="text-right">
 			{!! print_goback_button( Lang::get('general.back'), [ 'class'=>'btn btn-default' ]) !!}
 		</div>
-
-
 	</div>
 
 	<script type="text/javascript">
 		var payments_url = "{{ action('Admin\Sites\PaymentsController@getList', $site->id) }}";
-		function payments_reload() {
+
+        function payments_reload() {
 			LOADING.show();
 			$.magnificPopup.close();
 			$('#tab-site-payments').load(payments_url, function(){
@@ -466,7 +466,12 @@
 			var cont = $('#admin-sites');
 			var form = $('#site-form');
 
-			form.validate({
+            //Verify the client's plan
+            //////////////////////////////////////////
+            form.find('select[name="locales_array[]"]').on('change', function(e){
+            }).closest('.form-group').find('.select2-selection__rendered').prepend(owners_str);
+
+            form.validate({
 				ignore: '',
 				errorPlacement: function(error, element) {
 					element.closest('.error-container').append(error);
@@ -491,7 +496,9 @@
 				}
 			});
 
-			form.find('.domain-input').each(function(){
+
+
+            form.find('.domain-input').each(function(){
 				var el = $(this);
 
 				$(this).rules('add', {
@@ -508,14 +515,14 @@
 				});
 
 			});
-
 			form.find('.has-select-2').select2();
 
 			var owners_str = '';
 			form.find('input[name="owners_ids[]"]').each(function(){
 				owners_str += '<li class="select2-selection__choice">' + $(this).data().title + '</li>';
 			});
-			form.find('select[name="owners_ids[]"]').on('change', function(){
+
+            form.find('select[name="owners_ids[]"]').on('change', function(){
 				$(this).closest('.form-group').find('.select2-selection__rendered').prepend(owners_str);
 			}).closest('.form-group').find('.select2-selection__rendered').prepend(owners_str);
 

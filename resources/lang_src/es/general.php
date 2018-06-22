@@ -5,9 +5,10 @@
         'postTitle'=>'Título de la entrada',
         'postBody'=>'Contenido de la entrada',
         'defaultPostTitle' => 'Nueva entrada',
-
+        'htmlSnippet' => 'Código HTML',
 		'yes' => 'Si',
 		'no' => 'No',
+
 		'back' => 'Volver',
 		'cancel' => 'Cancelar',
 		'continue' => 'Continuar',

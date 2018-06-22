@@ -6,6 +6,7 @@
 @section('content')
 	@include('account.warning.pending-request')
 
+
     <div id="account-container" class="container">
 		<div class="row">
 			<div class="col-sm-3 col-md-2 hidden-xs">

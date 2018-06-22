@@ -1,8 +1,8 @@
 <?php
 
 return [
+    'max_languages'=>'Has seleccionado mas idiomas de lo permitido por este plan. Para Insertar mas idiomas, actualiza tu plan',
 	'empty' => 'No sites found',
-
 	'title' => 'Title',
 	'subdomain' => 'Subdomain',
 	'subdomain.error.taken' => 'This subdomain is already in use',
