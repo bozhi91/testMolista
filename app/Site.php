@@ -924,7 +924,12 @@ class Site extends TranslatableModel
 		$params = array_merge($params, $this->getSiteMailerParams());
 
         if($params['from_name']==null){
-            $params['from_name'] = $aux_param['mailer']['from_name'];
+            if(!empty($aux_param['mailer']['from_name'])){
+                $params['from_name'] = $aux_param['mailer']['from_name'];
+            }
+            else{
+                $params['from_name'] = "Molista";
+            }
         }
         if($params['backup_required']==null){
             $params['backup_required'] = $aux_param['backup_required'];

@@ -11,7 +11,6 @@
 
 		@include('common.messages', [ 'dismissible'=>true ])
 
-
 		<h1 class="list-title">{{ Lang::get('admin/sites.edit.title') }}</h1>
 		<ul class="nav nav-tabs main-tabs" role="tablist">
 			<li role="presentation" class="{{ $current_tab == 'site' ? 'active' : '' }}"><a href="#tab-site-config" aria-controls="tab-site-config" role="tab" data-toggle="tab">{{ Lang::get('admin/sites.tab.config') }}</a></li>
@@ -69,20 +68,10 @@
 									}
                                     $languagesLimit = App\Http\Controllers\Admin\Sites\PaymentsController::getMaxLanguages($site->id);
                                    // $planLimit = App\Http\Controllers\Admin\Sites\PaymentsController::verifyPlan($site->id);
-
-									//echo json_encode($site);die;
 								?>
-
-                                <?php $protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';?>
-								@include('Modals.commonModal', ['header'=>"Acceso Denegado!",
-                                 'message'=>"No puedes insertar más de $languagesLimit  idiomas. Por favor, actualuza tu plan!
-                                   <p><a  href='".$protocol.$site->subdomain.'.'.$_SERVER['HTTP_HOST']."/account/payment/upgrade' target='_blank'>
-                                      <button type='button' class='btn btn-info .btn-md' style='margin-top:10px !important;'>Actualizar</button>
-                                   </a></p>"])
 
 								<div class="error-container" id="language">
 									{!! Form::select('locales_array[]', $tmp, null, [ 'class'=>'form-control required has-select-2', 'size'=>'1', 'multiple'=>'multiple' ]) !!}
-
 								</div>
 								<div class="help-block">{{ Lang::get('admin/sites.languages.english', [ 'fallback_locale'=>fallback_lang_text() ]) }}</div>
 							</div>
@@ -456,14 +445,10 @@
 			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'payments' ? 'active' : '' }}" id="tab-site-payments">
 				{!! $payment_tab !!}
 			</div>
-
 		</div>
-
 		<div class="text-right">
 			{!! print_goback_button( Lang::get('general.back'), [ 'class'=>'btn btn-default' ]) !!}
 		</div>
-
-
 	</div>
 
 	<script type="text/javascript">
@@ -484,18 +469,6 @@
             //Verify the client's plan
             //////////////////////////////////////////
             form.find('select[name="locales_array[]"]').on('change', function(e){
-                var langs = $(".select2-selection__rendered")[0].childElementCount-1;
-                var languagesLimit = "{{$languagesLimit}}";
-
-                if(langs >= languagesLimit){
-                   	e.preventDefault();
-                   	e.stopPropagation();
-                    if(langs > languagesLimit){
-                        $('#commonModal').modal();
-                        $(".select2-selection__rendered")[0].last().remove();
-                    }
-				//	$(".select2-selection__rendered")[0].last().remove();
-                }
             }).closest('.form-group').find('.select2-selection__rendered').prepend(owners_str);
 
             form.validate({

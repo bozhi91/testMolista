@@ -54,6 +54,7 @@
 						
 						@include('components.property.property-image-slider')
 
+						@include('components.property.htmlArea', [ 'property'=>$property ] )
 						@include('components.property.property-view-in-3d-iframe')
 						
 					</div>
