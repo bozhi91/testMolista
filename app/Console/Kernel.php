@@ -54,7 +54,7 @@ class Kernel extends ConsoleKernel
 		$schedule->command('tickets:contacts-sync')->dailyAt('02:00');
 		$schedule->command('marketplace:api:publish')->cron('0 */3 * * * *');
 
-        //$schedule->command('subscription:verify')->daily();
+        $schedule->command('subscription:verify')->daily();
 	}
 
 }

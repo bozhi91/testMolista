@@ -35,7 +35,7 @@ class CheckSubscriptions extends Command
      */
     public function handle()
     {
-        //$site = new Site();
-        //$site->verifyPlans();
+        $site = new Site();
+        $site->verifyPlans();
     }
 }

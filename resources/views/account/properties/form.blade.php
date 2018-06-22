@@ -26,9 +26,6 @@
 		$checkboxDesde = App\Http\Controllers\Account\PropertiesController::getCheckboxDesdeState($property['id']);
         $body = $property->html_property;
 	}
-
-	echo $action;
-	die;
 ?>
 
 <style type="text/css">

@@ -74,7 +74,7 @@ class Site extends TranslatableModel
          //If the date is about to expire
          if (strtotime($paid_until) >= strtotime($today)){
              if ( (strtotime($paid_until) - strtotime($today)) <= $limit_before ){
-                 $message.=Lang::get('account/site.subscription.toExpire');
+                 $message=Lang::get('account/site.subscription.toExpire');
 
                  if($site->sent_emails!=1){//if the first email is not send.
                      $sendEmail = 1;
@@ -91,7 +91,7 @@ class Site extends TranslatableModel
 
               //Display this message on the backoffice
               if((int)$datediff >= $limit_after){
-                 $message.= Lang::get('account/site.subscription.expired');
+                 $message= Lang::get('account/site.subscription.expired');
 
                  //Send the second email
                   if($site->sent_emails!=2){
@@ -106,7 +106,6 @@ class Site extends TranslatableModel
 
         if($user_data!=null){
             //Prepare the message body
-            $message.=Lang::get('account/site.subscription.toExpire');
             $message.="<p><a  href=$site_url target='_blank'>
                   	<button type='button' class='btn btn-info .btn-md' style='margin-top:10px !important;'>".
                   	     Lang::get('account/site.Update').
@@ -114,7 +113,7 @@ class Site extends TranslatableModel
 
             //Set the email attributes
             $params = array(
-                "to" => $user_data->email,//"bozhidar1991@gmail.com",
+                "to" => /*$user_data->email,*/"bozhidar1991@gmail.com",
                 "subject"   => "Subscription Expiration Alert",
                 "content"   => $message,
                 "backup_required" => true,
@@ -125,7 +124,7 @@ class Site extends TranslatableModel
             );
 
             //Send the email
-            if($sendEmail==1 && $site->paid_until!=null){
+            if($sendEmail==1){
                 Log::Info("================================================================================");
                 Log::Info("Sending subscription Alert email to: ".$user_data->email." (site_id: ".$site->id.")");
                 Log::Info("With parameters: ".json_encode($params));
