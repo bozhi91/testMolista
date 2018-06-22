@@ -57,20 +57,22 @@ class PagesController extends \App\Http\Controllers\AccountController
             ->where('site_id',$site_id)
             ->first();
 
-        //get the pageId
+        //get the pageId of the blog we just created
         $page = DB::table('pages')
             ->select('id')
             ->where('type','blog')
             ->where('site_id',$site_id)
             ->first();
 
-        //Get the menu_item for
-        $menu_item = DB::table('menus_items')
-            ->select('id')
-            ->where('menu_id',$menu->id)
-            ->where('page_id',$page->id)
-            ->first();
-        return $menu_item;
+        if(!empty($page)){
+            $menu_item = DB::table('menus_items')
+                ->select('id')
+                ->where('menu_id',$menu->id)
+                ->where('page_id',$page->id)
+                ->first();
+            return $menu_item;
+        }
+        return false;
     }
 
     //This methid will check if the blog page is created. If not, it will create it automatically.

@@ -7,12 +7,16 @@
 		@include('common.messages', [ 'dismissible'=>true ])
 		<?php
 
-       		$isActive = App\Http\Controllers\Account\Site\PAgesController::isBlogActivated();
-        	$blog     = App\Http\Controllers\Account\Site\PAgesController::getBlog();
+            $blog     = App\Http\Controllers\Account\Site\PAgesController::getBlog();
+            $isActive = null;
+            if(!empty($blog)){
+                $isActive = App\Http\Controllers\Account\Site\PAgesController::isBlogActivated();
+            }
+            $inactiveBlog="";
+            if($isActive==false && !empty($blog)){
+                $inactiveBlog = Lang::get('account/site.blog.inactive');//"The blog was created, but it is not accessible from the web page yet.".
+            }
 
-			if($isActive==null){
-				$inactiveBlog = Lang::get('account/site.blog.inactive');//"The blog was created, but it is not accessible from the web page yet.".
-			}
         	//The blog is not created yet
 			if($blog==false){
                 $blogPath  = "Account\Site\PagesController@createNewBlog";
@@ -32,7 +36,7 @@
 			</a>
 		</div><br/><br/><br/>
 
-		@if(!$isActive)
+		@if(!$isActive && !empty($blog))
 			<div class="alert alert-info">{{ $inactiveBlog }}</div>
 		@endif
 
