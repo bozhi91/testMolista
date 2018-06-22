@@ -14,6 +14,7 @@ class UpdateSitesTable extends Migration
     {
         Schema::table('sites', function (Blueprint $table) {
             $table->int('sent_emails')->nullable()->after('paid_until');
+            $table->int('blocked_sites')->nullable()->after('sent_emails');
         });
     }
 
@@ -25,7 +26,7 @@ class UpdateSitesTable extends Migration
     public function down()
     {
         Schema::table('sites', function (Blueprint $table) {
-            $table->dropColumn('sent_emails');
+            $table->dropColumn('blocked_sites');
         });
     }
 }

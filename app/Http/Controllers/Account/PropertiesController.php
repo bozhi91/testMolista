@@ -31,11 +31,30 @@ class PropertiesController extends \App\Http\Controllers\AccountController
             ->orderByRaw('created_at DESC')
             ->get();
 
-        //here we generate a list of the properties we must disable
+        $plans = DB::table('sites')
+            ->join('plans', 'sites.plan_id', '=', 'plans.id')
+            ->select('plans.max_properties')
+            ->where('sites.id',session("SiteSetup")['site_id'])
+            ->first();
+
+
+        //check if the site is blocked
+        $isBlocked = DB::table('sites')
+            ->select('blocked_site')
+            ->where('id',session("SiteSetup")['site_id'])
+            ->first();
+
+        $max_properties=0;
+        if($plans->max_properties==null){
+            $max_properties = 10000;
+        }
+        //Here we generate a list of the properties we must disable
         $propRef = "<br/>";
         $properties = array();
-        if(count($recentProps)>5){
-            for($i=5;$i<count($recentProps);$i++){
+
+
+        if( (count($recentProps)>$max_properties) ){
+            for($i=$plans->max_properties;$i<count($recentProps);$i++){
                 array_push($properties,$recentProps[$i]->ref);
                 $propRef.= " - Reference: ".$recentProps[$i]->ref."<br/>";
 
@@ -43,6 +62,14 @@ class PropertiesController extends \App\Http\Controllers\AccountController
                     ->where('id',$recentProps[$i]->id)
                     ->update(['enabled' => 0]);
             }
+            DB::table('sites')
+                ->where('id', session("SiteSetup")['site_id'])
+                ->update(['blocked_site' => 1]);
+        }
+        else{
+            DB::table('sites')
+                ->where('id', session("SiteSetup")['site_id'])
+                ->update(['blocked_site' => 1]);
         }
         return $propRef;
     }

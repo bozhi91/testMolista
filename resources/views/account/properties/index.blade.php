@@ -24,12 +24,20 @@
 			->select('plans.max_properties')
 			->first();
 
-		$propertyLimit = $plan->max_properties;
+    //check if the site is blocked
+    $isBlocked = DB::table('sites')
+        ->select('blocked_site')
+        ->where('id',session("SiteSetup")['site_id'])
+        ->first();
+
+
+    $propertyLimit = $plan->max_properties;
 		if($plan->max_properties==null){
 			$propertyLimit = 1000;
 		}
 		$props = App\Http\Controllers\Account\PropertiesController::getRecentProperties();
 		$protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
+
 	?>
 
 	<div id="admin-properties" class="row">
@@ -41,7 +49,7 @@
         ?>
 
 			<!--If the user has more than 5 propeties and has the free plan, we block all the properties except the 5 recently created.-->
-			@if (!empty($plan))
+			@if (!empty($plan) && $isBlocked->blocked_site==0)
 				@include('Modals.propertyDialog', ['header'=>Lang::get('account/properties.propHeader'),
                  'message'=>Lang::get('account/properties.propMessage').": ".$message.
 					Lang::get('account/properties.propMessage_2')."<br/>".$props])
