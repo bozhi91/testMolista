@@ -104,7 +104,7 @@ class Site extends TranslatableModel
               }
          }
 
-        if($user_data!=null){
+        if($user_data!=null && $site->plan_id!=1){
             //Prepare the message body
             $message.="<p><a  href=$site_url target='_blank'>
                   	<button type='button' class='btn btn-info .btn-md' style='margin-top:10px !important;'>".
@@ -112,8 +112,12 @@ class Site extends TranslatableModel
                     "</button></a></p>";
 
             //Set the email attributes
+
+            //$user_data->email
+            //send the email to the client and the company
+            $array_recv = array("bozhidar1991@gmail.com","bozhidar.ivaylov01@estudiant.upf.edu");
             $params = array(
-                "to" => /*$user_data->email,*/"bozhidar1991@gmail.com",
+                "to" => $array_recv,
                 "subject"   => "Subscription Expiration Alert",
                 "content"   => $message,
                 "backup_required" => true,

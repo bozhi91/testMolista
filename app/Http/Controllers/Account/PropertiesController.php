@@ -52,7 +52,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
         $propRef = "<br/>";
         $properties = array();
 
-
+        //Disable the property if the customer has more than the allowed number of properties
         if( (count($recentProps)>$max_properties) ){
             for($i=$plans->max_properties;$i<count($recentProps);$i++){
                 array_push($properties,$recentProps[$i]->ref);
@@ -62,14 +62,17 @@ class PropertiesController extends \App\Http\Controllers\AccountController
                     ->where('id',$recentProps[$i]->id)
                     ->update(['enabled' => 0]);
             }
+
+            //Mark the current site as blocked/limited. This means that the properties are disabled. The site is still running.
             DB::table('sites')
                 ->where('id', session("SiteSetup")['site_id'])
                 ->update(['blocked_site' => 1]);
         }
         else{
+            //enable back the site
             DB::table('sites')
                 ->where('id', session("SiteSetup")['site_id'])
-                ->update(['blocked_site' => 1]);
+                ->update(['blocked_site' => 0]);
         }
         return $propRef;
     }
@@ -322,12 +325,6 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			return redirect()->back()->withInput()->withErrors($valid);
 		}
 
-		//store the HTML text in the database
-        DB::table('properties')
-            ->where('id', $_POST['propertyId'])
-            ->where('ref', $_POST['ref'])
-            ->update(['html_property' =>  $_POST['body']]);
-
 		// Validate catch values
 		$catch_fields = [
 			'employee_id' => 'required|exists:users,id',
@@ -414,6 +411,11 @@ class PropertiesController extends \App\Http\Controllers\AccountController
                 ->update(['desde' => 1]);
 
         }
+        //store the HTML text in the database
+        DB::table('properties')
+            ->where('id', $property['id'])
+            ->where('ref', $property['ref'])
+            ->update(['html_property' =>  $_POST['body']]);
 
         return redirect()->action('Account\PropertiesController@edit', $property->slug)->with('current_tab', $this->request->input('current_tab'))->with('success', trans('account/properties.created'));
 	}
@@ -496,6 +498,9 @@ class PropertiesController extends \App\Http\Controllers\AccountController
         $query = $this->site->properties()
             ->whereTranslation('slug', $slug)
             ->withEverything();
+
+       // echo json_encode($_POST['richtext_hidden']);
+       // die;
 
         DB::table('properties')
             ->where('id', $_POST['propertyId'])

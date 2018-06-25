@@ -50,6 +50,8 @@ class SendSiteContactEmail extends Job implements ShouldQueue {
 		$subject = trans('corporate/signup.email.subject');
 		$html    = email_render_corporate('emails.site.contact', $data);
 
+		echo $html;
+		die;
 		\Mail::send('dummy', [ 'content' => $html ], function($message) use ($email_to, $data) {
             $message->from(env('MAIL_FROM_EMAIL'), env('MAIL_FROM_NAME'));
 			$message->subject($data['subject']);

@@ -26,7 +26,7 @@
 		$checkboxDesde = App\Http\Controllers\Account\PropertiesController::getCheckboxDesdeState($property['id']);
         $body = $property->html_property;
 	}
-?>
+	?>
 
 <style type="text/css">
 	#tab-marketplaces .marketplace-name { display: inline-block; padding-left: 25px; background: left center no-repeat; }
@@ -65,12 +65,12 @@
 				<h2>{{ Lang::get('general.htmlSnippet') }}</h2>
 				<br/>
 				<div>
-
-					<textarea name="body" class="summernote" style="height: 300px !important;" contenteditable="false">
+					<textarea name="body" id="richeditor"  cols=100; style="height: 300px;" contenteditable="false">
 					{{ $body }}
 					</textarea><br/><br/>
 
 				</div>
+				<input type="hidden" name="richtext_hidden">
 			</div>
 
 			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'general' ? 'active' : '' }}" id="tab-general">
@@ -1357,12 +1357,22 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
 <!-- Includes for the HTML Editor -->
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+<!-- include summernote css/js -->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
 <script>
     $(document).ready(function() {
+        var html = $('#summernote').summernote('code');
+
+        var val = document.getElementById("richeditor").value;
+        document.getElementById("richtext_hidden").value = val;
+
         $('.summernote').summernote(
             {
-                height: 200,   //set editable area's height
+				height: 200,   //set editable area's height
                 codemirror: { // codemirror options
                     theme: 'monokai'
                 }
