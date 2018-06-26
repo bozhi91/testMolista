@@ -23,7 +23,7 @@
 ?>
 
 <div class="row" id="updatePlan">
-    <div class="col-lg-3" style="color: red; padding-left: 50px;"><h4>{{$message}}</h4></div>
+    <div class="col-lg-3" style="color: red; padding-left: 50px;"><h4 style="background: red;color: white;padding: 10px;width: 100%;">{{$message}}</h4></div>
     <div class="col-lg-3"></div>
     <div class="col-lg-3"></div>
     <div class="col-lg-3">

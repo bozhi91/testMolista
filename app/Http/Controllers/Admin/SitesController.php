@@ -277,16 +277,20 @@ class SitesController extends Controller
         $plans = DB::table('plans')
             ->select('plans.max_languages')
             ->join('sites', 'plans.id', '=', 'sites.plan_id')
+            ->where('sites.id',$id)
             ->first();
 
-        if(count($_POST['locales_array'])>$plans->max_languages){
+        $max_languages = $plans->max_languages;
+        if($plans->max_languages==null){
+            $max_languages = 10000;
+        }
+
+        if(count($_POST['locales_array'])>$max_languages){
             $protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
             $url      =  $protocol.$_POST['subdomain'].'.'.$_SERVER['HTTP_HOST']."/account/payment/upgrade";
             $message  = "";
 
             $message = Lang::get('admin/sites.max_languages');
-
-         //   $message.= "<a href='$url'>Actualizar</a>";
             return redirect()->action('Admin\SitesController@edit', $id)->withInput()->withErrors($message);
         }
         ////////////////////////////////////////////////////////////////////////////////

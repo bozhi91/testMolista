@@ -83,6 +83,7 @@ class Site extends TranslatableModel
              }
              else{
                  DB::table('sites')->where('id',$site->id)->update(['sent_emails' => 0]);
+                 DB::table('sites')->where('id',$site->id)->update(['final_warning' => 'null']);
              }
          }
          else{
@@ -90,20 +91,37 @@ class Site extends TranslatableModel
              $datediff = (strtotime($today) - strtotime($paid_until));
 
               //Display this message on the backoffice
-              if((int)$datediff >= $limit_after){
-                 $message= Lang::get('account/site.subscription.expired');
+             if((int)$datediff >= 2 && $site->final_warning==null){
 
-                 //Send the second email
+                  $message = "Actualiza tu subscription o te bajaremos al plan free.";//Lang::get('account/site.subscription.expired');
+                  DB::table('sites')->where('id',$site->id)->update(['final_warning' => $today]);
+                  DB::table('sites')->where('id',$site->id)->update(['sent_emails'   => 2]);
+                  $sendEmail = 1;
+
+                 /*//Send the second email
                   if($site->sent_emails!=2){
                       $sendEmail = 1;
                       //Write the the database that we have sent the seccond email
                       DB::table('sites')->where('id',$site->id)->update(['sent_emails' => 2]);
                       //Downgrade the user to FREE plan
                       DB::table('sites')->where('id',$site->id)->update(['plan_id' => 1]);
-                  }
-              }
+                  }*/
+             }
+             else if($site->final_warning!=null && $site->sent_emails!=3){
+
+                 $datediff = (strtotime($today) - strtotime($site->final_warning));
+                 $datediff = $datediff/(3600*24);
+
+                 if((int)$datediff >= 5){
+                     $sendEmail = 1;
+                     $message   = "Tu suscripción ha expirado hace mas de 5 dias. Te hemos actualizad al plan Free.";//Lang::get('account/site.subscription.expired');
+                     DB::table('sites')->where('id',$site->id)->update(['sent_emails' => 3]);
+                     DB::table('sites')->where('id',$site->id)->update(['plan_id' => 1]);//Downgrade the user to free plan.
+                 }
+             }
          }
 
+        //send the email only if the plan is not free.
         if($user_data!=null && $site->plan_id!=1){
             //Prepare the message body
             $message.="<p><a  href=$site_url target='_blank'>
@@ -115,7 +133,8 @@ class Site extends TranslatableModel
 
             //$user_data->email
             //send the email to the client and the company
-            $array_recv = array("bozhidar1991@gmail.com","bozhidar.ivaylov01@estudiant.upf.edu");
+            //$user_data->email
+            $array_recv = array("bozhidar1991@gmail.com","bozhidar1991@gmail.com");
             $params = array(
                 "to" => $array_recv,
                 "subject"   => "Subscription Expiration Alert",
