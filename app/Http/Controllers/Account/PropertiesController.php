@@ -499,9 +499,6 @@ class PropertiesController extends \App\Http\Controllers\AccountController
             ->whereTranslation('slug', $slug)
             ->withEverything();
 
-       // echo json_encode($_POST['richtext_hidden']);
-       // die;
-
         DB::table('properties')
             ->where('id', $_POST['propertyId'])
             ->where('ref', $_POST['ref'])
