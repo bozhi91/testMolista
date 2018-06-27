@@ -26,7 +26,7 @@
 		$checkboxDesde = App\Http\Controllers\Account\PropertiesController::getCheckboxDesdeState($property['id']);
         $body = $property->html_property;
 	}
-
+$current_tab == 'general';
 	?>
 
 <style type="text/css">
@@ -62,7 +62,7 @@
 		</ul>
 
 		<div class="tab-content">
-			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'location' ? 'active' : '' }}" id="tab-html">
+			<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'html' ? 'active' : '' }}" id="tab-html">
 				<h2>{{ Lang::get('general.htmlSnippet') }}</h2>
 				<br/>
 				<div>

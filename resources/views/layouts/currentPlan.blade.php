@@ -13,24 +13,38 @@
 
     $message = "";
     if(!empty($site_data)){
-        if($site_data->sent_emails==1){
-            $message = Lang::get('account/site.subscription.toExpire');
-        }
-        if($site_data->sent_emails==2){
-            $message = Lang::get('account/site.subscription.expired');
+        if( $site_data->plan_id=!1){
+            if($site_data->sent_emails==1){
+                $message = Lang::get('account/site.subscription.expired_1');
+            }
+            if($site_data->sent_emails==2){
+                $message = Lang::get('account/site.subscription.expired_2');
+            }
         }
     }
 ?>
 
 <div class="row" id="updatePlan">
-    <div class="col-lg-3" style="color: red; padding-left: 50px;"><h4 style="background: red;color: white;padding: 10px;width: 100%;">{{$message}}</h4></div>
+    <div class="col-lg-3" style="color: red; padding-left: 50px;">
+
+        @if($site_data->plan_id=!1)
+
+        <h4 style="background: red;color: white;padding: 10px;width: 100%;">
+            {{$message}}
+            <a href="/account/payment/upgrade" target='_blank' style="color:white;">
+               <b> {{ Lang::get('account/site.Update')}}</b>
+            </a>
+        </h4>
+        @endif
+
+    </div>
     <div class="col-lg-3"></div>
     <div class="col-lg-3"></div>
     <div class="col-lg-3">
         <h4 id="planTag" style="margin-bottom:0px; margin-top:0px;">
-            <p>Plan actual:<b><?php echo  $plan;?></b>
+            <p>{{ Lang::get('account/site.planactual')}}<b><?php echo  $plan;?></b>
                 <a href="/account/payment/upgrade" target='_blank'>
-                    <button type="button" class="btn btn-info">Actualizar</button>
+                    <button type="button" class="btn btn-info">{{ Lang::get('account/site.Update')}}</button>
                 </a>
             </p>
         </h4>

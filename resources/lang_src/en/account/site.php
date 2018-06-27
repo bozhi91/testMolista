@@ -10,9 +10,12 @@
         'blog.emptyPost'  => 'There are no posts for this blog',
         'blog.delete' => 'Are you sure you want to delete this post?',
 
+        'planactual'=>'Current Plan: ',
         'Update' => 'Update',
-        'subscription.expired' =>'Your subscription has expired 7 days ago. Your plan was downgraded to free. Please update your plan.',
-        'subscription.toExpire'=>'Your subscription will expire in less than 5 days. Renew your subscription or you will be downgraded to Free plan.' ,
+
+        'subscription.expired_1' =>'Your subscription has expired 1 day ago. Your plan will be downgraded to Free of you dont renew your subscription in 48 hours. Please update your plan.',
+
+        'subscription.expired_2'=>'Your plan has expired 3 days ago. If you dont renew your subscription, youll be downgraded to Free plan tomorrow at: ' ,
 
         'configuration.h1' => 'Site configuration',
 		'configuration.tab.config' => 'General',

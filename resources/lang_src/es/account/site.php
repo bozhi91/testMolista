@@ -1,9 +1,13 @@
 <?php
 
 	return [
+	    'planactual'=>'Plan Actual: ',
         'Update' => 'Actualizar',
-	    'subscription.expired'=>'Tu subscripción ha expirado hace 7 días. Tu plan ha sido cambiado a Free. Por favor, actualiza tu plan.',
-        'subscription.toExpire'=>'Tu subscripción va a expirar en menos de 5 días. Actualiza tu plan o te bajaremos al plan Free.',
+
+	    'subscription.expired_1'=>'Tu subscripción ha expirado hace 1 dia. Si no actualizas tu plan en 48 horas, te bajaremos al plan free.',
+        'subscription.expired_2'=>'Tu subscripción ha expirado hace 3 dias. Si no renuevas tu plan, te bajaremos a plan free a: ',
+
+
         'blog.inactive' => 'El blog ha sido creado, pero todavía no es accesible.
                             Para activarlo, crea una nueva entrada desde el menu',
         'blog.createBlog' => 'Crear el blog',
@@ -11,9 +15,7 @@
         'blog.emptyBlog' => 'El blog no está creado todavía. Para crear uno, haga click en el botón de arriba.',
         'blog.emptyPost' => 'No se encontraron entradas en este blog',
         'blog.delete' => '¿Confirma que desea eliminar esta entrada?',
-
 		'configuration.h1' => 'Configuración del sitio',
-
 		'configuration.tab.config' => 'General',
 		'configuration.tab.texts' => 'SEO',
 		'configuration.tab.social' => 'Redes sociales',

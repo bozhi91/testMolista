@@ -55,6 +55,9 @@ class Site extends TranslatableModel
 
     //Verify the plan of only ONE site
 	public function verifyPlan($site){
+
+
+	    //////////////////////////////////////////////////////////////
         //Get user's email
         $user_data = DB::table('sites')
             ->select('users.*')
@@ -65,63 +68,52 @@ class Site extends TranslatableModel
 
         $today = date("Y-m-d H:i:s");
         $paid_until   = $site->paid_until;
-        $limit_before = 3600*24*5; //5 days before the expiration
-        $limit_after  = 3600*24*7; //7 days before the expiration
         $site_url     = env("APP_PROTOCOL")."://".$site->subdomain.".".env("APP_DOMAIN")."/account/payment/upgrade";
         $message      = "";
         $sendEmail    = 0; //This variable defines how many times we must send the notificaiton email
 
-         //If the date is about to expire
-         if (strtotime($paid_until) >= strtotime($today)){
-             if ( (strtotime($paid_until) - strtotime($today)) <= $limit_before ){
-                 $message=Lang::get('account/site.subscription.toExpire');
+        //check the site ONLY if the plan IS NOT free
+        if($site->plan_id!=1){
+            //If the subscription has expired yesterday, send a notification message(email) to the user1
+            if(strtotime($paid_until) < strtotime($today)){
 
-                 if($site->sent_emails!=1){//if the first email is not send.
-                     $sendEmail = 1;
-                     DB::table('sites')->where('id',$site->id)->update(['sent_emails' => 1]);
-                 }
-             }
-             else{
-                 DB::table('sites')->where('id',$site->id)->update(['sent_emails' => 0]);
-                 DB::table('sites')->where('id',$site->id)->update(['final_warning' => 'null']);
-             }
-         }
-         else{
-             //If the subscription date has expired already....
-             $datediff = (strtotime($today) - strtotime($paid_until));
+                 //If the subscription date has expired already....
+                 $datediff = (int)(strtotime($today) - strtotime($paid_until));
 
-              //Display this message on the backoffice
-             if((int)$datediff >= 2 && $site->final_warning==null){
-
-                  $message = "Actualiza tu subscription o te bajaremos al plan free.";//Lang::get('account/site.subscription.expired');
-                  DB::table('sites')->where('id',$site->id)->update(['final_warning' => $today]);
-                  DB::table('sites')->where('id',$site->id)->update(['sent_emails'   => 2]);
-                  $sendEmail = 1;
-
-                 /*//Send the second email
-                  if($site->sent_emails!=2){
-                      $sendEmail = 1;
-                      //Write the the database that we have sent the seccond email
-                      DB::table('sites')->where('id',$site->id)->update(['sent_emails' => 2]);
-                      //Downgrade the user to FREE plan
-                      DB::table('sites')->where('id',$site->id)->update(['plan_id' => 1]);
-                  }*/
-             }
-             else if($site->final_warning!=null && $site->sent_emails!=3){
-
-                 $datediff = (strtotime($today) - strtotime($site->final_warning));
+                 //get number of days
                  $datediff = $datediff/(3600*24);
 
-                 if((int)$datediff >= 5){
-                     $sendEmail = 1;
-                     $message   = "Tu suscripción ha expirado hace mas de 5 dias. Te hemos actualizad al plan Free.";//Lang::get('account/site.subscription.expired');
-                     DB::table('sites')->where('id',$site->id)->update(['sent_emails' => 3]);
-                     DB::table('sites')->where('id',$site->id)->update(['plan_id' => 1]);//Downgrade the user to free plan.
-                 }
-             }
-         }
+                 //data limit to downgrade the plan. One day after the second email.
+                 $downData = strtotime($today)+3600*24;
 
-        //send the email only if the plan is not free.
+
+                 //if 1 day has passed since the expidation
+                 if((int)$datediff == 1 && $site->sent_emails == 0){
+                     $message = Lang::get('account/site.subscription.expired_1');
+                     DB::table('sites')->where('id',$site->id)->update(['sent_emails'   => 1]);
+                     $sendEmail = 1;
+                 }
+                 if((int)$datediff == 3  && $site->sent_emails == 1){
+                     $message = Lang::get('account/site.subscription.expired_2')." ".$site->final_warning;
+                     DB::table('sites')->where('id',$site->id)->update(['sent_emails'   => 2]);
+                     DB::table('sites')->where('id',$site->id)->update(['final_warning' =>  date("Y-m-d H:i:s",$downData)]);
+                     $sendEmail = 1;
+                 }
+
+                //Downgrade the user to free plan.
+
+
+                if((strtotime($today)-strtotime($site->final_warning)<=0) && $site->sent_emails==2){
+                     DB::table('sites')->where('id',$site->id)->update(['plan_id' => 1]);
+                 }
+            }
+            else{
+              DB::table('sites')->where('id',$site->id)->update(['sent_emails' => 0]);
+              DB::table('sites')->where('id',$site->id)->update(['final_warning' => null]);
+            }
+        }
+
+        //send the email only if the plan is not free. If the plan is free, there is no point to downgrade the user.
         if($user_data!=null && $site->plan_id!=1){
             //Prepare the message body
             $message.="<p><a  href=$site_url target='_blank'>
@@ -130,34 +122,99 @@ class Site extends TranslatableModel
                     "</button></a></p>";
 
             //Set the email attributes
-
             //$user_data->email
-            //send the email to the client and the company
-            //$user_data->email
-            $array_recv = array("bozhidar1991@gmail.com","bozhidar1991@gmail.com");
+            $array_recv = array("bozhidar1991@gmail.com","bozhidar.ivaylov01@estudiant.upf.edu");
             $params = array(
                 "to" => $array_recv,
                 "subject"   => "Subscription Expiration Alert",
                 "content"   => $message,
                 "backup_required" => true,
                 "service"    => "myService",
+                "from"  => "info@molista.com",
                 "from_name"  => $site->subdomain,
                 "reply_name" => $user_data->name,
                 "mailer"     => $site->mailer,
             );
 
             //Send the email
-            if($sendEmail==1){
+
+            send_template_email($params);
+
+           /* if($sendEmail==1){
                 Log::Info("================================================================================");
                 Log::Info("Sending subscription Alert email to: ".$user_data->email." (site_id: ".$site->id.")");
                 Log::Info("With parameters: ".json_encode($params));
-                $status = $this->sendEmail($params);
+              //  $status = $this->sendEmail($params);
                 if($status!=false){
                     Log::Info("Email Sent!!!");
                 }
                 Log::Info("================================================================================");
-            }
+            }*/
         }
+
+        $array_recv = array("bozhidar1991@gmail.com","bozhidar.ivaylov01@estudiant.upf.edu");
+        $params = array(
+            "to" => "bozhidar1991@gmail.com",
+            "subject"   => "Subscription Expiration Alert",
+            "content"   => $message,
+            "backup_required" => true,
+            "service"    => "myService",
+            "from"  => "info@molista.com",
+            "fromName"  => $site->subdomain,
+            "reply_name" => $user_data->name,
+            "mailer"     => $site->mailer,
+        );
+
+       $this->send_template_email($params);
+    }
+
+    function send_template_email($arrPars=null, $templateID=null){
+
+         $apikey = "8e5b23f5-ec2a-4f1d-8b0b-bac8bbbb4f18";
+
+         $templateID = "16878";
+
+       /* $nom = ucwords($arrPars["name"]);
+        $url_soliciutd = $arrPars["url"];
+        $lista_anuncios = $arrPars["lista_anuncios"];
+*/
+        $to = $arrPars["to"];
+        $subject = $arrPars["subject"];
+        $from = $arrPars["from"];
+        $fromName = $arrPars["fromName"];
+
+
+        $url = "https://api.elasticemail.com/v2/email/send";
+        $data = array("apikey" => $apikey,
+            "template" => $templateID,
+            "to" => $to,
+            "subject" => $subject,
+            "from" => $from,
+            "fromName" => $fromName,
+            "merge_name" => "",
+            "merge_url_enlace" => "url jeje",
+            "merge_url" => "merge",//$url_soliciutd,
+            "bodyText" => "Email",
+            "charsetBodyHtml" => "utf-8",
+            "charset" => "utf-8",
+            'isTransactional' => false,
+        );
+
+        try {
+            /* Nos comunicamos por CURL */
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $respuesta = curl_exec($ch);
+            curl_close ($ch);
+        }catch (Exception $e){}
+
+        $info_res = json_decode($respuesta);
+        echo json_encode($respuesta);
+
+        return $info_res;
     }
 
 	public function plan()
