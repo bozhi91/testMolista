@@ -19,8 +19,14 @@ class CreatePostsTable extends Migration {
             $table->string('body');
             $table->dateTime('created_at')->nullable();
 
-            $table->foreign('site_id')->references('id')->on('sites')->onUpdate('cascade')->onDelete('set null');
+            $table->foreign('site_id')->references('id')->on('sites');
         });
+
+        //Add foreign keys to the table.
+        Schema::table('entradas', function ($table) {
+            $table->foreign('site_id')->references('id')->on('sites');
+        });
+
 
     }
 
