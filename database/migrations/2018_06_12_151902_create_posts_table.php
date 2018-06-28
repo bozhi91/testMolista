@@ -22,11 +22,6 @@ class CreatePostsTable extends Migration {
             $table->foreign('site_id')->references('id')->on('sites');
         });
 
-        //Add foreign keys to the table.
-        Schema::table('entradas', function ($table) {
-            $table->foreign('site_id')->references('id')->on('sites');
-        });
-
 
     }
 
