@@ -11,15 +11,17 @@
         ->where('id',$site_id)
         ->first();
 
-    $message = "";
-    if(!empty($site_data)){
-        if( $site_data->plan_id=!1){
-            if($site_data->sent_emails==1){
-                $message = Lang::get('account/site.subscription.expired_1');
-            }
-            if($site_data->sent_emails==2){
-                $message = Lang::get('account/site.subscription.expired_2');
-            }
+
+    $message = null;
+    if($site_data->sent_emails!=0){
+        if($site_data->sent_emails==1){
+            $message = Lang::get('account/site.subscription.expired_1');
+        }
+        else if($site_data->sent_emails==2 && $site_data->block_date==null){
+            $message = Lang::get('account/site.subscription.expired_2');
+        }
+        else if(strtotime( date("Y-m-d H:i:s"))-strtotime($site_data->block_date)>=0){
+            $message = Lang::get('account/site.subscription.expired_3');
         }
     }
 ?>
@@ -27,14 +29,13 @@
 <div class="row" id="updatePlan">
     <div class="col-lg-3" style="color: red; padding-left: 50px;">
 
-        @if($site_data->plan_id=!1)
-
-        <h4 style="background: red;color: white;padding: 10px;width: 100%;">
-            {{$message}}
-            <a href="/account/payment/upgrade" target='_blank' style="color:white;">
-               <b> {{ Lang::get('account/site.Update')}}</b>
-            </a>
-        </h4>
+        @if($message!=null)
+            <h4 style="background: red;color: white;padding: 10px;width: 100%;">
+                {{$message}}
+                <a href="/account/payment/upgrade" target='_blank' style="color:white;">
+                   <b> {{ Lang::get('account/site.Update')}}</b>
+                </a>
+            </h4>
         @endif
 
     </div>

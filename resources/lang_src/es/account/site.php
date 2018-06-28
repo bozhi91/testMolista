@@ -6,7 +6,7 @@
 
 	    'subscription.expired_1'=>'Tu subscripción ha expirado hace 1 dia. Si no actualizas tu plan en 48 horas, te bajaremos al plan free.',
         'subscription.expired_2'=>'Tu subscripción ha expirado hace 3 dias. Si no renuevas tu plan, te bajaremos a plan free a: ',
-
+        'subscription.expired_3'=>'Tu subscripción ha expirado. No has renovado tu plan, por lo tanto has sido bajado al plan Free',
 
         'blog.inactive' => 'El blog ha sido creado, pero todavía no es accesible.
                             Para activarlo, crea una nueva entrada desde el menu',

@@ -86,117 +86,114 @@ class Site extends TranslatableModel
                  //data limit to downgrade the plan. One day after the second email.
                  $downData = strtotime($today)+3600*24;
 
-
                  //if 1 day has passed since the expidation
                  if((int)$datediff == 1 && $site->sent_emails == 0){
-                     $message = Lang::get('account/site.subscription.expired_1');
+
+                     $message = "Apreciado Sr. ". $user_data->name."<br><br>
+                                    Salvo error por nuestra parte, en el día de ayer ha caducado la suscripción que
+                                    mantiene con Molista.com y no hemos recibido el pago correspondiente al periodo,
+                                    le pido que por favor contacte con nosotros al correo info@molista.com o bien 
+                                    si no fuera el caso, le solicito que realice al pago para regularizar esta situación,
+                                    en el caso de no tener regularizado dicha situación en el plazo de 48 Hs. procederemos
+                                    a dar de baja su suscripción en el plan actual y pasarlo como deferencia al Plan Basic 
+                                    (en dicho plan Basic solo podrá disponer de hasta 5 propiedades).<br><br>                                    
+                                    Si al recibir esta comunicación ya ha solucionado la incidencia le pedimos que olvide esta comunicaron.<br><br>
+                                    Atentamente el Equipo de Administración de Molista ";
+
                      DB::table('sites')->where('id',$site->id)->update(['sent_emails'   => 1]);
                      $sendEmail = 1;
                  }
                  if((int)$datediff == 3  && $site->sent_emails == 1){
-                     $message = Lang::get('account/site.subscription.expired_2')." ".$site->final_warning;
+
+                     $lastEmail = strtotime($today)-(3600*24*2);
+                     $lastEmail = date("d-m-Y",$lastEmail);
+                     $blockData = strtotime($today)+(3600*24);
+                     $blockData = date("d-m-Y",$blockData);
+
+                     $message = "
+                                Apreciado Sr. ".$user_data->name."<br><br>
+                                
+                                Desde nuestra ultima comunicación del ".$lastEmail.", 
+                                no hemos recibido el pago a su suscripción, estamos a disposición para poder ayudarle a
+                                encontrar una solución, puede dirigirse por correo a info@molista.com o si lo prefiere 
+                                telefónicamente al 93 180 70 20. También le comunicamos que el día ".$blockData." Pasaremos
+                                de manera automática su suscripción al Plan Basic, que como ya le informamos anteriormente podrá
+                                utilizarla con un máximo de 5 propiedades).
+                                MOLISTA TECHNOLOGIES, S.L. no se responsabiliza por posibles perdidas de información al realizarse
+                                el cambio de suscripción, ya que no es por una causa imputable a la misma.<br>
+                                Quedamos a la espera de poder solucionar esta incidencia.<br><br>
+                                
+                                Atte. el Equipo de Administración de Molista";
+
                      DB::table('sites')->where('id',$site->id)->update(['sent_emails'   => 2]);
-                     DB::table('sites')->where('id',$site->id)->update(['final_warning' =>  date("Y-m-d H:i:s",$downData)]);
+                     DB::table('sites')->where('id',$site->id)->update(['block_date' =>  date("Y-m-d H:i:s",$downData)]);
                      $sendEmail = 1;
                  }
 
                 //Downgrade the user to free plan.
-
-
-                if((strtotime($today)-strtotime($site->final_warning)<=0) && $site->sent_emails==2){
+                if((strtotime($today)-strtotime($site->block_date)>=0) && $site->sent_emails==2){
                      DB::table('sites')->where('id',$site->id)->update(['plan_id' => 1]);
                  }
             }
-            else{
+            else{//if the plan has not expired yet, or the paid_until date is renewed, unblock the user's site
               DB::table('sites')->where('id',$site->id)->update(['sent_emails' => 0]);
-              DB::table('sites')->where('id',$site->id)->update(['final_warning' => null]);
+              DB::table('sites')->where('id',$site->id)->update(['block_date' => null]);
             }
         }
 
         //send the email only if the plan is not free. If the plan is free, there is no point to downgrade the user.
-        if($user_data!=null && $site->plan_id!=1){
-            //Prepare the message body
-            $message.="<p><a  href=$site_url target='_blank'>
-                  	<button type='button' class='btn btn-info .btn-md' style='margin-top:10px !important;'>".
-                  	     Lang::get('account/site.Update').
-                    "</button></a></p>";
+        if($user_data!=null && $site->plan_id!=1 && $sendEmail==1 && $site->paid_until!=null){
 
-            //Set the email attributes
-            //$user_data->email
-            $array_recv = array("bozhidar1991@gmail.com","bozhidar.ivaylov01@estudiant.upf.edu");
             $params = array(
-                "to" => $array_recv,
-                "subject"   => "Subscription Expiration Alert",
-                "content"   => $message,
-                "backup_required" => true,
-                "service"    => "myService",
-                "from"  => "info@molista.com",
-                "from_name"  => $site->subdomain,
-                "reply_name" => $user_data->name,
-                "mailer"     => $site->mailer,
+                "to"         => $user_data->email.";info@molista.com",
+                "subject"    => "Tu suscripción ha caducado",
+                "content"    => $message,
+                "from"       => "info@molista.com",
+                "fromName"   => $site->subdomain,
+                "name"       => $user_data->name,
+                "url_enlace" => $site_url,
             );
 
             //Send the email
+            Log::Info("================================================================================");
+            Log::Info("Sending subscription Alert email to: ".$user_data->email." (site_id: ".$site->id.")");
+            Log::Info("With parameters: ".json_encode($params));
+            $status = $this->send_template_email($params);
 
-            send_template_email($params);
-
-           /* if($sendEmail==1){
-                Log::Info("================================================================================");
-                Log::Info("Sending subscription Alert email to: ".$user_data->email." (site_id: ".$site->id.")");
-                Log::Info("With parameters: ".json_encode($params));
-              //  $status = $this->sendEmail($params);
-                if($status!=false){
-                    Log::Info("Email Sent!!!");
-                }
-                Log::Info("================================================================================");
-            }*/
+            if($status!=false){
+                Log::Info("Email Sent!!!");
+            }
+            Log::Info("================================================================================");
         }
-
-        $array_recv = array("bozhidar1991@gmail.com","bozhidar.ivaylov01@estudiant.upf.edu");
-        $params = array(
-            "to" => "bozhidar1991@gmail.com",
-            "subject"   => "Subscription Expiration Alert",
-            "content"   => $message,
-            "backup_required" => true,
-            "service"    => "myService",
-            "from"  => "info@molista.com",
-            "fromName"  => $site->subdomain,
-            "reply_name" => $user_data->name,
-            "mailer"     => $site->mailer,
-        );
-
-       $this->send_template_email($params);
     }
 
-    function send_template_email($arrPars=null, $templateID=null){
+    function send_template_email($arrPars){
 
-         $apikey = "8e5b23f5-ec2a-4f1d-8b0b-bac8bbbb4f18";
+	    $apikey     = "4fdaefa8-08e3-427e-8aa8-95d45c964e36";
+	    $templateID = "16878";
 
-         $templateID = "16878";
-
-       /* $nom = ucwords($arrPars["name"]);
-        $url_soliciutd = $arrPars["url"];
-        $lista_anuncios = $arrPars["lista_anuncios"];
-*/
-        $to = $arrPars["to"];
-        $subject = $arrPars["subject"];
-        $from = $arrPars["from"];
+        $nom = ucwords($arrPars["name"]);
+       // $url_soliciutd  = $arrPars["url"];
+        $url_enlace     = $arrPars["url_enlace"];
+        $to       = $arrPars["to"];
+        $subject  = $arrPars["subject"];
+        $from     = $arrPars["from"];
         $fromName = $arrPars["fromName"];
-
+        $mensaje  = $arrPars["content"];
 
         $url = "https://api.elasticemail.com/v2/email/send";
         $data = array("apikey" => $apikey,
-            "template" => $templateID,
-            "to" => $to,
-            "subject" => $subject,
-            "from" => $from,
-            "fromName" => $fromName,
-            "merge_name" => "",
-            "merge_url_enlace" => "url jeje",
-            "merge_url" => "merge",//$url_soliciutd,
-            "bodyText" => "Email",
+            "template"   => $templateID,
+            "to"         => $to,
+            "subject"    => $subject,
+            "from"       => $from,
+            "fromName"   => $fromName,
+            "merge_name" => $nom,
+            "merge_mensaje"    => $mensaje,
+            "merge_url_enlace" => $url_enlace,
+            "bodyText"  => "Email",
             "charsetBodyHtml" => "utf-8",
-            "charset" => "utf-8",
+            "charset"         => "utf-8",
             'isTransactional' => false,
         );
 
@@ -212,8 +209,6 @@ class Site extends TranslatableModel
         }catch (Exception $e){}
 
         $info_res = json_decode($respuesta);
-        echo json_encode($respuesta);
-
         return $info_res;
     }
 

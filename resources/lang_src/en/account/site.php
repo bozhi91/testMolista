@@ -14,8 +14,8 @@
         'Update' => 'Update',
 
         'subscription.expired_1' =>'Your subscription has expired 1 day ago. Your plan will be downgraded to Free of you dont renew your subscription in 48 hours. Please update your plan.',
-
         'subscription.expired_2'=>'Your plan has expired 3 days ago. If you dont renew your subscription, youll be downgraded to Free plan tomorrow at: ' ,
+        'subscription.expired_3'=>'your subscription has expired. You didnt renew it so you were downgraded to free plan.',
 
         'configuration.h1' => 'Site configuration',
 		'configuration.tab.config' => 'General',

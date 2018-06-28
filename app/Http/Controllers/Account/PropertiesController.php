@@ -33,7 +33,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
         $plans = DB::table('sites')
             ->join('plans', 'sites.plan_id', '=', 'plans.id')
-            ->select('plans.max_properties')
+            ->select('plans.max_properties','plan_id')
             ->where('sites.id',session("SiteSetup")['site_id'])
             ->first();
 
@@ -53,7 +53,12 @@ class PropertiesController extends \App\Http\Controllers\AccountController
         $properties = array();
 
         //Disable the property if the customer has more than the allowed number of properties
-        if( (count($recentProps)>$max_properties) ){
+        if( count($recentProps)>$max_properties){
+            DB::table('sites')
+                ->where('id', session("SiteSetup")['site_id'])
+                ->update(['blocked_site' => 0]);
+        }
+        if( (count($recentProps)>$max_properties) && $plans->plan_id==1 && $isBlocked->blocked_site==0){
             for($i=$plans->max_properties;$i<count($recentProps);$i++){
                 array_push($properties,$recentProps[$i]->ref);
                 $propRef.= " - Reference: ".$recentProps[$i]->ref."<br/>";

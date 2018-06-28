@@ -98,7 +98,7 @@
 
                                     @include('Modals.commonModal', ['header'=>"Acceso Denegado!",
                                         'message'=>"No puedes acceder al informe. El informe solo podrá verse
-                                         en las versiones de pago.Por favor, actualuza tu plan!".$message])
+                                         en las versiones de pago. <br>Por favor, actualiza tu plan!<br><br>".$message])
 								@else
 										<ul id="account-submenu-reports" class="nav" role="menu">
 										<li><a href="{{ action('Account\Reports\PropertiesController@getIndex') }}" class="{{ (@$submenu_subsection == 'reports-properties') ? 'current' : '' }}">{{ Lang::get('account/menu.reports.properties') }}</a></li>
@@ -136,8 +136,18 @@
 									<li><a href="{{ action('Account\Site\PagesController@index') }}" class="{{ (@$submenu_subsection == 'site-pages') ? 'current' : '' }}">{{ Lang::get('account/menu.site.pages') }}</a></li>
 									<li><a href="{{ action('Account\Site\SlidersController@index') }}" class="{{ (@$submenu_subsection == 'site-sliders') ? 'current' : '' }}">{{ Lang::get('account/menu.site.sliders') }}</a></li>
 
-									<li><a href="{{ action('Account\Site\PagesController@listPosts')}}" class="{{ (@$submenu_subsection == 'site-blogs') ? 'current' : '' }}">Blog</a></li>
+									<?php
 
+										$plan_name = DB::table('sites')
+											->join('plans', 'sites.plan_id', '=', 'plans.id')
+											->select('plans.code')
+											->where('sites.id',session("SiteSetup")['site_id'])
+											->first();
+
+									?>
+									@if($plan_name->code=="enterprise")
+										<li><a href="{{ action('Account\Site\PagesController@listPosts')}}" >Blog</a></li>
+									@endif
                                 </ul>
 							</li>
 						@endpermission
@@ -195,7 +205,16 @@
 				</ul>
 			</div>
 			<div class="col-xs-12 col-sm-9 col-md-10">
+
 				@yield('account_content')
+
+				<?php
+					  $url = isset($_SERVER['HTTPS']) ? "https" : "http";
+					  $url = $url."://".$_SERVER['HTTP_HOST']."/account/payment/upgrade";
+				?>
+				@if($plan=="free" &&  @$submenu_section == 'reports')
+					@include("account.reports.limitedPlan",['url'=>$url])
+				@endif
 			</div>
 		</div>
     </div>

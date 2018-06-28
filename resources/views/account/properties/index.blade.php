@@ -49,7 +49,7 @@
         ?>
 
 			<!--If the user has more than 5 propeties and has the free plan, we block all the properties except the 5 recently created.-->
-			@if (!empty($plan) && $isBlocked->blocked_site==0)
+			<?php /*@if (!empty($plan) && $isBlocked->blocked_site==0)
 				@include('Modals.propertyDialog', ['header'=>Lang::get('account/properties.propHeader'),
                  'message'=>Lang::get('account/properties.propMessage').": ".$message.
 					Lang::get('account/properties.propMessage_2')."<br/>".$props])
@@ -60,7 +60,7 @@
 						</a></p>";
 					?>
 				@endif
-			@endif
+			@endif*/?>
 
 	        @include('common.messages', [ 'dismissible'=>true ])
 			@if(Auth::user()->can('property-create') && Auth::user()->canProperty('create') )

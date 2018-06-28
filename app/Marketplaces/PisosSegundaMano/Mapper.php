@@ -24,7 +24,7 @@ class Mapper extends \App\Marketplaces\Mapper {
         $map['SuperficieConstruida'] = floor($item['size']); // OBLIGATORIO
         $map['HabitacionesDobles'] = $item['rooms'];
         $map['BanosCompletos'] = $item['baths'];
-        $map['Expediente'] = floor($item['reference']); // OBLIGATORIO
+        $map['Expediente'] = $item['id'];//floor($item['reference']); // OBLIGATORIO
         $map['Descripcion'] = $this->translate($item['description'], 'es');
         $map['Fotos'] = $this->fotos();
         $map['NombreCalle'] = $item['location']['address']; // OBLIGATORIO
