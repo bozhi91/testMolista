@@ -14,12 +14,12 @@ class CreatePostsTable extends Migration {
     public function up() {
         Schema::create('entradas', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('site_id');
+            $table->bigInteger('site_id');
             $table->string('title');
             $table->string('body');
             $table->dateTime('created_at')->nullable();
 
-            $table->foreign('site_id')->references('id')->on('sites');
+            $table->foreign('site_id')->references('id')->on('sites')->onUpdate('cascade')->onDelete('set null');
         });
 
     }
