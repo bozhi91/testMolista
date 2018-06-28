@@ -18,8 +18,6 @@ class CreatePostsTable extends Migration {
             $table->string('title');
             $table->string('body');
             $table->dateTime('created_at')->nullable();
-
-            $table->foreign('site_id')->references('id')->on('sites');
         });
 
 
