@@ -13,8 +13,8 @@ class UpdateSitesTable extends Migration
     public function up()
     {
         Schema::table('sites', function (Blueprint $table) {
-            $table->int('sent_emails')->nullable()->after('paid_until');
-            $table->int('blocked_sites')->nullable()->after('sent_emails');
+            $table->integer('sent_emails')->nullable()->after('paid_until');
+            $table->integer('blocked_sites')->nullable()->after('sent_emails');
         });
     }
 
