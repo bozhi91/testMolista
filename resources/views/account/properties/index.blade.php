@@ -49,20 +49,6 @@
 					</a></p>";
         ?>
 
-			<!--If the user has more than 5 propeties and has the free plan, we block all the properties except the 5 recently created.-->
-			<?php /*@if (!empty($plan) && $isBlocked->blocked_site==0)
-				@include('Modals.propertyDialog', ['header'=>Lang::get('account/properties.propHeader'),
-                 'message'=>Lang::get('account/properties.propMessage').": ".$message.
-					Lang::get('account/properties.propMessage_2')."<br/>".$props])
-
-			@if ($numProperties>$propertyLimit)
-					<?php $message  = " <p><a href='".$protocol.$_SERVER['HTTP_HOST']."/account/payment/upgrade' target='_blank'>
-						<button type='button' class='btn btn-info .btn-md' style='margin-top:10px !important;'>".Lang::get('account/properties.update')."</button>
-						</a></p>";
-					?>
-				@endif
-			@endif*/?>
-
 	        @include('common.messages', [ 'dismissible'=>true ])
 			@if(Auth::user()->can('property-create') && Auth::user()->canProperty('create') )
 				<div class="pull-right">

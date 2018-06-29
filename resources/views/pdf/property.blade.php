@@ -105,7 +105,7 @@
 			<table class="details">
 				<tr>
 					<td class="qr-area">
-						@if ($plan == 7 || $plan == 9)
+						@if ($plan == 7 || $plan == 3)
 							<img src="{{ $property->getQrFile(App::getLocale()) }}" />
 						@endif
 					</td>

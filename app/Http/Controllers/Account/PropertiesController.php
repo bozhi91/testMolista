@@ -278,6 +278,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 	public function create($slug = null)
 	{
+
 		$modes = \App\Property::getModeOptions();
 		$types = \App\Property::getTypeOptions();
 		$energy_types = \App\Property::getEcOptions();
