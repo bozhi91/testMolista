@@ -30,6 +30,7 @@
 	$current_tab == 'general';
 	?>
 
+
 <style type="text/css">
 	#tab-marketplaces .marketplace-name { display: inline-block; padding-left: 25px; background: left center no-repeat; }
 	#tab-visits .column-property { display: none; }
@@ -720,7 +721,9 @@
 			</div>
 
 
+
 			@if ( $item && !$isCreate)
+
 				<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'employees' ? 'active' : '' }}" id="tab-employees">
 					@include('account.properties.tab-managers', [
 						'item' => $item,
@@ -728,10 +731,14 @@
 					])
 				</div>
 
+
+
 				@if ( $marketplaces->count() > 0 )
+
 					<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'marketplaces' ? 'active' : '' }}" id="tab-marketplaces">
 						@include('account/properties/form-marketplaces')
 					</div>
+
 				@endif
 
 				<div role="tabpanel" class="tab-pane tab-main {{$current_tab == 'visits' ? 'active' : '' }}" id="tab-visits">
@@ -741,6 +748,7 @@
 				</div>
 
 			@else
+
 				<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'seller' ? 'active' : '' }}" id="tab-seller">
 					<div class="row">
 						<div class="col-xs-12 col-sm-6">
