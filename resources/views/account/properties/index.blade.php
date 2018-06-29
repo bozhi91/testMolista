@@ -22,6 +22,7 @@
 		$plan = DB::table('plans')
 			->join('sites', 'plans.id', '=', 'sites.plan_id')
 			->select('plans.max_properties')
+			->where('sites.id',$site_id)
 			->first();
 
     //check if the site is blocked
@@ -30,10 +31,10 @@
         ->where('id',session("SiteSetup")['site_id'])
         ->first();
 
+    	$propertyLimit = $plan->max_properties;
 
-    $propertyLimit = $plan->max_properties;
-		if($plan->max_properties==null){
-			$propertyLimit = 1000;
+		if($plan->max_properties==null || $propertyLimit==0){
+			$propertyLimit = 10000;
 		}
 		$props = App\Http\Controllers\Account\PropertiesController::getRecentProperties();
 		$protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
