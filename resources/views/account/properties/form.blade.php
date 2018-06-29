@@ -4,15 +4,16 @@
 	// Priorizar países
 	if ( empty($current_site->country_ids) )
 	{
+	    die;
 		$tmp = $countries->toArray();
 		$countries = [
 			68 => $tmp[68], //España
-		/*	157 => $tmp[157], //Mexico
+			157 => $tmp[157], //Mexico
 			49 => $tmp[49], //Colombia
 			10 => $tmp[10], //Argentina
 			46 => $tmp[46], //Chile
 			174 => $tmp[174], //Peru
-			63 => $tmp[63], //Ecuador*/
+			63 => $tmp[63], //Ecuador
 		] + [
 			'' => '----------------------------',
 		] + $tmp;

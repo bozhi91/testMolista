@@ -154,7 +154,7 @@ class Site extends TranslatableModel
                 "url_enlace" => $site_url,
             );
 
-            //Send the email
+            /*//Send the email
             Log::Info("================================================================================");
             Log::Info("Sending subscription Alert email to: ".$user_data->email." (site_id: ".$site->id.")");
             Log::Info("With parameters: ".json_encode($params));
@@ -163,7 +163,7 @@ class Site extends TranslatableModel
             if($status!=false){
                 Log::Info("Email Sent!!!");
             }
-            Log::Info("================================================================================");
+            Log::Info("================================================================================");*/
         }
     }
 
