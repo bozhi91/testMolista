@@ -1,6 +1,6 @@
 @extends('layouts.account')
 @section('account_content')
-	<h4>asdadasd</h4>
+
 	<div id="account-reports" class="account-reports">
 	 	@include('common.messages', [ 'dismissible'=>true ])
 		<h1 class="page-title">{{ Lang::get('account/menu.reports') }}</h1>

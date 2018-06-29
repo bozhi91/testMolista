@@ -174,7 +174,7 @@
 
 	{!! Form::open([ 'action'=>[ 'Web\PropertiesController@moreinfo', $property->slug ], 'method'=>'POST', 'id'=>'property-moreinfo-form1', 'class'=>'mfp-hide app-popup-block-white' ]) !!}
 
-	<h2 class="page-title">asdadasd{{ Lang::get('web/properties.call.to.action') }}</h2>
+	<h2 class="page-title">{{ Lang::get('web/properties.call.to.action') }}</h2>
 
 	<div class="alert alert-success form-success hide">
 			{!! Lang::get('web/properties.moreinfo.success') !!}
