@@ -11,17 +11,18 @@
         ->where('id',$site_id)
         ->first();
 
-
     $message = null;
-    if($site_data->sent_emails!=0){
-        if($site_data->sent_emails==1){
-            $message = Lang::get('account/site.subscription.expired_1');
-        }
-        else if($site_data->sent_emails==2 && $site_data->block_date==null){
-            $message = Lang::get('account/site.subscription.expired_2');
-        }
-        else if(strtotime( date("Y-m-d H:i:s"))-strtotime($site_data->block_date)>=0){
-            $message = Lang::get('account/site.subscription.expired_3');
+    if(!empty($site_data)){
+        if($site_data->sent_emails!=0){
+            if($site_data->sent_emails==1){
+                $message = Lang::get('account/site.subscription.expired_1');
+            }
+            else if($site_data->sent_emails==2 && $site_data->block_date==null){
+                $message = Lang::get('account/site.subscription.expired_2');
+            }
+            else if(strtotime( date("Y-m-d H:i:s"))-strtotime($site_data->block_date)>=0){
+                $message = Lang::get('account/site.subscription.expired_3');
+            }
         }
     }
 ?>

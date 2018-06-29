@@ -28,8 +28,10 @@ class PropertiesController extends \App\Http\Controllers\AccountController
         $recentProps = DB::table("properties")
             ->select("*")
             ->where('site_id',session("SiteSetup")['site_id'])
+            ->where('enabled',1)
             ->orderByRaw('created_at DESC')
             ->get();
+
 
         $plans = DB::table('sites')
             ->join('plans', 'sites.plan_id', '=', 'plans.id')
@@ -45,7 +47,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
             ->first();
 
         $max_properties=0;
-        if($plans->max_properties==null){
+        if($plans->max_properties==null || $plans->max_properties==0){
             $max_properties = 10000;
         }
         //Here we generate a list of the properties we must disable
@@ -58,7 +60,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
                 ->where('id', session("SiteSetup")['site_id'])
                 ->update(['blocked_site' => 0]);
         }
-        if( (count($recentProps)>$max_properties) && $plans->plan_id==1 && $isBlocked->blocked_site==0){
+       /* if( (count($recentProps)>$max_properties) && $plans->plan_id==1 && $isBlocked->blocked_site==0){
             for($i=$plans->max_properties;$i<count($recentProps);$i++){
                 array_push($properties,$recentProps[$i]->ref);
                 $propRef.= " - Reference: ".$recentProps[$i]->ref."<br/>";
@@ -78,7 +80,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
             DB::table('sites')
                 ->where('id', session("SiteSetup")['site_id'])
                 ->update(['blocked_site' => 0]);
-        }
+        }*/
         return $propRef;
     }
 

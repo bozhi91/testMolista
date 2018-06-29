@@ -27,7 +27,7 @@
 		$checkboxDesde = App\Http\Controllers\Account\PropertiesController::getCheckboxDesdeState($property['id']);
         $body = $property->html_property;
 	}
-$current_tab == 'general';
+	$current_tab == 'general';
 	?>
 
 <style type="text/css">
@@ -40,8 +40,8 @@ $current_tab == 'general';
 	{!! Form::hidden('current_tab', $current_tab) !!}
 	{!! Form::hidden('label_color', null) !!}
 
-	<div class="custom-tabs">
 
+	<div class="custom-tabs">
 		<ul class="nav nav-tabs main-tabs" role="tablist">
 			<li role="presentation" class="{{ $current_tab == 'general' ? 'active' : '' }}"><a href="#tab-general" aria-controls="tab-general" role="tab" data-toggle="tab" data-tab="general">{{ Lang::get('account/properties.tab.general') }}</a></li>
 			<li role="presentation" class="{{ $current_tab == 'location' ? 'active' : '' }}"><a href="#tab-location" aria-controls="tab-location" role="tab" data-toggle="tab" data-tab="location">{{ Lang::get('account/properties.tab.location') }}</a></li>

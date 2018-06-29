@@ -54,7 +54,7 @@
 				<div class="pull-right">
 
 					@if(!empty($plan))
-						@if( $numProperties<$propertyLimit )<!-- The plan is free -->
+						@if( $total_properties<$propertyLimit )<!-- The plan is free -->
 							<a href="{{ action('Account\PropertiesController@create') }}" class="btn btn-primary">{{ Lang::get('account/properties.button.new') }}</a>
 						@else
 							<?php $message  = " <p><a href='".$protocol.$_SERVER['HTTP_HOST']."/account/payment/upgrade' target='_blank'>
@@ -191,10 +191,10 @@
 										<a href="#" data-url="{{ action('Account\PropertiesController@getChangeStatus', $property->slug) }}" class="change-status-trigger">
 											<!-- if props>5 and plan = free-->
 											@if(!empty($plan))
-												@if( ($numProperties>$propertyLimit) )
+												@if( ($total_properties>$propertyLimit) )
 													<span class="glyphicon glyphicon-{{ $property->enabled ? 'ok' : 'remove' }}" aria-hidden="true"></span>
 												@endif
-												@if($numProperties<$propertyLimit )
+												@if($total_properties<$propertyLimit )
 													<span class="glyphicon glyphicon-{{ $property->enabled ? 'ok' : 'remove' }}" aria-hidden="true"></span>
 												@endif
 											@endif
