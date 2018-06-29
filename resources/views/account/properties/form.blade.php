@@ -24,9 +24,12 @@
 	$body = "Insert your HTML code here...";
 	if(!empty($property)){
 		$checkboxDesde = App\Http\Controllers\Account\PropertiesController::getCheckboxDesdeState($property['id']);
-        $body = $property->html_property;
+
+		if(strlen($property->html_property)!=0){
+            $body = $property->html_property;
+		}
 	}
-$current_tab == 'general';
+		$current_tab == 'general';
 	?>
 
 <style type="text/css">
@@ -66,12 +69,7 @@ $current_tab == 'general';
 				<h2>{{ Lang::get('general.htmlSnippet') }}</h2>
 				<br/>
 				<div>
-
-					<textarea name="body" cols="100" style="height: 300px !important;" contenteditable="false">
-					{{ $body }}
-					</textarea><br/><br/>
-
-
+					<textarea name="body" cols="100" style="height: 300px !important;" contenteditable="false">{{ $body }}</textarea><br/><br/>
 				</div>
 				<input type="hidden" name="richtext_hidden">
 			</div>

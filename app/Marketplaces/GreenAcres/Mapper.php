@@ -73,7 +73,6 @@ class Mapper extends \App\Marketplaces\Mapper {
         $map['#furnished'] = empty($item['features']['furnished']) ? 0 : 1;
 
         $map['pics'] = $this->pics();
-
         return $map;
     }
 
@@ -142,6 +141,7 @@ class Mapper extends \App\Marketplaces\Mapper {
         {
             if (!$i > 25) continue;
 
+            $image = substr($image, 0, -4);
             $pictures['pic@order='.($i+1)] = $image;
         }
 
