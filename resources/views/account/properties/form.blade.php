@@ -30,6 +30,25 @@
 	$current_tab == 'general';
 	$body  = trim($body, " \t\n\r");
 
+	$flatUrl = DB::table('properties_translations')
+        ->select('slug')
+        ->where('property_id',$property->id)
+		->whereRaw('slug is not null')
+        ->first();
+
+	$subdomain = DB::table('sites')
+		->select('subdomain')
+		->where('id',session("SiteSetup")['site_id'])
+		->first();
+
+	$isEnabled = DB::table('properties')
+		->select('enabled')
+		->where('id',$property->id)
+		->first();
+
+	if( $isEnabled->enabled == 1){
+        $flatUrl = env('APP_PROTOCOL')."://".$subdomain->subdomain.".".env('APP_DOMAIN')."/property/". $flatUrl->slug."/".$property->id;
+    }
 ?>
 
 
@@ -86,9 +105,14 @@
 							{!! Form::text('ref', null, [ 'class'=>'form-control required' ]) !!}
 						</div>
 					</div>
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group error-container" style="padding-top: 30px;">
+							<u><a href="{{$flatUrl}}" target="_blank">Enlace a la propiedad</a></u>
+						</div>
+					</div>
+
 				</div>
 				<div class="row">
-
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
 							{!! Form::label('type', Lang::get('account/properties.type').' *') !!}
