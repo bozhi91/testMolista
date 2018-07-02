@@ -951,9 +951,9 @@ class Property extends TranslatableModel
 	{
 		return [
 			'sale',
-			'rent',
-			'transfer',
             'vacationRent',
+            'rent',
+            'transfer',
 		];
 	}
 	static public function getModeOptions($site_id=false)

@@ -166,6 +166,7 @@
 				<div id="property-map" class="map"></div>
 			</div>
 
+			@include('components.property.htmlArea', [ 'property'=>$property ] )
 			@include('web.properties.details-bottom', [ 'related_properties'=>$property->related_properties ])
 
 		</div>

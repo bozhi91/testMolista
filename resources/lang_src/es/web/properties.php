@@ -6,10 +6,12 @@
 		'term' => 'Ingrese su búsqueda',
 
 		'mode' => 'Modalidad',
+
 		'mode.sale' => 'Propiedades en venta',
 		'mode.rent' => 'Propiedades en alquiler',
+        'mode.vacationRent' => 'Propiedades en alquiler vacacional',
 		'mode.transfer' => 'Propiedades en traspaso',
-        'mode.vacationRent' => 'Venta/Alquiler Vacancional',
+
 
 		'district' => 'Distrito',
 

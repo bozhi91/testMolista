@@ -8,7 +8,7 @@
 		'mode.sale' => 'Properties for sale',
 		'mode.rent' => 'Properties for rent',
 		'mode.transfer' => 'Properties for ownership transfer',
-        'mode.vacationRent' => 'Venta/Alquiler Vacancional',
+        'mode.vacationRent' => 'Properties for holiday rental',
 
 		'district' => 'District',
 
