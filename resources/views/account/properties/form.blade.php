@@ -28,7 +28,8 @@
         $body = $property->html_property;
 	}
 	$current_tab == 'general';
-	?>
+
+?>
 
 
 <style type="text/css">

@@ -1,7 +1,7 @@
 <?php
 
 	return [
-	    'notAllowed'=>'No disponible en tu plan. Para usar este servicio, actualiza tu plan a Enterprise',
+	    'blog.notAllowed'=>'No disponible en tu plan. Para usar este servicio, actualiza tu plan a Enterprise',
 	    'planactual'=>'Plan Actual: ',
         'planactual'=>'Plan Actual: ',
 

@@ -369,7 +369,6 @@ Route::group([
             Route::post('updatePost', 'Account\Site\BlogController@updatePost')->name("updatePost");
             Route::get('getSiteById', 'Account\Site\BlogController@getSiteById')->name("getSiteById");
 
-
             //Sliders
 			Route::post('sliders/upload', 'Account\Site\SlidersController@upload');
 			Route::resource('sliders', 'Account\Site\SlidersController');
