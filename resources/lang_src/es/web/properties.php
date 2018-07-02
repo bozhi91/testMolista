@@ -9,6 +9,7 @@
 		'mode.sale' => 'Propiedades en venta',
 		'mode.rent' => 'Propiedades en alquiler',
 		'mode.transfer' => 'Propiedades en traspaso',
+        'mode.vacationRent' => 'Venta/Alquiler Vacancional',
 
 		'district' => 'Distrito',
 

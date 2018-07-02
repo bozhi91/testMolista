@@ -953,6 +953,7 @@ class Property extends TranslatableModel
 			'sale',
 			'rent',
 			'transfer',
+            'vacationRent',
 		];
 	}
 	static public function getModeOptions($site_id=false)
