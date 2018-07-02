@@ -211,14 +211,19 @@
 
 				@if($plan_name->code=="free" &&  @$submenu_subsection == 'site-blog')
 					@include("account.site.entradas.limitedPlan",['url'=>$url])
+
                     <?php $message  = " <p><a href='".$protocol.$_SERVER['HTTP_HOST']."/account/payment/upgrade' target='_blank'>
 								<button type='button' class='btn btn-info .btn-md' style='margin-top:10px !important;'>".Lang::get('account/properties.update')."</button>
 								</a></p>";
                     ?>
-					@include('Modals.commonModal', ['header'=>Lang::get('account/properties.accessDenied') ,
+
+					<?php /*@include('Modals.commonModal', ['header'=>Lang::get('account/properties.accessDenied') ,
                              'message'=> Lang::get('account/properties.propMessage_3').$message])
 					<a onclick="$('#commonModal').modal();" class="btn btn-primary">{{ Lang::get('account/properties.button.new') }}</a>
+						*/?>
 				@endif
+
+
 
 				@if($plan=="free" &&  @$submenu_section == 'reports' )
 					@include("account.reports.limitedPlan",['url'=>$url])
