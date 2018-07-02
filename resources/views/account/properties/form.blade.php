@@ -28,6 +28,7 @@
         $body = $property->html_property;
 	}
 	$current_tab == 'general';
+	$body  = trim($body, " \t\n\r");
 
 ?>
 
