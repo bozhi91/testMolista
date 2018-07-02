@@ -4,10 +4,10 @@
 	<?php
         //Display the first post by default
         if(empty($_GET['post_id'])){
-            $posts = App\Http\Controllers\Account\Site\PagesController::getAllPosts();
+            $posts = App\Http\Controllers\Account\Site\BlogController::getAllPosts();
         }
         else{
-            $posts = App\Http\Controllers\Account\Site\PagesController::getPostById($_GET['post_id']);
+            $posts = App\Http\Controllers\Account\Site\BlogController::getPostById($_GET['post_id']);
         }
 
 		if(count($posts)==0){
@@ -33,7 +33,7 @@
 				<div class="col-sm-2">
 					<b>Mis entradas</b>
 					<ul>
-                        <?php $posts = App\Http\Controllers\Account\Site\PagesController::getAllPosts();?>
+                        <?php $posts = App\Http\Controllers\Account\Site\BlogController::getAllPosts();?>
 						@foreach($posts as $post)
 							<li> <a href="?post_id={{ $post->id}}">{{ $post->title}} </a> </li>
 						@endforeach
