@@ -142,6 +142,8 @@ class Mapper extends \App\Marketplaces\Mapper {
         {
             if (!$i > 25) continue;
 
+            $image = substr($image, 0, -4);
+            $image = str_replace("/greenacres","",$image);
             $pictures['pic@order='.($i+1)] = $image;
         }
 

@@ -1,6 +1,8 @@
 <?php
 
 	return [
+        'blog.notAllowed'=>'Not allowed in your plan. To use this service, please update to plan Enterprise.',
+
         'blog.inactive' => 'The blog was created but is still inactive.
                             To activate it, create a new entrance from the menu.',
 

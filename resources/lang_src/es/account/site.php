@@ -1,7 +1,10 @@
 <?php
 
 	return [
+	    'blog.notAllowed'=>'No disponible en tu plan. Para usar este servicio, actualiza tu plan a Enterprise',
 	    'planactual'=>'Plan Actual: ',
+        'planactual'=>'Plan Actual: ',
+
         'Update' => 'Actualizar',
 
 	    'subscription.expired_1'=>'Tu subscripción ha expirado hace 1 dia. Si no actualizas tu plan en 48 horas, te bajaremos al plan free.',

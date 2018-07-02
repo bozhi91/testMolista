@@ -7,12 +7,12 @@
 	<?php
 		$title =   Lang::get('general.defaultPostTitle') ;
 		$body  = "";
-		$postAction = 'Account\Site\PagesController@storePost';
+		$postAction = 'Account\Site\BlogController@storePost';
 
 		if(!empty($_GET ['action'])){
 		    if($_GET ['action'] == 'edit'){
-                $postAction = 'Account\Site\PagesController@updatePost';
-                $post = App\Http\Controllers\Account\Site\PagesController::getPostById($_GET ['post_id']);
+                $postAction = 'Account\Site\BlogController@updatePost';
+                $post = App\Http\Controllers\Account\Site\BlogController::getPostById($_GET ['post_id']);
 		        $title = $post[0]->title;
 				$body  = $post[0]->body;
 		    }

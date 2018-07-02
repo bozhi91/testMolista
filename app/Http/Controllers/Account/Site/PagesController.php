@@ -18,7 +18,7 @@ class PagesController extends \App\Http\Controllers\AccountController
 		\View::share('submenu_subsection', 'site-pages');
 	}
 
-    public static function getSiteById($site_id){
+   /* public static function getSiteById($site_id){
 
 	    $sites = DB::table('sites')
             ->select('*')
@@ -176,6 +176,7 @@ class PagesController extends \App\Http\Controllers\AccountController
         $entradas = PagesController::getAllPosts();
         return view('account.site.entradas.entradas', compact('entradas'));
     }
+    */
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	public function index()
