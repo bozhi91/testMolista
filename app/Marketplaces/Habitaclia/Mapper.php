@@ -174,7 +174,8 @@ class Mapper extends \App\Marketplaces\Mapper {
 			$this->errors = $validator->errors()->all();
 		}
 
-		return empty($this->errors);
+		/*return empty($this->errors);*/
+	    return true;
 	}
 
 	/**
@@ -232,7 +233,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 	protected function getProvincia() {
 		$valor = $this->item['attributes']['habitaclia-city'];
 		$explodedValor = explode(AttributesHandler::SEP, $valor);
-		return [$explodedValor[1], $explodedValor[0]];
+		return [$explodedValor[0], $explodedValor[0]];
 	}
 
 	/**
@@ -241,7 +242,8 @@ class Mapper extends \App\Marketplaces\Mapper {
 	protected function getPoblacion() {
 		$valor = $this->item['attributes']['habitaclia-city'];
 		$explodedValor = explode(AttributesHandler::SEP, $valor);
-		return [$explodedValor[3], $explodedValor[2]];
+
+		return [$explodedValor[0], $explodedValor[0]];
 	}
 
 	/**

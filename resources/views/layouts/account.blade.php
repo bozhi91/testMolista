@@ -6,6 +6,13 @@
 @section('content')
 	@include('account.warning.pending-request')
 
+    <?php
+    $plan_name = DB::table('sites')
+        ->join('plans', 'sites.plan_id', '=', 'plans.id')
+        ->select('plans.code')
+        ->where('sites.id',session("SiteSetup")['site_id'])
+        ->first();
+    ?>
 
     <div id="account-container" class="container">
 		<div class="row">
@@ -73,7 +80,6 @@
 					</li>
 					<li class="separator"></li>
 
-
 					<?phpaction('Account\ReportsController@getIndex');?>
 					<!-- if the current plan is not premium, do not display the menu bellow. -->
 					@if(empty($plan))
@@ -91,7 +97,7 @@
 								@if($plan=="free")
                                     <?php
                                     $protocol =isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
-                                    $message = "<p><a href='".$protocol.$_SERVER['HTTP_HOST']."/account/payment/upgrade' target='_blank'>
+                                    $message  = "<p><a href='".$protocol.$_SERVER['HTTP_HOST']."/account/payment/upgrade' target='_blank'>
                   	                     <button type='button' class='btn btn-info .btn-md' style='margin-top:10px !important;'>Actualizar</button>
                   	                     </a></p>";
                                     ?>
@@ -136,18 +142,7 @@
 									<li><a href="{{ action('Account\Site\PagesController@index') }}" class="{{ (@$submenu_subsection == 'site-pages') ? 'current' : '' }}">{{ Lang::get('account/menu.site.pages') }}</a></li>
 									<li><a href="{{ action('Account\Site\SlidersController@index') }}" class="{{ (@$submenu_subsection == 'site-sliders') ? 'current' : '' }}">{{ Lang::get('account/menu.site.sliders') }}</a></li>
 
-									<?php
-
-										$plan_name = DB::table('sites')
-											->join('plans', 'sites.plan_id', '=', 'plans.id')
-											->select('plans.code')
-											->where('sites.id',session("SiteSetup")['site_id'])
-											->first();
-
-									?>
-									@if($plan_name->code=="enterprise")
-										<li><a href="{{ action('Account\Site\PagesController@listPosts')}}" >Blog</a></li>
-									@endif
+									<li><a href="{{ action('Account\Site\BlogController@listPosts')}}" class="{{ (@$submenu_subsection == 'site-blog') ? 'current' : '' }}">Blog</a></li>
                                 </ul>
 							</li>
 						@endpermission
@@ -194,8 +189,8 @@
 									font-size: 10px;">nuevo</div>
 						</a>
 					</li>
-					<!-- Custom Link -->
 
+					<!-- Custom Link -->
 					<li role="presentation">
 						<a href="{{ action('Account\ReportsController@getIndex') }}">
 							<i class="account-icon account-icon-logout_2"></i>
@@ -212,9 +207,15 @@
 					  $url = isset($_SERVER['HTTPS']) ? "https" : "http";
 					  $url = $url."://".$_SERVER['HTTP_HOST']."/account/payment/upgrade";
 				?>
-				@if($plan=="free" &&  @$submenu_section == 'reports')
+
+				@if($plan_name->code=="free" &&  $submenu_subsection == 'site-blog')
+					@include("account.site.entradas.limitedPlan",['url'=>$url])
+				@endif
+
+				@if($plan=="free" &&  @$submenu_section == 'reports' )
 					@include("account.reports.limitedPlan",['url'=>$url])
 				@endif
+
 			</div>
 		</div>
     </div>
@@ -243,7 +244,7 @@
 				});
                 TICKETS.cont.on('click', '.#dialog', function(e){
                         e.preventDefault();
-                        alert("sasdasd");
+
                 });
 			},
 

@@ -69,9 +69,7 @@
 				<br/>
 				<div>
 
-					<textarea name="body" cols="100" style="height: 300px !important;" contenteditable="false">
-					{{ $body }}
-					</textarea><br/><br/>
+					<textarea name="body" cols="100" style="height: 300px !important;" contenteditable="false">{{ $body }}</textarea><br/><br/>
 
 
 				</div>
