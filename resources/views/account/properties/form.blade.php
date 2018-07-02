@@ -46,9 +46,8 @@
 		->where('id',$property->id)
 		->first();
 
-	if( $isEnabled->enabled == 1){
         $flatUrl = env('APP_PROTOCOL')."://".$subdomain->subdomain.".".env('APP_DOMAIN')."/property/". $flatUrl->slug."/".$property->id;
-    }
+
 ?>
 
 
@@ -107,7 +106,9 @@
 					</div>
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container" style="padding-top: 30px;">
-							<u><a href="{{$flatUrl}}" target="_blank">Enlace a la propiedad</a></u>
+							@if($isEnabled->enabled == 1)
+								<u><a href="{{$flatUrl}}" target="_blank">Enlace a la propiedad</a></u>
+							@endif
 						</div>
 					</div>
 
