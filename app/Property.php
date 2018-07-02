@@ -951,7 +951,7 @@ class Property extends TranslatableModel
 	{
 		return [
 			'sale',
-            'vacationRent',
+            'vacationRental',
             'rent',
             'transfer',
 		];

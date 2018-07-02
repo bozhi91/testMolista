@@ -9,15 +9,13 @@
 
 		'mode.sale' => 'Propiedades en venta',
 		'mode.rent' => 'Propiedades en alquiler',
-        'mode.vacationRent' => 'Propiedades en alquiler vacacional',
+        'mode.vacationRental' => 'En alquiler vacacional',
 		'mode.transfer' => 'Propiedades en traspaso',
 
 
 		'district' => 'Distrito',
-
 		'state' => 'Provincia',
 		'state.any' => 'Todas las provincias',
-
 		'city' => 'Ciudad',
 		'city.any' => 'Todas las ciudades',
 
