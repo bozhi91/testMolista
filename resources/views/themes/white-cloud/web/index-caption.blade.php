@@ -18,6 +18,9 @@
 							{{ Lang::get('web/properties.from') }}
 						@endif
 						{{ price($main_property->price, $main_property->infocurrency->toArray()) }} @include('web.properties.discount-price', [ 'property' => $main_property ]) </div>
+						@if($property->mode=='vacationRental')
+							/{{ Lang::get('web/properties.week') }}
+						@endif
 
 					<div class="carousel-caption-button">
 						<a href="{{ $main_property->full_url }}" class="carousel-button">{{ Lang::get('web/properties.search.results.more') }}</a>

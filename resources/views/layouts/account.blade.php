@@ -279,9 +279,10 @@
 			$("#dialog").click(function(e){
                 e.preventDefault();
 			    e.stopPropagation();
-
+                $('#commonModal').modal();
             });
-            $('#commonModal').modal();
+
+			if({{$submenu_section=="reports"}}) $('#commonModal').modal();
 
             // Hide header menu
 			header_menu.find('>li').addClass('hidden-xs');

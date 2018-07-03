@@ -109,7 +109,7 @@
 									{!! Form::label(null, Lang::get('account/properties.show.property.price.min') ) !!}
 
 									@if ( $property->desde == 1)
-										({{ Lang::get('web/properties.from') }})
+										({{ Lang::get('web/properties.from') }})---
 									@endif
 
 									<div class="input-group">

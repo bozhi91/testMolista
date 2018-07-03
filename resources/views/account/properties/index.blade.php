@@ -163,6 +163,9 @@
 										{{ Lang::get('web/properties.from') }}
 									@endif
 									{{ $property->price }}
+										@if($property->mode=='vacationRental')
+											/{{ Lang::get('web/properties.week') }}
+										@endif
 								</td>
 								<td class="text-center">{{ number_format($property->customers->count(), 0, ',', '.')  }}</td>
 								<td class="text-center">

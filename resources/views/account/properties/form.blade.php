@@ -47,7 +47,6 @@
 		->first();
 
         $flatUrl = env('APP_PROTOCOL')."://".$subdomain->subdomain.".".env('APP_DOMAIN')."/property/". $flatUrl->slug."/".$property->id;
-
 ?>
 
 
@@ -134,15 +133,14 @@
 								@if(!empty($property))
 									{!! Form::hidden('propertyId', $property['id']) !!}
 									{{ Lang::get('web/properties.from') }}
-									@if($checkboxDesde=='1')
-										<input type="checkbox" value="1" name="desde" checked>
-										@else
-										<input type="checkbox" value="0" name="desde">
-									@endif
-									@else
-										{{ Lang::get('web/properties.from') }}
-										<input type="checkbox" name="desde" value="1">
 								@endif
+
+								@if($checkboxDesde==1)
+										<input type="checkbox" name="desde" checked>
+									@else
+										<input type="checkbox" name="desde">
+								@endif
+
 							</div>
 							<div class="col-sm-8">
 								{!! Form::hidden('currency', $infocurrency->code) !!}

@@ -1169,6 +1169,7 @@ class Property extends TranslatableModel
 			'E' => 'E',
 			'F' => 'F',
 			'G' => 'G',
+            'Exento' => 'Exento',
 		];
 	}
 
