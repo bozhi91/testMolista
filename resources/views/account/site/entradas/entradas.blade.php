@@ -37,14 +37,8 @@
 			   }
 			?>
 
-			<div class="pull-right">
-				<a href="{{ action($blogPath) }}" class="btn btn-primary">
-					{{ $btnTxt }}
-				</a>
-			</div><br/><br/><br/>
-
 			@if(!$isActive && !empty($blog))
-				<div class="alert alert-info">{{ $inactiveBlog }}</div>
+				<div class="alert alert-danger">{{ $inactiveBlog }}</div>
 			@endif
 
 			@if (count($entradas)<1)
@@ -71,13 +65,11 @@
 
 									<?php
 										$attribs  = array("action"=>"edit","post_id"=>$entrada->id);
-
 										$site_id  = session('SiteSetup')['site_id'];
 										$domain   = env('APP_DOMAIN');
 										$protocol = env("APP_PROTOCOL");
 										$site = App\Http\Controllers\Account\Site\BlogController::getSiteById($site_id);
 										$url  = $protocol."://".$site->subdomain.".".$domain."/pages/blog?post_id=".$entrada->id;
-
 									?>
 									<a href="{{$url}}"  class="btn btn-success btn-xs" style="color: white !important;" target="_blank">
 										{{ Lang::get('general.view') }}
@@ -96,6 +88,13 @@
 			@endif
 		</div>
 	@endif
+
+
+	<div class="pull-left">
+		<a href="{{ action($blogPath) }}" class="btn btn-primary">
+			{{ $btnTxt }}
+		</a>
+	</div><br/><br/><br/>
 
 	<script type="text/javascript">
 		ready_callbacks.push(function() {

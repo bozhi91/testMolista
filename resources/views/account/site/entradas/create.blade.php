@@ -27,7 +27,9 @@
 			<br/>
 			<div>
 				<b>{{ Lang::get('general.postTitle') }}</b><br/>
-				{{ Form::input('text', 'title',$title) }}<br/><br/>
+
+
+				<input type="text" name="title", value='<?php echo $title;?>'  style="width:100%"><br/><br/>
 
 				<b> {{ Lang::get('general.postBody') }}</b><br/>
 				<textarea name="body" class="summernote" style="height: 300px !important;" contenteditable="false">

@@ -53,20 +53,22 @@ class BlogController extends \App\Http\Controllers\AccountController
             ->where('site_id',$site_id)
             ->first();
 
-        //get the pageId of the blog we just created
-        $page = DB::table('pages')
-            ->select('id')
-            ->where('type','blog')
-            ->where('site_id',$site_id)
-            ->first();
-
-        if(!empty($page)){
-            $menu_item = DB::table('menus_items')
+        if($menu!=null){
+            //get the pageId of the blog we just created
+            $page = DB::table('pages')
                 ->select('id')
-                ->where('menu_id',$menu->id)
-                ->where('page_id',$page->id)
+                ->where('type','blog')
+                ->where('site_id',$site_id)
                 ->first();
-            return $menu_item;
+
+            if(!empty($page)){
+                $menu_item = DB::table('menus_items')
+                    ->select('id')
+                    ->where('menu_id',$menu->id)
+                    ->where('page_id',$page->id)
+                    ->first();
+                return $menu_item;
+            }
         }
         return false;
     }
