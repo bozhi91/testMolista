@@ -91,9 +91,11 @@
 
 
 	<div class="pull-left">
+		@if(!empty($blogPath))
 		<a href="{{ action($blogPath) }}" class="btn btn-primary">
 			{{ $btnTxt }}
 		</a>
+		@endif
 	</div><br/><br/><br/>
 
 	<script type="text/javascript">

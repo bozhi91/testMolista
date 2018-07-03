@@ -109,9 +109,11 @@
 									{!! Form::label(null, Lang::get('account/properties.show.property.price.min') ) !!}
 
 									@if ( $property->desde == 1)
-										({{ Lang::get('web/properties.from') }})---
+										({{ Lang::get('web/properties.from') }})
 									@endif
-
+                                    @if($property->mode=='vacationRental')
+                                        /{{ Lang::get('web/properties.week') }}
+                                    @endif
 									<div class="input-group">
 										@if ( @$property->infocurrency->position == 'before' )
 											<div class="input-group-addon">{{ $property->infocurrency->symbol }}</div>

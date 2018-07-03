@@ -19,6 +19,9 @@
 				@endif
 				{{ price($item->price, $item->infocurrency->toArray()) }}
 				@include('web.properties.discount-price')
+					@if($property->mode=='vacationRental')
+						/{{ Lang::get('web/properties.week') }}
+					@endif
 			</div>
 			<div class="location text-italic">{{ implode(', ', array_filter([
 				'district' => $item->district,
