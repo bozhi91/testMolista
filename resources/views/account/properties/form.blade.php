@@ -1,6 +1,7 @@
 <?php
 	$infocurrency = ($item && $item->infocurrency) ? $item->infocurrency : $current_site->infocurrency;
 
+
 	// Priorizar países
 	if ( empty($current_site->country_ids) )
 	{
@@ -18,23 +19,28 @@
 			'' => '----------------------------',
 		] + $tmp;
 	}
-	else
-	{
-		$countries = $countries->toArray();
+	else {$countries = $countries->toArray();
 	}
+
+	$isEnabled ="";
+	$subdomain ="";
+	$current_tab = 'general';
+	$flatUrl ="";
+	$checkboxDesde = "";
+
 	$body = "Insert your HTML code here...";
 	if(!empty($property)){
 		$checkboxDesde = App\Http\Controllers\Account\PropertiesController::getCheckboxDesdeState($property['id']);
         $body = $property->html_property;
-	}
-	$current_tab == 'general';
-	$body  = trim($body, " \t\n\r");
 
-	$flatUrl = DB::table('properties_translations')
-        ->select('slug')
-        ->where('property_id',$property->id)
-		->whereRaw('slug is not null')
-        ->first();
+		$current_tab == 'general';
+		$body  = trim($body, " \t\n\r");
+
+		$flatUrl = DB::table('properties_translations')
+			->select('slug')
+			->where('property_id',$property->id)
+			->whereRaw('slug is not null')
+			->first();
 
 	$subdomain = DB::table('sites')
 		->select('subdomain')
@@ -45,8 +51,8 @@
 		->select('enabled')
 		->where('id',$property->id)
 		->first();
-
         $flatUrl = env('APP_PROTOCOL')."://".$subdomain->subdomain.".".env('APP_DOMAIN')."/property/". $flatUrl->slug."/".$property->id;
+	}
 
 ?>
 
@@ -106,8 +112,10 @@
 					</div>
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container" style="padding-top: 30px;">
+							@if(!empty($isEnabled))
 							@if($isEnabled->enabled == 1)
 								<u><a href="{{$flatUrl}}" target="_blank">Enlace a la propiedad</a></u>
+								@endif
 							@endif
 						</div>
 					</div>
