@@ -1,4 +1,4 @@
-<?php namespace App\Marketplaces\Casinuevo;
+<?php namespace App\Marketplaces\Homesya;
 
 class Homesya extends \App\Marketplaces\Trovit\Trovit {
 
