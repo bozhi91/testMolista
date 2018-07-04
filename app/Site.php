@@ -53,10 +53,72 @@ class Site extends TranslatableModel
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //function defination to convert array to xml
+    public static function array_to_xml($array, &$xml_user_info) {
+        foreach($array as $key => $value) {
+            if(is_array($value)) {
+                if(!is_numeric($key)){
+                    $subnode = $xml_user_info->addChild("$key");
+                    Site::array_to_xml($value, $subnode);
+                }else{
+                    $subnode = $xml_user_info->addChild("agency");
+                    Site::array_to_xml($value, $subnode);
+                }
+            }else {
+                $xml_user_info->addChild("$key",htmlspecialchars("$value"));
+            }
+        }
+    }
+
+
+    public static function parseXML($marketplace){
+        $sites = DB::select("select sm.site_id, s.subdomain, sd.domain, m.code
+            from sites_marketplaces sm, sites s, sites_domains sd, marketplaces m
+            where s.id = sm.site_id
+            and sd.site_id = s.id
+            and m.id = sm.marketplace_id
+            and sm.marketplace_id =".$marketplace->id."
+            and sm.marketplace_enabled = 1
+            and s.enabled=1
+            ");
+
+        $sites_array = array();
+        $name =$marketplace->code;
+
+        foreach($sites as $site){
+            $site = array("id"=>$site->site_id,
+                "name"=>$site->subdomain,
+                "web_page"=>$site->domain,
+                "xml_path"=>"https://".$site->subdomain.".molista.com/feeds/properties/".$name.".xml");
+            array_push($sites_array,$site);
+        }
+
+        //creating object of SimpleXMLElement
+        $xml_user_info = new \SimpleXMLElement("<?xml version=\"1.0\"?><Agencies></Agencies>");
+
+        //function call to convert array to xml
+        Site::array_to_xml($sites_array,$xml_user_info);
+
+        //saving generated xml file
+
+        if(!is_dir(public_path()."/XML")){
+            mkdir(public_path()."/XML",777);
+        }
+        $xml_file = $xml_user_info->asXML(public_path()."/XML/".$marketplace->code.'.xml');
+    }
+
+    public static function generateXML(){
+        $marketplaces = DB::select("select * from marketplaces");
+        foreach($marketplaces as $marketplace){
+            Site::parseXML($marketplace);
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //Verify the plan of only ONE site
 	public function verifyPlan($site){
-
-
 	    //////////////////////////////////////////////////////////////
         //Get user's email
         $user_data = DB::table('sites')
@@ -155,7 +217,7 @@ class Site extends TranslatableModel
             );
 
             //Send the email
-            Log::Info("================================================================================");
+         /*   Log::Info("================================================================================");
             Log::Info("Sending subscription Alert email to: ".$user_data->email." (site_id: ".$site->id.")");
             Log::Info("With parameters: ".json_encode($params));
             $status = $this->send_template_email($params);
@@ -164,7 +226,7 @@ class Site extends TranslatableModel
                 Log::Info("Email Sent!!!");
             }
             Log::Info("================================================================================");
-
+        */
         }
     }
 

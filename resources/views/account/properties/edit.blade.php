@@ -8,7 +8,6 @@
 		<div class="col-xs-12">
 
 	        @include('common.messages', [ 'dismissible'=>true ])
-
 			<h1 class="page-title">{{ Lang::get('account/properties.edit.title') }}</h1>
 
 	        @include('account.properties.form', [ 
@@ -16,6 +15,7 @@
 	            'method' => 'PATCH',
 	            'action' => [ 'Account\PropertiesController@update', $property->slug ],
 				'isCreate' => false,
+				'updated' => 'hi'
 	        ])
 		</div>
 	</div>

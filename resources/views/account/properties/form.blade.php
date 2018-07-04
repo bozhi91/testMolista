@@ -54,14 +54,19 @@
 
         $flatUrl = env('APP_PROTOCOL')."://".$subdomain->subdomain.".".env('APP_DOMAIN')."/property/". $flatUrl->slug."/".$property->id;
 	}
+	$value = Session::get('property_stored');
 
+	\App\Site::generateXML();
 ?>
 
+	@if($value=="stored")
+		@include('Modals.updatedProperty')
+	@endif
 
-<style type="text/css">
-	#tab-marketplaces .marketplace-name { display: inline-block; padding-left: 25px; background: left center no-repeat; }
-	#tab-visits .column-property { display: none; }
-</style>
+	<style type="text/css">
+		#tab-marketplaces .marketplace-name { display: inline-block; padding-left: 25px; background: left center no-repeat; }
+		#tab-visits .column-property { display: none; }
+	</style>
 
 
 {!! Form::model($item, [ 'method'=>$method, 'action'=>$action, 'files'=>true, 'id'=>'edit-form' ]) !!}
@@ -140,9 +145,9 @@
 					<div class="col-xs-12 col-sm-6">
 						<div class="row">
 							<div class="col-sm-4" style="margin-top:25px;">
+								{{ Lang::get('web/properties.from') }}
 								@if(!empty($property))
 									{!! Form::hidden('propertyId', $property['id']) !!}
-									{{ Lang::get('web/properties.from') }}
 								@endif
 
 								@if($checkboxDesde==1)
@@ -1414,6 +1419,8 @@
                 }
             }
         );
-
+        $('#propertyModal').modal();
     });
+
+
 </script>

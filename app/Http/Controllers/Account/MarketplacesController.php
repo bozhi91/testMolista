@@ -122,6 +122,8 @@ class MarketplacesController extends \App\Http\Controllers\AccountController
 	}
 	public function postConfigure($code)
 	{
+        $this->site->generateXML();
+
 		$marketplace = \App\Models\Marketplace::enabled()->where('code',$code)->first();
 		if ( !$marketplace )
 		{

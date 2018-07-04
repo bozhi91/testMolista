@@ -2,6 +2,7 @@
 	<div class="alert alert-success {{ empty($dismissible) ? '' : 'alert-dismissible' }}" role="alert">
 		@if ( !empty($dismissible) )
 			<button type="button" class="close" data-dismiss="alert" aria-label="{{ Lang::get('general.messages.close') }}"><span aria-hidden="true">&times;</span></button>
+
 		@endif
 		{!! session('success') !!}
 	</div>

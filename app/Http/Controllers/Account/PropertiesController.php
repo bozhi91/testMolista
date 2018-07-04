@@ -8,9 +8,11 @@ use App\Http\Requests;
 use App\Models\Property\Videos;
 use DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 class PropertiesController extends \App\Http\Controllers\AccountController
 {
+
 	public function __initialize()
 	{
 		parent::__initialize();
@@ -23,8 +25,60 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		\View::share('submenu_section', 'properties');
 	}
 
-	public static function getRecentProperties(){
+	public $updated = 0;
+    public $property;
 
+    public function publishProperty(){
+        foreach($_POST['marketplace'] as $marketplace){
+
+            $getMarketplace = DB::table("sites_marketplaces")
+                ->select("*")
+                ->where('site_id',session("SiteSetup")['site_id'])
+                ->where('marketplace_id',$marketplace)
+                ->get();
+
+            if($getMarketplace!=null){
+               // echo json_encode($getMarketplace);
+            }
+            else{/*
+                DB::table('sites_marketplaces')
+                    ->where('site_id', session("SiteSetup")['site_id'])
+                    ->update(['blocked_site' => 0]);*/
+
+                DB::table('sites_marketplaces')->insert(
+                    [
+                        'site_id' => session("SiteSetup")['site_id'],
+                        'marketplace_id' => $marketplace,
+                        'marketplace_enabled' => 1,
+                        'marketplace_export_all' => 1,
+                    ]
+                );
+            }
+        }
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        $query = $this->site->properties()
+            ->with('customers')
+            ->with('state')
+            ->with('city')
+            ->leftJoin('cities','properties.city_id','=','cities.id')
+            ->addSelect('cities.name AS city_name')
+            ->leftJoin('properties_users', function($join){
+                $join->on('properties.id', '=', 'properties_users.property_id');
+                $join->on('properties_users.user_id', '=', \DB::raw($this->site_user->id) );
+            })
+            ->addSelect( \DB::raw('IF(properties_users.`property_id` IS NULL, 0, 1) AS is_manager') );
+
+        $properties = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
+
+        $this->set_go_back_link();
+        $total_properties = $query->get()->count();
+        return view('account.properties.index', compact('properties','clean_filters', 'total_properties'));
+    }
+
+
+    public static function getRecentProperties(){
         $recentProps = DB::table("properties")
             ->select("*")
             ->where('site_id',session("SiteSetup")['site_id'])
@@ -100,8 +154,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 	public function index()
 	{
+        Session::put('property_stored', 'not_stored');
 		$clean_filters = false;
-
 		$query = $this->site->properties()
 							->with('customers')
 							->with('state')
@@ -280,7 +334,6 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 	public function create($slug = null)
 	{
-
 		$modes = \App\Property::getModeOptions();
 		$types = \App\Property::getTypeOptions();
 		$energy_types = \App\Property::getEcOptions();
@@ -325,7 +378,6 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 	public function store()
 	{
-
 		// Validate request
 		$valid = $this->validateRequest();
 		if ( $valid !== true )
@@ -358,6 +410,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 			'publisher_id' => $this->request->input('employee_id'),
 			'published_at' => date('Y-m-d'),
 		]);
+		$this->property = $property;
 
 		if ( empty($property->id) )
 		{
@@ -425,6 +478,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
             ->where('ref', $property['ref'])
             ->update(['html_property' =>  $_POST['body']]);
 
+        Session::put('property_stored', 'stored');
+
         return redirect()->action('Account\PropertiesController@edit', $property->slug)->with('current_tab', $this->request->input('current_tab'))->with('success', trans('account/properties.created'));
 	}
 
@@ -483,11 +538,11 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 		$current_tab = session('current_tab', 'general');
 
-		return view('account.properties.edit', compact('property','modes','types','energy_types','services','countries','states','cities','marketplaces','current_tab', 'districts'));
+		$updated = $this->updated;
+		return view('account.properties.edit', compact('property','modes','types','energy_types','services','countries','states','cities','marketplaces','current_tab', 'districts','updated'));
 	}
 
 	public static function getCheckboxDesdeState($propertyId){
-
         $status = DB::table('properties')
             ->select('desde')
             ->where('id',$propertyId)
@@ -502,7 +557,6 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 	public function update(Request $request, $slug)
 	{
 		// Get property
-        // Get property
         $query = $this->site->properties()
             ->whereTranslation('slug', $slug)
             ->withEverything();
@@ -595,7 +649,10 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		// Get property, with slug
 		$property = $this->site->properties()->find($property->id);
 
-		return redirect()->action('Account\PropertiesController@edit', $property->slug)->with('current_tab', $this->request->input('current_tab'))->with('success', trans('account/properties.saved'));
+		return redirect()->action('Account\PropertiesController@edit', $property->slug)
+            ->with('current_tab', $this->request->input('current_tab'))
+            ->with('success', trans('account/properties.saved'))
+            ->with('updated', true);
 	}
 
 	/**
