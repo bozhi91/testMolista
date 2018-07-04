@@ -134,6 +134,7 @@ class Site extends TranslatableModel
         $message      = "";
         $sendEmail    = 0; //This variable defines how many times we must send the notificaiton email
 
+
         //check the site ONLY if the plan IS NOT free
         if($site->plan_id!=1){
             //If the subscription has expired yesterday, send a notification message(email) to the user1
@@ -217,7 +218,7 @@ class Site extends TranslatableModel
             );
 
             //Send the email
-         /*   Log::Info("================================================================================");
+            Log::Info("================================================================================");
             Log::Info("Sending subscription Alert email to: ".$user_data->email." (site_id: ".$site->id.")");
             Log::Info("With parameters: ".json_encode($params));
             $status = $this->send_template_email($params);
@@ -226,7 +227,6 @@ class Site extends TranslatableModel
                 Log::Info("Email Sent!!!");
             }
             Log::Info("================================================================================");
-        */
         }
     }
 
