@@ -501,6 +501,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 	public function update(Request $request, $slug)
 	{
+	    echo "hi";
+	    die;
 		// Get property
         // Get property
         $query = $this->site->properties()

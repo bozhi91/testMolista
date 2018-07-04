@@ -10,6 +10,8 @@ use Swift_Mailer;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
 
+use App\XML;
+
 class Site extends TranslatableModel
 {
     use Billable;
@@ -36,6 +38,54 @@ class Site extends TranslatableModel
 		});
 	}
 
+    //function defination to convert array to xml
+    public static function array_to_xml($array, &$xml_user_info) {
+        foreach($array as $key => $value) {
+            if(is_array($value)) {
+                if(!is_numeric($key)){
+                    $subnode = $xml_user_info->addChild("$key");
+                    Site::array_to_xml($value, $subnode);
+                }else{
+                    $subnode = $xml_user_info->addChild("agency_$key");
+                    Site::array_to_xml($value, $subnode);
+                }
+            }else {
+                $xml_user_info->addChild("$key",htmlspecialchars("$value"));
+            }
+        }
+    }
+
+	////////////////////////////////////////////////////////////////////////////
+    public static function generateXML(){
+        $sites = DB::select("select sm.site_id, s.subdomain, sd.domain, m.code
+            from sites_marketplaces sm, sites s, sites_domains sd, marketplaces m
+            where s.id = sm.site_id
+            and sd.site_id = s.id
+            and m.id = sm.marketplace_id
+            and sm.marketplace_id = 37 -- homesya
+            -- and sm.marketplace_id = ... -- casinuevo
+            and sm.marketplace_enabled = 1
+            ");
+
+        $sites_array = array( "agencies" => array());
+
+        foreach($sites as $site){
+            $site = array("id"=>$site->site_id,
+                "name"=>$site->subdomain,
+                "web_page"=>$site->domain,
+                "xml_path"=>"https://".$site->subdomain.".molista.com/feeds/properties/".$site->code.".xml");
+            array_push($sites_array['agencies'],$site);
+        }
+
+        //creating object of SimpleXMLElement
+        $xml_user_info = new \SimpleXMLElement("<?xml version=\"1.0\"?><Document></Document>");
+
+        //function call to convert array to xml
+        Site::array_to_xml($sites_array,$xml_user_info);
+        //saving generated xml file
+        $xml_file = $xml_user_info->asXML('/home/bozhi/Desktop/sites.xml');
+    }
+
     public function verifyPlans(){
         $site_data = \App\Site::enabled()
             ->with('locales')
@@ -55,8 +105,6 @@ class Site extends TranslatableModel
 
     //Verify the plan of only ONE site
 	public function verifyPlan($site){
-
-
 	    //////////////////////////////////////////////////////////////
         //Get user's email
         $user_data = DB::table('sites')
@@ -155,7 +203,7 @@ class Site extends TranslatableModel
             );
 
             //Send the email
-            Log::Info("================================================================================");
+           /* Log::Info("================================================================================");
             Log::Info("Sending subscription Alert email to: ".$user_data->email." (site_id: ".$site->id.")");
             Log::Info("With parameters: ".json_encode($params));
             $status = $this->send_template_email($params);
@@ -164,7 +212,7 @@ class Site extends TranslatableModel
                 Log::Info("Email Sent!!!");
             }
             Log::Info("================================================================================");
-
+*/
         }
     }
 

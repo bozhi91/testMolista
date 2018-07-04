@@ -56,6 +56,9 @@ class SiteSetup
 		// Check if plan is valid
         $site->verifyPlan($site);
 
+		//generate xml with sites
+        $site->generateXML();
+
 		$is_valid = empty($setup['plan']['is_valid']) ? false : true;
 		if ( !$is_valid )
 		{

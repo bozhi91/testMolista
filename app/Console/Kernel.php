@@ -38,6 +38,8 @@ class Kernel extends ConsoleKernel
 		Commands\PlanInitCommand::class,
 		Commands\PlanNewBasicEnterpriseCommand::class,
         Commands\CheckSubscriptions::class,
+
+        Commands\UpdateMarketplaces::class,
 	];
 
 	/**
@@ -53,6 +55,8 @@ class Kernel extends ConsoleKernel
 		$schedule->command('stats:refresh-matches')->twiceDaily();
 		$schedule->command('tickets:contacts-sync')->dailyAt('02:00');
 		$schedule->command('marketplace:api:publish')->cron('0 */3 * * * *');
+
+        $schedule->command('subscription:verify')->daily();
 
         $schedule->command('subscription:verify')->daily();
 	}
