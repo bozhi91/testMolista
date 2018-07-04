@@ -3,6 +3,7 @@
 		'title' => 'Properties',
         'from' => 'Price From ',
 		'term' => 'Enter your search',
+        'week' => 'week',
 
 		'mode' => 'Modality',
 		'mode.sale' => 'Properties for sale',
@@ -11,10 +12,8 @@
         'mode.vacationRent_label' => 'Properties for holiday rental',
 
 		'district' => 'District',
-
 		'state' => 'State',
 		'state.any' => 'All states',
-
 		'city' => 'City',
 		'city.any' => 'All cities',
 

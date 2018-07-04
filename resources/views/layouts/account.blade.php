@@ -12,6 +12,8 @@
         ->select('plans.code')
         ->where('sites.id',session("SiteSetup")['site_id'])
         ->first();
+
+    	$clicked = 0;
     ?>
 
     <div id="account-container" class="container">
@@ -87,9 +89,9 @@
 					@endif
 
 					@role('company')
-						@if ( @$submenu_section == 'reports' )
+						@if (@$submenu_section == 'reports')
 							<li role="presentation" class="active">
-								<a onclick="$('#commonModal').modal()" id="dialog" href="{{ action('Account\ReportsController@getIndex') }}">
+								<a onclick="<?php $clicked=1?>" id="dialog" href="{{ action('Account\ReportsController@getIndex') }}">
 									<i class="account-icon account-icon-reports"></i>
 									{{ Lang::get('account/menu.reports') }}
 								</a>
@@ -221,12 +223,22 @@
 				@if($plan_name->code=="free" &&  @$submenu_section == 'reports')
 					@include('Modals.commonModal', ['header'=>Lang::get('account/properties.accessDenied'),
                                  'message'=> Lang::get('account/properties.propMessage_3').$message])
+
+                    <?php
+                    $protocol =isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
+                    $message  = "<p><a href='".$protocol.$_SERVER['HTTP_HOST']."/account/payment/upgrade' target='_blank'>
+											 <button type='button' class='btn btn-info .btn-md' style='margin-top:10px !important;'>Actualizar</button>
+											 </a></p>";
+                    ?>
+
+					@include('Modals.commonModal', ['header'=>"Acceso Denegado!",
+                        'message'=>"No puedes acceder al informe. El informe solo podrá verse
+                         en las versiones de pago. <br>Por favor, actualiza tu plan!<br><br>".$message])
 				@endif
 
 				@if($plan=="free" &&  @$submenu_section == 'reports' )
 					@include("account.reports.limitedPlan",['url'=>$url])
 				@endif
-
 			</div>
 		</div>
     </div>
@@ -275,13 +287,10 @@
 			var header_menu = $('#header .header-menu-search-trigger');
 			var locale_menu = $('#header .header-locale-social');
 
-			//Display modal dialog when try to access the reports in free plan.
-			$("#dialog").click(function(e){
-                e.preventDefault();
-			    e.stopPropagation();
-
-            });
-            $('#commonModal').modal();
+			if({{$submenu_section=="reports"}} && {{ $clicked == 1}}){
+                $('#commonModal').modal();
+                $clicked = 0;
+            }
 
             // Hide header menu
 			header_menu.find('>li').addClass('hidden-xs');

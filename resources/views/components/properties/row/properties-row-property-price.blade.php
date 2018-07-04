@@ -3,5 +3,8 @@
 		@if($property->desde=='1')
 			{{ Lang::get('web/properties.from') }}
 		@endif
-		{{ price($item->price, $item->infocurrency->toArray(), $item) }}</a>
+		{{ price($item->price, $item->infocurrency->toArray(), $item) }}
+			@if($property->mode=='vacationRental')
+				/{{ Lang::get('web/properties.week') }}
+			@endif</a>
 </div>

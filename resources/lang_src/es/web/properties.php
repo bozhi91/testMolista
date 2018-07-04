@@ -1,17 +1,16 @@
 <?php
 	return [
 
+        'week' => 'Semana',
+
 		'title' => 'Propiedades',
         'from' => 'Precio Desde ',
 		'term' => 'Ingrese su búsqueda',
-
 		'mode' => 'Modalidad',
-
 		'mode.sale' => 'Propiedades en venta',
 		'mode.rent' => 'Propiedades en alquiler',
         'mode.vacationRental' => 'En alquiler vacacional',
 		'mode.transfer' => 'Propiedades en traspaso',
-
 
 		'district' => 'Distrito',
 		'state' => 'Provincia',

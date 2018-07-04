@@ -513,15 +513,16 @@ class PropertiesController extends \App\Http\Controllers\AccountController
             ->update(['html_property' =>  $_POST['body']]);
 
 		//here we update the status of the checkbox 'desde'.
+
 		if(!empty($_POST['desde'])){
             DB::table('properties')
                 ->where('id',$_POST['propertyId'])
-                ->update(array('desde' => true));
+                ->update(array('desde' => 1));
         }
         else {
             DB::table('properties')
                 ->where('id',$_POST['propertyId'])
-                ->update(array('desde' => false));
+                ->update(array('desde' => 0));
         }
 
 		if (!$this->auth->user()->canProperty('edit_all')) {
