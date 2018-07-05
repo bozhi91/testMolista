@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use Swift_Mailer;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+use File;
 
 class Site extends TranslatableModel
 {
@@ -36,6 +38,39 @@ class Site extends TranslatableModel
 		});
 	}
 
+
+    public static function checkDefaultMarketplaces($site){
+
+	    $marketplaces = array("homesya","casinuevo");
+
+	    foreach($marketplaces as $marketplace){
+
+            //get the id of the marketplace
+            $market = DB::table("marketplaces")
+                ->select("*")
+                ->where('code',$marketplace)
+                ->first();
+
+            //check if this marketpalace is already selected by the sites
+            $site_market = DB::table("sites_marketplaces")
+                ->select("*")
+                ->where('marketplace_id',$market->id)
+                ->where('site_id',session("SiteSetup")['site_id'])
+                ->first();
+
+            if(empty($site_market)){
+                DB::table('sites_marketplaces')->insert(
+                    [
+                        'site_id' => session("SiteSetup")['site_id'],
+                        'marketplace_id' => $market->id,
+                        'marketplace_enabled' => 1,
+                        'marketplace_export_all' => 1,
+                    ]
+                );
+            }
+        }
+    }
+
     public function verifyPlans(){
         $site_data = \App\Site::enabled()
             ->with('locales')
@@ -54,7 +89,6 @@ class Site extends TranslatableModel
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     //function defination to convert array to xml
     public static function array_to_xml($array, &$xml_user_info) {
         foreach($array as $key => $value) {
@@ -71,7 +105,6 @@ class Site extends TranslatableModel
             }
         }
     }
-
 
     public static function parseXML($marketplace){
         $sites = DB::select("select sm.site_id, s.subdomain, sd.domain, m.code
@@ -101,10 +134,11 @@ class Site extends TranslatableModel
         //function call to convert array to xml
         Site::array_to_xml($sites_array,$xml_user_info);
 
-        //saving generated xml file
 
+        //saving generated xml file
         if(!is_dir(public_path()."/XML")){
-            mkdir(public_path()."/XML",777);
+            File::makeDirectory(public_path()."/XML", 0700, true);
+           // \File::makeDirectory(public_path()."/XML", 777, true);
         }
         $xml_file = $xml_user_info->asXML(public_path()."/XML/".$marketplace->code.'.xml');
     }
@@ -227,6 +261,7 @@ class Site extends TranslatableModel
                 Log::Info("Email Sent!!!");
             }
             Log::Info("================================================================================");
+
         }
     }
 

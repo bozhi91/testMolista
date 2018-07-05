@@ -59,7 +59,7 @@
 	\App\Site::generateXML();
 ?>
 
-	@if($value=="stored")
+	@if($value!="stored")
 		@include('Modals.updatedProperty')
 	@endif
 
@@ -67,7 +67,6 @@
 		#tab-marketplaces .marketplace-name { display: inline-block; padding-left: 25px; background: left center no-repeat; }
 		#tab-visits .column-property { display: none; }
 	</style>
-
 
 {!! Form::model($item, [ 'method'=>$method, 'action'=>$action, 'files'=>true, 'id'=>'edit-form' ]) !!}
 	{!! Form::hidden('current_tab', $current_tab) !!}

@@ -1,6 +1,11 @@
 <?php
 
 	return [
+        'marketplace.publish'=>'Do you want to publish your property in these free portals?',
+        'marketplace.selectAll'=>'Select all',
+        'marketplace.info'=>' Did you know that in Molista you can export your properties for free?',
+        'marketplace.submit'=>'Publish',
+
         'propHeader'=>'Attention',
         'propMessage'=>'You have more properties in your plan than the maximum limit. We have desabled all the properties
                         except the recent ones. If you want to create more properties, update your plan.',

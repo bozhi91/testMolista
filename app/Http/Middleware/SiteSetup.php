@@ -59,6 +59,9 @@ class SiteSetup
 		//update the list of properties and exports them to an XML file
         $site->generateXML($site);
 
+        //
+        $site->checkDefaultMarketplaces($site);
+
         $is_valid = empty($setup['plan']['is_valid']) ? false : true;
 		if ( !$is_valid )
 		{

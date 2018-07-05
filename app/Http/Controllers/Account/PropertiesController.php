@@ -29,35 +29,38 @@ class PropertiesController extends \App\Http\Controllers\AccountController
     public $property;
 
     public function publishProperty(){
-        foreach($_POST['marketplace'] as $marketplace){
 
-            $getMarketplace = DB::table("sites_marketplaces")
-                ->select("*")
-                ->where('site_id',session("SiteSetup")['site_id'])
-                ->where('marketplace_id',$marketplace)
-                ->get();
+        if(!empty($_POST['marketplace'])){
+            foreach($_POST['marketplace'] as $marketplace){
 
-            if($getMarketplace!=null){
-               // echo json_encode($getMarketplace);
-            }
-            else{/*
+                $getMarketplace = DB::table("sites_marketplaces")
+                    ->select("*")
+                    ->where('site_id',session("SiteSetup")['site_id'])
+                    ->where('marketplace_id',$marketplace)
+                    ->get();
+
+                if($getMarketplace!=null){
+                    // echo json_encode($getMarketplace);
+                }
+                else{/*
                 DB::table('sites_marketplaces')
                     ->where('site_id', session("SiteSetup")['site_id'])
                     ->update(['blocked_site' => 0]);*/
 
-                DB::table('sites_marketplaces')->insert(
-                    [
-                        'site_id' => session("SiteSetup")['site_id'],
-                        'marketplace_id' => $marketplace,
-                        'marketplace_enabled' => 1,
-                        'marketplace_export_all' => 1,
-                    ]
-                );
+                    DB::table('sites_marketplaces')->insert(
+                        [
+                            'site_id' => session("SiteSetup")['site_id'],
+                            'marketplace_id' => $marketplace,
+                            'marketplace_enabled' => 1,
+                            'marketplace_export_all' => 1,
+                        ]
+                    );
+                }
             }
         }
 
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         $query = $this->site->properties()
             ->with('customers')
             ->with('state')

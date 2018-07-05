@@ -1,7 +1,12 @@
 <?php
 
 	return [
-	    'propHeader'=>'Atención',
+        'marketplace.publish'=>'¿Quieres publicar tu propiedad en estos portales gratuitos? ',
+        'marketplace.selectAll'=>'Seleccionar todo',
+        'marketplace.info'=>'¿Sabes que en molista puedes exportar todas tus propiedades de manera gratuita?',
+        'marketplace.submit'=>'Publish',
+
+    'propHeader'=>'Atención',
         'propMessage'=>'Tienes más porpiedades en tu plan del limite máximo.
          Hemos desactivado todas menos las más recientes.
                         Si quiere crear más propiedades, actualiza tu plan',
