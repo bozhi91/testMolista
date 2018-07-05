@@ -91,7 +91,7 @@
 					@role('company')
 						@if (@$submenu_section == 'reports')
 							<li role="presentation" class="active">
-								<a onclick="<?php $clicked=1?>" id="dialog" href="{{ action('Account\ReportsController@getIndex') }}">
+								<a onclick="clicked()" id="dialog" href="{{ action('Account\ReportsController@getIndex') }}">
 									<i class="account-icon account-icon-reports"></i>
 									{{ Lang::get('account/menu.reports') }}
 								</a>
@@ -245,6 +245,13 @@
 
 	<script type="text/javascript">
 
+		function clicked(){
+
+            if({{$submenu_section=="reports"}}){
+                $('#commonModal').modal();
+            }
+        }
+
         var TICKETS = {
 			cont: null,
 			options: {},
@@ -286,11 +293,6 @@
 			var account_menu = $('#account-container .account-menu');
 			var header_menu = $('#header .header-menu-search-trigger');
 			var locale_menu = $('#header .header-locale-social');
-
-			if({{$submenu_section=="reports"}} && {{ $clicked == 1}}){
-                $('#commonModal').modal();
-                $clicked = 0;
-            }
 
             // Hide header menu
 			header_menu.find('>li').addClass('hidden-xs');

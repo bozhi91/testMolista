@@ -107,22 +107,26 @@ class Site extends TranslatableModel
     }
 
     public static function parseXML($marketplace){
-        $sites = DB::select("select sm.site_id, s.subdomain, sd.domain, m.code
-            from sites_marketplaces sm, sites s, sites_domains sd, marketplaces m
+        $sites = DB::select("select sm.site_id, s.subdomain, sd.domain, m.code,ct.name as country, s.signature
+            from sites_marketplaces sm, sites s, sites_domains sd, marketplaces m, countries_translations ct
             where s.id = sm.site_id
             and sd.site_id = s.id
             and m.id = sm.marketplace_id
             and sm.marketplace_id =".$marketplace->id."
             and sm.marketplace_enabled = 1
             and s.enabled=1
+            and ct.country_id = s.country_id
             ");
 
         $sites_array = array();
         $name =$marketplace->code;
 
         foreach($sites as $site){
+            $sig =  json_decode($site->signature);
+      
             $site = array("id"=>$site->site_id,
                 "name"=>$site->subdomain,
+                "country"=>$site->country,
                 "web_page"=>$site->domain,
                 "xml_path"=>"https://".$site->subdomain.".molista.com/feeds/properties/".$name.".xml");
             array_push($sites_array,$site);
@@ -138,7 +142,6 @@ class Site extends TranslatableModel
         //saving generated xml file
         if(!is_dir(public_path()."/XML")){
             File::makeDirectory(public_path()."/XML", 0700, true);
-           // \File::makeDirectory(public_path()."/XML", 777, true);
         }
         $xml_file = $xml_user_info->asXML(public_path()."/XML/".$marketplace->code.'.xml');
     }
@@ -252,7 +255,7 @@ class Site extends TranslatableModel
             );
 
             //Send the email
-            Log::Info("================================================================================");
+           /* Log::Info("================================================================================");
             Log::Info("Sending subscription Alert email to: ".$user_data->email." (site_id: ".$site->id.")");
             Log::Info("With parameters: ".json_encode($params));
             $status = $this->send_template_email($params);
@@ -261,7 +264,7 @@ class Site extends TranslatableModel
                 Log::Info("Email Sent!!!");
             }
             Log::Info("================================================================================");
-
+*/
         }
     }
 
