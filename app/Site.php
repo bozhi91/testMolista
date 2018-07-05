@@ -122,11 +122,20 @@ class Site extends TranslatableModel
         $name =$marketplace->code;
 
         foreach($sites as $site){
-            $sig =  json_decode($site->signature);
+            $signature =  json_decode($site->signature);
+
+            $email = "";
+            $phone = "";
+            if(!empty($signature)){
+                $email = $signature->email;
+                $phone = $signature->phone;
+            }
 
             $site = array("id"=>$site->site_id,
                 "name"=>$site->subdomain,
                 "country"=>$site->country,
+                "email"=>$email,
+                "phone"=>$phone,
                 "web_page"=>$site->domain,
                 "xml_path"=>"https://".$site->subdomain.".molista.com/feeds/properties/".$name.".xml");
             array_push($sites_array,$site);
