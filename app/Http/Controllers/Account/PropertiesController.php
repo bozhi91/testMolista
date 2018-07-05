@@ -28,8 +28,24 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 	public $updated = 0;
     public $property;
 
-    public function publishProperty(){
+    public static function viewPropertyInWeb($id){
 
+        $flatUrl = DB::table('properties_translations')
+            ->select('slug')
+            ->where('property_id',$id)
+            ->where('locale','es')
+            ->whereRaw('slug is not null')
+            ->first();
+
+        $subdomain = DB::table('sites')
+            ->select('subdomain')
+            ->where('id',session("SiteSetup")['site_id'])
+            ->first();
+
+        return env('APP_PROTOCOL')."://".$subdomain->subdomain.".".env('APP_DOMAIN')."/property/". $flatUrl->slug."/".$id;
+    }
+
+    public function publishProperty(){
         if(!empty($_POST['marketplace'])){
             foreach($_POST['marketplace'] as $marketplace){
 
@@ -58,7 +74,6 @@ class PropertiesController extends \App\Http\Controllers\AccountController
                 }
             }
         }
-
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         $query = $this->site->properties()

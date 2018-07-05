@@ -18,7 +18,7 @@
 							{{ Lang::get('web/properties.from') }}
 						@endif
 						{{ price($main_property->price, [ 'decimals'=>0 ]) }} @include('web.properties.discount-price', [ 'property' => $main_property ]) </div>
-					@if($property->mode=='vacationRental')
+					@if($main_property->mode=='vacationRental')
 						/{{ Lang::get('web/properties.week') }}
 					@endif
 					<div class="carousel-caption-button">

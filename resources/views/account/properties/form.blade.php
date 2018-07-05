@@ -28,7 +28,7 @@
 	$flatUrl ="";
 	$checkboxDesde = "";
 
-	$body = "Insert your HTML code here...";
+	$body = "";
 	if(!empty($property)){
 		$checkboxDesde = App\Http\Controllers\Account\PropertiesController::getCheckboxDesdeState($property['id']);
         $body = $property->html_property;
@@ -99,7 +99,7 @@
 				<h2>{{ Lang::get('general.htmlSnippet') }}</h2>
 				<br/>
 				<div>
-					<textarea name="body" cols="100" style="height: 300px !important;" contenteditable="false">{{ $body }}</textarea><br/><br/>
+					<textarea name="body" cols="100" style="height: 300px !important;" contenteditable="false" placeholder="Insert your code here">{{ $body }}</textarea><br/><br/>
 				</div>
 				<input type="hidden" name="richtext_hidden">
 			</div>

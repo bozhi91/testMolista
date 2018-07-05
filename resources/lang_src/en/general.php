@@ -1,6 +1,7 @@
 <?php
 
 	return [
+        'viewinweb'=>'View in web',
         'htmlSnippet' => 'HTML Snippet',
         'newPost'=>'Nueva Entrada',
         'postTitle'=>'Título de la entrada',

@@ -219,7 +219,6 @@
                                         	</span></a>";
                                     }
                                     ?>
-
 								</td>
 
 								<td class="text-right text-nowrap">
@@ -235,7 +234,19 @@
 												</a>
 											</li>
 
-											@if ( (($current_site_user->properties->where('id',$property->id)->count() > 0 && Auth::user()->canProperty('edit')) || Auth::user()->canProperty('edit_all')) && Auth::user()->can('property-edit') )
+											<li>
+												<?php
+													$flatUrl="";
+													if(!empty($property)){
+														$flatUrl = App\Http\Controllers\Account\PropertiesController::viewPropertyInWeb($property->id);
+													}
+												?>
+												<a class="dropdown-menu-link" href= {{$flatUrl}} target="_blank">
+													<i class="fa fa-eye" aria-hidden="true"></i> {{ Lang::get('general.viewinweb') }}
+												</a>
+											</li>
+
+										@if ( (($current_site_user->properties->where('id',$property->id)->count() > 0 && Auth::user()->canProperty('edit')) || Auth::user()->canProperty('edit_all')) && Auth::user()->can('property-edit') )
 											<li>
 												<a class="dropdown-menu-link" href="{{ action('Account\PropertiesController@edit', $property->slug) }}">
 													<i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{ Lang::get('general.edit') }}

@@ -16,7 +16,7 @@
 							{{ Lang::get('web/properties.from') }}
 						@endif
 						{{ price($main_property->price, $main_property->infocurrency->toArray()) }} @include('web.properties.discount-price', [ 'property' => $main_property ]) </span>
-					@if($property->mode=='vacationRental')
+					@if($main_property->mode=='vacationRental')
 						/{{ Lang::get('web/properties.week') }}
 					@endif
 				</span>

@@ -370,8 +370,9 @@ Route::group([
             Route::get('getSiteById', 'Account\Site\BlogController@getSiteById')->name("getSiteById");
 
 
+            //Property routes
             Route::post('publishProperty', 'Account\PropertiesController@publishProperty')->name("publishProperty");
-
+            Route::get('viewPropertyInWeb/{id?}', 'Account\PropertiesController@viewPropertyInWeb')->name("viewPropertyInWeb");
 
             //Sliders
 			Route::post('sliders/upload', 'Account\Site\SlidersController@upload');

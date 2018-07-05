@@ -1,6 +1,7 @@
 <?php
 
 	return [
+        'viewinweb'=>'Ver en la web',
         'newPost'=>'Nueva Entrada',
         'postTitle'=>'Título de la entrada',
         'postBody'=>'Contenido de la entrada',
