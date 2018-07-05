@@ -59,8 +59,8 @@
 	\App\Site::generateXML();
 ?>
 
-	@if($value!="stored")
-		@include('Modals.updatedProperty')
+	@if($value=="stored")
+        @include('Modals.updatedProperty')
 	@endif
 
 	<style type="text/css">
