@@ -23,7 +23,36 @@
 							{!! Form::label('country', Lang::get('account/marketplaces.country'), [ 'class'=>'sr-only' ]) !!}
 							{!! Form::select('country', [ '' => Lang::get('account/marketplaces.country') ]+$countries->lists('name','code')->all(), Input::get('country'), [ 'class'=>'form-control' ]) !!}
 						</div>
-						{!! Form::submit(Lang::get('general.filters.apply'), [ 'class'=>'btn btn-default' ]) !!}
+
+						<br/><br/>
+						<div class="form-group">
+
+							{{ $checked_free = "" }}
+							{{ $checked_pay  = "" }}
+                            <?php $checked_all  = "checked" ?>
+
+							@if(!empty($_GET['free']))
+								@if($_GET['free'] == 1)
+									<?php $checked_free = 'checked' ?>
+								@endif
+
+								@if($_GET['free'] == 0)
+									<?php $checked_pay  = "checked" ?>
+								@endif
+
+								@if($_GET['free'] == 'all')
+									<?php $checked_all  = "checked" ?>
+								@endif
+
+							@endif
+
+							{{ Lang::get('account/marketplaces.filter') }}
+							<input type="radio" value="all" name="free" {{ $checked_all }}> {{ Lang::get('account/marketplaces.filter.all') }}
+							<input type="radio" value="1"   name="free" {{ $checked_free }}> {{ Lang::get('account/marketplaces.filter.free') }}
+							<input type="radio" value="0"   name="free" {{ $checked_pay }}> {{ Lang::get('account/marketplaces.filter.pay') }}
+						</div><br/><br/>
+
+						{!! Form::submit(Lang::get('general.filters.apply'), [ 'class'=>'btn btn-info' ]) !!}
 					{!! Form::close() !!}
 				</div>
 			</div>

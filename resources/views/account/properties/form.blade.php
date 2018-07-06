@@ -55,12 +55,21 @@
         $flatUrl = env('APP_PROTOCOL')."://".$subdomain->subdomain.".".env('APP_DOMAIN')."/property/". $flatUrl->slug."/".$property->id;
 	}
 	$value = Session::get('property_stored');
-
 	\App\Site::generateXML();
+
+
+	if(!empty($_GET['market'])){
+        $current_tab = "marketplaces";
+	}
+
 ?>
 
 	@if($value=="stored")
         @include('Modals.updatedProperty')
+        <?php
+            \App\Site::checkDefaultMarketplaces();
+			$current_tab = "properties";
+        ?>
 	@endif
 
 	<style type="text/css">

@@ -1,9 +1,14 @@
 <?php
 
 	return [
+
+        'filter' => 'Filter by marketplace status(free/payment)',
+        'filter.all'=>'All',
+        'filter.free'=>'Payment',
+        'filter.pay'=>'Free',
+
 		'h1' => 'Marketplaces',
 		'empty' => 'No marketplaces found',
-
 		'title' => 'Name',
 		'configured' => 'Connected',
 		'configure' => 'Connect',

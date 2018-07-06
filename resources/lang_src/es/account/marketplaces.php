@@ -1,9 +1,14 @@
 <?php
 
 	return [
+
+        'filter' => 'Filtrar por el estado del marketplace(de pago o gratuito)',
+	    'filter.all'=>'Todos',
+        'filter.free'=>'De pago',
+        'filter.pay'=>'Gratuitos',
+
 		'h1' => 'Marketplaces',
 		'empty' => 'No se encontraron marketplaces',
-
 		'title' => 'Nombre',
 		'configured' => 'Configurado',
 		'configure' => 'Configurar',

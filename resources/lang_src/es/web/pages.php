@@ -1,5 +1,6 @@
 <?php
 	return [
+        'posts'=>'Mis entradas',
 		'name' => 'Nombre',
 		'name.placeholder' => 'Pedro González',
 		'email' => 'Email',

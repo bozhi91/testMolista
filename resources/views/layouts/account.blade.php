@@ -91,7 +91,7 @@
 					@role('company')
 						@if (@$submenu_section == 'reports')
 							<li role="presentation" class="active">
-								<a onclick="clicked()" id="dialog" href="{{ action('Account\ReportsController@getIndex') }}">
+								<a onclick="clicked()" id="dialog-modal" href="{{ action('Account\ReportsController@getIndex') }}">
 									<i class="account-icon account-icon-reports"></i>
 									{{ Lang::get('account/menu.reports') }}
 								</a>
@@ -226,7 +226,7 @@
 
                     <?php
                     $protocol =isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
-                    $message  = "<p><a href='".$protocol.$_SERVER['HTTP_HOST']."/account/payment/upgrade' target='_blank'>
+                    $message  = "<p><a href='".$protocol.$_SERVER['HTTP_HOST']."/account/payment/upgrade'>
 											 <button type='button' class='btn btn-info .btn-md' style='margin-top:10px !important;'>Actualizar</button>
 											 </a></p>";
                     ?>
@@ -250,6 +250,7 @@
             if({{$submenu_section=="reports"}}){
                 $('#commonModal').modal();
             }
+
         }
 
         var TICKETS = {
@@ -293,6 +294,12 @@
 			var account_menu = $('#account-container .account-menu');
 			var header_menu = $('#header .header-menu-search-trigger');
 			var locale_menu = $('#header .header-locale-social');
+
+
+            $("#dialog-modal").click(function(e){
+                e.preventDefault();
+                e.stopPropagation();
+            });
 
             // Hide header menu
 			header_menu.find('>li').addClass('hidden-xs');

@@ -31,7 +31,7 @@
 
 				</div>
 				<div class="col-sm-2">
-					<b>Mis entradas</b>
+					<b>{{ Lang::get('web/pages.posts') }}</b>
 					<ul>
                         <?php $posts = App\Http\Controllers\Account\Site\BlogController::getAllPosts();?>
 						@foreach($posts as $post)

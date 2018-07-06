@@ -13,7 +13,6 @@
 			</div>
 		</div>
 	</div>
-
 	<div class="marketplaces-container" style="position: relative;">
 
 		<hr />

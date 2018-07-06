@@ -14,6 +14,7 @@ class MarketplacesController extends \App\Http\Controllers\AccountController
 
 	public function getIndex()
 	{
+
 		$query = \App\Models\Marketplace::enabled()
 			->with('countries')
 			->withSiteConfiguration($this->site->id)
@@ -32,6 +33,14 @@ class MarketplacesController extends \App\Http\Controllers\AccountController
 			$clean_filters = true;
 			$query->ofCountry($this->request->input('country'));
 		}
+
+        // Filter by marketStatus
+        if(!empty($_GET['free'])) {
+            if ( $this->request->input('free') && $_GET['free']!="all") {
+                $clean_filters = true;
+                $query->where('marketplaces.free', '=',$_GET['free']);
+            }
+        }
 
 		switch ( $this->request->input('order') )
 		{
