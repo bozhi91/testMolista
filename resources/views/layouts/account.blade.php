@@ -82,7 +82,7 @@
 					</li>
 					<li class="separator"></li>
 
-					<?phpaction('Account\ReportsController@getIndex');?>
+					<?php action('Account\ReportsController@getIndex');?>
 					<!-- if the current plan is not premium, do not display the menu bellow. -->
 					@if(empty($plan))
 						{{$plan=''}}
@@ -91,7 +91,7 @@
 					@role('company')
 						@if (@$submenu_section == 'reports')
 							<li role="presentation" class="active">
-								<a onclick="clicked()" id="dialog-modal" href="{{ action('Account\ReportsController@getIndex') }}">
+								<a onclick="clicked('{{$submenu_section}}')" id="dialog-modal" href="{{ action('Account\ReportsController@getIndex') }}">
 									<i class="account-icon account-icon-reports"></i>
 									{{ Lang::get('account/menu.reports') }}
 								</a>
@@ -245,12 +245,11 @@
 
 	<script type="text/javascript">
 
-		function clicked(){
+		function clicked(section){
 
-            if({{$submenu_section=="reports"}}){
+            if(section == "reports"){
                 $('#commonModal').modal();
             }
-
         }
 
         var TICKETS = {
