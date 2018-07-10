@@ -72,7 +72,10 @@
 							<span class="icon-bar"></span>
 						</button>
 						<a class="navbar-brand" href="{{ @$corporate_links['home'] }}" title="{{ Lang::get('corporate/seo.header.link.home') }}">
+
+							<!--
 							<img src="{{ Theme::url( env('WHITELABEL_LOGO_HEADER', '/images/corporate/logo.png') ) }}" alt="{{ Lang::get('corporate/seo.header.image.logo') }}">
+							-->
 						</a>
 					</div>
 
