@@ -774,10 +774,7 @@
 					])
 				</div>
 
-
-
 				@if ( $marketplaces->count() > 0 )
-
 					<div role="tabpanel" class="tab-pane tab-main {{ $current_tab == 'marketplaces' ? 'active' : '' }}" id="tab-marketplaces">
 						@include('account/properties/form-marketplaces')
 					</div>

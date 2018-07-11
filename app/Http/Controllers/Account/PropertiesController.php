@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Account;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Models\Property\Videos;
 use DB;
@@ -12,7 +11,6 @@ use Illuminate\Support\Facades\Session;
 
 class PropertiesController extends \App\Http\Controllers\AccountController
 {
-
 	public function __initialize()
 	{
 		parent::__initialize();
@@ -156,19 +154,25 @@ class PropertiesController extends \App\Http\Controllers\AccountController
         return $propRef;
     }
 
-    public static function getMarketplaces($propId){
+    public function getSite(){
+        return $this->site;
+    }
+
+    public static function getMarketplaces($property,$site){
+
         $properties = DB::select("
               select sm.site_id, sm.marketplace_id, m.logo, m.name, s.subdomain
               from sites_marketplaces sm, properties p, marketplaces m,sites s
               where m.id = sm.marketplace_id
               and p.site_id = sm.site_id
               and s.id = p.site_id
-              and p.id = '".$propId."'
+              and p.id = '".$property->id."'
               and sm.marketplace_enabled = 1
               and marketplace_export_all = 1");
 
             return  $properties;
     }
+
 
 	public function index()
 	{
@@ -292,10 +296,32 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 		$total_properties = $query->get()->count();
 		$properties = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
-
 		$this->set_go_back_link();
 
-		return view('account.properties.index', compact('properties','clean_filters', 'total_properties'));
+
+        echo count($properties);
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        $marketplaces = $this->site->marketplaces()
+            ->wherePivot('marketplace_enabled','=',1)
+            ->withSiteProperties($this->site->id)
+            ->enabled()->orderBy('name')->get();
+
+        $myprop = array();
+        foreach($properties as $property){
+            $market = array();
+            foreach($marketplaces as $marketplace){
+                $publishable = $this->site->marketplace_helper->checkReadyProperty($marketplace,$property);
+                if ( $publishable === true ){
+                    array_push($market,array("market_id"=>$marketplace->id,"enabled"=>"1"));
+                }
+                else{
+                    array_push($market,array("market_id"=>$marketplace->id,"enabled"=>"0"));
+                }
+            }
+            array_push($myprop,array("property"=>$property->id,"market"=>$market));
+        }
+		return view('account.properties.index', compact('properties','clean_filters', 'total_properties','marketplaces','myprop'));
 	}
 
 	public function exportCsv($query)
@@ -521,6 +547,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 	public function edit($slug)
 	{
+
 		$query = $this->site->properties()
 						->whereTranslation('slug', $slug)
 						->withEverything();

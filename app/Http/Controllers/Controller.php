@@ -26,7 +26,7 @@ class Controller extends BaseController
 
 	protected $currency;
 
-	public function __construct(Guard $auth, Request $request)
+	public function __construct(Guard $auth=null, Request $request=null)
 	{
 		$this->auth = $auth;
 		$this->request = $request;

@@ -11,7 +11,7 @@ abstract class Base implements MarketplaceInterface {
 
     protected $currency = 'EUR';
 
-    public function __construct(array $config = [])
+    public function XML__construct(array $config = [])
     {
         if (empty($this->iso_lang))
         {
@@ -33,6 +33,9 @@ abstract class Base implements MarketplaceInterface {
 	
 	public function validateProperty(array $property)
     {
+        $this->config = [];
+        $this->iso_lang = null;
+
         $mapper = static::getMapper($property, $this->iso_lang, $this->config);
         if ($mapper->valid())
         {

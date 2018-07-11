@@ -209,10 +209,21 @@
 
 								<td style="overflow: auto;max-height: 91px;	float:left;">
                                     <?php
-                                    $result = App\Http\Controllers\Account\PropertiesController::getMarketplaces($property->id);
+
+                                    $result = App\Http\Controllers\Account\PropertiesController::getMarketplaces($property,$current_site_user);
                                     $path   = "properties/".$property->slug."/edit?market=true";
 
                                     foreach ($result as $res){
+
+                                        foreach($myprop as $prop){
+                                            if($property->id == $prop['property']){
+                                                foreach($prop['market'] as $market){
+                                                    //echo $market['enabled']."---";
+                                                }
+
+                                            }
+                                        }
+
                                         $url = "http://".$res->subdomain.".molista.com/marketplaces/".$res->logo;
                                         echo "<a target='_blank'  href={$path}>
 											<span class='marketplace-name text-nowrap;' title='".$res->name."'style='background-image: url(".$url.")'/>&nbsp;
