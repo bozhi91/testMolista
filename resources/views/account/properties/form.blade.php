@@ -25,10 +25,10 @@
 	$isEnabled ="";
 	$subdomain ="";
 	$current_tab = 'general';
-	$flatUrl ="";
+	$flatUrl = "";
 	$checkboxDesde = "";
-
 	$body = "";
+
 	if(!empty($property)){
 		$checkboxDesde = App\Http\Controllers\Account\PropertiesController::getCheckboxDesdeState($property['id']);
         $body = $property->html_property;
@@ -62,6 +62,10 @@
         $current_tab = "marketplaces";
 	}
 
+	$site = DB::table('sites')
+		->select('*')
+		->where('id',session("SiteSetup")['site_id'])
+		->first();
 ?>
 
 	@if($value=="stored")
@@ -713,6 +717,49 @@
 						<div class="visible-xs-block">
 							<p>&nbsp;</p>
 						</div>
+
+						@if($site->plan_id != 1)<!-- Plan Enterprise or Plus-->
+						<div class="row">
+							<div class="col-sm-9">Include watermark?</div>
+							<div class="col-sm-3"></div><br>
+
+							<div class="col-sm-12">
+								Yes<input type="radio" name="include_watermark" value="1" onclick="$('#watermark_properties').show()" checked/>
+								No<input type="radio" name="include_watermark" value="0"  onclick="$('#watermark_properties').hide()"/>
+							</div>
+						</div><br/>
+
+							@if($site->plan_id != 6)<!-- NOT Plan Basic-->
+								<div class="row" id="watermark_properties">
+									<div class="col-sm-9">Image orientation</div>
+									<div class="col-sm-3"></div><br>
+
+									<div class="col-sm-3">Upper-Left</div>
+									<div class="col-sm-9"><input type="radio" name="image_orientation" value="0"  onclick="$('#rotated').hide()"/></div>
+
+									<div class="col-sm-3">Upper-Right</div>
+									<div class="col-sm-9"><input type="radio" name="image_orientation" value="1"  onclick="$('#rotated').hide()"/></div>
+
+									<div class="col-sm-3">Lower-Left</div>
+									<div class="col-sm-9"><input type="radio" name="image_orientation" value="2"  onclick="$('#rotated').hide()"/></div>
+
+									<div class="col-sm-3">Lower-Right</div>
+									<div class="col-sm-9"><input type="radio" name="image_orientation" value="3"  onclick="$('#rotated').hide()"/></div>
+
+									<div class="col-sm-3">Center</div>
+									<div class="col-sm-9"><input type="radio" name="image_orientation" value="4" checked  onclick="$('#rotated').show()"/></div>
+
+									<div id="rotated">
+										<div class="col-sm-3">Rotated(45º)</div>
+										<div class="col-sm-9"><input type="checkbox" name="rotated" /></div>
+									</div>
+									<br/>
+									<div class="col-sm-8">Select a file for the watermark(by default, we're inserting the Molista logo) </div>
+									<div class="col-sm-4"><input type="file"/></div>
+								</div>
+							@endif
+						@endif
+
 					</div>
 					<div class="col-xs-12 col-sm-5">
 						<h4>{{ Lang::get('account/properties.images.upload') }}</h4>

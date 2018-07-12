@@ -8,6 +8,8 @@ use App\Models\Property\Videos;
 use DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
 
 class PropertiesController extends \App\Http\Controllers\AccountController
 {
@@ -417,9 +419,62 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 				'services','countries','states','cities','country_id','managers','current_tab', 'districts', 'property', 'marketplaces'));
 	}
 
+	public function customizePropertyImage(){
+        $siteId = $this->site->id;
+        $propId = 5437;
+
+        $watermark_pos_array = array("top-left","top-right","bottom-right","bottom-left","center");
+        $watermark_pos = 0;
+        $watermark_rotate = false;
+
+        foreach($_POST['images'] as $image){
+            $image  = substr(strrchr($image, "/"), 1);
+            $path   = public_path()."/sites/".$siteId."/properties/".$propId;
+            $path_watermark = public_path()."/sites/".$siteId."/properties/".$propId."/watermark";
+
+            //create a backupfolder for the images with watermark
+            if(!is_dir($path_watermark)){
+                File::makeDirectory($path_watermark, 0700, true);
+            }
+            copy($path."/".$image,$path_watermark."/".$image);
+            /*if(plan==free)..DB->store(image=marcaagua)
+            else DB->store(image = foto_original)*/
+
+            // if the curent plan is Free, use the images with the watermark(its mandatory). Otherwise, let the user choose.
+        /*  if($this->site->plan_id == 1){
+                DB::table('properties_images')
+                    ->where('property_id', $propId)
+                    ->update(['image' => "/watermark/".$image]);
+            }
+            else{
+                DB::table('properties_images')
+                    ->where('property_id', $propId)
+                    ->update(['image' => $image]);
+            }
+        */
+            $logo = Image::make(public_path().'/sites/watermarks/mark.png');
+            $size = $logo->width()/$logo->height();
+
+            $logo_new_width  = $logo->width()+($size*100);
+            $logo_new_height = $logo_new_width/$size;
+
+            $logo->resize($logo_new_width,$logo_new_height);
+            $logo->opacity(75);
+            if($watermark_rotate){
+                $logo->rotate(-45);
+            }
+
+          $img = Image::make($path."/".$image)
+              ->insert($logo,$watermark_pos_array[$watermark_pos],50,50)
+              ->save($path."/watermark/".$image);
+        }
+    }
+
 	public function store()
 	{
-		// Validate request
+        $this->customizePropertyImage();
+        die;
+        // Validate request
 		$valid = $this->validateRequest();
 		if ( $valid !== true )
 		{

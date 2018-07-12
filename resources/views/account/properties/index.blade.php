@@ -213,11 +213,10 @@
                                     $path   = "properties/".$property->slug."/edit?market=true";
 
                                     foreach($result as $res){
-
+                                        if(!empty($myprop)){
                                         foreach($myprop as $prop){
                                             if($property->id == $prop['property']){
                                                 foreach($prop['market'] as $market){
-
                                                     if($res->marketplace_id == $market['market_id']){
                                                         $url = "http://".$res->subdomain.".molista.com/marketplaces/".$res->logo;
 
@@ -238,6 +237,7 @@
                                                     }
                                                 }
                                             }
+                                        }
                                         }
                                     }
                                     ?>
