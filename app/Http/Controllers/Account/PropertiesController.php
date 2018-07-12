@@ -167,8 +167,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
               and p.site_id = sm.site_id
               and s.id = p.site_id
               and p.id = '".$property->id."'
-              and sm.marketplace_enabled = 1
-              and marketplace_export_all = 1");
+              and sm.marketplace_enabled = 1");
 
             return  $properties;
     }
@@ -298,8 +297,6 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		$properties = $query->paginate( $this->request->input('limit', \Config::get('app.pagination_perpage', 10)) );
 		$this->set_go_back_link();
 
-
-        echo count($properties);
 
         ////////////////////////////////////////////////////////////////////////////////////////////////
         $marketplaces = $this->site->marketplaces()

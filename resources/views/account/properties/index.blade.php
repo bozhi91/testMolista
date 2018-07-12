@@ -209,25 +209,36 @@
 
 								<td style="overflow: auto;max-height: 91px;	float:left;">
                                     <?php
-
                                     $result = App\Http\Controllers\Account\PropertiesController::getMarketplaces($property,$current_site_user);
                                     $path   = "properties/".$property->slug."/edit?market=true";
 
-                                    foreach ($result as $res){
+                                    foreach($result as $res){
 
                                         foreach($myprop as $prop){
                                             if($property->id == $prop['property']){
                                                 foreach($prop['market'] as $market){
-                                                    //echo $market['enabled']."---";
-                                                }
 
+                                                    if($res->marketplace_id == $market['market_id']){
+                                                        $url = "http://".$res->subdomain.".molista.com/marketplaces/".$res->logo;
+
+                                                        if($market['enabled']==1){
+                                                            echo "<a href={$path}>
+																<span class='marketplace-name text-nowrap;' title='".$res->name."'style='background-image: url(".$url.")'/>&nbsp;
+																<span class='glyphicon glyphicon-ok'  style='color: #00dd00; margin-left:-12px; margin-right:6px;'></span>
+                                        					</a>
+                                        					";
+                                                        }
+                                                        else{
+                                                            echo "<a href={$path}>
+																<span class='marketplace-name text-nowrap;' title='".$res->name."'style='background-image: url(".$url.")'/>&nbsp;
+																<span class='glyphicon' style='color: #ff0000; margin-left:-12px; margin-right:6px;'>&#xe014;</span>
+                                        					</a>
+                                        					";
+                                                        }
+                                                    }
+                                                }
                                             }
                                         }
-
-                                        $url = "http://".$res->subdomain.".molista.com/marketplaces/".$res->logo;
-                                        echo "<a target='_blank'  href={$path}>
-											<span class='marketplace-name text-nowrap;' title='".$res->name."'style='background-image: url(".$url.")'/>&nbsp;
-                                        	</span></a>";
                                     }
                                     ?>
 								</td>
