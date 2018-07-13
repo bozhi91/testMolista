@@ -66,7 +66,7 @@
 		->select('*')
 		->where('id',session("SiteSetup")['site_id'])
 		->first();
-?>
+	?>
 
 	@if($value=="stored")
         @include('Modals.updatedProperty')
@@ -718,16 +718,17 @@
 							<p>&nbsp;</p>
 						</div>
 
-						@if($site->plan_id != 1)<!-- Plan Enterprise or Plus-->
-						<div class="row">
-							<div class="col-sm-9">Include watermark?</div>
-							<div class="col-sm-3"></div><br>
 
-							<div class="col-sm-12">
-								Yes<input type="radio" name="include_watermark" value="1" onclick="$('#watermark_properties').show()" checked/>
-								No<input type="radio" name="include_watermark" value="0"  onclick="$('#watermark_properties').hide()"/>
-							</div>
-						</div><br/>
+						@if($site->plan_id != 1)<!-- Plan Enterprise or Plus-->
+							<div class="row">
+								<div class="col-sm-9">Include watermark?</div>
+								<div class="col-sm-3"></div><br>
+
+								<div class="col-sm-12">
+									Yes<input type="radio" name="include_watermark" value="1" onclick="$('#watermark_properties').show()" checked/>
+									No<input type="radio" name="include_watermark" value="0"  onclick="$('#watermark_properties').hide()"/>
+								</div>
+							</div><br/>
 
 							@if($site->plan_id != 6)<!-- NOT Plan Basic-->
 								<div class="row" id="watermark_properties">
@@ -755,10 +756,11 @@
 									</div>
 									<br/>
 									<div class="col-sm-8">Select a file for the watermark(by default, we're inserting the Molista logo) </div>
-									<div class="col-sm-4"><input type="file"/></div>
+									<div class="col-sm-4"><input type="file" name="watermark_image"/></div>
 								</div>
 							@endif
 						@endif
+
 
 					</div>
 					<div class="col-xs-12 col-sm-5">

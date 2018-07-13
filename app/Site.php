@@ -38,13 +38,9 @@ class Site extends TranslatableModel
 		});
 	}
 
-
     public static function checkDefaultMarketplaces(){
-
 	    $marketplaces = array("homesya","casinuevo");
-
 	    foreach($marketplaces as $marketplace){
-
             //get the id of the marketplace
             $market = DB::table("marketplaces")
                 ->select("*")
@@ -107,7 +103,7 @@ class Site extends TranslatableModel
     }
 
     public static function parseXML($marketplace){
-        $sites = DB::select("select sm.site_id, s.subdomain, sd.domain, m.code,ct.name as country, s.signature
+        $sites = DB::select("select distinct sm.site_id, s.subdomain, sd.domain, m.code,ct.name as country, s.signature
             from sites_marketplaces sm, sites s, sites_domains sd, marketplaces m, countries_translations ct
             where s.id = sm.site_id
             and sd.site_id = s.id

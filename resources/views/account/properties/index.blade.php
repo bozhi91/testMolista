@@ -223,14 +223,16 @@
                                                         if($market['enabled']==1){
                                                             echo "<a href={$path}>
 																<span class='marketplace-name text-nowrap;' title='".$res->name."'style='background-image: url(".$url.")'/>&nbsp;
-																<span class='glyphicon glyphicon-ok'  style='color: #00dd00; margin-left:-12px; margin-right:6px;'></span>
+
                                         					</a>
                                         					";
                                                         }
                                                         else{
                                                             echo "<a href={$path}>
-																<span class='marketplace-name text-nowrap;' title='".$res->name."'style='background-image: url(".$url.")'/>&nbsp;
-																<span class='glyphicon' style='color: #ff0000; margin-left:-12px; margin-right:6px;'>&#xe014;</span>
+																<span class='marketplace-name text-nowrap;'
+																 title='".$res->name." (Hay un problema con este export).'style='background-image: url(".$url.");
+																 opacity: 0.5;
+                                    							 filter: grayscale(100%);'/>&nbsp;
                                         					</a>
                                         					";
                                                         }
