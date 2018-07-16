@@ -9,6 +9,8 @@ use App\Models\Property\Videos;
 use DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
 
 class PropertiesController extends \App\Http\Controllers\AccountController
 {
@@ -41,14 +43,82 @@ class PropertiesController extends \App\Http\Controllers\AccountController
             ->select('subdomain')
             ->where('id',session("SiteSetup")['site_id'])
             ->first();
-
         return env('APP_PROTOCOL')."://".$subdomain->subdomain.".".env('APP_DOMAIN')."/property/". $flatUrl->slug."/".$id;
     }
+    /////////////////////////////////////////////////////////////////////////////
 
+    public static function modifyImagesFreePlan(){
+
+        $site = \App\Site::enabled()
+            ->with('locales')
+            ->with('infocurrency')
+            ->current()->first();
+
+        $properties = DB::table('properties')
+            ->select('id')
+            ->where('site_id',$site->id)
+            ->get();
+
+        if($site->plan_id==1){
+            $watermark_image = public_path().'/sites/watermarks/molista.png';
+            //get the images for each property
+
+            foreach($properties as $property){
+                $prop = DB::table('properties_images')
+                    ->select('*')
+                    ->where('property_id',$property->id)
+                    ->get();
+
+                $path           = public_path()."/sites/".$site->id."/properties/".$property->id;
+                $path_watermark = public_path()."/sites/".$site->id."/properties/".$property->id."/watermark";
+
+                //check if the folder for this property or site exists
+                if(!is_dir($path) || !is_dir($path_watermark)){
+                    continue;
+                }
+
+                //create a backupfolder for the images with watermark: /public/sites/site_id/watermark
+                if(!is_dir($path_watermark)){
+                    File::makeDirectory($path_watermark, 0700, true);
+                }
+
+                //get the images of the current property
+                foreach($prop as $image){
+                    $pos = strpos($image->image, "watermark");
+                    $image = $image->image;
+                    if($pos!=null){
+                        $image = substr(strrchr($image, "/"), 1);
+                    }
+
+                    //copy the image to the watermark folder
+                    copy($path."/".$image,$path_watermark."/".$image);
+
+                    DB::table('properties_images')
+                        ->where('property_id', $property->id)
+                        ->where('image',$image)
+                        ->update(['image' => "/watermark/".$image]);
+
+                    // If the watermark is set to present, use the watermark image in the frontend(we're updating the Database)
+                    $logo = Image::make($watermark_image);
+                    $size = $logo->width()/$logo->height();
+
+                    $logo_new_width  = $logo->width()+($size*10);
+                    $logo_new_height = $logo_new_width/$size;
+
+                    $logo->resize($logo_new_width,$logo_new_height);
+                    $logo->opacity(75);
+
+                    $img = Image::make($path."/".$image)
+                        ->insert($logo,"center",50,50)
+                        ->save($path."/watermark/".$image);
+                }
+            }
+        }
+    }
+
+    //////////////////////////////////////////////////////////////
     public function customizePropertyImage($property){
-
         $watermark_present  = true;
-
         //if the plan is not free
         if($this->site->plan_id!=1){
             if(!empty($_POST['include_watermark'])){
@@ -589,6 +659,11 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
         Session::put('property_stored', 'stored');
 
+        //////////////////////////////////////////////////////////////
+        //if the plan is Free, the watermark is mandatory
+        $this->customizePropertyImage($property);
+        //////////////////////////////////////////////////////////////
+
         return redirect()->action('Account\PropertiesController@edit', $property->slug)->with('current_tab', $this->request->input('current_tab'))->with('success', trans('account/properties.created'));
 	}
 
@@ -757,6 +832,11 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 		// Get property, with slug
 		$property = $this->site->properties()->find($property->id);
+
+        //////////////////////////////////////////////////////////////
+        //if the plan is Free, the watermark is mandatory
+        $this->customizePropertyImage($property);
+        //////////////////////////////////////////////////////////////
 
 		return redirect()->action('Account\PropertiesController@edit', $property->slug)
             ->with('current_tab', $this->request->input('current_tab'))
@@ -1431,6 +1511,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 					}
 
 					// Update position
+                    if($image!=null)
 					$image->update($updateFields);
 
 					// Preserve
