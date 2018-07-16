@@ -85,7 +85,7 @@ class Mapper extends \App\Marketplaces\Mapper {
             'url' => 'required',
             'title' => 'required',
             'type' => 'required',
-            'description.'.$this->iso_lang => 'required|min:30',
+            'description'.$this->iso_lang => 'required|min:30',
             'construction_year' => 'regex:#\d{4}#'
         ];
 
