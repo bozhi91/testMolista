@@ -45,6 +45,105 @@ class PropertiesController extends \App\Http\Controllers\AccountController
         return env('APP_PROTOCOL')."://".$subdomain->subdomain.".".env('APP_DOMAIN')."/property/". $flatUrl->slug."/".$id;
     }
 
+    public function customizePropertyImage($property){
+
+        $watermark_present  = true;
+
+        //if the plan is not free
+        if($this->site->plan_id!=1){
+            if(!empty($_POST['include_watermark'])){
+                $watermark_present  = true;
+            }
+            else{
+                $watermark_present = false;
+            }
+        }
+        if($this->site->plan_id==1){
+            if(empty($_POST['include_watermark'])){
+                $watermark_present  = true;
+            }
+        }
+
+        $siteId = $this->site->id;
+        $propId = $property->id;
+
+        //set the default properties for the watermark
+        $watermark_pos_array = array("top-left","top-right","bottom-left","bottom-right","center");
+        $watermark_pos       = 4;
+        $watermark_rotate    = false;
+        $watermark_image     = public_path().'/sites/watermarks/molista.png';
+        $watermark_opacity   = 75;
+
+        if(!empty( $_POST['image_orientation'])){
+            $watermark_pos = $_POST['image_orientation'];
+        }
+        if(!empty( $_POST['rotated'])){
+            $watermark_rotate = $_POST['rotated'];
+        }
+        if(!empty($_FILES['watermark_image'])){
+            if(strlen($_FILES['watermark_image']['name'])>0){
+                $watermark_image = public_path()."/sites/".$siteId."/properties/".$propId."/watermark/".$_FILES['watermark_image']['name'];
+                copy($_FILES['watermark_image']['tmp_name'],$watermark_image);
+            }
+        }
+        if(!empty($_POST['include_watermark'])){
+            $watermark_present = $_POST['include_watermark'];
+        }
+        if($watermark_pos!=4){
+            $watermark_rotate = false;
+        }
+
+        $path           = public_path()."/sites/".$siteId."/properties/".$propId;
+        $path_watermark = public_path()."/sites/".$siteId."/properties/".$propId."/watermark";
+
+        //create a backupfolder for the images with watermark: /public/sites/site_id/watermark
+        if(!is_dir($path_watermark)){
+            File::makeDirectory($path_watermark, 0700, true);
+        }
+
+        foreach($_POST['images'] as $image){
+            $image = substr(strrchr($image, "/"), 1);
+
+            if(empty($image))continue;
+
+            //copy the image to the watermark folder
+            copy($path."/".$image,$path_watermark."/".$image);
+
+            // If the watermark is set to present, use the watermark image in the frontend(we're updating the Database)
+            if($watermark_present){
+                DB::table('properties_images')
+                    ->where('property_id', $propId)
+                    ->where('image',$image)
+                    ->update(['image' => "/watermark/".$image]);
+            }
+            else{
+                DB::table('properties_images')
+                    ->where('property_id', $propId)
+                    ->where('image',"/watermark/".$image)
+                    ->update(['image' => $image]);
+            }
+
+            $logo = Image::make($watermark_image);
+            $size = $logo->width()/$logo->height();
+
+            $logo_new_width  = $logo->width()+($size*100);
+            $logo_new_height = $logo_new_width/$size;
+
+            $logo->resize($logo_new_width,$logo_new_height);
+            $logo->opacity($watermark_opacity);
+            if($watermark_rotate){
+                $logo->rotate(-45);
+            }
+
+            $img = Image::make($path."/".$image)
+                ->insert($logo,$watermark_pos_array[$watermark_pos],50,50)
+                ->save($path."/watermark/".$image);
+        }
+    }
+
+
+
+
     public function publishProperty(){
         if(!empty($_POST['marketplace'])){
             foreach($_POST['marketplace'] as $marketplace){
@@ -56,13 +155,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
                     ->get();
 
                 if($getMarketplace!=null){
-                    // echo json_encode($getMarketplace);
                 }
-                else{/*
-                DB::table('sites_marketplaces')
-                    ->where('site_id', session("SiteSetup")['site_id'])
-                    ->update(['blocked_site' => 0]);*/
-
+                else{
                     DB::table('sites_marketplaces')->insert(
                         [
                             'site_id' => session("SiteSetup")['site_id'],
