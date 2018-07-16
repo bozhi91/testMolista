@@ -209,7 +209,7 @@
 
 								<td style="overflow: auto;max-height: 91px;	float:left;">
                                     <?php
-                                    $result = App\Http\Controllers\Account\PropertiesController::getMarketplaces($property->id);
+                                    $result = App\Http\Controllers\Account\PropertiesController::getMarketplaces($property);
                                     $path   = "properties/".$property->slug."/edit?market=true";
 
                                     foreach ($result as $res){

@@ -132,42 +132,19 @@ class PropertiesController extends \App\Http\Controllers\AccountController
                 ->where('id', session("SiteSetup")['site_id'])
                 ->update(['blocked_site' => 0]);
         }
-       /* if( (count($recentProps)>$max_properties) && $plans->plan_id==1 && $isBlocked->blocked_site==0){
-            for($i=$plans->max_properties;$i<count($recentProps);$i++){
-                array_push($properties,$recentProps[$i]->ref);
-                $propRef.= " - Reference: ".$recentProps[$i]->ref."<br/>";
-
-                DB::table('properties')
-                    ->where('id',$recentProps[$i]->id)
-                    ->update(['enabled' => 0]);
-            }
-
-            //Mark the current site as blocked/limited. This means that the properties are disabled. The site is still running.
-            DB::table('sites')
-                ->where('id', session("SiteSetup")['site_id'])
-                ->update(['blocked_site' => 1]);
-        }
-        else{
-            //enable back the site
-            DB::table('sites')
-                ->where('id', session("SiteSetup")['site_id'])
-                ->update(['blocked_site' => 0]);
-        }*/
         return $propRef;
     }
 
-    public static function getMarketplaces($propId){
+    public static function getMarketplaces($property){
         $properties = DB::select("
               select sm.site_id, sm.marketplace_id, m.logo, m.name, s.subdomain
               from sites_marketplaces sm, properties p, marketplaces m,sites s
               where m.id = sm.marketplace_id
               and p.site_id = sm.site_id
               and s.id = p.site_id
-              and p.id = '".$propId."'
-              and sm.marketplace_enabled = 1
-              and marketplace_export_all = 1");
-
-            return  $properties;
+              and p.id = '".$property->id."'
+              and sm.marketplace_enabled = 1");
+        return  $properties;
     }
 
 	public function index()
