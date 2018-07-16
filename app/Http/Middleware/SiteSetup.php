@@ -62,7 +62,7 @@ class SiteSetup
 
         //Modify the images for the free plan
         if($site->plan_id==1){
-            $job = (new CustomizeFreeFotos($site))->delay(1);
+            $job = (new CustomizeFreeFotos())->delay(1);
             dispatch($job);
         }
 

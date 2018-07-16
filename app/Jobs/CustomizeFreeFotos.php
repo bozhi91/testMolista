@@ -36,7 +36,7 @@ class CustomizeFreeFotos extends Job implements ShouldQueue {
 	 * @var Marketplace
 	 */
 	private $marketplace;
-
+    protected $id;
 	/**
 	 * Create a new job instance.
 	 *
@@ -46,7 +46,9 @@ class CustomizeFreeFotos extends Job implements ShouldQueue {
 	 * @param integer $marketplace
 	 * @return void
 	 */
-	public function __construct() {
+	public function __construct($site=null,$property=null) {
+        $this->site = $site;
+        $this->property = $property;
 	}
 
 	/**
@@ -55,7 +57,15 @@ class CustomizeFreeFotos extends Job implements ShouldQueue {
 	 * @return void
 	 */
 	public function handle() {
-        \App\Http\Controllers\Account\PropertiesController::modifyImagesFreePlan();
+
+	    if( $this->site==null)  {
+            \App\Http\Controllers\Account\PropertiesController::modifyImagesFreePlan();
+        }
+	    else {
+            \App\Http\Controllers\Account\PropertiesController::customizePropertyImage(
+                $this->property,
+                $this->site);
+        }
 	}
 
 }
