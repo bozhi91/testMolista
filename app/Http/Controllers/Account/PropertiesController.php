@@ -272,7 +272,27 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 		$this->set_go_back_link();
 
-		return view('account.properties.index', compact('properties','clean_filters', 'total_properties'));
+////////////////////////////////////////////////////////////////////////////////////////////////
+        $marketplaces = $this->site->marketplaces()
+            ->wherePivot('marketplace_enabled','=',1)
+            ->withSiteProperties($this->site->id)
+            ->enabled()->orderBy('name')->get();
+
+        $myprop = array();
+        foreach($properties as $property){
+            $market = array();
+            foreach($marketplaces as $marketplace){
+                $publishable = $this->site->marketplace_helper->checkReadyProperty($marketplace,$property);
+                if ( $publishable === true ){
+                    array_push($market,array("market_id"=>$marketplace->id,"enabled"=>"1"));
+                }
+                else{
+                    array_push($market,array("market_id"=>$marketplace->id,"enabled"=>"0"));
+                }
+            }
+            array_push($myprop,array("property"=>$property->id,"market"=>$market));
+        }
+        return view('account.properties.index', compact('properties','clean_filters', 'total_properties','marketplaces','myprop'));
 	}
 
 	public function exportCsv($query)

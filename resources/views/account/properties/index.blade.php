@@ -206,18 +206,42 @@
 										<span class="glyphicon glyphicon-{{ $property->enabled ? 'ok' : 'remove' }}" aria-hidden="true"></span>
 									@endif
 								</td>
-
 								<td style="overflow: auto;max-height: 91px;	float:left;">
+
                                     <?php
-                                    $result = App\Http\Controllers\Account\PropertiesController::getMarketplaces($property);
+                                    $result = App\Http\Controllers\Account\PropertiesController::getMarketplaces($property,$current_site_user);
                                     $path   = "properties/".$property->slug."/edit?market=true";
 
-                                    foreach ($result as $res){
-                                        $url = "http://".$res->subdomain.".molista.com/marketplaces/".$res->logo;
-                                        echo "<a target='_blank'  href={$path}>
-											<span class='marketplace-name text-nowrap;' title='".$res->name."'style='background-image: url(".$url.")'/>&nbsp;
-                                        	</span></a>";
-                                    }
+                                     foreach($result as $res){
+                                         if(!empty($myprop)){
+                                         foreach($myprop as $prop){
+                                             if($property->id == $prop['property']){
+                                                 foreach($prop['market'] as $market){
+                                                     if($res->marketplace_id == $market['market_id']){
+                                                         $url = "http://".$res->subdomain.".molista.com/marketplaces/".$res->logo;
+
+                                                         if($market['enabled']==1){
+                                                             echo "<a href={$path}>
+                                                                 <span class='marketplace-name text-nowrap;' title='".$res->name."'style='background-image: url(".$url.")'/>&nbsp;
+
+                                                             </a>
+                                                             ";
+                                                         }
+                                                         else{
+                                                             echo "<a href={$path}>
+                                                                 <span class='marketplace-name text-nowrap;'
+                                                                  title='".$res->name." (Hay un problema con este export).'style='background-image: url(".$url.");
+                                                                  opacity: 0.5;
+                                                                  filter: grayscale(100%);'/>&nbsp;
+                                                             </a>
+                                                             ";
+                                                         }
+                                                     }
+                                                 }
+                                             }
+                                         }
+                                         }
+                                     }
                                     ?>
 								</td>
 
