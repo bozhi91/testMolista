@@ -89,6 +89,15 @@ class PropertiesController extends \App\Http\Controllers\AccountController
                         $image = substr(strrchr($image, "/"), 1);
                     }
 
+                    //if the destination file already exists, continue and do not copy the file
+                    if(file_exists($path_watermark."/".$image)){
+                      continue;
+                    }
+
+                    //if the source file does not exist, continue and do not copy the file
+                    if(!file_exists($path."/".$image)){
+                        continue;
+                    }
                     //copy the image to the watermark folder
                     copy($path."/".$image,$path_watermark."/".$image);
 
