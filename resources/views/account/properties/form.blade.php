@@ -717,52 +717,65 @@
 						<div class="visible-xs-block">
 							<p>&nbsp;</p>
 						</div>
+						<br>
+						@if($site->plan_id==1)
+							<?php
+								$url = isset($_SERVER['HTTPS']) ? "https" : "http";
+                            	$url = $url."://".$_SERVER['HTTP_HOST']."/account/payment/upgrade";
+							?>
+							<div class="row">
+								<div class="col-sm-12">
+									{{ Lang::get('web/properties.images.watermark.info') }}
 
+									<a href={{$url}}>	{{ Lang::get('web/properties.updatePlan') }}</a>
+								</div>
+							</div><br/>
+
+						@endif
 
 						@if($site->plan_id != 1)<!-- Plan Enterprise or Plus-->
 							<div class="row">
-								<div class="col-sm-9">Include watermark?</div>
+								<div class="col-sm-9">{{ Lang::get('web/properties.images.watermark') }}</div>
 								<div class="col-sm-3"></div><br>
 
 								<div class="col-sm-12">
-									Yes<input type="radio" name="include_watermark" value="1" onclick="$('#watermark_properties').show()" checked/>
-									No<input type="radio" name="include_watermark" value="0"  onclick="$('#watermark_properties').hide()"/>
+									{{ Lang::get('web/properties.images.watermark.yes') }}<input type="radio" name="include_watermark" value="1" onclick="$('#watermark_properties').show()" checked/>
+									{{ Lang::get('web/properties.images.watermark.no') }}<input type="radio" name="include_watermark" value="0"  onclick="$('#watermark_properties').hide()"/>
 								</div>
 							</div><br/>
 
 							@if($site->plan_id != 6)<!-- NOT Plan Basic-->
 								<div class="row" id="watermark_properties">
-									<div class="col-sm-9">Image orientation</div>
+									<div class="col-sm-9">{{ Lang::get('web/properties.images.watermark.orientation') }}</div>
 									<div class="col-sm-3"></div><br>
 
-									<div class="col-sm-3">Upper-Left</div>
+									<div class="col-sm-3">{{ Lang::get('web/properties.images.watermark.top-left') }}</div>
 									<div class="col-sm-9"><input type="radio" name="image_orientation" value="0"  onclick="$('#rotated').hide()"/></div>
 
-									<div class="col-sm-3">Upper-Right</div>
+									<div class="col-sm-3">{{ Lang::get('web/properties.images.watermark.top-right') }}</div>
 									<div class="col-sm-9"><input type="radio" name="image_orientation" value="1"  onclick="$('#rotated').hide()"/></div>
 
-									<div class="col-sm-3">Lower-Left</div>
+									<div class="col-sm-3">{{ Lang::get('web/properties.images.watermark.down-left') }}</div>
 									<div class="col-sm-9"><input type="radio" name="image_orientation" value="2"  onclick="$('#rotated').hide()"/></div>
 
-									<div class="col-sm-3">Lower-Right</div>
+									<div class="col-sm-3">{{ Lang::get('web/properties.images.watermark.down-right') }}</div>
 									<div class="col-sm-9"><input type="radio" name="image_orientation" value="3"  onclick="$('#rotated').hide()"/></div>
 
-									<div class="col-sm-3">Center</div>
+									<div class="col-sm-3">{{ Lang::get('web/properties.images.watermark.center') }}</div>
 									<div class="col-sm-9"><input type="radio" name="image_orientation" value="4" checked  onclick="$('#rotated').show()"/></div>
 
 									<div id="rotated">
-										<div class="col-sm-3">Rotated(45º)</div>
+										<div class="col-sm-3">{{ Lang::get('web/properties.images.watermark.rotated') }}</div>
 										<div class="col-sm-9"><input type="checkbox" name="rotated" /></div>
 									</div>
 									<br/>
-									<div class="col-sm-8">Select a file for the watermark(by default, we're inserting the Molista logo) </div>
+									<div class="col-sm-8">{{ Lang::get('web/properties.images.watermark.file') }}</div>
 									<div class="col-sm-4"><input type="file" name="watermark_image"/></div>
 								</div>
 							@endif
 						@endif
-
-
 					</div>
+
 					<div class="col-xs-12 col-sm-5">
 						<h4>{{ Lang::get('account/properties.images.upload') }}</h4>
 						<hr>

@@ -1,6 +1,8 @@
 <?php namespace App\Http\Middleware;
 
+use App\Http\Controllers\Account\PropertiesController;
 use Closure;
+use App\Jobs\modifyImages;
 
 class SiteSetup
 {
@@ -58,6 +60,10 @@ class SiteSetup
 
 		//update the list of properties and exports them to an XML file
         $site->generateXML($site);
+
+        $job = (new modifyImages($site))->delay(1);
+        dispatch($job);
+
 
         $is_valid = empty($setup['plan']['is_valid']) ? false : true;
 		if ( !$is_valid )

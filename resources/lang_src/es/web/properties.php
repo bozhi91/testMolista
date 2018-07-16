@@ -1,8 +1,23 @@
 <?php
 	return [
 
-        'week' => 'Semana',
+        'images.watermark.info' => 'Al subir una imagen en el plan free, automaticamente se le aplica una imagen de marca de agua
+									con el logo de Molista. Para poder personalizar tus fotos, o subirlas sin marca de agua, actualiza tu plan.',
+        'updatePlan'=>'Actualizar Plan',
 
+	    'images.watermark' => 'Incluir marca de agua?',
+        'images.watermark.yes' => 'Si',
+        'images.watermark.no' => 'No',
+        'images.watermark.orientation' => 'Posición de marca de agua',
+        'images.watermark.top-left' => 'Arriba izquierda',
+        'images.watermark.top-right' => 'Arriba derecha',
+        'images.watermark.down-left' => 'Abajo izquierda',
+        'images.watermark.down-right' => 'Abajo derecha',
+        'images.watermark.center' => 'Centro',
+        'images.watermark.rotated' => 'Rotación(45º)',
+        'images.watermark.file' => 'Seleccionar una imagen de marca de agua(Por defecto, ponemos el logo de Molista)',
+
+        'week' => 'Semana',
 		'title' => 'Propiedades',
         'from' => 'Precio Desde ',
 		'term' => 'Ingrese su búsqueda',

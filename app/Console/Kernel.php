@@ -39,6 +39,8 @@ class Kernel extends ConsoleKernel
 		Commands\PlanNewBasicEnterpriseCommand::class,
         Commands\CheckSubscriptions::class,
         Commands\UpdateMarketplaces::class,
+
+        Commands\UpdatePicturesFreePlan::class,
 	];
 
 	/**
@@ -57,6 +59,8 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('subscription:verify')->daily();
         $schedule->command('marketplaces:update')->daily();
+
+        $schedule->command('pictures:update')->daily();
 	}
 
 }

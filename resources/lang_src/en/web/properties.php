@@ -1,10 +1,27 @@
 <?php
 	return [
-		'title' => 'Properties',
+
+        'images.watermark.info' => 'Uploading an image in the free plan, applies automatically a watermark
+                                    on the image. In order to customize your images, please update your plan.',
+
+        'updatePlan'=>'Update Plan',
+
+        'images.watermark' => 'Include watermark?',
+        'images.watermark.yes' => 'Yes',
+        'images.watermark.no' => 'No',
+        'images.watermark.orientation' => 'Orientation of the watermark',
+        'images.watermark.top-left' => 'Top-Left',
+        'images.watermark.top-right' => 'Top-Right',
+        'images.watermark.down-left' => 'Down-Left',
+        'images.watermark.down-right' => 'Down-Right',
+        'images.watermark.center' => 'Center',
+        'images.watermark.rotated' => 'Rotation(45º)',
+        'images.watermark.file' => 'Select a file for the watermark.(By default we use the Molista logo)',
+
+        'title' => 'Properties',
         'from' => 'Price From ',
 		'term' => 'Enter your search',
         'week' => 'week',
-
 		'mode' => 'Modality',
 		'mode.sale' => 'Properties for sale',
 		'mode.rent' => 'Properties for rent',

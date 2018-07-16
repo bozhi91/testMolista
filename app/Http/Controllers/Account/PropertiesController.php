@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
+use App\Jobs\modifyImages;
+
 
 class PropertiesController extends \App\Http\Controllers\AccountController
 {
@@ -28,8 +30,72 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 	public $updated = 0;
     public $property;
 
-    public static function viewPropertyInWeb($id){
+    public static function modifyImagesFreePlan(){
 
+        $site = \App\Site::enabled()
+            ->with('locales')
+            ->with('infocurrency')
+            ->current()->first();
+
+        $properties = DB::table('properties')
+            ->select('id')
+            ->where('site_id',$site->id)
+            ->get();
+
+        if($site->plan_id==1){
+            $watermark_image = public_path().'/sites/watermarks/molista.png';
+            //get the images for each property
+            foreach($properties as $property){
+                $prop = DB::table('properties_images')
+                    ->select('*')
+                    ->where('property_id',$property->id)
+                    ->get();
+
+                $path           = public_path()."/sites/".$site->id."/properties/".$property->id;
+                $path_watermark = public_path()."/sites/".$site->id."/properties/".$property->id."/watermark";
+
+                //create a backupfolder for the images with watermark: /public/sites/site_id/watermark
+                if(!is_dir($path_watermark)){
+                    File::makeDirectory($path_watermark, 0700, true);
+                }
+
+
+                //get the images of the current property
+                foreach($prop as $image){
+                    $pos = strpos($image->image, "watermark");
+                    $image = $image->image;
+                    if($pos!=null){
+                        $image = substr(strrchr($image, "/"), 1);
+                    }
+
+                    //copy the image to the watermark folder
+                    copy($path."/".$image,$path_watermark."/".$image);
+
+                    DB::table('properties_images')
+                        ->where('property_id', $property->id)
+                        ->where('image',$image)
+                        ->update(['image' => "/watermark/".$image]);
+
+                    // If the watermark is set to present, use the watermark image in the frontend(we're updating the Database)
+                    $logo = Image::make($watermark_image);
+                    $size = $logo->width()/$logo->height();
+
+                    $logo_new_width  = $logo->width()+($size*100);
+                    $logo_new_height = $logo_new_width/$size;
+
+                    $logo->resize($logo_new_width,$logo_new_height);
+                    $logo->opacity(75);
+
+                    $img = Image::make($path."/".$image)
+                        ->insert($logo,"center",50,50)
+                        ->save($path."/watermark/".$image);
+                }
+            }
+        }
+        die;
+    }
+
+    public static function viewPropertyInWeb($id){
         $flatUrl = DB::table('properties_translations')
             ->select('slug')
             ->where('property_id',$id)
@@ -421,11 +487,20 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 	public function customizePropertyImage($property){
 
+        $watermark_present  = true;
+
+        //if the plan is not free
         if($this->site->plan_id!=1){
             if(!empty($_POST['include_watermark'])){
-                if($_POST['include_watermark']==0){
-                    return;
-                }
+                $watermark_present  = true;
+            }
+            else{
+                $watermark_present = false;
+            }
+        }
+        if($this->site->plan_id==1){
+            if(empty($_POST['include_watermark'])){
+                $watermark_present  = true;
             }
         }
 
@@ -433,8 +508,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
         $propId = $property->id;
 
         //set the default properties for the watermark
-        $watermark_present   = true;
-        $watermark_pos_array = array("top-left","top-right","bottom-right","bottom-left","center");
+        $watermark_pos_array = array("top-left","top-right","bottom-left","bottom-right","center");
         $watermark_pos       = 4;
         $watermark_rotate    = false;
         $watermark_image     = public_path().'/sites/watermarks/molista.png';
@@ -459,31 +533,34 @@ class PropertiesController extends \App\Http\Controllers\AccountController
             $watermark_rotate = false;
         }
 
+
+        $path           = public_path()."/sites/".$siteId."/properties/".$propId;
+        $path_watermark = public_path()."/sites/".$siteId."/properties/".$propId."/watermark";
+
+        //create a backupfolder for the images with watermark: /public/sites/site_id/watermark
+        if(!is_dir($path_watermark)){
+            File::makeDirectory($path_watermark, 0700, true);
+        }
+
         foreach($_POST['images'] as $image){
             $image = substr(strrchr($image, "/"), 1);
 
             if(empty($image))continue;
 
-            $path  = public_path()."/sites/".$siteId."/properties/".$propId;
-            $path_watermark = public_path()."/sites/".$siteId."/properties/".$propId."/watermark";
-
-            //create a backupfolder for the images with watermark: /public/sites/site_id/watermark
-            if(!is_dir($path_watermark)){
-                File::makeDirectory($path_watermark, 0700, true);
-            }
-
-            //copy the image to this folder
+            //copy the image to the watermark folder
             copy($path."/".$image,$path_watermark."/".$image);
 
             // If the watermark is set to present, use the watermark image in the frontend(we're updating the Database)
             if($watermark_present){
                 DB::table('properties_images')
                     ->where('property_id', $propId)
+                    ->where('image',$image)
                     ->update(['image' => "/watermark/".$image]);
             }
             else{
                 DB::table('properties_images')
                     ->where('property_id', $propId)
+                    ->where('image',"/watermark/".$image)
                     ->update(['image' => $image]);
             }
 
