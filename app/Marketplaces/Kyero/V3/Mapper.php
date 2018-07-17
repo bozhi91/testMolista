@@ -69,8 +69,6 @@ class Mapper extends \App\Marketplaces\Mapper {
         $map['desc'] = $this->desc();
         $map['features']['#feature'] = $this->features();
         $map['images'] = $this->images();
-
-
         return $map;
     }
 

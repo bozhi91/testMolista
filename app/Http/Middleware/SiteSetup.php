@@ -63,9 +63,11 @@ class SiteSetup
 
         //Modify the images for the free plan
         if($site->plan_id==1){
-            $job = (new CustomizeFreeFotos($site));
-            $this->dispatch($job);
+           // $job = (new CustomizeFreeFotos($site));
+           // $this->dispatch($job);
+            \App\Http\Controllers\Account\PropertiesController::modifyImagesFreePlan();
         }
+
 
         $is_valid = empty($setup['plan']['is_valid']) ? false : true;
 		if ( !$is_valid )

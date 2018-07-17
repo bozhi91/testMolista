@@ -77,6 +77,13 @@ class PropertiesController extends \App\Http\Controllers\AccountController
     ////////////////////////////////////////////////////////////////////////////////////////////////
     /// //This will apply a watermark to all images but ONLY to one property. The one we are editing
     public static function customizePropertyImage($site = null, $property = null, $propertyImages = null){
+
+        Log::Info("===============================================================");
+        Log::Info("Queued job executed. Watermarks applied to site's images.");
+        Log::Info("Property: ".json_encode($property));
+        Log::Info("Site: ".json_encode($site));
+        Log::Info("===============================================================");
+
         //Set the default properties for the watermark
             $watermark_present   = true;// by default, the watermark will be applied.
             $watermark_pos_array = array("top-left","top-right","bottom-left","bottom-right","center");
@@ -161,7 +168,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
                 //if the destination file already exists, continue and do not copy the file
                 if(file_exists($path_watermark."/".$image)){
-                  //  continue;
+                    continue;
                 }
 
                 //if the source file does not exist, continue and do not copy the file
@@ -654,9 +661,9 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
         //////////////////////////////////////////////////////////////
         //if the plan is Free, the watermark is mandatory
-            $job = (new CustomizeFreeFotos($this->site,$property));
-            dispatch($job);
-           // $this->customizePropertyImage($property);
+            //$job = (new CustomizeFreeFotos($this->site,$property));
+            //dispatch($job);
+         PropertiesController::customizePropertyImage($this->site,$property);
         //////////////////////////////////////////////////////////////
 
         return redirect()->action('Account\PropertiesController@edit', $property->slug)->with('current_tab', $this->request->input('current_tab'))->with('success', trans('account/properties.created'));
@@ -830,9 +837,9 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
         //////////////////////////////////////////////////////////////
         //if the plan is Free, the watermark is mandatory
-            $job = (new CustomizeFreeFotos($this->site,$property));
-            dispatch($job);
-          //  $this->customizePropertyImage($property);
+           // $job = (new CustomizeFreeFotos($this->site,$property));
+           // dispatch($job);
+         PropertiesController::customizePropertyImage($this->site,$property);
         //////////////////////////////////////////////////////////////
 
 		return redirect()->action('Account\PropertiesController@edit', $property->slug)
