@@ -10,36 +10,17 @@ use App\Marketplaces\API;
 use App\Site;
 use App\Models\Marketplace;
 use App\Models\Site\ApiPublication;
+use Illuminate\Support\Facades\Log;
 
 class CustomizeFreeFotos extends Job implements ShouldQueue {
 
-	use InteractsWithQueue,
-	 SerializesModels;
+	use InteractsWithQueue,SerializesModels;
 
-	/**
-	 * @var API
-	 */
-	private $handler;
-
-	/**
-	 *
-	 * @var array
-	 */
 	private $property;
-
-	/**
-	 * @var Site
-	 */
 	private $site;
 
 	/**
-	 * @var Marketplace
-	 */
-	private $marketplace;
-    protected $id;
-	/**
 	 * Create a new job instance.
-	 *
 	 * @param API $handler
 	 * @param array $property
 	 * @param integer $site
@@ -47,25 +28,33 @@ class CustomizeFreeFotos extends Job implements ShouldQueue {
 	 * @return void
 	 */
 	public function __construct($site=null,$property=null) {
-        $this->site = $site;
+        $this->site     = $site;
         $this->property = $property;
 	}
 
-	/**
-	 * Execute the job.
-	 *
-	 * @return void
-	 */
 	public function handle() {
 
-	    if( $this->site==null)  {
+	    if( $this->property==null){
+	        //this is executed when we enter the admin panel of a site. The handle function is called
+            //from SiteSetup.php(App/Middleware/SiteSetup.php). This is applied for the Free sites only.
+            Log::Info("===============================================================");
+            Log::Info("Queued job executed. Watermarks applied to all images of the site:");
+            Log::Info("Site: ".json_encode($this->site));
+            Log::Info("===============================================================");
             \App\Http\Controllers\Account\PropertiesController::modifyImagesFreePlan();
         }
-	    else {
+	    else{
+	        //This piece is executed when a property is created or updated. In that case we're
+            //updateing all the images for that property in that site.
+            Log::Info("===============================================================");
+	        Log::Info("Queued job executed. Watermarks applied to site's images.");
+	        Log::Info("Property: ".json_encode($this->property));
+            Log::Info("Site: ".json_encode($this->site));
+	        Log::Info("===============================================================");
+
             \App\Http\Controllers\Account\PropertiesController::customizePropertyImage(
                 $this->property,
                 $this->site);
         }
 	}
-
 }

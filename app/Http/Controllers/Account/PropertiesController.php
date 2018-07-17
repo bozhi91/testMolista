@@ -60,8 +60,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
         if($site->plan_id==1){
             $watermark_image = public_path().'/sites/watermarks/molista.png';
-            //get the images for each property
 
+            //Get the images for each property
             foreach($properties as $property){
                 $prop = DB::table('properties_images')
                     ->select('*')
@@ -213,8 +213,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
             $logo->resize($logo_new_width,$logo_new_height);
             $logo->opacity($watermark_opacity);
             if($watermark_rotate){
-                $logo->rotate($watermark_rotation
-                );
+                $logo->rotate($watermark_rotation);
             }
 
             $img = Image::make($path."/".$image)
@@ -1514,7 +1513,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 					if(!empty($rotation[$image_id])){
 						$degree = -(int)$rotation[$image_id];
 						$path = public_path("sites/{$property->site_id}/properties/{$property->id}/{$image->image}");
-						\Image::make($path)->rotate($degree)->save($path);
+						if(file_exists($path))
+						    \Image::make($path)->rotate($degree)->save($path);
 
 						//delete thumbnail
 						$thumbPath = public_path("sites/{$property->site_id}/properties/{$property->id}/thumbnail/{$image->image}");
