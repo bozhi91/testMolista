@@ -44,90 +44,53 @@ class PropertiesController extends \App\Http\Controllers\AccountController
             ->first();
         return env('APP_PROTOCOL')."://".$subdomain->subdomain.".".env('APP_DOMAIN')."/property/". $flatUrl->slug."/".$id;
     }
+
+
     /////////////////////////////////////////////////////////////////////////////
+    public static function modifyImagesFreePlan($site = null, $property = null){
 
-    public static function modifyImagesFreePlan(){
-
+        //Get the current site(as a object). That includes all the site properties as well
         $site = \App\Site::enabled()
             ->with('locales')
             ->with('infocurrency')
             ->current()->first();
 
-        $properties = DB::table('properties')
-            ->select('id')
-            ->where('site_id',$site->id)
-            ->get();
+        $properties = $site->properties;
 
         if($site->plan_id==1){
-            $watermark_image = public_path().'/sites/watermarks/molista.png';
-
             //Get the images for each property
             foreach($properties as $property){
-                $prop = DB::table('properties_images')
-                    ->select('*')
+                $property_images = DB::table('properties_images')
+                    ->select('image')
                     ->where('property_id',$property->id)
                     ->get();
 
-                $path           = public_path()."/sites/".$site->id."/properties/".$property->id;
-                $path_watermark = public_path()."/sites/".$site->id."/properties/".$property->id."/watermark";
-
-                //check if the folder for this property or site exists
-                if(!is_dir($path) || !is_dir($path_watermark)){
-                    continue;
+                $prop_img = array();
+                foreach($property_images as $image){
+                    array_push($prop_img,$image->image);
                 }
-
-                //create a backupfolder for the images with watermark: /public/sites/site_id/watermark
-                if(!is_dir($path_watermark)){
-                    File::makeDirectory($path_watermark, 0700, true);
-                }
-
-                //get the images of the current property
-                foreach($prop as $image){
-                    $pos = strpos($image->image, "watermark");
-                    $image = $image->image;
-                    if($pos!=null){
-                        $image = substr(strrchr($image, "/"), 1);
-                    }
-
-                    //if the destination file already exists, continue and do not copy the file
-                    if(file_exists($path_watermark."/".$image)){
-                      continue;
-                    }
-
-                    //if the source file does not exist, continue and do not copy the file
-                    if(!file_exists($path."/".$image)){
-                        continue;
-                    }
-                    //copy the image to the watermark folder
-                    copy($path."/".$image,$path_watermark."/".$image);
-
-                    DB::table('properties_images')
-                        ->where('property_id', $property->id)
-                        ->where('image',$image)
-                        ->update(['image' => "/watermark/".$image]);
-
-                    // If the watermark is set to present, use the watermark image in the frontend(we're updating the Database)
-                    $logo = Image::make($watermark_image);
-                    $size = $logo->width()/$logo->height();
-
-                    $logo_new_width  = $logo->width()+($size*10);
-                    $logo_new_height = $logo_new_width/$size;
-
-                    $logo->resize($logo_new_width,$logo_new_height);
-                    $logo->opacity(75);
-
-                    $img = Image::make($path."/".$image)
-                        ->insert($logo,"center",50,50)
-                        ->save($path."/watermark/".$image);
-                }
+                PropertiesController::customizePropertyImage($site,$property,$prop_img);
             }
         }
     }
 
-    //////////////////////////////////////////////////////////////
-    public static function customizePropertyImage($property,$site){
-        $watermark_present  = true;
-        //if the plan is not free
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    /// //This will apply a watermark to all images but ONLY to one property. The one we are editing
+    public static function customizePropertyImage($site = null, $property = null, $propertyImages = null){
+        //Set the default properties for the watermark
+            $watermark_present   = true;// by default, the watermark will be applied.
+            $watermark_pos_array = array("top-left","top-right","bottom-left","bottom-right","center");
+            $watermark_pos       = 4;
+            $watermark_rotate    = false;
+            $watermark_image     = public_path().'/sites/watermarks/molista.png';
+            $watermark_opacity   = 75;
+            $watermark_rotation  = -45;
+
+            $siteId = $site->id;
+            $propId = $property->id;
+        //////////////////////////////////////////////////////////////
+
+        //If the plan is not free, the user can choose to put the watermark on not.
         if($site->plan_id!=1){
             if(!empty($_POST['include_watermark'])){
                 $watermark_present  = true;
@@ -136,57 +99,79 @@ class PropertiesController extends \App\Http\Controllers\AccountController
                 $watermark_present = false;
             }
         }
-        if($site->plan_id==1){
-            if(empty($_POST['include_watermark'])){
-                $watermark_present  = true;
-            }
-        }
 
-        $siteId = $site->id;
-        $propId = $property->id;
-
-        //set the default properties for the watermark
-        $watermark_pos_array = array("top-left","top-right","bottom-left","bottom-right","center");
-        $watermark_pos       = 4;
-        $watermark_rotate    = false;
-        $watermark_image     = public_path().'/sites/watermarks/molista.png';
-        $watermark_opacity   = 75;
-        $watermark_rotation  = -45;
-
-        if(!empty( $_POST['image_orientation'])){
-            $watermark_pos = $_POST['image_orientation'];
-        }
-        if(!empty( $_POST['rotated'])){
-            $watermark_rotate = $_POST['rotated'];
-        }
-        if(!empty($_FILES['watermark_image'])){
-            if(strlen($_FILES['watermark_image']['name'])>0){
-                $watermark_image = public_path()."/sites/".$siteId."/properties/".$propId."/watermark/".$_FILES['watermark_image']['name'];
-                copy($_FILES['watermark_image']['tmp_name'],$watermark_image);
-            }
-        }
-        if(!empty($_POST['include_watermark'])){
-            $watermark_present = $_POST['include_watermark'];
-        }
-        if($watermark_pos!=4){
-            $watermark_rotate = false;
-        }
-
+        //create teh path to the property images folder
         $path           = public_path()."/sites/".$siteId."/properties/".$propId;
         $path_watermark = public_path()."/sites/".$siteId."/properties/".$propId."/watermark";
 
-        //create a backupfolder for the images with watermark: /public/sites/site_id/watermark
+        //Check if the folder for this property or site exists
+        if(!is_dir($path)){
+            return;
+        }
+
+        //create a folder for the images with watermark: /public/sites/site_id/properties/property_id/watermark
         if(!is_dir($path_watermark)){
             File::makeDirectory($path_watermark, 0700, true);
         }
 
-        foreach($_POST['images'] as $image){
-            $image = substr(strrchr($image, "/"), 1);
+        // ==== In this section we get the values from the form(of the backoffice) so we can customize our image ======
+        //===========================================================================================================================
+            // If the plan is free, the watermark is mandatory, and the user can't choose to put it or not.
+            if($site->plan_id==1){
+                if(empty($_POST['include_watermark'])){
+                    $watermark_present  = true;
+                }
+            }
+            if(!empty( $_POST['image_orientation'])){
+                $watermark_pos = $_POST['image_orientation'];
+            }
+            if(!empty( $_POST['rotated'])){
+                $watermark_rotate = $_POST['rotated'];
+            }
+            if(!empty($_FILES['watermark_image'])){
+                if(strlen($_FILES['watermark_image']['name'])>0){
+                    $watermark_image = public_path()."/sites/".$siteId."/properties/".$propId."/watermark/".$_FILES['watermark_image']['name'];
 
-            if(empty($image))continue;
+                    if(file_exists($_FILES['watermark_image']['tmp_name'])){
+                        copy($_FILES['watermark_image']['tmp_name'],$watermark_image);
+                    }
 
-            //copy the image to the watermark folder
-            copy($path."/".$image,$path_watermark."/".$image);
+                }
+            }
+            if(!empty($_POST['include_watermark'])){
+                $watermark_present = $_POST['include_watermark'];
+            }
+            if($watermark_pos!=4){
+                $watermark_rotate = false;
+            }
+
+            //execute this code if the user is uploading images from the backoffice.
+            //In that case, we're getting the images from $_POST. Otherwie, we get the images by paramether
+            if(!empty($_POST['images'])){
+                $propertyImages = $_POST['images'];
+            }
+        //===========================================================================================================================
+
+
+        //For each image of an given array, make a copy of the image and apply a watermark to this image.
+        foreach($propertyImages as $image){
+
+                $image = substr(strrchr($image, "/"), 1);
+                if(empty($image)){continue;}
+
+                //if the destination file already exists, continue and do not copy the file
+                if(file_exists($path_watermark."/".$image)){
+                    continue;
+                }
+
+                //if the source file does not exist, continue and do not copy the file
+                if(!file_exists($path."/".$image)){
+                    continue;
+                }
+
+                //copy the image to the watermark folder
+                copy($path."/".$image,$path_watermark."/".$image);
+            //////////////////////////////////////////////////////////////////
 
             // If the watermark is set to present, use the watermark image in the frontend(we're updating the Database)
             if($watermark_present){

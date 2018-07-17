@@ -13,8 +13,8 @@ class Mapper extends \App\Marketplaces\Mapper {
      */
     public function map()
     {
-        $item = $this->item;
 
+        $item = $this->item;
         $updated_at = !empty($item['updated_at']) ? \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item['updated_at']) : \Carbon\Carbon::now();
 
         $map = [];
@@ -70,6 +70,7 @@ class Mapper extends \App\Marketplaces\Mapper {
         $map['features']['#feature'] = $this->features();
         $map['images'] = $this->images();
 
+
         return $map;
     }
 
@@ -98,7 +99,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 
         foreach ($this->item['images'] as $i => $image)
         {
-            $images['#image@id='.($i+1)] = $image;
+            $images['#image@id='.($i+1)]['url'] = $image;
         }
 
         return $images;

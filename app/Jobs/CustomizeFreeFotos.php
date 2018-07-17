@@ -53,8 +53,8 @@ class CustomizeFreeFotos extends Job implements ShouldQueue {
 	        Log::Info("===============================================================");
 
             \App\Http\Controllers\Account\PropertiesController::customizePropertyImage(
-                $this->property,
-                $this->site);
+                $this->site,
+                $this->property);
         }
 	}
 }

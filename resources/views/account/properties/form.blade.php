@@ -140,6 +140,7 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
+
 							{!! Form::label('type', Lang::get('account/properties.type').' *') !!}
 							{!! Form::select('type', [ ''=>'' ] + $types, null, [ 'class'=>'form-control required' ]) !!}
 						</div>

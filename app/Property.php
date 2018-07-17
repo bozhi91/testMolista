@@ -996,8 +996,15 @@ class Property extends TranslatableModel
 	static public function getTypeOptions($site_id=false)
 	{
 		$options = [
-			'house' => trans('web/properties.type.house'),
-			'apartment' => trans('web/properties.type.apartment'),
+			'cavehouse' => trans('web/properties.type.cavehouse'),
+            'terracedhouse' => trans('web/properties.type.terracedhouse'),
+            'villagehouse' => trans('web/properties.type.villagehouse'),
+            'countryhouse' => trans('web/properties.type.countryhouse'),
+            'townhouse' => trans('web/properties.type.townhouse'),
+
+
+
+            'apartment' => trans('web/properties.type.apartment'),
 			'flat' => trans('web/properties.type.flat'),
 			'duplex' => trans('web/properties.type.duplex'),
 			'penthouse' => trans('web/properties.type.penthouse'),
