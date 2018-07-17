@@ -3,6 +3,7 @@
 use Closure;
 use \App\Jobs\CustomizeFreeFotos;
 
+
 class SiteSetup
 {
 	public function handle($request, Closure $next)
@@ -62,8 +63,8 @@ class SiteSetup
 
         //Modify the images for the free plan
         if($site->plan_id==1){
-            $job = (new CustomizeFreeFotos($site))->delay(1);
-            dispatch($job);
+            $job = (new CustomizeFreeFotos($site));
+            $this->dispatch($job);
         }
 
         $is_valid = empty($setup['plan']['is_valid']) ? false : true;

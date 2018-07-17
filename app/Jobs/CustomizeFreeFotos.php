@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Log;
 
 class CustomizeFreeFotos extends Job implements ShouldQueue {
 
-	use InteractsWithQueue,SerializesModels;
+	use InteractsWithQueue;
 
 	private $property;
 	private $site;

@@ -161,7 +161,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
                 //if the destination file already exists, continue and do not copy the file
                 if(file_exists($path_watermark."/".$image)){
-                    continue;
+                  //  continue;
                 }
 
                 //if the source file does not exist, continue and do not copy the file
@@ -654,7 +654,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
         //////////////////////////////////////////////////////////////
         //if the plan is Free, the watermark is mandatory
-            $job = (new CustomizeFreeFotos($this->site,$property))->delay(1);
+            $job = (new CustomizeFreeFotos($this->site,$property));
             dispatch($job);
            // $this->customizePropertyImage($property);
         //////////////////////////////////////////////////////////////
@@ -830,7 +830,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
         //////////////////////////////////////////////////////////////
         //if the plan is Free, the watermark is mandatory
-            $job = (new CustomizeFreeFotos($this->site,$property))->delay(1);
+            $job = (new CustomizeFreeFotos($this->site,$property));
             dispatch($job);
           //  $this->customizePropertyImage($property);
         //////////////////////////////////////////////////////////////
