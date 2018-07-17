@@ -252,7 +252,6 @@ class Site extends TranslatableModel
 
         //send the email only if the plan is not free. If the plan is free, there is no point to downgrade the user.
         if($user_data!=null && $site->plan_id!=1 && $sendEmail==1 && $site->paid_until!=null){
-
             $params = array(
                 "to"         => $user_data->email.";info@molista.com",
                 "subject"    => "Tu suscripción ha caducado",
@@ -264,7 +263,8 @@ class Site extends TranslatableModel
             );
 
             //Send the email
-         /*   Log::Info("================================================================================");
+         /*
+            Log::Info("================================================================================");
             Log::Info("Sending subscription Alert email to: ".$user_data->email." (site_id: ".$site->id.")");
             Log::Info("With parameters: ".json_encode($params));
             $status = $this->send_template_email($params);
@@ -273,12 +273,11 @@ class Site extends TranslatableModel
                 Log::Info("Email Sent!!!");
             }
             Log::Info("================================================================================");
-*/
+        */
         }
     }
 
     function send_template_email($arrPars){
-
 	    $apikey     = "4fdaefa8-08e3-427e-8aa8-95d45c964e36";
 	    $templateID = "16878";
 

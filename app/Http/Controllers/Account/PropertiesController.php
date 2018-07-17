@@ -151,6 +151,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
         $watermark_rotate    = false;
         $watermark_image     = public_path().'/sites/watermarks/molista.png';
         $watermark_opacity   = 75;
+        $watermark_rotation  = -45;
 
         if(!empty( $_POST['image_orientation'])){
             $watermark_pos = $_POST['image_orientation'];
@@ -201,16 +202,19 @@ class PropertiesController extends \App\Http\Controllers\AccountController
                     ->update(['image' => $image]);
             }
 
+            $prop_image = Image::make($path."/".$image);
+
             $logo = Image::make($watermark_image);
             $size = $logo->width()/$logo->height();
 
-            $logo_new_width  = $logo->width()+($size*100);
+            $logo_new_width  = $prop_image->width()/3;//$logo->width()+($size*100);
             $logo_new_height = $logo_new_width/$size;
 
             $logo->resize($logo_new_width,$logo_new_height);
             $logo->opacity($watermark_opacity);
             if($watermark_rotate){
-                $logo->rotate(-45);
+                $logo->rotate($watermark_rotation
+                );
             }
 
             $img = Image::make($path."/".$image)
@@ -218,9 +222,6 @@ class PropertiesController extends \App\Http\Controllers\AccountController
                 ->save($path."/watermark/".$image);
         }
     }
-
-
-
 
     public function publishProperty(){
         if(!empty($_POST['marketplace'])){
