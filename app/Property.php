@@ -1001,8 +1001,7 @@ class Property extends TranslatableModel
             'villagehouse' => trans('web/properties.type.villagehouse'),
             'countryhouse' => trans('web/properties.type.countryhouse'),
             'townhouse' => trans('web/properties.type.townhouse'),
-
-
+            'house' => trans('web/properties.type.house'),
 
             'apartment' => trans('web/properties.type.apartment'),
 			'flat' => trans('web/properties.type.flat'),

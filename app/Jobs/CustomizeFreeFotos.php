@@ -39,9 +39,9 @@ class CustomizeFreeFotos extends Job implements ShouldQueue {
             //from SiteSetup.php(App/Middleware/SiteSetup.php). This is applied for the Free sites only.
             Log::Info("===============================================================");
             Log::Info("Queued job executed. Watermarks applied to all images of the site:");
-            Log::Info("Site: ".json_encode($this->site));
+            //Log::Info("Site: ".json_encode($this->site));
             Log::Info("===============================================================");
-            \App\Http\Controllers\Account\PropertiesController::modifyImagesFreePlan();
+           // \App\Http\Controllers\Account\PropertiesController::modifyImagesFreePlan();
         }
 	    else{
 	        //This piece is executed when a property is created or updated. In that case we're
@@ -49,12 +49,12 @@ class CustomizeFreeFotos extends Job implements ShouldQueue {
             Log::Info("===============================================================");
 	        Log::Info("Queued job executed. Watermarks applied to site's images.");
 	        Log::Info("Property: ".json_encode($this->property));
-            Log::Info("Site: ".json_encode($this->site));
+            //Log::Info("Site: ".json_encode($this->site));
 	        Log::Info("===============================================================");
 
-            \App\Http\Controllers\Account\PropertiesController::customizePropertyImage(
+           /* \App\Http\Controllers\Account\PropertiesController::customizePropertyImage(
                 $this->site,
-                $this->property);
+                $this->property);*/
         }
 	}
 }

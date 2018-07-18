@@ -80,8 +80,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
         Log::Info("===============================================================");
         Log::Info("Queued job executed. Watermarks applied to site's images.");
-        Log::Info("Property: ".json_encode($property));
-        Log::Info("Site: ".json_encode($site));
+        //::Info("Property: ".json_encode($property));
+       // Log::Info("Site: ".json_encode($site));
         Log::Info("===============================================================");
 
         //Set the default properties for the watermark
