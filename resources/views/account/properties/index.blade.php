@@ -213,12 +213,17 @@
                                     $path   = "properties/".$property->slug."/edit?market=true";
 
                                      foreach($result as $res){
-                                         if(!empty($myprop)){
+                                         $url = "http://".$res->subdomain.".molista.com/marketplaces/".$res->logo;
+                                         echo "<a href={$path}>
+                                              <span class='marketplace-name text-nowrap;' title='".$res->name."'style='background-image: url(".$url.")'/>&nbsp;
+												 </a>";
+
+                                        /* if(!empty($myprop)){
                                          foreach($myprop as $prop){
                                              if($property->id == $prop['property']){
                                                  foreach($prop['market'] as $market){
                                                      if($res->marketplace_id == $market['market_id']){
-                                                         $url = "http://".$res->subdomain.".molista.com/marketplaces/".$res->logo;
+
 
                                                          if($market['enabled']==1){
                                                              echo "<a href={$path}>
@@ -240,7 +245,7 @@
                                                  }
                                              }
                                          }
-                                         }
+                                         }*/
                                      }
                                     ?>
 								</td>

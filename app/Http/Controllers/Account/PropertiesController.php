@@ -443,7 +443,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
             ->enabled()->orderBy('name')->get();
 
         $myprop = array();
-        foreach($properties as $property){
+      /*  foreach($properties as $property){
             $market = array();
             foreach($marketplaces as $marketplace){
                 $publishable = $this->site->marketplace_helper->checkReadyProperty($marketplace,$property);
@@ -455,7 +455,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
                 }
             }
             array_push($myprop,array("property"=>$property->id,"market"=>$market));
-        }
+        }*/
         return view('account.properties.index', compact('properties','clean_filters', 'total_properties','marketplaces','myprop'));
 	}
 
