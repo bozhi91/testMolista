@@ -26,9 +26,13 @@
 
 									@if($media_item instanceof App\Models\Property\Images)
 										<div class="col-xs-4 col-sm-2">
-											<a href="{{ $media_item->image_url }}"
+											<?php
+                                            	$image =  str_replace("/watermark","", $media_item->image_url);
+                                            	$image_tumb =  str_replace("/watermark","", $media_item->image_url_thumb);
+											?>
+											<a href="{{$image}}"
 											   class="image-thumb mfp-image"
-											   style="background-image: url('{{ $media_item->image_url_thumb }}');">
+											   style="background-image: url('{{$image_tumb}}');">
 
 												<div class="image-thumb-overlay">
 													<div class="image-thumb-overlay-icon-container">
@@ -36,14 +40,20 @@
 														<i class="berlanga-icon-photo"></i>
 													</div>
 												</div>
-
+                                                <?php
+													$image =  str_replace("/watermark","", $media_item->image_url);
+													$image_tumb =  str_replace("/watermark","", $media_item->image_url_thumb);
+                                                ?>
 												<img src="{{ $media_item->image_url_thumb }}" alt="{{$property->title}}" class="hide" />
 											</a>
 										</div>
 									@elseif($media_item instanceof App\Models\Property\Videos)
 										<div class="col-xs-4 col-sm-2">
 											<a href="{{ $media_item->link }}"
-											   class="image-thumb mfp-iframe" style="background-image: url('{{ $media_item->image_url }}');">
+                                               <?php
+                                               		$img = str_replace("/watermark","",$media_item->image_url);
+                                               ?>
+											   class="image-thumb mfp-iframe" style="background-image: url('{{ $img }}');">
 
 												<div class="image-thumb-overlay video">
 													<div class="image-thumb-overlay-icon-container">

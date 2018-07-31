@@ -13,5 +13,16 @@
 		{!! Form::hidden("rotation[$image_id]", '', ['class' => 'rotation-hidden-input']) !!}
 		<a href="#" class="image-rotate-trigger"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span></a>
 		<a href="#" class="image-delete-trigger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+
+	<?php
+            $plan = DB::table('sites')
+                ->select('plan_id')
+                ->where('id',session("SiteSetup")['site_id'])
+                ->first();
+            if($plan->plan_id=='2' || $plan->plan_id=='3' || $plan->plan_id=='7' ){
+                echo '<a href=?img_id='.$image_id.' class="" alt="Remove Watermark"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>';
+            }
+	?>
+
 	</div>
 </li>

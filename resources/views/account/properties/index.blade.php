@@ -187,7 +187,10 @@
 									@endif
 								</td>
 								<td class="text-center">
-									<a href="{{ $property->main_image }}" target="_blank" class="property-table-thumb" style="background-image: url('{{ $property->main_image_thumb }}')"></a>
+                                    <?php
+                                        $image =  str_replace("/watermark","",$property->main_image_thumb);
+                                    ?>
+									<a href="{{ $property->main_image }}" target="_blank" class="property-table-thumb" style="background-image: url('{{ $image }}')"></a>
 								</td>
 								<td class="text-center">
 									@if ( Auth::user()->can('property-edit') && Auth::user()->canProperty('edit') )

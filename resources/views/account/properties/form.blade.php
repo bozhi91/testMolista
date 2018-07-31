@@ -77,6 +77,25 @@
         ?>
 	@endif
 
+
+	<?php
+			//Remove the wtermark from image
+		if(!empty($_GET['img_id'])){
+
+            $image = DB::table('properties_images')
+                ->select('image')
+                ->where('id',$_GET['img_id'])
+                ->first();
+
+            $image =  str_replace("/watermark/","",$image->image);
+
+		    DB::table('properties_images')
+                ->where('id', $_GET['img_id'])
+                ->update(['image' => $image]);
+		}
+	?>
+
+
 	<style type="text/css">
 		#tab-marketplaces .marketplace-name { display: inline-block; padding-left: 25px; background: left center no-repeat; }
 		#tab-visits .column-property { display: none; }
