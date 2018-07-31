@@ -209,7 +209,7 @@
 										<span class="glyphicon glyphicon-{{ $property->enabled ? 'ok' : 'remove' }}" aria-hidden="true"></span>
 									@endif
 								</td>
-								<td style="overflow: auto;max-height: 91px;	float:left;  padding-left: 18px;">
+								<td style="overflow: auto;max-height: 91px;	float:left;">
 
                                     <?php
                                     $result = App\Http\Controllers\Account\PropertiesController::getMarketplaces($property,$current_site_user);
@@ -218,7 +218,7 @@
                                      foreach($result as $res){
                                          $url = "http://".$res->subdomain.".molista.com/marketplaces/".$res->logo;
                                          echo "<a href={$path}>
-                                              <span class='marketplace-name text-nowrap;' title='".$res->name."'style='background-image: url(".$url.")'/>&nbsp;
+                                              <span class='marketplace-name text-nowrap;' title='".$res->name."'style='background-image: url(".$url."); padding-left: 18px;'/>&nbsp;
 												 </a>";
 
                                         /* if(!empty($myprop)){
