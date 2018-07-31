@@ -81,7 +81,6 @@
 	<?php
 			//Remove the wtermark from image
 		if(!empty($_GET['img_id'])){
-
             $image = DB::table('properties_images')
                 ->select('image')
                 ->where('id',$_GET['img_id'])
