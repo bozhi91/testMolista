@@ -78,23 +78,6 @@
 	@endif
 
 
-	<?php
-			//Remove the wtermark from image
-		if(!empty($_GET['img_id'])){
-            $image = DB::table('properties_images')
-                ->select('image')
-                ->where('id',$_GET['img_id'])
-                ->first();
-
-            $image =  str_replace("/watermark/","",$image->image);
-
-		    DB::table('properties_images')
-                ->where('id', $_GET['img_id'])
-                ->update(['image' => $image]);
-		}
-	?>
-
-
 	<style type="text/css">
 		#tab-marketplaces .marketplace-name { display: inline-block; padding-left: 25px; background: left center no-repeat; }
 		#tab-visits .column-property { display: none; }
@@ -103,7 +86,6 @@
 {!! Form::model($item, [ 'method'=>$method, 'action'=>$action, 'files'=>true, 'id'=>'edit-form' ]) !!}
 	{!! Form::hidden('current_tab', $current_tab) !!}
 	{!! Form::hidden('label_color', null) !!}
-
 
 	<div class="custom-tabs">
 		<ul class="nav nav-tabs main-tabs" role="tablist">
@@ -726,7 +708,7 @@
 										'image_url' => $image->image_url,
 										'image_id' => $image->id,
 										'warning_orientation' => $image->is_vertical,
-										'warning_size' => $image->has_size ? 0 : 1,
+										'warning_size' => $image->has_size ? 0 : 1
 									])
 								@endforeach
 							@endif
@@ -1355,7 +1337,7 @@
 			dictDefaultMessage: "{{ print_js_string( Lang::get('account/properties.images.dropzone.helper') ) }}",
 			error: function(file, response) {
 				if ( $.type(response) === 'string') {
-					if ( response.length > 500 ) {
+					if ( response.length > 5000) {
 						alertify.error("{{ print_js_string( Lang::get('account/properties.images.dropzone.error.size', [ 'IMAGE_MAXSIZE'=>Config::get('app.property_image_maxsize') ]) ) }}");
 					} else {
 						alertify.error(response);

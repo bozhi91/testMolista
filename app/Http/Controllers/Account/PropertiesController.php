@@ -740,8 +740,24 @@ class PropertiesController extends \App\Http\Controllers\AccountController
         return 0;
     }
 
-	public function update(Request $request, $slug)
-	{
+	public function update(Request $request, $slug){
+
+        //Remove the watermark from teh images
+        if(!empty($_POST["img_water"] )){
+            foreach($_POST["img_water"] as $image_id){
+                $image = DB::table('properties_images')
+                    ->select('image')
+                    ->where('id',$image_id)
+                    ->first();
+
+                $image =  str_replace("/watermark/","",$image->image);
+
+                DB::table('properties_images')
+                    ->where('id', $image_id)
+                    ->update(['image' => $image]);
+            }
+        }
+        ////////////////////////////////////////////////////////////////
 		// Get property
         $query = $this->site->properties()
             ->whereTranslation('slug', $slug)
@@ -842,8 +858,13 @@ class PropertiesController extends \App\Http\Controllers\AccountController
          PropertiesController::customizePropertyImage($this->site,$property);
         //////////////////////////////////////////////////////////////
 
+        $current_tab = $this->request->input('current_tab');
+        if(!empty($_POST["img_water"] )){
+            $current_tab = "tab-images";
+        }
+
 		return redirect()->action('Account\PropertiesController@edit', $property->slug)
-            ->with('current_tab', $this->request->input('current_tab'))
+            ->with('current_tab',$current_tab)
             ->with('success', trans('account/properties.saved'))
             ->with('updated', true);
 	}
