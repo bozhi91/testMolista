@@ -209,7 +209,7 @@
 										<span class="glyphicon glyphicon-{{ $property->enabled ? 'ok' : 'remove' }}" aria-hidden="true"></span>
 									@endif
 								</td>
-								<td style="overflow: auto;max-height: 91px;	float:left;">
+								<td style="overflow: auto;max-height: 91px;	float:left;  padding-left: 18px;">
 
                                     <?php
                                     $result = App\Http\Controllers\Account\PropertiesController::getMarketplaces($property,$current_site_user);

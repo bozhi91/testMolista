@@ -1,4 +1,5 @@
-<li class="handler ui-sortable-handle {{ empty($warning_orientation) ? (empty($warning_size) ? '' : 'handler-orange') : 'handler-red' }}">
+<li class="handler ui-sortable-handle {{ empty($warning_orientation) ? (empty($warning_size) ? '' : 'handler-orange') : 'handler-red' }}"
+		style="min-height: 170px;">
 	<div class="property-image-container">
 		<a href="{{ $image_url }}" target="_blank" class="thumb" style="background-image: url('{{ $image_url }}')"></a>
 
