@@ -12,6 +12,7 @@ class Mapper extends \App\Marketplaces\Mapper {
     {
         $item = $this->item;
 
+
         $map = [];
         $map['id'] = $item['id'];
         $map['url'] = $this->translate($item['url']);
@@ -189,6 +190,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 
         foreach ($this->item['images'] as $image)
         {
+            $image = str_replace("/trovit","",$image);
             $pictures []= [
                     'picture_url' => $image
             ];
