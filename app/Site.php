@@ -136,7 +136,7 @@ class Site extends TranslatableModel
                 "country"=>$site->country,
                 "email"=>$email,
                 "phone"=>$phone,
-                "xml_path"=>$site->domain."/feeds/properties".$name.".xml",
+                "xml_path"=>$site->domain."/feeds/properties/".$name.".xml",
                 "web_page"=>$site->domain);
             array_push($sites_array,$site);
         }
