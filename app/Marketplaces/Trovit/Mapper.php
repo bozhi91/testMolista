@@ -11,15 +11,29 @@ class Mapper extends \App\Marketplaces\Mapper {
     public function map()
     {
         $item = $this->item;
-
-
         $map = [];
+
+       // echo json_encode($item); die;
+
         $map['id'] = $item['id'];
         $map['url'] = $this->translate($item['url']);
         //$map['mobile_url'] = '';
         $map['title'] = $this->translate($item['title']);
         $map['type'] = $this->type();
         $map['content'] = $this->translate($item['description']);
+        $map['date'] = $item['created_at'];
+
+        //Export the features of the property
+        foreach($item['features']  as $key => $val) {
+            $$key = $val; //or $$key = $val;
+            $$key = $item['features'][$key];
+
+            foreach( $item['features'][$key] as $lang){
+                $val  = $lang;
+            }
+           // $val  = $item['features'][$key]["es"];
+            $map["features"][$key] = $val;
+        }
 
         if ($this->isRent())
         {
@@ -38,13 +52,17 @@ class Mapper extends \App\Marketplaces\Mapper {
         $map['postcode'] = $item['location']['zipcode'];
         $map['city_area'] = $item['location']['district'];
 
-        if (!empty($item['location']['show_address']))
-        {
+        if (!empty($item['location']['show_address'])) {
+
             $map['address'] = $item['location']['address'];
             //$map['floor_number'] = '';
             //$map['neighborhood'] = '';
-            //$map['country'] = '';
-            $map['latitude'] = $this->decimal($item['location']['lat'], 8);
+            $map['country'] = $item['location']['country'];
+            $map['territory'] = $item['location']['territory'];
+            $map['state'] = $item['location']['state'];
+            $map['district'] = $item['location']['district'];
+
+            $map['latitude']  = $this->decimal($item['location']['lat'], 8);
             $map['longitude'] = $this->decimal($item['location']['lng'], 8);
         }
 
@@ -55,7 +73,8 @@ class Mapper extends \App\Marketplaces\Mapper {
         //$map['plot_area'] = '';
         $map['rooms'] = $item['rooms'];
         $map['bathrooms'] = $item['baths'];
-        //$map['condition'] = '';
+        $map['condition'] =  $item['property_condition'];
+
         if (!empty($item['construction_year']))
         {
             $map['year'] = $item['construction_year'];
