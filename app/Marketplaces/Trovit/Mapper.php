@@ -64,6 +64,12 @@ class Mapper extends \App\Marketplaces\Mapper {
 
             $map['latitude']  = $this->decimal($item['location']['lat'], 8);
             $map['longitude'] = $this->decimal($item['location']['lng'], 8);
+            $map['exact_direction'] = true;
+        }
+        else{
+            $map['latitude']  = $this->decimal($item['location']['lat'], 8);// lat+200m
+            $map['longitude'] = $this->decimal($item['location']['lng'], 8);// lon+200m
+            $map['exact_direction'] = false;
         }
 
         //$map['orientation'] = '';
