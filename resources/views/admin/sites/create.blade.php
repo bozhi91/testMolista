@@ -30,7 +30,7 @@
 							<div class="input-group">
 								<div class="input-group-addon">{{env('APP_PROTOCOL','http')}}://</div>
 								{!! Form::text('subdomain', null, [ 'class'=>'form-control required alphanumericHypen' ]) !!}
-								<div class="input-group-addon">.{{env('APP_DOMAIN','molista.com')}}</div>
+								<div class="input-group-addon">.{{env('APP_DOMAIN','Contromia.com')}}</div>
 							</div>
 						</div>
 					</div>

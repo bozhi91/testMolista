@@ -3,7 +3,7 @@
 	return [
         'marketplace.publish'=>'¿Quieres publicar tu propiedad en estos portales gratuitos? ',
         'marketplace.selectAll'=>'Seleccionar todo',
-        'marketplace.info'=>'¿Sabes que en molista puedes exportar todas tus propiedades de manera gratuita?',
+        'marketplace.info'=>'¿Sabes que en Contromia puedes exportar todas tus propiedades de manera gratuita?',
         'marketplace.submit'=>'Publish',
 
     'propHeader'=>'Atención',

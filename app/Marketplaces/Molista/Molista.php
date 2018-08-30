@@ -1,6 +1,6 @@
-<?php namespace App\Marketplaces\Molista;
+<?php namespace App\Marketplaces\Contromia;
 
-class Molista extends \App\Marketplaces\XML {
+class Contromia extends \App\Marketplaces\XML {
 
     protected $iso_lang = 'es';
 

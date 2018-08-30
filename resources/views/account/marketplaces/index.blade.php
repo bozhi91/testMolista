@@ -56,7 +56,7 @@
 					{!! Form::close() !!}
 				</div>
 			</div>
-			@if (env('WHITELABEL_MOLISTA', false))
+			@if (env('WHITELABEL_Contromia', false))
 			<div class="col-md-4">
 				<div class="right">
 					<table width="100%" class="adviser-contact">
@@ -66,7 +66,7 @@
 								<td valign="middle" align="left">
 									<h4>¿Puedo ayudarte?</h4>
 									<p><i class="fa fa-phone" aria-hidden="true"></i> <a href="tel:+34930181684">+34 93 018 16 84</a></p>
-									<p><i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:info@molista.com">info@molista.com</a></p>
+									<p><i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:info@Contromia.com">info@Contromia.com</a></p>
 								</td>
 							<tr>
 						</tbody>

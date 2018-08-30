@@ -11592,7 +11592,7 @@ button.close {
   float: right;
 }
 /* LOADING DIV */
-#molista-loading-div {
+#Contromia-loading-div {
   display: none;
   position: fixed;
   z-index: 9999;
@@ -11601,7 +11601,7 @@ button.close {
   height: 100%;
   width: 100%;
 }
-#molista-loading-div .background {
+#Contromia-loading-div .background {
   position: absolute;
   top: 0px;
   left: 0px;
@@ -11610,7 +11610,7 @@ button.close {
   background: #fff;
   opacity: 0.5;
 }
-#molista-loading-div .loading {
+#Contromia-loading-div .loading {
   position: absolute;
   top: 50%;
   left: 0px;

@@ -3,7 +3,7 @@
 class Mapper extends \App\Marketplaces\Mapper {
 
     /**
-     * Maps a Molista item to clasf.es format according to:
+     * Maps a Contromia item to clasf.es format according to:
      * http://www.clasf.es/feed-specifications/
      *
      * @return array

@@ -58,7 +58,7 @@
 		|
 		*/
 
-		'url' => env('APP_URL', false), //=> 'http://molista.localhost/',
+		'url' => env('APP_URL', false), //=> 'http://Contromia.localhost/',
 
 		/*
 		|--------------------------------------------------------------------------

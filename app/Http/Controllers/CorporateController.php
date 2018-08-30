@@ -16,7 +16,7 @@ class CorporateController extends Controller
 
 	public function index()
 	{
-		$marketplaces = \App\Models\Marketplace::enabled()->where('code', 'not like', 'molista%')->with('countries')->orderBy('name', 'asc')->get();
+		$marketplaces = \App\Models\Marketplace::enabled()->where('code', 'not like', 'Contromia%')->with('countries')->orderBy('name', 'asc')->get();
 
 		$response = view('corporate.index', compact('marketplaces'))->render();
 
@@ -28,8 +28,8 @@ class CorporateController extends Controller
 	{
 		switch ( env('CORPORATE_LINKS_KEY', false) )
 		{
-			case 'molista':
-				$prefix = 'http://www.molista.com/' . ( app()->getLocale() == 'es' ? '' : 'en/' );
+			case 'Contromia':
+				$prefix = 'http://www.Contromia.com/' . ( app()->getLocale() == 'es' ? '' : 'en/' );
 
 				$corporate_links = [
 					'home' => "{$prefix}",

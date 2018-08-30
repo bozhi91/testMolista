@@ -92,19 +92,19 @@
 											<p>You can pay it now or later from you backoffice</p>
 											Need help?<br />
 											T: +93 488 52 23<br />
-											E: <a href="mailto:soporte@molista.com" target="_blank">soporte@molista.com</a><br />
+											E: <a href="mailto:soporte@Contromia.com" target="_blank">soporte@Contromia.com</a><br />
 											M - F from 10 to 18 h',
 		'finish.our.help' => 'Need help?<br />
 								T: +93 488 52 23<br />
-								E: <a href="mailto:soporte@molista.com" target="_blank">soporte@molista.com</a><br />
+								E: <a href="mailto:soporte@Contromia.com" target="_blank">soporte@Contromia.com</a><br />
 								M - F from 10 to 18 h',
 
-		'email.subject' => 'Welcome to molista',
+		'email.subject' => 'Welcome to Contromia',
 		'email.hello' => '<p>Hello :name,</p>',
-		'email.features.intro.now' => '<p>You can now begin to enjoy the advantages that <strong>molista</strong> offers so that your company can use the internet fully:</p>',
+		'email.features.intro.now' => '<p>You can now begin to enjoy the advantages that <strong>Contromia</strong> offers so that your company can use the internet fully:</p>',
 		'email.features.intro.stripe' => '<p>You are almost there!</p>
 											<p>You just need to complete the payment of your chosen plan (:plan - :priceperiod) using :paymethod from you website backoffice.</p>
-											<p>Complete the process begin to enjoy the advantages that <strong>molista</strong> offers so that your company can use the internet fully:</p>',
+											<p>Complete the process begin to enjoy the advantages that <strong>Contromia</strong> offers so that your company can use the internet fully:</p>',
 		'email.features.intro.transfer' => '<p>You are almost there!</p>
 											<p>We are now verifying the payment information you provided. We will let you know when we are done with it and you will be able to enjoy your chose plan (:plan - :priceperiod).</p>
 											<p>In the meantime, prepare your website with our Free plan:</p>',
@@ -126,7 +126,7 @@
 		'email.warning.stripe' => '<p><small>* If you already completed the process, forget this message</span></p>',
 
 		'full.h1' => 'Sign on',
-		'full.intro' => '<p>Please, fill the following form to sign up your plan with <strong>molista</strong>.</p>',
+		'full.intro' => '<p>Please, fill the following form to sign up your plan with <strong>Contromia</strong>.</p>',
 		'full.data.title' => 'You information',
 		'full.plan.title' => 'Choose the plan you wish to buy',
 		'full.site.warning' => 'You will be able to define your own domain "www.yourdomain.com" once registered',
@@ -138,7 +138,7 @@
 		'full.summary.total' => 'Total to pay',
 		'full.summary.button' => 'Buy',
 		'full.help.title' => 'Need help?',
-		'full.help.email' => 'soporte@molista.com',
+		'full.help.email' => 'soporte@Contromia.com',
 		'full.help.time' => 'M-F from 10:00 to 18:00 h',
 
 		'reseller' => 'Partner',

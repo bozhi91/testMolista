@@ -48,7 +48,7 @@ class ReportsController extends \App\Http\Controllers\AccountController
         //replace the '-' with empty space in the subdomain
         $sitename = str_replace("-"," ",$resultSite[0]->subdomain);
 
-        return redirect("https://garantify.com/nueva-captacion/?nombre=".$sitename."&correo=".$resultUser[0]->email."&cliente=molista");
+        return redirect("https://garantify.com/nueva-captacion/?nombre=".$sitename."&correo=".$resultUser[0]->email."&cliente=Contromia");
     }
 
     public function getIndex()

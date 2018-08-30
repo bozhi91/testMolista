@@ -26,13 +26,13 @@
 		'user.old.password.click' => 'Haz click aquí',
 		'user.old.error.combination' => 'Los datos enviados no son correctos.',
 		'user.old.error.employee' => 'Este usuario ya está registrado como agente.',
-		'user.old.error.admin' => 'Este usuario ya está registrado como administrador de molista.',
+		'user.old.error.admin' => 'Este usuario ya está registrado como administrador de Contromia.',
 
 		'pack.h2' => 'Elige el plan que deseas contratar',
 
-		'site.h2' => 'Detalles de tu página molista',
+		'site.h2' => 'Detalles de tu página Contromia',
 		'site.subdomain' => 'Elije el nombre de tu página',
-		'site.subdomain.sample' => 'La dirección de tu página molista será:',
+		'site.subdomain.sample' => 'La dirección de tu página Contromia será:',
 		'site.language' => 'Elije el idioma de tu página',
 		'site.transfer' => 'Quiero contratar el servicio de traspaso web :cost',
 
@@ -92,19 +92,19 @@
 											<p>Puedes pagarlo ahora o después desde tu backoffice</p>
 											¿Necesitas ayuda?<br />
 											T: +93 488 52 23<br />
-											E: <a href="mailto:soporte@molista.com" target="_blank">soporte@molista.com</a><br />
+											E: <a href="mailto:soporte@Contromia.com" target="_blank">soporte@Contromia.com</a><br />
 											L - V de 10 a 18 h',
 		'finish.our.help' => 'Cuentas con nuestra ayuda:<br />
 								T: +93 488 52 23<br />
-								E: <a href="mailto:soporte@molista.com" target="_blank">soporte@molista.com</a><br />
+								E: <a href="mailto:soporte@Contromia.com" target="_blank">soporte@Contromia.com</a><br />
 								L - V de 10 a 18 h',
 
-		'email.subject' => 'Bienvenid@ a molista',
+		'email.subject' => 'Bienvenid@ a Contromia',
 		'email.hello' => '<p>Hola :name,</p>',
-		'email.features.intro.now' => '<p>Ya puedes comenzar a disfrutar de todas las ventajas que <strong>molista</strong> ofrece para que tu inmobiliaria esté presente en internet:</p>',
+		'email.features.intro.now' => '<p>Ya puedes comenzar a disfrutar de todas las ventajas que <strong>Contromia</strong> ofrece para que tu inmobiliaria esté presente en internet:</p>',
 		'email.features.intro.stripe' => '<p>¡Estás a sólo un paso!</p>
 											<p>Sólo tienes que completar el pago del plan :plan (:priceperiod) que solicitaste vía :paymethod. Puedes hacerlo desde el backoffice de tu página web.</p>
-											<p>Completa el pago y comienza a disfrutar de todas las ventajas que <strong>molista</strong> ofrece para que tu inmobiliaria esté presente en internet:</p>',
+											<p>Completa el pago y comienza a disfrutar de todas las ventajas que <strong>Contromia</strong> ofrece para que tu inmobiliaria esté presente en internet:</p>',
 		'email.features.intro.transfer' => '<p>¡Estás a sólo un paso!</p>
 											<p>En este momento estamos confirmando los datos de pago que nos has indicado para habilitar el plan :plan (:priceperiod). Te avisaremos cuando los hayamos comprobado.</p>
 											<p>Mientras tanto, comienza a preparar tu página web disfrutando de nuestro plan Free:</p>',
@@ -125,16 +125,16 @@
 								</ul>',
 		'email.warning.stripe' => '<p><small>* Si al leer este email ya has completado el pago, olvida este mensaje.</span></p>',
 
-		'email.admin.subject' => 'Molista: solicitud de pago vía domiciliación',
-		'email.admin.body' => '<p>Se ha recibido una solicitud de pago por transferencia bancaria en Molista:</p>
+		'email.admin.subject' => 'Contromia: solicitud de pago vía domiciliación',
+		'email.admin.body' => '<p>Se ha recibido una solicitud de pago por transferencia bancaria en Contromia:</p>
 								<ul>
 									<li>ID: :site_id</li>
 									<li>Subdomain: :subdomain</li>
 									<li>Creación: :created</li>
 								</ul>',
 
-		'email.stripe.subject' => 'Molista: recepción de pago vía stripe',
-		'email.stripe.body' => '<p>Se ha recibido correctamente el pago vía stripe para el siguiente site de Molista:</p>
+		'email.stripe.subject' => 'Contromia: recepción de pago vía stripe',
+		'email.stripe.body' => '<p>Se ha recibido correctamente el pago vía stripe para el siguiente site de Contromia:</p>
 								<ul>
 									<li>ID: :site_id</li>
 									<li>Subdomain: :subdomain</li>
@@ -142,9 +142,9 @@
 								</ul>',
 
 		'full.h1' => 'Contratación',
-		'full.intro' => '<p>Por favor, rellena el siguiente formulario para contratar tu plan con <strong>molista</strong>.</p>',
+		'full.intro' => '<p>Por favor, rellena el siguiente formulario para contratar tu plan con <strong>Contromia</strong>.</p>',
 		'full.data.title' => 'Datos de registro',
-		'full.plan.title' => 'Elije el plan molista que deseas contratar',
+		'full.plan.title' => 'Elije el plan Contromia que deseas contratar',
 		'full.site.warning' => 'Puedes definir tu propio dominio "www.midominio.com" una vez registrado',
 		'full.site.optional' => 'Opcional',
 		'full.site.transfer' => 'Contratar el servicio de traspaso de mi web',
@@ -154,7 +154,7 @@
 		'full.summary.total' => 'Total a pagar',
 		'full.summary.button' => 'Contratar',
 		'full.help.title' => '¿Necesitas ayuda?',
-		'full.help.email' => 'soporte@molista.com',
+		'full.help.email' => 'soporte@Contromia.com',
 		'full.help.time' => 'L-V de 10:00 a 18:00 h',
 
 		'reseller' => 'Partner',

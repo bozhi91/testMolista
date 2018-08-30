@@ -5,7 +5,7 @@ class Mapper extends \App\Marketplaces\Mapper {
     protected $locales = ['ca', 'da', 'de', 'en', 'es', 'fi', 'fr', 'it', 'nl', 'no', 'ru', 'sv'];
 
     /**
-     * Maps a Molista item to kyero.com format according to documentation.
+     * Maps a Contromia item to kyero.com format according to documentation.
      * https://s3.amazonaws.com/helpscout.net/docs/assets/569b1b0ec69791436155f6f7/attachments/575963b49033606599d1bffb/kyero_v3_import_spec.txt
      * https://s3.amazonaws.com/helpscout.net/docs/assets/569b1b0ec69791436155f6f7/attachments/5715e4229033602796677027/kyero_v3_test_feed.xml
      *

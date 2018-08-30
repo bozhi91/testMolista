@@ -28,7 +28,7 @@ Route::get('hubspot', function()
 			],
 			[
 				'property' => 'product',
-				'value' => 'Molista'
+				'value' => 'Contromia'
 			],
 		]);
 	}

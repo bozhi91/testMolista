@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>{{ empty($page_title) ? 'Molista' : $page_title }}</title>
+	<title>{{ empty($page_title) ? 'Contromia' : $page_title }}</title>
 
 	<link href="{{ Theme::url('/compiled/css/admin.css').'?v='.env('CSS_VERSION') }}" rel="stylesheet" type='text/css' />
 

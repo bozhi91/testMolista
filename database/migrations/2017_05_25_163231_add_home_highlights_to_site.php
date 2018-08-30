@@ -8,7 +8,7 @@ class AddHomeHighlightsToSite extends Migration
 
 	public function up() {
 		Schema::table('sites', function (Blueprint $table) {
-			$table->integer('home_highlights')->default(3)->after('hide_molista');
+			$table->integer('home_highlights')->default(3)->after('hide_Contromia');
 		});
 	}
 

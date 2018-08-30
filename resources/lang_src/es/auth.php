@@ -23,5 +23,5 @@ return [
     'failed' => 'Los datos no concuerdan con nuestro registro.',
     'throttle' => 'Demasiados intentos de login. Inténtelo nuevamente en :seconds segundos.',
 
-    'email.register.subject' => 'Bienvenido a Molista',
+    'email.register.subject' => 'Bienvenido a Contromia',
 ];

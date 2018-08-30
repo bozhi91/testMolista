@@ -35,7 +35,7 @@
                     <?php $table = array();
                         foreach($sites as $site){
                             $checkbox = "<input type='checkbox' class='chk_boxes' name='marketplace[]' value=".$site->id." />";
-                            $icon_url = "http://".$site->code.".molista.com/marketplaces/".$site->logo;
+                            $icon_url = "http://".$site->code.".Contromia.com/marketplaces/".$site->logo;
                             $label    = $site->code;
                             $row = array("checkbox"=>$checkbox,"icon"=>$icon_url,"label"=>$label);
                             array_push($table,$row);

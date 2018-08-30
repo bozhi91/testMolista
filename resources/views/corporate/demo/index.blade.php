@@ -11,13 +11,13 @@
 						<h2>{{ Lang::get('corporate/demo.intro.title') }}</h2>
 						{!! Lang::get('corporate/demo.intro.text') !!}
 						<div class="btn-area">
-							<a href="http://demo.molista.com" target="_blank" class="btn btn-demo-site">{{ Lang::get('corporate/general.demo') }}</a>
+							<a href="http://demo.Contromia.com" target="_blank" class="btn btn-demo-site">{{ Lang::get('corporate/general.demo') }}</a>
 						</div>
 
 						<div class="xs-spacer"></div>
 					</div>
 					<div class="col-xs-12 col-sm-6 col-sm-offset-1">
-						<a href="http://demo.molista.com" target="_blank"><img src="{{ asset('images/corporate/responsive.png') }}" class="img-responsive" alt="" /></a>
+						<a href="http://demo.Contromia.com" target="_blank"><img src="{{ asset('images/corporate/responsive.png') }}" class="img-responsive" alt="" /></a>
 					</div>
 				</div>
 			</div>
@@ -179,7 +179,7 @@
 
 		<div id="home">
 			@include('corporate.common.home-fourth-block', [
-				'demo_link' => 'http://demo.molista.com/',
+				'demo_link' => 'http://demo.Contromia.com/',
 				'demo_target' => '_blank',
 			])
 		</div>

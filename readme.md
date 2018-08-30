@@ -1,4 +1,4 @@
-# Molista
+# Contromia
 
 Uses [Laravel framework](http://laravel.com/docs)
 

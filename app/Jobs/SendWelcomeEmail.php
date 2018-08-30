@@ -39,7 +39,7 @@ class SendWelcomeEmail extends Job implements ShouldQueue
 			$site = $this->site;
 			$subject = trans('corporate/signup.email.admin.subject');
 			$html = view('emails.admin.inform-transfer-payment', $site)->render();
-			$to = env('EMAIL_PAYMENT_WARNINGS_TO', 'admin@molista.com');
+			$to = env('EMAIL_PAYMENT_WARNINGS_TO', 'admin@Contromia.com');
 			\Mail::send('dummy', [ 'content' => $html ], function($message) use ($subject, $to, $data) {
 				$message->from( env('MAIL_FROM_EMAIL'), env('MAIL_FROM_NAME') );
 				$message->subject($subject);
@@ -61,7 +61,7 @@ class SendWelcomeEmail extends Job implements ShouldQueue
 			$message->from( env('MAIL_FROM_EMAIL'), env('MAIL_FROM_NAME') );
 			$message->subject($subject);
 			$message->to( $data['owner_email'] );
-			$message->bcc('luis@molista.com', 'Luis Krug');
+			$message->bcc('luis@Contromia.com', 'Luis Krug');
 		});
 	}
 

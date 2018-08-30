@@ -66,7 +66,7 @@
 			<div class="row">
 				<div class="col-xs-12 col-sm-12">
 					<div class="section-2-subtitle">
-						molista está pensada para solucionar los retos de la gestión diaria de un <br class="hidden-xs" >
+						Contromia está pensada para solucionar los retos de la gestión diaria de un <br class="hidden-xs" >
 						negocio inmobiliario y hacerte la vida más fácil.
 					</div>
 				</div>
@@ -118,7 +118,7 @@
 			<div class="row">
 				<div class="col-xs-12 col-sm-12">
 					<div class="section-3-title">
-						molista exporta tus inmuebles a estos portales... y muchos más
+						Contromia exporta tus inmuebles a estos portales... y muchos más
 					</div>
 				</div>
 			</div>
@@ -154,7 +154,7 @@
 	<div class="section-4">
 		<div class="container">
 			<div class="section-4-title">
-				Pásate a molista <span class="section-4-title-yellow">GRATIS</span>
+				Pásate a Contromia <span class="section-4-title-yellow">GRATIS</span>
 			</div>
 			<div class="button-block">
 				<a class="start-button" href="{{ action('Corporate\SignupController@getIndex') }}">QUIERO EMPEZAR AHORA</a>

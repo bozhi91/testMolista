@@ -1,6 +1,6 @@
-<?php namespace App\Marketplaces\Molista;
+<?php namespace App\Marketplaces\Contromia;
 
-class MolistaEnEUR extends Molista {
+class ContromiaEnEUR extends Contromia {
 
     protected $iso_lang = 'en';
     protected $currency = 'EUR';

@@ -27,7 +27,7 @@
                             key: '{{ env('STRIPE_KEY') }}',
                             amount: '{{ round($data["pending_request"]["price"]*100) }}',
                             currency: '{{ $data["pending_request"]["plan_currency"] }}',
-                            name: 'Molista',
+                            name: 'Contromia',
                             description: '{{ Lang::get('corporate/signup.confirm.plan') }}: {{ $data["pending_request"]["plan_name"] }}',
                             locale: '{{ LaravelLocalization::getCurrentLocale() }}',
                             email: '{{ $data["pending_request"]["email"]}}',

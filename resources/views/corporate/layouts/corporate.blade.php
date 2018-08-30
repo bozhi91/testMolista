@@ -72,7 +72,7 @@
 							<span class="icon-bar"></span>
 						</button>
 						<a class="navbar-brand" href="{{ @$corporate_links['home'] }}" title="{{ Lang::get('corporate/seo.header.link.home') }}">
-							<img src="{{ Theme::url( env('WHITELABEL_LOGO_HEADER', '/images/corporate/logo.png') ) }}" alt="{{ Lang::get('corporate/seo.header.image.logo') }}">
+							<!--<img src="{{ Theme::url( env('WHITELABEL_LOGO_HEADER', '/images/corporate/logo.png') ) }}" alt="{{ Lang::get('corporate/seo.header.image.logo') }}">-->
 						</a>
 					</div>
 
@@ -154,13 +154,13 @@
 						<li class="text-nowrap"><a href="{{ action('Corporate\CustomersController@getIndex') }}" title="{{ Lang::get('corporate/seo.footer.link.customer') }}">{{ Lang::get('corporate/home.footer.admin.access') }}</a></li>
 					</ul>
 					<div class="footer-text">
-						<strong>{{ env('WHITELABEL_WEB_URL','molista.com') }}</strong> {{ Lang::get('corporate/home.footer.operated') }} <strong><a href="{{ env('WHITELABEL_OWNER_URL','http://www.incubout.com/') }}" target="_blank" title="{{ env('WHITELABEL_WEB_URL','molista.com') }} {{ Lang::get('corporate/home.footer.operated') }} {{ env('WHITELABEL_OWNER_NAME','Incubout SL') }}">{{ env('WHITELABEL_OWNER_NAME','Incubout SL') }}</a></strong>:
+						<strong>{{ env('WHITELABEL_WEB_URL','Contromia.com') }}</strong> {{ Lang::get('corporate/home.footer.operated') }} <strong><a href="{{ env('WHITELABEL_OWNER_URL','http://www.incubout.com/') }}" target="_blank" title="{{ env('WHITELABEL_WEB_URL','Contromia.com') }} {{ Lang::get('corporate/home.footer.operated') }} {{ env('WHITELABEL_OWNER_NAME','Incubout SL') }}">{{ env('WHITELABEL_OWNER_NAME','Incubout SL') }}</a></strong>:
 						<div class="visible-xs"></div>
 						<span class="text-nowrap"> {{ env('WHITELABEL_OWNER_ADDRESS','Salvador Espriu 93 08005 Barcelona') }}</span>
 						<div class="visible-xs"></div>
 						<span class="text-nowrap"> T: <strong><a href="tel:{{ str_replace(' ', '', Config::get('app.phone_support')) }}">{{ Config::get('app.phone_support') }}</a></strong></span>
 						<div class="visible-xs"></div>
-						<span class="text-nowrap"> E: <strong><a href="mailto:{{ env('MAIL_CONTACT','info@molista.com') }}" target="_blank">{{ env('MAIL_CONTACT','info@molista.com') }}</a></strong></span>
+						<span class="text-nowrap"> E: <strong><a href="mailto:{{ env('MAIL_CONTACT','info@Contromia.com') }}" target="_blank">{{ env('MAIL_CONTACT','info@Contromia.com') }}</a></strong></span>
 					</div>
 				</div>
 			</div>

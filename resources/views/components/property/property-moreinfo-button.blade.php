@@ -21,7 +21,7 @@
 			$privacy_url = $result->domain."/pages/legal";
 		}
 		else{
-			$privacy_url = "https://molista.com/legal/#privacy-policy";
+			$privacy_url = "https://Contromia.com/legal/#privacy-policy";
 		}
 	?>
 

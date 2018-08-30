@@ -5,7 +5,7 @@ namespace App\Marketplaces\ReporteInmobiliario;
 class Mapper extends \App\Marketplaces\Mapper {
 
 	/**
-	 * Maps a Molista item to ReporteInmobiliario format according to:
+	 * Maps a Contromia item to ReporteInmobiliario format according to:
 	 * Contacto andres.avila@reporteinmobiliario.com
 	 *
 	 * @return array

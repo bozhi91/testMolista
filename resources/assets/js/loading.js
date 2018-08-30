@@ -1,13 +1,13 @@
 var LOADING = {
 	show: function() {
-		if ( $('#molista-loading-div').length < 1 ) {
-			$('body').append('<div id="molista-loading-div"><div class="background"></div><div class="loading"></div></div>');
+		if ( $('#Contromia-loading-div').length < 1 ) {
+			$('body').append('<div id="Contromia-loading-div"><div class="background"></div><div class="loading"></div></div>');
 		}
-		$('#molista-loading-div').show();
+		$('#Contromia-loading-div').show();
 		$('.if-overlay-then-blurred').addClass('blurred');
 	},
 	hide: function() {
-		$('#molista-loading-div').hide();
+		$('#Contromia-loading-div').hide();
 		$('.if-overlay-then-blurred').removeClass('blurred');
 	}
 };

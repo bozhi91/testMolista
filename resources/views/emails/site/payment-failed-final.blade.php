@@ -6,7 +6,7 @@
 		'name' => $site->contact_name,
 		'plan' => $site->plan->name,
 		'sitename' => $site->title,
-		'webname' => env('WHITELABEL_WEBNAME', 'Molista'),
+		'webname' => env('WHITELABEL_WEBNAME', 'Contromia'),
 	]) !!}
 
 	<p>Site: {{ $site->main_url }}</p>

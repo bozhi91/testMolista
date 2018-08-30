@@ -3,7 +3,7 @@
 class Mapper extends \App\Marketplaces\Mapper {
 
     /**
-     * Maps a Molista item to thinkspain.com format according to:
+     * Maps a Contromia item to thinkspain.com format according to:
      * http://www.thinkspain.com/thinkspain.xml
      *
      * @return array

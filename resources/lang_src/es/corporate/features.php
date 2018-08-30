@@ -18,12 +18,12 @@
 
 		'leads.link' => 'Leads',
 		'leads.title' => 'Identifica leads y <br class="hidden-xs" />relaciónalos',
-		'leads.text' => '<p>Molista además <strong>te sugiere inmuebles que podrían interesar a tus leads,</strong> basándose en sus criterios de búsqueda, que quedan <strong>almacenados en el sistema.</strong> Podrás generar <strong>más visitas y venderás más y más rápido.</strong></p>',
+		'leads.text' => '<p>Contromia además <strong>te sugiere inmuebles que podrían interesar a tus leads,</strong> basándose en sus criterios de búsqueda, que quedan <strong>almacenados en el sistema.</strong> Podrás generar <strong>más visitas y venderás más y más rápido.</strong></p>',
 
 		'integrations.link' => 'Integraciones',
 		'integrations.title' => 'Sincroniza tus anuncios <br class="hidden-xs" />con los principales <br class="hidden-xs" />portales inmobiliarios',
 		'integrations.text' => '<br>
-								<p>Usando el CRM de molista puedes automáticamente <strong>sincronizar los anuncios de tus inmuebles en diferentes portales inmobiliarios</strong></p>',
+								<p>Usando el CRM de Contromia puedes automáticamente <strong>sincronizar los anuncios de tus inmuebles en diferentes portales inmobiliarios</strong></p>',
 
 		'features.title' => 'Las prestaciones que necesitas',
 		'features.simple.title' => 'Sencilla',

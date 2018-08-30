@@ -75,9 +75,9 @@ class DomainNameController extends \App\Http\Controllers\AccountController
 		switch ( $type ) {
 			case 'domain':
 				$domain = rtrim($this->request->input('domain'), '/');
-				// If domain is same as molista domain, false
-				$molista_domain = \Config::get('app.application_domain');
-				if ( $molista_domain != 'localhost' && preg_match('#\.'.$molista_domain.'(\/)?$#', $domain) )
+				// If domain is same as Contromia domain, false
+				$Contromia_domain = \Config::get('app.application_domain');
+				if ( $Contromia_domain != 'localhost' && preg_match('#\.'.$Contromia_domain.'(\/)?$#', $domain) )
 				{
 					break;
 				}

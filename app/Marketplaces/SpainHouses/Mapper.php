@@ -3,7 +3,7 @@
 class Mapper extends \App\Marketplaces\Mapper {
 
     /**
-     * Maps a Molista item to spain-houses.net format according to:
+     * Maps a Contromia item to spain-houses.net format according to:
      * http://www.entersoftweb.com/xcp/sh/xsd/cartera.xsd
      * http://www.entersoftweb.com/xcp/sh/examples/cartera.xml
      *

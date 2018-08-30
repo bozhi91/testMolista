@@ -213,7 +213,7 @@
                                     $path   = "properties/".$property->slug."/edit?market=true";
 
                                     foreach ($result as $res){
-                                        $url = "http://".$res->subdomain.".molista.com/marketplaces/".$res->logo;
+                                        $url = "http://".$res->subdomain.".Contromia.com/marketplaces/".$res->logo;
                                         echo "<a target='_blank'  href={$path}>
 											<span class='marketplace-name text-nowrap;' title='".$res->name."'style='background-image: url(".$url.")'/>&nbsp;
                                         	</span></a>";

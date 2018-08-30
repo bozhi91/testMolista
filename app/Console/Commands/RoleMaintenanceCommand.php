@@ -480,7 +480,7 @@ class RoleMaintenanceCommand extends Command
 	{
 		$data = [
 			'name' => 'Superadmin',
-			'email' => 'admin@molista.com',
+			'email' => 'admin@Contromia.com',
 			'password' => 'Incubout21',
 		];
 

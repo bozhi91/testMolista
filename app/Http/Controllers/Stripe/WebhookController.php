@@ -96,7 +96,7 @@ class WebhookController extends BaseController
 				if ( $next_payment_attempt && $next_payment_attempt > time() )
 				{
 					// Email data
-					$subject = trans('admin/emails/stripe.payment_failed_warning.subject', [ 'webname' => env('WHITELABEL_WEBNAME', 'Molista') ]);
+					$subject = trans('admin/emails/stripe.payment_failed_warning.subject', [ 'webname' => env('WHITELABEL_WEBNAME', 'Contromia') ]);
 					$html = view("emails.site.payment-failed-warning", [
 						'site' => $site,
 						'next_payment_attempt' => $next_payment_attempt,
@@ -105,7 +105,7 @@ class WebhookController extends BaseController
 				else
 				{
 					// Email data
-					$subject = trans('admin/emails/stripe.payment_failed_final.subject', [ 'webname' => env('WHITELABEL_WEBNAME', 'Molista') ]);
+					$subject = trans('admin/emails/stripe.payment_failed_final.subject', [ 'webname' => env('WHITELABEL_WEBNAME', 'Contromia') ]);
 					$html = view("emails.site.payment-failed-final", [
 						'site' => $site,
 						'next_payment_attempt' => $next_payment_attempt,
@@ -117,7 +117,7 @@ class WebhookController extends BaseController
 					$message->from( env('MAIL_FROM_EMAIL'), env('MAIL_FROM_NAME') );
 					$message->subject($subject);
 					$message->to( $to );
-					$message->bcc( env('EMAIL_PAYMENT_WARNINGS_TO', 'admin@molista.com') );
+					$message->bcc( env('EMAIL_PAYMENT_WARNINGS_TO', 'admin@Contromia.com') );
 				});
 
 				\App::setLocale( $locale_backup );
@@ -128,7 +128,7 @@ class WebhookController extends BaseController
 				// Send warning email
 				$subject = trans('admin/emails/stripe.payment_failed.subject');
 				$html = view('emails.admin.inform-stripe-payment-failed', $site)->render();
-				$to = env('EMAIL_PAYMENT_WARNINGS_TO', 'admin@molista.com');
+				$to = env('EMAIL_PAYMENT_WARNINGS_TO', 'admin@Contromia.com');
 				\Mail::send('dummy', [ 'content' => $html ], function($message) use ($subject, $to) {
 					$message->from( env('MAIL_FROM_EMAIL'), env('MAIL_FROM_NAME') );
 					$message->subject($subject);
@@ -203,7 +203,7 @@ class WebhookController extends BaseController
 										$locale_backup = \App::getLocale();
 										\App::setLocale( $site->contact_locale );
 
-										$subject = trans('admin/emails/stripe.payment_succeeded.subject', [ 'webname' => env('WHITELABEL_WEBNAME', 'Molista') ]);
+										$subject = trans('admin/emails/stripe.payment_succeeded.subject', [ 'webname' => env('WHITELABEL_WEBNAME', 'Contromia') ]);
 										$html = view("emails.site.payment-received", [
 											'site' => $site,
 											'paid_from' => $paid_from,
@@ -214,7 +214,7 @@ class WebhookController extends BaseController
 											$message->from( env('MAIL_FROM_EMAIL'), env('MAIL_FROM_NAME') );
 											$message->subject($subject);
 											$message->to( $to );
-											$message->bcc( env('EMAIL_PAYMENT_WARNINGS_TO', 'admin@molista.com') );
+											$message->bcc( env('EMAIL_PAYMENT_WARNINGS_TO', 'admin@Contromia.com') );
 										});
 
 										\App::setLocale( $locale_backup );
@@ -224,7 +224,7 @@ class WebhookController extends BaseController
 									{
 										$subject = trans('corporate/signup.email.stripe.subject');
 										$html = view('emails.admin.inform-stripe-payment', $site)->render();
-										$to = env('EMAIL_PAYMENT_WARNINGS_TO', 'admin@molista.com');
+										$to = env('EMAIL_PAYMENT_WARNINGS_TO', 'admin@Contromia.com');
 										\Mail::send('dummy', [ 'content' => $html ], function($message) use ($subject, $to) {
 											$message->from( env('MAIL_FROM_EMAIL'), env('MAIL_FROM_NAME') );
 											$message->subject($subject);

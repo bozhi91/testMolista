@@ -30,6 +30,6 @@ deploy.sh
 /backups
 
 .env
-.env.molista
+.env.Contromia
 .env.004estate
 /nbproject/private/

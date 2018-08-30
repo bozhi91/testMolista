@@ -3,7 +3,7 @@
 class Mapper extends \App\Marketplaces\Mapper {
 
     /**
-     * Maps a Molista item to enalquiler.com format according to:
+     * Maps a Contromia item to enalquiler.com format according to:
      * http://www.enalquiler.com/feeds/public/inmuebles.xsd
      * http://www.enalquiler.com/feeds/public/inmuebles.xml
      *

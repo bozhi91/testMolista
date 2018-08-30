@@ -59,7 +59,7 @@ class Calendar extends Model
 		'other',
 	];
 
-	protected static $calendar_id = '-//Molista//Molista Calendar//EN';
+	protected static $calendar_id = '-//Contromia//Contromia Calendar//EN';
 
 	public function site()
 	{
@@ -222,7 +222,7 @@ class Calendar extends Model
 		$vEvent = new \Eluceo\iCal\Component\Event();
 		// Add information to the event
 		$vEvent
-			->setUniqueId( "calendar-event-{$item->id}@molista.com" )
+			->setUniqueId( "calendar-event-{$item->id}@Contromia.com" )
 			->setUseTimezone( $item->site->timezone )
 			->setCreated( new \DateTime( $item->created_at->toAtomString()) )
 			->setModified( new \DateTime( $item->updated_at->toAtomString()) )

@@ -110,9 +110,9 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 		$this->site->recaptcha_sitekey = $this->request->input('recaptcha_sitekey');
 		$this->site->recaptcha_secretkey = $this->request->input('recaptcha_secretkey');
 		
-		if ( $this->site->can_hide_molista )
+		if ( $this->site->can_hide_Contromia )
 		{
-			$this->site->hide_molista = $this->request->input('hide_molista') ? 1 : 0;
+			$this->site->hide_Contromia = $this->request->input('hide_Contromia') ? 1 : 0;
 		}
 
 		$signature = $this->request->input('signature');
@@ -232,7 +232,7 @@ class ConfigurationController extends \App\Http\Controllers\AccountController
 		switch ( $type ) {
 			case 'domain':
 				$domain = rtrim($this->request->input('domain'), '/');
-				// If domain is same as molista domain, false
+				// If domain is same as Contromia domain, false
 				if ( preg_match('#\.'.\Config::get('app.application_domain').'(\/)?$#', $domain) )
 				{
 					break;

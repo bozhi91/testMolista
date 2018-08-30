@@ -6,7 +6,7 @@ use DB;
 class Mapper extends \App\Marketplaces\Mapper {
 
     /**
-     * Maps a Molista item to habitaclia format
+     * Maps a Contromia item to habitaclia format
      * @return array
      */
     public function map() {

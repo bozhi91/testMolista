@@ -99,8 +99,8 @@
 		'configuration.ga.account.helper' => 'Example: UA-123456-1',
 		'configuration.ga.account.error' => 'The Google Analytics tracking ID format is invalid',
 
-		'configuration.hide.molista' => 'Hide :webname logos',
-		'configuration.hide.molista.helper' => 'This option is only available for site using the Plus plan',
+		'configuration.hide.Contromia' => 'Hide :webname logos',
+		'configuration.hide.Contromia.helper' => 'This option is only available for site using the Plus plan',
 
 		'configuration.tab.alerts' => 'Alerts',
 		'configuration.alerts.price.down' => 'Notify for property\'s price fall',
@@ -262,7 +262,7 @@
 		
 		'domainname.h1' => 'Domain name',
 		'domainname.domain' => 'Domain',
-		'domainname.domain.helper' => '<p>The domain name is not provided by Molista. You should by your own domain name with the domain name providers of your choice.</p>
+		'domainname.domain.helper' => '<p>The domain name is not provided by Contromia. You should by your own domain name with the domain name providers of your choice.</p>
 										<p>Before setting your domain name of your website, please point your domain name to the following IP address: 46.101.105.169 (you shoud,be able to change this on your domain name provider admin panel).</p>
 										<p>The IP change propagation may take up to 48 hours.</p>
 										<p>If you have questions, please contact your domain name provider and ask how can you manage yopur domain redirection.</p>',

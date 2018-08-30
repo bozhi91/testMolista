@@ -21,7 +21,7 @@ return [
 	'properties' => 'Properties',
 	'employees' => 'Agents',
 	'reseller' => 'Reseller',
-	'hide.molista' => 'Hide Molista',
+	'hide.Contromia' => 'Hide Contromia',
 
 	'create.title' => 'Create site',
 	'edit.title' => 'Edit site',

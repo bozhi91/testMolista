@@ -196,10 +196,10 @@
 							@endif
 						</td>
 						<td class="powered-logo">
-							@if (!$property->site->hide_molista)
+							@if (!$property->site->hide_Contromia)
 							<div class="powered">Powered by</div>
 							<div class="logo">
-								<img src="{{ public_path('images/pdf/molista.png') }}" />
+								<img src="{{ public_path('images/pdf/Contromia.png') }}" />
 							</div>
 							@endif
 						</td>

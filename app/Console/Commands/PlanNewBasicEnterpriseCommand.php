@@ -8,7 +8,7 @@ class PlanNewBasicEnterpriseCommand extends Command
 {
 
 	protected $signature = 'plan:new-basic-enterprise';
-	protected $description = 'Create new Basic and Enterprise plans for Molista, mark unsed plans as disabled';
+	protected $description = 'Create new Basic and Enterprise plans for Contromia, mark unsed plans as disabled';
 
 	protected $plans = [
 		[
@@ -217,11 +217,11 @@ class PlanNewBasicEnterpriseCommand extends Command
 						'currency' => strtolower($plan->currency),
 						'interval' => $period == 'Y' ? 'year' : 'month',
 						'name' => implode(' ', array_filter([
-							"Molista {$plan->name}",
+							"Contromia {$plan->name}",
 							$period == 'Y' ? 'Yearly' : 'Monthly',
 							$plan->currency == 'EUR' ? false : "($plan->currency)",
 						])),
-						'statement_descriptor' => "Molista {$plan->name} {$period}",
+						'statement_descriptor' => "Contromia {$plan->name} {$period}",
 					]);
 				}
 			}

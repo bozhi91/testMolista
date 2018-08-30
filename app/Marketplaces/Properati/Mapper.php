@@ -5,7 +5,7 @@ namespace App\Marketplaces\Properati;
 class Mapper extends \App\Marketplaces\Mapper {
 
 	/**
-	 * Maps a Molista item to Properati format according to:
+	 * Maps a Contromia item to Properati format according to:
 	 * http://www.properati.com.ar/feed
 	 *
 	 * @return array

@@ -14,7 +14,7 @@
 		<script type="text/javascript">
 			var stripeHandler = StripeCheckout.configure({
 				key: '{{ env('STRIPE_KEY') }}',
-				name: 'Molista',
+				name: 'Contromia',
 				description: '{!! Lang::get('account/payment.cc.update.title') !!}',
 				locale: '{{ LaravelLocalization::getCurrentLocale() }}',
 				email: '{{ $user_email }}',

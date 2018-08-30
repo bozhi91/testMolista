@@ -36,19 +36,19 @@ return [
                 </tr>
                 <tr>
                     <td>XSRF-TOKEN</td>
-                    <td>Molista</td>
+                    <td>Contromia</td>
                     <td>Seguridad</td>
                     <td>1 hora</td>
                 </tr>
                 <tr>
                     <td>are_cookies_accepted</td>
-                    <td>Molista</td>
+                    <td>Contromia</td>
                     <td>Técnica</td>
                     <td>1 año</td>
                 </tr>
                 <tr>
                     <td>laravel_session</td>
-                    <td>Molista</td>
+                    <td>Contromia</td>
                     <td>Técnica</td>
                     <td>1 año/fin de sesión</td>
                 </tr>
@@ -67,7 +67,7 @@ return [
         <p>1.3.2 Los sistemas de exclusión voluntaria específicos indicados en la tabla anterior con respecto a la cookie en cuestión (estos sistemas pueden conducir a instalar en su ordenador una "cookie rechazo"); o</p>
         <p>1.3.3 Otras herramientas de terceros disponibles en línea, que permiten a los Usuarios detectar cookies en cada Sitio Web y administrar su desactivación  (por ejemplo, Ghostery: http://www.ghostery.com/privacy-declaraciónhttp://www.ghostery.com/faq).</p>
         <p>1.4Incubout no se hace responsable del contenido y exactitud de las Políticas de Privacidad de las Cookies de terceros.</p>
-        <p>1.5 Si tiene alguna pregunta sobre esta Política de Cookies, por favor, póngase en contacto con nosotros: soporte@molista.com</p>
+        <p>1.5 Si tiene alguna pregunta sobre esta Política de Cookies, por favor, póngase en contacto con nosotros: soporte@Contromia.com</p>
         ',
     'cookies.warning' => ':site_name utiliza cookies propias y de terceros para mejorar su experiencia y nuestros servicios mediante el análisis de la navegación en nuestro sitio web. Si continúa navegando, se entiende que usted acepta el uso de cookies. Puede obtener más información o aprender cómo cambiar la configuración de su navegador en nuestra <a href=":link" class="alert-link">Política de Cookies</a>.'
 

@@ -305,7 +305,7 @@ class CustomersController extends \App\Http\Controllers\AccountController
 			return redirect()->back()->with('error',trans('general.messages.error'));
 		}
 
-		// Delete customer (molista & tickets)
+		// Delete customer (Contromia & tickets)
 		if ( $this->site->ticket_adm->dissociateContact($customer) )
 		{
 			$customer->delete();

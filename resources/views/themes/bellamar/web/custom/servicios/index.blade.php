@@ -190,7 +190,7 @@
         		<div class="Modal-inner-block-top">
         			<h4>¿Quiere <span class="underline">comprar</span> una vivienda?</h4>
         			<div class="block-link">
-        				<a href="http://fincasbellamar.molista.com/properties?search=1&mode=sale">Clic aquí</a>
+        				<a href="http://fincasbellamar.Contromia.com/properties?search=1&mode=sale">Clic aquí</a>
         			</div>
         		</div>
         	</div>
@@ -267,7 +267,7 @@
         		<div class="Modal-inner-block-top">
         			<h4>¿Quiere <span class="underline">alquilar</span> una vivienda?</h4>
         			<div class="block-link">
-        				<a href="http://fincasbellamar.molista.com/properties?search=1&mode=rent">Clic aquí</a>
+        				<a href="http://fincasbellamar.Contromia.com/properties?search=1&mode=rent">Clic aquí</a>
         			</div>
         		</div>
         	</div>

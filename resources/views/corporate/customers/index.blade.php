@@ -23,7 +23,7 @@
 								{!! Form::label('subdomain', Lang::get('corporate/customers.subdomain')) !!}
 								<div class="input-group">
 									{!! Form::text('subdomain', null, [ 'class'=>'form-control required', 'placeholder'=>Lang::get('corporate/customers.subdomain.placeholder') ]) !!}
-									<div class="input-group-addon">.{{ env('APP_DOMAIN', 'molista.com') }}</div>
+									<div class="input-group-addon">.{{ env('APP_DOMAIN', 'Contromia.com') }}</div>
 								</div>
 							</div>
 

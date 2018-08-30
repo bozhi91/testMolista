@@ -137,7 +137,7 @@ class Site extends TranslatableModel
                 "email"=>$email,
                 "phone"=>$phone,
                 "web_page"=>$site->domain,
-                "xml_path"=>"https://".$site->subdomain.".molista.com/feeds/properties/".$name.".xml");
+                "xml_path"=>"https://".$site->subdomain.".Contromia.com/feeds/properties/".$name.".xml");
             array_push($sites_array,$site);
         }
 
@@ -200,14 +200,14 @@ class Site extends TranslatableModel
 
                      $message = "Apreciado Sr. ". $user_data->name."<br><br>
                                     Salvo error por nuestra parte, en el día de ayer ha caducado la suscripción que
-                                    mantiene con Molista.com y no hemos recibido el pago correspondiente al periodo,
-                                    le pido que por favor contacte con nosotros al correo info@molista.com o bien 
+                                    mantiene con Contromia.com y no hemos recibido el pago correspondiente al periodo,
+                                    le pido que por favor contacte con nosotros al correo info@Contromia.com o bien 
                                     si no fuera el caso, le solicito que realice al pago para regularizar esta situación,
                                     en el caso de no tener regularizado dicha situación en el plazo de 48 Hs. procederemos
                                     a dar de baja su suscripción en el plan actual y pasarlo como deferencia al Plan Basic 
                                     (en dicho plan Basic solo podrá disponer de hasta 5 propiedades).<br><br>                                    
                                     Si al recibir esta comunicación ya ha solucionado la incidencia le pedimos que olvide esta comunicaron.<br><br>
-                                    Atentamente el Equipo de Administración de Molista ";
+                                    Atentamente el Equipo de Administración de Contromia ";
 
                      DB::table('sites')->where('id',$site->id)->update(['sent_emails'   => 1]);
                      $sendEmail = 1;
@@ -224,15 +224,15 @@ class Site extends TranslatableModel
                                 
                                 Desde nuestra ultima comunicación del ".$lastEmail.", 
                                 no hemos recibido el pago a su suscripción, estamos a disposición para poder ayudarle a
-                                encontrar una solución, puede dirigirse por correo a info@molista.com o si lo prefiere 
+                                encontrar una solución, puede dirigirse por correo a info@Contromia.com o si lo prefiere 
                                 telefónicamente al 93 180 70 20. También le comunicamos que el día ".$blockData." Pasaremos
                                 de manera automática su suscripción al Plan Basic, que como ya le informamos anteriormente podrá
                                 utilizarla con un máximo de 5 propiedades).
-                                MOLISTA TECHNOLOGIES, S.L. no se responsabiliza por posibles perdidas de información al realizarse
+                                Contromia TECHNOLOGIES, S.L. no se responsabiliza por posibles perdidas de información al realizarse
                                 el cambio de suscripción, ya que no es por una causa imputable a la misma.<br>
                                 Quedamos a la espera de poder solucionar esta incidencia.<br><br>
                                 
-                                Atte. el Equipo de Administración de Molista";
+                                Atte. el Equipo de Administración de Contromia";
 
                      DB::table('sites')->where('id',$site->id)->update(['sent_emails'   => 2]);
                      DB::table('sites')->where('id',$site->id)->update(['block_date' =>  date("Y-m-d H:i:s",$downData)]);
@@ -254,10 +254,10 @@ class Site extends TranslatableModel
         if($user_data!=null && $site->plan_id!=1 && $sendEmail==1 && $site->paid_until!=null){
 
             $params = array(
-                "to"         => $user_data->email.";info@molista.com",
+                "to"         => $user_data->email.";info@Contromia.com",
                 "subject"    => "Tu suscripción ha caducado",
                 "content"    => $message,
-                "from"       => "info@molista.com",
+                "from"       => "info@Contromia.com",
                 "fromName"   => $site->subdomain,
                 "name"       => $user_data->name,
                 "url_enlace" => $site_url,
@@ -822,18 +822,18 @@ class Site extends TranslatableModel
 				break;
 			default:
 				$params['backup_required'] = false;
-				$params['from_email'] = env('MAIL_FROM_EMAIL','no-reply@molista.com');
+				$params['from_email'] = env('MAIL_FROM_EMAIL','no-reply@Contromia.com');
 				break;
 		}
 
 		if ( !$params['from_email'] )
 		{
-			$params['from_email'] = 'no-reply@molista.com';
+			$params['from_email'] = 'no-reply@Contromia.com';
 		}
 
 		if ( !$params['reply_email'] )
 		{
-			$params['reply_email'] = 'no-reply@molista.com';
+			$params['reply_email'] = 'no-reply@Contromia.com';
 		}
 
 		return $params;
@@ -1113,7 +1113,7 @@ class Site extends TranslatableModel
                 $params['from_name'] = $aux_param['mailer']['from_name'];
             }
             else{
-                $params['from_name'] = "Molista";
+                $params['from_name'] = "Contromia";
             }
         }
         if($params['backup_required']==null){
@@ -1447,7 +1447,7 @@ class Site extends TranslatableModel
 		return $payment;
 	}
 
-	public function getCanHideMolistaAttribute()
+	public function getCanHideContromiaAttribute()
 	{
 		if ( @$this->plan->level >= 2 )
 		{
@@ -1641,7 +1641,7 @@ class Site extends TranslatableModel
 			'access',
 			'admin',
 			'login',
-			'molista',
+			'Contromia',
 		];
 
 	}

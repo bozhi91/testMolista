@@ -13,7 +13,7 @@
 
 				<div class="row">
 					<p class="col-xs-8">
-						{!! Lang::get('corporate/home.distributor.description2', ['email' => env('MAIL_CONTACT', 'admin@molista.com')]) !!}
+						{!! Lang::get('corporate/home.distributor.description2', ['email' => env('MAIL_CONTACT', 'admin@Contromia.com')]) !!}
 					</p>
 				</div>
 

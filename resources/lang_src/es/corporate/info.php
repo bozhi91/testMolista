@@ -2,10 +2,10 @@
 	return [
 		'legal' => '<h1>AVISO LEGAL – POLÍTICA DE PRIVACIDAD – POLÍTICA DE COOKIES</h1>
 					<p class="help-block">Versión 30-06-2016</p>
-					<p>Este texto se constituye como Aviso Legal de la página web MOLISTA propiedad de Incubout, S.L. (en adelante, "Incubout"), que se encuentra en el URL: http://molista.com (en adelante, "Sitio Web").</p>
+					<p>Este texto se constituye como Aviso Legal de la página web Contromia propiedad de Incubout, S.L. (en adelante, "Incubout"), que se encuentra en el URL: http://Contromia.com (en adelante, "Sitio Web").</p>
 					<h2>1.- Datos identificativos del titular del Sitio Web</h2>
 					<p>En cumplimiento con el deber de información recogido en artículo 10 de la Ley de Servicios de la Sociedad de la Información y Comercio Electrónico (Ley 34/2002, de 11 de julio), se reflejan los siguientes datos.</p>
-					<p>La empresa propietaria del dominio web es Incubout, S.L. (en adelante, "Incubout"), con domicilio a estos efectos en C/ Salvador Espriu, 93, 08005 Barcelona, con CIF B63286728, inscrita en el Registro Mercantil en el volumen 44152, Sección General, inscripción 20 del Libro de Sociedades, Folio 0217, Hoja 377906. Correo electrónico de contacto: soporte@molista.com</p>
+					<p>La empresa propietaria del dominio web es Incubout, S.L. (en adelante, "Incubout"), con domicilio a estos efectos en C/ Salvador Espriu, 93, 08005 Barcelona, con CIF B63286728, inscrita en el Registro Mercantil en el volumen 44152, Sección General, inscripción 20 del Libro de Sociedades, Folio 0217, Hoja 377906. Correo electrónico de contacto: soporte@Contromia.com</p>
 					<h2>2. - Objeto y ámbito de aplicación</h2>
 					<p>2.1 El presente aviso legal regula el acceso y uso a los contenidos ofrecidos por Incubout a través del Sitio Web. No obstante, Incubout se reserva el derecho a modificar la presentación, configuración y contenido del Sitio Web y de los servicios, así como las condiciones de acceso y/o uso. El acceso y uso de los contenidos y servicios tras la entrada en vigor de las modificaciones o de los cambios en las condiciones implican la aceptación de los mismos.</p>
 					<p>2.2 El acceso al Sitio Web atribuye la condición de usuario e implica la aceptación plena y sin reservas por parte del Usuario de todas y cada una de las condiciones incluidas en este Aviso Legal.</p>
@@ -29,8 +29,8 @@
 					<p>4.5 Cualquier Usuario que facilite sus datos a través de los formularios del Sitio Web consiente expresamente su tratamiento y declara formalmente estar en edad legal bajo las leyes de su país y, en cualquier caso, ser mayor de 18 años. El acceso y el uso del Sitio Web está prohibido a los menores de dieciocho (18) años de edad. La responsabilidad de determinar el contenido y servicios a los que acceden los menores recae en sus padres o representantes legales. Internet permite el acceso a contenidos que pueden no ser apropiados para menores, Incubout informa de que existen programas que limitan o controlan el contenido al que pueden acceder los menores.</p>
 					<p>4.6 Para la resolución de incidencias y reclamaciones relacionadas con la prestación de los servicios contratados, deberá ponerse en contacto con Incubout a través de los siguientes canales de comunicación:</p>
 					<ul>
-						<li>E-mail: soporte@molista.com</li>
-						<li>Web: http://www.molista.com/</li>
+						<li>E-mail: soporte@Contromia.com</li>
+						<li>Web: http://www.Contromia.com/</li>
 					</ul>
 					<h2>5. - Derechos de propiedad intelectual</h2>
 					<p>5.1 Incubout posee o ha obtenido la correspondiente licencia sobre los derechos de explotación de la propiedad intelectual del Sitio Web, así como los derechos de propiedad intelectual sobre la información y los materiales, estructura, selección, ordenación y presentación de los contenidos, servicios y productos disponibles a través de los mismos, y los programas de ordenador utilizados en relación con los mismos.</p>
@@ -68,7 +68,7 @@
 					<p>10.2.1 En cumplimiento de la Ley Orgánica de Protección de Datos (Ley 15/1999, de 13 de diciembre), y su normativa de desarrollo, Incubout informa al Usuario de que los datos personales facilitados por el Usuario serán incorporados a un fichero automatizado propiedad de y utilizado por Incubout, SL, con domicilio a estos efectos en C/ Salvador Espriu, 93, local 1, 08005 Barcelona, España, con el fin de proporcionar al Usuario la información que solicite sobre nuestros contenidos, productos y servicios.</p>
 					<p>10.2.2 A través de la complimentacióndel formulario en elSitio Web o mediante el envío de correos electrónicos o cualquier otra solicitud de información a Incubout así como para recibir comunicaciones sobre los contenidos, productos o servicios de Incubout, el Usuario presta su consentimiento expreso al tratamiento de sus datos personales.</p>
 					<p>10.2.3 En ningún caso Incubout utilizará los datos personales de los Usuarios para un fin distinto de los mencionados anteriormente, Incubout se compromete a mantener el secreto profesional requerido y a establecer las medidas técnicas y organizativas necesarias para salvaguardar la información sujeta a los requisitos de la Ley Orgánica 15/1999 y el RD 1720/2007.</p>
-					<p>10.2.4 El Usuario puede ejercer sus derechos de acceso, rectificación, cancelación y oposición en cualquier momento por escrito, acompañado de una copia de un documento oficial que le identifique, dirigido a IncuboutC/ Salvador Espriu, 93 Local 1, 08005 Barcelona, España, así como oponerse a recibir comunicaciones comerciales por vía electrónica, de conformidad con el art. 21.2 de la LSSI, a través de la siguiente dirección de correo electrónico: soporte@molista.com</p>
+					<p>10.2.4 El Usuario puede ejercer sus derechos de acceso, rectificación, cancelación y oposición en cualquier momento por escrito, acompañado de una copia de un documento oficial que le identifique, dirigido a IncuboutC/ Salvador Espriu, 93 Local 1, 08005 Barcelona, España, así como oponerse a recibir comunicaciones comerciales por vía electrónica, de conformidad con el art. 21.2 de la LSSI, a través de la siguiente dirección de correo electrónico: soporte@Contromia.com</p>
 					<p>10.3 Medidas de seguridad</p>
 					<p>Conforme a la legislación actual, Incubout, como responsable de este Sitio Web, ha adoptado los niveles y medidas de seguridad para la protección de datos personales establecidas en el RD 1720/2007 (Reglamento de aplicación de la Ley Orgánica 15/1999), respetando las obligaciones y el deber de confidencialidad requerido por la Ley, einstalando en sus sistemas y ficheros las medidas técnicas necesarias para garantizar la confidencialidad de los datos y evitar su pérdida, alteración y acceso no autorizado.</p>
 					<h2 id="cookies-policy">11. Política Cookies:</h2>
@@ -105,19 +105,19 @@
 							</tr>
 							<tr>
 								<td>XSRF-TOKEN</td>
-								<td>Molista</td>
+								<td>Contromia</td>
 								<td>Seguridad</td>
 								<td>1 hora</td>
 							</tr>
 							<tr>
 								<td>are_cookies_accepted</td>
-								<td>Molista</td>
+								<td>Contromia</td>
 								<td>Técnica</td>
 								<td>1 año</td>
 							</tr>
 							<tr>
 								<td>laravel_session</td>
-								<td>Molista</td>
+								<td>Contromia</td>
 								<td>Técnica</td>
 								<td>1 año/fin de sesión</td>
 							</tr>
@@ -136,7 +136,7 @@
 					<p>11.3.2 Los sistemas de exclusión voluntaria específicos indicados en la tabla anterior con respecto a la cookie en cuestión (estos sistemas pueden conducir a instalar en su ordenador una "cookie rechazo"); o</p>
 					<p>11.3.3 Otras herramientas de terceros disponibles en línea, que permiten a los Usuarios detectar cookies en cada Sitio Web y administrar su desactivación  (por ejemplo, Ghostery: http://www.ghostery.com/privacy-declaraciónhttp://www.ghostery.com/faq).</p>
 					<p>11.4Incubout no se hace responsable del contenido y exactitud de las Políticas de Privacidad de las Cookies de terceros.</p>
-					<p>11.5 Si tiene alguna pregunta sobre esta Política de Cookies, por favor, póngase en contacto con nosotros: soporte@molista.com</p>
+					<p>11.5 Si tiene alguna pregunta sobre esta Política de Cookies, por favor, póngase en contacto con nosotros: soporte@Contromia.com</p>
 					<h2>12. - Miscelánea</h2>
 					<p>12.1 Los encabezamientos de las distintas cláusulas son sólo informativos y no afectarán, calificarán o ampliarán la interpretación del presente Aviso Legal.</p>
 					<p>12.2 En caso de conflicto entre las disposiciones del presente Aviso Legal y las condiciones particulares de cada servicio específico, prevalecerán estas últimas.</p>
@@ -147,6 +147,6 @@
 					<p>13.2 Las Partes procurarán resolver cualquier disputa que surja del presente Aviso Legal amigablemente.</p>
 					<p>13.3 Cualquier disputa, desacuerdo, pregunta o reclamación resultante de la ejecución, cumplimiento, incumplimiento o interpretación del presente Aviso Legal o en relación con ellos, ya sea directa o indirectamente, se resolveráante los tribunales de la ciudad de Barcelona (España). Las partes renuncian expresamente a cualquier otro fuero que les pudiera correponder.</p>',
 
-		'cookies.warning' => '<p>Molista utiliza cookies propias y de terceros para mejorar su experiencia y nuestros servicios mediante el análisis de la navegación en nuestro sitio web. Si continúa navegando, se entiende que usted acepta el uso de cookies. Puede obtener más información o aprender cómo cambiar la configuración de su navegador en nuestra <a href=":link" class="alert-link">Política de Cookies</a></p>.	
+		'cookies.warning' => '<p>Contromia utiliza cookies propias y de terceros para mejorar su experiencia y nuestros servicios mediante el análisis de la navegación en nuestro sitio web. Si continúa navegando, se entiende que usted acepta el uso de cookies. Puede obtener más información o aprender cómo cambiar la configuración de su navegador en nuestra <a href=":link" class="alert-link">Política de Cookies</a></p>.	
 ',
 	];

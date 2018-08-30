@@ -1,13 +1,13 @@
 <?php
 	return [
-		'header.link.home' => 'Molista, tu CRM inmobiliario',
-		'header.link.demo' => 'La demo de Molista',
-		'header.link.features' => 'Las características de Molista',
-		'header.link.pricing' => 'Los planes y precios de Molista',
+		'header.link.home' => 'Contromia, tu CRM inmobiliario',
+		'header.link.demo' => 'La demo de Contromia',
+		'header.link.features' => 'Las características de Contromia',
+		'header.link.pricing' => 'Los planes y precios de Contromia',
 
-		'header.image.logo' => 'Molista',
+		'header.image.logo' => 'Contromia',
 
-		'home.link.try' => 'Prueba Molista',
+		'home.link.try' => 'Prueba Contromia',
 		'home.image.responsive' => 'Compatible con móviles y tabletas',
 
 		'footer.link.support' => '¿Necesitas soporte técnico?',

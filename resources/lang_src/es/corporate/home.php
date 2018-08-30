@@ -1,10 +1,10 @@
 <?php
 	return [
 		'h1' => 'Tu Web Inmobiliaria',
-		'intro' => '<p>Descubre <strong>molista</strong>, una <strong>herramienta web</strong> pensada específicamente <strong>para negocios inmobiliarios. Potente, atractiva, fácil de usar y totalmente adaptada a móviles y tabletas.</strong></p>',
+		'intro' => '<p>Descubre <strong>contromia</strong>, una <strong>herramienta web</strong> pensada específicamente <strong>para negocios inmobiliarios. Potente, atractiva, fácil de usar y totalmente adaptada a móviles y tabletas.</strong></p>',
 
 		'h2' => 'Multiplica las oportunidades de tu inmobiliaria',
-		'features' => '<p><strong>molista</strong> te ofrece todo lo que necesitas para que <strong>tu inmobiliaria esté presente en internet:</strong></p>',
+		'features' => '<p><strong>contromia</strong> te ofrece todo lo que necesitas para que <strong>tu inmobiliaria esté presente en internet:</strong></p>',
 		'features.column.left' => '<ul class="list-unstyled">
 										<li data-type="web">Sitio web de tu inmobiliaria</li>
 										<li data-type="fixa">Fichas de inmuebles ilimitadas</li>
@@ -26,8 +26,8 @@
 		'h3' => 'Las prestaciones que necesitas',
 
 		'convinced.title' => '¿Todavía no estás convencido?',
-		'convinced.demo' => '<p>Comprueba en nuestra demo online todas las funcionalidades y ventajas que te ofrece <strong>molista.</strong></p>',
-		'convinced.test' => '<p>También puedes  probar <strong>molista</strong> durante 30 días gratis. Disfruta de todas sus ventajas sin compromiso.</p>',
+		'convinced.demo' => '<p>Comprueba en nuestra demo online todas las funcionalidades y ventajas que te ofrece <strong>contromia.</strong></p>',
+		'convinced.test' => '<p>También puedes  probar <strong>contromia</strong> durante 30 días gratis. Disfruta de todas sus ventajas sin compromiso.</p>',
 
 		'footer.admin.access' => 'Acceso clientes',
 		'footer.operated' => 'es operada por',
@@ -37,7 +37,7 @@
 
 		'try' => 'Pruébalo',
 		
-		'distributor.title' => '¿Quieres ser distribuidor de molista?',
+		'distributor.title' => '¿Quieres ser distribuidor de contromia?',
 		'distributor.description' => 'Confía en un producto líder, toma ventaja de los recursos que te ofrecemos y haz crecer tu carrera y tu negocio.',
 		'distributor.description2' => 'Si la respuesta es sí, por favor, rellena este formulario y en breve nos pondremos en contacto contigo. También nos puedes escribir a <a href="mailto::email" target="_blank">:email</a>',
 		

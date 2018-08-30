@@ -3,7 +3,7 @@
 class Mapper extends \App\Marketplaces\Mapper {
 
     /**
-     * Maps a Molista item to pisos.com format according to documentation.
+     * Maps a Contromia item to pisos.com format according to documentation.
      *
      * @return array
      */

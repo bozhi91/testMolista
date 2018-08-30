@@ -1,9 +1,9 @@
-<?php namespace App\Marketplaces\Molista;
+<?php namespace App\Marketplaces\Contromia;
 
 class Mapper extends \App\Marketplaces\Mapper {
 
     /**
-     * Maps a Molista item to trovit.com format according to:
+     * Maps a Contromia item to trovit.com format according to:
      * http://about.trovit.com/feed-technical-specs/es/homes/specs.html
      *
      * @return array

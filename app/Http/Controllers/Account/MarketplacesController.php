@@ -207,7 +207,7 @@ class MarketplacesController extends \App\Http\Controllers\AccountController
 		\Mail::send('emails.corporate.marketplace', $data, function($message) use ($data) {
 			$message->from( env('MAIL_FROM_EMAIL'), env('MAIL_FROM_NAME') );
 			$message->subject( trans('account/marketplaces.contact.title', [ 'marketplace' => $data['marketplace'] ]) );
-			$message->to('info@molista.com');
+			$message->to('info@Contromia.com');
 		});
 
 		if ( count(\Mail::failures()) > 0 )

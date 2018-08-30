@@ -8,7 +8,7 @@
     @if ( !empty($seo_title) )
         <title>{{ $seo_title }}</title>
     @else
-        <title>Molista</title>
+        <title>Contromia</title>
     @endif
 
     @if ( !empty($seo_description) )

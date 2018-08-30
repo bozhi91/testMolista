@@ -1,4 +1,4 @@
-<?php namespace App\Marketplaces\Molista;
+<?php namespace App\Marketplaces\Contromia;
 
 class Writer extends \App\XML\Writer {
 
@@ -8,7 +8,7 @@ class Writer extends \App\XML\Writer {
     {
         $this->openMemory();
         $this->startDocument('1.0', 'UTF-8');
-        $this->startElement('molista');
+        $this->startElement('Contromia');
     }
 
     public function end()

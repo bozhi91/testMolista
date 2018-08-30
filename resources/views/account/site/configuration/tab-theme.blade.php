@@ -107,9 +107,9 @@
 			</div>
 		</div>
 
-		@if ( env('WHITELABEL_MOLISTA', false) && file_exists( public_path($banner_image) ) )
+		@if ( env('WHITELABEL_Contromia', false) && file_exists( public_path($banner_image) ) )
 			<div class="theme-banner">
-				<a href="mailto:ib@molista.com" target="_blank"><img src="{{ asset($banner_image) }}" alt="" class="img-responsive" /></a>
+				<a href="mailto:ib@Contromia.com" target="_blank"><img src="{{ asset($banner_image) }}" alt="" class="img-responsive" /></a>
 			</div>
 
 		@endif

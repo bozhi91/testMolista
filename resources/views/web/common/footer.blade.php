@@ -37,7 +37,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12">
-					@if ( @$current_site && !$current_site->hide_molista )
+					@if ( @$current_site && !$current_site->hide_Contromia )
 						<div class="powered-by">Powered by</div>
 					@endif
 					<ul class="nav navbar-nav quick-links pull-right">
@@ -52,7 +52,7 @@
 							@endif
 						</li>
 					</ul>
-					@if ( @$current_site && !$current_site->hide_molista )
+					@if ( @$current_site && !$current_site->hide_Contromia )
 						<ul class="nav navbar-nav quick-links">
 							<li><a href="{{ Config::get('app.application_url') }}" target="_blank"><img src="{{ Theme::url( env('WHITELABEL_LOGO_FOOTER', '/images/footer-logo.png') ) }}" alt="" /></a></li>
 							@if ( !empty($site_setup['social_media']) )

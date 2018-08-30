@@ -774,14 +774,14 @@ class TicketAdm
 		if ( @$ticket->contact->id )
 		{
 			$customer = \App\Models\Site\Customer::where('ticket_contact_id', $ticket->contact->id)->first();
-			$ticket->contact->id_molista = @$customer->id;
+			$ticket->contact->id_Contromia = @$customer->id;
 		}
 
 		//  Ticket property
 		if ( @$ticket->item->id )
 		{
 			$property = \App\Property::withTrashed()->where('ticket_item_id', $ticket->item->id)->first();
-			$ticket->item->id_molista = @$property->id;
+			$ticket->item->id_Contromia = @$property->id;
 		}
 
 		// Add user images
@@ -800,7 +800,7 @@ class TicketAdm
 					$images[$ticket->user->id] = ( $user && $user->image ) ? $user->image_url : $images['default'];
 				}
 				$ticket->user->image = $images[$ticket->user->id];
-				$ticket->user->id_molista = @$user_ids_rel[$ticket->user->id];
+				$ticket->user->id_Contromia = @$user_ids_rel[$ticket->user->id];
 			}
 			else
 			{

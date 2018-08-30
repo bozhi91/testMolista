@@ -3,7 +3,7 @@
 class Mapper extends \App\Marketplaces\Mapper {
 
     /**
-     * Maps a Molista item to green-acres.com format: http://www.green-acres.com/en/GatewayInfo
+     * Maps a Contromia item to green-acres.com format: http://www.green-acres.com/en/GatewayInfo
      *
      * @return array
      */

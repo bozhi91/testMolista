@@ -1,7 +1,7 @@
 <?php
 	return [
-		'payment_failed.subject' => 'Molista: ERROR al recibir el pago',
-		'payment_failed.body' => '<p>Se ha producido un error en un pago de stripe para el siguiente site de Molista:</p>
+		'payment_failed.subject' => 'Contromia: ERROR al recibir el pago',
+		'payment_failed.body' => '<p>Se ha producido un error en un pago de stripe para el siguiente site de Contromia:</p>
 									<ul>
 									<li>ID: :site_id</li>
 									<li>Subdomain: :subdomain</li>

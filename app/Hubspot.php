@@ -21,7 +21,7 @@ class Hubspot {
 				],
 				[
 					'property' => 'product',
-					'value' => 'Molista'
+					'value' => 'Contromia'
 				]
             ];
 
@@ -76,7 +76,7 @@ class Hubspot {
                 ],
                 [
                     'property' => 'product',
-                    'value' => 'Molista'
+                    'value' => 'Contromia'
                 ]
             ];
 

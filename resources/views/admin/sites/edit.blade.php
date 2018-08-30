@@ -36,7 +36,7 @@
 								<div class="input-group">
 									<div class="input-group-addon">{{env('APP_PROTOCOL','http')}}://</div>
 									{!! Form::text('subdomain', null, [ 'class'=>'form-control required alphanumericHypen' ]) !!}
-									<div class="input-group-addon">.{{env('APP_DOMAIN','molista.com')}}</div>
+									<div class="input-group-addon">.{{env('APP_DOMAIN','Contromia.com')}}</div>
 								</div>
 							</div>
 						</div>
@@ -116,8 +116,8 @@
 					<div class="row">
 						<div class="col-xs-12 col-sm-6">
 							<div class="form-group error-container">
-								{!! Form::label('hide_molista', Lang::get('admin/sites.hide.molista')) !!}
-								{!! Form::select('hide_molista', [
+								{!! Form::label('hide_Contromia', Lang::get('admin/sites.hide.Contromia')) !!}
+								{!! Form::select('hide_Contromia', [
 									0 => Lang::get('general.no'),
 									1 => Lang::get('general.yes'),
 								], null, [ 'class'=>'form-control' ]) !!}

@@ -12,7 +12,7 @@ class Mapper {
     }
 
     /**
-     * Maps a Molista owner to enalquiler.com format according to:
+     * Maps a Contromia owner to enalquiler.com format according to:
      * http://www.enalquiler.com/feeds/public/usuarios.xsd
      * http://www.enalquiler.com/feeds/public/usuarios.xml
      *
