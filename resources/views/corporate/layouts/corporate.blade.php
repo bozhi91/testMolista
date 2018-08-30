@@ -11,7 +11,7 @@
 	@if ( !empty($seo_title) )
 		<title>{{ $seo_title }}</title>
 	@else
-		<title>{{ env('WHITELABEL_WEBNAME', 'Molista') }}</title>
+		<title>{{ env('WHITELABEL_WEBNAME', 'Contromia') }}</title>
 	@endif
 
 	@if ( !empty($seo_description) )

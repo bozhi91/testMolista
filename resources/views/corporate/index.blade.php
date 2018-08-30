@@ -3,7 +3,6 @@
 @section('content')
 
 	<div id="home" class="home">
-
 			<!-- BANNER -->
 			<div class="jumbotron">
 			  <div class="container">
