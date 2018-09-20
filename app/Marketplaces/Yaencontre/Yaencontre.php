@@ -58,7 +58,7 @@ class Yaencontre extends \App\Marketplaces\XML {
 			$timestamp = $datetime->format("U");
 
 			$tagName = $mapper->isPropertyReferencia() ? 'referencia' : 'promocion';
-			$tagName .= '@id=' . $p['id'] . '@timestamp=' . $timestamp;
+			$tagName .= '@id=' . $p['reference'] . '@timestamp=' . $timestamp;
 
 			$this->writer->addItem([$tagName => $mapper->map()]);
 		}

@@ -187,7 +187,10 @@
 									@endif
 								</td>
 								<td class="text-center">
-									<a href="{{ $property->main_image }}" target="_blank" class="property-table-thumb" style="background-image: url('{{ $property->main_image_thumb }}')"></a>
+                                    <?php
+                                        $image =  str_replace("/watermark","",$property->main_image_thumb);
+                                    ?>
+									<a href="{{ $property->main_image }}" target="_blank" class="property-table-thumb" style="background-image: url('{{ $image }}')"></a>
 								</td>
 								<td class="text-center">
 									@if ( Auth::user()->can('property-edit') && Auth::user()->canProperty('edit') )
@@ -209,7 +212,7 @@
 
 								<td style="overflow: auto;max-height: 91px;	float:left;">
                                     <?php
-                                    $result = App\Http\Controllers\Account\PropertiesController::getMarketplaces($property->id);
+                                    $result = App\Http\Controllers\Account\PropertiesController::getMarketplaces($property,$current_site_user);
                                     $path   = "properties/".$property->slug."/edit?market=true";
 
                                     foreach ($result as $res){

@@ -1,6 +1,22 @@
-<li class="handler ui-sortable-handle {{ empty($warning_orientation) ? (empty($warning_size) ? '' : 'handler-orange') : 'handler-red' }}">
+<li class="handler ui-sortable-handle {{ empty($warning_orientation) ? (empty($warning_size) ? '' : 'handler-orange') : 'handler-red' }}"
+		style="min-height: 170px;">
 	<div class="property-image-container">
 		<a href="{{ $image_url }}" target="_blank" class="thumb" style="background-image: url('{{ $image_url }}')"></a>
+
+        <?php
+			$plan = DB::table('sites')
+				->select('plan_id')
+				->where('id',session("SiteSetup")['site_id'])
+				->first();
+
+			if($plan->plan_id=='2' || $plan->plan_id=='3' || $plan->plan_id=='7' ){
+                if(@strstr($image->image_url, "watermark")){
+                    echo "<br>
+						<input type='checkbox' name='img_water[]' value='$image_id'>Restaurar imagen";
+				}
+			}
+        ?>
+
 	</div>
 	<div class="options text-right">
 		@if ( !empty($warning_orientation) )

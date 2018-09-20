@@ -107,7 +107,7 @@ class Site extends TranslatableModel
     }
 
     public static function parseXML($marketplace){
-        $sites = DB::select("select sm.site_id, s.subdomain, sd.domain, m.code,ct.name as country, s.signature
+        $sites = DB::select("select distinct sm.site_id, s.subdomain, sd.domain, m.code,ct.name as country, s.signature
             from sites_marketplaces sm, sites s, sites_domains sd, marketplaces m, countries_translations ct
             where s.id = sm.site_id
             and sd.site_id = s.id
@@ -136,8 +136,8 @@ class Site extends TranslatableModel
                 "country"=>$site->country,
                 "email"=>$email,
                 "phone"=>$phone,
-                "web_page"=>$site->domain,
-                "xml_path"=>"https://".$site->subdomain.".Contromia.com/feeds/properties/".$name.".xml");
+                "xml_path"=>$site->domain."/feeds/properties/".$name.".xml",
+                "web_page"=>$site->domain);
             array_push($sites_array,$site);
         }
 
@@ -1447,7 +1447,7 @@ class Site extends TranslatableModel
 		return $payment;
 	}
 
-	public function getCanHideContromiaAttribute()
+	public function getCanHideMolistaAttribute()
 	{
 		if ( @$this->plan->level >= 2 )
 		{

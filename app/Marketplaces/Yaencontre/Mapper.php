@@ -12,7 +12,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 	 * @return array
 	 */
 	public function map() {
-		return $this->getMapper()->map();
+        return $this->getMapper()->map();
 	}
 
 	/**
@@ -33,6 +33,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 	 * @return BaseMapper
 	 */
 	protected function getMapper() {
+
 		if($this->_mapper === null) {
 			if ($this->isPropertyReferencia()) {
 				$this->_mapper = new ReferenciaMapper(

@@ -47,7 +47,8 @@
 		->where('id',session("SiteSetup")['site_id'])
 		->first();
 
-	$isEnabled = DB::table('properties')
+
+        $isEnabled = DB::table('properties')
 		->select('enabled')
 		->where('id',$property->id)
 		->first();
@@ -62,7 +63,11 @@
         $current_tab = "marketplaces";
 	}
 
-?>
+	$site = DB::table('sites')
+		->select('*')
+		->where('id',session("SiteSetup")['site_id'])
+		->first();
+	?>
 
 	@if($value=="stored")
         @include('Modals.updatedProperty')
@@ -72,6 +77,7 @@
         ?>
 	@endif
 
+
 	<style type="text/css">
 		#tab-marketplaces .marketplace-name { display: inline-block; padding-left: 25px; background: left center no-repeat; }
 		#tab-visits .column-property { display: none; }
@@ -80,7 +86,6 @@
 {!! Form::model($item, [ 'method'=>$method, 'action'=>$action, 'files'=>true, 'id'=>'edit-form' ]) !!}
 	{!! Form::hidden('current_tab', $current_tab) !!}
 	{!! Form::hidden('label_color', null) !!}
-
 
 	<div class="custom-tabs">
 		<ul class="nav nav-tabs main-tabs" role="tablist">
@@ -135,6 +140,7 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group error-container">
+
 							{!! Form::label('type', Lang::get('account/properties.type').' *') !!}
 							{!! Form::select('type', [ ''=>'' ] + $types, null, [ 'class'=>'form-control required' ]) !!}
 						</div>
@@ -702,7 +708,7 @@
 										'image_url' => $image->image_url,
 										'image_id' => $image->id,
 										'warning_orientation' => $image->is_vertical,
-										'warning_size' => $image->has_size ? 0 : 1,
+										'warning_size' => $image->has_size ? 0 : 1
 									])
 								@endforeach
 							@endif
@@ -713,6 +719,66 @@
 						<div class="visible-xs-block">
 							<p>&nbsp;</p>
 						</div>
+						<!--------------------------------------------------->
+						<br>
+						@if($site->plan_id==1)
+                            <?php
+                            $url = isset($_SERVER['HTTPS']) ? "https" : "http";
+                            $url = $url."://".$_SERVER['HTTP_HOST']."/account/payment/upgrade";
+                            ?>
+							<div class="row">
+								<div class="col-sm-12">
+									{{ Lang::get('web/properties.images.watermark.info') }}
+
+									<a href={{$url}}>   {{ Lang::get('web/properties.updatePlan') }}</a>
+								</div>
+							</div><br/>
+
+						@endif
+
+						@if($site->plan_id != 1)<!-- Plan Enterprise or Plus-->
+						<div class="row">
+							<div class="col-sm-9">{{ Lang::get('web/properties.images.watermark') }}</div>
+							<div class="col-sm-3"></div><br>
+
+							<div class="col-sm-12">
+								{{ Lang::get('web/properties.images.watermark.yes') }}<input type="radio" name="include_watermark" value="1" onclick="$('#watermark_properties').show()" checked/>
+								{{ Lang::get('web/properties.images.watermark.no') }}<input type="radio" name="include_watermark" value="0"  onclick="$('#watermark_properties').hide()"/>
+							</div>
+						</div><br/>
+
+						@if($site->plan_id != 6)<!-- NOT Plan Basic-->
+						<div class="row" id="watermark_properties">
+							<div class="col-sm-9">{{ Lang::get('web/properties.images.watermark.orientation') }}</div>
+							<div class="col-sm-3"></div><br>
+
+							<div class="col-sm-3">{{ Lang::get('web/properties.images.watermark.top-left') }}</div>
+							<div class="col-sm-9"><input type="radio" name="image_orientation" value="0"  onclick="$('#rotated').hide()"/></div>
+
+							<div class="col-sm-3">{{ Lang::get('web/properties.images.watermark.top-right') }}</div>
+							<div class="col-sm-9"><input type="radio" name="image_orientation" value="1"  onclick="$('#rotated').hide()"/></div>
+
+							<div class="col-sm-3">{{ Lang::get('web/properties.images.watermark.down-left') }}</div>
+							<div class="col-sm-9"><input type="radio" name="image_orientation" value="2"  onclick="$('#rotated').hide()"/></div>
+
+							<div class="col-sm-3">{{ Lang::get('web/properties.images.watermark.down-right') }}</div>
+							<div class="col-sm-9"><input type="radio" name="image_orientation" value="3"  onclick="$('#rotated').hide()"/></div>
+
+							<div class="col-sm-3">{{ Lang::get('web/properties.images.watermark.center') }}</div>
+							<div class="col-sm-9"><input type="radio" name="image_orientation" value="4" checked  onclick="$('#rotated').show()"/></div>
+
+							<div id="rotated">
+								<div class="col-sm-3">{{ Lang::get('web/properties.images.watermark.rotated') }}</div>
+								<div class="col-sm-9"><input type="checkbox" name="rotated" /></div>
+							</div>
+							<br/>
+							<div class="col-sm-8">{{ Lang::get('web/properties.images.watermark.file') }}</div>
+							<div class="col-sm-4"><input type="file" name="watermark_image"/></div>
+						</div>
+						@endif
+						@endif
+					<!--------------------------------------------------->
+
 					</div>
 					<div class="col-xs-12 col-sm-5">
 						<h4>{{ Lang::get('account/properties.images.upload') }}</h4>
@@ -1271,7 +1337,7 @@
 			dictDefaultMessage: "{{ print_js_string( Lang::get('account/properties.images.dropzone.helper') ) }}",
 			error: function(file, response) {
 				if ( $.type(response) === 'string') {
-					if ( response.length > 500 ) {
+					if ( response.length > 5000) {
 						alertify.error("{{ print_js_string( Lang::get('account/properties.images.dropzone.error.size', [ 'IMAGE_MAXSIZE'=>Config::get('app.property_image_maxsize') ]) ) }}");
 					} else {
 						alertify.error(response);

@@ -1,8 +1,14 @@
 <?php
 	return [
 
-        'week' => 'Semana',
+	    'type.cavehouse' => "Casa cueva",
+        'type.terracedhouse' => "Casa adosada",
+        'type.villagehouse' => "Casa de pueblo",
+        'type.countryhouse' => "Casa de campo",
+        'type.townhouse' => "Casa de la ciudad",
 
+
+        'week' => 'Semana',
 		'title' => 'Propiedades',
         'from' => 'Precio Desde ',
 		'term' => 'Ingrese su búsqueda',

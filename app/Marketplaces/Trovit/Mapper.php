@@ -11,14 +11,29 @@ class Mapper extends \App\Marketplaces\Mapper {
     public function map()
     {
         $item = $this->item;
-
         $map = [];
-        $map['id'] = $item['id'];
+
+        //echo json_encode($item); die;
+
+        $map['id']  = $item['id'];
         $map['url'] = $this->translate($item['url']);
         //$map['mobile_url'] = '';
-        $map['title'] = $this->translate($item['title']);
-        $map['type'] = $this->type();
+        $map['title']   = $this->translate($item['title']);
+        $map['type']    = $this->type();
         $map['content'] = $this->translate($item['description']);
+        $map['date']    = $item['created_at'];
+
+        //Export the features of the property
+        foreach($item['features']  as $key => $val) {
+            $$key = $val; //or $$key = $val;
+            $$key = $item['features'][$key];
+
+            foreach( $item['features'][$key] as $lang){
+                $val  = $lang;
+            }
+           // $val  = $item['features'][$key]["es"];
+            $map["features"][$key] = $val;
+        }
 
         if ($this->isRent())
         {
@@ -37,14 +52,37 @@ class Mapper extends \App\Marketplaces\Mapper {
         $map['postcode'] = $item['location']['zipcode'];
         $map['city_area'] = $item['location']['district'];
 
-        if (!empty($item['location']['show_address']))
-        {
+        if (!empty($item['location']['show_address'])) {
             $map['address'] = $item['location']['address'];
             //$map['floor_number'] = '';
             //$map['neighborhood'] = '';
-            //$map['country'] = '';
-            $map['latitude'] = $this->decimal($item['location']['lat'], 8);
+            $map['country']   = $item['location']['country'];
+            $map['territory'] = $item['location']['territory'];
+            $map['state']     = $item['location']['state'];
+            $map['district']  = $item['location']['district'];
+
+            $map['latitude']  = $this->decimal($item['location']['lat'], 8);
             $map['longitude'] = $this->decimal($item['location']['lng'], 8);
+            $map['exact_direction'] = "true";
+
+            if($map['address']==null){
+                $map['address'] = $this->getAddressByCoords($map['latitude'],$map['longitude']);
+            }
+        }
+        else{
+            $map['address']   = $item['location']['address'];
+            $map['latitude']  = $this->decimal($item['location']['lat'], 8);// lat+50m
+            $map['longitude'] = $this->decimal($item['location']['lng'], 8);// lon+50m
+            $map['exact_direction'] = "false";
+
+            //apply offset of 50m to the coordinates
+            $coords = $this->offsetLocation($map['latitude'], $map['longitude']);
+            $map['latitude']  = $coords['lat'];
+            $map['longitude'] = $coords['lon'];
+
+            if($map['address']==null){
+                $map['address'] = $this->getAddressByCoords($map['latitude'],$map['longitude']);
+            }
         }
 
         //$map['orientation'] = '';
@@ -54,7 +92,8 @@ class Mapper extends \App\Marketplaces\Mapper {
         //$map['plot_area'] = '';
         $map['rooms'] = $item['rooms'];
         $map['bathrooms'] = $item['baths'];
-        //$map['condition'] = '';
+        $map['condition'] =  $item['property_condition'];
+
         if (!empty($item['construction_year']))
         {
             $map['year'] = $item['construction_year'];
@@ -74,6 +113,34 @@ class Mapper extends \App\Marketplaces\Mapper {
         return $map;
     }
 
+
+    public function getAddressByCoords($lat,$lon){
+        $geo = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='
+            .urlencode($lat.", ".$lon).'&sensor=false&key=AIzaSyB9Ll0kExVMVO1LtJ4xkxAR1FS9Sra2Ovs');
+        $geo = json_decode($geo, true);
+        if(!empty( $geo["results"][0])) return $geo["results"][0]["formatted_address"];
+    }
+
+    public function offsetLocation($lat,$lon){
+        $Pi = "3.1415926539";
+        $R  = 6378137; //Earth's radius
+
+        //offsets in meters
+        $dn = 50;
+        $de = 50;
+
+        //Coordinate offsets in radians
+        $newLat = $dn/$R;
+        $newLon = $de/($R*Cos($Pi*$lat/180));
+
+        //OffsetPosition, decimal degrees
+        $newLat = $lat + $newLat * 180/$Pi;
+        $newLon = $lon + $newLon * 180/$Pi;
+
+        return array("lat"=>$newLat,"lon"=>$newLon);
+    }
+
+
     public function valid()
     {
 		if (in_array($this->item['type'], ['plot', 'garage'])){
@@ -86,7 +153,7 @@ class Mapper extends \App\Marketplaces\Mapper {
             'url' => 'required',
             'title' => 'required',
             'type' => 'required',
-            'description.'.$this->iso_lang => 'required|min:30',
+            'description'.$this->iso_lang => 'min:0',
             'construction_year' => 'regex:#\d{4}#'
         ];
 
@@ -189,6 +256,7 @@ class Mapper extends \App\Marketplaces\Mapper {
 
         foreach ($this->item['images'] as $image)
         {
+            $image = str_replace("/trovit","",$image);
             $pictures []= [
                     'picture_url' => $image
             ];

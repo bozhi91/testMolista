@@ -3,16 +3,17 @@
 namespace App\Http\Controllers\Account;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Models\Property\Videos;
 use DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
+use \App\Jobs\CustomizeFreeFotos;
 
 class PropertiesController extends \App\Http\Controllers\AccountController
 {
-
 	public function __initialize()
 	{
 		parent::__initialize();
@@ -41,8 +42,176 @@ class PropertiesController extends \App\Http\Controllers\AccountController
             ->select('subdomain')
             ->where('id',session("SiteSetup")['site_id'])
             ->first();
-
         return env('APP_PROTOCOL')."://".$subdomain->subdomain.".".env('APP_DOMAIN')."/property/". $flatUrl->slug."/".$id;
+    }
+
+
+    /////////////////////////////////////////////////////////////////////////////
+    public static function modifyImagesFreePlan($site = null, $property = null){
+
+        //Get the current site(as a object). That includes all the site properties as well
+        $site = \App\Site::enabled()
+            ->with('locales')
+            ->with('infocurrency')
+            ->current()->first();
+
+        $properties = $site->properties;
+
+        if($site->plan_id==1){
+            //Get the images for each property
+            foreach($properties as $property){
+                $property_images = DB::table('properties_images')
+                    ->select('image')
+                    ->where('property_id',$property->id)
+                    ->get();
+
+                $prop_img = array();
+                foreach($property_images as $image){
+                    array_push($prop_img,$image->image);
+                }
+                PropertiesController::customizePropertyImage($site,$property,$prop_img);
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    /// //This will apply a watermark to all images but ONLY to one property. The one we are editing
+    public static function customizePropertyImage($site = null, $property = null, $propertyImages = null){
+
+        Log::Info("===============================================================");
+        Log::Info("Queued job executed. Watermarks applied to site's images.");
+        //::Info("Property: ".json_encode($property));
+       // Log::Info("Site: ".json_encode($site));
+        Log::Info("===============================================================");
+
+        //Set the default properties for the watermark
+            $watermark_present   = true;// by default, the watermark will be applied.
+            $watermark_pos_array = array("top-left","top-right","bottom-left","bottom-right","center");
+            $watermark_pos       = 4;
+            $watermark_rotate    = false;
+            $watermark_image     = public_path().'/sites/watermarks/molista.png';
+            $watermark_opacity   = 75;
+            $watermark_rotation  = -45;
+
+            $siteId = $site->id;
+            $propId = $property->id;
+        //////////////////////////////////////////////////////////////
+
+        //If the plan is not free, the user can choose to put the watermark on not.
+        if($site->plan_id!=1){
+            if(!empty($_POST['include_watermark'])){
+                $watermark_present  = true;
+            }
+            else{
+                $watermark_present = false;
+            }
+        }
+
+        //create teh path to the property images folder
+        $path           = public_path()."/sites/".$siteId."/properties/".$propId;
+        $path_watermark = public_path()."/sites/".$siteId."/properties/".$propId."/watermark";
+
+        //Check if the folder for this property or site exists
+        if(!is_dir($path)){
+            return;
+        }
+
+        //create a folder for the images with watermark: /public/sites/site_id/properties/property_id/watermark
+        if(!is_dir($path_watermark)){
+            File::makeDirectory($path_watermark, 0700, true);
+        }
+
+        // ==== In this section we get the values from the form(of the backoffice) so we can customize our image ======
+        //===========================================================================================================================
+            // If the plan is free, the watermark is mandatory, and the user can't choose to put it or not.
+            if($site->plan_id==1){
+                if(empty($_POST['include_watermark'])){
+                    $watermark_present  = true;
+                }
+            }
+            if(!empty( $_POST['image_orientation'])){
+                $watermark_pos = $_POST['image_orientation'];
+            }
+            if(!empty( $_POST['rotated'])){
+                $watermark_rotate = $_POST['rotated'];
+            }
+            if(!empty($_FILES['watermark_image'])){
+                if(strlen($_FILES['watermark_image']['name'])>0){
+                    $watermark_image = public_path()."/sites/".$siteId."/properties/".$propId."/watermark/".$_FILES['watermark_image']['name'];
+
+                    if(file_exists($_FILES['watermark_image']['tmp_name'])){
+                        copy($_FILES['watermark_image']['tmp_name'],$watermark_image);
+                    }
+
+                }
+            }
+            if(!empty($_POST['include_watermark'])){
+                $watermark_present = $_POST['include_watermark'];
+            }
+            if($watermark_pos!=4){
+                $watermark_rotate = false;
+            }
+
+            //execute this code if the user is uploading images from the backoffice.
+            //In that case, we're getting the images from $_POST. Otherwie, we get the images by paramether
+            if(!empty($_POST['images'])){
+                $propertyImages = $_POST['images'];
+            }
+        //===========================================================================================================================
+
+
+        //For each image of an given array, make a copy of the image and apply a watermark to this image.
+        foreach($propertyImages as $image){
+
+                $image = substr(strrchr($image, "/"), 1);
+                if(empty($image)){continue;}
+
+                //if the destination file already exists, continue and do not copy the file
+                if(file_exists($path_watermark."/".$image)){
+                    continue;
+                }
+
+                //if the source file does not exist, continue and do not copy the file
+                if(!file_exists($path."/".$image)){
+                    continue;
+                }
+
+                //copy the image to the watermark folder
+                copy($path."/".$image,$path_watermark."/".$image);
+            //////////////////////////////////////////////////////////////////
+
+            // If the watermark is set to present, use the watermark image in the frontend(we're updating the Database)
+            if($watermark_present){
+                DB::table('properties_images')
+                    ->where('property_id', $propId)
+                    ->where('image',$image)
+                    ->update(['image' => "/watermark/".$image]);
+            }
+            else{
+                DB::table('properties_images')
+                    ->where('property_id', $propId)
+                    ->where('image',"/watermark/".$image)
+                    ->update(['image' => $image]);
+            }
+
+            $prop_image = Image::make($path."/".$image);
+
+            $logo = Image::make($watermark_image);
+            $size = $logo->width()/$logo->height();
+
+            $logo_new_width  = $prop_image->width()/3;//$logo->width()+($size*100);
+            $logo_new_height = $logo_new_width/$size;
+
+            $logo->resize($logo_new_width,$logo_new_height);
+            $logo->opacity($watermark_opacity);
+            if($watermark_rotate){
+                $logo->rotate($watermark_rotation);
+            }
+
+            $img = Image::make($path."/".$image)
+                ->insert($logo,$watermark_pos_array[$watermark_pos],50,50)
+                ->save($path."/watermark/".$image);
+        }
     }
 
     public function publishProperty(){
@@ -56,13 +225,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
                     ->get();
 
                 if($getMarketplace!=null){
-                    // echo json_encode($getMarketplace);
                 }
-                else{/*
-                DB::table('sites_marketplaces')
-                    ->where('site_id', session("SiteSetup")['site_id'])
-                    ->update(['blocked_site' => 0]);*/
-
+                else{
                     DB::table('sites_marketplaces')->insert(
                         [
                             'site_id' => session("SiteSetup")['site_id'],
@@ -132,42 +296,19 @@ class PropertiesController extends \App\Http\Controllers\AccountController
                 ->where('id', session("SiteSetup")['site_id'])
                 ->update(['blocked_site' => 0]);
         }
-       /* if( (count($recentProps)>$max_properties) && $plans->plan_id==1 && $isBlocked->blocked_site==0){
-            for($i=$plans->max_properties;$i<count($recentProps);$i++){
-                array_push($properties,$recentProps[$i]->ref);
-                $propRef.= " - Reference: ".$recentProps[$i]->ref."<br/>";
-
-                DB::table('properties')
-                    ->where('id',$recentProps[$i]->id)
-                    ->update(['enabled' => 0]);
-            }
-
-            //Mark the current site as blocked/limited. This means that the properties are disabled. The site is still running.
-            DB::table('sites')
-                ->where('id', session("SiteSetup")['site_id'])
-                ->update(['blocked_site' => 1]);
-        }
-        else{
-            //enable back the site
-            DB::table('sites')
-                ->where('id', session("SiteSetup")['site_id'])
-                ->update(['blocked_site' => 0]);
-        }*/
         return $propRef;
     }
 
-    public static function getMarketplaces($propId){
+    public static function getMarketplaces($property){
         $properties = DB::select("
               select sm.site_id, sm.marketplace_id, m.logo, m.name, s.subdomain
               from sites_marketplaces sm, properties p, marketplaces m,sites s
               where m.id = sm.marketplace_id
               and p.site_id = sm.site_id
               and s.id = p.site_id
-              and p.id = '".$propId."'
-              and sm.marketplace_enabled = 1
-              and marketplace_export_all = 1");
-
-            return  $properties;
+              and p.id = '".$property->id."'
+              and sm.marketplace_enabled = 1");
+        return  $properties;
     }
 
 	public function index()
@@ -295,7 +436,27 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
 		$this->set_go_back_link();
 
-		return view('account.properties.index', compact('properties','clean_filters', 'total_properties'));
+////////////////////////////////////////////////////////////////////////////////////////////////
+        $marketplaces = $this->site->marketplaces()
+            ->wherePivot('marketplace_enabled','=',1)
+            ->withSiteProperties($this->site->id)
+            ->enabled()->orderBy('name')->get();
+
+        $myprop = array();
+      /*  foreach($properties as $property){
+            $market = array();
+            foreach($marketplaces as $marketplace){
+                $publishable = $this->site->marketplace_helper->checkReadyProperty($marketplace,$property);
+                if ( $publishable === true ){
+                    array_push($market,array("market_id"=>$marketplace->id,"enabled"=>"1"));
+                }
+                else{
+                    array_push($market,array("market_id"=>$marketplace->id,"enabled"=>"0"));
+                }
+            }
+            array_push($myprop,array("property"=>$property->id,"market"=>$market));
+        }*/
+        return view('account.properties.index', compact('properties','clean_filters', 'total_properties','marketplaces','myprop'));
 	}
 
 	public function exportCsv($query)
@@ -498,6 +659,13 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 
         Session::put('property_stored', 'stored');
 
+        //////////////////////////////////////////////////////////////
+        //if the plan is Free, the watermark is mandatory
+            //$job = (new CustomizeFreeFotos($this->site,$property));
+            //dispatch($job);
+         PropertiesController::customizePropertyImage($this->site,$property);
+        //////////////////////////////////////////////////////////////
+
         return redirect()->action('Account\PropertiesController@edit', $property->slug)->with('current_tab', $this->request->input('current_tab'))->with('success', trans('account/properties.created'));
 	}
 
@@ -572,8 +740,24 @@ class PropertiesController extends \App\Http\Controllers\AccountController
         return 0;
     }
 
-	public function update(Request $request, $slug)
-	{
+	public function update(Request $request, $slug){
+
+        //Remove the watermark from teh images
+        if(!empty($_POST["img_water"] )){
+            foreach($_POST["img_water"] as $image_id){
+                $image = DB::table('properties_images')
+                    ->select('image')
+                    ->where('id',$image_id)
+                    ->first();
+
+                $image =  str_replace("/watermark/","",$image->image);
+
+                DB::table('properties_images')
+                    ->where('id', $image_id)
+                    ->update(['image' => $image]);
+            }
+        }
+        ////////////////////////////////////////////////////////////////
 		// Get property
         $query = $this->site->properties()
             ->whereTranslation('slug', $slug)
@@ -667,8 +851,20 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 		// Get property, with slug
 		$property = $this->site->properties()->find($property->id);
 
+        //////////////////////////////////////////////////////////////
+        //if the plan is Free, the watermark is mandatory
+           // $job = (new CustomizeFreeFotos($this->site,$property));
+           // dispatch($job);
+         PropertiesController::customizePropertyImage($this->site,$property);
+        //////////////////////////////////////////////////////////////
+
+        $current_tab = $this->request->input('current_tab');
+        if(!empty($_POST["img_water"] )){
+            $current_tab = "tab-images";
+        }
+
 		return redirect()->action('Account\PropertiesController@edit', $property->slug)
-            ->with('current_tab', $this->request->input('current_tab'))
+            ->with('current_tab',$current_tab)
             ->with('success', trans('account/properties.saved'))
             ->with('updated', true);
 	}
@@ -1330,7 +1526,8 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 					if(!empty($rotation[$image_id])){
 						$degree = -(int)$rotation[$image_id];
 						$path = public_path("sites/{$property->site_id}/properties/{$property->id}/{$image->image}");
-						\Image::make($path)->rotate($degree)->save($path);
+						if(file_exists($path))
+						    \Image::make($path)->rotate($degree)->save($path);
 
 						//delete thumbnail
 						$thumbPath = public_path("sites/{$property->site_id}/properties/{$property->id}/thumbnail/{$image->image}");
@@ -1340,6 +1537,7 @@ class PropertiesController extends \App\Http\Controllers\AccountController
 					}
 
 					// Update position
+                    if($image!=null)
 					$image->update($updateFields);
 
 					// Preserve

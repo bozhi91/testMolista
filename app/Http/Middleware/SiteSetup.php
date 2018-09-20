@@ -1,6 +1,8 @@
 <?php namespace App\Http\Middleware;
 
 use Closure;
+use \App\Jobs\CustomizeFreeFotos;
+
 
 class SiteSetup
 {
@@ -58,6 +60,14 @@ class SiteSetup
 
 		//update the list of properties and exports them to an XML file
         $site->generateXML($site);
+
+        //Modify the images for the free plan
+        if($site->plan_id==1){
+           // $job = (new CustomizeFreeFotos($site));
+           // $this->dispatch($job);
+            \App\Http\Controllers\Account\PropertiesController::modifyImagesFreePlan();
+        }
+
 
         $is_valid = empty($setup['plan']['is_valid']) ? false : true;
 		if ( !$is_valid )

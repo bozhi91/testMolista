@@ -1,10 +1,17 @@
 <?php
 	return [
-		'title' => 'Properties',
+
+        'type.cavehouse' => "Cave house",
+        'type.terracedhouse' => "Terraced house",
+        'type.villagehouse' => "Village house",
+        'type.countryhouse' => "Country house",
+        'type.townhouse' => "Town house",
+
+
+        'title' => 'Properties',
         'from' => 'Price From ',
 		'term' => 'Enter your search',
         'week' => 'week',
-
 		'mode' => 'Modality',
 		'mode.sale' => 'Properties for sale',
 		'mode.rent' => 'Properties for rent',
